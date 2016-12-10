@@ -1493,21 +1493,9 @@ color
 .article-entry li ol {
   margin-left: 30px;
 }
-.article-entry ul > li:before {
-  content: "";
-  background: #dedede;
-}
-.article-entry ul > li:before {
-  display: inline-block;
-  content: "";
-  width: 0.4em;
-  height: 0.4em;
-  margin-right: 0.5em;
-  margin-bottom: 0.11em;
-  border: 1px solid #d3d3d3;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  background: #d3d3d3;
+.article-entry ul > li {
+  margin-left: 1.1em;
+  list-style-type: disc;
 }
 .article-entry figure table {
   border: none;

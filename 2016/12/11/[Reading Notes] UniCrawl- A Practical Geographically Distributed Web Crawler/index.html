@@ -3,36 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>从0到100：zabbix及其支持环境的完整安装教程 | C_Meng PSNA</title>
+  <title>[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler | C_Meng PSNA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="版本信息：Ubuntu15.10Apache2.4.12php5.6.11（zabbix3.0要求php版本至少5.4以上）Mysql5.6.31zabbix3.0
-前言：本教程包括了ubuntu上LAMP(Linux+Apache+Mysql+Php)环境的搭建以及zabbix安装。因为我们最终是要通过外部计算机访问我们的服务器的，所以我希望你可以先运行一下“ifconfig -a”语句来查看以">
+  <meta name="description" content="AbstractCause the wealth of information available on the web keeps growing, we want to use web crawler to get them. But the traditional method has a fatal limit of its large infrastructure cost. To re">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从0到100：zabbix及其支持环境的完整安装教程">
-<meta property="og:url" content="http://imonce.github.io/2016/08/08/从0到100：zabbix及其支持环境的完整安装教程/index.html">
+<meta property="og:title" content="[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler">
+<meta property="og:url" content="http://imonce.github.io/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
-<meta property="og:description" content="版本信息：Ubuntu15.10Apache2.4.12php5.6.11（zabbix3.0要求php版本至少5.4以上）Mysql5.6.31zabbix3.0
-前言：本教程包括了ubuntu上LAMP(Linux+Apache+Mysql+Php)环境的搭建以及zabbix安装。因为我们最终是要通过外部计算机访问我们的服务器的，所以我希望你可以先运行一下“ifconfig -a”语句来查看以">
-<meta property="og:image" content="http://imonce.github.io/assets/images/zabbix_2.jpg">
-<meta property="og:image" content="http://imonce.github.io/assets/images/zabbix_1.jpg">
-<meta property="og:image" content="http://imonce.github.io/assets/images/zabbix_3.jpg">
-<meta property="og:image" content="http://imonce.github.io/assets/images/zabbix_5.jpg">
-<meta property="og:image" content="http://imonce.github.io/assets/images/zabbix_6.jpg">
-<meta property="og:image" content="http://imonce.github.io/assets/images/zabbix_7.jpg">
-<meta property="og:image" content="http://imonce.github.io/assets/images/zabbix_8.jpg">
-<meta property="og:image" content="http://imonce.github.io/assets/images/zabbix_8.jpg">
-<meta property="og:image" content="http://imonce.github.io/assets/images/zabbix_9.jpg">
-<meta property="og:image" content="http://imonce.github.io/assets/images/zabbix_10.jpg">
-<meta property="og:image" content="http://imonce.github.io/assets/images/zabbix_11.jpg">
-<meta property="og:image" content="http://imonce.github.io/assets/images/zabbix_12.jpg">
-<meta property="og:image" content="http://imonce.github.io/assets/images/zabbix_13.jpg">
-<meta property="og:image" content="http://imonce.github.io/assets/images/zabbix_14.jpg">
-<meta property="og:updated_time" content="2016-12-10T15:58:40.365Z">
+<meta property="og:description" content="AbstractCause the wealth of information available on the web keeps growing, we want to use web crawler to get them. But the traditional method has a fatal limit of its large infrastructure cost. To re">
+<meta property="og:updated_time" content="2016-12-10T16:14:50.879Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从0到100：zabbix及其支持环境的完整安装教程">
-<meta name="twitter:description" content="版本信息：Ubuntu15.10Apache2.4.12php5.6.11（zabbix3.0要求php版本至少5.4以上）Mysql5.6.31zabbix3.0
-前言：本教程包括了ubuntu上LAMP(Linux+Apache+Mysql+Php)环境的搭建以及zabbix安装。因为我们最终是要通过外部计算机访问我们的服务器的，所以我希望你可以先运行一下“ifconfig -a”语句来查看以">
-<meta name="twitter:image" content="http://imonce.github.io/assets/images/zabbix_2.jpg">
+<meta name="twitter:title" content="[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler">
+<meta name="twitter:description" content="AbstractCause the wealth of information available on the web keeps growing, we want to use web crawler to get them. But the traditional method has a fatal limit of its large infrastructure cost. To re">
   
     <link rel="alternative" href="/atom.xml" title="C_Meng PSNA" type="application/atom+xml">
   
@@ -247,11 +229,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-从0到100：zabbix及其支持环境的完整安装教程" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/08/08/从0到100：zabbix及其支持环境的完整安装教程/" class="article-date">
-      <time datetime="2016-08-07T18:45:19.000Z" itemprop="datePublished">2016-08-08</time>
+      <a href="/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/" class="article-date">
+      <time datetime="2016-12-10T16:13:19.000Z" itemprop="datePublished">2016-12-11</time>
 </a>
     </div>
   
@@ -264,7 +246,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      从0到100：zabbix及其支持环境的完整安装教程
+      [Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler
     </h1>
   
 
@@ -275,7 +257,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lamp配置/">lamp配置</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zabbix安装/">zabbix安装</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reading-Notes/">Reading Notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/crawler/">crawler</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unicrawl/">unicrawl</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -285,32 +267,82 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>版本信息：<br>Ubuntu15.10<br>Apache2.4.12<br>php5.6.11（zabbix3.0要求php版本至少5.4以上）<br>Mysql5.6.31<br>zabbix3.0</p>
-<p>前言：本教程包括了ubuntu上LAMP(Linux+Apache+Mysql+Php)环境的搭建以及zabbix安装。因为我们最终是要通过外部计算机访问我们的服务器的，所以我希望你可以先运行一下“ifconfig -a”语句来查看以下自己的IP地址，以方便之后测试服务器。文中将以“IPAddr”来代替你的IP地址，阅读时请注意。<br>这是博主虚拟机上的IP地址：<br><a id="more"></a><br><img src="/assets/images/zabbix_2.jpg" alt="虚拟机上的IP地址"></p>
-<h2 id="0-预安装"><a href="#0-预安装" class="headerlink" title="0.预安装"></a>0.预安装</h2><p>后边会用到的软件，装一下即可：<br><code>sudo apt-get install vim -y</code></p>
-<h2 id="1-Apache安装"><a href="#1-Apache安装" class="headerlink" title="1.Apache安装"></a>1.Apache安装</h2><p>在命令行运行下列语句下载apache：<br><code>sudo apt-get install apache2 -y</code><br>启动apache服务：<br><code>sudo /etc/init.d/apache2 start</code><br>看到下列语句说明启动成功：<br><img src="/assets/images/zabbix_1.jpg" alt="[OK]Starting apache2 (via systemctl):apache2.service"><br>从其他PC上打开浏览器，输入<em><a href="http://IPAddr" target="_blank" rel="external">http://IPAddr</a></em>，打开页面，如果显示如下，则表示Apache安装成功。<br><img src="/assets/images/zabbix_3.jpg" alt="Apache默认页面"></p>
-<h2 id="2-安装Mysql"><a href="#2-安装Mysql" class="headerlink" title="2.安装Mysql"></a>2.安装Mysql</h2><p>在命令行运行下列语句下载mysql：<br><code>sudo apt-get install mysql-server -y</code><br>安装的时候会弹出窗口让你设置root帐户的初始密码，根据个人喜好设置一个即可。<br>同样的，安装完了我们也要启动一下mysql的服务：<br><code>sudo /etc/init.d/mysql start</code><br>看到下列语句说明启动成功：<br><img src="/assets/images/zabbix_5.jpg" alt="[OK]Starting mysql (via systemctl):mysql.service"></p>
-<h2 id="3-安装php5"><a href="#3-安装php5" class="headerlink" title="3.安装php5"></a>3.安装php5</h2><p>在命令行输入下列语句下载php5：<br><code>sudo apt-get install php5 -y</code><br>接着安装phpmyadmin：<br><code>sudo apt-get install phpmyadmin -y</code><br>安装的过程中根据提示，选择apache2，dbconfig-common那里选择YES，再输入系统root的密码和数据库root的密码即可。版本不同，顺序可能不大一样，总之问什么答什么就对了。<br>顺便改写以下/var/www目录的权限，方便以后编辑网站文件：<br><code>sudo chmod 777 /var/www</code><br>创建phpmyadmin的链接：<br><code>sudo ln -s /usr/share/phpmyadmin /var/www/html/</code><br>修改一下php5的配置，打开配置文件：<br><code>sudo vim /etc/php5/apache2/php.ini</code><br>加入红框中的语句：<br><img src="/assets/images/zabbix_6.jpg" alt="extension=mysqli.d"><br>保存退出。<br>现在在其他的PC上打开浏览器，输入<em><a href="http://IPAddr/phpmyadmin" target="_blank" rel="external">http://IPAddr/phpmyadmin</a></em>，显示以下页面表示配置成功：<br><img src="/assets/images/zabbix_7.jpg" alt="phpmyadmin登录页面"></p>
-<h2 id="4-安装配置zabbix-server"><a href="#4-安装配置zabbix-server" class="headerlink" title="4.安装配置zabbix server"></a>4.安装配置zabbix server</h2><p>###4.1 下载deb：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br><span class="line">wget http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb</span><br><span class="line">dpkg -i zabbix-release_3.0-1+trusty_all.deb</span><br><span class="line">apt-get update</span><br></pre></td></tr></table></figure></p>
-<p>###4.2 安装服务器端<br>运行下列语句：<br><code>sudo apt-get install zabbix-server-mysql zabbix-frontend-php -y</code><br>安装完成之后试着启动一下zabbix服务,出现下列语句即为成功：<br><img src="/assets/images/zabbix_8.jpg" alt="[OK]Starting zabbix_server (via systemctl):zabbix_server.service"></p>
-<p>###4.3 配置zabbix_server.conf<br>打开配置文件：<br><code>sudo vim /etc/zabbix/zabbix_server.conf</code><br>把对应项的值改为如下(没有的自己在对应位置加上即可)：</p>
-<ul>
-<li>DBHost=localhost</li>
-<li>DBName=zabbix</li>
-<li>DBUser=zabbix</li>
-<li>DBPassword=zabbix</li>
+        <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>Cause the wealth of information available on the web keeps growing, we want to use web crawler to get them. But the traditional method has a fatal limit of its large infrastructure cost. To reduce it, we developed this method, unicrawl, which can show a performance improvement of 93.6% in terms of network bandwidth consumption, and a speedup factor of 1.75.</p>
+<h2 id="I-introduction"><a href="#I-introduction" class="headerlink" title="I. introduction"></a>I. introduction</h2><p>Nowadays, it’s common that to use parallel process on a large number of machines to achieve a reasonable collection time. While this method requires large computing infrastructures. Like Google and Bing, who rely on big data centers.<br><a id="more"></a><br>As for the public crawl repositories, they require externalizing computation and data hosting to a commercial cloud provider. Which may pose the problem of data availability in the mid-long term. And cause there are large amounts of data unnecessary, postprocessing is needed.</p>
+<p>A solution to those problems is to distribute the crawling effort over several geographically distributed locations. For instance, by allowing several small companies to mutualize their crawling infrastructures. In addition, such an approach leverages data locality as sites can crawl web servers that are geographically nearby. But in this way, the synchronization between the crawler at the different sites is a new problem. Our goal is to reduce such communication costs.</p>
+<p>UniCrawl is an efficient geo-distributed crawler that aims at minimizing inter-site communication costs. Our design is both practical and scalable. We assess this claim with a detailed evaluation of UniCrawl in a controlled environment using the ClueWeb12 dataset, as well as in geo-distributed setting using 3 distinct sites located in Germany.</p>
+<h3 id="outline"><a href="#outline" class="headerlink" title="outline:"></a>outline:</h3><p>Section II is related work. Section III introduces the crawler architecture, refining it from existing well-founded central disigns. Section IV is the details about the internal implementaion. Section V presents the experimental results, both in-vitro, and in-vivo over multiple geographical locations in Germany. We discuss out results and future work in Section V. We conclude the paper inSection VII.</p>
+<h2 id="II-Related-work"><a href="#II-Related-work" class="headerlink" title="II. Related work"></a>II. Related work</h2><p>There are several problems for every crawler to solve:</p>
+<ol>
+<li>since the amount of information to parse is huge, a crawler must scale</li>
+<li>a crawler should select which information to download first, and which information to refresh over time</li>
+<li>a crawler should not be a burden for the web sites that host the content</li>
+<li>adversaries, e.g., spider traps, need to be avoided with care</li>
+</ol>
+<p>Mercator/Polybot/IBM WebFountain/Ubicrawl and etc..</p>
+<h2 id="III-Distributed-crawler-architecture"><a href="#III-Distributed-crawler-architecture" class="headerlink" title="III. Distributed crawler architecture"></a>III. Distributed crawler architecture</h2><h3 id="A-Single-site-Design"><a href="#A-Single-site-Design" class="headerlink" title="A. Single site Design"></a>A. Single site Design</h3><ol>
+<li>Map-reduce:<ul>
+<li>spill</li>
+<li>shuffle</li>
+<li>reduce</li>
 </ul>
-<p>###4.4 配置mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">(输入你的数据库root密码)</span><br><span class="line">mysql&gt; create database zabbix character set utf8 collate utf8_bin;</span><br><span class="line">mysql&gt; grant all privileges on zabbix.* to zabbix@localhost identified by &apos;zabbix&apos;;</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">mysql&gt; \q</span><br><span class="line">cd /usr/share/doc/zabbix-server-mysql</span><br><span class="line">zcat create.sql.gz | mysql -u root -p zabbix</span><br><span class="line">（输入你的数据库root密码，点击回车后稍微等一会儿）</span><br><span class="line">sudo cp -r /usr/share/zabbix /var/www/html/zabbix</span><br><span class="line">/etc/init.d/zabbix-server restart</span><br></pre></td></tr></table></figure></p>
-<p>最后出现下列语句即为成功：<br><img src="/assets/images/zabbix_8.jpg" alt="[OK]Starting zabbix_server (via systemctl):zabbix_server.service"></p>
-<p>###4.5 配置php<br>编辑php的配置文件：<br><code>sudo vim /etc/php5/apache2/php.ini</code><br>把对应项的值改为如下(没有的自己在对应位置加上即可)：</p>
-<ul>
-<li>post_max_size = 16M</li>
-<li>max_execution_time = 300</li>
-<li>max_input_time = 300</li>
-<li>date.timezone = “Asia/Shanghai”</li>
+</li>
+<li>site storage<ul>
+<li>In UniCrawl, the crawl database of a site is implemented as a single distributed map structure. This map contains for each page its URL, content, and outlinks.</li>
+<li>INFINISPAN, a distributed key-value store stat supports the following features: <ul>
+<li>Routing: Notes are organized in a ring</li>
+<li>Elasticity</li>
+<li>Storage</li>
+<li>Reliability</li>
+<li>Interface</li>
+<li>Consistency</li>
+<li>Querying</li>
 </ul>
-<p>改完之后重启apache2：<br><code>/etc/init.d/apache2 restart</code></p>
-<h2 id="5-进入zabbix"><a href="#5-进入zabbix" class="headerlink" title="5.进入zabbix"></a>5.进入zabbix</h2><p>在另外一台PC上打开浏览器，在地址栏输入：<br><em><a href="http://IPAddr/zabbix" target="_blank" rel="external">http://IPAddr/zabbix</a></em><br>显示以下页面：<br><img src="/assets/images/zabbix_9.jpg" alt="zabbix欢迎页面"><br>点击右下角的Next step进入Check of pre-requisites页面：<br><img src="/assets/images/zabbix_10.jpg" alt="Check of pre-requisites页面"><br>这个页面是检测服务器配置是否合格的页面，必须全部为OK才可以点击Next step进入Configure DB connection页面。<br><img src="/assets/images/zabbix_11.jpg" alt="Configure DB connection页面"><br>其中password为zabbix（我们刚刚配置数据库时设置的）。<br>接下来的Zabbix server details和Pre-installation summary两个页面无脑点Next step即可。<br>显示如下页面我们就可以点击Finish了。<br><img src="/assets/images/zabbix_12.jpg" alt="Congratulations"><br>点击Finish之后出现zabbix server的登录页面，这里Username为Admin，Password为zabbix，最后点击Sign in，大功告成~<br><img src="/assets/images/zabbix_13.jpg" alt="登录页面"><br><img src="/assets/images/zabbix_14.jpg" alt="zabbix管理页面"></p>
+</li>
+</ul>
+</li>
+<li>Detail of Phases<ul>
+<li>Generate: The goal of the generate phase is to select a set of pages to process during the round.</li>
+<li>Fetch: During the fetch phase, the map step first groups by host the pages that were generated in the previous phase.</li>
+<li>Parse: Once the pages are fetched, they are analyzed during the parse phase.</li>
+<li>Update: The goal of the update phase is to refresh the scores of pages that belong to the frontier in order to prioritize them.</li>
+</ul>
+</li>
+</ol>
+<h3 id="B-Multi-site-Operations"><a href="#B-Multi-site-Operations" class="headerlink" title="B. Multi-site Operations"></a>B. Multi-site Operations</h3><p>Several key ideas allow UniCrawl to be practical in this setting:</p>
+<ol>
+<li>Each site is independent and crawls the web autonomously</li>
+<li>We unite all the site data stores</li>
+<li><p>Sites exchanges dynamically the URLs they discover over the course of the crawl</p>
+</li>
+<li><p>Federating the storage: One of the key design concerns of UniCrawl is to bring small monifications to the site code base in order be usable over multiple geographical locations.</p>
+</li>
+<li>collaboration between sites: Following the approach advocated by Cho and Garcia-Molina. UniCrawl exchanges newly discovered URLs over time. This exchange occurs at the end of the update phase.<ul>
+<li>We implement the crawl database as a distributed ensemble map that span all the sites. This map operates in frontier mode with a replication factor of one.</li>
+</ul>
+</li>
+<li>Crawl quality and cost: The quality of the crawling operation is not only measured by means of pure web-graph exploration but also by the rounds it takes to discover the most interesting pages.</li>
+</ol>
+<h2 id="IV-Implementation"><a href="#IV-Implementation" class="headerlink" title="IV. Implementation"></a>IV. Implementation</h2><p>We implemented UniCrawl inJava, starting from the code base of Nutch version 2.5.3.</p>
+<p>Nutch makes use of Apache Gora, an open-source framework that provides an in-memory and persistent data model for big data.</p>
+<p>Intotal, our contribution accounts for about a dozen thousands lines of code (LOC) split as follows: 9.4 kLOC for Ensemble, 1.1 kLOC for Gora and 2.3 kLOC patch for Nutch</p>
+<h3 id="A-Merging-phases"><a href="#A-Merging-phases" class="headerlink" title="A. Merging phases"></a>A. Merging phases</h3><p>Cause each new map-reduce job creation is expensive as it requires to start a dedicated Java virtual machine, and deploy the appropriate jars. To lower this cost, we merge the fetch and parse phases in out UniCrawl implementation. This means that whenever a reducer fetches a new page, it parses its content and extract the out-links. These links are then directly inserted in the crawl database together with the fetched page.</p>
+<h3 id="B-Caching"><a href="#B-Caching" class="headerlink" title="B. Caching"></a>B. Caching</h3><p>To avoid sending out an URL multiple times across sites, we use a distributed solution. In more details, this cache is a bounded ENSENMBLE map C local to each site and replicated at all nodes in a site. During the update phase, when a reducer selects a URL in the frontier that is associated to a remote site, it first check locally with C is this URL woa previously sent. If this is the case , the reducer simply skips the call to putIfAbsent. Since C is replicated at all nodes, every map-reduce node is co-located with an INFINISPAN node, and C is in memory, this inclusion test costs less than a millisecond.</p>
+<h2 id="V-Evaluation"><a href="#V-Evaluation" class="headerlink" title="V. Evaluation"></a>V. Evaluation</h2><p>Evaluate UniCrawl through several key metrics such as the page processing rate, the memory usage and the network traffic across sites.</p>
+<p>Two parts:</p>
+<ol>
+<li>Evaluate our approach in-vitro, by running UniCrawl against the ClueWeb12 benchmark in an emulated multi-site architecture and crawling from a local repository.</li>
+<li>Report several experimental results where we deploy UniCrawl at multiple localtions in Germany and access actual web sites.</li>
+</ol>
+<h3 id="A-In-vitro-validation"><a href="#A-In-vitro-validation" class="headerlink" title="A. In-vitro validation"></a>A. In-vitro validation</h3><ol>
+<li>Single site performance</li>
+<li>Emulating multiple sites</li>
+</ol>
+<h3 id="B-UniCrawl-in-the-wild"><a href="#B-UniCrawl-in-the-wild" class="headerlink" title="B. UniCrawl in the wild"></a>B. UniCrawl in the wild</h3><ol>
+<li>URL Exchange</li>
+<li>Comparison with Nutch</li>
+<li>Scalability</li>
+</ol>
 
       
     </div>
@@ -319,13 +351,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/08/08/从0到100：zabbix及其支持环境的完整安装教程/">从0到100：zabbix及其支持环境的完整安装教程</a></p>
+        <p><span>本文标题:</span><a href="/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/">[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">C_Meng</a></p>
-        <p><span>发布时间:</span>2016-08-08, 02:45:19</p>
-        <p><span>最后更新:</span>2016-12-10, 23:58:40</p>
+        <p><span>发布时间:</span>2016-12-11, 00:13:19</p>
+        <p><span>最后更新:</span>2016-12-11, 00:14:50</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/08/08/从0到100：zabbix及其支持环境的完整安装教程/" title="从0到100：zabbix及其支持环境的完整安装教程">http://imonce.github.io/2016/08/08/从0到100：zabbix及其支持环境的完整安装教程/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://imonce.github.io/2016/08/08/从0到100：zabbix及其支持环境的完整安装教程/　　作者: C_Meng" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/" title="[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler">http://imonce.github.io/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://imonce.github.io/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/　　作者: C_Meng" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -337,16 +369,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/">
-                    [Reading Notes]Privacy-CNH: A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/05/09/hello-world/">
-                    Hello World
+                <a href="/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/">
+                    [Reading Notes]Privacy-CNH: A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features
                 </a>
             </div>
         
@@ -357,7 +383,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-预安装"><span class="toc-number">1.</span> <span class="toc-text">0.预安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Apache安装"><span class="toc-number">2.</span> <span class="toc-text">1.Apache安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-安装Mysql"><span class="toc-number">3.</span> <span class="toc-text">2.安装Mysql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-安装php5"><span class="toc-number">4.</span> <span class="toc-text">3.安装php5</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-安装配置zabbix-server"><span class="toc-number">5.</span> <span class="toc-text">4.安装配置zabbix server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-进入zabbix"><span class="toc-number">6.</span> <span class="toc-text">5.进入zabbix</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I-introduction"><span class="toc-number">2.</span> <span class="toc-text">I. introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#outline"><span class="toc-number">2.1.</span> <span class="toc-text">outline:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#II-Related-work"><span class="toc-number">3.</span> <span class="toc-text">II. Related work</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#III-Distributed-crawler-architecture"><span class="toc-number">4.</span> <span class="toc-text">III. Distributed crawler architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-Single-site-Design"><span class="toc-number">4.1.</span> <span class="toc-text">A. Single site Design</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-Multi-site-Operations"><span class="toc-number">4.2.</span> <span class="toc-text">B. Multi-site Operations</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IV-Implementation"><span class="toc-number">5.</span> <span class="toc-text">IV. Implementation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-Merging-phases"><span class="toc-number">5.1.</span> <span class="toc-text">A. Merging phases</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-Caching"><span class="toc-number">5.2.</span> <span class="toc-text">B. Caching</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#V-Evaluation"><span class="toc-number">6.</span> <span class="toc-text">V. Evaluation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-In-vitro-validation"><span class="toc-number">6.1.</span> <span class="toc-text">A. In-vitro validation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-UniCrawl-in-the-wild"><span class="toc-number">6.2.</span> <span class="toc-text">B. UniCrawl in the wild</span></a></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -414,7 +440,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"从0到100：zabbix及其支持环境的完整安装教程　| C_Meng PSNA　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler　| C_Meng PSNA　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -430,7 +456,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/08/08/从0到100：zabbix及其支持环境的完整安装教程/" data-title="从0到100：zabbix及其支持环境的完整安装教程" data-url="http://imonce.github.io/2016/08/08/从0到100：zabbix及其支持环境的完整安装教程/"></div>
+    <div class="ds-thread" data-thread-key="2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/" data-title="[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler" data-url="http://imonce.github.io/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -453,15 +479,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/" title="上一篇: [Reading Notes]Privacy-CNH: A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/05/09/hello-world/" title="下一篇: Hello World">
+            <a href="/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/" title="下一篇: [Reading Notes]Privacy-CNH: A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features">
                 <i class="fa fa-angle-right"></i>
             </a>
         
