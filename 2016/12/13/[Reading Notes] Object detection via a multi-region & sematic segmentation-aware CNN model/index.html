@@ -3,18 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler | C_Meng PSNA</title>
+  <title>[Reading Notes] Object detection via a multi-region &amp; sematic segmentation-aware CNN model | C_Meng PSNA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="AbstractCause the wealth of information available on the web keeps growing, we want to use web crawler to get them. But the traditional method has a fatal limit of its large infrastructure cost. To re">
+  <meta name="description" content="AbstractThis article propose an object detection system that relies on a multi-region deep convolutional neural network that also encodes sematic segmentation-aware features. The module aims at captur">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler">
-<meta property="og:url" content="http://imonce.github.io/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/index.html">
+<meta property="og:title" content="[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model">
+<meta property="og:url" content="http://imonce.github.io/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
-<meta property="og:description" content="AbstractCause the wealth of information available on the web keeps growing, we want to use web crawler to get them. But the traditional method has a fatal limit of its large infrastructure cost. To re">
-<meta property="og:updated_time" content="2016-12-10T16:14:50.879Z">
+<meta property="og:description" content="AbstractThis article propose an object detection system that relies on a multi-region deep convolutional neural network that also encodes sematic segmentation-aware features. The module aims at captur">
+<meta property="og:image" content="http://ohykn376o.bkt.clouddn.com/OBDE2.png">
+<meta property="og:image" content="http://ohykn376o.bkt.clouddn.com/OBDE1.png">
+<meta property="og:updated_time" content="2016-12-14T06:12:37.028Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler">
-<meta name="twitter:description" content="AbstractCause the wealth of information available on the web keeps growing, we want to use web crawler to get them. But the traditional method has a fatal limit of its large infrastructure cost. To re">
+<meta name="twitter:title" content="[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model">
+<meta name="twitter:description" content="AbstractThis article propose an object detection system that relies on a multi-region deep convolutional neural network that also encodes sematic segmentation-aware features. The module aims at captur">
+<meta name="twitter:image" content="http://ohykn376o.bkt.clouddn.com/OBDE2.png">
   
     <link rel="alternative" href="/atom.xml" title="C_Meng PSNA" type="application/atom+xml">
   
@@ -229,11 +232,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-[Reading Notes] Object detection via a multi-region &amp; sematic segmentation-aware CNN model" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/" class="article-date">
-      <time datetime="2016-12-10T16:13:19.000Z" itemprop="datePublished">2016-12-11</time>
+      <a href="/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/" class="article-date">
+      <time datetime="2016-12-13T14:58:00.000Z" itemprop="datePublished">2016-12-13</time>
 </a>
     </div>
   
@@ -246,7 +249,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      [Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler
+      [Reading Notes] Object detection via a multi-region &amp; sematic segmentation-aware CNN model
     </h1>
   
 
@@ -257,7 +260,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reading-Notes/">Reading Notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/crawler/">crawler</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unicrawl/">unicrawl</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CNN/">CNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reading-Notes/">Reading Notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/multi-region/">multi-region</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/object-detection/">object detection</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sematic-segmentation-aware/">sematic segmentation-aware</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -267,81 +270,138 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>Cause the wealth of information available on the web keeps growing, we want to use web crawler to get them. But the traditional method has a fatal limit of its large infrastructure cost. To reduce it, we developed this method, unicrawl, which can show a performance improvement of 93.6% in terms of network bandwidth consumption, and a speedup factor of 1.75.</p>
-<h2 id="I-introduction"><a href="#I-introduction" class="headerlink" title="I. introduction"></a>I. introduction</h2><p>Nowadays, it’s common that to use parallel process on a large number of machines to achieve a reasonable collection time. While this method requires large computing infrastructures. Like Google and Bing, who rely on big data centers.<br><a id="more"></a><br>As for the public crawl repositories, they require externalizing computation and data hosting to a commercial cloud provider. Which may pose the problem of data availability in the mid-long term. And cause there are large amounts of data unnecessary, postprocessing is needed.</p>
-<p>A solution to those problems is to distribute the crawling effort over several geographically distributed locations. For instance, by allowing several small companies to mutualize their crawling infrastructures. In addition, such an approach leverages data locality as sites can crawl web servers that are geographically nearby. But in this way, the synchronization between the crawler at the different sites is a new problem. Our goal is to reduce such communication costs.</p>
-<p>UniCrawl is an efficient geo-distributed crawler that aims at minimizing inter-site communication costs. Our design is both practical and scalable. We assess this claim with a detailed evaluation of UniCrawl in a controlled environment using the ClueWeb12 dataset, as well as in geo-distributed setting using 3 distinct sites located in Germany.</p>
-<h3 id="outline"><a href="#outline" class="headerlink" title="outline:"></a>outline:</h3><p>Section II is related work. Section III introduces the crawler architecture, refining it from existing well-founded central disigns. Section IV is the details about the internal implementaion. Section V presents the experimental results, both in-vitro, and in-vivo over multiple geographical locations in Germany. We discuss out results and future work in Section V. We conclude the paper inSection VII.</p>
-<h2 id="II-Related-work"><a href="#II-Related-work" class="headerlink" title="II. Related work"></a>II. Related work</h2><p>There are several problems for every crawler to solve:</p>
+        <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>This article propose an object detection system that relies on a multi-region deep convolutional neural network that also encodes sematic segmentation-aware features. The module aims at capturing a diverse set of discriminative appearance factors and exhibits localization sensitivity that is essential for accurate object localization. They exploit the above properties of their recognition module by intergrating it on an iterative localization mechanism that alternates between socring a box proposal and refgining its location with a deep CNN regression model. And consiquently, they detect objects with very high localization accuracy.</p>
+<h2 id="I-Introduction"><a href="#I-Introduction" class="headerlink" title="I. Introduction"></a>I. Introduction</h2><p>The definition of object detection:</p>
+<blockquote>
+<p>Given an image return all the instances of one or more type of objects in form of bounding boxes that tightly enclose them.</p>
+</blockquote>
+<a id="more"></a>
+<p>Overfeat:</p>
+<blockquote>
+<p>Using two CNN models that apply in a sliding window fashion on multiple scales of an image. The first is used to classify if a window contains an object. The second is to predict the true bounding box location of the object. And use <strong>greedy algorithm</strong> in the end to merge them.</p>
+</blockquote>
+<p>R-CNN:</p>
+<blockquote>
+<p>Using <strong>Alex Krizhevsky’s Net</strong>  to extract features from box proposals provided by selective search and then it classifies them with class specific linear SVMs.</p>
+</blockquote>
+<p>How to further advance the state-of-the-art on object detection?</p>
+<blockquote>
+<p>Focusing on object representation and object localization. </p>
+</blockquote>
+<p>Object representation:</p>
+<blockquote>
+<p>Indeed features matter a lot on object detection. Instead of proposing only a network architecture that is deeper, here they also opt for an architecture of greater width. And that was accomplished at two levels:</p>
 <ol>
-<li>since the amount of information to parse is huge, a crawler must scale</li>
-<li>a crawler should select which information to download first, and which information to refresh over time</li>
-<li>a crawler should not be a burden for the web sites that host the content</li>
-<li>adversaries, e.g., spider traps, need to be avoided with care</li>
+<li>They want their object representation to capture several different aspects of an object. To achieve this, they propose a multi-component CNN model (multi-region CNN). Each component of it is steered to focus on a different region.</li>
+<li>They wish to enrich the above representation so that it also captures semantic segmentation information</li>
 </ol>
-<p>Mercator/Polybot/IBM WebFountain/Ubicrawl and etc..</p>
-<h2 id="III-Distributed-crawler-architecture"><a href="#III-Distributed-crawler-architecture" class="headerlink" title="III. Distributed crawler architecture"></a>III. Distributed crawler architecture</h2><h3 id="A-Single-site-Design"><a href="#A-Single-site-Design" class="headerlink" title="A. Single site Design"></a>A. Single site Design</h3><ol>
-<li>Map-reduce:<ul>
-<li>spill</li>
-<li>shuffle</li>
-<li>reduce</li>
-</ul>
-</li>
-<li>site storage<ul>
-<li>In UniCrawl, the crawl database of a site is implemented as a single distributed map structure. This map contains for each page its URL, content, and outlinks.</li>
-<li>INFINISPAN, a distributed key-value store stat supports the following features: <ul>
-<li>Routing: Notes are organized in a ring</li>
-<li>Elasticity</li>
-<li>Storage</li>
-<li>Reliability</li>
-<li>Interface</li>
-<li>Consistency</li>
-<li>Querying</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Detail of Phases<ul>
-<li>Generate: The goal of the generate phase is to select a set of pages to process during the round.</li>
-<li>Fetch: During the fetch phase, the map step first groups by host the pages that were generated in the previous phase.</li>
-<li>Parse: Once the pages are fetched, they are analyzed during the parse phase.</li>
-<li>Update: The goal of the update phase is to refresh the scores of pages that belong to the frontier in order to prioritize them.</li>
-</ul>
-</li>
-</ol>
-<h3 id="B-Multi-site-Operations"><a href="#B-Multi-site-Operations" class="headerlink" title="B. Multi-site Operations"></a>B. Multi-site Operations</h3><p>Several key ideas allow UniCrawl to be practical in this setting:</p>
+</blockquote>
+<p>Object localization:</p>
+<blockquote>
+<p>They attempt to built a more powerful localization system that combines their multi-region CNN model with a CNN-model for bounding box regression, which are used within an iterative scheme that alternates between scoring candidate boxes and reﬁning their coordinates.</p>
+</blockquote>
+<p>Their Contributions:</p>
+<blockquote>
 <ol>
-<li>Each site is independent and crawls the web autonomously</li>
-<li>We unite all the site data stores</li>
-<li><p>Sites exchanges dynamically the URLs they discover over the course of the crawl</p>
-</li>
-<li><p>Federating the storage: One of the key design concerns of UniCrawl is to bring small monifications to the site code base in order be usable over multiple geographical locations.</p>
-</li>
-<li>collaboration between sites: Following the approach advocated by Cho and Garcia-Molina. UniCrawl exchanges newly discovered URLs over time. This exchange occurs at the end of the update phase.<ul>
-<li>We implement the crawl database as a distributed ensemble map that span all the sites. This map operates in frontier mode with a replication factor of one.</li>
+<li>They develop a multi-region CNN recognition model that yields an enriched object representation capable of capturing a diversity of discriminative appearance factors and of exhibiting localization sensitivity that is desired for the task of accurate object localization.</li>
+<li>They furthermore extend the above model by proposing a uniﬁed neural network architecture that also learns semantic segmentation-aware CNN features for the task of object detection.</li>
+<li>They show how to significantly improve the localization capability by coupling the aforementioned CNN recognition model with a CNN model for bounding box regression.</li>
+<li>Their detection system achieves <strong>mAP</strong> of 78.2% and 73.9% on <strong>VOC2007 and VOC2012</strong> detection challenges respectively.</li>
+</ol>
+</blockquote>
+<h2 id="II-Multi-Region-CNN-Model"><a href="#II-Multi-Region-CNN-Model" class="headerlink" title="II. Multi-Region CNN Model"></a>II. Multi-Region CNN Model</h2><ol>
+<li>Activation maps module<ul>
+<li>This part of the network gets as input the entire image and outputs activation maps (feature maps) by forwarding it through a sequence of convolutional layers.</li>
 </ul>
 </li>
-<li>Crawl quality and cost: The quality of the crawling operation is not only measured by means of pure web-graph exploration but also by the rounds it takes to discover the most interesting pages.</li>
+<li>Region adaptation module<ul>
+<li>Given a region R on the image and the activation maps of the image, this module projects R on the activation maps, crops the activations that lay inside it, pools them with a spatially adaptive (max-)pooling layer, and then forwards them through a multi-layer network.</li>
+</ul>
+</li>
 </ol>
-<h2 id="IV-Implementation"><a href="#IV-Implementation" class="headerlink" title="IV. Implementation"></a>IV. Implementation</h2><p>We implemented UniCrawl inJava, starting from the code base of Nutch version 2.5.3.</p>
-<p>Nutch makes use of Apache Gora, an open-source framework that provides an in-memory and persistent data model for big data.</p>
-<p>Intotal, our contribution accounts for about a dozen thousands lines of code (LOC) split as follows: 9.4 kLOC for Ensemble, 1.1 kLOC for Gora and 2.3 kLOC patch for Nutch</p>
-<h3 id="A-Merging-phases"><a href="#A-Merging-phases" class="headerlink" title="A. Merging phases"></a>A. Merging phases</h3><p>Cause each new map-reduce job creation is expensive as it requires to start a dedicated Java virtual machine, and deploy the appropriate jars. To lower this cost, we merge the fetch and parse phases in out UniCrawl implementation. This means that whenever a reducer fetches a new page, it parses its content and extract the out-links. These links are then directly inserted in the crawl database together with the fetched page.</p>
-<h3 id="B-Caching"><a href="#B-Caching" class="headerlink" title="B. Caching"></a>B. Caching</h3><p>To avoid sending out an URL multiple times across sites, we use a distributed solution. In more details, this cache is a bounded ENSENMBLE map C local to each site and replicated at all nodes in a site. During the update phase, when a reducer selects a URL in the frontier that is associated to a remote site, it first check locally with C is this URL woa previously sent. If this is the case , the reducer simply skips the call to putIfAbsent. Since C is replicated at all nodes, every map-reduce node is co-located with an INFINISPAN node, and C is in memory, this inclusion test costs less than a millisecond.</p>
-<h2 id="V-Evaluation"><a href="#V-Evaluation" class="headerlink" title="V. Evaluation"></a>V. Evaluation</h2><p>Evaluate UniCrawl through several key metrics such as the page processing rate, the memory usage and the network traffic across sites.</p>
-<p>Two parts:</p>
+<p>This is the architecture of the Multi-Region CNN model:</p>
+<p><img src="http://ohykn376o.bkt.clouddn.com/OBDE2.png" alt="Figure2"></p>
+<p>There are two aims of that:</p>
+<blockquote>
 <ol>
-<li>Evaluate our approach in-vitro, by running UniCrawl against the ClueWeb12 benchmark in an emulated multi-site architecture and crawling from a local repository.</li>
-<li>Report several experimental results where we deploy UniCrawl at multiple localtions in Germany and access actual web sites.</li>
+<li>to force the network to capture various complementary aspects of the objects appearance, thus leading to a much richer and more robust object representation</li>
+<li>to also make the resulting representation more sensitive to inaccurate localization, which is also crucial for object detection</li>
 </ol>
-<h3 id="A-In-vitro-validation"><a href="#A-In-vitro-validation" class="headerlink" title="A. In-vitro validation"></a>A. In-vitro validation</h3><ol>
-<li>Single site performance</li>
-<li>Emulating multiple sites</li>
+</blockquote>
+<p><strong><em>The regions they deploy:</em></strong></p>
+<blockquote>
+<ol>
+<li>Original candidate box</li>
+<li>Half boxes</li>
+<li>Central Regions</li>
+<li>Border Regions</li>
+<li>Contextual Region</li>
 </ol>
-<h3 id="B-UniCrawl-in-the-wild"><a href="#B-UniCrawl-in-the-wild" class="headerlink" title="B. UniCrawl in the wild"></a>B. UniCrawl in the wild</h3><ol>
-<li>URL Exchange</li>
-<li>Comparison with Nutch</li>
-<li>Scalability</li>
+</blockquote>
+<p><strong><em>Why these regions helps?</em></strong></p>
+<blockquote>
+<ol>
+<li>Discriminative feature diversification</li>
+<li>Localization-aware representation</li>
+</ol>
+</blockquote>
+<h2 id="III-Semantic-Segmentation-Aware-CNN-Model"><a href="#III-Semantic-Segmentation-Aware-CNN-Model" class="headerlink" title="III. Semantic Segmentation-Aware CNN Model"></a>III. Semantic Segmentation-Aware CNN Model</h2><p><img src="http://ohykn376o.bkt.clouddn.com/OBDE1.png" alt="figure4"></p>
+<ul>
+<li>Activation maps module for semantic segmentation aware features<ul>
+<li><strong><em>Weakly supervised training</em></strong>(see Figure 4)</li>
+<li>Activation maps</li>
+</ul>
+</li>
+<li>Region adaptation module for semantic segmentation aware features</li>
+</ul>
+<p>They combine the Multi-Region CNN features and the semantic segmentation aware CNN features by concatenating them. The resulting network thus jointly learns deep features of both types during training.</p>
+<h2 id="IV-Object-Localization"><a href="#IV-Object-Localization" class="headerlink" title="IV. Object Localization"></a>IV. Object Localization</h2><p>There are three main components in this section:</p>
+<ol>
+<li>CNN region adaptation module for bounding box regression</li>
+</ol>
+<blockquote>
+<p>It is applied on top of the activation maps produced from the Multi-Region CNN model and, instead of a typical one-layer ridge regression model, consists of two hidden fully connected layers and one prediction layer that outputs 4 values per category. In order to allow it to predict the location of object instances that are not in the close proximity of any of the initial candidate boxes, we Use as region a box obtained by enlarging the candidate box by a factor of 1.3. This combination offers a significant boost on the detection performance of out system by allowing it to make more accurate predictions and for more distant objects.</p>
+</blockquote>
+<ol>
+<li>Iterative Localization</li>
+</ol>
+<blockquote>
+<p>Their localization scheme starts from the selective search proposals and works by iteratively scoring them and refining their coordinates.</p>
+</blockquote>
+<ol>
+<li>Bounding box voting</li>
+</ol>
+<blockquote>
+<p>Because of the multiple regression steps, the generated boxes will be highly concentrated around the actual objects of interest. They exploit this “by-product” of the iterative localization scheme by adding a step of bounding box voting.</p>
+</blockquote>
+<h2 id="V-Implementation-Details"><a href="#V-Implementation-Details" class="headerlink" title="V. Implementation Details"></a>V. Implementation Details</h2><blockquote>
+<p>For all the CNN models involved in their proposed system, we used the publicly available <strong>16-layers VGG model</strong> pre-trained on ImageNet for the task of image classification.</p>
+</blockquote>
+<p>Multi-Region CNN model</p>
+<blockquote>
+<p>Its activation maps module consistes of the convolustional part of the 16-layers VGG-Net that outputs 512 feature channels. The max-pooling layer right after the last convolutional layer is omitted on this module. Each region adaptation module inherits the fully connected layers of the 16-layers VGG-Net and is fine-tuned separately from the others.</p>
+</blockquote>
+<p>Semantic segmentation-aware CNN model</p>
+<blockquote>
+<p>The activation maps module architecture consists of the 16-layers VGG-Net without the last classification layer and transformed to a Fully Convolutional Network.</p>
+</blockquote>
+<p>Classification SVMs</p>
+<blockquote>
+<p>The ground truth bounding boxes are used as positive samples and the selective search proposals that overlap with the ground truth boxes by less than 0.3, are used as negative samples.</p>
+</blockquote>
+<p>CNN region adaptation module for bounding box regression</p>
+<blockquote>
+<p>The region adaptation module for bounding box regression inherits the fully connected hidden layers of the 16-layers VGG-Net. As a loss function they use the euclidean distance between the target values and the network predictions.</p>
+</blockquote>
+<h2 id="VI-Experimental-Evaluation"><a href="#VI-Experimental-Evaluation" class="headerlink" title="VI. Experimental Evaluation"></a>VI. Experimental Evaluation</h2><ol>
+<li>Results on PASCAL VOC2007</li>
+<li>Detection error analysis</li>
+<li>Results on PASCAL VOC2012</li>
+</ol>
+<h2 id="VII-Conclusion"><a href="#VII-Conclusion" class="headerlink" title="VII. Conclusion"></a>VII. Conclusion</h2><p>Two key factors:</p>
+<ol>
+<li>the diversification of the discriminative appearance factors that it captures by steering its focus on different regions of the object</li>
+<li>the encoding of semantic segmentation-aware features. By using it in the context of a CNN-based localization refinement scheme, they showed that it achieves excellent results that surpass the state-of-the-are by a significant margin</li>
 </ol>
 
       
@@ -351,13 +411,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/">[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler</a></p>
+        <p><span>本文标题:</span><a href="/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/">[Reading Notes] Object detection via a multi-region &amp; sematic segmentation-aware CNN model</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">C_Meng</a></p>
-        <p><span>发布时间:</span>2016-12-11, 00:13:19</p>
-        <p><span>最后更新:</span>2016-12-11, 00:14:50</p>
+        <p><span>发布时间:</span>2016-12-13, 22:58:00</p>
+        <p><span>最后更新:</span>2016-12-14, 14:12:37</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/" title="[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler">http://imonce.github.io/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://imonce.github.io/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/　　作者: C_Meng" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/" title="[Reading Notes] Object detection via a multi-region &amp; sematic segmentation-aware CNN model">http://imonce.github.io/2016/12/13/[Reading Notes] Object detection via a multi-region &amp; sematic segmentation-aware CNN model/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://imonce.github.io/2016/12/13/[Reading Notes] Object detection via a multi-region &amp; sematic segmentation-aware CNN model/　　作者: C_Meng" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -370,15 +430,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/">
-                    [Reading Notes] Object detection via a multi-region &amp; sematic segmentation-aware CNN model
+                <a href="/2016/12/14/Chainer入门教程(上)：在Chainer中做线性回归/">
+                    Chainer入门教程(上)：在Chainer中做线性回归
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/">
-                    [Reading Notes]Privacy-CNH: A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features
+                <a href="/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/">
+                    [Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler
                 </a>
             </div>
         
@@ -389,7 +449,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I-introduction"><span class="toc-number">2.</span> <span class="toc-text">I. introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#outline"><span class="toc-number">2.1.</span> <span class="toc-text">outline:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#II-Related-work"><span class="toc-number">3.</span> <span class="toc-text">II. Related work</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#III-Distributed-crawler-architecture"><span class="toc-number">4.</span> <span class="toc-text">III. Distributed crawler architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-Single-site-Design"><span class="toc-number">4.1.</span> <span class="toc-text">A. Single site Design</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-Multi-site-Operations"><span class="toc-number">4.2.</span> <span class="toc-text">B. Multi-site Operations</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IV-Implementation"><span class="toc-number">5.</span> <span class="toc-text">IV. Implementation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-Merging-phases"><span class="toc-number">5.1.</span> <span class="toc-text">A. Merging phases</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-Caching"><span class="toc-number">5.2.</span> <span class="toc-text">B. Caching</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#V-Evaluation"><span class="toc-number">6.</span> <span class="toc-text">V. Evaluation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-In-vitro-validation"><span class="toc-number">6.1.</span> <span class="toc-text">A. In-vitro validation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-UniCrawl-in-the-wild"><span class="toc-number">6.2.</span> <span class="toc-text">B. UniCrawl in the wild</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I-Introduction"><span class="toc-number">2.</span> <span class="toc-text">I. Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#II-Multi-Region-CNN-Model"><span class="toc-number">3.</span> <span class="toc-text">II. Multi-Region CNN Model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#III-Semantic-Segmentation-Aware-CNN-Model"><span class="toc-number">4.</span> <span class="toc-text">III. Semantic Segmentation-Aware CNN Model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IV-Object-Localization"><span class="toc-number">5.</span> <span class="toc-text">IV. Object Localization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#V-Implementation-Details"><span class="toc-number">6.</span> <span class="toc-text">V. Implementation Details</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VI-Experimental-Evaluation"><span class="toc-number">7.</span> <span class="toc-text">VI. Experimental Evaluation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VII-Conclusion"><span class="toc-number">8.</span> <span class="toc-text">VII. Conclusion</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -446,7 +506,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler　| C_Meng PSNA　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model　| C_Meng PSNA　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -462,7 +522,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/" data-title="[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler" data-url="http://imonce.github.io/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/"></div>
+    <div class="ds-thread" data-thread-key="2016/12/13/[Reading Notes] Object detection via a multi-region &amp; sematic segmentation-aware CNN model/" data-title="[Reading Notes] Object detection via a multi-region &amp; sematic segmentation-aware CNN model" data-url="http://imonce.github.io/2016/12/13/[Reading Notes] Object detection via a multi-region &amp; sematic segmentation-aware CNN model/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -485,7 +545,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/" title="上一篇: [Reading Notes] Object detection via a multi-region &amp; sematic segmentation-aware CNN model">
+            <a href="/2016/12/14/Chainer入门教程(上)：在Chainer中做线性回归/" title="上一篇: Chainer入门教程(上)：在Chainer中做线性回归">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -493,7 +553,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/" title="下一篇: [Reading Notes]Privacy-CNH: A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features">
+            <a href="/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/" title="下一篇: [Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler">
                 <i class="fa fa-angle-right"></i>
             </a>
         
