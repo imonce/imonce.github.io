@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="utf-8">
+  
+  <title>Chainer入门教程(下)：MNIST手写体识别 | C_Meng PSNA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="III. 训练一个手写体识别器在这一部分中，我们将使用MNIST手写数字数据集来尝试区分一个28x28像素的手写体图像。这是一个典型的有监督的深度学习。
+对于这个问题，我们将会改变我们之前的线性回归器，同时引入一些隐藏的线性神经网络层，当然，也会引入一些非线性的激活函数。这种类型的架构通常被称为Multilayer Perceptron(MLP)。接下来我们就来看一下它是如何处理眼下的这个任务的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chainer入门教程(下)：MNIST手写体识别">
+<meta property="og:url" content="http://imonce.github.io/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="III. 训练一个手写体识别器在这一部分中，我们将使用MNIST手写数字数据集来尝试区分一个28x28像素的手写体图像。这是一个典型的有监督的深度学习。
+对于这个问题，我们将会改变我们之前的线性回归器，同时引入一些隐藏的线性神经网络层，当然，也会引入一些非线性的激活函数。这种类型的架构通常被称为Multilayer Perceptron(MLP)。接下来我们就来看一下它是如何处理眼下的这个任务的。">
+<meta property="og:image" content="http://multithreaded.stitchfix.com/assets/images/blog/chainer-post/MNIST.png">
+<meta property="og:updated_time" content="2016-12-15T15:04:18.337Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chainer入门教程(下)：MNIST手写体识别">
+<meta name="twitter:description" content="III. 训练一个手写体识别器在这一部分中，我们将使用MNIST手写数字数据集来尝试区分一个28x28像素的手写体图像。这是一个典型的有监督的深度学习。
+对于这个问题，我们将会改变我们之前的线性回归器，同时引入一些隐藏的线性神经网络层，当然，也会引入一些非线性的激活函数。这种类型的架构通常被称为Multilayer Perceptron(MLP)。接下来我们就来看一下它是如何处理眼下的这个任务的。">
+<meta name="twitter:image" content="http://multithreaded.stitchfix.com/assets/images/blog/chainer-post/MNIST.png">
+  
+    <link rel="alternative" href="/atom.xml" title="C_Meng PSNA" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/avatar.png">
+  
+  
+      <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
+  
+  
+  
+      <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+      <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+  
+  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.9/clipboard.min.js"></script>
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false,
+          fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+          scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.0.9/scrollreveal.min.js"
+      }
+  </script>
+
+  
+      <script>
+          yiliaConfig.rootUrl = "/";
+      </script>
+  
+
+  
+  
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">C_Meng</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Never wait for the storm to pass, just dance in the rain.</p>
+        
+                
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:imonce@outlook.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/3912390829/profile?rightmod=1&wvr=6&mod=personinfo" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/imonce" title="GitHub"></a>
+                            
+                                <a class="fa Facebook" target="_blank" href="https://www.facebook.com/CMeng-1457288914300569/?skip_nax_wizard=true" title="Facebook"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCNH/">PCNH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Privacy-Detect/">Privacy Detect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reading-Notes/">Reading Notes</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chainer/">chainer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/crawler/">crawler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lamp配置/">lamp配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multi-region/">multi-region</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/object-detection/">object detection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sematic-segmentation-aware/">sematic segmentation-aware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unicrawl/">unicrawl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zabbix安装/">zabbix安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/入门教程/">入门教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">web开发，机器学习，卷积神经网络，吉他弹唱</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">C_Meng</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">C_Meng</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Never wait for the storm to pass, just dance in the rain.</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:imonce@outlook.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/3912390829/profile?rightmod=1&wvr=6&mod=personinfo" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/imonce" title="GitHub"></a>
+                            
+                                <a class="fa Facebook" target="_blank" href="https://www.facebook.com/CMeng-1457288914300569/?skip_nax_wizard=true" title="Facebook"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Chainer入门教程(下)-MNIST手写体识别" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/" class="article-date">
+      <time datetime="2016-12-15T14:57:00.000Z" itemprop="datePublished">2016-12-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Chainer入门教程(下)：MNIST手写体识别
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chainer/">chainer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/入门教程/">入门教程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/神经网络/">神经网络</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="III-训练一个手写体识别器"><a href="#III-训练一个手写体识别器" class="headerlink" title="III. 训练一个手写体识别器"></a>III. 训练一个手写体识别器</h2><p>在这一部分中，我们将使用MNIST手写数字数据集来尝试区分一个28x28像素的手写体图像。这是一个典型的有监督的深度学习。</p>
+<p>对于这个问题，我们将会改变我们之前的线性回归器，同时引入一些隐藏的线性神经网络层，当然，也会引入一些非线性的激活函数。这种类型的架构通常被称为Multilayer Perceptron(MLP)。接下来我们就来看一下它是如何处理眼下的这个任务的。</p>
+<p>下面的这一段代码会帮助你下载、引入并结构化MNIST数据集。然而为了完成这部分工作，你还需要下载<a href="https://github.com/pfnet/chainer/blob/choose/examples/mnist/data.py" target="_blank" rel="external">data.py</a>文件，并把它放在你的工作目录(你的脚本或notebook所在的目录)下以方便导入。</p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># functions for importing the MNIST dataset.</span></span><br><span class="line"><span class="keyword">import</span> data</span><br><span class="line"></span><br><span class="line"><span class="comment"># We'll first import the data as a variable mnist.</span></span><br><span class="line"><span class="comment"># (If this is the first time you've run this function</span></span><br><span class="line"><span class="comment"># it could take a minute or two)</span></span><br><span class="line"></span><br><span class="line">mnist = data.load_mnist_data()</span><br></pre></td></tr></table></figure>
+<p>现在我们可以先看一下这些图片的样子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">12</span>,<span class="number">5</span>))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    example = mnist[<span class="string">'data'</span>][i].reshape(<span class="number">28</span>, <span class="number">28</span>)</span><br><span class="line">    target = mnist[<span class="string">'target'</span>][i]</span><br><span class="line">    plt.subplot(<span class="number">2</span>, <span class="number">5</span>, i+<span class="number">1</span>)</span><br><span class="line">    plt.imshow(example, cmap=<span class="string">'gray'</span>)</span><br><span class="line">    plt.title(<span class="string">"Target Number: &#123;0&#125;"</span>.format(target))</span><br><span class="line">    plt.axis(<span class="string">"off"</span>)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="http://multithreaded.stitchfix.com/assets/images/blog/chainer-post/MNIST.png" alt="MNIST"></p>
+<p>现在，我们要把数据集中的图像和对应的真实数字分开，并分成训练集和测试集两部分，以便我们在最后检验我们的学习成果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Separate the two parts of the MNIST dataset</span></span><br><span class="line">features = mnist[<span class="string">'data'</span>].astype(np.float32) / <span class="number">255</span></span><br><span class="line">targets = mnist[<span class="string">'target'</span>].astype(np.int32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Make a train/test split.</span></span><br><span class="line">x_train, x_test = np.split(features, [<span class="number">60000</span>])</span><br><span class="line">y_train, y_test = np.split(targets, [<span class="number">60000</span>])</span><br></pre></td></tr></table></figure>
+<p>这样一来，我们就可以集中精力训练我们的MLP了。MLP包含一系列不同的layer，Chainer又有一个很不错的方法，这可以帮我们把神经网络中所有的layer都封装到一个对象中。</p>
+<h3 id="FunctionSet简介"><a href="#FunctionSet简介" class="headerlink" title="FunctionSet简介"></a>FunctionSet简介</h3><p>这个方便的对象以命名后的layer作为关键字参数，以便我们之后可以引用它们。FunctionSet工作的方式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = FunctionSet(layer1=&lt;place link here&gt;, layer2=&lt;place link here&gt;, ...etc.)</span><br></pre></td></tr></table></figure>
+<p>然后layer就会在类的实例中作为属性存在。这些layer都可以通过把FunctionSet实例交给optimizer的setup方法同时进行优化：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optimizer.setup(model)</span><br></pre></td></tr></table></figure>
+<p>理解了这个小tip之后，我们就可以继续构建我们的分类器了。我们需要把一个28x28像素的图像降维成一个10维的单形。输出的每一个维度代表一个具体的数字。</p>
+<h3 id="MLP架构"><a href="#MLP架构" class="headerlink" title="MLP架构"></a>MLP架构</h3><p>为了方便教学以及理解，我们在这里建立一个只有三层的神经网络。</p>
+<p>我们需要一个link来引入我们的28x28=784的图像，然后一步一步把它降维到10维。</p>
+<p><strong>另外，因为线性函数的组织是线性的，而深度学习又具有引入非线性变换的优点，所以当我们引入一些非线性函数时就会有非常好的重复线性层的堆叠。</strong></p>
+<!-- Additionally, since compositions of linear functions are linear and the benefit of deep learning models are their ability to approximate arbitrary nonlinear functions, it wouldn’t do us much good to stack repeated linear layers together without adding some nonlinear function to send them through-->
+<p>因此，在前向传播时，我们希望线性变换层和非线性的激活函数层交替出现。通过这种方法，我们的神经网络可以学习到非线性的数据模型以得到更好的预测结果。最后我们通过一个名为softmax的交叉熵损失函数来比较输出的矢量与我们的原本提取出的答案，然后基于计算出的损失来进行反向传播。</p>
+<p>最终我们的前向传播的架构应该是这样的形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">out = linear_layer1(data)</span><br><span class="line">out = relu(out)</span><br><span class="line">out = linear_layer2(out)</span><br><span class="line">out = relu(out)</span><br><span class="line">out = linear_layer3(out)</span><br></pre></td></tr></table></figure>
+<p>到了训练我们的模型的时候，我们希望能够每次处理一部分的样品并在更新权重前来统计它们的损失。</p>
+<h3 id="Define-the-Model"><a href="#Define-the-Model" class="headerlink" title="Define the Model"></a>Define the Model</h3><p>首先，我们通过声明link的集以及在训练过程中要用到的optimizer来定义模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Declare the model layers together as a FunctionSet</span></span><br><span class="line">mnist_model = FunctionSet(</span><br><span class="line">    linear1=L.Linear(<span class="number">784</span>, <span class="number">300</span>),</span><br><span class="line">    linear2=L.Linear(<span class="number">300</span>, <span class="number">100</span>),</span><br><span class="line">    linear3=L.Linear(<span class="number">100</span>, <span class="number">10</span>)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="comment"># Instantiate an optimizer (you should probably use an</span></span><br><span class="line"><span class="comment"># Adam optimizer here for best performance)</span></span><br><span class="line"><span class="comment"># and then setup the optimizer on the FunctionSet.</span></span><br><span class="line">mnist_optimizer = optimizers.Adam()</span><br><span class="line">mnist_optimizer.setup(mnist_model)</span><br></pre></td></tr></table></figure>
+<h3 id="构造训练函数"><a href="#构造训练函数" class="headerlink" title="构造训练函数"></a>构造训练函数</h3><p>现在我们构造一个合适的函数来进行前向传播、定义训练用的数据集以及生成训练之后对MNIST手写图像进行预测的结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Construct a forward pass through the network,</span></span><br><span class="line"><span class="comment"># moving sequentially through a layer then activation function</span></span><br><span class="line"><span class="comment"># as stated above.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mnist_forward</span><span class="params">(data, model)</span>:</span></span><br><span class="line"></span><br><span class="line">    out1 = model.linear1(data)</span><br><span class="line">    out2 = F.relu(out1)</span><br><span class="line">    out3 = model.linear2(out2)</span><br><span class="line">    out4 = F.relu(out3)</span><br><span class="line">    final = model.linear3(out4)</span><br><span class="line">    <span class="keyword">return</span> final</span><br><span class="line"></span><br><span class="line"><span class="comment"># Make a training function which takes in training data and targets</span></span><br><span class="line"><span class="comment"># as an input.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mnist_train</span><span class="params">(x, y, model, batchsize=<span class="number">1000</span>, n_epochs=<span class="number">20</span>)</span>:</span></span><br><span class="line"></span><br><span class="line">    data_size = x.shape[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># loop over epochs</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(n_epochs):</span><br><span class="line">        print(<span class="string">'epoch %d'</span> % (epoch + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># randomly shuffle the indices of the training data</span></span><br><span class="line">        shuffler = np.random.permutation(data_size)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># loop over batches</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, data_size, batchsize):</span><br><span class="line">            x_var = Variable(x[shuffler[i : i + batchsize]])</span><br><span class="line">            y_var = Variable(y[shuffler[i : i + batchsize]])</span><br><span class="line"></span><br><span class="line">            output = mnist_forward(x_var, model)</span><br><span class="line">            model.zerograds()</span><br><span class="line">            loss = F.softmax_cross_entropy(output, y_var)</span><br><span class="line">            loss.backward()</span><br><span class="line">            mnist_optimizer.update()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Make a prediction function, using a softmax and argmax in order to</span></span><br><span class="line"><span class="comment"># match the target space so that we can validate.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mnist_predict</span><span class="params">(x, model)</span>:</span></span><br><span class="line">    x = Variable(x)</span><br><span class="line"></span><br><span class="line">    output = mnist_forward(x, model)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> F.softmax(output).data.argmax(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Train-the-Model"><a href="#Train-the-Model" class="headerlink" title="Train the Model"></a>Train the Model</h3><p>我们现在可以开始训练神经网络了（这里我们使用一个比较小的训练次数和一个比较大的批大小，这样可以帮我们节省一些训练时间。你也可以修改一些参数，说不定就会出现更好的结果呢~）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mnist_train(x_train, y_train, mnist_model, n_epochs=<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="进行预测"><a href="#进行预测" class="headerlink" title="进行预测"></a>进行预测</h3><p>最后一件事情就是通过测试集来验证我们的模型的精确度，看看是否出现了过拟合的情况。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Call your prediction function on the test set</span></span><br><span class="line">pred = mnist_predict(x_test, mnist_model)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Compare the prediction to the ground truth target values.</span></span><br><span class="line">accuracy = (pred==y_test).mean()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print out test accuracy</span></span><br><span class="line">print(<span class="string">"Test accuracy: %f"</span> % accuracy)</span><br></pre></td></tr></table></figure>
+<p>out: <code>Test accuracy: 0.965900</code></p>
+<p>可以看到，我们才训练了5次就有了一个96.59%的准确率，amazing~</p>
+<h3 id="模型复用"><a href="#模型复用" class="headerlink" title="模型复用"></a>模型复用</h3><p>如果你觉得某一次的训练结果不错，想要保存下来以后使用，你可以通过Chainer的serializers来将其保存成hdf5格式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serializers.save_hdf5(<span class="string">'test.model'</span>, mnist_model)</span><br><span class="line">serializers.save_hdf5(<span class="string">'test.state'</span>, mnist_optimizer)</span><br></pre></td></tr></table></figure>
+<p>要调出使用的时候也很简单：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serializers.load_hdf5(<span class="string">'my_model.model'</span>, model_name)</span><br><span class="line">serializers.load_hdf5(<span class="string">'my_optimizer.state'</span>, optimizer_name)</span><br></pre></td></tr></table></figure>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>通过这篇入门教程，相信大家对于机器学习以及Chainer都有了一定的概念。可以看出，Chainer是一个非常灵活且实用的框架，机器学习也并非难以理解。如果你想进一步Chaier这个框架，个人觉得去看看<a href="http://docs.chainer.org/en/stable/" target="_blank" rel="external">Chainer的官方文档</a>也是一个不错的选择~</p>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference:"></a>reference:</h3><p><a href="http://multithreaded.stitchfix.com/blog/2015/12/09/intro-to-chainer/" target="_blank" rel="external">Introduction to Chainer: Neural Networks in Python</a><br><a href="http://docs.chainer.org/en/stable/tutorial/basic.html" target="_blank" rel="external">Introduction to Chainer(官方文档)</a></p>
+<h3 id="每日一句："><a href="#每日一句：" class="headerlink" title="每日一句："></a>每日一句：</h3><p>On n’est jamais content là où on est.（人们从来不会满意自己所在的地方。）</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/">Chainer入门教程(下)：MNIST手写体识别</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">C_Meng</a></p>
+        <p><span>发布时间:</span>2016-12-15, 22:57:00</p>
+        <p><span>最后更新:</span>2016-12-15, 23:04:18</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/" title="Chainer入门教程(下)：MNIST手写体识别">http://imonce.github.io/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://imonce.github.io/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/　　作者: C_Meng" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/12/14/Chainer入门教程(上)：在Chainer中做线性回归/">
+                    Chainer入门教程(上)：在Chainer中做线性回归
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#III-训练一个手写体识别器"><span class="toc-number">1.</span> <span class="toc-text">III. 训练一个手写体识别器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FunctionSet简介"><span class="toc-number">1.1.</span> <span class="toc-text">FunctionSet简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MLP架构"><span class="toc-number">1.2.</span> <span class="toc-text">MLP架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Define-the-Model"><span class="toc-number">1.3.</span> <span class="toc-text">Define the Model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构造训练函数"><span class="toc-number">1.4.</span> <span class="toc-text">构造训练函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Train-the-Model"><span class="toc-number">1.5.</span> <span class="toc-text">Train the Model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进行预测"><span class="toc-number">1.6.</span> <span class="toc-text">进行预测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模型复用"><span class="toc-number">1.7.</span> <span class="toc-text">模型复用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">2.</span> <span class="toc-text">Conclusion</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#reference"><span class="toc-number">2.1.</span> <span class="toc-text">reference:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#每日一句："><span class="toc-number">2.2.</span> <span class="toc-text">每日一句：</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Chainer入门教程(下)：MNIST手写体识别　| C_Meng PSNA　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/12/15/Chainer入门教程(下)-MNIST手写体识别/" data-title="Chainer入门教程(下)：MNIST手写体识别" data-url="http://imonce.github.io/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"imonce"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/12/14/Chainer入门教程(上)：在Chainer中做线性回归/" title="下一篇: Chainer入门教程(上)：在Chainer中做线性回归">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/">Chainer入门教程(下)：MNIST手写体识别</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/14/Chainer入门教程(上)：在Chainer中做线性回归/">Chainer入门教程(上)：在Chainer中做线性回归</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/">[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/">[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/">[Reading Notes]Privacy-CNH: A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/08/从0到100：zabbix及其支持环境的完整安装教程/">从0到100：zabbix及其支持环境的完整安装教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/09/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 C_Meng
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本站到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
