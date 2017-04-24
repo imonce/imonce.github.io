@@ -239,10 +239,10 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-mysql-python安装错误：EnvironmentError- mysql_config not found" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-远程连接mysql报错：error 2003 （hy000）-can&#39;t connect to mysql server on &#39;localhost&#39; (10061)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" class="article-date">
+      <a href="/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" class="article-date">
       <time datetime="2017-04-23T18:45:19.000Z" itemprop="datePublished">2017-04-24</time>
 </a>
     </div>
@@ -256,7 +256,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/">mysql-python安装错误：EnvironmentError:mysql_config not found</a>
+      <a class="article-title" href="/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/">远程连接mysql报错：error 2003 （hy000）:can&#39;t connect to mysql server on &#39;localhost&#39; (10061)</a>
     </h1>
   
 
@@ -266,12 +266,20 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><p>安装mysql-python时报错：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Collecting mysql-python</span><br><span class="line">  Using cached MySQL-python-1.2.5.zip</span><br><span class="line">    Complete output from command python setup.py egg_info:</span><br><span class="line">    sh: 1: mysql_config: not found</span><br><span class="line">    Traceback (most recent call last):</span><br><span class="line">      File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">      File &quot;/tmp/pip-build-_itbcX/mysql-python/setup.py&quot;, line 17, in &lt;module&gt;</span><br><span class="line">        metadata, options = get_config()</span><br><span class="line">      File &quot;setup_posix.py&quot;, line 43, in get_config</span><br><span class="line">        libs = mysql_config(&quot;libs_r&quot;)</span><br><span class="line">      File &quot;setup_posix.py&quot;, line 25, in mysql_config</span><br><span class="line">        raise EnvironmentError(&quot;%s not found&quot; % (mysql_config.path,))</span><br><span class="line">    EnvironmentError: mysql_config not found</span><br><span class="line"></span><br><span class="line">    ----------------------------------------</span><br><span class="line">Command &quot;python setup.py egg_info&quot; failed with error code 1 in /tmp/pip-build-_itbcX/mysql-python/</span><br></pre></td></tr></table></figure>
-<h2 id="问题原因："><a href="#问题原因：" class="headerlink" title="问题原因："></a>问题原因：</h2><p>没有安装libmysqlclient-dev。</p>
-<h2 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h2><p>执行：</p>
-<p><code>sudo apt-get install libmysqlclient-dev</code></p>
-<p>安装成功后，再运行<code>pip install mysql-python</code>即可。</p>
+        <h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>mysql配置文件中有一句：</p>
+<p><code>bind-address = 127.0.0.1</code></p>
+<p>导致mysql只能从本地进行连接。</p>
+<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>找到mysql的配置文件，将这一行注释掉。</p>
+<h2 id="具体解决方案"><a href="#具体解决方案" class="headerlink" title="具体解决方案"></a>具体解决方案</h2><p>去两个配置文件中找这个配置项：</p>
+<ol>
+<li>/etc/mysql/my.cnf</li>
+<li>/etc/mysql/mysqld.cnf</li>
+</ol>
+<p>在这两个文件的任意一个中找到</p>
+<p><code>bind-address = 127.0.0.1</code></p>
+<p>后，将其修改成：</p>
+<p><code>#bind-address = 127.0.0.1</code></p>
+<p>然后执行 <code>service mysql restart</code>重新启动mysql服务使配置生效即可。</p>
 
       
     </div>
@@ -282,7 +290,7 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql-python安装错误/">mysql-python安装错误</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/远程连接报错/">远程连接报错</a></li></ul>
     </div>
 
       
@@ -364,77 +372,6 @@
 
 
   
-    <article id="post-远程连接mysql报错：error 2003 （hy000）-can&#39;t connect to mysql server on &#39;localhost&#39; (10061)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" class="article-date">
-      <time datetime="2017-04-23T18:45:19.000Z" itemprop="datePublished">2017-04-24</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/">远程连接mysql报错：error 2003 （hy000）:can&#39;t connect to mysql server on &#39;localhost&#39; (10061)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>mysql配置文件中有一句：</p>
-<p><code>bind-address = 127.0.0.1</code></p>
-<p>导致mysql只能从本地进行连接。</p>
-<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>找到mysql的配置文件，将这一行注释掉。</p>
-<h2 id="具体解决方案"><a href="#具体解决方案" class="headerlink" title="具体解决方案"></a>具体解决方案</h2><p>去两个配置文件中找这个配置项：</p>
-<ol>
-<li>/etc/mysql/my.cnf</li>
-<li>/etc/mysql/mysqld.cnf</li>
-</ol>
-<p>在这两个文件的任意一个中找到</p>
-<p><code>bind-address = 127.0.0.1</code></p>
-<p>后，将其修改成：</p>
-<p><code>#bind-address = 127.0.0.1</code></p>
-<p>然后执行 <code>service mysql restart</code>重新启动mysql服务使配置生效即可。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/远程连接报错/">远程连接报错</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-远程连接mysql报错：1130 - Host &#39;192.168.2.204&#39; is not allowed to connect to this MySQL server" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -476,6 +413,69 @@
       
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/远程连接报错/">远程连接报错</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-mysql-python安装错误：EnvironmentError- mysql_config not found" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" class="article-date">
+      <time datetime="2017-04-23T18:45:19.000Z" itemprop="datePublished">2017-04-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/">mysql-python安装错误：EnvironmentError:mysql_config not found</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><p>安装mysql-python时报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Collecting mysql-python</span><br><span class="line">  Using cached MySQL-python-1.2.5.zip</span><br><span class="line">    Complete output from command python setup.py egg_info:</span><br><span class="line">    sh: 1: mysql_config: not found</span><br><span class="line">    Traceback (most recent call last):</span><br><span class="line">      File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">      File &quot;/tmp/pip-build-_itbcX/mysql-python/setup.py&quot;, line 17, in &lt;module&gt;</span><br><span class="line">        metadata, options = get_config()</span><br><span class="line">      File &quot;setup_posix.py&quot;, line 43, in get_config</span><br><span class="line">        libs = mysql_config(&quot;libs_r&quot;)</span><br><span class="line">      File &quot;setup_posix.py&quot;, line 25, in mysql_config</span><br><span class="line">        raise EnvironmentError(&quot;%s not found&quot; % (mysql_config.path,))</span><br><span class="line">    EnvironmentError: mysql_config not found</span><br><span class="line"></span><br><span class="line">    ----------------------------------------</span><br><span class="line">Command &quot;python setup.py egg_info&quot; failed with error code 1 in /tmp/pip-build-_itbcX/mysql-python/</span><br></pre></td></tr></table></figure>
+<h2 id="问题原因："><a href="#问题原因：" class="headerlink" title="问题原因："></a>问题原因：</h2><p>没有安装libmysqlclient-dev。</p>
+<h2 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h2><p>执行：</p>
+<p><code>sudo apt-get install libmysqlclient-dev</code></p>
+<p>安装成功后，再运行<code>pip install mysql-python</code>即可。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql-python安装错误/">mysql-python安装错误</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
     </div>
 
       
@@ -604,6 +604,262 @@
       
         <p class="article-more-link">
           <a href="/2016/12/14/Chainer入门教程(上)：在Chainer中做线性回归/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-[Reading Notes] Object detection via a multi-region &amp; sematic segmentation-aware CNN model" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/" class="article-date">
+      <time datetime="2016-12-13T14:58:00.000Z" itemprop="datePublished">2016-12-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/">[Reading Notes] Object detection via a multi-region &amp; sematic segmentation-aware CNN model</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>This article propose an object detection system that relies on a multi-region deep convolutional neural network that also encodes sematic segmentation-aware features. The module aims at capturing a diverse set of discriminative appearance factors and exhibits localization sensitivity that is essential for accurate object localization. They exploit the above properties of their recognition module by intergrating it on an iterative localization mechanism that alternates between socring a box proposal and refgining its location with a deep CNN regression model. And consiquently, they detect objects with very high localization accuracy.</p>
+<h2 id="I-Introduction"><a href="#I-Introduction" class="headerlink" title="I. Introduction"></a>I. Introduction</h2><p>The definition of object detection:</p>
+<blockquote>
+<p>Given an image return all the instances of one or more type of objects in form of bounding boxes that tightly enclose them.</p>
+</blockquote>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CNN/">CNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reading-Notes/">Reading Notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/multi-region/">multi-region</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/object-detection/">object detection</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sematic-segmentation-aware/">sematic segmentation-aware</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/" class="article-date">
+      <time datetime="2016-12-10T16:13:19.000Z" itemprop="datePublished">2016-12-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/">[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>Cause the wealth of information available on the web keeps growing, we want to use web crawler to get them. But the traditional method has a fatal limit of its large infrastructure cost. To reduce it, we developed this method, unicrawl, which can show a performance improvement of 93.6% in terms of network bandwidth consumption, and a speedup factor of 1.75.</p>
+<h2 id="I-introduction"><a href="#I-introduction" class="headerlink" title="I. introduction"></a>I. introduction</h2><p>Nowadays, it’s common that to use parallel process on a large number of machines to achieve a reasonable collection time. While this method requires large computing infrastructures. Like Google and Bing, who rely on big data centers.<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reading-Notes/">Reading Notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/crawler/">crawler</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unicrawl/">unicrawl</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/" class="article-date">
+      <time datetime="2016-12-10T08:44:19.000Z" itemprop="datePublished">2016-12-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/">[Reading Notes]Privacy-CNH: A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>Mobile devices have revolutionized how people share photos with each other on social networks with a single click of a button.</p>
+<p>The content of the photos people shared to the internet are rarely analyzed by the websites before the photos are made available to view. After the photos are posted on the social network to the public to view, it is close to impossible to permanently delete the uploaded photos.</p>
+<p>Photo leakage, regretion after posting and malicious posting happens from time to time.<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CNN/">CNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PCNH/">PCNH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Privacy-Detect/">Privacy Detect</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reading-Notes/">Reading Notes</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-从0到100：zabbix及其支持环境的完整安装教程" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/08/从0到100：zabbix及其支持环境的完整安装教程/" class="article-date">
+      <time datetime="2016-08-07T18:45:19.000Z" itemprop="datePublished">2016-08-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/08/从0到100：zabbix及其支持环境的完整安装教程/">从0到100：zabbix及其支持环境的完整安装教程</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>版本信息：<br>Ubuntu15.10<br>Apache2.4.12<br>php5.6.11（zabbix3.0要求php版本至少5.4以上）<br>Mysql5.6.31<br>zabbix3.0</p>
+<p>前言：本教程包括了ubuntu上LAMP(Linux+Apache+Mysql+Php)环境的搭建以及zabbix安装。因为我们最终是要通过外部计算机访问我们的服务器的，所以我希望你可以先运行一下“ifconfig -a”语句来查看以下自己的IP地址，以方便之后测试服务器。文中将以“IPAddr”来代替你的IP地址，阅读时请注意。<br>这是博主虚拟机上的IP地址：<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lamp配置/">lamp配置</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zabbix安装/">zabbix安装</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/08/08/从0到100：zabbix及其支持环境的完整安装教程/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
