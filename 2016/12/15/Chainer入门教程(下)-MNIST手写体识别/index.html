@@ -14,7 +14,7 @@
 <meta property="og:description" content="III. 训练一个手写体识别器在这一部分中，我们将使用MNIST手写数字数据集来尝试区分一个28x28像素的手写体图像。这是一个典型的有监督的深度学习。
 对于这个问题，我们将会改变我们之前的线性回归器，同时引入一些隐藏的线性神经网络层，当然，也会引入一些非线性的激活函数。这种类型的架构通常被称为Multilayer Perceptron(MLP)。接下来我们就来看一下它是如何处理眼下的这个任务的。">
 <meta property="og:image" content="http://multithreaded.stitchfix.com/assets/images/blog/chainer-post/MNIST.png">
-<meta property="og:updated_time" content="2016-12-15T15:04:18.000Z">
+<meta property="og:updated_time" content="2018-04-18T06:46:28.887Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chainer入门教程(下)：MNIST手写体识别">
 <meta name="twitter:description" content="III. 训练一个手写体识别器在这一部分中，我们将使用MNIST手写数字数据集来尝试区分一个28x28像素的手写体图像。这是一个典型的有监督的深度学习。
@@ -274,7 +274,7 @@
           
         <h2 id="III-训练一个手写体识别器"><a href="#III-训练一个手写体识别器" class="headerlink" title="III. 训练一个手写体识别器"></a>III. 训练一个手写体识别器</h2><p>在这一部分中，我们将使用MNIST手写数字数据集来尝试区分一个28x28像素的手写体图像。这是一个典型的有监督的深度学习。</p>
 <p>对于这个问题，我们将会改变我们之前的线性回归器，同时引入一些隐藏的线性神经网络层，当然，也会引入一些非线性的激活函数。这种类型的架构通常被称为Multilayer Perceptron(MLP)。接下来我们就来看一下它是如何处理眼下的这个任务的。</p>
-<p>下面的这一段代码会帮助你下载、引入并结构化MNIST数据集。然而为了完成这部分工作，你还需要下载<a href="https://github.com/pfnet/chainer/blob/choose/examples/mnist/data.py" target="_blank" rel="external">data.py</a>文件，并把它放在你的工作目录(你的脚本或notebook所在的目录)下以方便导入。</p>
+<p>下面的这一段代码会帮助你下载、引入并结构化MNIST数据集。然而为了完成这部分工作，你还需要下载<a href="https://github.com/imonce/imonce.github.io/tree/master/assets/files/data.py" target="_blank" rel="external">data.py</a>文件，并把它放在你的工作目录(你的脚本或notebook所在的目录)下以方便导入。</p>
 <a id="more"></a>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># functions for importing the MNIST dataset.</span></span><br><span class="line"><span class="keyword">import</span> data</span><br><span class="line"></span><br><span class="line"><span class="comment"># We'll first import the data as a variable mnist.</span></span><br><span class="line"><span class="comment"># (If this is the first time you've run this function</span></span><br><span class="line"><span class="comment"># it could take a minute or two)</span></span><br><span class="line"></span><br><span class="line">mnist = data.load_mnist_data()</span><br></pre></td></tr></table></figure>
 <p>现在我们可以先看一下这些图片的样子：</p>
@@ -324,7 +324,7 @@
         <p><span>本文标题:</span><a href="/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/">Chainer入门教程(下)：MNIST手写体识别</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">C_Meng</a></p>
         <p><span>发布时间:</span>2016-12-15, 22:57:00</p>
-        <p><span>最后更新:</span>2016-12-15, 23:04:18</p>
+        <p><span>最后更新:</span>2018-04-18, 14:46:28</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/" title="Chainer入门教程(下)：MNIST手写体识别">http://imonce.github.io/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/</a>
             <span class="copy-path" data-clipboard-text="原文: http://imonce.github.io/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/　　作者: C_Meng" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
