@@ -111,6 +111,13 @@ define([], function(){
             touchEndTime = 0;
         }, false);
 
+        $(".slider-trigger").click(function(){
+            show();
+        })
+        $(".viewer-box-r").click(function(){
+            hide();
+        })
+
         //滚动样式
         var $overlay = $("#mobile-nav .overlay");
         var $header = $(".js-mobile-header");
@@ -131,15 +138,6 @@ define([], function(){
             $('html, body').animate({scrollTop:0}, 'slow');
         }, false);
     };
-
-    var resetTags = function(){
-        var tags = $(".tagcloud a");
-        for(var i = 0; i < tags.length; i++){
-            var num = parseInt(4*Math.random()) + 1;
-            tags.eq(i).addClass("color" + num);
-        };
-        $(".article-category a:nth-child(-n+2)").attr("class", "color5");
-    }
 
     return{
         init: function(){
