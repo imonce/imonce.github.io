@@ -162,7 +162,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCNH/">PCNH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Privacy-Detect/">Privacy Detect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reading-Notes/">Reading Notes</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chainer/">chainer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/crawler/">crawler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lamp配置/">lamp配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multi-region/">multi-region</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-python安装错误/">mysql-python安装错误</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/object-detection/">object detection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pickle/">pickle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python入门/">python入门</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sematic-segmentation-aware/">sematic segmentation-aware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unicrawl/">unicrawl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zabbix安装/">zabbix安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/入门教程/">入门教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/远程连接报错/">远程连接报错</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCNH/">PCNH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Privacy-Detect/">Privacy Detect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reading-Notes/">Reading Notes</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chainer/">chainer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/crawler/">crawler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lamp配置/">lamp配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multi-region/">multi-region</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-python安装错误/">mysql-python安装错误</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/object-detection/">object detection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pickle/">pickle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python入门/">python入门</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sematic-segmentation-aware/">sematic segmentation-aware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unicrawl/">unicrawl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zabbix安装/">zabbix安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/入门教程/">入门教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/远程连接报错/">远程连接报错</a></li></ul>
                     </div>
                 </section>
                 
@@ -239,6 +239,73 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-在linux上创建root权限用户（不修改系统文件）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/07/31/在linux上创建root权限用户（不修改系统文件）/" class="article-date">
+      <time datetime="2018-07-31T02:26:05.000Z" itemprop="datePublished">2018-07-31</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/31/在linux上创建root权限用户（不修改系统文件）/">在linux上创建root权限用户（不修改系统文件）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="简略过程"><a href="#简略过程" class="headerlink" title="简略过程"></a>简略过程</h1><p>如我们现在要创建一个名为imonce的新用户：</p>
+<blockquote>
+<p>adduser imonce</p>
+</blockquote>
+<p>赋予root权限</p>
+<blockquote>
+<p>usermod -g sudo imonce</p>
+</blockquote>
+<p>万事大吉</p>
+<h1 id="详细过程"><a href="#详细过程" class="headerlink" title="详细过程"></a>详细过程</h1><p>有空再补吧~(‾⌣‾~)</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-远程连接mysql报错：error 2003 （hy000）-can&#39;t connect to mysql server on &#39;localhost&#39; (10061)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -291,68 +358,6 @@
       
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/远程连接报错/">远程连接报错</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Python入门：pickle模块简介" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/24/Python入门：pickle模块简介/" class="article-date">
-      <time datetime="2017-04-23T18:45:19.000Z" itemprop="datePublished">2017-04-24</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/24/Python入门：pickle模块简介/">Python入门：pickle模块简介</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看<a href="https://docs.python.org/2/library/pickle.html" target="_blank" rel="external">https://docs.python.org/2/library/pickle.html</a></p>
-<h2 id="pickle简介"><a href="#pickle简介" class="headerlink" title="pickle简介"></a>pickle简介</h2><p>pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。</p>
-<p>就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。</p>
-<h2 id="用pickle保存对象到文件"><a href="#用pickle保存对象到文件" class="headerlink" title="用pickle保存对象到文件"></a>用pickle保存对象到文件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入pickle模块</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建一个名为data1的对象</span></span><br><span class="line">data1 = &#123;<span class="string">'a'</span>: <span class="string">'123'</span>, <span class="string">'b'</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)</span></span><br><span class="line">file_to_save = open(<span class="string">"data1.pkl"</span>, <span class="string">"wb"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。</span></span><br><span class="line"><span class="comment">#第一个参数是要保存的对象名</span></span><br><span class="line"><span class="comment">#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。</span></span><br><span class="line"><span class="comment">#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。</span></span><br><span class="line">pickle.dump(data1, file_to_save, <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭文件对象</span></span><br><span class="line">file_to_save.close()</span><br></pre></td></tr></table></figure>
-<h2 id="用pickle从文件中读取对象"><a href="#用pickle从文件中读取对象" class="headerlink" title="用pickle从文件中读取对象"></a>用pickle从文件中读取对象</h2><p>(请接着上一个脚本运行)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入pickle模块</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)</span></span><br><span class="line">file_to_read = open(<span class="string">'data1.pkl'</span>, <span class="string">'rb'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2</span></span><br><span class="line">data2 = pickle.load(file_to_read)</span><br><span class="line"></span><br><span class="line"><span class="comment">#打印data2</span></span><br><span class="line"><span class="keyword">print</span> data2</span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭文件对象</span></span><br><span class="line">file_to_read.close()</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pickle/">pickle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python入门/">python入门</a></li></ul>
     </div>
 
       
@@ -476,6 +481,68 @@
       
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql-python安装错误/">mysql-python安装错误</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Python入门：pickle模块简介" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/24/Python入门：pickle模块简介/" class="article-date">
+      <time datetime="2017-04-23T18:45:19.000Z" itemprop="datePublished">2017-04-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/24/Python入门：pickle模块简介/">Python入门：pickle模块简介</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看<a href="https://docs.python.org/2/library/pickle.html" target="_blank" rel="external">https://docs.python.org/2/library/pickle.html</a></p>
+<h2 id="pickle简介"><a href="#pickle简介" class="headerlink" title="pickle简介"></a>pickle简介</h2><p>pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。</p>
+<p>就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。</p>
+<h2 id="用pickle保存对象到文件"><a href="#用pickle保存对象到文件" class="headerlink" title="用pickle保存对象到文件"></a>用pickle保存对象到文件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入pickle模块</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建一个名为data1的对象</span></span><br><span class="line">data1 = &#123;<span class="string">'a'</span>: <span class="string">'123'</span>, <span class="string">'b'</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)</span></span><br><span class="line">file_to_save = open(<span class="string">"data1.pkl"</span>, <span class="string">"wb"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。</span></span><br><span class="line"><span class="comment">#第一个参数是要保存的对象名</span></span><br><span class="line"><span class="comment">#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。</span></span><br><span class="line"><span class="comment">#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。</span></span><br><span class="line">pickle.dump(data1, file_to_save, <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭文件对象</span></span><br><span class="line">file_to_save.close()</span><br></pre></td></tr></table></figure>
+<h2 id="用pickle从文件中读取对象"><a href="#用pickle从文件中读取对象" class="headerlink" title="用pickle从文件中读取对象"></a>用pickle从文件中读取对象</h2><p>(请接着上一个脚本运行)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入pickle模块</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)</span></span><br><span class="line">file_to_read = open(<span class="string">'data1.pkl'</span>, <span class="string">'rb'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2</span></span><br><span class="line">data2 = pickle.load(file_to_read)</span><br><span class="line"></span><br><span class="line"><span class="comment">#打印data2</span></span><br><span class="line"><span class="keyword">print</span> data2</span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭文件对象</span></span><br><span class="line">file_to_read.close()</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pickle/">pickle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python入门/">python入门</a></li></ul>
     </div>
 
       
@@ -793,70 +860,6 @@
       
         <p class="article-more-link">
           <a href="/2016/12/10/hello-world/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/" class="article-date">
-      <time datetime="2016-12-10T08:44:19.000Z" itemprop="datePublished">2016-12-10</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/">[Reading Notes]Privacy-CNH: A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>Mobile devices have revolutionized how people share photos with each other on social networks with a single click of a button.</p>
-<p>The content of the photos people shared to the internet are rarely analyzed by the websites before the photos are made available to view. After the photos are posted on the social network to the public to view, it is close to impossible to permanently delete the uploaded photos.</p>
-<p>Photo leakage, regretion after posting and malicious posting happens from time to time.<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CNN/">CNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PCNH/">PCNH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Privacy-Detect/">Privacy Detect</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reading-Notes/">Reading Notes</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
