@@ -273,7 +273,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,823</span> / Reading time: <span class="post-count">8 min</span></span>
+                        <span>Word count: <span class="post-count">1,820</span> / Reading time: <span class="post-count">8 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -440,7 +440,7 @@ height:50vh;
 <h3 id="绘制训练结果"><a href="#绘制训练结果" class="headerlink" title="绘制训练结果"></a>绘制训练结果</h3><p>下面的代码将会把此模型每次训练5遍，并绘制线性链接中当前的参数下的线。你将会看到模型是如何从蓝色的线收敛到红色的线（最终状态）。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># This code is supplied to visualize your results.</span></span><br><span class="line"></span><br><span class="line">plt.scatter(x,y, alpha =<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">150</span>):    </span><br><span class="line">    linear_train(x_var, y_var, n_epochs=<span class="number">5</span>)</span><br><span class="line">    y_pred = linear_forward(x_var).data</span><br><span class="line">    plt.plot(x, y_pred, color=plt.cm.cool(i/<span class="number">150.</span>), alpha = <span class="number">0.4</span>, lw =<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">slope = linear_function.W.data[<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">intercept = linear_function.b.data[<span class="number">0</span>]</span><br><span class="line">plt.title(<span class="string">"Final Line: &#123;0:.3&#125;x + &#123;1:.3&#125;"</span>.format(slope, intercept))</span><br><span class="line">plt.xlabel(<span class="string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="http://multithreaded.stitchfix.com/assets/images/blog/chainer-post/line_fit.png" alt="运行结果"></p>
-<h3 id="reference"><a href="#reference" class="headerlink" title="reference:"></a>reference:</h3><p><a href="http://multithreaded.stitchfix.com/blog/2015/12/09/intro-to-chainer/" target="_blank" rel="noopener">Introduction to Chainer: Neural Networks in Python</a><br><a href="http://docs.chainer.org/en/stable/tutorial/basic.html" target="_blank" rel="noopener">Introduction to Chainer(官方文档)</a></p>
+<h3 id="Note"><a href="#Note" class="headerlink" title="Note:"></a>Note:</h3><p>本文译自：<a href="http://multithreaded.stitchfix.com/blog/2015/12/09/intro-to-chainer/" target="_blank" rel="noopener">Introduction to Chainer: Neural Networks in Python</a></p>
 <h3 id="每日一句"><a href="#每日一句" class="headerlink" title="每日一句"></a>每日一句</h3><p>Oh là là ! C’est incroyable !（艾玛，真是令人难以置信！）</p>
 
     </article>
@@ -600,7 +600,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I-Chainer基础"><span class="toc-number">2.</span> <span class="toc-text">I. Chainer基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#了解Chainer中Variables和Functions的特点和作用"><span class="toc-number">2.1.</span> <span class="toc-text">了解Chainer中Variables和Functions的特点和作用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#II-在Chainer中做线性回归"><span class="toc-number">3.</span> <span class="toc-text">II. 在Chainer中做线性回归</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#绘制训练结果"><span class="toc-number">3.1.</span> <span class="toc-text">绘制训练结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reference"><span class="toc-number">3.2.</span> <span class="toc-text">reference:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#每日一句"><span class="toc-number">3.3.</span> <span class="toc-text">每日一句</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I-Chainer基础"><span class="toc-number">2.</span> <span class="toc-text">I. Chainer基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#了解Chainer中Variables和Functions的特点和作用"><span class="toc-number">2.1.</span> <span class="toc-text">了解Chainer中Variables和Functions的特点和作用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#II-在Chainer中做线性回归"><span class="toc-number">3.</span> <span class="toc-text">II. 在Chainer中做线性回归</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#绘制训练结果"><span class="toc-number">3.1.</span> <span class="toc-text">绘制训练结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Note"><span class="toc-number">3.2.</span> <span class="toc-text">Note:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#每日一句"><span class="toc-number">3.3.</span> <span class="toc-text">每日一句</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -613,8 +613,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
     
     
     
@@ -813,12 +811,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
         </li>
     
     
@@ -884,18 +882,6 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="python入门"><span class="iconfont-archer">&#xe606;</span>python入门</span>
     
-        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
-    
-        <span class="sidebar-tag-name" data-tags="trick"><span class="iconfont-archer">&#xe606;</span>trick</span>
-    
-        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
-    
-        <span class="sidebar-tag-name" data-tags="crawler"><span class="iconfont-archer">&#xe606;</span>crawler</span>
-    
-        <span class="sidebar-tag-name" data-tags="unicrawl"><span class="iconfont-archer">&#xe606;</span>unicrawl</span>
-    
-        <span class="sidebar-tag-name" data-tags="Reading Notes"><span class="iconfont-archer">&#xe606;</span>Reading Notes</span>
-    
         <span class="sidebar-tag-name" data-tags="object detection"><span class="iconfont-archer">&#xe606;</span>object detection</span>
     
         <span class="sidebar-tag-name" data-tags="CNN"><span class="iconfont-archer">&#xe606;</span>CNN</span>
@@ -904,21 +890,33 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="sematic segmentation-aware"><span class="iconfont-archer">&#xe606;</span>sematic segmentation-aware</span>
     
+        <span class="sidebar-tag-name" data-tags="Reading Notes"><span class="iconfont-archer">&#xe606;</span>Reading Notes</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="trick"><span class="iconfont-archer">&#xe606;</span>trick</span>
+    
         <span class="sidebar-tag-name" data-tags="PCNH"><span class="iconfont-archer">&#xe606;</span>PCNH</span>
     
         <span class="sidebar-tag-name" data-tags="Privacy Detect"><span class="iconfont-archer">&#xe606;</span>Privacy Detect</span>
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="crawler"><span class="iconfont-archer">&#xe606;</span>crawler</span>
+    
+        <span class="sidebar-tag-name" data-tags="unicrawl"><span class="iconfont-archer">&#xe606;</span>unicrawl</span>
     
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
         <span class="sidebar-tag-name" data-tags="mysql-python安装错误"><span class="iconfont-archer">&#xe606;</span>mysql-python安装错误</span>
     
-        <span class="sidebar-tag-name" data-tags="zabbix安装"><span class="iconfont-archer">&#xe606;</span>zabbix安装</span>
-    
-        <span class="sidebar-tag-name" data-tags="lamp配置"><span class="iconfont-archer">&#xe606;</span>lamp配置</span>
-    
         <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
     
         <span class="sidebar-tag-name" data-tags="远程连接报错"><span class="iconfont-archer">&#xe606;</span>远程连接报错</span>
+    
+        <span class="sidebar-tag-name" data-tags="zabbix安装"><span class="iconfont-archer">&#xe606;</span>zabbix安装</span>
+    
+        <span class="sidebar-tag-name" data-tags="lamp配置"><span class="iconfont-archer">&#xe606;</span>lamp配置</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

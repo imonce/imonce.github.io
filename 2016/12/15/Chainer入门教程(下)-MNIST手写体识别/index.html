@@ -273,7 +273,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,787</span> / Reading time: <span class="post-count">8 min</span></span>
+                        <span>Word count: <span class="post-count">1,784</span> / Reading time: <span class="post-count">8 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -441,7 +441,7 @@ height:50vh;
 <p>要调出使用的时候也很简单：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serializers.load_hdf5(<span class="string">'my_model.model'</span>, model_name)</span><br><span class="line">serializers.load_hdf5(<span class="string">'my_optimizer.state'</span>, optimizer_name)</span><br></pre></td></tr></table></figure>
 <h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>通过这篇入门教程，相信大家对于机器学习以及Chainer都有了一定的概念。可以看出，Chainer是一个非常灵活且实用的框架，机器学习也并非难以理解。如果你想进一步Chaier这个框架，个人觉得去看看<a href="http://docs.chainer.org/en/stable/" target="_blank" rel="noopener">Chainer的官方文档</a>也是一个不错的选择~</p>
-<h3 id="reference"><a href="#reference" class="headerlink" title="reference:"></a>reference:</h3><p><a href="http://multithreaded.stitchfix.com/blog/2015/12/09/intro-to-chainer/" target="_blank" rel="noopener">Introduction to Chainer: Neural Networks in Python</a><br><a href="http://docs.chainer.org/en/stable/tutorial/basic.html" target="_blank" rel="noopener">Introduction to Chainer(官方文档)</a></p>
+<h3 id="Note"><a href="#Note" class="headerlink" title="Note:"></a>Note:</h3><p>本文译自：<a href="http://multithreaded.stitchfix.com/blog/2015/12/09/intro-to-chainer/" target="_blank" rel="noopener">Introduction to Chainer: Neural Networks in Python</a></p>
 <h3 id="每日一句："><a href="#每日一句：" class="headerlink" title="每日一句："></a>每日一句：</h3><p>On n’est jamais content là où on est.（人们从来不会满意自己所在的地方。）</p>
 
     </article>
@@ -601,7 +601,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#III-训练一个手写体识别器"><span class="toc-number">1.</span> <span class="toc-text">III. 训练一个手写体识别器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FunctionSet简介"><span class="toc-number">1.1.</span> <span class="toc-text">FunctionSet简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MLP架构"><span class="toc-number">1.2.</span> <span class="toc-text">MLP架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Define-the-Model"><span class="toc-number">1.3.</span> <span class="toc-text">Define the Model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构造训练函数"><span class="toc-number">1.4.</span> <span class="toc-text">构造训练函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Train-the-Model"><span class="toc-number">1.5.</span> <span class="toc-text">Train the Model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进行预测"><span class="toc-number">1.6.</span> <span class="toc-text">进行预测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模型复用"><span class="toc-number">1.7.</span> <span class="toc-text">模型复用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">2.</span> <span class="toc-text">Conclusion</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#reference"><span class="toc-number">2.1.</span> <span class="toc-text">reference:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#每日一句："><span class="toc-number">2.2.</span> <span class="toc-text">每日一句：</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#III-训练一个手写体识别器"><span class="toc-number">1.</span> <span class="toc-text">III. 训练一个手写体识别器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FunctionSet简介"><span class="toc-number">1.1.</span> <span class="toc-text">FunctionSet简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MLP架构"><span class="toc-number">1.2.</span> <span class="toc-text">MLP架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Define-the-Model"><span class="toc-number">1.3.</span> <span class="toc-text">Define the Model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构造训练函数"><span class="toc-number">1.4.</span> <span class="toc-text">构造训练函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Train-the-Model"><span class="toc-number">1.5.</span> <span class="toc-text">Train the Model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进行预测"><span class="toc-number">1.6.</span> <span class="toc-text">进行预测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模型复用"><span class="toc-number">1.7.</span> <span class="toc-text">模型复用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">2.</span> <span class="toc-text">Conclusion</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Note"><span class="toc-number">2.1.</span> <span class="toc-text">Note:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#每日一句："><span class="toc-number">2.2.</span> <span class="toc-text">每日一句：</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -614,8 +614,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
     
     
     
@@ -814,12 +812,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
         </li>
     
     
@@ -885,18 +883,6 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="python入门"><span class="iconfont-archer">&#xe606;</span>python入门</span>
     
-        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
-    
-        <span class="sidebar-tag-name" data-tags="trick"><span class="iconfont-archer">&#xe606;</span>trick</span>
-    
-        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
-    
-        <span class="sidebar-tag-name" data-tags="crawler"><span class="iconfont-archer">&#xe606;</span>crawler</span>
-    
-        <span class="sidebar-tag-name" data-tags="unicrawl"><span class="iconfont-archer">&#xe606;</span>unicrawl</span>
-    
-        <span class="sidebar-tag-name" data-tags="Reading Notes"><span class="iconfont-archer">&#xe606;</span>Reading Notes</span>
-    
         <span class="sidebar-tag-name" data-tags="object detection"><span class="iconfont-archer">&#xe606;</span>object detection</span>
     
         <span class="sidebar-tag-name" data-tags="CNN"><span class="iconfont-archer">&#xe606;</span>CNN</span>
@@ -905,21 +891,33 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="sematic segmentation-aware"><span class="iconfont-archer">&#xe606;</span>sematic segmentation-aware</span>
     
+        <span class="sidebar-tag-name" data-tags="Reading Notes"><span class="iconfont-archer">&#xe606;</span>Reading Notes</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="trick"><span class="iconfont-archer">&#xe606;</span>trick</span>
+    
         <span class="sidebar-tag-name" data-tags="PCNH"><span class="iconfont-archer">&#xe606;</span>PCNH</span>
     
         <span class="sidebar-tag-name" data-tags="Privacy Detect"><span class="iconfont-archer">&#xe606;</span>Privacy Detect</span>
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="crawler"><span class="iconfont-archer">&#xe606;</span>crawler</span>
+    
+        <span class="sidebar-tag-name" data-tags="unicrawl"><span class="iconfont-archer">&#xe606;</span>unicrawl</span>
     
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
         <span class="sidebar-tag-name" data-tags="mysql-python安装错误"><span class="iconfont-archer">&#xe606;</span>mysql-python安装错误</span>
     
-        <span class="sidebar-tag-name" data-tags="zabbix安装"><span class="iconfont-archer">&#xe606;</span>zabbix安装</span>
-    
-        <span class="sidebar-tag-name" data-tags="lamp配置"><span class="iconfont-archer">&#xe606;</span>lamp配置</span>
-    
         <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
     
         <span class="sidebar-tag-name" data-tags="远程连接报错"><span class="iconfont-archer">&#xe606;</span>远程连接报错</span>
+    
+        <span class="sidebar-tag-name" data-tags="zabbix安装"><span class="iconfont-archer">&#xe606;</span>zabbix安装</span>
+    
+        <span class="sidebar-tag-name" data-tags="lamp配置"><span class="iconfont-archer">&#xe606;</span>lamp配置</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

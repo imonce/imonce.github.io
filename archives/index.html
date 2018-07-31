@@ -413,15 +413,26 @@ usermod -g sudo imonce
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >
+        <a class="abstract-title" href = "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >
             
-                <span>远程连接mysql报错：1130 - Host &#39;192.168.2.204&#39; is not allowed to connect to this MySQL server</span>
+                <span>远程连接mysql报错：error 2003 （hy000）:can&#39;t connect to mysql server on &#39;localhost&#39; (10061)</span>
         </a>
         <div class="abstract-content">
-            问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。
-解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。
-具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 
-1234mysql -u root -p  mysql&gt;use mysql;  mysql&gt;update user set host = &apos;%&apos; where user...
+            问题原因mysql配置文件中有一句：
+bind-address = 127.0.0.1
+导致mysql只能从本地进行连接。
+解决思路找到mysql的配置文件，将这一行注释掉。
+具体解决方案去两个配置文件中找这个配置项：
+
+/etc/mysql/my.cnf
+/etc/mysql/mysqld.cnf
+
+在这两个文件的任意一个中找到
+bind-address = 127.0.0.1
+后，将其修改成：
+#bind-address = 127.0.0.1
+然后执行 service mysql restart重新启动mysql服务使配置生效即可。
+
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -449,26 +460,15 @@ usermod -g sudo imonce
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >
+        <a class="abstract-title" href = "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >
             
-                <span>远程连接mysql报错：error 2003 （hy000）:can&#39;t connect to mysql server on &#39;localhost&#39; (10061)</span>
+                <span>远程连接mysql报错：1130 - Host &#39;192.168.2.204&#39; is not allowed to connect to this MySQL server</span>
         </a>
         <div class="abstract-content">
-            问题原因mysql配置文件中有一句：
-bind-address = 127.0.0.1
-导致mysql只能从本地进行连接。
-解决思路找到mysql的配置文件，将这一行注释掉。
-具体解决方案去两个配置文件中找这个配置项：
-
-/etc/mysql/my.cnf
-/etc/mysql/mysqld.cnf
-
-在这两个文件的任意一个中找到
-bind-address = 127.0.0.1
-后，将其修改成：
-#bind-address = 127.0.0.1
-然后执行 service mysql restart重新启动mysql服务使配置生效即可。
-
+            问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。
+解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。
+具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 
+1234mysql -u root -p  mysql&gt;use mysql;  mysql&gt;update user set host = &apos;%&apos; where user...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -660,8 +660,6 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Reading Notes">Reading Notes</a>
-    
         <a class="post-tag" href="javascript:void(0);" data-tags = "object detection">object detection</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "CNN">CNN</a>
@@ -669,6 +667,8 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
         <a class="post-tag" href="javascript:void(0);" data-tags = "multi-region">multi-region</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "sematic segmentation-aware">sematic segmentation-aware</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Reading Notes">Reading Notes</a>
     
 </div>
             
@@ -698,13 +698,13 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
             
             <div class= abstract-tags >
     
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Reading Notes">Reading Notes</a>
+    
         <a class="post-tag" href="javascript:void(0);" data-tags = "web">web</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "crawler">crawler</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "unicrawl">unicrawl</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Reading Notes">Reading Notes</a>
     
 </div>
             
@@ -960,8 +960,6 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
     
     
     
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 13
@@ -1009,12 +1007,12 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
         </li>
     
     
@@ -1080,18 +1078,6 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
     
         <span class="sidebar-tag-name" data-tags="python入门"><span class="iconfont-archer">&#xe606;</span>python入门</span>
     
-        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
-    
-        <span class="sidebar-tag-name" data-tags="trick"><span class="iconfont-archer">&#xe606;</span>trick</span>
-    
-        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
-    
-        <span class="sidebar-tag-name" data-tags="crawler"><span class="iconfont-archer">&#xe606;</span>crawler</span>
-    
-        <span class="sidebar-tag-name" data-tags="unicrawl"><span class="iconfont-archer">&#xe606;</span>unicrawl</span>
-    
-        <span class="sidebar-tag-name" data-tags="Reading Notes"><span class="iconfont-archer">&#xe606;</span>Reading Notes</span>
-    
         <span class="sidebar-tag-name" data-tags="object detection"><span class="iconfont-archer">&#xe606;</span>object detection</span>
     
         <span class="sidebar-tag-name" data-tags="CNN"><span class="iconfont-archer">&#xe606;</span>CNN</span>
@@ -1100,21 +1086,33 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
     
         <span class="sidebar-tag-name" data-tags="sematic segmentation-aware"><span class="iconfont-archer">&#xe606;</span>sematic segmentation-aware</span>
     
+        <span class="sidebar-tag-name" data-tags="Reading Notes"><span class="iconfont-archer">&#xe606;</span>Reading Notes</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="trick"><span class="iconfont-archer">&#xe606;</span>trick</span>
+    
         <span class="sidebar-tag-name" data-tags="PCNH"><span class="iconfont-archer">&#xe606;</span>PCNH</span>
     
         <span class="sidebar-tag-name" data-tags="Privacy Detect"><span class="iconfont-archer">&#xe606;</span>Privacy Detect</span>
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="crawler"><span class="iconfont-archer">&#xe606;</span>crawler</span>
+    
+        <span class="sidebar-tag-name" data-tags="unicrawl"><span class="iconfont-archer">&#xe606;</span>unicrawl</span>
     
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
         <span class="sidebar-tag-name" data-tags="mysql-python安装错误"><span class="iconfont-archer">&#xe606;</span>mysql-python安装错误</span>
     
-        <span class="sidebar-tag-name" data-tags="zabbix安装"><span class="iconfont-archer">&#xe606;</span>zabbix安装</span>
-    
-        <span class="sidebar-tag-name" data-tags="lamp配置"><span class="iconfont-archer">&#xe606;</span>lamp配置</span>
-    
         <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
     
         <span class="sidebar-tag-name" data-tags="远程连接报错"><span class="iconfont-archer">&#xe606;</span>远程连接报错</span>
+    
+        <span class="sidebar-tag-name" data-tags="zabbix安装"><span class="iconfont-archer">&#xe606;</span>zabbix安装</span>
+    
+        <span class="sidebar-tag-name" data-tags="lamp配置"><span class="iconfont-archer">&#xe606;</span>lamp配置</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
