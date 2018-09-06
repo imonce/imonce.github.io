@@ -339,60 +339,25 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/07/31/Trick-git-pull-强制覆盖本地文件/" >
+        <a class="abstract-title" href = "/2018/09/06/Trick-bash-tensorboard-未找到命令/" >
             
-                <span>[Trick]git pull 强制覆盖本地文件</span>
+                <span>[Trick]-bash: tensorboard: 未找到命令</span>
         </a>
         <div class="abstract-content">
-            123git fetch --all git reset --hard origin/mastergit pull
-note：出错的话就再试一次，说不定就可以了
+            原因tensorboard命令不在环境变量中
+解决思路找到tensorboard脚本路径，然后运行
+解决方法1python3 /home/USERNAME/.local/lib/python3.6/site-packages/tensorboard/main.py --logdir=LOGDIR
+NOTE：
+
+USERNAME是指用户名称
+LOGDIR是指log文件存放的相对或绝对目录
+
 
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/07/31</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "git">git</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "trick">trick</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/07/31/在linux上创建root权限用户（不修改系统文件）/" >
-            
-                <span>[Trick]在linux上创建root权限用户（不修改系统文件）</span>
-        </a>
-        <div class="abstract-content">
-            简略过程如我们现在要创建一个名为imonce的新用户：
-
-adduser imonce
-
-赋予root权限
-
-usermod -g sudo imonce
-
-万事大吉
-详细过程有空再补吧~(‾⌣‾~)
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/07/31</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/06</span>
             </div>
             <!-- tags  -->
             
@@ -401,6 +366,8 @@ usermod -g sudo imonce
         <a class="post-tag" href="javascript:void(0);" data-tags = "trick">trick</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "tensorboard">tensorboard</a>
     
 </div>
             
