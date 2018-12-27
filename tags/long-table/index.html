@@ -346,30 +346,29 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/09/19/linux如何查看磁盘可用空间/" >
+        <a class="abstract-title" href = "/2018/12/27/latex-使用longtable实现表格跨页/" >
             
-                <span>linux如何查看磁盘可用空间</span>
+                <span>latex:使用longtable实现表格跨页</span>
         </a>
         <div class="abstract-content">
-            命令
-df -h
-
-示例123456789101112USER_MANE@PC_NAME:~$ df -hFilesystem      Size  Used Avail Use% Mounted onudev             16G     0   16G   0% /devtmpfs           3.2G   26M  3.2G   1% /run/dev/sda1       198G  151G   38G  81% /tmpfs            16G  4.0K   16G   1% /dev/shmtmpfs           5.0M  4.0K ...
+            方法使用包\usepackage{longtable}，然后使用\begin{longtable}...\end{longtable}代替tabular即可
+注意不能在一个表格上同时使用table和longtable，比如\begin{table}\begin{longtable}...\end{longtable}\end{table}，这会使longtable无法分页。
+栗子123456789101112131415161718192021222324252627282930313233343536373839\begin&#123;center&#125;	\begin&#123;...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/19</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/27</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "latex">latex</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "磁盘">磁盘</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "long table">long table</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "空间">空间</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "表格跨页">表格跨页</a>
     
 </div>
             
