@@ -346,14 +346,26 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2017/04/24/Python入门：pickle模块简介/" >
+        <a class="abstract-title" href = "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >
             
-                <span>Python入门：pickle模块简介</span>
+                <span>远程连接mysql报错：error 2003 （hy000）:can&#39;t connect to mysql server on &#39;localhost&#39; (10061)</span>
         </a>
         <div class="abstract-content">
-            概要这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看https://docs.python.org/2/library/pickle.html
-pickle简介pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。
-就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的...
+            问题原因mysql配置文件中有一句：
+bind-address = 127.0.0.1
+导致mysql只能从本地进行连接。
+解决思路找到mysql的配置文件，将这一行注释掉。
+具体解决方案去两个配置文件中找这个配置项：
+
+/etc/mysql/my.cnf
+/etc/mysql/mysqld.cnf
+
+在这两个文件的任意一个中找到
+bind-address = 127.0.0.1
+后，将其修改成：
+#bind-address = 127.0.0.1
+然后执行 service mysql restart重新启动mysql服务使配置生效即可。
+
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -364,11 +376,11 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "trick">trick</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python入门">python入门</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "mysql">mysql</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "pickle">pickle</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "远程连接报错">远程连接报错</a>
     
 </div>
             
@@ -417,26 +429,14 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >
+        <a class="abstract-title" href = "/2017/04/24/Python入门：pickle模块简介/" >
             
-                <span>远程连接mysql报错：error 2003 （hy000）:can&#39;t connect to mysql server on &#39;localhost&#39; (10061)</span>
+                <span>Python入门：pickle模块简介</span>
         </a>
         <div class="abstract-content">
-            问题原因mysql配置文件中有一句：
-bind-address = 127.0.0.1
-导致mysql只能从本地进行连接。
-解决思路找到mysql的配置文件，将这一行注释掉。
-具体解决方案去两个配置文件中找这个配置项：
-
-/etc/mysql/my.cnf
-/etc/mysql/mysqld.cnf
-
-在这两个文件的任意一个中找到
-bind-address = 127.0.0.1
-后，将其修改成：
-#bind-address = 127.0.0.1
-然后执行 service mysql restart重新启动mysql服务使配置生效即可。
-
+            概要这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看https://docs.python.org/2/library/pickle.html
+pickle简介pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。
+就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -447,11 +447,11 @@ bind-address = 127.0.0.1
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "trick">trick</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "mysql">mysql</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "python入门">python入门</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "远程连接报错">远程连接报错</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "pickle">pickle</a>
     
 </div>
             
@@ -930,6 +930,8 @@ bind-address = 127.0.0.1
     
     
     
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 24
@@ -1027,12 +1029,12 @@ bind-address = 127.0.0.1
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
         </li>
     
     
