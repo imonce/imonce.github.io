@@ -22,7 +22,7 @@
     <meta name="description" content="this is description">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Python入门：pickle模块简介 · C_Meng</title>
+    <title>商业模式新生代读书笔记二 · C_Meng</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >C_Meng</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Python入门：pickle模块简介</a>
+                <a href="#" class="post-name">商业模式新生代读书笔记二</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Python入门：pickle模块简介
+            商业模式新生代读书笔记二
             <!-- 404 -->
             
         </h1>
@@ -266,22 +266,26 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "商业模式">商业模式</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python入门">python入门</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "商业">商业</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "pickle">pickle</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "模式">模式</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "读书笔记">读书笔记</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "商业模式式样">商业模式式样</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">608</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">372</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2017/04/24</span>
+                    <span class="post-intro-time">2019/03/11</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -405,20 +409,54 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看<a href="https://docs.python.org/2/library/pickle.html" target="_blank" rel="noopener">https://docs.python.org/2/library/pickle.html</a></p>
-<h2 id="pickle简介"><a href="#pickle简介" class="headerlink" title="pickle简介"></a>pickle简介</h2><p>pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。</p>
-<p>就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。</p>
-<h2 id="用pickle保存对象到文件"><a href="#用pickle保存对象到文件" class="headerlink" title="用pickle保存对象到文件"></a>用pickle保存对象到文件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入pickle模块</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建一个名为data1的对象</span></span><br><span class="line">data1 = &#123;<span class="string">'a'</span>: <span class="string">'123'</span>, <span class="string">'b'</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)</span></span><br><span class="line">file_to_save = open(<span class="string">"data1.pkl"</span>, <span class="string">"wb"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。</span></span><br><span class="line"><span class="comment">#第一个参数是要保存的对象名</span></span><br><span class="line"><span class="comment">#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。</span></span><br><span class="line"><span class="comment">#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。</span></span><br><span class="line">pickle.dump(data1, file_to_save, <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭文件对象</span></span><br><span class="line">file_to_save.close()</span><br></pre></td></tr></table></figure>
-<h2 id="用pickle从文件中读取对象"><a href="#用pickle从文件中读取对象" class="headerlink" title="用pickle从文件中读取对象"></a>用pickle从文件中读取对象</h2><p>(请接着上一个脚本运行)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入pickle模块</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)</span></span><br><span class="line">file_to_read = open(<span class="string">'data1.pkl'</span>, <span class="string">'rb'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2</span></span><br><span class="line">data2 = pickle.load(file_to_read)</span><br><span class="line"></span><br><span class="line"><span class="comment">#打印data2</span></span><br><span class="line"><span class="keyword">print</span> data2</span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭文件对象</span></span><br><span class="line">file_to_read.close()</span><br></pre></td></tr></table></figure></p>
-
+        <h1 id="商业模式式样"><a href="#商业模式式样" class="headerlink" title="商业模式式样"></a>商业模式式样</h1><blockquote>
+<p>建筑中的式样就是将原型和原形的再现抽象为建筑设计的概念</p>
+<p>——Christopher Alexander</p>
+</blockquote>
+<p>商业模式式样</p>
+<ul>
+<li>非绑定式商业模式</li>
+<li>长尾式商业模式</li>
+<li>多边平台式商业模式</li>
+<li>免费式商业模式</li>
+<li>开放式商业模式</li>
+</ul>
+<h2 id="非绑定式商业模式"><a href="#非绑定式商业模式" class="headerlink" title="非绑定式商业模式"></a>非绑定式商业模式</h2><h3 id="三种基础业务："><a href="#三种基础业务：" class="headerlink" title="三种基础业务："></a>三种基础业务：</h3><ol>
+<li>客户关系型业务</li>
+<li>产品创新型业务</li>
+<li>基础设施型业务</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190307135512.png" alt=""></p>
+<h2 id="长尾式商业模式"><a href="#长尾式商业模式" class="headerlink" title="长尾式商业模式"></a>长尾式商业模式</h2><p>核心：多样少量</p>
+<h3 id="式样"><a href="#式样" class="headerlink" title="式样"></a>式样</h3><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190311145707.png" alt=""></p>
+<h2 id="多边平台式商业模式"><a href="#多边平台式商业模式" class="headerlink" title="多边平台式商业模式"></a>多边平台式商业模式</h2><p>多边平台将两个或者更多有明显区别但有互相依赖的客户群体集合在一起。</p>
+<h3 id="式样-1"><a href="#式样-1" class="headerlink" title="式样"></a>式样</h3><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190311150008.png" alt=""></p>
+<h2 id="免费式商业模式"><a href="#免费式商业模式" class="headerlink" title="免费式商业模式"></a>免费式商业模式</h2><ul>
+<li>至少有一个庞大的用户细分群体可以享受持续的免费服务</li>
+<li>免费服务可以来自多种模式</li>
+</ul>
+<p>通过该商业模式的其他部分或其他客户细分群体，给分服务用户细分群体提供财务支持。</p>
+<h3 id="免费广告：多边平台的式样"><a href="#免费广告：多边平台的式样" class="headerlink" title="免费广告：多边平台的式样"></a>免费广告：多边平台的式样</h3><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190311150230.png" alt=""></p>
+<h3 id="免费式样"><a href="#免费式样" class="headerlink" title="免费式样"></a>免费式样</h3><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190311150419.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190311150511.png" alt=""></p>
+<h3 id="诱钓式样"><a href="#诱钓式样" class="headerlink" title="诱钓式样"></a>诱钓式样</h3><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190311150559.png" alt=""></p>
+<h2 id="开放式商业模式"><a href="#开放式商业模式" class="headerlink" title="开放式商业模式"></a>开放式商业模式</h2><p>开放式商业模式可以用哪些通过与外部伙伴系统合作，来创造和捕捉价值的企业。</p>
+<ul>
+<li>由外到内：将外部创意引入到公司内部</li>
+<li>由内到外：将企业内部闲置的创意和资产提供给外部伙伴</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190311151203.png" alt=""></p>
+<h3 id="由外到内的式样"><a href="#由外到内的式样" class="headerlink" title="由外到内的式样"></a>由外到内的式样</h3><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190311151251.png" alt=""></p>
+<h3 id="由内到外的式样"><a href="#由内到外的式样" class="headerlink" title="由内到外的式样"></a>由内到外的式样</h3><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190311151324.png" alt=""></p>
+<h2 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h2><center class="half"><br>    <img src="https://raw.githubusercontent.com/imonce/imgs/master/20190311151454.png" width="50%" style="display:inline"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190311151630.png" width="50%" style="display:inline"><br></center>
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://imonce.github.io">C_Meng</a>
-            <p>原文链接：<a href="http://imonce.github.io/2017/04/24/Python入门：pickle模块简介/">http://imonce.github.io/2017/04/24/Python入门：pickle模块简介/</a>
-            <p>发表日期：<a href="http://imonce.github.io/2017/04/24/Python入门：pickle模块简介/">April 24th 2017, 2:45:19 am</a>
-            <p>更新日期：<a href="http://imonce.github.io/2017/04/24/Python入门：pickle模块简介/">April 24th 2017, 1:20:02 pm</a>
+            <p>原文链接：<a href="http://imonce.github.io/2019/03/11/商业模式新生代读书笔记二/">http://imonce.github.io/2019/03/11/商业模式新生代读书笔记二/</a>
+            <p>发表日期：<a href="http://imonce.github.io/2019/03/11/商业模式新生代读书笔记二/">March 11th 2019, 3:20:56 pm</a>
+            <p>更新日期：<a href="http://imonce.github.io/2019/03/11/商业模式新生代读书笔记二/">March 11th 2019, 3:37:27 pm</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -426,17 +464,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/07/31/在linux上创建root权限用户（不修改系统文件）/" title= "[Trick]在linux上创建root权限用户（不修改系统文件）">
-                    <div class="nextTitle">[Trick]在linux上创建root权限用户（不修改系统文件）</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" title= "mysql-python安装错误：EnvironmentError:mysql_config not found">
-                    <div class="prevTitle">mysql-python安装错误：EnvironmentError:mysql_config not found</div>
+                <a href= "/2019/03/06/商业模式新生代读书笔记一/" title= "商业模式新生代读书笔记一">
+                    <div class="prevTitle">商业模式新生代读书笔记一</div>
                 </a>
             
         </li>
@@ -568,7 +601,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pickle简介"><span class="toc-number">2.</span> <span class="toc-text">pickle简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用pickle保存对象到文件"><span class="toc-number">3.</span> <span class="toc-text">用pickle保存对象到文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用pickle从文件中读取对象"><span class="toc-number">4.</span> <span class="toc-text">用pickle从文件中读取对象</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#商业模式式样"><span class="toc-number">1.</span> <span class="toc-text">商业模式式样</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#非绑定式商业模式"><span class="toc-number">1.1.</span> <span class="toc-text">非绑定式商业模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#三种基础业务："><span class="toc-number">1.1.1.</span> <span class="toc-text">三种基础业务：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#长尾式商业模式"><span class="toc-number">1.2.</span> <span class="toc-text">长尾式商业模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#式样"><span class="toc-number">1.2.1.</span> <span class="toc-text">式样</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多边平台式商业模式"><span class="toc-number">1.3.</span> <span class="toc-text">多边平台式商业模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#式样-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">式样</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#免费式商业模式"><span class="toc-number">1.4.</span> <span class="toc-text">免费式商业模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#免费广告：多边平台的式样"><span class="toc-number">1.4.1.</span> <span class="toc-text">免费广告：多边平台的式样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#免费式样"><span class="toc-number">1.4.2.</span> <span class="toc-text">免费式样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#诱钓式样"><span class="toc-number">1.4.3.</span> <span class="toc-text">诱钓式样</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开放式商业模式"><span class="toc-number">1.5.</span> <span class="toc-text">开放式商业模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#由外到内的式样"><span class="toc-number">1.5.1.</span> <span class="toc-text">由外到内的式样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#由内到外的式样"><span class="toc-number">1.5.2.</span> <span class="toc-text">由内到外的式样</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总览"><span class="toc-number">1.6.</span> <span class="toc-text">总览</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
