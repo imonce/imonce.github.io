@@ -346,228 +346,37 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/09/06/Trick-bash-tensorboard-未找到命令/" >
+        <a class="abstract-title" href = "/2019/03/15/XSD学习笔记完整版/" >
             
-                <span>[Trick]-bash: tensorboard: 未找到命令</span>
+                <span>XSD/XML Schema 学习笔记完整版</span>
         </a>
         <div class="abstract-content">
-            原因tensorboard命令不在环境变量中
-解决思路找到tensorboard脚本路径，然后运行
-解决方法1python3 /home/USERNAME/.local/lib/python3.6/site-packages/tensorboard/main.py --logdir=LOGDIR
-NOTE：
+            
+注：本文摘自W3school Schema 教程
 
-USERNAME是指用户名称
-LOGDIR是指log文件存放的相对或绝对目录
-
-
+schema声明&lt;schema> 声明&lt;schema> 元素是每一个 XML Schema 的根元素：&lt;?xml version=”1.0”?>
+123456&lt;xs:schema&gt;......&lt;/xs:schema&gt;
+&lt;schema> 元素可包含属性。一个 schema 声明往往看上去类似这样：
+12345678910&lt;?xml version=&quot;1.0&quot;?&gt; &lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/06</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/15</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "XSD">XSD</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "trick">trick</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "XML Schema">XML Schema</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "tensorboard">tensorboard</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "XML">XML</a>
     
-</div>
-            
-        </div>
-    </article>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Schema">Schema</a>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/07/31/Trick-git-pull-强制覆盖本地文件/" >
-            
-                <span>[Trick]git pull 强制覆盖本地文件</span>
-        </a>
-        <div class="abstract-content">
-            123git fetch --all git reset --hard origin/mastergit pull
-note：出错的话就再试一次，说不定就可以了
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/07/31</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "trick">trick</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "git">git</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/07/31/在linux上创建root权限用户（不修改系统文件）/" >
-            
-                <span>[Trick]在linux上创建root权限用户（不修改系统文件）</span>
-        </a>
-        <div class="abstract-content">
-            简略过程如我们现在要创建一个名为imonce的新用户：
-
-adduser imonce
-
-赋予root权限
-
-usermod -g sudo imonce
-
-万事大吉
-详细过程有空再补吧~(‾⌣‾~)
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/07/31</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "trick">trick</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" >
-            
-                <span>mysql-python安装错误：EnvironmentError:mysql_config not found</span>
-        </a>
-        <div class="abstract-content">
-            问题描述：安装mysql-python时报错：
-12345678910111213141516Collecting mysql-python  Using cached MySQL-python-1.2.5.zip    Complete output from command python setup.py egg_info:    sh: 1: mysql_config: not found    Traceback (most recent call last):      File &quot;&lt;string&gt;&quot;, line 1, in &lt;module...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/04/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "trick">trick</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "mysql">mysql</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "mysql-python安装错误">mysql-python安装错误</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >
-            
-                <span>远程连接mysql报错：1130 - Host &#39;192.168.2.204&#39; is not allowed to connect to this MySQL server</span>
-        </a>
-        <div class="abstract-content">
-            问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。
-解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。
-具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 
-1234mysql -u root -p  mysql&gt;use mysql;  mysql&gt;update user set host = &apos;%&apos; where user...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/04/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "trick">trick</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "mysql">mysql</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "远程连接报错">远程连接报错</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >
-            
-                <span>远程连接mysql报错：error 2003 （hy000）:can&#39;t connect to mysql server on &#39;localhost&#39; (10061)</span>
-        </a>
-        <div class="abstract-content">
-            问题原因mysql配置文件中有一句：
-bind-address = 127.0.0.1
-导致mysql只能从本地进行连接。
-解决思路找到mysql的配置文件，将这一行注释掉。
-具体解决方案去两个配置文件中找这个配置项：
-
-/etc/mysql/my.cnf
-/etc/mysql/mysqld.cnf
-
-在这两个文件的任意一个中找到
-bind-address = 127.0.0.1
-后，将其修改成：
-#bind-address = 127.0.0.1
-然后执行 service mysql restart重新启动mysql服务使配置生效即可。
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/04/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "trick">trick</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "mysql">mysql</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "远程连接报错">远程连接报错</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "学习笔记">学习笔记</a>
     
 </div>
             
