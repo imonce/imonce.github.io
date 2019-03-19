@@ -280,7 +280,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">6,510</span>阅读时长: <span class="post-count reading-time">29 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">6,636</span>阅读时长: <span class="post-count reading-time">30 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -425,6 +425,14 @@ height:50vh;
 <p>指出默认的命名空间是 <code>http://www.w3school.com.cn</code>。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">elementFormDefault=&quot;qualified&quot;</span><br></pre></td></tr></table></figure>
 <p>指出任何 XML 实例文档所使用的且在此 schema 中声明过的元素必须被命名空间限定。</p>
+<h2 id="在-XSD-文档中引用-其他Schema"><a href="#在-XSD-文档中引用-其他Schema" class="headerlink" title="在 XSD 文档中引用 其他Schema"></a>在 XSD 文档中引用 其他Schema</h2><p>引用方式有两种：</p>
+<ul>
+<li>include</li>
+<li>import</li>
+</ul>
+<p>import与include的作用是一样的。 区别在于import是导入另外一个命名空间的xsd， 而inlude是包含同一个命名空间的xsd。</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:include schemaLocation=&quot;module/owl1-lite-core.xsd&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:import namespace=&quot;http://www.w3.org/XML/1998/namespace&quot; </span><br><span class="line">            schemaLocation=&quot;xml.xsd&quot;&gt;</span><br><span class="line">  &lt;!-- &quot;http://www.w3.org/2001/xml.xsd&quot; --&gt;</span><br><span class="line">  &lt;xsd:annotation&gt;</span><br><span class="line">    &lt;xsd:documentation&gt;</span><br><span class="line">      Get access to the xml: attribute groups for xml:lang</span><br><span class="line">      as declared on &apos;Label&apos; and &apos;Documentation&apos; below </span><br><span class="line">    &lt;/xsd:documentation&gt;</span><br><span class="line">  &lt;/xsd:annotation&gt;</span><br><span class="line">&lt;/xsd:import&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="在-XML-文档中引用-Schema"><a href="#在-XML-文档中引用-Schema" class="headerlink" title="在 XML 文档中引用 Schema"></a>在 XML 文档中引用 Schema</h2><p>此 XML 文档含有对 XML Schema 的引用：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;note xmlns=&quot;http://www.w3school.com.cn&quot;</span><br><span class="line">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">xsi:schemaLocation=&quot;http://www.w3school.com.cn note.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;to&gt;George&lt;/to&gt;</span><br><span class="line">&lt;from&gt;John&lt;/from&gt;</span><br><span class="line">&lt;heading&gt;Reminder&lt;/heading&gt;</span><br><span class="line">&lt;body&gt;Don&apos;t forget the meeting!&lt;/body&gt;</span><br><span class="line">&lt;/note&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="代码解释-1"><a href="#代码解释-1" class="headerlink" title="代码解释"></a>代码解释</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns=&quot;http://www.w3school.com.cn&quot;</span><br></pre></td></tr></table></figure>
@@ -446,7 +454,7 @@ height:50vh;
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;color&quot; type=&quot;xs:string&quot; default=&quot;red&quot;/&gt;</span><br></pre></td></tr></table></figure>
 <p>固定值设置：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;color&quot; type=&quot;xs:string&quot; fixed=&quot;red&quot;/&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>这是一些 XML 元素：</p>
+<h3 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h3><p>这是一些 XML 元素：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;lastname&gt;Smith&lt;/lastname&gt;</span><br><span class="line">&lt;age&gt;28&lt;/age&gt;</span><br><span class="line">&lt;dateborn&gt;1980-03-27&lt;/dateborn&gt;</span><br></pre></td></tr></table></figure>
 <p>这是相应的简易元素定义：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">&lt;xs:element name=&quot;age&quot; type=&quot;xs:integer&quot;/&gt;</span><br><span class="line">&lt;xs:element name=&quot;dateborn&quot; type=&quot;xs:date&quot;/&gt;</span><br></pre></td></tr></table></figure>
@@ -459,7 +467,7 @@ height:50vh;
 <li>xs:date</li>
 <li>xs:time</li>
 </ul>
-<h3 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h3><p>这是带有属性的 XML 元素：</p>
+<h3 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h3><p>这是带有属性的 XML 元素：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;lastname lang=&quot;EN&quot;&gt;Smith&lt;/lastname&gt;</span><br></pre></td></tr></table></figure>
 <p>这是对应的属性定义：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:attribute name=&quot;lang&quot; type=&quot;xs:string&quot;/&gt;</span><br></pre></td></tr></table></figure>
@@ -568,7 +576,7 @@ height:50vh;
 <li>包含元素和文本的元素</li>
 </ul>
 <p><strong>注释：</strong>上述元素均可包含属性！</p>
-<h3 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;employee&gt;</span><br><span class="line">&lt;firstname&gt;John&lt;/firstname&gt;</span><br><span class="line">&lt;lastname&gt;Smith&lt;/lastname&gt;</span><br><span class="line">&lt;/employee&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="例子-3"><a href="#例子-3" class="headerlink" title="例子"></a>例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;employee&gt;</span><br><span class="line">&lt;firstname&gt;John&lt;/firstname&gt;</span><br><span class="line">&lt;lastname&gt;Smith&lt;/lastname&gt;</span><br><span class="line">&lt;/employee&gt;</span><br></pre></td></tr></table></figure>
 <p>的XML Schema可以写成：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;employee&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
 <p>或者：</p>
@@ -593,7 +601,7 @@ height:50vh;
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;某个名称&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:simpleContent&gt;</span><br><span class="line">      &lt;xs:extension base=&quot;basetype&quot;&gt;</span><br><span class="line">        ....</span><br><span class="line">        ....</span><br><span class="line">      &lt;/xs:extension&gt;</span><br><span class="line">    &lt;/xs:simpleContent&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
 <p>或者：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;某个名称&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:simpleContent&gt;</span><br><span class="line">      &lt;xs:restriction base=&quot;basetype&quot;&gt;</span><br><span class="line">        ....</span><br><span class="line">        ....</span><br><span class="line">      &lt;/xs:restriction&gt;</span><br><span class="line">    &lt;/xs:simpleContent&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="例子-3"><a href="#例子-3" class="headerlink" title="例子"></a>例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;shoesize country=&quot;france&quot;&gt;35&lt;/shoesize&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="例子-4"><a href="#例子-4" class="headerlink" title="例子"></a>例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;shoesize country=&quot;france&quot;&gt;35&lt;/shoesize&gt;</span><br></pre></td></tr></table></figure>
 <p>下面这个例子声明了一个复合类型，其内容被定义为整数值，并且 “shoesize” 元素含有名为 “country” 的属性：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;shoesize&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:simpleContent&gt;</span><br><span class="line">      &lt;xs:extension base=&quot;xs:integer&quot;&gt;</span><br><span class="line">        &lt;xs:attribute name=&quot;country&quot; type=&quot;xs:string&quot; /&gt;</span><br><span class="line">      &lt;/xs:extension&gt;</span><br><span class="line">    &lt;/xs:simpleContent&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
 <p>我们也可为 complexType 元素设定一个名称，并让 “shoesize” 元素的 type 属性来引用此名称（通过使用此方法，若干元素均可引用相同的复合类型）：</p>
@@ -964,7 +972,7 @@ height:50vh;
             <p>原文作者：<a href="http://imonce.github.io">C_Meng</a>
             <p>原文链接：<a href="http://imonce.github.io/2019/03/15/XSD学习笔记完整版/">http://imonce.github.io/2019/03/15/XSD学习笔记完整版/</a>
             <p>发表日期：<a href="http://imonce.github.io/2019/03/15/XSD学习笔记完整版/">March 15th 2019, 3:12:45 pm</a>
-            <p>更新日期：<a href="http://imonce.github.io/2019/03/15/XSD学习笔记完整版/">March 15th 2019, 3:24:56 pm</a>
+            <p>更新日期：<a href="http://imonce.github.io/2019/03/15/XSD学习笔记完整版/">March 19th 2019, 10:09:58 am</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1114,7 +1122,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#schema声明"><span class="toc-number">1.</span> <span class="toc-text">schema声明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-schema-声明"><span class="toc-number">1.1.</span> <span class="toc-text">&lt;schema&gt; 声明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码解释"><span class="toc-number">1.1.1.</span> <span class="toc-text">代码解释</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在-XML-文档中引用-Schema"><span class="toc-number">1.2.</span> <span class="toc-text">在 XML 文档中引用 Schema</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码解释-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">代码解释</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#简单类型"><span class="toc-number">2.</span> <span class="toc-text">简单类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#元素"><span class="toc-number">2.1.</span> <span class="toc-text">元素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用类型："><span class="toc-number">2.1.1.</span> <span class="toc-text">常用类型：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#默认值和固定值"><span class="toc-number">2.1.2.</span> <span class="toc-text">默认值和固定值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例子"><span class="toc-number">2.1.3.</span> <span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#属性"><span class="toc-number">2.2.</span> <span class="toc-text">属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用类型：-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">常用类型：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例子-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#默认值和固定值-1"><span class="toc-number">2.2.3.</span> <span class="toc-text">默认值和固定值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可选和必选"><span class="toc-number">2.2.4.</span> <span class="toc-text">可选和必选</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#限定-Facets"><span class="toc-number">2.3.</span> <span class="toc-text">限定/Facets</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对值的限定"><span class="toc-number">2.3.1.</span> <span class="toc-text">对值的限定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对一组值的限定"><span class="toc-number">2.3.2.</span> <span class="toc-text">对一组值的限定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对一系列值的限定"><span class="toc-number">2.3.3.</span> <span class="toc-text">对一系列值的限定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对一系列值的其他限定"><span class="toc-number">2.3.4.</span> <span class="toc-text">对一系列值的其他限定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对空白字符的限定"><span class="toc-number">2.3.5.</span> <span class="toc-text">对空白字符的限定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对长度的限定"><span class="toc-number">2.3.6.</span> <span class="toc-text">对长度的限定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据类型的限定"><span class="toc-number">2.3.7.</span> <span class="toc-text">数据类型的限定</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#复杂类型"><span class="toc-number">3.</span> <span class="toc-text">复杂类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#元素-1"><span class="toc-number">3.1.</span> <span class="toc-text">元素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#例子-2"><span class="toc-number">3.1.1.</span> <span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#空元素"><span class="toc-number">3.2.</span> <span class="toc-text">空元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#仅含元素"><span class="toc-number">3.3.</span> <span class="toc-text">仅含元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#仅含文本"><span class="toc-number">3.4.</span> <span class="toc-text">仅含文本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#例子-3"><span class="toc-number">3.4.1.</span> <span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#混合内容"><span class="toc-number">3.5.</span> <span class="toc-text">混合内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指示器"><span class="toc-number">3.6.</span> <span class="toc-text">指示器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ALL"><span class="toc-number">3.6.1.</span> <span class="toc-text">ALL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Choice"><span class="toc-number">3.6.2.</span> <span class="toc-text">Choice</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sequence"><span class="toc-number">3.6.3.</span> <span class="toc-text">Sequence</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maxOccurs"><span class="toc-number">3.6.4.</span> <span class="toc-text">maxOccurs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#minOccurs"><span class="toc-number">3.6.5.</span> <span class="toc-text">minOccurs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Group-name"><span class="toc-number">3.6.6.</span> <span class="toc-text">Group name</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#attributeGroup-name"><span class="toc-number">3.6.7.</span> <span class="toc-text">attributeGroup name</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-any"><span class="toc-number">3.7.</span> <span class="toc-text">&lt;any&gt;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-anyAttribute"><span class="toc-number">3.8.</span> <span class="toc-text">&lt;anyAttribute&gt;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#元素替换"><span class="toc-number">3.9.</span> <span class="toc-text">元素替换</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据类型"><span class="toc-number">4.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串"><span class="toc-number">4.1.</span> <span class="toc-text">字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串数据类型（String-Data-Type）"><span class="toc-number">4.1.1.</span> <span class="toc-text">字符串数据类型（String Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#规格化字符串数据类型（NormalizedString-Data-Type）"><span class="toc-number">4.1.2.</span> <span class="toc-text">规格化字符串数据类型（NormalizedString Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Token-数据类型（Token-Data-Type）"><span class="toc-number">4.1.3.</span> <span class="toc-text">Token 数据类型（Token Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串数据类型"><span class="toc-number">4.1.4.</span> <span class="toc-text">字符串数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对字符串数据类型的限定（Restriction）"><span class="toc-number">4.1.5.</span> <span class="toc-text">对字符串数据类型的限定（Restriction）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期"><span class="toc-number">4.2.</span> <span class="toc-text">日期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#日期数据类型（Date-Data-Type）"><span class="toc-number">4.2.1.</span> <span class="toc-text">日期数据类型（Date Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#时间数据类型（Time-Data-Type）"><span class="toc-number">4.2.2.</span> <span class="toc-text">时间数据类型（Time Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日期时间数据类型（DateTime-Data-Type）"><span class="toc-number">4.2.3.</span> <span class="toc-text">日期时间数据类型（DateTime Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#持续时间数据类型（Duration-Data-Type）"><span class="toc-number">4.2.4.</span> <span class="toc-text">持续时间数据类型（Duration Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日期和时间数据类型"><span class="toc-number">4.2.5.</span> <span class="toc-text">日期和时间数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对日期数据类型的限定（Restriction）"><span class="toc-number">4.2.6.</span> <span class="toc-text">对日期数据类型的限定（Restriction）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数值"><span class="toc-number">4.3.</span> <span class="toc-text">数值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#十进制数据类型"><span class="toc-number">4.3.1.</span> <span class="toc-text">十进制数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#整数数据类型"><span class="toc-number">4.3.2.</span> <span class="toc-text">整数数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数值数据类型"><span class="toc-number">4.3.3.</span> <span class="toc-text">数值数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对数值数据类型的限定（Restriction）"><span class="toc-number">4.3.4.</span> <span class="toc-text">对数值数据类型的限定（Restriction）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#杂项"><span class="toc-number">4.4.</span> <span class="toc-text">杂项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑数据类型（Boolean-Data-Type）"><span class="toc-number">4.4.1.</span> <span class="toc-text">逻辑数据类型（Boolean Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二进制数据类型（Binary-Data-Types）"><span class="toc-number">4.4.2.</span> <span class="toc-text">二进制数据类型（Binary Data Types）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AnyURI-数据类型（AnyURI-Data-Type）"><span class="toc-number">4.4.3.</span> <span class="toc-text">AnyURI 数据类型（AnyURI Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#杂项数据类型（Miscellaneous-Data-Types）"><span class="toc-number">4.4.4.</span> <span class="toc-text">杂项数据类型（Miscellaneous Data Types）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对杂项数据类型的限定（Restriction）"><span class="toc-number">4.4.5.</span> <span class="toc-text">对杂项数据类型的限定（Restriction）</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#schema声明"><span class="toc-number">1.</span> <span class="toc-text">schema声明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-schema-声明"><span class="toc-number">1.1.</span> <span class="toc-text">&lt;schema&gt; 声明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码解释"><span class="toc-number">1.1.1.</span> <span class="toc-text">代码解释</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在-XSD-文档中引用-其他Schema"><span class="toc-number">1.2.</span> <span class="toc-text">在 XSD 文档中引用 其他Schema</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#例子"><span class="toc-number">1.2.1.</span> <span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在-XML-文档中引用-Schema"><span class="toc-number">1.3.</span> <span class="toc-text">在 XML 文档中引用 Schema</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码解释-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">代码解释</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#简单类型"><span class="toc-number">2.</span> <span class="toc-text">简单类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#元素"><span class="toc-number">2.1.</span> <span class="toc-text">元素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用类型："><span class="toc-number">2.1.1.</span> <span class="toc-text">常用类型：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#默认值和固定值"><span class="toc-number">2.1.2.</span> <span class="toc-text">默认值和固定值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例子-1"><span class="toc-number">2.1.3.</span> <span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#属性"><span class="toc-number">2.2.</span> <span class="toc-text">属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用类型：-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">常用类型：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例子-2"><span class="toc-number">2.2.2.</span> <span class="toc-text">例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#默认值和固定值-1"><span class="toc-number">2.2.3.</span> <span class="toc-text">默认值和固定值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可选和必选"><span class="toc-number">2.2.4.</span> <span class="toc-text">可选和必选</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#限定-Facets"><span class="toc-number">2.3.</span> <span class="toc-text">限定/Facets</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对值的限定"><span class="toc-number">2.3.1.</span> <span class="toc-text">对值的限定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对一组值的限定"><span class="toc-number">2.3.2.</span> <span class="toc-text">对一组值的限定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对一系列值的限定"><span class="toc-number">2.3.3.</span> <span class="toc-text">对一系列值的限定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对一系列值的其他限定"><span class="toc-number">2.3.4.</span> <span class="toc-text">对一系列值的其他限定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对空白字符的限定"><span class="toc-number">2.3.5.</span> <span class="toc-text">对空白字符的限定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对长度的限定"><span class="toc-number">2.3.6.</span> <span class="toc-text">对长度的限定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据类型的限定"><span class="toc-number">2.3.7.</span> <span class="toc-text">数据类型的限定</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#复杂类型"><span class="toc-number">3.</span> <span class="toc-text">复杂类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#元素-1"><span class="toc-number">3.1.</span> <span class="toc-text">元素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#例子-3"><span class="toc-number">3.1.1.</span> <span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#空元素"><span class="toc-number">3.2.</span> <span class="toc-text">空元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#仅含元素"><span class="toc-number">3.3.</span> <span class="toc-text">仅含元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#仅含文本"><span class="toc-number">3.4.</span> <span class="toc-text">仅含文本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#例子-4"><span class="toc-number">3.4.1.</span> <span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#混合内容"><span class="toc-number">3.5.</span> <span class="toc-text">混合内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指示器"><span class="toc-number">3.6.</span> <span class="toc-text">指示器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ALL"><span class="toc-number">3.6.1.</span> <span class="toc-text">ALL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Choice"><span class="toc-number">3.6.2.</span> <span class="toc-text">Choice</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sequence"><span class="toc-number">3.6.3.</span> <span class="toc-text">Sequence</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maxOccurs"><span class="toc-number">3.6.4.</span> <span class="toc-text">maxOccurs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#minOccurs"><span class="toc-number">3.6.5.</span> <span class="toc-text">minOccurs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Group-name"><span class="toc-number">3.6.6.</span> <span class="toc-text">Group name</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#attributeGroup-name"><span class="toc-number">3.6.7.</span> <span class="toc-text">attributeGroup name</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-any"><span class="toc-number">3.7.</span> <span class="toc-text">&lt;any&gt;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-anyAttribute"><span class="toc-number">3.8.</span> <span class="toc-text">&lt;anyAttribute&gt;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#元素替换"><span class="toc-number">3.9.</span> <span class="toc-text">元素替换</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据类型"><span class="toc-number">4.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串"><span class="toc-number">4.1.</span> <span class="toc-text">字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串数据类型（String-Data-Type）"><span class="toc-number">4.1.1.</span> <span class="toc-text">字符串数据类型（String Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#规格化字符串数据类型（NormalizedString-Data-Type）"><span class="toc-number">4.1.2.</span> <span class="toc-text">规格化字符串数据类型（NormalizedString Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Token-数据类型（Token-Data-Type）"><span class="toc-number">4.1.3.</span> <span class="toc-text">Token 数据类型（Token Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串数据类型"><span class="toc-number">4.1.4.</span> <span class="toc-text">字符串数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对字符串数据类型的限定（Restriction）"><span class="toc-number">4.1.5.</span> <span class="toc-text">对字符串数据类型的限定（Restriction）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期"><span class="toc-number">4.2.</span> <span class="toc-text">日期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#日期数据类型（Date-Data-Type）"><span class="toc-number">4.2.1.</span> <span class="toc-text">日期数据类型（Date Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#时间数据类型（Time-Data-Type）"><span class="toc-number">4.2.2.</span> <span class="toc-text">时间数据类型（Time Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日期时间数据类型（DateTime-Data-Type）"><span class="toc-number">4.2.3.</span> <span class="toc-text">日期时间数据类型（DateTime Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#持续时间数据类型（Duration-Data-Type）"><span class="toc-number">4.2.4.</span> <span class="toc-text">持续时间数据类型（Duration Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日期和时间数据类型"><span class="toc-number">4.2.5.</span> <span class="toc-text">日期和时间数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对日期数据类型的限定（Restriction）"><span class="toc-number">4.2.6.</span> <span class="toc-text">对日期数据类型的限定（Restriction）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数值"><span class="toc-number">4.3.</span> <span class="toc-text">数值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#十进制数据类型"><span class="toc-number">4.3.1.</span> <span class="toc-text">十进制数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#整数数据类型"><span class="toc-number">4.3.2.</span> <span class="toc-text">整数数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数值数据类型"><span class="toc-number">4.3.3.</span> <span class="toc-text">数值数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对数值数据类型的限定（Restriction）"><span class="toc-number">4.3.4.</span> <span class="toc-text">对数值数据类型的限定（Restriction）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#杂项"><span class="toc-number">4.4.</span> <span class="toc-text">杂项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑数据类型（Boolean-Data-Type）"><span class="toc-number">4.4.1.</span> <span class="toc-text">逻辑数据类型（Boolean Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二进制数据类型（Binary-Data-Types）"><span class="toc-number">4.4.2.</span> <span class="toc-text">二进制数据类型（Binary Data Types）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AnyURI-数据类型（AnyURI-Data-Type）"><span class="toc-number">4.4.3.</span> <span class="toc-text">AnyURI 数据类型（AnyURI Data Type）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#杂项数据类型（Miscellaneous-Data-Types）"><span class="toc-number">4.4.4.</span> <span class="toc-text">杂项数据类型（Miscellaneous Data Types）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对杂项数据类型的限定（Restriction）"><span class="toc-number">4.4.5.</span> <span class="toc-text">对杂项数据类型的限定（Restriction）</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1127,6 +1135,24 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1635,12 +1661,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2018/09/19/linux如何查看磁盘可用空间/" >linux如何查看磁盘可用空间</a>
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2018/09/19/jupyter配置远程访问/" >jupyter配置远程访问</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2018/09/19/jupyter配置远程访问/" >jupyter配置远程访问</a>
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2018/09/19/linux如何查看磁盘可用空间/" >linux如何查看磁盘可用空间</a>
         </li>
     
     
@@ -1684,12 +1710,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" >mysql-python安装错误：EnvironmentError:mysql_config not found</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" >mysql-python安装错误：EnvironmentError:mysql_config not found</a>
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/Python入门：pickle模块简介/" >Python入门：pickle模块简介</a>
         </li>
     
     
@@ -1699,7 +1725,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/Python入门：pickle模块简介/" >Python入门：pickle模块简介</a>
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
         </li>
     
     
@@ -1751,12 +1777,6 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="mac"><span class="iconfont-archer">&#xe606;</span>mac</span>
-    
-        <span class="sidebar-tag-name" data-tags="卸载"><span class="iconfont-archer">&#xe606;</span>卸载</span>
-    
-        <span class="sidebar-tag-name" data-tags="pandoc"><span class="iconfont-archer">&#xe606;</span>pandoc</span>
-    
         <span class="sidebar-tag-name" data-tags="chainer"><span class="iconfont-archer">&#xe606;</span>chainer</span>
     
         <span class="sidebar-tag-name" data-tags="入门教程"><span class="iconfont-archer">&#xe606;</span>入门教程</span>
@@ -1764,6 +1784,12 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
     
         <span class="sidebar-tag-name" data-tags="神经网络"><span class="iconfont-archer">&#xe606;</span>神经网络</span>
+    
+        <span class="sidebar-tag-name" data-tags="mac"><span class="iconfont-archer">&#xe606;</span>mac</span>
+    
+        <span class="sidebar-tag-name" data-tags="卸载"><span class="iconfont-archer">&#xe606;</span>卸载</span>
+    
+        <span class="sidebar-tag-name" data-tags="pandoc"><span class="iconfont-archer">&#xe606;</span>pandoc</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
@@ -1773,27 +1799,19 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="python入门"><span class="iconfont-archer">&#xe606;</span>python入门</span>
     
-        <span class="sidebar-tag-name" data-tags="dict"><span class="iconfont-archer">&#xe606;</span>dict</span>
-    
-        <span class="sidebar-tag-name" data-tags="字典"><span class="iconfont-archer">&#xe606;</span>字典</span>
-    
-        <span class="sidebar-tag-name" data-tags="pickle"><span class="iconfont-archer">&#xe606;</span>pickle</span>
-    
         <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
     
         <span class="sidebar-tag-name" data-tags="trick"><span class="iconfont-archer">&#xe606;</span>trick</span>
     
         <span class="sidebar-tag-name" data-tags="tensorboard"><span class="iconfont-archer">&#xe606;</span>tensorboard</span>
     
+        <span class="sidebar-tag-name" data-tags="pickle"><span class="iconfont-archer">&#xe606;</span>pickle</span>
+    
+        <span class="sidebar-tag-name" data-tags="dict"><span class="iconfont-archer">&#xe606;</span>dict</span>
+    
+        <span class="sidebar-tag-name" data-tags="字典"><span class="iconfont-archer">&#xe606;</span>字典</span>
+    
         <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
-    
-        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
-    
-        <span class="sidebar-tag-name" data-tags="crawler"><span class="iconfont-archer">&#xe606;</span>crawler</span>
-    
-        <span class="sidebar-tag-name" data-tags="unicrawl"><span class="iconfont-archer">&#xe606;</span>unicrawl</span>
-    
-        <span class="sidebar-tag-name" data-tags="Reading Notes"><span class="iconfont-archer">&#xe606;</span>Reading Notes</span>
     
         <span class="sidebar-tag-name" data-tags="object detection"><span class="iconfont-archer">&#xe606;</span>object detection</span>
     
@@ -1803,9 +1821,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="sematic segmentation-aware"><span class="iconfont-archer">&#xe606;</span>sematic segmentation-aware</span>
     
+        <span class="sidebar-tag-name" data-tags="Reading Notes"><span class="iconfont-archer">&#xe606;</span>Reading Notes</span>
+    
         <span class="sidebar-tag-name" data-tags="PCNH"><span class="iconfont-archer">&#xe606;</span>PCNH</span>
     
         <span class="sidebar-tag-name" data-tags="Privacy Detect"><span class="iconfont-archer">&#xe606;</span>Privacy Detect</span>
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="crawler"><span class="iconfont-archer">&#xe606;</span>crawler</span>
+    
+        <span class="sidebar-tag-name" data-tags="unicrawl"><span class="iconfont-archer">&#xe606;</span>unicrawl</span>
     
         <span class="sidebar-tag-name" data-tags="jupyter"><span class="iconfont-archer">&#xe606;</span>jupyter</span>
     
@@ -1821,21 +1847,27 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="表格跨页"><span class="iconfont-archer">&#xe606;</span>表格跨页</span>
     
-        <span class="sidebar-tag-name" data-tags="bib"><span class="iconfont-archer">&#xe606;</span>bib</span>
-    
-        <span class="sidebar-tag-name" data-tags="bst"><span class="iconfont-archer">&#xe606;</span>bst</span>
-    
-        <span class="sidebar-tag-name" data-tags="caption"><span class="iconfont-archer">&#xe606;</span>caption</span>
-    
         <span class="sidebar-tag-name" data-tags="磁盘"><span class="iconfont-archer">&#xe606;</span>磁盘</span>
     
         <span class="sidebar-tag-name" data-tags="空间"><span class="iconfont-archer">&#xe606;</span>空间</span>
+    
+        <span class="sidebar-tag-name" data-tags="caption"><span class="iconfont-archer">&#xe606;</span>caption</span>
     
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
         <span class="sidebar-tag-name" data-tags="mysql-python安装错误"><span class="iconfont-archer">&#xe606;</span>mysql-python安装错误</span>
     
+        <span class="sidebar-tag-name" data-tags="bib"><span class="iconfont-archer">&#xe606;</span>bib</span>
+    
+        <span class="sidebar-tag-name" data-tags="bst"><span class="iconfont-archer">&#xe606;</span>bst</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
+    
         <span class="sidebar-tag-name" data-tags="os"><span class="iconfont-archer">&#xe606;</span>os</span>
+    
+        <span class="sidebar-tag-name" data-tags="zabbix安装"><span class="iconfont-archer">&#xe606;</span>zabbix安装</span>
+    
+        <span class="sidebar-tag-name" data-tags="lamp配置"><span class="iconfont-archer">&#xe606;</span>lamp配置</span>
     
         <span class="sidebar-tag-name" data-tags="商业模式"><span class="iconfont-archer">&#xe606;</span>商业模式</span>
     
@@ -1849,10 +1881,6 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="商业画布"><span class="iconfont-archer">&#xe606;</span>商业画布</span>
     
-        <span class="sidebar-tag-name" data-tags="zabbix安装"><span class="iconfont-archer">&#xe606;</span>zabbix安装</span>
-    
-        <span class="sidebar-tag-name" data-tags="lamp配置"><span class="iconfont-archer">&#xe606;</span>lamp配置</span>
-    
         <span class="sidebar-tag-name" data-tags="商业模式式样"><span class="iconfont-archer">&#xe606;</span>商业模式式样</span>
     
         <span class="sidebar-tag-name" data-tags="远程连接报错"><span class="iconfont-archer">&#xe606;</span>远程连接报错</span>
@@ -1862,8 +1890,6 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="第三方登录"><span class="iconfont-archer">&#xe606;</span>第三方登录</span>
     
         <span class="sidebar-tag-name" data-tags="设置方法"><span class="iconfont-archer">&#xe606;</span>设置方法</span>
-    
-        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
     
         <span class="sidebar-tag-name" data-tags="XSD"><span class="iconfont-archer">&#xe606;</span>XSD</span>
     
