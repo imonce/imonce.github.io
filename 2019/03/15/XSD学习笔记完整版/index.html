@@ -280,7 +280,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">6,636</span>阅读时长: <span class="post-count reading-time">30 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">6,923</span>阅读时长: <span class="post-count reading-time">31 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -412,7 +412,63 @@ height:50vh;
         <blockquote>
 <p><strong>注：</strong>本文摘自<a href="http://www.w3school.com.cn/schema/index.asp" target="_blank" rel="noopener">W3school Schema 教程</a></p>
 </blockquote>
-<h1 id="schema声明"><a href="#schema声明" class="headerlink" title="schema声明"></a>schema声明</h1><h2 id="lt-schema-声明"><a href="#lt-schema-声明" class="headerlink" title="&lt;schema> 声明"></a>&lt;schema> 声明</h2><p>&lt;schema> 元素是每一个 XML Schema 的根元素：<br>&lt;?xml version=”1.0”?></p>
+<h1 id="schema声明"><a href="#schema声明" class="headerlink" title="schema声明"></a>schema声明</h1><p>属性大全</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">取值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">id</td>
+<td style="text-align:left">标识该元素的唯一ID</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">attributeFormDefault</td>
+<td style="text-align:left">指定XML文档使用schema中定义的局部属性时是否必须使用命名空间限定</td>
+<td style="text-align:left">qualified:必须通过命名空间前缀限定、unqualified：（默认值）无须通过命名空间前缀限定</td>
+</tr>
+<tr>
+<td style="text-align:left">elementFormDefault</td>
+<td style="text-align:left">指定XML文档使用schema中定义的局部元素时是否必须使用命名空间限定</td>
+<td style="text-align:left">取值和含义同attributeFormDefault</td>
+</tr>
+<tr>
+<td style="text-align:left">blockDefault</td>
+<td style="text-align:left">设定schema中element和complexType上的block属性的默认值、block属性用来阻止以指定的派生类型代替原类型</td>
+<td style="text-align:left">#all或者extension、restriction和substitution的自由组合、例如extension表示防止通过扩展派生的复杂类型替代该复杂类型</td>
+</tr>
+<tr>
+<td style="text-align:left">finalDefault</td>
+<td style="text-align:left">设定schema中element、simpleType和complexType上的final的默认值、final属性用来阻止以指定的派生类型来派生新类型</td>
+<td style="text-align:left">对于element和complexType：值可以是#all或extension和restriction的自由组合、对于simpleType：值可以是#all或restriction、list和union的自由组合</td>
+</tr>
+<tr>
+<td style="text-align:left">targetNamespace</td>
+<td style="text-align:left">设定schema的命名空间的URI引用</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">version</td>
+<td style="text-align:left">设定schema的版本</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">xmlns</td>
+<td style="text-align:left">设定schema使用的一个或多个命名空间的URI引用</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">any attributes</td>
+<td style="text-align:left">设定带有non-schema命名空间的任何其他属性</td>
+</tr>
+</tbody>
+</table>
+<h2 id="lt-schema-声明"><a href="#lt-schema-声明" class="headerlink" title="&lt;schema> 声明"></a>&lt;schema> 声明</h2><p>&lt;schema> 元素是每一个 XML Schema 的根元素：<br>&lt;?xml version=”1.0”?></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:schema&gt;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">&lt;/xs:schema&gt;</span><br></pre></td></tr></table></figure>
 <p>&lt;schema> 元素可包含属性。一个 schema 声明往往看上去类似这样：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line"> </span><br><span class="line">&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;</span><br><span class="line">targetNamespace=&quot;http://www.w3school.com.cn&quot;</span><br><span class="line">xmlns=&quot;http://www.w3school.com.cn&quot;</span><br><span class="line">elementFormDefault=&quot;qualified&quot;&gt;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">&lt;/xs:schema&gt;</span><br></pre></td></tr></table></figure>
@@ -972,7 +1028,7 @@ height:50vh;
             <p>原文作者：<a href="http://imonce.github.io">C_Meng</a>
             <p>原文链接：<a href="http://imonce.github.io/2019/03/15/XSD学习笔记完整版/">http://imonce.github.io/2019/03/15/XSD学习笔记完整版/</a>
             <p>发表日期：<a href="http://imonce.github.io/2019/03/15/XSD学习笔记完整版/">March 15th 2019, 3:12:45 pm</a>
-            <p>更新日期：<a href="http://imonce.github.io/2019/03/15/XSD学习笔记完整版/">March 19th 2019, 10:09:58 am</a>
+            <p>更新日期：<a href="http://imonce.github.io/2019/03/15/XSD学习笔记完整版/">March 21st 2019, 3:33:28 pm</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1530,50 +1586,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 31
@@ -1636,12 +1648,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-统一caption格式/" >latex:统一图表caption格式</a>
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-使用longtable实现表格跨页/" >latex:使用longtable实现表格跨页</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-使用longtable实现表格跨页/" >latex:使用longtable实现表格跨页</a>
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-统一caption格式/" >latex:统一图表caption格式</a>
         </li>
     
     
@@ -1661,12 +1673,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2018/09/19/jupyter配置远程访问/" >jupyter配置远程访问</a>
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2018/09/19/linux如何查看磁盘可用空间/" >linux如何查看磁盘可用空间</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2018/09/19/linux如何查看磁盘可用空间/" >linux如何查看磁盘可用空间</a>
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2018/09/19/jupyter配置远程访问/" >jupyter配置远程访问</a>
         </li>
     
     
@@ -1715,12 +1727,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/Python入门：pickle模块简介/" >Python入门：pickle模块简介</a>
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/Python入门：pickle模块简介/" >Python入门：pickle模块简介</a>
         </li>
     
     
@@ -1785,31 +1797,31 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="神经网络"><span class="iconfont-archer">&#xe606;</span>神经网络</span>
     
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="pickle"><span class="iconfont-archer">&#xe606;</span>pickle</span>
+    
+        <span class="sidebar-tag-name" data-tags="python入门"><span class="iconfont-archer">&#xe606;</span>python入门</span>
+    
+        <span class="sidebar-tag-name" data-tags="threading"><span class="iconfont-archer">&#xe606;</span>threading</span>
+    
+        <span class="sidebar-tag-name" data-tags="多线程"><span class="iconfont-archer">&#xe606;</span>多线程</span>
+    
         <span class="sidebar-tag-name" data-tags="mac"><span class="iconfont-archer">&#xe606;</span>mac</span>
     
         <span class="sidebar-tag-name" data-tags="卸载"><span class="iconfont-archer">&#xe606;</span>卸载</span>
     
         <span class="sidebar-tag-name" data-tags="pandoc"><span class="iconfont-archer">&#xe606;</span>pandoc</span>
     
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+        <span class="sidebar-tag-name" data-tags="dict"><span class="iconfont-archer">&#xe606;</span>dict</span>
     
-        <span class="sidebar-tag-name" data-tags="threading"><span class="iconfont-archer">&#xe606;</span>threading</span>
-    
-        <span class="sidebar-tag-name" data-tags="多线程"><span class="iconfont-archer">&#xe606;</span>多线程</span>
-    
-        <span class="sidebar-tag-name" data-tags="python入门"><span class="iconfont-archer">&#xe606;</span>python入门</span>
+        <span class="sidebar-tag-name" data-tags="字典"><span class="iconfont-archer">&#xe606;</span>字典</span>
     
         <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
     
         <span class="sidebar-tag-name" data-tags="trick"><span class="iconfont-archer">&#xe606;</span>trick</span>
     
         <span class="sidebar-tag-name" data-tags="tensorboard"><span class="iconfont-archer">&#xe606;</span>tensorboard</span>
-    
-        <span class="sidebar-tag-name" data-tags="pickle"><span class="iconfont-archer">&#xe606;</span>pickle</span>
-    
-        <span class="sidebar-tag-name" data-tags="dict"><span class="iconfont-archer">&#xe606;</span>dict</span>
-    
-        <span class="sidebar-tag-name" data-tags="字典"><span class="iconfont-archer">&#xe606;</span>字典</span>
     
         <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
     
@@ -1847,27 +1859,23 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="表格跨页"><span class="iconfont-archer">&#xe606;</span>表格跨页</span>
     
+        <span class="sidebar-tag-name" data-tags="bib"><span class="iconfont-archer">&#xe606;</span>bib</span>
+    
+        <span class="sidebar-tag-name" data-tags="bst"><span class="iconfont-archer">&#xe606;</span>bst</span>
+    
+        <span class="sidebar-tag-name" data-tags="caption"><span class="iconfont-archer">&#xe606;</span>caption</span>
+    
         <span class="sidebar-tag-name" data-tags="磁盘"><span class="iconfont-archer">&#xe606;</span>磁盘</span>
     
         <span class="sidebar-tag-name" data-tags="空间"><span class="iconfont-archer">&#xe606;</span>空间</span>
     
-        <span class="sidebar-tag-name" data-tags="caption"><span class="iconfont-archer">&#xe606;</span>caption</span>
+        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
     
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
         <span class="sidebar-tag-name" data-tags="mysql-python安装错误"><span class="iconfont-archer">&#xe606;</span>mysql-python安装错误</span>
     
-        <span class="sidebar-tag-name" data-tags="bib"><span class="iconfont-archer">&#xe606;</span>bib</span>
-    
-        <span class="sidebar-tag-name" data-tags="bst"><span class="iconfont-archer">&#xe606;</span>bst</span>
-    
-        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
-    
         <span class="sidebar-tag-name" data-tags="os"><span class="iconfont-archer">&#xe606;</span>os</span>
-    
-        <span class="sidebar-tag-name" data-tags="zabbix安装"><span class="iconfont-archer">&#xe606;</span>zabbix安装</span>
-    
-        <span class="sidebar-tag-name" data-tags="lamp配置"><span class="iconfont-archer">&#xe606;</span>lamp配置</span>
     
         <span class="sidebar-tag-name" data-tags="商业模式"><span class="iconfont-archer">&#xe606;</span>商业模式</span>
     
@@ -1880,6 +1888,10 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="商业模式设计"><span class="iconfont-archer">&#xe606;</span>商业模式设计</span>
     
         <span class="sidebar-tag-name" data-tags="商业画布"><span class="iconfont-archer">&#xe606;</span>商业画布</span>
+    
+        <span class="sidebar-tag-name" data-tags="zabbix安装"><span class="iconfont-archer">&#xe606;</span>zabbix安装</span>
+    
+        <span class="sidebar-tag-name" data-tags="lamp配置"><span class="iconfont-archer">&#xe606;</span>lamp配置</span>
     
         <span class="sidebar-tag-name" data-tags="商业模式式样"><span class="iconfont-archer">&#xe606;</span>商业模式式样</span>
     
