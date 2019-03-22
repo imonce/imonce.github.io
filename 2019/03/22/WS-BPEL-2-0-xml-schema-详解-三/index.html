@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="C_Meng">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="C_Meng">
+    
+    <meta name="keywords" content="C_Meng,C_Meng,hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="this is description">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>WS-BPEL 2.0 xml schema 详解(三) · C_Meng</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >C_Meng</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">WS-BPEL 2.0 xml schema 详解(三)</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>C_Meng</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(https://source.unsplash.com/random)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            WS-BPEL 2.0 xml schema 详解(三)
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "bpel">bpel</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "wsbpel">wsbpel</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ws-bpel">ws-bpel</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "bpel2.0">bpel2.0</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "schema">schema</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "xsd">xsd</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">3,239</span>阅读时长: <span class="post-count reading-time">18 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/03/22</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="element：exit"><a href="#element：exit" class="headerlink" title="element：exit"></a>element：exit</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;exit&quot; type=&quot;tExit&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tExit&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;/&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>就是tActivity的一个元素化，可以看作是一个最原始，最纯粹的activity。</p>
+<p>和compensate、empty定义是一样的，在语义上和用法上不一样。</p>
+<h1 id="element：extensionActivity"><a href="#element：extensionActivity" class="headerlink" title="element：extensionActivity"></a>element：extensionActivity</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;extensionActivity&quot; type=&quot;tExtensionActivity&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tExtensionActivity&quot;&gt;</span><br><span class="line">    &lt;xsd:sequence&gt;</span><br><span class="line">        &lt;xsd:any namespace=&quot;##other&quot; processContents=&quot;lax&quot;/&gt;</span><br><span class="line">    &lt;/xsd:sequence&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>允许从其他命名空间增加元素当作activity装进来</p>
+<h1 id="element：flow"><a href="#element：flow" class="headerlink" title="element：flow"></a>element：flow</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;flow&quot; type=&quot;tFlow&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tFlow&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;links&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:group ref=&quot;activity&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>基于tActivity进行扩展，sequence中包含：</p>
+<ul>
+<li>element links：可以没有，在后边定义</li>
+<li>group activity：1到多个activity的group，算是一个嵌套的定义</li>
+</ul>
+<h1 id="element：links"><a href="#element：links" class="headerlink" title="element：links"></a>element：links</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;links&quot; type=&quot;tLinks&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tLinks&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;link&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:element name=&quot;link&quot; type=&quot;tLink&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tLink&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;name&quot; type=&quot;xsd:NCName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>links基于tExtensibleElements进行扩展（辣个男人又回来了），包含1至多个link</p>
+<p>link同样基于tExtensibleElements进行扩展，增加了一个属性</p>
+<p>name：NCName，这就是link的真相了</p>
+<h1 id="element：forEach"><a href="#element：forEach" class="headerlink" title="element：forEach"></a>element：forEach</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;forEach&quot; type=&quot;tForEach&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tForEach&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;startCounterValue&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;finalCounterValue&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;completionCondition&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;scope&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;counterName&quot; type=&quot;BPELVariableName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;parallel&quot; type=&quot;tBoolean&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:element name=&quot;startCounterValue&quot; type=&quot;tExpression&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:element name=&quot;finalCounterValue&quot; type=&quot;tExpression&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p>看名字就知道是一个forEach循环了，element包括</p>
+<ul>
+<li>startCounterValue</li>
+<li>finalCounterValue</li>
+<li>completionCondition</li>
+<li>scope</li>
+</ul>
+<p>这四个应该不用解释了吧，for循环要素</p>
+<p>然后还有两个属性</p>
+<ul>
+<li>counterName：计数器的名称</li>
+<li>parallel：是否并行</li>
+</ul>
+<h1 id="element：completionCondition"><a href="#element：completionCondition" class="headerlink" title="element：completionCondition"></a>element：completionCondition</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;completionCondition&quot; type=&quot;tCompletionCondition&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tCompletionCondition&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;branches&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>这个condition由一组branches构成</p>
+<h1 id="element：branches"><a href="#element：branches" class="headerlink" title="element：branches"></a>element：branches</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;branches&quot; type=&quot;tBranches&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tBranches&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExpression&quot;&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;successfulBranchesOnly&quot; type=&quot;tBoolean&quot; default=&quot;no&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>branches基于tExpression进行扩展，还有一个属性</p>
+<ul>
+<li>successfulBranchesOnly：默认是no</li>
+</ul>
+<h1 id="element：if"><a href="#element：if" class="headerlink" title="element：if"></a>element：if</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;if&quot; type=&quot;tIf&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tIf&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;condition&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">                &lt;xsd:group ref=&quot;activity&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;elseif&quot; minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;else&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>if也是一类activity，基于tAcitivity进行扩展，sequence中包括</p>
+<ul>
+<li>condition：element，至少一个</li>
+<li>activity：group，至少一个</li>
+<li>elseif：element，0到多个</li>
+<li>else：element，可以没有</li>
+</ul>
+<h1 id="element：elseif"><a href="#element：elseif" class="headerlink" title="element：elseif"></a>element：elseif</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;elseif&quot; type=&quot;tElseif&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tElseif&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;condition&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">                &lt;xsd:group ref=&quot;activity&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:element name=&quot;else&quot; type=&quot;tActivityContainer&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p>elseif基于tExtensibleElements扩展，sequence中包括</p>
+<ul>
+<li>condition：element，数量1</li>
+<li>activity：group，数量1</li>
+</ul>
+<p>Else就直接是tActivityContainer了，condition都不用。</p>
+<h1 id="element：invoke"><a href="#element：invoke" class="headerlink" title="element：invoke"></a>element：invoke</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;invoke&quot; type=&quot;tInvoke&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tInvoke&quot;&gt;</span><br><span class="line">    &lt;xsd:annotation&gt;</span><br><span class="line">        &lt;xsd:documentation&gt;</span><br><span class="line">XSD Authors: The child element correlations needs to be a Local Element Declaration, because there is another correlations element defined for the non-invoke activities.</span><br><span class="line">        &lt;/xsd:documentation&gt;</span><br><span class="line">    &lt;/xsd:annotation&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element name=&quot;correlations&quot; type=&quot;tCorrelationsWithPattern&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;catch&quot; minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;catchAll&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;compensationHandler&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;toParts&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;fromParts&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;partnerLink&quot; type=&quot;xsd:NCName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;portType&quot; type=&quot;xsd:QName&quot; use=&quot;optional&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;operation&quot; type=&quot;xsd:NCName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;inputVariable&quot; type=&quot;BPELVariableName&quot; use=&quot;optional&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;outputVariable&quot; type=&quot;BPELVariableName&quot; use=&quot;optional&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>annotation说明就不讲了</p>
+<p>基于tActivity扩展，用调用其他 Web 服务，element有6个</p>
+<ul>
+<li>correlations：本地的元素声明</li>
+<li>catch</li>
+<li>catchAll</li>
+<li>compensationHandler</li>
+<li>toParts</li>
+<li>fromParts</li>
+</ul>
+<p>attribute有5个</p>
+<ul>
+<li>partnerLink</li>
+<li>portType</li>
+<li>operation</li>
+<li>inputVariable</li>
+<li>outputVariable</li>
+</ul>
+<p>感觉看名字就懂了，没啥好讲的</p>
+<h1 id="complexType：tCorrelationsWithPattern"><a href="#complexType：tCorrelationsWithPattern" class="headerlink" title="complexType：tCorrelationsWithPattern"></a>complexType：tCorrelationsWithPattern</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:complexType name=&quot;tCorrelationsWithPattern&quot;&gt;</span><br><span class="line">    &lt;xsd:annotation&gt;</span><br><span class="line">        &lt;xsd:documentation&gt;</span><br><span class="line">XSD Authors: The child element correlation needs to be a Local Element Declaration, because there is another correlation element defined for the non-invoke activities.</span><br><span class="line">        &lt;/xsd:documentation&gt;</span><br><span class="line">    &lt;/xsd:annotation&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element name=&quot;correlation&quot; type=&quot;tCorrelationWithPattern&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tCorrelationWithPattern&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tCorrelation&quot;&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;pattern&quot; type=&quot;tPattern&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:simpleType name=&quot;tPattern&quot;&gt;</span><br><span class="line">    &lt;xsd:restriction base=&quot;xsd:string&quot;&gt;</span><br><span class="line">        &lt;xsd:enumeration value=&quot;request&quot;/&gt;</span><br><span class="line">        &lt;xsd:enumeration value=&quot;response&quot;/&gt;</span><br><span class="line">        &lt;xsd:enumeration value=&quot;request-response&quot;/&gt;</span><br><span class="line">    &lt;/xsd:restriction&gt;</span><br><span class="line">&lt;/xsd:simpleType&gt;</span><br></pre></td></tr></table></figure>
+<p>一通定义，实际上这个tCorrelationsWithPattern就是1至多个tCorrelationWithPattern</p>
+<p>这个tCorrelationWithPattern从tCorrelation进行扩展，增加了属性pattern</p>
+<p>这个pattern就是request、response、request-response三选一</p>
+<h1 id="element：fromParts"><a href="#element：fromParts" class="headerlink" title="element：fromParts"></a>element：fromParts</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;fromParts&quot; type=&quot;tFromParts&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tFromParts&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;fromPart&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:element name=&quot;fromPart&quot; type=&quot;tFromPart&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tFromPart&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;part&quot; type=&quot;xsd:NCName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;toVariable&quot; type=&quot;BPELVariableName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>fromParts扩展自tExtensibleElements，由1到多个fromPart组成</p>
+<p>fromPart同样扩展自tExtensibleElements，包含两个attribute</p>
+<ul>
+<li>part</li>
+<li>toVariable</li>
+</ul>
+<h1 id="element：toParts"><a href="#element：toParts" class="headerlink" title="element：toParts"></a>element：toParts</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;toParts&quot; type=&quot;tToParts&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tToParts&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;toPart&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:element name=&quot;toPart&quot; type=&quot;tToPart&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tToPart&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;part&quot; type=&quot;xsd:NCName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;fromVariable&quot; type=&quot;BPELVariableName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>toParts扩展自tExtensibleElements，由1到多个toPart组成</p>
+<p>toPart同样扩展自tExtensibleElements，包含两个attribute</p>
+<ul>
+<li>part</li>
+<li>fromVariable</li>
+</ul>
+<h1 id="element：pick"><a href="#element：pick" class="headerlink" title="element：pick"></a>element：pick</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;pick&quot; type=&quot;tPick&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tPick&quot;&gt;</span><br><span class="line">    &lt;xsd:annotation&gt;</span><br><span class="line">        &lt;xsd:documentation&gt;</span><br><span class="line">XSD Authors: The child element onAlarm needs to be a Local Element Declaration, because there is another onAlarm element defined for event handlers.</span><br><span class="line">        &lt;/xsd:documentation&gt;</span><br><span class="line">    &lt;/xsd:annotation&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;onMessage&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">                &lt;xsd:element name=&quot;onAlarm&quot; type=&quot;tOnAlarmPick&quot; minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;createInstance&quot; type=&quot;tBoolean&quot; default=&quot;no&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>pick扩展自tActivity</p>
+<p>两个属性都在后边定义：</p>
+<ul>
+<li>onMessage</li>
+<li>onAlarm</li>
+</ul>
+<p>一个属性：</p>
+<ul>
+<li>createInstance</li>
+</ul>
+<h1 id="element：onMessage"><a href="#element：onMessage" class="headerlink" title="element：onMessage"></a>element：onMessage</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;onMessage&quot; type=&quot;tOnMessage&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tOnMessage&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tOnMsgCommon&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:group ref=&quot;activity&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>扩展自tOnMsgCommon</p>
+<p>sequence中是一个activity的group</p>
+<h1 id="complexType：tOnAlarmPick"><a href="#complexType：tOnAlarmPick" class="headerlink" title="complexType：tOnAlarmPick"></a>complexType：tOnAlarmPick</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:complexType name=&quot;tOnAlarmPick&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:group ref=&quot;forOrUntilGroup&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">                &lt;xsd:group ref=&quot;activity&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>扩展自tExtensibleElements</p>
+<p>sequence中有两个group</p>
+<ul>
+<li>forOrUntilGroup</li>
+<li>activity</li>
+</ul>
+<p>都是出现一次</p>
+<h1 id="element：receive"><a href="#element：receive" class="headerlink" title="element：receive"></a>element：receive</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;receive&quot; type=&quot;tReceive&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tReceive&quot;&gt;</span><br><span class="line">    &lt;xsd:annotation&gt;</span><br><span class="line">        &lt;xsd:documentation&gt;</span><br><span class="line">XSD Authors: The child element correlations needs to be a Local Element Declaration, because there is another correlations element defined for the invoke activity.</span><br><span class="line">        &lt;/xsd:documentation&gt;</span><br><span class="line">    &lt;/xsd:annotation&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element name=&quot;correlations&quot; type=&quot;tCorrelations&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;fromParts&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;partnerLink&quot; type=&quot;xsd:NCName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;portType&quot; type=&quot;xsd:QName&quot; use=&quot;optional&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;operation&quot; type=&quot;xsd:NCName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;variable&quot; type=&quot;BPELVariableName&quot; use=&quot;optional&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;createInstance&quot; type=&quot;tBoolean&quot; default=&quot;no&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;messageExchange&quot; type=&quot;xsd:NCName&quot; use=&quot;optional&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>扩展自tActivity，用于（接收请求）等待客户端通过发送消息调用业务流程</p>
+<p>2个element</p>
+<ul>
+<li>correlations</li>
+<li>fromParts</li>
+</ul>
+<p>6个attribute</p>
+<ul>
+<li>partnerLink</li>
+<li>portType</li>
+<li>operation</li>
+<li>variable</li>
+<li>createInstance</li>
+<li>messageExchange</li>
+</ul>
+<h1 id="element：repeatUntil"><a href="#element：repeatUntil" class="headerlink" title="element：repeatUntil"></a>element：repeatUntil</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;repeatUntil&quot; type=&quot;tRepeatUntil&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tRepeatUntil&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:group ref=&quot;activity&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;condition&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>扩展自tActivity</p>
+<p>sequence中包含</p>
+<ul>
+<li>activity：group，数量为1</li>
+<li>condition：element，数量也是1</li>
+</ul>
+<h1 id="element：reply"><a href="#element：reply" class="headerlink" title="element：reply"></a>element：reply</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;reply&quot; type=&quot;tReply&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tReply&quot;&gt;</span><br><span class="line">    &lt;xsd:annotation&gt;</span><br><span class="line">        &lt;xsd:documentation&gt;</span><br><span class="line">XSD Authors: The child element correlations needs to be a Local Element Declaration, because there is another correlations element defined for the invoke activity.</span><br><span class="line">        &lt;/xsd:documentation&gt;</span><br><span class="line">    &lt;/xsd:annotation&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element name=&quot;correlations&quot; type=&quot;tCorrelations&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;toParts&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;partnerLink&quot; type=&quot;xsd:NCName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;portType&quot; type=&quot;xsd:QName&quot; use=&quot;optional&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;operation&quot; type=&quot;xsd:NCName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;variable&quot; type=&quot;BPELVariableName&quot; use=&quot;optional&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;faultName&quot; type=&quot;xsd:QName&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;messageExchange&quot; type=&quot;xsd:NCName&quot; use=&quot;optional&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>扩展自tActivity，用于生成同步操作的响应</p>
+<p>2个element</p>
+<ul>
+<li>correlations</li>
+<li>toParts</li>
+</ul>
+<p>6个attribute</p>
+<ul>
+<li>partnerLink</li>
+<li>portType</li>
+<li>operation</li>
+<li>variable</li>
+<li>faultName</li>
+<li>messageExchange</li>
+</ul>
+<h1 id="element：rethrow"><a href="#element：rethrow" class="headerlink" title="element：rethrow"></a>element：rethrow</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;rethrow&quot; type=&quot;tRethrow&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tRethrow&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;/&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>就是tActivity的一个元素化，可以看作是一个最原始，最纯粹的activity。</p>
+<p>和compensate、empty，exit定义是一样的，就是在语义上和用法上不一样。</p>
+<h1 id="element：scope"><a href="#element：scope" class="headerlink" title="element：scope"></a>element：scope</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;scope&quot; type=&quot;tScope&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tScope&quot;&gt;</span><br><span class="line">    &lt;xsd:annotation&gt;</span><br><span class="line">        &lt;xsd:documentation&gt;</span><br><span class="line">There is no schema-level default for &quot;exitOnStandardFault&quot; at &quot;scope&quot;. Because, it will inherit default from enclosing scope or process.</span><br><span class="line">        &lt;/xsd:documentation&gt;</span><br><span class="line">    &lt;/xsd:annotation&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;partnerLinks&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;messageExchanges&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;variables&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;correlationSets&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;faultHandlers&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;compensationHandler&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;terminationHandler&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;eventHandlers&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">                &lt;xsd:group ref=&quot;activity&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;isolated&quot; type=&quot;tBoolean&quot; default=&quot;no&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;exitOnStandardFault&quot; type=&quot;tBoolean&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>扩展自tActivity，用于以分层方式将复杂流程划分为多个组织部分。scope为活动提供了行为上下文。换言之，scope可以为不同的活动（或在 <sequence> 或 <flow>) 等通用的结构化活动下收集的活动集）定义不同的故障处理程序。除了定义故障处理程序以外，scope还可以声明只在作用域中可见的变量。scope还可以定义本地关联集、补偿处理程序和事件处理程序。</flow></sequence></p>
+<p>sequence中有：</p>
+<ul>
+<li>partnerLinks</li>
+<li>messageExchanges</li>
+<li>variables</li>
+<li>correlationSets</li>
+<li>faultHandlers</li>
+<li>compensationHandler</li>
+<li>terminationHandler</li>
+<li>eventHandlers</li>
+<li>activity</li>
+</ul>
+<p>还有两个属性  </p>
+<ul>
+<li>isolated</li>
+<li>exitOnStandardFault</li>
+</ul>
+<h1 id="element：compensationHandler"><a href="#element：compensationHandler" class="headerlink" title="element：compensationHandler"></a>element：compensationHandler</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;compensationHandler&quot; type=&quot;tActivityContainer&quot;&gt;</span><br><span class="line">    &lt;xsd:annotation&gt;</span><br><span class="line">        &lt;xsd:documentation&gt;</span><br><span class="line">This element can contain all activities including the activities compensate and compensateScope.</span><br><span class="line">        &lt;/xsd:documentation&gt;</span><br><span class="line">    &lt;/xsd:annotation&gt;</span><br><span class="line">&lt;/xsd:element&gt;</span><br></pre></td></tr></table></figure>
+<p>实际上就是一个tActivityContainer</p>
+<h1 id="element：terminationHandler"><a href="#element：terminationHandler" class="headerlink" title="element：terminationHandler"></a>element：terminationHandler</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;terminationHandler&quot; type=&quot;tActivityContainer&quot;&gt;</span><br><span class="line">    &lt;xsd:annotation&gt;</span><br><span class="line">        &lt;xsd:documentation&gt;</span><br><span class="line">This element can contain all activities including the activities compensate and compensateScope.</span><br><span class="line">        &lt;/xsd:documentation&gt;</span><br><span class="line">    &lt;/xsd:annotation&gt;</span><br><span class="line">&lt;/xsd:element&gt;</span><br></pre></td></tr></table></figure>
+<p>实际上就是一个tActivityContainer</p>
+<h1 id="element：sequence"><a href="#element：sequence" class="headerlink" title="element：sequence"></a>element：sequence</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;sequence&quot; type=&quot;tSequence&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tSequence&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:group ref=&quot;activity&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>扩展自tActivity，但是里边还可以装很多的activity的group的序列</p>
+<h1 id="element：throw"><a href="#element：throw" class="headerlink" title="element：throw"></a>element：throw</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;throw&quot; type=&quot;tThrow&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tThrow&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;faultName&quot; type=&quot;xsd:QName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;faultVariable&quot; type=&quot;BPELVariableName&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>扩展自tActivity，增加了两个属性</p>
+<ul>
+<li>faultName</li>
+<li>faultVariable</li>
+</ul>
+<h1 id="element：validate"><a href="#element：validate" class="headerlink" title="element：validate"></a>element：validate</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;validate&quot; type=&quot;tValidate&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tValidate&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;variables&quot; use=&quot;required&quot; type=&quot;BPELVariableNames&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>扩展自tActivity，增加了1个属性</p>
+<ul>
+<li>variables：BPELVariableNames</li>
+</ul>
+<h1 id="simpleType：BPELVariableNames"><a href="#simpleType：BPELVariableNames" class="headerlink" title="simpleType：BPELVariableNames"></a>simpleType：BPELVariableNames</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:simpleType name=&quot;BPELVariableNames&quot;&gt;</span><br><span class="line">    &lt;xsd:restriction&gt;</span><br><span class="line">        &lt;xsd:simpleType&gt;</span><br><span class="line">            &lt;xsd:list itemType=&quot;BPELVariableName&quot;/&gt;</span><br><span class="line">        &lt;/xsd:simpleType&gt;</span><br><span class="line">        &lt;xsd:minLength value=&quot;1&quot;/&gt;</span><br><span class="line">    &lt;/xsd:restriction&gt;</span><br><span class="line">&lt;/xsd:simpleType&gt;</span><br></pre></td></tr></table></figure>
+<p>一个BPELVariableName的list，默认空格分割，最短一个</p>
+<h1 id="element：wait"><a href="#element：wait" class="headerlink" title="element：wait"></a>element：wait</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;wait&quot; type=&quot;tWait&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tWait&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;&gt;</span><br><span class="line">            &lt;xsd:choice&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;for&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;until&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">            &lt;/xsd:choice&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>扩展自tActivity，增加了元素，从for和until中二选一</p>
+<h1 id="element：while"><a href="#element：while" class="headerlink" title="element：while"></a>element：while</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;while&quot; type=&quot;tWhile&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tWhile&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivity&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;condition&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">                &lt;xsd:group ref=&quot;activity&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>扩展自tActivity，增加了一个sequence，里边有</p>
+<ul>
+<li>condition</li>
+<li>activity</li>
+</ul>
+<h1 id="complexType：tExpression"><a href="#complexType：tExpression" class="headerlink" title="complexType：tExpression"></a>complexType：tExpression</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:complexType name=&quot;tExpression&quot; mixed=&quot;true&quot;&gt;</span><br><span class="line">    &lt;xsd:sequence&gt;</span><br><span class="line">        &lt;xsd:any minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; processContents=&quot;lax&quot;/&gt;</span><br><span class="line">    &lt;/xsd:sequence&gt;</span><br><span class="line">    &lt;xsd:attribute name=&quot;expressionLanguage&quot; type=&quot;xsd:anyURI&quot;/&gt;</span><br><span class="line">    &lt;xsd:anyAttribute namespace=&quot;##other&quot; processContents=&quot;lax&quot;/&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>tExpression的内容基本就是随便写</p>
+<p>属性有一个expressionLanguage，然后还可以再增加其他属性</p>
+<p>看起来是any，实际上要看expressionLanguage的</p>
+<h1 id="complexType：tCondition"><a href="#complexType：tCondition" class="headerlink" title="complexType：tCondition"></a>complexType：tCondition</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:complexType name=&quot;tCondition&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent mixed=&quot;true&quot;&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExpression&quot;/&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>tCondition就是在tExpression的基础上随便写</p>
+<h1 id="element：condition"><a href="#element：condition" class="headerlink" title="element：condition"></a>element：condition</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;condition&quot; type=&quot;tBoolean-expr&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tBoolean-expr&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent mixed=&quot;true&quot;&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExpression&quot;/&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>condition也是在tExpression的基础上随便写</p>
+<h1 id="complexType：tDuration-expr"><a href="#complexType：tDuration-expr" class="headerlink" title="complexType：tDuration-expr"></a>complexType：tDuration-expr</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:complexType name=&quot;tDuration-expr&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent mixed=&quot;true&quot;&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExpression&quot;/&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>在tExpression的基础上随便写</p>
+<h1 id="complexType：tDeadline-expr"><a href="#complexType：tDeadline-expr" class="headerlink" title="complexType：tDeadline-expr"></a>complexType：tDeadline-expr</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:complexType name=&quot;tDeadline-expr&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent mixed=&quot;true&quot;&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExpression&quot;/&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>在tExpression的基础上随便写</p>
+<h1 id="simpleType：tBoolean"><a href="#simpleType：tBoolean" class="headerlink" title="simpleType：tBoolean"></a>simpleType：tBoolean</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:simpleType name=&quot;tBoolean&quot;&gt;</span><br><span class="line">    &lt;xsd:restriction base=&quot;xsd:string&quot;&gt;</span><br><span class="line">        &lt;xsd:enumeration value=&quot;yes&quot;/&gt;</span><br><span class="line">        &lt;xsd:enumeration value=&quot;no&quot;/&gt;</span><br><span class="line">    &lt;/xsd:restriction&gt;</span><br><span class="line">&lt;/xsd:simpleType&gt;</span><br></pre></td></tr></table></figure>
+<p>yes or no，二选一</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://imonce.github.io">C_Meng</a>
+            <p>原文链接：<a href="http://imonce.github.io/2019/03/22/WS-BPEL-2-0-xml-schema-详解-三/">http://imonce.github.io/2019/03/22/WS-BPEL-2-0-xml-schema-详解-三/</a>
+            <p>发表日期：<a href="http://imonce.github.io/2019/03/22/WS-BPEL-2-0-xml-schema-详解-三/">March 22nd 2019, 4:24:20 pm</a>
+            <p>更新日期：<a href="http://imonce.github.io/2019/03/22/WS-BPEL-2-0-xml-schema-详解-三/">March 22nd 2019, 4:25:28 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2019/03/22/WS-BPEL-2-0-xml-schema-详解-全/" title= "WS-BPEL 2.0 xml schema 详解(全)">
+                    <div class="nextTitle">WS-BPEL 2.0 xml schema 详解(全)</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/03/22/WS-BPEL-2-0-xml-schema-详解-二/" title= "WS-BPEL 2.0 xml schema 详解(二)">
+                    <div class="prevTitle">WS-BPEL 2.0 xml schema 详解(二)</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz",
+        appKey: "WBQPPWjmwGWqvQcLqprPq0xs",
+        placeholder: "",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:imonce@outlook.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/imonce" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" class="iconfont-archer weibo" target="_blank" title=weibo></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://www.linkedin.com/in/萌-席-72ab6815a/" class="iconfont-archer linkedin" target="_blank" title=linkedin></a>
+            
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#element：exit"><span class="toc-number">1.</span> <span class="toc-text">element：exit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：extensionActivity"><span class="toc-number">2.</span> <span class="toc-text">element：extensionActivity</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：flow"><span class="toc-number">3.</span> <span class="toc-text">element：flow</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：links"><span class="toc-number">4.</span> <span class="toc-text">element：links</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：forEach"><span class="toc-number">5.</span> <span class="toc-text">element：forEach</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：completionCondition"><span class="toc-number">6.</span> <span class="toc-text">element：completionCondition</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：branches"><span class="toc-number">7.</span> <span class="toc-text">element：branches</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：if"><span class="toc-number">8.</span> <span class="toc-text">element：if</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：elseif"><span class="toc-number">9.</span> <span class="toc-text">element：elseif</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：invoke"><span class="toc-number">10.</span> <span class="toc-text">element：invoke</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#complexType：tCorrelationsWithPattern"><span class="toc-number">11.</span> <span class="toc-text">complexType：tCorrelationsWithPattern</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：fromParts"><span class="toc-number">12.</span> <span class="toc-text">element：fromParts</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：toParts"><span class="toc-number">13.</span> <span class="toc-text">element：toParts</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：pick"><span class="toc-number">14.</span> <span class="toc-text">element：pick</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：onMessage"><span class="toc-number">15.</span> <span class="toc-text">element：onMessage</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#complexType：tOnAlarmPick"><span class="toc-number">16.</span> <span class="toc-text">complexType：tOnAlarmPick</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：receive"><span class="toc-number">17.</span> <span class="toc-text">element：receive</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：repeatUntil"><span class="toc-number">18.</span> <span class="toc-text">element：repeatUntil</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：reply"><span class="toc-number">19.</span> <span class="toc-text">element：reply</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：rethrow"><span class="toc-number">20.</span> <span class="toc-text">element：rethrow</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：scope"><span class="toc-number">21.</span> <span class="toc-text">element：scope</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：compensationHandler"><span class="toc-number">22.</span> <span class="toc-text">element：compensationHandler</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：terminationHandler"><span class="toc-number">23.</span> <span class="toc-text">element：terminationHandler</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：sequence"><span class="toc-number">24.</span> <span class="toc-text">element：sequence</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：throw"><span class="toc-number">25.</span> <span class="toc-text">element：throw</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：validate"><span class="toc-number">26.</span> <span class="toc-text">element：validate</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#simpleType：BPELVariableNames"><span class="toc-number">27.</span> <span class="toc-text">simpleType：BPELVariableNames</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：wait"><span class="toc-number">28.</span> <span class="toc-text">element：wait</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：while"><span class="toc-number">29.</span> <span class="toc-text">element：while</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#complexType：tExpression"><span class="toc-number">30.</span> <span class="toc-text">complexType：tExpression</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#complexType：tCondition"><span class="toc-number">31.</span> <span class="toc-text">complexType：tCondition</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#element：condition"><span class="toc-number">32.</span> <span class="toc-text">element：condition</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#complexType：tDuration-expr"><span class="toc-number">33.</span> <span class="toc-text">complexType：tDuration-expr</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#complexType：tDeadline-expr"><span class="toc-number">34.</span> <span class="toc-text">complexType：tDeadline-expr</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#simpleType：tBoolean"><span class="toc-number">35.</span> <span class="toc-text">simpleType：tBoolean</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 35
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2019/03/22/WS-BPEL-2-0-xml-schema-详解-二/" >WS-BPEL 2.0 xml schema 详解(二)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2019/03/22/WS-BPEL-2-0-xml-schema-详解-三/" >WS-BPEL 2.0 xml schema 详解(三)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2019/03/22/WS-BPEL-2-0-xml-schema-详解-全/" >WS-BPEL 2.0 xml schema 详解(全)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href= "/2019/03/21/WS-BPEL-2-0-xml-schema-详解(一)/" >WS-BPEL 2.0 xml schema 详解(一)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/owl本体语言学习笔记/" >owl本体语言学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span><a class="archive-post-title" href= "/2019/03/15/XSD学习笔记完整版/" >XSD/XML Schema 学习笔记完整版</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/12</span><a class="archive-post-title" href= "/2019/03/12/商业模式新生代读书笔记三/" >商业模式新生代读书笔记三</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2019/03/11/商业模式新生代读书笔记二/" >商业模式新生代读书笔记二</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/03/06/商业模式新生代读书笔记一/" >商业模式新生代读书笔记一</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/03/05/浙大邮箱第三方登录设置方法/" >浙大邮箱第三方登录设置方法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/13</span><a class="archive-post-title" href= "/2019/01/13/mac显示隐藏文件-文件夹快捷键/" >mac显示隐藏文件/文件夹快捷键</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-使用longtable实现表格跨页/" >latex:使用longtable实现表格跨页</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-统一caption格式/" >latex:统一图表caption格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-修改bst使bib引文按照引用顺序排序/" >latex:修改bst使bib引文按照引用顺序排序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/29</span><a class="archive-post-title" href= "/2018/11/29/XMLSchema入门/" >XML Schema (XSD) 入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/28</span><a class="archive-post-title" href= "/2018/09/28/Mac如何卸载pandoc/" >Mac如何卸载pandoc</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2018/09/19/jupyter配置远程访问/" >jupyter配置远程访问</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2018/09/19/linux如何查看磁盘可用空间/" >linux如何查看磁盘可用空间</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/06</span><a class="archive-post-title" href= "/2018/09/06/Trick-bash-tensorboard-未找到命令/" >[Trick]-bash: tensorboard: 未找到命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span><a class="archive-post-title" href= "/2018/08/09/Python-python通过threading开启多线程/" >[Python]通过threading开启多线程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2018/08/08/Python-对dict字典进行排序/" >[Python]对dict字典进行排序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2018/08/06/python-获取某文件夹下所有文件名/" >[Python]获取某文件夹下所有文件名</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2018/07/31/Trick-git-pull-强制覆盖本地文件/" >[Trick]git pull 强制覆盖本地文件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2018/07/31/在linux上创建root权限用户（不修改系统文件）/" >[Trick]在linux上创建root权限用户（不修改系统文件）</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" >mysql-python安装错误：EnvironmentError:mysql_config not found</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/Python入门：pickle模块简介/" >Python入门：pickle模块简介</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/" >Chainer入门教程(下)：MNIST手写体识别</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2016/12/14/Chainer入门教程(上)：在Chainer中做线性回归/" >Chainer入门教程(上)：在Chainer中做线性回归</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/13</span><a class="archive-post-title" href= "/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/" >[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/11</span><a class="archive-post-title" href= "/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/" >[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2016/12/10/hello-world/" >Hello World</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/" >[Reading Notes]Privacy-CNH: A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2016/08/08/从0到100：zabbix及其支持环境的完整安装教程/" >从0到100：zabbix及其支持环境的完整安装教程</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="mac"><span class="iconfont-archer">&#xe606;</span>mac</span>
+    
+        <span class="sidebar-tag-name" data-tags="卸载"><span class="iconfont-archer">&#xe606;</span>卸载</span>
+    
+        <span class="sidebar-tag-name" data-tags="pandoc"><span class="iconfont-archer">&#xe606;</span>pandoc</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="pickle"><span class="iconfont-archer">&#xe606;</span>pickle</span>
+    
+        <span class="sidebar-tag-name" data-tags="python入门"><span class="iconfont-archer">&#xe606;</span>python入门</span>
+    
+        <span class="sidebar-tag-name" data-tags="dict"><span class="iconfont-archer">&#xe606;</span>dict</span>
+    
+        <span class="sidebar-tag-name" data-tags="字典"><span class="iconfont-archer">&#xe606;</span>字典</span>
+    
+        <span class="sidebar-tag-name" data-tags="threading"><span class="iconfont-archer">&#xe606;</span>threading</span>
+    
+        <span class="sidebar-tag-name" data-tags="多线程"><span class="iconfont-archer">&#xe606;</span>多线程</span>
+    
+        <span class="sidebar-tag-name" data-tags="chainer"><span class="iconfont-archer">&#xe606;</span>chainer</span>
+    
+        <span class="sidebar-tag-name" data-tags="入门教程"><span class="iconfont-archer">&#xe606;</span>入门教程</span>
+    
+        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
+    
+        <span class="sidebar-tag-name" data-tags="神经网络"><span class="iconfont-archer">&#xe606;</span>神经网络</span>
+    
+        <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="trick"><span class="iconfont-archer">&#xe606;</span>trick</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorboard"><span class="iconfont-archer">&#xe606;</span>tensorboard</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="PCNH"><span class="iconfont-archer">&#xe606;</span>PCNH</span>
+    
+        <span class="sidebar-tag-name" data-tags="CNN"><span class="iconfont-archer">&#xe606;</span>CNN</span>
+    
+        <span class="sidebar-tag-name" data-tags="Privacy Detect"><span class="iconfont-archer">&#xe606;</span>Privacy Detect</span>
+    
+        <span class="sidebar-tag-name" data-tags="Reading Notes"><span class="iconfont-archer">&#xe606;</span>Reading Notes</span>
+    
+        <span class="sidebar-tag-name" data-tags="latex"><span class="iconfont-archer">&#xe606;</span>latex</span>
+    
+        <span class="sidebar-tag-name" data-tags="long table"><span class="iconfont-archer">&#xe606;</span>long table</span>
+    
+        <span class="sidebar-tag-name" data-tags="表格跨页"><span class="iconfont-archer">&#xe606;</span>表格跨页</span>
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="crawler"><span class="iconfont-archer">&#xe606;</span>crawler</span>
+    
+        <span class="sidebar-tag-name" data-tags="unicrawl"><span class="iconfont-archer">&#xe606;</span>unicrawl</span>
+    
+        <span class="sidebar-tag-name" data-tags="bib"><span class="iconfont-archer">&#xe606;</span>bib</span>
+    
+        <span class="sidebar-tag-name" data-tags="bst"><span class="iconfont-archer">&#xe606;</span>bst</span>
+    
+        <span class="sidebar-tag-name" data-tags="caption"><span class="iconfont-archer">&#xe606;</span>caption</span>
+    
+        <span class="sidebar-tag-name" data-tags="jupyter"><span class="iconfont-archer">&#xe606;</span>jupyter</span>
+    
+        <span class="sidebar-tag-name" data-tags="远程访问"><span class="iconfont-archer">&#xe606;</span>远程访问</span>
+    
+        <span class="sidebar-tag-name" data-tags="ipython"><span class="iconfont-archer">&#xe606;</span>ipython</span>
+    
+        <span class="sidebar-tag-name" data-tags="notebook"><span class="iconfont-archer">&#xe606;</span>notebook</span>
+    
+        <span class="sidebar-tag-name" data-tags="object detection"><span class="iconfont-archer">&#xe606;</span>object detection</span>
+    
+        <span class="sidebar-tag-name" data-tags="multi-region"><span class="iconfont-archer">&#xe606;</span>multi-region</span>
+    
+        <span class="sidebar-tag-name" data-tags="sematic segmentation-aware"><span class="iconfont-archer">&#xe606;</span>sematic segmentation-aware</span>
+    
+        <span class="sidebar-tag-name" data-tags="磁盘"><span class="iconfont-archer">&#xe606;</span>磁盘</span>
+    
+        <span class="sidebar-tag-name" data-tags="空间"><span class="iconfont-archer">&#xe606;</span>空间</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
+    
+        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="mysql-python安装错误"><span class="iconfont-archer">&#xe606;</span>mysql-python安装错误</span>
+    
+        <span class="sidebar-tag-name" data-tags="商业模式"><span class="iconfont-archer">&#xe606;</span>商业模式</span>
+    
+        <span class="sidebar-tag-name" data-tags="商业"><span class="iconfont-archer">&#xe606;</span>商业</span>
+    
+        <span class="sidebar-tag-name" data-tags="模式"><span class="iconfont-archer">&#xe606;</span>模式</span>
+    
+        <span class="sidebar-tag-name" data-tags="读书笔记"><span class="iconfont-archer">&#xe606;</span>读书笔记</span>
+    
+        <span class="sidebar-tag-name" data-tags="商业模式设计"><span class="iconfont-archer">&#xe606;</span>商业模式设计</span>
+    
+        <span class="sidebar-tag-name" data-tags="os"><span class="iconfont-archer">&#xe606;</span>os</span>
+    
+        <span class="sidebar-tag-name" data-tags="商业画布"><span class="iconfont-archer">&#xe606;</span>商业画布</span>
+    
+        <span class="sidebar-tag-name" data-tags="商业模式式样"><span class="iconfont-archer">&#xe606;</span>商业模式式样</span>
+    
+        <span class="sidebar-tag-name" data-tags="zabbix安装"><span class="iconfont-archer">&#xe606;</span>zabbix安装</span>
+    
+        <span class="sidebar-tag-name" data-tags="lamp配置"><span class="iconfont-archer">&#xe606;</span>lamp配置</span>
+    
+        <span class="sidebar-tag-name" data-tags="远程连接报错"><span class="iconfont-archer">&#xe606;</span>远程连接报错</span>
+    
+        <span class="sidebar-tag-name" data-tags="浙大邮箱"><span class="iconfont-archer">&#xe606;</span>浙大邮箱</span>
+    
+        <span class="sidebar-tag-name" data-tags="第三方登录"><span class="iconfont-archer">&#xe606;</span>第三方登录</span>
+    
+        <span class="sidebar-tag-name" data-tags="设置方法"><span class="iconfont-archer">&#xe606;</span>设置方法</span>
+    
+        <span class="sidebar-tag-name" data-tags="XSD"><span class="iconfont-archer">&#xe606;</span>XSD</span>
+    
+        <span class="sidebar-tag-name" data-tags="XML Schema"><span class="iconfont-archer">&#xe606;</span>XML Schema</span>
+    
+        <span class="sidebar-tag-name" data-tags="bpel"><span class="iconfont-archer">&#xe606;</span>bpel</span>
+    
+        <span class="sidebar-tag-name" data-tags="wsbpel"><span class="iconfont-archer">&#xe606;</span>wsbpel</span>
+    
+        <span class="sidebar-tag-name" data-tags="ws-bpel"><span class="iconfont-archer">&#xe606;</span>ws-bpel</span>
+    
+        <span class="sidebar-tag-name" data-tags="bpel2.0"><span class="iconfont-archer">&#xe606;</span>bpel2.0</span>
+    
+        <span class="sidebar-tag-name" data-tags="schema"><span class="iconfont-archer">&#xe606;</span>schema</span>
+    
+        <span class="sidebar-tag-name" data-tags="xsd"><span class="iconfont-archer">&#xe606;</span>xsd</span>
+    
+        <span class="sidebar-tag-name" data-tags="owl"><span class="iconfont-archer">&#xe606;</span>owl</span>
+    
+        <span class="sidebar-tag-name" data-tags="本体"><span class="iconfont-archer">&#xe606;</span>本体</span>
+    
+        <span class="sidebar-tag-name" data-tags="学习笔记"><span class="iconfont-archer">&#xe606;</span>学习笔记</span>
+    
+        <span class="sidebar-tag-name" data-tags="XML"><span class="iconfont-archer">&#xe606;</span>XML</span>
+    
+        <span class="sidebar-tag-name" data-tags="Schema"><span class="iconfont-archer">&#xe606;</span>Schema</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "C_Meng"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
