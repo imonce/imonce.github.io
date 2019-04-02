@@ -22,7 +22,7 @@
     <meta name="description" content="this is description">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>[Reading Notes] Object detection via a multi-region &amp; sematic segmentation-aware CNN model · C_Meng</title>
+    <title>latex数学符号表 · C_Meng</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >C_Meng</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model</a>
+                <a href="#" class="post-name">latex数学符号表</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            [Reading Notes] Object detection via a multi-region & sematic segmentation-aw...
+            latex数学符号表
             <!-- 404 -->
             
         </h1>
@@ -266,26 +266,20 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "object detection">object detection</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "latex">latex</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CNN">CNN</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "multi-region">multi-region</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "sematic segmentation-aware">sematic segmentation-aware</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Reading Notes">Reading Notes</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "数学符号">数学符号</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1,189</span>阅读时长: <span class="post-count reading-time">7 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">12</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2016/12/13</span>
+                    <span class="post-intro-time">2019/04/02</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -409,149 +403,17 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>This article propose an object detection system that relies on a multi-region deep convolutional neural network that also encodes sematic segmentation-aware features. The module aims at capturing a diverse set of discriminative appearance factors and exhibits localization sensitivity that is essential for accurate object localization. They exploit the above properties of their recognition module by intergrating it on an iterative localization mechanism that alternates between socring a box proposal and refgining its location with a deep CNN regression model. And consiquently, they detect objects with very high localization accuracy.</p>
-<h2 id="I-Introduction"><a href="#I-Introduction" class="headerlink" title="I. Introduction"></a>I. Introduction</h2><p>The definition of object detection:</p>
-<blockquote>
-<p>Given an image return all the instances of one or more type of objects in form of bounding boxes that tightly enclose them.</p>
-</blockquote>
-<a id="more"></a>
-<p>Overfeat:</p>
-<blockquote>
-<p>Using two CNN models that apply in a sliding window fashion on multiple scales of an image. The first is used to classify if a window contains an object. The second is to predict the true bounding box location of the object. And use <strong>greedy algorithm</strong> in the end to merge them.</p>
-</blockquote>
-<p>R-CNN:</p>
-<blockquote>
-<p>Using <strong>Alex Krizhevsky’s Net</strong>  to extract features from box proposals provided by selective search and then it classifies them with class specific linear SVMs.</p>
-</blockquote>
-<p>How to further advance the state-of-the-art on object detection?</p>
-<blockquote>
-<p>Focusing on object representation and object localization. </p>
-</blockquote>
-<p>Object representation:</p>
-<blockquote>
-<p>Indeed features matter a lot on object detection. Instead of proposing only a network architecture that is deeper, here they also opt for an architecture of greater width. And that was accomplished at two levels:</p>
-</blockquote>
-<blockquote>
-<ol>
-<li>They want their object representation to capture several different aspects of an object. To achieve this, they propose a multi-component CNN model (multi-region CNN). Each component of it is steered to focus on a different region.</li>
-<li>They wish to enrich the above representation so that it also captures semantic segmentation information</li>
-</ol>
-</blockquote>
-<p>Object localization:</p>
-<blockquote>
-<p>They attempt to built a more powerful localization system that combines their multi-region CNN model with a CNN-model for bounding box regression, which are used within an iterative scheme that alternates between scoring candidate boxes and reﬁning their coordinates.</p>
-</blockquote>
-<p>Their Contributions:</p>
-<blockquote>
-<ol>
-<li>They develop a multi-region CNN recognition model that yields an enriched object representation capable of capturing a diversity of discriminative appearance factors and of exhibiting localization sensitivity that is desired for the task of accurate object localization.</li>
-<li>They furthermore extend the above model by proposing a uniﬁed neural network architecture that also learns semantic segmentation-aware CNN features for the task of object detection.</li>
-<li>They show how to significantly improve the localization capability by coupling the aforementioned CNN recognition model with a CNN model for bounding box regression.</li>
-<li>Their detection system achieves <strong>mAP</strong> of 78.2% and 73.9% on <strong>VOC2007 and VOC2012</strong> detection challenges respectively.</li>
-</ol>
-</blockquote>
-<h2 id="II-Multi-Region-CNN-Model"><a href="#II-Multi-Region-CNN-Model" class="headerlink" title="II. Multi-Region CNN Model"></a>II. Multi-Region CNN Model</h2><ol>
-<li>Activation maps module<ul>
-<li>This part of the network gets as input the entire image and outputs activation maps (feature maps) by forwarding it through a sequence of convolutional layers.</li>
-</ul>
-</li>
-<li>Region adaptation module<ul>
-<li>Given a region R on the image and the activation maps of the image, this module projects R on the activation maps, crops the activations that lay inside it, pools them with a spatially adaptive (max-)pooling layer, and then forwards them through a multi-layer network.</li>
-</ul>
-</li>
-</ol>
-<p>This is the architecture of the Multi-Region CNN model:</p>
-<p><img src="http://ohykn376o.bkt.clouddn.com/OBDE2.png" alt="Figure2"></p>
-<p>There are two aims of that:</p>
-<blockquote>
-<ol>
-<li>to force the network to capture various complementary aspects of the objects appearance, thus leading to a much richer and more robust object representation</li>
-<li>to also make the resulting representation more sensitive to inaccurate localization, which is also crucial for object detection</li>
-</ol>
-</blockquote>
-<p><strong><em>The regions they deploy:</em></strong></p>
-<blockquote>
-<ol>
-<li>Original candidate box</li>
-<li>Half boxes</li>
-<li>Central Regions</li>
-<li>Border Regions</li>
-<li>Contextual Region</li>
-</ol>
-</blockquote>
-<p><strong><em>Why these regions helps?</em></strong></p>
-<blockquote>
-<ol>
-<li>Discriminative feature diversification</li>
-<li>Localization-aware representation</li>
-</ol>
-</blockquote>
-<h2 id="III-Semantic-Segmentation-Aware-CNN-Model"><a href="#III-Semantic-Segmentation-Aware-CNN-Model" class="headerlink" title="III. Semantic Segmentation-Aware CNN Model"></a>III. Semantic Segmentation-Aware CNN Model</h2><p><img src="http://ohykn376o.bkt.clouddn.com/OBDE1.png" alt="figure4"></p>
-<ul>
-<li>Activation maps module for semantic segmentation aware features<ul>
-<li><strong><em>Weakly supervised training</em></strong>(see Figure 4)</li>
-<li>Activation maps</li>
-</ul>
-</li>
-<li>Region adaptation module for semantic segmentation aware features</li>
-</ul>
-<p>They combine the Multi-Region CNN features and the semantic segmentation aware CNN features by concatenating them. The resulting network thus jointly learns deep features of both types during training.</p>
-<h2 id="IV-Object-Localization"><a href="#IV-Object-Localization" class="headerlink" title="IV. Object Localization"></a>IV. Object Localization</h2><p>There are three main components in this section:</p>
-<ol>
-<li><p>CNN region adaptation module for bounding box regression</p>
-<ul>
-<li>It is applied on top of the activation maps produced from the Multi-Region CNN model and, instead of a typical one-layer ridge regression model, consists of two hidden fully connected layers and one prediction layer that outputs 4 values per category. In order to allow it to predict the location of object instances that are not in the close proximity of any of the initial candidate boxes, we Use as region a box obtained by enlarging the candidate box by a factor of 1.3. This combination offers a significant boost on the detection performance of out system by allowing it to make more accurate predictions and for more distant objects.</li>
-</ul>
-</li>
-<li><p>Iterative Localization</p>
-<ul>
-<li>Their localization scheme starts from the selective search proposals and works by iteratively scoring them and refining their coordinates.</li>
-</ul>
-</li>
-<li><p>Bounding box voting</p>
-<ul>
-<li>Because of the multiple regression steps, the generated boxes will be highly concentrated around the actual objects of interest. They exploit this “by-product” of the iterative localization scheme by adding a step of bounding box voting.</li>
-</ul>
-</li>
-</ol>
-<h2 id="V-Implementation-Details"><a href="#V-Implementation-Details" class="headerlink" title="V. Implementation Details"></a>V. Implementation Details</h2><blockquote>
-<p>For all the CNN models involved in their proposed system, we used the publicly available <strong>16-layers VGG model</strong> pre-trained on ImageNet for the task of image classification.</p>
-</blockquote>
-<p>Multi-Region CNN model</p>
-<blockquote>
-<p>Its activation maps module consistes of the convolustional part of the 16-layers VGG-Net that outputs 512 feature channels. The max-pooling layer right after the last convolutional layer is omitted on this module. Each region adaptation module inherits the fully connected layers of the 16-layers VGG-Net and is fine-tuned separately from the others.</p>
-</blockquote>
-<p>Semantic segmentation-aware CNN model</p>
-<blockquote>
-<p>The activation maps module architecture consists of the 16-layers VGG-Net without the last classification layer and transformed to a Fully Convolutional Network.</p>
-</blockquote>
-<p>Classification SVMs</p>
-<blockquote>
-<p>The ground truth bounding boxes are used as positive samples and the selective search proposals that overlap with the ground truth boxes by less than 0.3, are used as negative samples.</p>
-</blockquote>
-<p>CNN region adaptation module for bounding box regression</p>
-<blockquote>
-<p>The region adaptation module for bounding box regression inherits the fully connected hidden layers of the 16-layers VGG-Net. As a loss function they use the euclidean distance between the target values and the network predictions.</p>
-</blockquote>
-<h2 id="VI-Experimental-Evaluation"><a href="#VI-Experimental-Evaluation" class="headerlink" title="VI. Experimental Evaluation"></a>VI. Experimental Evaluation</h2><ol>
-<li>Results on PASCAL VOC2007</li>
-<li>Detection error analysis</li>
-<li>Results on PASCAL VOC2012</li>
-</ol>
-<h2 id="VII-Conclusion"><a href="#VII-Conclusion" class="headerlink" title="VII. Conclusion"></a>VII. Conclusion</h2><p>Two key factors:</p>
-<ol>
-<li>the diversification of the discriminative appearance factors that it captures by steering its focus on different regions of the object</li>
-<li>the encoding of semantic segmentation-aware features. By using it in the context of a CNN-based localization refinement scheme, they showed that it achieves excellent results that surpass the state-of-the-are by a significant margin</li>
-</ol>
+        <p>reference:<a href="http://www.mohu.org/info/lshort-cn.pdf" target="_blank" rel="noopener">一份不太简短的 LATEX 2ε 介绍</a></p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190402205303.png" alt=""><br><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190402205327.png" alt=""><br><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190402205344.png" alt=""><br><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190402205358.png" alt=""><br><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190402205411.png" alt=""><br><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190402205429.png" alt=""><br><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190402205441.png" alt=""></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://imonce.github.io">C_Meng</a>
-            <p>原文链接：<a href="http://imonce.github.io/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/">http://imonce.github.io/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/</a>
-            <p>发表日期：<a href="http://imonce.github.io/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/">December 13th 2016, 10:58:00 pm</a>
-            <p>更新日期：<a href="http://imonce.github.io/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/">December 16th 2016, 11:30:10 am</a>
+            <p>原文链接：<a href="http://imonce.github.io/2019/04/02/latex数学符号表/">http://imonce.github.io/2019/04/02/latex数学符号表/</a>
+            <p>发表日期：<a href="http://imonce.github.io/2019/04/02/latex数学符号表/">April 2nd 2019, 8:52:17 pm</a>
+            <p>更新日期：<a href="http://imonce.github.io/2019/04/02/latex数学符号表/">April 2nd 2019, 8:58:11 pm</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -559,17 +421,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2016/12/14/Chainer入门教程(上)：在Chainer中做线性回归/" title= "Chainer入门教程(上)：在Chainer中做线性回归">
-                    <div class="nextTitle">Chainer入门教程(上)：在Chainer中做线性回归</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/" title= "[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler">
-                    <div class="prevTitle">[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler</div>
+                <a href= "/2019/04/02/MECE分析法学习-Mutually-Exclusive-Collectively-Exhaustive/" title= "MECE分析法学习(Mutually Exclusive Collectively Exhaustive)">
+                    <div class="prevTitle">MECE分析法学习(Mutually Exclusive Collectively Exhaustive)</div>
                 </a>
             
         </li>
@@ -701,7 +558,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I-Introduction"><span class="toc-number">2.</span> <span class="toc-text">I. Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#II-Multi-Region-CNN-Model"><span class="toc-number">3.</span> <span class="toc-text">II. Multi-Region CNN Model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#III-Semantic-Segmentation-Aware-CNN-Model"><span class="toc-number">4.</span> <span class="toc-text">III. Semantic Segmentation-Aware CNN Model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IV-Object-Localization"><span class="toc-number">5.</span> <span class="toc-text">IV. Object Localization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#V-Implementation-Details"><span class="toc-number">6.</span> <span class="toc-text">V. Implementation Details</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VI-Experimental-Evaluation"><span class="toc-number">7.</span> <span class="toc-text">VI. Experimental Evaluation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VII-Conclusion"><span class="toc-number">8.</span> <span class="toc-text">VII. Conclusion</span></a></li></ol>
+        
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
