@@ -22,7 +22,7 @@
     <meta name="description" content="this is description">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>C_Meng</title>
+    <title>通过python进行数据分析(一) · C_Meng</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >C_Meng</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">通过python进行数据分析(一)</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>C_Meng</a>
 </header>
@@ -220,24 +231,78 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(https://source.unsplash.com/random)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            通过python进行数据分析(一)
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "学习笔记">学习笔记</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "数据分析">数据分析</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1,890</span>阅读时长: <span class="post-count reading-time">9 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/04/14</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,77 +403,251 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/03/15/XSD学习笔记完整版/" >
-            
-                <span>XSD/XML Schema 学习笔记完整版</span>
-        </a>
-        <div class="abstract-content">
-            
-注：本文摘自W3school Schema 教程
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="Introductory-examples"><a href="#Introductory-examples" class="headerlink" title="Introductory examples"></a>Introductory examples</h1><h2 id="1-usa-gov-data-from-bit-ly"><a href="#1-usa-gov-data-from-bit-ly" class="headerlink" title="1.usa.gov data from bit.ly"></a>1.usa.gov data from bit.ly</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 显示当前路径</span></span><br><span class="line">%pwd</span><br></pre></td></tr></table></figure>
+<pre><code>&apos;/Users/imonce/OneDrive/learning/dataAnalyze/pydata-book-master&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 回到上一层（..）又回到当前文件夹（pydata-book-master）</span></span><br><span class="line">%cd ../pydata-book-master</span><br></pre></td></tr></table></figure>
+<pre><code>/Users/imonce/OneDrive/learning/dataAnalyze/pydata-book-master
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建变量并赋值，这里path是数据所在路径</span></span><br><span class="line">path = <span class="string">'ch02/usagov_bitly_data2012-03-16-1331923249.txt'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># open：打开path路径代表的文件</span></span><br><span class="line"><span class="comment"># open().readline()：读取文件的第一行，并把指针下移一行（再执行一次读取的就是文件的第二行了，以此类推）</span></span><br><span class="line">open(path).readline()</span><br></pre></td></tr></table></figure>
+<pre><code>&apos;{ &quot;a&quot;: &quot;Mozilla\\/5.0 (Windows NT 6.1; WOW64) AppleWebKit\\/535.11 (KHTML, like Gecko) Chrome\\/17.0.963.78 Safari\\/535.11&quot;, &quot;c&quot;: &quot;US&quot;, &quot;nk&quot;: 1, &quot;tz&quot;: &quot;America\\/New_York&quot;, &quot;gr&quot;: &quot;MA&quot;, &quot;g&quot;: &quot;A6qOVH&quot;, &quot;h&quot;: &quot;wfLQtf&quot;, &quot;l&quot;: &quot;orofrog&quot;, &quot;al&quot;: &quot;en-US,en;q=0.8&quot;, &quot;hh&quot;: &quot;1.usa.gov&quot;, &quot;r&quot;: &quot;http:\\/\\/www.facebook.com\\/l\\/7AQEFzjSi\\/1.usa.gov\\/wfLQtf&quot;, &quot;u&quot;: &quot;http:\\/\\/www.ncbi.nlm.nih.gov\\/pubmed\\/22415991&quot;, &quot;t&quot;: 1331923247, &quot;hc&quot;: 1331822918, &quot;cy&quot;: &quot;Danvers&quot;, &quot;ll&quot;: [ 42.576698, -70.954903 ] }\n&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入json包</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="comment"># 创建变量并赋值，这里path是数据所在路径</span></span><br><span class="line">path = <span class="string">'ch02/usagov_bitly_data2012-03-16-1331923249.txt'</span></span><br><span class="line"><span class="comment"># json.loads()：以json格式读取数据，读取出来是key：value对，可以像字典一样查询</span></span><br><span class="line"><span class="comment"># for line in open(path)：逐行遍历path文件中的数据</span></span><br><span class="line"><span class="comment"># [json.loads(line) for line in open(path)]：逐行遍历path文件中的数据，通过按照json格式读取，然后每一行的作为一个item组成list（就是外边那个方括号的作用）</span></span><br><span class="line">records = [json.loads(line) <span class="keyword">for</span> line <span class="keyword">in</span> open(path)]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 取出第一个item（第一行读取的内容）看一下</span></span><br><span class="line"><span class="comment"># 这个语句本身没有打印作用，但是在jupyter里边直接放变量会给你打印出来</span></span><br><span class="line"><span class="comment"># 标准写法应该为print(records[0])</span></span><br><span class="line">records[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>{&apos;a&apos;: &apos;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.78 Safari/535.11&apos;,
+ &apos;al&apos;: &apos;en-US,en;q=0.8&apos;,
+ &apos;c&apos;: &apos;US&apos;,
+ &apos;cy&apos;: &apos;Danvers&apos;,
+ &apos;g&apos;: &apos;A6qOVH&apos;,
+ &apos;gr&apos;: &apos;MA&apos;,
+ &apos;h&apos;: &apos;wfLQtf&apos;,
+ &apos;hc&apos;: 1331822918,
+ &apos;hh&apos;: &apos;1.usa.gov&apos;,
+ &apos;l&apos;: &apos;orofrog&apos;,
+ &apos;ll&apos;: [42.576698, -70.954903],
+ &apos;nk&apos;: 1,
+ &apos;r&apos;: &apos;http://www.facebook.com/l/7AQEFzjSi/1.usa.gov/wfLQtf&apos;,
+ &apos;t&apos;: 1331923247,
+ &apos;tz&apos;: &apos;America/New_York&apos;,
+ &apos;u&apos;: &apos;http://www.ncbi.nlm.nih.gov/pubmed/22415991&apos;}
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询第一个item中，key为'a'的value</span></span><br><span class="line">records[<span class="number">0</span>][<span class="string">'a'</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>&apos;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.78 Safari/535.11&apos;
+</code></pre><h3 id="Counting-time-zones-in-pure-Python"><a href="#Counting-time-zones-in-pure-Python" class="headerlink" title="Counting time zones in pure Python"></a>Counting time zones in pure Python</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果查询不存在的key的话会报错</span></span><br><span class="line">records[<span class="number">0</span>][<span class="string">'cc'</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>---------------------------------------------------------------------------
 
-schema声明属性大全
+KeyError                                  Traceback (most recent call last)
 
-
-
-属性
-说明
-取值
-
-
-
-
-id
-标识该元素的唯一ID
-
-
-
-attributeFormDefault
-指定XML文档使用schema中定义的局部属性时是否必须使用命名空间限定
-qualified:必须通过命名空间前缀限定、unqualified：（默认值）无须通过命名空间前缀限定
-
-
-elementFormDefault
-指定XML文档使用schema中定义的局部元素时是否必须使用命名空间限定
-取值和含义同attributeFormDefault
+&lt;ipython-input-8-992e1ec28c8d&gt; in &lt;module&gt;()
+      1 # 如果查询不存在的key的话会报错
+----&gt; 2 records[0][&apos;cc&apos;]
 
 
-blockDefault
-设定schema中elem...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/15</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "学习笔记">学习笔记</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "XSD">XSD</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "XML Schema">XML Schema</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "XML">XML</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Schema">Schema</a>
-    
-</div>
-            
-        </div>
+KeyError: &apos;cc&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># for rec in records：吧records这个list里边的item逐个取出，每次取出都用rec命名</span></span><br><span class="line"><span class="comment"># [rec['tz'] for rec in records]：把rec中key为‘tz’的value取出来，作为item构建list</span></span><br><span class="line"><span class="comment"># 直接运行会报错，因为有的行里边是没有‘tz’这个key的</span></span><br><span class="line">time_zones = [rec[<span class="string">'tz'</span>] <span class="keyword">for</span> rec <span class="keyword">in</span> records]</span><br></pre></td></tr></table></figure>
+<pre><code>---------------------------------------------------------------------------
+
+KeyError                                  Traceback (most recent call last)
+
+&lt;ipython-input-9-abb6a4fa53e3&gt; in &lt;module&gt;()
+      2 # [rec[&apos;tz&apos;] for rec in records]：把rec中key为‘tz’的value取出来，作为item构建list
+      3 # 直接运行会报错，因为有的行里边是没有‘tz’这个key的
+----&gt; 4 time_zones = [rec[&apos;tz&apos;] for rec in records]
+
+
+&lt;ipython-input-9-abb6a4fa53e3&gt; in &lt;listcomp&gt;(.0)
+      2 # [rec[&apos;tz&apos;] for rec in records]：把rec中key为‘tz’的value取出来，作为item构建list
+      3 # 直接运行会报错，因为有的行里边是没有‘tz’这个key的
+----&gt; 4 time_zones = [rec[&apos;tz&apos;] for rec in records]
+
+
+KeyError: &apos;tz&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 因此这一句在上一句的基础上，增加if 'tz' in rec，意为只把tz的rec中的value构成list</span></span><br><span class="line"><span class="comment"># 因此time_zones的长度小于records</span></span><br><span class="line">time_zones = [rec[<span class="string">'tz'</span>] <span class="keyword">for</span> rec <span class="keyword">in</span> records <span class="keyword">if</span> <span class="string">'tz'</span> <span class="keyword">in</span> rec]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出两个list的长度看一下</span></span><br><span class="line"><span class="comment"># records中有120个item是没有‘tz’这个key的</span></span><br><span class="line">print(len(records),len(time_zones))</span><br></pre></td></tr></table></figure>
+<pre><code>3560 3440
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这个函数的参数sequence应该是一个list</span></span><br><span class="line"><span class="comment"># 这个函数的输出是一个dict，其中key是sequence中的item，value是item出现的次数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_counts</span><span class="params">(sequence)</span>:</span></span><br><span class="line">    <span class="comment"># 创建空字典counts</span></span><br><span class="line">    counts = &#123;&#125;</span><br><span class="line">    <span class="comment"># 遍历sequence中的item，命名为x</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> sequence:</span><br><span class="line">        <span class="comment"># 如果x在counts中作为key出现过</span></span><br><span class="line">        <span class="keyword">if</span> x <span class="keyword">in</span> counts:</span><br><span class="line">            <span class="comment"># 将当前x对应的value的值+1</span></span><br><span class="line">            counts[x] += <span class="number">1</span></span><br><span class="line">        <span class="comment"># counts的key中没有x</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 创建x这个key，并将其对应的value设置为1</span></span><br><span class="line">            counts[x] = <span class="number">1</span></span><br><span class="line">    <span class="comment"># 返回counts这个字典</span></span><br><span class="line">    <span class="keyword">return</span> counts</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从collections这个包里导入defaultdict这个函数</span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这个函数的参数sequence应该是一个list</span></span><br><span class="line"><span class="comment"># 这个函数的输出是一个dict，其中key是sequence中的item，value是item出现的次数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_counts2</span><span class="params">(sequence)</span>:</span></span><br><span class="line">    <span class="comment"># 创建空字典，字典中的value默认为int类型的变量</span></span><br><span class="line">    <span class="comment"># 意义在于，每次插入一个新的key时，对应的value会自动设置为0，不需要先赋值一次</span></span><br><span class="line">    counts = defaultdict(int) <span class="comment"># values will initialize to 0</span></span><br><span class="line">    <span class="comment"># 遍历sequence中的item，命名为x</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> sequence:</span><br><span class="line">        <span class="comment"># counts的key中有x就直接+1</span></span><br><span class="line">        <span class="comment"># 没有就插入x这个key，（自动初始化value为0），然后+1</span></span><br><span class="line">        counts[x] += <span class="number">1</span></span><br><span class="line">    <span class="comment"># 返回counts这个字典</span></span><br><span class="line">    <span class="keyword">return</span> counts</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 调用刚刚定义的函数，统计一下time_zones这个list中每个时区出现的次数</span></span><br><span class="line">counts = get_counts(time_zones)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># counts是一个dict，因此可以直接通过key查询value的值</span></span><br><span class="line"><span class="comment"># 看看'America/New_York'这个key对应的value时多少</span></span><br><span class="line">counts[<span class="string">'America/New_York'</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>1251
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># counts.items()：把counts这个字典中的key和value成对取出</span></span><br><span class="line"><span class="comment"># [(count, tz) for tz, count in counts.items()]：把键值对以二元组的形式构成list</span></span><br><span class="line">[(count, tz) <span class="keyword">for</span> tz, count <span class="keyword">in</span> counts.items()]</span><br></pre></td></tr></table></figure>
+<pre><code>[(1251, &apos;America/New_York&apos;),
+ (191, &apos;America/Denver&apos;),
+ (33, &apos;America/Sao_Paulo&apos;),
+ (16, &apos;Europe/Warsaw&apos;),
+ (521, &apos;&apos;),
+ (382, &apos;America/Los_Angeles&apos;),
+ (10, &apos;Asia/Hong_Kong&apos;),
+ (27, &apos;Europe/Rome&apos;),
+ (2, &apos;Africa/Ceuta&apos;),
+ (35, &apos;Europe/Madrid&apos;),
+ (3, &apos;Asia/Kuala_Lumpur&apos;),
+ (1, &apos;Asia/Nicosia&apos;),
+ (74, &apos;Europe/London&apos;),
+ (36, &apos;Pacific/Honolulu&apos;),
+ (400, &apos;America/Chicago&apos;),
+ (2, &apos;Europe/Malta&apos;),
+ (8, &apos;Europe/Lisbon&apos;),
+ (14, &apos;Europe/Paris&apos;),
+ (5, &apos;Europe/Copenhagen&apos;),
+ (1, &apos;America/Mazatlan&apos;),
+ (3, &apos;Europe/Dublin&apos;),
+ (4, &apos;Europe/Brussels&apos;),
+ (12, &apos;America/Vancouver&apos;),
+ (22, &apos;Europe/Amsterdam&apos;),
+ (10, &apos;Europe/Prague&apos;),
+ (14, &apos;Europe/Stockholm&apos;),
+ (5, &apos;America/Anchorage&apos;),
+ (6, &apos;Asia/Bangkok&apos;),
+ (28, &apos;Europe/Berlin&apos;),
+ (25, &apos;America/Rainy_River&apos;),
+ (5, &apos;Europe/Budapest&apos;),
+ (37, &apos;Asia/Tokyo&apos;),
+ (6, &apos;Europe/Vienna&apos;),
+ (20, &apos;America/Phoenix&apos;),
+ (3, &apos;Asia/Jerusalem&apos;),
+ (3, &apos;Asia/Karachi&apos;),
+ (3, &apos;America/Bogota&apos;),
+ (20, &apos;America/Indianapolis&apos;),
+ (9, &apos;America/Montreal&apos;),
+ (9, &apos;Asia/Calcutta&apos;),
+ (1, &apos;Europe/Skopje&apos;),
+ (4, &apos;Asia/Beirut&apos;),
+ (6, &apos;Australia/NSW&apos;),
+ (6, &apos;Chile/Continental&apos;),
+ (4, &apos;America/Halifax&apos;),
+ (6, &apos;America/Edmonton&apos;),
+ (3, &apos;Europe/Bratislava&apos;),
+ (2, &apos;America/Recife&apos;),
+ (3, &apos;Africa/Cairo&apos;),
+ (9, &apos;Asia/Istanbul&apos;),
+ (1, &apos;Asia/Novosibirsk&apos;),
+ (10, &apos;Europe/Moscow&apos;),
+ (1, &apos;Europe/Sofia&apos;),
+ (1, &apos;Europe/Ljubljana&apos;),
+ (15, &apos;America/Mexico_City&apos;),
+ (10, &apos;Europe/Helsinki&apos;),
+ (4, &apos;Europe/Bucharest&apos;),
+ (4, &apos;Europe/Zurich&apos;),
+ (10, &apos;America/Puerto_Rico&apos;),
+ (1, &apos;America/Monterrey&apos;),
+ (6, &apos;Europe/Athens&apos;),
+ (4, &apos;America/Winnipeg&apos;),
+ (2, &apos;Europe/Riga&apos;),
+ (1, &apos;America/Argentina/Buenos_Aires&apos;),
+ (4, &apos;Asia/Dubai&apos;),
+ (10, &apos;Europe/Oslo&apos;),
+ (1, &apos;Asia/Yekaterinburg&apos;),
+ (1, &apos;Asia/Manila&apos;),
+ (1, &apos;America/Caracas&apos;),
+ (1, &apos;Asia/Riyadh&apos;),
+ (1, &apos;America/Montevideo&apos;),
+ (1, &apos;America/Argentina/Mendoza&apos;),
+ (5, &apos;Asia/Seoul&apos;),
+ (1, &apos;Europe/Uzhgorod&apos;),
+ (1, &apos;Australia/Queensland&apos;),
+ (2, &apos;Europe/Belgrade&apos;),
+ (1, &apos;America/Costa_Rica&apos;),
+ (1, &apos;America/Lima&apos;),
+ (1, &apos;Asia/Pontianak&apos;),
+ (2, &apos;America/Chihuahua&apos;),
+ (2, &apos;Europe/Vilnius&apos;),
+ (3, &apos;America/Managua&apos;),
+ (1, &apos;Africa/Lusaka&apos;),
+ (2, &apos;America/Guayaquil&apos;),
+ (3, &apos;Asia/Harbin&apos;),
+ (2, &apos;Asia/Amman&apos;),
+ (1, &apos;Africa/Johannesburg&apos;),
+ (1, &apos;America/St_Kitts&apos;),
+ (11, &apos;Pacific/Auckland&apos;),
+ (1, &apos;America/Santo_Domingo&apos;),
+ (1, &apos;America/Argentina/Cordoba&apos;),
+ (1, &apos;Asia/Kuching&apos;),
+ (1, &apos;Europe/Volgograd&apos;),
+ (1, &apos;America/La_Paz&apos;),
+ (1, &apos;Africa/Casablanca&apos;),
+ (3, &apos;Asia/Jakarta&apos;),
+ (1, &apos;America/Tegucigalpa&apos;)]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># count_dict是待统计的字典，n是要取出n项，默认为10</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">top_counts</span><span class="params">(count_dict, n=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="comment"># counts.items()：把counts这个字典中的key和value成对取出</span></span><br><span class="line">    <span class="comment"># [(count, tz) for tz, count in counts.items()]：把键值对以二元组的形式构成list</span></span><br><span class="line">    value_key_pairs = [(count, tz) <span class="keyword">for</span> tz, count <span class="keyword">in</span> count_dict.items()]</span><br><span class="line">    <span class="comment"># 调用python中的list自带的sort()方法，默认按照第一维从小到达排序</span></span><br><span class="line">    value_key_pairs.sort()</span><br><span class="line">    <span class="comment"># [-n:]意思为从倒数第n项一直取到最后一项，也就是说返回的是最大的n个</span></span><br><span class="line">    <span class="keyword">return</span> value_key_pairs[-n:]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 看看counts中出现最多的时区</span></span><br><span class="line">top_counts(counts)</span><br></pre></td></tr></table></figure>
+<pre><code>[(33, &apos;America/Sao_Paulo&apos;),
+ (35, &apos;Europe/Madrid&apos;),
+ (36, &apos;Pacific/Honolulu&apos;),
+ (37, &apos;Asia/Tokyo&apos;),
+ (74, &apos;Europe/London&apos;),
+ (191, &apos;America/Denver&apos;),
+ (382, &apos;America/Los_Angeles&apos;),
+ (400, &apos;America/Chicago&apos;),
+ (521, &apos;&apos;),
+ (1251, &apos;America/New_York&apos;)]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 其实有现成的包可以用</span></span><br><span class="line"><span class="comment"># 导入collections包中的Counter函数</span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过Counter对time_zones这个list进行统计</span></span><br><span class="line">counts = Counter(time_zones)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 调用Counter对象的方法most_common(n)可以直接调出最多的n项</span></span><br><span class="line">counts.most_common(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>[(&apos;America/New_York&apos;, 1251),
+ (&apos;&apos;, 521),
+ (&apos;America/Chicago&apos;, 400),
+ (&apos;America/Los_Angeles&apos;, 382),
+ (&apos;America/Denver&apos;, 191),
+ (&apos;Europe/London&apos;, 74),
+ (&apos;Asia/Tokyo&apos;, 37),
+ (&apos;Pacific/Honolulu&apos;, 36),
+ (&apos;Europe/Madrid&apos;, 35),
+ (&apos;America/Sao_Paulo&apos;, 33)]
+</code></pre>
     </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://imonce.github.io">C_Meng</a>
+            <p>原文链接：<a href="http://imonce.github.io/2019/04/14/通过python进行数据分析-一/">http://imonce.github.io/2019/04/14/通过python进行数据分析-一/</a>
+            <p>发表日期：<a href="http://imonce.github.io/2019/04/14/通过python进行数据分析-一/">April 14th 2019, 10:09:12 pm</a>
+            <p>更新日期：<a href="http://imonce.github.io/2019/04/14/通过python进行数据分析-一/">April 14th 2019, 10:10:09 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/04/02/latex数学符号表/" title= "latex数学符号表">
+                    <div class="prevTitle">latex数学符号表</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz",
+        appKey: "WBQPPWjmwGWqvQcLqprPq0xs",
+        placeholder: "",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -490,6 +729,24 @@ blockDefault
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Introductory-examples"><span class="toc-number">1.</span> <span class="toc-text">Introductory examples</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-usa-gov-data-from-bit-ly"><span class="toc-number">1.1.</span> <span class="toc-text">1.usa.gov data from bit.ly</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Counting-time-zones-in-pure-Python"><span class="toc-number">1.1.1.</span> <span class="toc-text">Counting time zones in pure Python</span></a></li></ol></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1492,120 +1749,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
-     
-    </body>
-</html>
-
-
-her">&#xe606;</span>模式</span>
     
-        <span class="sidebar-tag-name" data-tags="读书笔记"><span class="iconfont-archer">&#xe606;</span>读书笔记</span>
-    
-        <span class="sidebar-tag-name" data-tags="商业画布"><span class="iconfont-archer">&#xe606;</span>商业画布</span>
-    
-        <span class="sidebar-tag-name" data-tags="商业模式式样"><span class="iconfont-archer">&#xe606;</span>商业模式式样</span>
-    
-        <span class="sidebar-tag-name" data-tags="商业模式设计"><span class="iconfont-archer">&#xe606;</span>商业模式设计</span>
-    
-        <span class="sidebar-tag-name" data-tags="远程连接报错"><span class="iconfont-archer">&#xe606;</span>远程连接报错</span>
-    
-        <span class="sidebar-tag-name" data-tags="浙大邮箱"><span class="iconfont-archer">&#xe606;</span>浙大邮箱</span>
-    
-        <span class="sidebar-tag-name" data-tags="第三方登录"><span class="iconfont-archer">&#xe606;</span>第三方登录</span>
-    
-        <span class="sidebar-tag-name" data-tags="设置方法"><span class="iconfont-archer">&#xe606;</span>设置方法</span>
-    
-        <span class="sidebar-tag-name" data-tags="XSD"><span class="iconfont-archer">&#xe606;</span>XSD</span>
-    
-        <span class="sidebar-tag-name" data-tags="XML Schema"><span class="iconfont-archer">&#xe606;</span>XML Schema</span>
-    
-        <span class="sidebar-tag-name" data-tags="数据分析"><span class="iconfont-archer">&#xe606;</span>数据分析</span>
-    
-        <span class="sidebar-tag-name" data-tags="bpel"><span class="iconfont-archer">&#xe606;</span>bpel</span>
-    
-        <span class="sidebar-tag-name" data-tags="wsbpel"><span class="iconfont-archer">&#xe606;</span>wsbpel</span>
-    
-        <span class="sidebar-tag-name" data-tags="ws-bpel"><span class="iconfont-archer">&#xe606;</span>ws-bpel</span>
-    
-        <span class="sidebar-tag-name" data-tags="bpel2.0"><span class="iconfont-archer">&#xe606;</span>bpel2.0</span>
-    
-        <span class="sidebar-tag-name" data-tags="schema"><span class="iconfont-archer">&#xe606;</span>schema</span>
-    
-        <span class="sidebar-tag-name" data-tags="xsd"><span class="iconfont-archer">&#xe606;</span>xsd</span>
-    
-        <span class="sidebar-tag-name" data-tags="owl"><span class="iconfont-archer">&#xe606;</span>owl</span>
-    
-        <span class="sidebar-tag-name" data-tags="本体"><span class="iconfont-archer">&#xe606;</span>本体</span>
-    
-        <span class="sidebar-tag-name" data-tags="XML"><span class="iconfont-archer">&#xe606;</span>XML</span>
-    
-        <span class="sidebar-tag-name" data-tags="Schema"><span class="iconfont-archer">&#xe606;</span>Schema</span>
-    
-    </div>
-    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
-    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
-    缺失模块。<br/>
-    1、请确保node版本大于6.2<br/>
-    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
-    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
-    3、在根目录_config.yml里添加配置：
-    <pre style="color: #787878; font-size: 0.6rem;">
-jsonContent:
-  meta: false
-  pages: false
-  posts:
-    title: true
-    date: true
-    path: true
-    text: false
-    raw: false
-    content: false
-    slug: false
-    updated: false
-    comments: false
-    link: false
-    permalink: false
-    excerpt: false
-    categories: true
-    tags: true</pre>
-    </div> 
-    <div class="sidebar-tags-list"></div>
-</div>
-        <div class="sidebar-panel-categories">
-    <div class="sidebar-categories-name">
-    
-    </div>
-    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
-    <div class="sidebar-categories-list"></div>
-</div>
-    </div>
-</div> 
-    <script>
-    var siteMeta = {
-        root: "/",
-        author: "C_Meng"
-    }
-</script>
-    <!-- CDN failover -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-    <script type="text/javascript">
-        if (typeof window.$ === 'undefined')
-        {
-            console.warn('jquery load from jsdelivr failed, will load local script')
-            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
-        }
-    </script>
-    <script src="/scripts/main.js"></script>
-    <!-- algolia -->
-    
-    <!-- busuanzi  -->
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    
-    <!-- CNZZ  -->
-    
-    </div>
-    <!-- async load share.js -->
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
