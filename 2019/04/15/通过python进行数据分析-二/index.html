@@ -1,0 +1,2059 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="C_Meng">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="C_Meng">
+    
+    <meta name="keywords" content="C_Meng,C_Meng,hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="this is description">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>通过python进行数据分析(二) · C_Meng</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >C_Meng</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">通过python进行数据分析(二)</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>C_Meng</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(https://source.unsplash.com/random)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            通过python进行数据分析(二)
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "数据分析">数据分析</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">5,290</span>阅读时长: <span class="post-count reading-time">31 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/04/15</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h3 id="Counting-time-zones-with-pandas"><a href="#Counting-time-zones-with-pandas" class="headerlink" title="Counting time zones with pandas"></a>Counting time zones with pandas</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># %matplotlib主要是在使用jupyter notebook 或者 jupyter qtconsole的时候才会用到</span></span><br><span class="line"><span class="comment"># 具体作用是当你调用matplotlib.pyplot的绘图函数plot()进行绘图的时候，可以直接在你的python console里面生成图像</span></span><br><span class="line"><span class="comment"># 默认是弹出一个绘图窗口</span></span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python有多个版本，Python 2.7到Python 3.x，Python提供了__future__模块，把3.x新版本的特性导入到当前版本</span></span><br><span class="line"><span class="comment"># 这一句的意思是除法按照python3来：</span></span><br><span class="line"><span class="comment"># 区别就是python2里边10/3=3，python3里边10/3=3.3333333333333335</span></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> division</span><br><span class="line"><span class="comment"># 导入numpy中的随机函数randn</span></span><br><span class="line"><span class="keyword">from</span> numpy.random <span class="keyword">import</span> randn</span><br><span class="line"><span class="comment"># 到处numpy包，并命名为np</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment"># 导入os包</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="comment"># 导入matplotlib.pyplot，并命名为plt，主要用于绘图</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="comment"># 导入pandas包，并命名为pd</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="comment"># 利用rc方法，plt.rc('figure',figsize=(10,6))全局默认图像大小为10X6</span></span><br><span class="line">plt.rc(<span class="string">'figure'</span>, figsize=(<span class="number">10</span>, <span class="number">6</span>))</span><br><span class="line"><span class="comment"># numpy set print options 小数点后4位</span></span><br><span class="line">np.set_printoptions(precision=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入json包</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="comment"># 赋值</span></span><br><span class="line">path = <span class="string">'ch02/usagov_bitly_data2012-03-16-1331923249.txt'</span></span><br><span class="line"><span class="comment"># 逐行遍历path文件中的数据，通过按照json格式读取，然后每一行的作为一个item组成list</span></span><br><span class="line">lines = open(path).readlines()</span><br><span class="line">records = [json.loads(line) <span class="keyword">for</span> line <span class="keyword">in</span> lines]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入pandas的两个方法</span></span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> DataFrame, Series</span><br><span class="line"><span class="comment"># 导入pandas包，并命名为pd</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="comment"># 建立DataFrame对象，把key作为列名，value作为值填到一张表中，没有的键值对会用NaN（空值）填充</span></span><br><span class="line"><span class="comment"># 并自动生成索引，就是左边的0 1 2 3...</span></span><br><span class="line">frame = DataFrame(records)</span><br><span class="line"><span class="comment"># 打印出来看一下（这是一个pandas对象）</span></span><br><span class="line">print(frame)</span><br></pre></td></tr></table></figure>
+<pre><code>       _heartbeat_                                                  a  \
+0              NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+1              NaN                             GoogleMaps/RochesterNY   
+2              NaN  Mozilla/4.0 (compatible; MSIE 8.0; Windows NT ...   
+3              NaN  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8)...   
+4              NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+5              NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+6              NaN  Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.1...   
+7              NaN  Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/2...   
+8              NaN  Opera/9.80 (X11; Linux zbov; U; en) Presto/2.1...   
+9              NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+10             NaN  Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2)...   
+11             NaN  Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4...   
+12             NaN  Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2)...   
+13    1.331923e+09                                                NaN   
+14             NaN  Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US...   
+15             NaN  Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.1...   
+16             NaN  Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.1...   
+17             NaN  Mozilla/5.0 (Macintosh; Intel Mac OS X 10.5; r...   
+18             NaN                             GoogleMaps/RochesterNY   
+19             NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+20             NaN  Mozilla/5.0 (compatible; MSIE 9.0; Windows NT ...   
+21             NaN  Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6...   
+22             NaN  Mozilla/4.0 (compatible; MSIE 8.0; Windows NT ...   
+23             NaN  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3)...   
+24             NaN  Mozilla/5.0 (Windows; U; Windows NT 5.1; es-ES...   
+25             NaN  Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.1...   
+26             NaN  Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.1...   
+27             NaN  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8)...   
+28             NaN  Mozilla/5.0 (iPad; CPU OS 5_0_1 like Mac OS X)...   
+29             NaN  Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X...   
+...            ...                                                ...   
+3530           NaN  Mozilla/5.0 (Windows NT 6.0) AppleWebKit/535.1...   
+3531           NaN  Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6...   
+3532           NaN  Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2)...   
+3533           NaN  Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) A...   
+3534           NaN  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8)...   
+3535           NaN  Mozilla/5.0 (Windows NT 5.1; rv:10.0.2) Gecko/...   
+3536           NaN  Mozilla/5.0 (BlackBerry; U; BlackBerry 9800; e...   
+3537           NaN  Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2)...   
+3538           NaN  Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Ma...   
+3539           NaN    Mozilla/5.0 (compatible; Fedora Core 3) FC3 KDE   
+3540           NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+3541           NaN  Mozilla/5.0 (X11; U; OpenVMS AlphaServer_ES40;...   
+3542           NaN  Mozilla/5.0 (compatible; MSIE 9.0; Windows NT ...   
+3543  1.331927e+09                                                NaN   
+3544           NaN  Mozilla/5.0 (Windows NT 6.1; WOW64; rv:5.0.1) ...   
+3545           NaN  Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2)...   
+3546           NaN  Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Ma...   
+3547           NaN  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8)...   
+3548           NaN  Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Ma...   
+3549           NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+3550           NaN  Mozilla/4.0 (compatible; MSIE 8.0; Windows NT ...   
+3551           NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+3552           NaN  Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US...   
+3553           NaN  Mozilla/4.0 (compatible; MSIE 7.0; Windows NT ...   
+3554           NaN  Mozilla/4.0 (compatible; MSIE 7.0; Windows NT ...   
+3555           NaN  Mozilla/4.0 (compatible; MSIE 9.0; Windows NT ...   
+3556           NaN  Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.1...   
+3557           NaN                             GoogleMaps/RochesterNY   
+3558           NaN                                     GoogleProducer   
+3559           NaN  Mozilla/4.0 (compatible; MSIE 8.0; Windows NT ...   
+
+                                          al     c                cy       g  \
+0                             en-US,en;q=0.8    US           Danvers  A6qOVH   
+1                                        NaN    US             Provo  mwszkS   
+2                                      en-US    US        Washington  xxr3Qb   
+3                                      pt-br    BR              Braz  zCaLwp   
+4                             en-US,en;q=0.8    US        Shrewsbury  9b6kNl   
+5                             en-US,en;q=0.8    US        Shrewsbury  axNK8c   
+6        pl-PL,pl;q=0.8,en-US;q=0.6,en;q=0.4    PL             Luban  wcndER   
+7                    bg,en-us;q=0.7,en;q=0.3  None               NaN  wcndER   
+8                                  en-US, en  None               NaN  wcndER   
+9        pt-BR,pt;q=0.8,en-US;q=0.6,en;q=0.4  None               NaN  zCaLwp   
+10                            en-us,en;q=0.5    US           Seattle  vNJS4H   
+11                            en-us,en;q=0.5    US        Washington  wG7OIH   
+12                            en-us,en;q=0.5    US        Alexandria  vNJS4H   
+13                                       NaN   NaN               NaN     NaN   
+14                            en-us,en;q=0.5    US          Marietta  2rOUYc   
+15       zh-TW,zh;q=0.8,en-US;q=0.6,en;q=0.4    HK  Central District  nQvgJp   
+16       zh-TW,zh;q=0.8,en-US;q=0.6,en;q=0.4    HK  Central District   XdUNr   
+17                            en-us,en;q=0.5    US         Buckfield  zH1BFf   
+18                                       NaN    US             Provo  mwszkS   
+19       it-IT,it;q=0.8,en-US;q=0.6,en;q=0.4    IT            Venice  wcndER   
+20                                     es-ES    ES             Alcal  zQ95Hi   
+21                            en-us,en;q=0.5    US     Davidsonville  wcndER   
+22                                     en-us    US         Hockessin  y3ZImz   
+23                                     en-us    US            Lititz  wWiOiD   
+24       es-es,es;q=0.8,en-us;q=0.5,en;q=0.3    ES            Bilbao  wcndER   
+25    en-GB,en;q=0.8,en-US;q=0.6,en-AU;q=0.4    MY      Kuala Lumpur  wcndER   
+26       ro-RO,ro;q=0.8,en-US;q=0.6,en;q=0.4    CY           Nicosia  wcndER   
+27                            en-US,en;q=0.8    BR            SPaulo  zCaLwp   
+28                                     en-us  None               NaN  vNJS4H   
+29                                     en-us  None               NaN  FPX0IM   
+...                                      ...   ...               ...     ...   
+3530                          en-US,en;q=0.8    US     San Francisco  xVZg4P   
+3531                                   en-US  None               NaN  wcndER   
+3532                          en-us,en;q=0.5    US        Washington  Au3aUS   
+3533                                   en-us    US      Jacksonville  b2UtUJ   
+3534                                   en-us    US            Frisco  vNJS4H   
+3535                                   en-us    US           Houston  zIgLx8   
+3536                          en-US,en;q=0.5  None               NaN  xIcyim   
+3537     es-es,es;q=0.8,en-us;q=0.5,en;q=0.3    HN       Tegucigalpa  zCaLwp   
+3538                                   en-us    US       Los Angeles  qMac9k   
+3539                                     NaN    US          Bellevue  zu2M5o   
+3540                          en-US,en;q=0.8    US            Payson  wcndER   
+3541                                     NaN    US          Bellevue  zu2M5o   
+3542                                   en-us    US         Pittsburg  y3reI1   
+3543                                     NaN   NaN               NaN     NaN   
+3544                          en-us,en;q=0.5    US        Wentzville  vNJS4H   
+3545                          en-us,en;q=0.5    US     Saint Charles  vNJS4H   
+3546                                   en-us    US       Los Angeles  qMac9k   
+3547                                   en-us    US     Silver Spring  y0jYkg   
+3548                                   en-us    US           Mcgehee  y5rMac   
+3549     sv-SE,sv;q=0.8,en-US;q=0.6,en;q=0.4    SE          Sollefte   eH8wu   
+3550                                   en-us    US      Conshohocken  A00b72   
+3551                          en-US,en;q=0.8  None               NaN  wcndER   
+3552                                     NaN    US           Decatur  rqgJuE   
+3553                                   en-us    US        Shrewsbury  9b6kNl   
+3554                                   en-us    US        Shrewsbury  axNK8c   
+3555                                      en    US           Paramus  e5SvKE   
+3556                          en-US,en;q=0.8    US     Oklahoma City  jQLtP4   
+3557                                     NaN    US             Provo  mwszkS   
+3558                                     NaN    US     Mountain View  zjtI4X   
+3559                                   en-US    US           Mc Lean  qxKrTK   
+
+       gr       h            hc           hh   kw              l  \
+0      MA  wfLQtf  1.331823e+09    1.usa.gov  NaN        orofrog   
+1      UT  mwszkS  1.308262e+09         j.mp  NaN          bitly   
+2      DC  xxr3Qb  1.331920e+09    1.usa.gov  NaN          bitly   
+3      27  zUtuOu  1.331923e+09    1.usa.gov  NaN       alelex88   
+4      MA  9b6kNl  1.273672e+09       bit.ly  NaN          bitly   
+5      MA  axNK8c  1.273673e+09       bit.ly  NaN          bitly   
+6      77  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+7     NaN  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+8     NaN  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+9     NaN  zUtuOu  1.331923e+09    1.usa.gov  NaN       alelex88   
+10     WA  u0uD9q  1.319564e+09    1.usa.gov  NaN   o_4us71ccioa   
+11     DC  A0nRz4  1.331816e+09    1.usa.gov  NaN    darrellissa   
+12     VA  u0uD9q  1.319564e+09    1.usa.gov  NaN   o_4us71ccioa   
+13    NaN     NaN           NaN          NaN  NaN            NaN   
+14     GA  2rOUYc  1.255770e+09    1.usa.gov  NaN          bitly   
+15     00  rtrrth  1.317318e+09         j.mp  NaN     walkeryuen   
+16     00  qWkgbq  1.317318e+09         j.mp  NaN     walkeryuen   
+17     ME  x3jOIv  1.331840e+09    1.usa.gov  NaN  andyzieminski   
+18     UT  mwszkS  1.308262e+09    1.usa.gov  NaN          bitly   
+19     20  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+20     51  ytZYWR  1.331671e+09    bitly.com  NaN        jplnews   
+21     MD  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+22     DE  y3ZImz  1.331064e+09    1.usa.gov  NaN          bitly   
+23     PA  wWiOiD  1.330218e+09    1.usa.gov  NaN          bitly   
+24     59  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+25     14  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+26     04  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+27     27  zUtuOu  1.331923e+09    1.usa.gov  NaN       alelex88   
+28    NaN  u0uD9q  1.319564e+09    1.usa.gov  NaN   o_4us71ccioa   
+29    NaN  FPX0IL  1.331923e+09    1.usa.gov  NaN   twittershare   
+...   ...     ...           ...          ...  ...            ...   
+3530   CA  wqUkTo  1.331908e+09  go.nasa.gov  NaN    nasatwitter   
+3531  NaN  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+3532   DC  A9ct6C  1.331926e+09    1.usa.gov  NaN          ncsha   
+3533   FL  ieCdgH  1.301393e+09  go.nasa.gov  NaN    nasatwitter   
+3534   TX  u0uD9q  1.319564e+09    1.usa.gov  NaN   o_4us71ccioa   
+3535   TX  yrPaLt  1.331903e+09      aash.to  NaN         aashto   
+3536  NaN  yG1TTf  1.331728e+09  go.nasa.gov  NaN    nasatwitter   
+3537   08  w63FZW  1.331547e+09    1.usa.gov  NaN      bufferapp   
+3538   CA  qds1Ge  1.310474e+09    1.usa.gov  NaN  healthypeople   
+3539   WA  zDhdro  1.331586e+09       bit.ly  NaN       glimtwin   
+3540   UT  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+3541   WA  zDhdro  1.331586e+09    1.usa.gov  NaN       glimtwin   
+3542   CA  y3reI1  1.331926e+09    1.usa.gov  NaN          bitly   
+3543  NaN     NaN           NaN          NaN  NaN            NaN   
+3544   MO  u0uD9q  1.319564e+09    1.usa.gov  NaN   o_4us71ccioa   
+3545   IL  u0uD9q  1.319564e+09    1.usa.gov  NaN   o_4us71ccioa   
+3546   CA  qds1Ge  1.310474e+09    1.usa.gov  NaN  healthypeople   
+3547   MD  y0jYkg  1.331852e+09    1.usa.gov  NaN          bitly   
+3548   AR  xANY6O  1.331916e+09    1.usa.gov  NaN    twitterfeed   
+3549   24  7dtjei  1.260316e+09    1.usa.gov  NaN   tweetdeckapi   
+3550   PA  yGSwzn  1.331918e+09    1.usa.gov  NaN        addthis   
+3551  NaN  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+3552   AL  xcz8vt  1.331227e+09    1.usa.gov  NaN      bootsnall   
+3553   MA  9b6kNl  1.273672e+09       bit.ly  NaN          bitly   
+3554   MA  axNK8c  1.273673e+09       bit.ly  NaN          bitly   
+3555   NJ  fqPSr9  1.301298e+09    1.usa.gov  NaN   tweetdeckapi   
+3556   OK  jQLtP4  1.307530e+09    1.usa.gov  NaN          bitly   
+3557   UT  mwszkS  1.308262e+09         j.mp  NaN          bitly   
+3558   CA  zjtI4X  1.327529e+09    1.usa.gov  NaN          bitly   
+3559   VA  qxKrTK  1.312898e+09    1.usa.gov  NaN          bitly   
+
+                            ll   nk  \
+0      [42.576698, -70.954903]  1.0   
+1     [40.218102, -111.613297]  0.0   
+2        [38.9007, -77.043098]  1.0   
+3     [-23.549999, -46.616699]  0.0   
+4      [42.286499, -71.714699]  0.0   
+5      [42.286499, -71.714699]  0.0   
+6         [51.116699, 15.2833]  0.0   
+7                          NaN  0.0   
+8                          NaN  0.0   
+9                          NaN  0.0   
+10      [47.5951, -122.332603]  1.0   
+11     [38.937599, -77.092796]  0.0   
+12     [38.790901, -77.094704]  1.0   
+13                         NaN  NaN   
+14       [33.953201, -84.5177]  1.0   
+15       [22.2833, 114.150002]  1.0   
+16       [22.2833, 114.150002]  1.0   
+17     [44.299702, -70.369797]  0.0   
+18    [40.218102, -111.613297]  0.0   
+19        [45.438599, 12.3267]  0.0   
+20        [37.516701, -5.9833]  0.0   
+21     [38.939201, -76.635002]  0.0   
+22        [39.785, -75.682297]  0.0   
+23       [40.174999, -76.3078]  0.0   
+24            [43.25, -2.9667]  0.0   
+25        [3.1667, 101.699997]  0.0   
+26      [35.166698, 33.366699]  0.0   
+27      [-23.5333, -46.616699]  0.0   
+28                         NaN  0.0   
+29                         NaN  1.0   
+...                        ...  ...   
+3530    [37.7645, -122.429398]  0.0   
+3531                       NaN  0.0   
+3532   [38.904202, -77.031998]  1.0   
+3533   [30.279301, -81.585098]  1.0   
+3534   [33.149899, -96.855499]  1.0   
+3535   [29.775499, -95.415199]  1.0   
+3536                       NaN  0.0   
+3537        [14.1, -87.216698]  0.0   
+3538  [34.041599, -118.298798]  0.0   
+3539  [47.615398, -122.210297]  0.0   
+3540  [40.014198, -111.738899]  0.0   
+3541  [47.615398, -122.210297]  0.0   
+3542    [38.0051, -121.838699]  0.0   
+3543                       NaN  NaN   
+3544   [38.790001, -90.854897]  1.0   
+3545     [41.9352, -88.290901]  1.0   
+3546  [34.041599, -118.298798]  1.0   
+3547   [39.052101, -77.014999]  1.0   
+3548   [33.628399, -91.356903]  1.0   
+3549    [63.166698, 17.266701]  1.0   
+3550       [40.0798, -75.2855]  0.0   
+3551                       NaN  0.0   
+3552   [34.572701, -86.940598]  0.0   
+3553   [42.286499, -71.714699]  0.0   
+3554   [42.286499, -71.714699]  0.0   
+3555         [40.9445, -74.07]  1.0   
+3556     [35.4715, -97.518997]  0.0   
+3557  [40.218102, -111.613297]  0.0   
+3558  [37.419201, -122.057404]  0.0   
+3559   [38.935799, -77.162102]  0.0   
+
+                                                      r             t  \
+0     http://www.facebook.com/l/7AQEFzjSi/1.usa.gov/...  1.331923e+09   
+1                              http://www.AwareMap.com/  1.331923e+09   
+2                                  http://t.co/03elZC4Q  1.331923e+09   
+3                                                direct  1.331923e+09   
+4                   http://www.shrewsbury-ma.gov/selco/  1.331923e+09   
+5                   http://www.shrewsbury-ma.gov/selco/  1.331923e+09   
+6     http://plus.url.google.com/url?sa=z&amp;n=13319232...  1.331923e+09   
+7                              http://www.facebook.com/  1.331923e+09   
+8     http://www.facebook.com/l.php?u=http%3A%2F%2F1...  1.331923e+09   
+9                                  http://t.co/o1Pd0WeV  1.331923e+09   
+10                                               direct  1.331923e+09   
+11                                 http://t.co/ND7SoPyo  1.331923e+09   
+12                                               direct  1.331923e+09   
+13                                                  NaN           NaN   
+14                                               direct  1.331923e+09   
+15    http://forum2.hkgolden.com/view.aspx?type=BW&amp;m...  1.331923e+09   
+16    http://forum2.hkgolden.com/view.aspx?type=BW&amp;m...  1.331923e+09   
+17                                 http://t.co/6Cx4ROLs  1.331923e+09   
+18                             http://www.AwareMap.com/  1.331923e+09   
+19                             http://www.facebook.com/  1.331923e+09   
+20                             http://www.facebook.com/  1.331923e+09   
+21                             http://www.facebook.com/  1.331923e+09   
+22                                               direct  1.331923e+09   
+23    http://www.facebook.com/l.php?u=http%3A%2F%2F1...  1.331923e+09   
+24                             http://www.facebook.com/  1.331923e+09   
+25                             http://www.facebook.com/  1.331923e+09   
+26                 http://www.facebook.com/?ref=tn_tnmn  1.331923e+09   
+27                                               direct  1.331923e+09   
+28                                               direct  1.331923e+09   
+29                                 http://t.co/5xlp0B34  1.331923e+09   
+...                                                 ...           ...   
+3530  http://www.facebook.com/l.php?u=http%3A%2F%2Fg...  1.331927e+09   
+3531                                             direct  1.331927e+09   
+3532                              http://www.ncsha.org/  1.331927e+09   
+3533                                             direct  1.331927e+09   
+3534                                             direct  1.331927e+09   
+3535                                             direct  1.331927e+09   
+3536                               http://t.co/g1VKE8zS  1.331927e+09   
+3537                               http://t.co/A8TJyibE  1.331927e+09   
+3538                                             direct  1.331927e+09   
+3539                                             direct  1.331927e+09   
+3540  http://www.facebook.com/l.php?u=http%3A%2F%2F1...  1.331927e+09   
+3541                                             direct  1.331927e+09   
+3542  http://www.facebook.com/l.php?u=http%3A%2F%2F1...  1.331927e+09   
+3543                                                NaN           NaN   
+3544                                             direct  1.331927e+09   
+3545                                             direct  1.331927e+09   
+3546                                             direct  1.331927e+09   
+3547                                             direct  1.331927e+09   
+3548  https://twitter.com/fdarecalls/status/18069759...  1.331927e+09   
+3549                                             direct  1.331927e+09   
+3550   http://www.linkedin.com/home?trk=hb_tab_home_top  1.331927e+09   
+3551  http://plus.url.google.com/url?sa=z&amp;n=13319268...  1.331927e+09   
+3552                                             direct  1.331927e+09   
+3553                http://www.shrewsbury-ma.gov/selco/  1.331927e+09   
+3554                http://www.shrewsbury-ma.gov/selco/  1.331927e+09   
+3555                                             direct  1.331927e+09   
+3556  http://www.facebook.com/l.php?u=http%3A%2F%2F1...  1.331927e+09   
+3557                           http://www.AwareMap.com/  1.331927e+09   
+3558                                             direct  1.331927e+09   
+3559                               http://t.co/OEEEvwjU  1.331927e+09   
+
+                       tz                                                  u  
+0        America/New_York        http://www.ncbi.nlm.nih.gov/pubmed/22415991  
+1          America/Denver        http://www.monroecounty.gov/etc/911/rss.php  
+2        America/New_York  http://boxer.senate.gov/en/press/releases/0316...  
+3       America/Sao_Paulo            http://apod.nasa.gov/apod/ap120312.html  
+4        America/New_York  http://www.shrewsbury-ma.gov/egov/gallery/1341...  
+5        America/New_York  http://www.shrewsbury-ma.gov/egov/gallery/1341...  
+6           Europe/Warsaw  http://www.nasa.gov/mission_pages/nustar/main/...  
+7                          http://www.nasa.gov/mission_pages/nustar/main/...  
+8                          http://www.nasa.gov/mission_pages/nustar/main/...  
+9                                    http://apod.nasa.gov/apod/ap120312.html  
+10    America/Los_Angeles  https://www.nysdot.gov/rexdesign/design/commun...  
+11       America/New_York  http://oversight.house.gov/wp-content/uploads/...  
+12       America/New_York  https://www.nysdot.gov/rexdesign/design/commun...  
+13                    NaN                                                NaN  
+14       America/New_York               http://toxtown.nlm.nih.gov/index.php  
+15         Asia/Hong_Kong  http://www.ssd.noaa.gov/PS/TROP/TCFP/data/curr...  
+16         Asia/Hong_Kong  http://www.usno.navy.mil/NOOC/nmfc-ph/RSS/jtwc...  
+17       America/New_York  http://www.usda.gov/wps/portal/usda/usdahome?c...  
+18         America/Denver        http://www.monroecounty.gov/etc/911/rss.php  
+19            Europe/Rome  http://www.nasa.gov/mission_pages/nustar/main/...  
+20           Africa/Ceuta  http://voyager.jpl.nasa.gov/imagesvideo/uranus...  
+21       America/New_York  http://www.nasa.gov/mission_pages/nustar/main/...  
+22       America/New_York  http://portal.hud.gov/hudportal/documents/hudd...  
+23       America/New_York  http://www.tricare.mil/mybenefit/ProfileFilter...  
+24          Europe/Madrid  http://www.nasa.gov/mission_pages/nustar/main/...  
+25      Asia/Kuala_Lumpur  http://www.nasa.gov/mission_pages/nustar/main/...  
+26           Asia/Nicosia  http://www.nasa.gov/mission_pages/nustar/main/...  
+27      America/Sao_Paulo            http://apod.nasa.gov/apod/ap120312.html  
+28                         https://www.nysdot.gov/rexdesign/design/commun...  
+29                         http://www.ed.gov/news/media-advisories/us-dep...  
+...                   ...                                                ...  
+3530  America/Los_Angeles  http://www.nasa.gov/multimedia/imagegallery/im...  
+3531                       http://www.nasa.gov/mission_pages/nustar/main/...  
+3532     America/New_York  http://portal.hud.gov/hudportal/HUD?src=/press...  
+3533     America/New_York                         http://apod.nasa.gov/apod/  
+3534      America/Chicago  https://www.nysdot.gov/rexdesign/design/commun...  
+3535      America/Chicago  http://ntl.bts.gov/lib/44000/44300/44374/FHWA-...  
+3536                       http://www.nasa.gov/mission_pages/hurricanes/a...  
+3537  America/Tegucigalpa            http://apod.nasa.gov/apod/ap120312.html  
+3538  America/Los_Angeles  http://healthypeople.gov/2020/connect/webinars...  
+3539  America/Los_Angeles  http://www.federalreserve.gov/newsevents/press...  
+3540       America/Denver  http://www.nasa.gov/mission_pages/nustar/main/...  
+3541  America/Los_Angeles  http://www.federalreserve.gov/newsevents/press...  
+3542  America/Los_Angeles  http://www.sba.gov/community/blogs/community-b...  
+3543                  NaN                                                NaN  
+3544      America/Chicago  https://www.nysdot.gov/rexdesign/design/commun...  
+3545      America/Chicago  https://www.nysdot.gov/rexdesign/design/commun...  
+3546  America/Los_Angeles  http://healthypeople.gov/2020/connect/webinars...  
+3547     America/New_York  http://www.epa.gov/otaq/regs/fuels/additive/e1...  
+3548      America/Chicago    http://www.fda.gov/Safety/Recalls/ucm296326.htm  
+3549     Europe/Stockholm  http://www.nasa.gov/mission_pages/WISE/main/in...  
+3550     America/New_York  http://www.nlm.nih.gov/medlineplus/news/fullst...  
+3551                       http://www.nasa.gov/mission_pages/nustar/main/...  
+3552      America/Chicago  http://travel.state.gov/passport/passport_5535...  
+3553     America/New_York  http://www.shrewsbury-ma.gov/egov/gallery/1341...  
+3554     America/New_York  http://www.shrewsbury-ma.gov/egov/gallery/1341...  
+3555     America/New_York  http://www.fda.gov/AdvisoryCommittees/Committe...  
+3556      America/Chicago  http://www.okc.gov/PublicNotificationSystem/Fo...  
+3557       America/Denver        http://www.monroecounty.gov/etc/911/rss.php  
+3558  America/Los_Angeles                http://www.ahrq.gov/qual/qitoolkit/  
+3559     America/New_York  http://herndon-va.gov/Content/public_safety/Pu...  
+
+[3560 rows x 18 columns]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打印frame这个表中的‘tz’列的前10行</span></span><br><span class="line"><span class="comment"># 注意，这还是一个pandas对象，出了索引，还有Name：tz，dtype（数据类型）：object</span></span><br><span class="line">print(frame[<span class="string">'tz'</span>][:<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>0     America/New_York
+1       America/Denver
+2     America/New_York
+3    America/Sao_Paulo
+4     America/New_York
+5     America/New_York
+6        Europe/Warsaw
+7                     
+8                     
+9                     
+Name: tz, dtype: object
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 统计frame表格中‘tz’列的值的出现次数</span></span><br><span class="line">tz_counts = frame[<span class="string">'tz'</span>].value_counts()</span><br><span class="line"><span class="comment"># 输出前10个看看</span></span><br><span class="line"><span class="comment"># 空值出现了521次</span></span><br><span class="line">print(tz_counts[:<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>America/New_York       1251
+                        521
+America/Chicago         400
+America/Los_Angeles     382
+America/Denver          191
+Europe/London            74
+Asia/Tokyo               37
+Pacific/Honolulu         36
+Europe/Madrid            35
+America/Sao_Paulo        33
+Name: tz, dtype: int64
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 空值处理起来会比较麻烦（直接进行操作容易报错）</span></span><br><span class="line"><span class="comment"># fillna（str）方法可以直接用str替代所有的空值</span></span><br><span class="line">clean_tz = frame[<span class="string">'tz'</span>].fillna(<span class="string">'Missing'</span>)</span><br><span class="line"><span class="comment"># 上边替代的不存在key的空值，但是还有另一种空值，key是存在的，但是value是空的（可以看作长度是0的字符串）</span></span><br><span class="line"><span class="comment"># 这里把所有value是‘’的替代成'Unknown'</span></span><br><span class="line">clean_tz[clean_tz == <span class="string">''</span>] = <span class="string">'Unknown'</span></span><br><span class="line"><span class="comment"># 我们再重新统计一遍看看</span></span><br><span class="line">tz_counts = clean_tz.value_counts()</span><br><span class="line">print(tz_counts[:<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>America/New_York       1251
+Unknown                 521
+America/Chicago         400
+America/Los_Angeles     382
+America/Denver          191
+Missing                 120
+Europe/London            74
+Asia/Tokyo               37
+Pacific/Honolulu         36
+Europe/Madrid            35
+Name: tz, dtype: int64
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义画布尺寸为10*4 单位是英寸</span></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;matplotlib.figure.Figure at 0x10d7ae940&gt;
+
+
+
+
+&lt;matplotlib.figure.Figure at 0x10d7ae940&gt;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把tz_counts的统计结果绘制成图，类型为柱状图bar，横向h（horizontal）</span></span><br><span class="line"><span class="comment"># kind : str</span></span><br><span class="line"><span class="comment"># ‘line’ : line plot (default)</span></span><br><span class="line"><span class="comment"># ‘bar’ : vertical bar plot</span></span><br><span class="line"><span class="comment"># ‘barh’ : horizontal bar plot</span></span><br><span class="line"><span class="comment"># ‘hist’ : histogram</span></span><br><span class="line"><span class="comment"># ‘box’ : boxplot</span></span><br><span class="line"><span class="comment"># ‘kde’ : Kernel Density Estimation plot</span></span><br><span class="line"><span class="comment"># ‘density’ : same as ‘kde’</span></span><br><span class="line"><span class="comment"># ‘area’ : area plot</span></span><br><span class="line"><span class="comment"># ‘pie’ : pie plot</span></span><br><span class="line"><span class="comment"># ‘scatter’ : scatter plot</span></span><br><span class="line"><span class="comment"># ‘hexbin’ : hexbin plot</span></span><br><span class="line"><span class="comment"># rot : int, default None. Rotation for ticks (xticks for vertical, yticks for horizontal plots)</span></span><br><span class="line">tz_counts[:<span class="number">10</span>].plot(kind=<span class="string">'barh'</span>, rot=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x10d784eb8&gt;
+</code></pre><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190415212511.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 看看frame这个表格里‘a’列的第二行（index是1）是什么</span></span><br><span class="line">print(frame[<span class="string">'a'</span>][<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>GoogleMaps/RochesterNY
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在jupyter里边直接写变量名会自动print出来，是一种不标准的简化写法</span></span><br><span class="line">frame[<span class="string">'a'</span>][<span class="number">50</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>&apos;Mozilla/5.0 (Windows NT 5.1; rv:10.0.2) Gecko/20100101 Firefox/10.0.2&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在jupyter里边直接写变量名会自动print出来，是一种不标准的简化写法</span></span><br><span class="line">frame[<span class="string">'a'</span>][<span class="number">51</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>&apos;Mozilla/5.0 (Linux; U; Android 2.2.2; en-us; LG-P925/V10e Build/FRG83G) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dropna()函数可以去掉包含有NaN值得item</span></span><br><span class="line"><span class="comment"># frame.a.drapna()就是提取frame表格里列表为a的那一列，去除掉NA值得那些行的值</span></span><br><span class="line"><span class="comment"># x.split(str) 通过指定分隔符str对字符串x进行切片，默认分隔符为空格，x.split(str)[0]意在取切完片的第一个值</span></span><br><span class="line"><span class="comment"># [x.split()[0] for x in frame.a.dropna()]就是提取frame表格里列表为a的那一列，去除掉NA值得那些行的值，并用split进行分割，并且最后保存分割后的第一个值，构成一个list</span></span><br><span class="line"><span class="comment"># Series是Pandas包中的方法，构建Series对象，添加索引</span></span><br><span class="line">results = Series([x.split()[<span class="number">0</span>] <span class="keyword">for</span> x <span class="keyword">in</span> frame.a.dropna()])</span><br><span class="line"><span class="comment"># 打印出来看看，后边的乱七八糟的信息已经没有了</span></span><br><span class="line">results[:<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>0               Mozilla/5.0
+1    GoogleMaps/RochesterNY
+2               Mozilla/4.0
+3               Mozilla/5.0
+4               Mozilla/5.0
+dtype: object
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Pandas对象又可以直接通过value_counts方法做统计了，取出前8个看看</span></span><br><span class="line">results.value_counts()[:<span class="number">8</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>Mozilla/5.0                 2594
+Mozilla/4.0                  601
+GoogleMaps/RochesterNY       121
+Opera/9.80                    34
+TEST_INTERNET_AGENT           24
+GoogleProducer                21
+Mozilla/6.0                    5
+BlackBerry8520/5.0.0.681       4
+dtype: int64
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># frame.a.notnull()：frame表格的a列中，不是NaN就是true，是NaN就是False</span></span><br><span class="line"><span class="comment"># frame[frame.a.notnull()]：取出frame这个表格中所有a列不为NaN的行</span></span><br><span class="line">cframe = frame[frame.a.notnull()]</span><br><span class="line"><span class="comment"># 随便打几行看看，a列没有NaN（其他列暂时不管）</span></span><br><span class="line">cframe[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+<div><br><style><br>    .dataframe thead tr:only-child th {<br>        text-align: right;<br>    }<br><br>    .dataframe thead th {<br>        text-align: left;<br>    }<br><br>    .dataframe tbody tr th {<br>        vertical-align: top;<br>    }<br></style><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th><em>heartbeat</em></th><br>      <th>a</th><br>      <th>al</th><br>      <th>c</th><br>      <th>cy</th><br>      <th>g</th><br>      <th>gr</th><br>      <th>h</th><br>      <th>hc</th><br>      <th>hh</th><br>      <th>kw</th><br>      <th>l</th><br>      <th>ll</th><br>      <th>nk</th><br>      <th>r</th><br>      <th>t</th><br>      <th>tz</th><br>      <th>u</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>NaN</td><br>      <td>Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi…</td><br>      <td>en-US,en;q=0.8</td><br>      <td>US</td><br>      <td>Danvers</td><br>      <td>A6qOVH</td><br>      <td>MA</td><br>      <td>wfLQtf</td><br>      <td>1.331823e+09</td><br>      <td>1.usa.gov</td><br>      <td>NaN</td><br>      <td>orofrog</td><br>      <td>[42.576698, -70.954903]</td><br>      <td>1.0</td><br>      <td><a href="http://www.facebook.com/l/7AQEFzjSi/1.usa.gov/.." target="_blank" rel="noopener">http://www.facebook.com/l/7AQEFzjSi/1.usa.gov/..</a>.</td><br>      <td>1.331923e+09</td><br>      <td>America/New_York</td><br>      <td><a href="http://www.ncbi.nlm.nih.gov/pubmed/22415991" target="_blank" rel="noopener">http://www.ncbi.nlm.nih.gov/pubmed/22415991</a></td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>NaN</td><br>      <td>GoogleMaps/RochesterNY</td><br>      <td>NaN</td><br>      <td>US</td><br>      <td>Provo</td><br>      <td>mwszkS</td><br>      <td>UT</td><br>      <td>mwszkS</td><br>      <td>1.308262e+09</td><br>      <td>j.mp</td><br>      <td>NaN</td><br>      <td>bitly</td><br>      <td>[40.218102, -111.613297]</td><br>      <td>0.0</td><br>      <td><a href="http://www.AwareMap.com/" target="_blank" rel="noopener">http://www.AwareMap.com/</a></td><br>      <td>1.331923e+09</td><br>      <td>America/Denver</td><br>      <td><a href="http://www.monroecounty.gov/etc/911/rss.php" target="_blank" rel="noopener">http://www.monroecounty.gov/etc/911/rss.php</a></td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>NaN</td><br>      <td>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT …</td><br>      <td>en-US</td><br>      <td>US</td><br>      <td>Washington</td><br>      <td>xxr3Qb</td><br>      <td>DC</td><br>      <td>xxr3Qb</td><br>      <td>1.331920e+09</td><br>      <td>1.usa.gov</td><br>      <td>NaN</td><br>      <td>bitly</td><br>      <td>[38.9007, -77.043098]</td><br>      <td>1.0</td><br>      <td><a href="http://t.co/03elZC4Q" target="_blank" rel="noopener">http://t.co/03elZC4Q</a></td><br>      <td>1.331923e+09</td><br>      <td>America/New_York</td><br>      <td><a href="http://boxer.senate.gov/en/press/releases/0316.." target="_blank" rel="noopener">http://boxer.senate.gov/en/press/releases/0316..</a>.</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>NaN</td><br>      <td>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8)…</td><br>      <td>pt-br</td><br>      <td>BR</td><br>      <td>Braz</td><br>      <td>zCaLwp</td><br>      <td>27</td><br>      <td>zUtuOu</td><br>      <td>1.331923e+09</td><br>      <td>1.usa.gov</td><br>      <td>NaN</td><br>      <td>alelex88</td><br>      <td>[-23.549999, -46.616699]</td><br>      <td>0.0</td><br>      <td>direct</td><br>      <td>1.331923e+09</td><br>      <td>America/Sao_Paulo</td><br>      <td><a href="http://apod.nasa.gov/apod/ap120312.html" target="_blank" rel="noopener">http://apod.nasa.gov/apod/ap120312.html</a></td><br>    </tr><br>    <tr><br>      <th>4</th><br>      <td>NaN</td><br>      <td>Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi…</td><br>      <td>en-US,en;q=0.8</td><br>      <td>US</td><br>      <td>Shrewsbury</td><br>      <td>9b6kNl</td><br>      <td>MA</td><br>      <td>9b6kNl</td><br>      <td>1.273672e+09</td><br>      <td>bit.ly</td><br>      <td>NaN</td><br>      <td>bitly</td><br>      <td>[42.286499, -71.714699]</td><br>      <td>0.0</td><br>      <td><a href="http://www.shrewsbury-ma.gov/selco/" target="_blank" rel="noopener">http://www.shrewsbury-ma.gov/selco/</a></td><br>      <td>1.331923e+09</td><br>      <td>America/New_York</td><br>      <td><a href="http://www.shrewsbury-ma.gov/egov/gallery/1341.." target="_blank" rel="noopener">http://www.shrewsbury-ma.gov/egov/gallery/1341..</a>.</td><br>    </tr><br>    <tr><br>      <th>5</th><br>      <td>NaN</td><br>      <td>Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi…</td><br>      <td>en-US,en;q=0.8</td><br>      <td>US</td><br>      <td>Shrewsbury</td><br>      <td>axNK8c</td><br>      <td>MA</td><br>      <td>axNK8c</td><br>      <td>1.273673e+09</td><br>      <td>bit.ly</td><br>      <td>NaN</td><br>      <td>bitly</td><br>      <td>[42.286499, -71.714699]</td><br>      <td>0.0</td><br>      <td><a href="http://www.shrewsbury-ma.gov/selco/" target="_blank" rel="noopener">http://www.shrewsbury-ma.gov/selco/</a></td><br>      <td>1.331923e+09</td><br>      <td>America/New_York</td><br>      <td><a href="http://www.shrewsbury-ma.gov/egov/gallery/1341.." target="_blank" rel="noopener">http://www.shrewsbury-ma.gov/egov/gallery/1341..</a>.</td><br>    </tr><br>    <tr><br>      <th>6</th><br>      <td>NaN</td><br>      <td>Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.1…</td><br>      <td>pl-PL,pl;q=0.8,en-US;q=0.6,en;q=0.4</td><br>      <td>PL</td><br>      <td>Luban</td><br>      <td>wcndER</td><br>      <td>77</td><br>      <td>zkpJBR</td><br>      <td>1.331923e+09</td><br>      <td>1.usa.gov</td><br>      <td>NaN</td><br>      <td>bnjacobs</td><br>      <td>[51.116699, 15.2833]</td><br>      <td>0.0</td><br>      <td><a href="http://plus.url.google.com/url?sa=z&amp;n=13319232.." target="_blank" rel="noopener">http://plus.url.google.com/url?sa=z&amp;n=13319232..</a>.</td><br>      <td>1.331923e+09</td><br>      <td>Europe/Warsaw</td><br>      <td><a href="http://www.nasa.gov/mission_pages/nustar/main/.." target="_blank" rel="noopener">http://www.nasa.gov/mission_pages/nustar/main/..</a>.</td><br>    </tr><br>    <tr><br>      <th>7</th><br>      <td>NaN</td><br>      <td>Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/2…</td><br>      <td>bg,en-us;q=0.7,en;q=0.3</td><br>      <td>None</td><br>      <td>NaN</td><br>      <td>wcndER</td><br>      <td>NaN</td><br>      <td>zkpJBR</td><br>      <td>1.331923e+09</td><br>      <td>1.usa.gov</td><br>      <td>NaN</td><br>      <td>bnjacobs</td><br>      <td>NaN</td><br>      <td>0.0</td><br>      <td><a href="http://www.facebook.com/" target="_blank" rel="noopener">http://www.facebook.com/</a></td><br>      <td>1.331923e+09</td><br>      <td></td><br>      <td><a href="http://www.nasa.gov/mission_pages/nustar/main/.." target="_blank" rel="noopener">http://www.nasa.gov/mission_pages/nustar/main/..</a>.</td><br>    </tr><br>    <tr><br>      <th>8</th><br>      <td>NaN</td><br>      <td>Opera/9.80 (X11; Linux zbov; U; en) Presto/2.1…</td><br>      <td>en-US, en</td><br>      <td>None</td><br>      <td>NaN</td><br>      <td>wcndER</td><br>      <td>NaN</td><br>      <td>zkpJBR</td><br>      <td>1.331923e+09</td><br>      <td>1.usa.gov</td><br>      <td>NaN</td><br>      <td>bnjacobs</td><br>      <td>NaN</td><br>      <td>0.0</td><br>      <td><a href="http://www.facebook.com/l.php?u=http%3A%2F%2F1.." target="_blank" rel="noopener">http://www.facebook.com/l.php?u=http%3A%2F%2F1..</a>.</td><br>      <td>1.331923e+09</td><br>      <td></td><br>      <td><a href="http://www.nasa.gov/mission_pages/nustar/main/.." target="_blank" rel="noopener">http://www.nasa.gov/mission_pages/nustar/main/..</a>.</td><br>    </tr><br>    <tr><br>      <th>9</th><br>      <td>NaN</td><br>      <td>Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi…</td><br>      <td>pt-BR,pt;q=0.8,en-US;q=0.6,en;q=0.4</td><br>      <td>None</td><br>      <td>NaN</td><br>      <td>zCaLwp</td><br>      <td>NaN</td><br>      <td>zUtuOu</td><br>      <td>1.331923e+09</td><br>      <td>1.usa.gov</td><br>      <td>NaN</td><br>      <td>alelex88</td><br>      <td>NaN</td><br>      <td>0.0</td><br>      <td><a href="http://t.co/o1Pd0WeV" target="_blank" rel="noopener">http://t.co/o1Pd0WeV</a></td><br>      <td>1.331923e+09</td><br>      <td></td><br>      <td><a href="http://apod.nasa.gov/apod/ap120312.html" target="_blank" rel="noopener">http://apod.nasa.gov/apod/ap120312.html</a></td><br>    </tr><br>  </tbody><br></table><br></div>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://imonce.github.io">C_Meng</a>
+            <p>原文链接：<a href="http://imonce.github.io/2019/04/15/通过python进行数据分析-二/">http://imonce.github.io/2019/04/15/通过python进行数据分析-二/</a>
+            <p>发表日期：<a href="http://imonce.github.io/2019/04/15/通过python进行数据分析-二/">April 15th 2019, 9:25:56 pm</a>
+            <p>更新日期：<a href="http://imonce.github.io/2019/04/15/通过python进行数据分析-二/">April 15th 2019, 9:26:20 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/04/14/通过python进行数据分析-一/" title= "通过python进行数据分析(一)">
+                    <div class="prevTitle">通过python进行数据分析(一)</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz",
+        appKey: "WBQPPWjmwGWqvQcLqprPq0xs",
+        placeholder: "",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:imonce@outlook.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/imonce" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" class="iconfont-archer weibo" target="_blank" title=weibo></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://www.linkedin.com/in/萌-席-72ab6815a/" class="iconfont-archer linkedin" target="_blank" title=linkedin></a>
+            
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Counting-time-zones-with-pandas"><span class="toc-number">1.</span> <span class="toc-text">Counting time zones with pandas</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 39
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2019/04/15/通过python进行数据分析-二/" >通过python进行数据分析(二)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/14</span><a class="archive-post-title" href= "/2019/04/14/通过python进行数据分析-一/" >通过python进行数据分析(一)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/02</span><a class="archive-post-title" href= "/2019/04/02/latex数学符号表/" >latex数学符号表</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/02</span><a class="archive-post-title" href= "/2019/04/02/MECE分析法学习-Mutually-Exclusive-Collectively-Exhaustive/" >MECE分析法学习(Mutually Exclusive Collectively Exhaustive)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2019/03/22/WS-BPEL-2-0-xml-schema-详解-全/" >WS-BPEL 2.0 xml schema 详解(全)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2019/03/22/WS-BPEL-2-0-xml-schema-详解-二/" >WS-BPEL 2.0 xml schema 详解(二)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2019/03/22/WS-BPEL-2-0-xml-schema-详解-三/" >WS-BPEL 2.0 xml schema 详解(三)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href= "/2019/03/21/WS-BPEL-2-0-xml-schema-详解(一)/" >WS-BPEL 2.0 xml schema 详解(一)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/owl本体语言学习笔记/" >owl本体语言学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span><a class="archive-post-title" href= "/2019/03/15/XSD学习笔记完整版/" >XSD/XML Schema 学习笔记完整版</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/12</span><a class="archive-post-title" href= "/2019/03/12/商业模式新生代读书笔记三/" >商业模式新生代读书笔记三</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2019/03/11/商业模式新生代读书笔记二/" >商业模式新生代读书笔记二</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/03/06/商业模式新生代读书笔记一/" >商业模式新生代读书笔记一</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/03/05/浙大邮箱第三方登录设置方法/" >浙大邮箱第三方登录设置方法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/13</span><a class="archive-post-title" href= "/2019/01/13/mac显示隐藏文件-文件夹快捷键/" >mac显示隐藏文件/文件夹快捷键</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-使用longtable实现表格跨页/" >latex:使用longtable实现表格跨页</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-统一caption格式/" >latex:统一图表caption格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-修改bst使bib引文按照引用顺序排序/" >latex:修改bst使bib引文按照引用顺序排序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/29</span><a class="archive-post-title" href= "/2018/11/29/XMLSchema入门/" >XML Schema (XSD) 入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/28</span><a class="archive-post-title" href= "/2018/09/28/Mac如何卸载pandoc/" >Mac如何卸载pandoc</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2018/09/19/linux如何查看磁盘可用空间/" >linux如何查看磁盘可用空间</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2018/09/19/jupyter配置远程访问/" >jupyter配置远程访问</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/06</span><a class="archive-post-title" href= "/2018/09/06/Trick-bash-tensorboard-未找到命令/" >[Trick]-bash: tensorboard: 未找到命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span><a class="archive-post-title" href= "/2018/08/09/Python-python通过threading开启多线程/" >[Python]通过threading开启多线程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2018/08/08/Python-对dict字典进行排序/" >[Python]对dict字典进行排序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2018/08/06/python-获取某文件夹下所有文件名/" >[Python]获取某文件夹下所有文件名</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2018/07/31/Trick-git-pull-强制覆盖本地文件/" >[Trick]git pull 强制覆盖本地文件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2018/07/31/在linux上创建root权限用户（不修改系统文件）/" >[Trick]在linux上创建root权限用户（不修改系统文件）</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/Python入门：pickle模块简介/" >Python入门：pickle模块简介</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" >mysql-python安装错误：EnvironmentError:mysql_config not found</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/" >Chainer入门教程(下)：MNIST手写体识别</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2016/12/14/Chainer入门教程(上)：在Chainer中做线性回归/" >Chainer入门教程(上)：在Chainer中做线性回归</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/13</span><a class="archive-post-title" href= "/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/" >[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/11</span><a class="archive-post-title" href= "/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/" >[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2016/12/10/hello-world/" >Hello World</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/" >[Reading Notes]Privacy-CNH: A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2016/08/08/从0到100：zabbix及其支持环境的完整安装教程/" >从0到100：zabbix及其支持环境的完整安装教程</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="MECE"><span class="iconfont-archer">&#xe606;</span>MECE</span>
+    
+        <span class="sidebar-tag-name" data-tags="分类方法"><span class="iconfont-archer">&#xe606;</span>分类方法</span>
+    
+        <span class="sidebar-tag-name" data-tags="分析法"><span class="iconfont-archer">&#xe606;</span>分析法</span>
+    
+        <span class="sidebar-tag-name" data-tags="学习笔记"><span class="iconfont-archer">&#xe606;</span>学习笔记</span>
+    
+        <span class="sidebar-tag-name" data-tags="chainer"><span class="iconfont-archer">&#xe606;</span>chainer</span>
+    
+        <span class="sidebar-tag-name" data-tags="入门教程"><span class="iconfont-archer">&#xe606;</span>入门教程</span>
+    
+        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
+    
+        <span class="sidebar-tag-name" data-tags="神经网络"><span class="iconfont-archer">&#xe606;</span>神经网络</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="dict"><span class="iconfont-archer">&#xe606;</span>dict</span>
+    
+        <span class="sidebar-tag-name" data-tags="字典"><span class="iconfont-archer">&#xe606;</span>字典</span>
+    
+        <span class="sidebar-tag-name" data-tags="python入门"><span class="iconfont-archer">&#xe606;</span>python入门</span>
+    
+        <span class="sidebar-tag-name" data-tags="threading"><span class="iconfont-archer">&#xe606;</span>threading</span>
+    
+        <span class="sidebar-tag-name" data-tags="多线程"><span class="iconfont-archer">&#xe606;</span>多线程</span>
+    
+        <span class="sidebar-tag-name" data-tags="mac"><span class="iconfont-archer">&#xe606;</span>mac</span>
+    
+        <span class="sidebar-tag-name" data-tags="卸载"><span class="iconfont-archer">&#xe606;</span>卸载</span>
+    
+        <span class="sidebar-tag-name" data-tags="pandoc"><span class="iconfont-archer">&#xe606;</span>pandoc</span>
+    
+        <span class="sidebar-tag-name" data-tags="pickle"><span class="iconfont-archer">&#xe606;</span>pickle</span>
+    
+        <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="trick"><span class="iconfont-archer">&#xe606;</span>trick</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorboard"><span class="iconfont-archer">&#xe606;</span>tensorboard</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="object detection"><span class="iconfont-archer">&#xe606;</span>object detection</span>
+    
+        <span class="sidebar-tag-name" data-tags="CNN"><span class="iconfont-archer">&#xe606;</span>CNN</span>
+    
+        <span class="sidebar-tag-name" data-tags="multi-region"><span class="iconfont-archer">&#xe606;</span>multi-region</span>
+    
+        <span class="sidebar-tag-name" data-tags="sematic segmentation-aware"><span class="iconfont-archer">&#xe606;</span>sematic segmentation-aware</span>
+    
+        <span class="sidebar-tag-name" data-tags="Reading Notes"><span class="iconfont-archer">&#xe606;</span>Reading Notes</span>
+    
+        <span class="sidebar-tag-name" data-tags="PCNH"><span class="iconfont-archer">&#xe606;</span>PCNH</span>
+    
+        <span class="sidebar-tag-name" data-tags="Privacy Detect"><span class="iconfont-archer">&#xe606;</span>Privacy Detect</span>
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="crawler"><span class="iconfont-archer">&#xe606;</span>crawler</span>
+    
+        <span class="sidebar-tag-name" data-tags="unicrawl"><span class="iconfont-archer">&#xe606;</span>unicrawl</span>
+    
+        <span class="sidebar-tag-name" data-tags="jupyter"><span class="iconfont-archer">&#xe606;</span>jupyter</span>
+    
+        <span class="sidebar-tag-name" data-tags="远程访问"><span class="iconfont-archer">&#xe606;</span>远程访问</span>
+    
+        <span class="sidebar-tag-name" data-tags="ipython"><span class="iconfont-archer">&#xe606;</span>ipython</span>
+    
+        <span class="sidebar-tag-name" data-tags="notebook"><span class="iconfont-archer">&#xe606;</span>notebook</span>
+    
+        <span class="sidebar-tag-name" data-tags="latex"><span class="iconfont-archer">&#xe606;</span>latex</span>
+    
+        <span class="sidebar-tag-name" data-tags="long table"><span class="iconfont-archer">&#xe606;</span>long table</span>
+    
+        <span class="sidebar-tag-name" data-tags="表格跨页"><span class="iconfont-archer">&#xe606;</span>表格跨页</span>
+    
+        <span class="sidebar-tag-name" data-tags="XSD"><span class="iconfont-archer">&#xe606;</span>XSD</span>
+    
+        <span class="sidebar-tag-name" data-tags="XML Schema"><span class="iconfont-archer">&#xe606;</span>XML Schema</span>
+    
+        <span class="sidebar-tag-name" data-tags="磁盘"><span class="iconfont-archer">&#xe606;</span>磁盘</span>
+    
+        <span class="sidebar-tag-name" data-tags="空间"><span class="iconfont-archer">&#xe606;</span>空间</span>
+    
+        <span class="sidebar-tag-name" data-tags="caption"><span class="iconfont-archer">&#xe606;</span>caption</span>
+    
+        <span class="sidebar-tag-name" data-tags="数学符号"><span class="iconfont-archer">&#xe606;</span>数学符号</span>
+    
+        <span class="sidebar-tag-name" data-tags="bib"><span class="iconfont-archer">&#xe606;</span>bib</span>
+    
+        <span class="sidebar-tag-name" data-tags="bst"><span class="iconfont-archer">&#xe606;</span>bst</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
+    
+        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="mysql-python安装错误"><span class="iconfont-archer">&#xe606;</span>mysql-python安装错误</span>
+    
+        <span class="sidebar-tag-name" data-tags="os"><span class="iconfont-archer">&#xe606;</span>os</span>
+    
+        <span class="sidebar-tag-name" data-tags="商业模式"><span class="iconfont-archer">&#xe606;</span>商业模式</span>
+    
+        <span class="sidebar-tag-name" data-tags="商业"><span class="iconfont-archer">&#xe606;</span>商业</span>
+    
+        <span class="sidebar-tag-name" data-tags="模式"><span class="iconfont-archer">&#xe606;</span>模式</span>
+    
+        <span class="sidebar-tag-name" data-tags="读书笔记"><span class="iconfont-archer">&#xe606;</span>读书笔记</span>
+    
+        <span class="sidebar-tag-name" data-tags="商业画布"><span class="iconfont-archer">&#xe606;</span>商业画布</span>
+    
+        <span class="sidebar-tag-name" data-tags="zabbix安装"><span class="iconfont-archer">&#xe606;</span>zabbix安装</span>
+    
+        <span class="sidebar-tag-name" data-tags="lamp配置"><span class="iconfont-archer">&#xe606;</span>lamp配置</span>
+    
+        <span class="sidebar-tag-name" data-tags="远程连接报错"><span class="iconfont-archer">&#xe606;</span>远程连接报错</span>
+    
+        <span class="sidebar-tag-name" data-tags="商业模式式样"><span class="iconfont-archer">&#xe606;</span>商业模式式样</span>
+    
+        <span class="sidebar-tag-name" data-tags="商业模式设计"><span class="iconfont-archer">&#xe606;</span>商业模式设计</span>
+    
+        <span class="sidebar-tag-name" data-tags="浙大邮箱"><span class="iconfont-archer">&#xe606;</span>浙大邮箱</span>
+    
+        <span class="sidebar-tag-name" data-tags="第三方登录"><span class="iconfont-archer">&#xe606;</span>第三方登录</span>
+    
+        <span class="sidebar-tag-name" data-tags="设置方法"><span class="iconfont-archer">&#xe606;</span>设置方法</span>
+    
+        <span class="sidebar-tag-name" data-tags="bpel"><span class="iconfont-archer">&#xe606;</span>bpel</span>
+    
+        <span class="sidebar-tag-name" data-tags="wsbpel"><span class="iconfont-archer">&#xe606;</span>wsbpel</span>
+    
+        <span class="sidebar-tag-name" data-tags="ws-bpel"><span class="iconfont-archer">&#xe606;</span>ws-bpel</span>
+    
+        <span class="sidebar-tag-name" data-tags="bpel2.0"><span class="iconfont-archer">&#xe606;</span>bpel2.0</span>
+    
+        <span class="sidebar-tag-name" data-tags="schema"><span class="iconfont-archer">&#xe606;</span>schema</span>
+    
+        <span class="sidebar-tag-name" data-tags="xsd"><span class="iconfont-archer">&#xe606;</span>xsd</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据分析"><span class="iconfont-archer">&#xe606;</span>数据分析</span>
+    
+        <span class="sidebar-tag-name" data-tags="owl"><span class="iconfont-archer">&#xe606;</span>owl</span>
+    
+        <span class="sidebar-tag-name" data-tags="本体"><span class="iconfont-archer">&#xe606;</span>本体</span>
+    
+        <span class="sidebar-tag-name" data-tags="XML"><span class="iconfont-archer">&#xe606;</span>XML</span>
+    
+        <span class="sidebar-tag-name" data-tags="Schema"><span class="iconfont-archer">&#xe606;</span>Schema</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "C_Meng"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
