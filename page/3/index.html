@@ -464,9 +464,9 @@ LOGDIR是指log文件存放的相对或绝对目录
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
-    
         <a class="post-tag" href="javascript:void(0);" data-tags = "trick">trick</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "tensorboard">tensorboard</a>
     
@@ -545,11 +545,11 @@ is/setDaemon(bool): 获取/设置是后台线程（默认前台线程（Fals...
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
     
+        <a class="post-tag" href="javascript:void(0);" data-tags = "python入门">python入门</a>
+    
         <a class="post-tag" href="javascript:void(0);" data-tags = "dict">dict</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "字典">字典</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python入门">python入门</a>
     
 </div>
             
@@ -620,9 +620,9 @@ note：出错的话就再试一次，说不定就可以了
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "trick">trick</a>
-    
         <a class="post-tag" href="javascript:void(0);" data-tags = "git">git</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "trick">trick</a>
     
 </div>
             
@@ -661,9 +661,9 @@ usermod -g sudo imonce
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
-    
         <a class="post-tag" href="javascript:void(0);" data-tags = "trick">trick</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
     
 </div>
             
@@ -712,14 +712,26 @@ usermod -g sudo imonce
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2017/04/24/Python入门：pickle模块简介/" >
+        <a class="abstract-title" href = "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >
             
-                <span>Python入门：pickle模块简介</span>
+                <span>远程连接mysql报错：error 2003 （hy000）:can&#39;t connect to mysql server on &#39;localhost&#39; (10061)</span>
         </a>
         <div class="abstract-content">
-            概要这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看https://docs.python.org/2/library/pickle.html
-pickle简介pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。
-就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的...
+            问题原因mysql配置文件中有一句：
+bind-address = 127.0.0.1
+导致mysql只能从本地进行连接。
+解决思路找到mysql的配置文件，将这一行注释掉。
+具体解决方案去两个配置文件中找这个配置项：
+
+/etc/mysql/my.cnf
+/etc/mysql/mysqld.cnf
+
+在这两个文件的任意一个中找到
+bind-address = 127.0.0.1
+后，将其修改成：
+#bind-address = 127.0.0.1
+然后执行 service mysql restart重新启动mysql服务使配置生效即可。
+
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -730,11 +742,11 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "trick">trick</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python入门">python入门</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "mysql">mysql</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "pickle">pickle</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "远程连接报错">远程连接报错</a>
     
 </div>
             
@@ -1454,42 +1466,6 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 39
@@ -1528,17 +1504,17 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2019/03/22/WS-BPEL-2-0-xml-schema-详解-全/" >WS-BPEL 2.0 xml schema 详解(全)</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2019/03/22/WS-BPEL-2-0-xml-schema-详解-二/" >WS-BPEL 2.0 xml schema 详解(二)</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2019/03/22/WS-BPEL-2-0-xml-schema-详解-三/" >WS-BPEL 2.0 xml schema 详解(三)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2019/03/22/WS-BPEL-2-0-xml-schema-详解-全/" >WS-BPEL 2.0 xml schema 详解(全)</a>
         </li>
     
     
@@ -1592,12 +1568,12 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-使用longtable实现表格跨页/" >latex:使用longtable实现表格跨页</a>
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-统一caption格式/" >latex:统一图表caption格式</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-统一caption格式/" >latex:统一图表caption格式</a>
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-使用longtable实现表格跨页/" >latex:使用longtable实现表格跨页</a>
         </li>
     
     
@@ -1666,17 +1642,17 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/Python入门：pickle模块简介/" >Python入门：pickle模块简介</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/Python入门：pickle模块简介/" >Python入门：pickle模块简介</a>
         </li>
     
     
@@ -1733,14 +1709,6 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="MECE"><span class="iconfont-archer">&#xe606;</span>MECE</span>
-    
-        <span class="sidebar-tag-name" data-tags="分类方法"><span class="iconfont-archer">&#xe606;</span>分类方法</span>
-    
-        <span class="sidebar-tag-name" data-tags="分析法"><span class="iconfont-archer">&#xe606;</span>分析法</span>
-    
-        <span class="sidebar-tag-name" data-tags="学习笔记"><span class="iconfont-archer">&#xe606;</span>学习笔记</span>
-    
         <span class="sidebar-tag-name" data-tags="chainer"><span class="iconfont-archer">&#xe606;</span>chainer</span>
     
         <span class="sidebar-tag-name" data-tags="入门教程"><span class="iconfont-archer">&#xe606;</span>入门教程</span>
@@ -1749,17 +1717,19 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
     
         <span class="sidebar-tag-name" data-tags="神经网络"><span class="iconfont-archer">&#xe606;</span>神经网络</span>
     
+        <span class="sidebar-tag-name" data-tags="MECE"><span class="iconfont-archer">&#xe606;</span>MECE</span>
+    
+        <span class="sidebar-tag-name" data-tags="分类方法"><span class="iconfont-archer">&#xe606;</span>分类方法</span>
+    
+        <span class="sidebar-tag-name" data-tags="分析法"><span class="iconfont-archer">&#xe606;</span>分析法</span>
+    
+        <span class="sidebar-tag-name" data-tags="学习笔记"><span class="iconfont-archer">&#xe606;</span>学习笔记</span>
+    
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
-        <span class="sidebar-tag-name" data-tags="dict"><span class="iconfont-archer">&#xe606;</span>dict</span>
-    
-        <span class="sidebar-tag-name" data-tags="字典"><span class="iconfont-archer">&#xe606;</span>字典</span>
+        <span class="sidebar-tag-name" data-tags="pickle"><span class="iconfont-archer">&#xe606;</span>pickle</span>
     
         <span class="sidebar-tag-name" data-tags="python入门"><span class="iconfont-archer">&#xe606;</span>python入门</span>
-    
-        <span class="sidebar-tag-name" data-tags="threading"><span class="iconfont-archer">&#xe606;</span>threading</span>
-    
-        <span class="sidebar-tag-name" data-tags="多线程"><span class="iconfont-archer">&#xe606;</span>多线程</span>
     
         <span class="sidebar-tag-name" data-tags="mac"><span class="iconfont-archer">&#xe606;</span>mac</span>
     
@@ -1767,15 +1737,21 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
     
         <span class="sidebar-tag-name" data-tags="pandoc"><span class="iconfont-archer">&#xe606;</span>pandoc</span>
     
-        <span class="sidebar-tag-name" data-tags="pickle"><span class="iconfont-archer">&#xe606;</span>pickle</span>
+        <span class="sidebar-tag-name" data-tags="threading"><span class="iconfont-archer">&#xe606;</span>threading</span>
     
-        <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
+        <span class="sidebar-tag-name" data-tags="多线程"><span class="iconfont-archer">&#xe606;</span>多线程</span>
+    
+        <span class="sidebar-tag-name" data-tags="dict"><span class="iconfont-archer">&#xe606;</span>dict</span>
+    
+        <span class="sidebar-tag-name" data-tags="字典"><span class="iconfont-archer">&#xe606;</span>字典</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
     
         <span class="sidebar-tag-name" data-tags="trick"><span class="iconfont-archer">&#xe606;</span>trick</span>
     
-        <span class="sidebar-tag-name" data-tags="tensorboard"><span class="iconfont-archer">&#xe606;</span>tensorboard</span>
+        <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
     
-        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+        <span class="sidebar-tag-name" data-tags="tensorboard"><span class="iconfont-archer">&#xe606;</span>tensorboard</span>
     
         <span class="sidebar-tag-name" data-tags="object detection"><span class="iconfont-archer">&#xe606;</span>object detection</span>
     
@@ -1791,12 +1767,6 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
     
         <span class="sidebar-tag-name" data-tags="Privacy Detect"><span class="iconfont-archer">&#xe606;</span>Privacy Detect</span>
     
-        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
-    
-        <span class="sidebar-tag-name" data-tags="crawler"><span class="iconfont-archer">&#xe606;</span>crawler</span>
-    
-        <span class="sidebar-tag-name" data-tags="unicrawl"><span class="iconfont-archer">&#xe606;</span>unicrawl</span>
-    
         <span class="sidebar-tag-name" data-tags="jupyter"><span class="iconfont-archer">&#xe606;</span>jupyter</span>
     
         <span class="sidebar-tag-name" data-tags="远程访问"><span class="iconfont-archer">&#xe606;</span>远程访问</span>
@@ -1807,31 +1777,37 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
     
         <span class="sidebar-tag-name" data-tags="latex"><span class="iconfont-archer">&#xe606;</span>latex</span>
     
+        <span class="sidebar-tag-name" data-tags="bib"><span class="iconfont-archer">&#xe606;</span>bib</span>
+    
+        <span class="sidebar-tag-name" data-tags="bst"><span class="iconfont-archer">&#xe606;</span>bst</span>
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="crawler"><span class="iconfont-archer">&#xe606;</span>crawler</span>
+    
+        <span class="sidebar-tag-name" data-tags="unicrawl"><span class="iconfont-archer">&#xe606;</span>unicrawl</span>
+    
+        <span class="sidebar-tag-name" data-tags="caption"><span class="iconfont-archer">&#xe606;</span>caption</span>
+    
         <span class="sidebar-tag-name" data-tags="long table"><span class="iconfont-archer">&#xe606;</span>long table</span>
     
         <span class="sidebar-tag-name" data-tags="表格跨页"><span class="iconfont-archer">&#xe606;</span>表格跨页</span>
-    
-        <span class="sidebar-tag-name" data-tags="XSD"><span class="iconfont-archer">&#xe606;</span>XSD</span>
-    
-        <span class="sidebar-tag-name" data-tags="XML Schema"><span class="iconfont-archer">&#xe606;</span>XML Schema</span>
     
         <span class="sidebar-tag-name" data-tags="磁盘"><span class="iconfont-archer">&#xe606;</span>磁盘</span>
     
         <span class="sidebar-tag-name" data-tags="空间"><span class="iconfont-archer">&#xe606;</span>空间</span>
     
-        <span class="sidebar-tag-name" data-tags="caption"><span class="iconfont-archer">&#xe606;</span>caption</span>
-    
-        <span class="sidebar-tag-name" data-tags="数学符号"><span class="iconfont-archer">&#xe606;</span>数学符号</span>
-    
-        <span class="sidebar-tag-name" data-tags="bib"><span class="iconfont-archer">&#xe606;</span>bib</span>
-    
-        <span class="sidebar-tag-name" data-tags="bst"><span class="iconfont-archer">&#xe606;</span>bst</span>
-    
-        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
-    
         <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
     
         <span class="sidebar-tag-name" data-tags="mysql-python安装错误"><span class="iconfont-archer">&#xe606;</span>mysql-python安装错误</span>
+    
+        <span class="sidebar-tag-name" data-tags="数学符号"><span class="iconfont-archer">&#xe606;</span>数学符号</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
+    
+        <span class="sidebar-tag-name" data-tags="zabbix安装"><span class="iconfont-archer">&#xe606;</span>zabbix安装</span>
+    
+        <span class="sidebar-tag-name" data-tags="lamp配置"><span class="iconfont-archer">&#xe606;</span>lamp配置</span>
     
         <span class="sidebar-tag-name" data-tags="os"><span class="iconfont-archer">&#xe606;</span>os</span>
     
@@ -1845,21 +1821,23 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
     
         <span class="sidebar-tag-name" data-tags="商业画布"><span class="iconfont-archer">&#xe606;</span>商业画布</span>
     
-        <span class="sidebar-tag-name" data-tags="zabbix安装"><span class="iconfont-archer">&#xe606;</span>zabbix安装</span>
-    
-        <span class="sidebar-tag-name" data-tags="lamp配置"><span class="iconfont-archer">&#xe606;</span>lamp配置</span>
-    
-        <span class="sidebar-tag-name" data-tags="远程连接报错"><span class="iconfont-archer">&#xe606;</span>远程连接报错</span>
+        <span class="sidebar-tag-name" data-tags="商业模式设计"><span class="iconfont-archer">&#xe606;</span>商业模式设计</span>
     
         <span class="sidebar-tag-name" data-tags="商业模式式样"><span class="iconfont-archer">&#xe606;</span>商业模式式样</span>
     
-        <span class="sidebar-tag-name" data-tags="商业模式设计"><span class="iconfont-archer">&#xe606;</span>商业模式设计</span>
+        <span class="sidebar-tag-name" data-tags="远程连接报错"><span class="iconfont-archer">&#xe606;</span>远程连接报错</span>
     
         <span class="sidebar-tag-name" data-tags="浙大邮箱"><span class="iconfont-archer">&#xe606;</span>浙大邮箱</span>
     
         <span class="sidebar-tag-name" data-tags="第三方登录"><span class="iconfont-archer">&#xe606;</span>第三方登录</span>
     
         <span class="sidebar-tag-name" data-tags="设置方法"><span class="iconfont-archer">&#xe606;</span>设置方法</span>
+    
+        <span class="sidebar-tag-name" data-tags="XSD"><span class="iconfont-archer">&#xe606;</span>XSD</span>
+    
+        <span class="sidebar-tag-name" data-tags="XML Schema"><span class="iconfont-archer">&#xe606;</span>XML Schema</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据分析"><span class="iconfont-archer">&#xe606;</span>数据分析</span>
     
         <span class="sidebar-tag-name" data-tags="bpel"><span class="iconfont-archer">&#xe606;</span>bpel</span>
     
@@ -1872,8 +1850,6 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
         <span class="sidebar-tag-name" data-tags="schema"><span class="iconfont-archer">&#xe606;</span>schema</span>
     
         <span class="sidebar-tag-name" data-tags="xsd"><span class="iconfont-archer">&#xe606;</span>xsd</span>
-    
-        <span class="sidebar-tag-name" data-tags="数据分析"><span class="iconfont-archer">&#xe606;</span>数据分析</span>
     
         <span class="sidebar-tag-name" data-tags="owl"><span class="iconfont-archer">&#xe606;</span>owl</span>
     
