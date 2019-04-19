@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="C_Meng">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="C_Meng">
+    
+    <meta name="keywords" content="C_Meng,C_Meng,hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="this is description">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>6小时精通python(六-完结) · C_Meng</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >C_Meng</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">6小时精通python(六-完结)</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>C_Meng</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(https://source.unsplash.com/random)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            6小时精通python(六-完结)
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "6小时精通python">6小时精通python</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "python3">python3</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "python精通">python精通</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2,652</span>阅读时长: <span class="post-count reading-time">12 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/04/19</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>译自：<a href="https://learnxinyminutes.com/docs/python3/" target="_blank" rel="noopener">https://learnxinyminutes.com/docs/python3/</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">####################################################</span></span><br><span class="line"><span class="comment">## 6. Classes</span></span><br><span class="line"><span class="comment">####################################################</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过class声明，来创建一个类</span></span><br><span class="line"><span class="comment"># 类内方法中，self为一个保留字，代表类实例化后instance自身</span></span><br><span class="line"><span class="comment"># 类内方法中，cls也是一个保留字，代表类class自身</span></span><br><span class="line"><span class="comment"># 通过self.***可以给类内属性赋值，或调用类内方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Human</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 直接定义的变量，是这个类的共享属性，所有实例都可以访问</span></span><br><span class="line">    species = <span class="string">"H. sapiens"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># __init__是一个保留方法，用于类的实例化（生成实例时自动调用）</span></span><br><span class="line">    <span class="comment"># 注意：名称前后有双下划线__，代表这个对象或者属性是python调用、用户定义的</span></span><br><span class="line">    <span class="comment"># 这类方法（对象、属性）包括: __init__, __str__, __repr__ etc.</span></span><br><span class="line">    <span class="comment"># 这类特殊方法，也被称作（dunder method）</span></span><br><span class="line">    <span class="comment"># 不要自己创造这类方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        <span class="comment"># 将参数分配给实例的name属性</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 初始化属性</span></span><br><span class="line">        self._age = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 这是类的一个内建方法，所有内建的方法都需要把self作为其第一个形式参数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">say</span><span class="params">(self, msg)</span>:</span></span><br><span class="line">        print(<span class="string">"&#123;name&#125;: &#123;message&#125;"</span>.format(name=self.name, message=msg))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 另一个方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sing</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'yo... yo... microphone check... one two... one two...'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># @classmethod是一个声明，声明接下来定义的方法是该类所有实例的共享方法</span></span><br><span class="line">    <span class="comment"># 这种方法被调用时，必须有cls作为第一个参数</span></span><br><span class="line">    <span class="comment"># 类方法的特点在于，可以被类自身调用，如Human.get_species()</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_species</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.species</span><br><span class="line"></span><br><span class="line">    <span class="comment"># @staticmethod声明接下来定义的是一个静态方法</span></span><br><span class="line">    <span class="comment"># 静态方法可以被类单独调用</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">grunt</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"*grunt*"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># @property就是一个getter，声明该方法用于访问内部属性</span></span><br><span class="line">    <span class="comment"># @property这个声明，将age()方法转换为同名的只读属性。 </span></span><br><span class="line">    <span class="comment"># 但是，不需要在Python中编写琐碎的getter和setter。</span></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">age</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._age</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果还想要让该属性可更改，可以这么写</span></span><br><span class="line"><span class="meta">    @age.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">age</span><span class="params">(self, age)</span>:</span></span><br><span class="line">        self._age = age</span><br><span class="line"></span><br><span class="line">    <span class="comment"># deleter可以让该属性可删除</span></span><br><span class="line"><span class="meta">    @age.deleter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">age</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">del</span> self._age</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># __name__代表的是运行进程的名称</span></span><br><span class="line"><span class="comment"># __name__ == '__main__'，判断用户是否是将该python文件当作主要脚本运行</span></span><br><span class="line"><span class="comment"># 简单来说，if __name__ == '__main__':代码块中的内容</span></span><br><span class="line"><span class="comment"># 只有在运行该python文件时才会生效，如果该python文件是以import形式被调用，则不会运行</span></span><br><span class="line"><span class="comment"># 而写在if __name__ == '__main__':代码块外的内容，被import时，也会运行</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 生成Human类的实例</span></span><br><span class="line">    <span class="comment"># 类名加括号，直接调用__init__方法</span></span><br><span class="line">    i = Human(name=<span class="string">"Ian"</span>)</span><br><span class="line">    i.say(<span class="string">"hi"</span>)                     <span class="comment"># "Ian: hi"</span></span><br><span class="line">    j = Human(<span class="string">"Joel"</span>)</span><br><span class="line">    j.say(<span class="string">"hello"</span>)                  <span class="comment"># "Joel: hello"</span></span><br><span class="line">    <span class="comment"># i and j 是Human类的两个实例</span></span><br><span class="line">    <span class="comment"># 调用类方法</span></span><br><span class="line">    i.say(Human.get_species())          <span class="comment"># "Ian: H. sapiens"</span></span><br><span class="line">    <span class="comment"># 共享属性改了之后，大家都改了</span></span><br><span class="line">    Human.species = <span class="string">"H. neanderthalensis"</span></span><br><span class="line">    i.say(i.get_species())          <span class="comment"># =&gt; "Ian: H. neanderthalensis"</span></span><br><span class="line">    j.say(j.get_species())          <span class="comment"># =&gt; "Joel: H. neanderthalensis"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 类可以调用静态函数</span></span><br><span class="line">    print(Human.grunt())            <span class="comment"># =&gt; "*grunt*"</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 有些版本中实例是不能调用静态函数的</span></span><br><span class="line">    print(i.grunt())</span><br><span class="line">                                    </span><br><span class="line">    <span class="comment"># 更新实例的属性</span></span><br><span class="line">    i.age = <span class="number">42</span></span><br><span class="line">    <span class="comment"># 获取property</span></span><br><span class="line">    i.say(i.age)                    <span class="comment"># =&gt; "Ian: 42"</span></span><br><span class="line">    j.say(j.age)                    <span class="comment"># =&gt; "Joel: 0"</span></span><br><span class="line">    <span class="comment"># 删除i的age属性</span></span><br><span class="line">    <span class="keyword">del</span> i.age</span><br></pre></td></tr></table></figure>
+<pre><code>Ian: hi
+Joel: hello
+Ian: H. sapiens
+Ian: H. neanderthalensis
+Joel: H. neanderthalensis
+*grunt*
+*grunt*
+Ian: 42
+Joel: 0
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 再访问i的年龄就会报错</span></span><br><span class="line">i.age</span><br></pre></td></tr></table></figure>
+<pre><code>---------------------------------------------------------------------------
+
+AttributeError                            Traceback (most recent call last)
+
+&lt;ipython-input-207-993258cc61d3&gt; in &lt;module&gt;()
+      1 # 再访问i的年龄就会报错
+----&gt; 2 i.age
+
+
+&lt;ipython-input-186-b3205f030117&gt; in age(self)
+     44     @property
+     45     def age(self):
+---&gt; 46         return self._age
+     47 
+     48     # 如果还想要让该属性可更改，可以这么写
+
+
+AttributeError: &apos;Human&apos; object has no attribute &apos;_age&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不仅仅是age()没了，_age这个属性是真的没了</span></span><br><span class="line">i._age</span><br></pre></td></tr></table></figure>
+<pre><code>---------------------------------------------------------------------------
+
+AttributeError                            Traceback (most recent call last)
+
+&lt;ipython-input-208-4ea879b64970&gt; in &lt;module&gt;()
+      1 # 不仅仅是age()没了，_age这个属性是真的没了
+----&gt; 2 i._age
+
+
+AttributeError: &apos;Human&apos; object has no attribute &apos;_age&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">####################################################</span></span><br><span class="line"><span class="comment">## 6.1 继承</span></span><br><span class="line"><span class="comment">####################################################</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 继承允许定义新的子类，这些子类从父类继承方法和变量</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用上面定义的Human类作为基类或父类，我们可以定义一个子类Superhero</span></span><br><span class="line"><span class="comment"># 它继承了类的变量如“species”，“name”和“age”，</span></span><br><span class="line"><span class="comment"># 以及“sing”和“grunt”等方法</span></span><br><span class="line"><span class="comment"># 但superhero也可以拥有自己的属性</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果要将文件模块化，您可以将上面的类放在自己的文件中，命名为human.py</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 要从其他文件导入功能，请使用以下格式</span></span><br><span class="line"><span class="comment"># from “filename（不加扩展名.py）” import “函数名或类名”</span></span><br><span class="line"><span class="keyword">from</span> human <span class="keyword">import</span> Human</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将父类当作参数写进子类定义作为声明</span></span><br><span class="line"><span class="comment"># 如：class child(parent):</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Superhero</span><span class="params">(Human)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果您想让子类继承父类的所有定义且没有任何修改</span></span><br><span class="line">    <span class="comment"># 您可以只使用“pass”关键字（而不使用其他关键字）</span></span><br><span class="line">    <span class="comment"># 如</span></span><br><span class="line">    <span class="comment">#     class Human2(Human):</span></span><br><span class="line">    <span class="comment">#         pass</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 子类可以重写其父类的属性</span></span><br><span class="line">    species = <span class="string">'Superhuman'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 子类自动继承其父类的构造函数（__init__），包括它的参数</span></span><br><span class="line">    <span class="comment"># 但也可以定义其他参数或定义并重写其方法</span></span><br><span class="line">    <span class="comment"># 此构造函数从“human”类继承“name”参数</span></span><br><span class="line">    <span class="comment"># 并且添加“superpower”和“movie”参数：</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, movie=False,</span></span></span><br><span class="line"><span class="function"><span class="params">                 superpowers=[<span class="string">"super strength"</span>, <span class="string">"bulletproofing"</span>])</span>:</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 增加新的属性</span></span><br><span class="line">        self.fictional = <span class="keyword">True</span></span><br><span class="line">        self.movie = movie</span><br><span class="line">        <span class="comment"># 注意可变的默认值，因为默认值是共享的</span></span><br><span class="line">        self.superpowers = superpowers</span><br><span class="line"></span><br><span class="line">        <span class="comment"># “super”是一个保留函数，该函数允许您访问父类的方法</span></span><br><span class="line">        <span class="comment"># 下面的语句将调用父类构造函数：</span></span><br><span class="line">        super().__init__(name)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 覆盖sing方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sing</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Dun, dun, DUN!'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 增加实例方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">boast</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> power <span class="keyword">in</span> self.superpowers:</span><br><span class="line">            print(<span class="string">"I wield the power of &#123;pwr&#125;!"</span>.format(pwr=power))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    sup = Superhero(name=<span class="string">"Tick"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过isinstance方法，可以判断，实例和类的关系</span></span><br><span class="line">    <span class="keyword">if</span> isinstance(sup, Human):</span><br><span class="line">        print(<span class="string">'I am human'</span>)</span><br><span class="line">    <span class="comment"># 通过type(instance)可以得到实例的class对象</span></span><br><span class="line">    <span class="keyword">if</span> type(sup) <span class="keyword">is</span> Superhero:</span><br><span class="line">        print(<span class="string">'I am a superhero'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过__mro__方法，可以获取类的继承链（super方法或者getattr方法）</span></span><br><span class="line">    print(Superhero.__mro__)    <span class="comment"># =&gt; (&lt;class '__main__.Superhero'&gt;, &lt;class '__main__.Human'&gt;, &lt;class 'object'&gt;)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用父类方法，访问子类属性</span></span><br><span class="line">    print(sup.get_species())    <span class="comment"># =&gt; Superhuman</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用覆盖了的方法</span></span><br><span class="line">    print(sup.sing())           <span class="comment"># =&gt; Dun, dun, DUN!</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用父类的方法</span></span><br><span class="line">    sup.say(<span class="string">'Spoon'</span>)            <span class="comment"># =&gt; Tick: Spoon</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用子类独有的方法</span></span><br><span class="line">    sup.boast()                 <span class="comment"># =&gt; I wield the power of super strength!</span></span><br><span class="line">                                <span class="comment"># =&gt; I wield the power of bulletproofing!</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 继承了的类属性</span></span><br><span class="line">    sup.age = <span class="number">31</span></span><br><span class="line">    print(sup.age)              <span class="comment"># =&gt; 31</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 子类独有的属性</span></span><br><span class="line">    print(<span class="string">'Am I Oscar eligible? '</span> + str(sup.movie))</span><br></pre></td></tr></table></figure>
+<pre><code>I am human
+I am a superhero
+(&lt;class &apos;__main__.Superhero&apos;&gt;, &lt;class &apos;__main__.Human&apos;&gt;, &lt;class &apos;object&apos;&gt;)
+Superhuman
+Dun, dun, DUN!
+Tick: Spoon
+I wield the power of super strength!
+I wield the power of bulletproofing!
+31
+Am I Oscar eligible? False
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">####################################################</span></span><br><span class="line"><span class="comment">## 6.2 多重继承</span></span><br><span class="line"><span class="comment">####################################################</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义一个蝙蝠类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bat</span>:</span></span><br><span class="line"></span><br><span class="line">    species = <span class="string">'Baty'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, can_fly=True)</span>:</span></span><br><span class="line">        self.fly = can_fly</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 这个类页游say的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">say</span><span class="params">(self, msg)</span>:</span></span><br><span class="line">        msg = <span class="string">'... ... ...'</span></span><br><span class="line">        <span class="keyword">return</span> msg</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 还有独有的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sonar</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'))) ... ((('</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    b = Bat()</span><br><span class="line">    print(b.say(<span class="string">'hello'</span>))</span><br><span class="line">    print(b.fly)</span><br></pre></td></tr></table></figure>
+<pre><code>... ... ...
+True
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果您写了多个文件，就需要导入一下</span></span><br><span class="line"><span class="keyword">from</span> superhero <span class="keyword">import</span> Superhero</span><br><span class="line"><span class="keyword">from</span> bat <span class="keyword">import</span> Bat</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义蝙蝠侠，继承自超级英雄和蝙蝠两个类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Batman</span><span class="params">(Superhero, Bat)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="comment"># 通常，要继承属性，必须调用super</span></span><br><span class="line">        <span class="comment"># 然而，我们在这里处理多个继承</span></span><br><span class="line">        <span class="comment"># 而super（）只适用于MRO列表中的下一个基类。</span></span><br><span class="line">        <span class="comment"># 因此，我们明确地为所有祖先(父类)调用__init__</span></span><br><span class="line">        <span class="comment"># 使用“*args”和“*kwargs”可以以一种干净的方式传递参数</span></span><br><span class="line">        <span class="comment"># 每个父类“剥一层洋葱皮”</span></span><br><span class="line">        Superhero.__init__(self, <span class="string">'anonymous'</span>, movie=<span class="keyword">True</span>, </span><br><span class="line">                           superpowers=[<span class="string">'Wealthy'</span>], *args, **kwargs)</span><br><span class="line">        Bat.__init__(self, *args, can_fly=<span class="keyword">False</span>, **kwargs)</span><br><span class="line">        <span class="comment"># override the value for the name attribute</span></span><br><span class="line">        self.name = <span class="string">'Sad Affleck'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sing</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'nan nan nan nan nan batman!'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    sup = Batman()</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 通过__mro__方法，可以获取类的继承链（super方法或者getattr方法）</span></span><br><span class="line">    print(Batman.__mro__)       <span class="comment"># =&gt; (&lt;class '__main__.Batman'&gt;, </span></span><br><span class="line">                                <span class="comment"># =&gt; &lt;class 'superhero.Superhero'&gt;, </span></span><br><span class="line">                                <span class="comment"># =&gt; &lt;class 'human.Human'&gt;, </span></span><br><span class="line">                                <span class="comment"># =&gt; &lt;class 'bat.Bat'&gt;, &lt;class 'object'&gt;)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用父类方法获取子类属性</span></span><br><span class="line">    print(sup.get_species())    <span class="comment"># =&gt; Superhuman</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用覆盖后的方法</span></span><br><span class="line">    print(sup.sing())           <span class="comment"># =&gt; nan nan nan nan nan batman!</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 两个父类有重名方法时，顺序在前的优先级更高</span></span><br><span class="line">    sup.say(<span class="string">'I agree'</span>)          <span class="comment"># =&gt; Sad Affleck: I agree</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用第二父类方法</span></span><br><span class="line">    print(sup.sonar())          <span class="comment"># =&gt; ))) ... (((</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 继承类属性</span></span><br><span class="line">    sup.age = <span class="number">100</span></span><br><span class="line">    print(sup.age)              <span class="comment"># =&gt; 100</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 输出从第二父类继承的属性，该属性已被覆盖</span></span><br><span class="line">    print(<span class="string">'Can I fly? '</span> + str(sup.fly)) <span class="comment"># =&gt; Can I fly? False</span></span><br></pre></td></tr></table></figure>
+<pre><code>(&lt;class &apos;__main__.Batman&apos;&gt;, &lt;class &apos;__main__.Superhero&apos;&gt;, &lt;class &apos;__main__.Human&apos;&gt;, &lt;class &apos;__main__.Bat&apos;&gt;, &lt;class &apos;object&apos;&gt;)
+Superhuman
+nan nan nan nan nan batman!
+Sad Affleck: I agree
+))) ... (((
+100
+Can I fly? False
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">####################################################</span></span><br><span class="line"><span class="comment">## 7. Advanced</span></span><br><span class="line"><span class="comment">####################################################</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成器可以帮你偷很多懒</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">double_numbers</span><span class="params">(iterable)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> iterable:</span><br><span class="line">        <span class="keyword">yield</span> i + i</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成器可以节省很多内存</span></span><br><span class="line"><span class="comment"># 因为它们只加载所需处理iterable中的下一个值的数据(边生成边处理)</span></span><br><span class="line"><span class="comment"># 普通方法需要 先生成后处理</span></span><br><span class="line"><span class="comment"># 这使其可以进行大范围的数据操作（其他方法可能不行）</span></span><br><span class="line"><span class="comment"># 注意：python 3中，“range”替换了“xrange”</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> double_numbers(range(<span class="number">1</span>, <span class="number">900000000</span>)):  <span class="comment"># `range` is a generator.</span></span><br><span class="line">    print(i)</span><br><span class="line">    <span class="keyword">if</span> i &gt;= <span class="number">30</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<pre><code>2
+4
+6
+8
+10
+12
+14
+16
+18
+20
+22
+24
+26
+28
+30
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 正如可以创建列表理解一样，也可以创建生成器理解</span></span><br><span class="line"><span class="comment"># 这里，圆括号是关键，你以为是tuples，实际上是生成器</span></span><br><span class="line">values = (-x <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">print(values)</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> values:</span><br><span class="line">    print(x)  <span class="comment"># prints -1 -2 -3 -4 -5 to console/terminal</span></span><br></pre></td></tr></table></figure>
+<pre><code>&lt;generator object &lt;genexpr&gt; at 0x102e9c990&gt;
+-1
+-2
+-3
+-4
+-5
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以直接把一个生成器理解投射到list上</span></span><br><span class="line">values = (-x <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">gen_to_list = list(values)</span><br><span class="line">print(gen_to_list)  <span class="comment"># =&gt; [-1, -2, -3, -4, -5]</span></span><br></pre></td></tr></table></figure>
+<pre><code>[-1, -2, -3, -4, -5]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修饰器</span></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">beg</span><span class="params">(target_function)</span>:</span></span><br><span class="line">    </span><br><span class="line"><span class="meta">    @wraps(target_function)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        msg, say_please = target_function(*args, **kwargs)</span><br><span class="line">        <span class="keyword">if</span> say_please:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"&#123;&#125; &#123;&#125;"</span>.format(msg, <span class="string">"Please! I am poor :("</span>)</span><br><span class="line">        <span class="keyword">return</span> msg</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里通过beg修饰say</span></span><br><span class="line"><span class="comment"># 可以改变say的输出</span></span><br><span class="line"><span class="meta">@beg</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">say</span><span class="params">(say_please=False)</span>:</span></span><br><span class="line">    msg = <span class="string">"Can you buy me a beer?"</span></span><br><span class="line">    <span class="keyword">return</span> msg, say_please</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(say())                 <span class="comment"># Can you buy me a beer?</span></span><br><span class="line">print(say(say_please=<span class="keyword">True</span>))  <span class="comment"># Can you buy me a beer? Please! I am poor :(</span></span><br></pre></td></tr></table></figure>
+<pre><code>Can you buy me a beer?
+Can you buy me a beer? Please! I am poor :(
+</code></pre>
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://imonce.github.io">C_Meng</a>
+            <p>原文链接：<a href="http://imonce.github.io/2019/04/19/6小时精通python-六-完结/">http://imonce.github.io/2019/04/19/6小时精通python-六-完结/</a>
+            <p>发表日期：<a href="http://imonce.github.io/2019/04/19/6小时精通python-六-完结/">April 19th 2019, 5:35:34 pm</a>
+            <p>更新日期：<a href="http://imonce.github.io/2019/04/19/6小时精通python-六-完结/">April 19th 2019, 5:44:59 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/04/19/6小时精通python-五/" title= "6小时精通python(五)">
+                    <div class="prevTitle">6小时精通python(五)</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz",
+        appKey: "WBQPPWjmwGWqvQcLqprPq0xs",
+        placeholder: "",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:imonce@outlook.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/imonce" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" class="iconfont-archer weibo" target="_blank" title=weibo></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://www.linkedin.com/in/萌-席-72ab6815a/" class="iconfont-archer linkedin" target="_blank" title=linkedin></a>
+            
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 45
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/19</span><a class="archive-post-title" href= "/2019/04/19/6小时精通python-二/" >6小时精通python(二)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/19</span><a class="archive-post-title" href= "/2019/04/19/6小时精通python-六-完结/" >6小时精通python(六-完结)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/19</span><a class="archive-post-title" href= "/2019/04/19/6小时精通python-五/" >6小时精通python(五)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/19</span><a class="archive-post-title" href= "/2019/04/19/6小时精通python-四/" >6小时精通python(四)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/19</span><a class="archive-post-title" href= "/2019/04/19/6小时精通python-三/" >6小时精通python(三)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/19</span><a class="archive-post-title" href= "/2019/04/19/6小时精通python-一/" >6小时精通python(一)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2019/04/15/通过python进行数据分析-二/" >通过python进行数据分析(二)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/14</span><a class="archive-post-title" href= "/2019/04/14/通过python进行数据分析-一/" >通过python进行数据分析(一)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/02</span><a class="archive-post-title" href= "/2019/04/02/latex数学符号表/" >latex数学符号表</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/02</span><a class="archive-post-title" href= "/2019/04/02/MECE分析法学习-Mutually-Exclusive-Collectively-Exhaustive/" >MECE分析法学习(Mutually Exclusive Collectively Exhaustive)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2019/03/22/WS-BPEL-2-0-xml-schema-详解-二/" >WS-BPEL 2.0 xml schema 详解(二)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2019/03/22/WS-BPEL-2-0-xml-schema-详解-三/" >WS-BPEL 2.0 xml schema 详解(三)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2019/03/22/WS-BPEL-2-0-xml-schema-详解-全/" >WS-BPEL 2.0 xml schema 详解(1+2+3全，方便检索)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href= "/2019/03/21/WS-BPEL-2-0-xml-schema-详解(一)/" >WS-BPEL 2.0 xml schema 详解(一)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/owl本体语言学习笔记/" >owl本体语言学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span><a class="archive-post-title" href= "/2019/03/15/XSD学习笔记完整版/" >XSD/XML Schema 学习笔记完整版</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/12</span><a class="archive-post-title" href= "/2019/03/12/商业模式新生代读书笔记三/" >商业模式新生代读书笔记三</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2019/03/11/商业模式新生代读书笔记二/" >商业模式新生代读书笔记二</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/03/06/商业模式新生代读书笔记一/" >商业模式新生代读书笔记一</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/03/05/浙大邮箱第三方登录设置方法/" >浙大邮箱第三方登录设置方法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/13</span><a class="archive-post-title" href= "/2019/01/13/mac显示隐藏文件-文件夹快捷键/" >mac显示隐藏文件/文件夹快捷键</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-使用longtable实现表格跨页/" >latex:使用longtable实现表格跨页</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-统一caption格式/" >latex:统一图表caption格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2018/12/27/latex-修改bst使bib引文按照引用顺序排序/" >latex:修改bst使bib引文按照引用顺序排序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/29</span><a class="archive-post-title" href= "/2018/11/29/XMLSchema入门/" >XML Schema (XSD) 入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/28</span><a class="archive-post-title" href= "/2018/09/28/Mac如何卸载pandoc/" >Mac如何卸载pandoc</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2018/09/19/linux如何查看磁盘可用空间/" >linux如何查看磁盘可用空间</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2018/09/19/jupyter配置远程访问/" >jupyter配置远程访问</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/06</span><a class="archive-post-title" href= "/2018/09/06/Trick-bash-tensorboard-未找到命令/" >[Trick]-bash: tensorboard: 未找到命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span><a class="archive-post-title" href= "/2018/08/09/Python-python通过threading开启多线程/" >[Python]通过threading开启多线程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2018/08/08/Python-对dict字典进行排序/" >[Python]对dict字典进行排序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2018/08/06/python-获取某文件夹下所有文件名/" >[Python]获取某文件夹下所有文件名</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2018/07/31/Trick-git-pull-强制覆盖本地文件/" >[Trick]git pull 强制覆盖本地文件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2018/07/31/在linux上创建root权限用户（不修改系统文件）/" >[Trick]在linux上创建root权限用户（不修改系统文件）</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" >mysql-python安装错误：EnvironmentError:mysql_config not found</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" >远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/Python入门：pickle模块简介/" >Python入门：pickle模块简介</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span><a class="archive-post-title" href= "/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" >远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/" >Chainer入门教程(下)：MNIST手写体识别</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2016/12/14/Chainer入门教程(上)：在Chainer中做线性回归/" >Chainer入门教程(上)：在Chainer中做线性回归</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/13</span><a class="archive-post-title" href= "/2016/12/13/[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model/" >[Reading Notes] Object detection via a multi-region & sematic segmentation-aware CNN model</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/11</span><a class="archive-post-title" href= "/2016/12/11/[Reading Notes] UniCrawl- A Practical Geographically Distributed Web Crawler/" >[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2016/12/10/hello-world/" >Hello World</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2016/12/10/[Reading Notes] Privacy-CNH- A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features/" >[Reading Notes]Privacy-CNH: A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2016/08/08/从0到100：zabbix及其支持环境的完整安装教程/" >从0到100：zabbix及其支持环境的完整安装教程</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="6小时精通python"><span class="iconfont-archer">&#xe606;</span>6小时精通python</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="python3"><span class="iconfont-archer">&#xe606;</span>python3</span>
+    
+        <span class="sidebar-tag-name" data-tags="python精通"><span class="iconfont-archer">&#xe606;</span>python精通</span>
+    
+        <span class="sidebar-tag-name" data-tags="chainer"><span class="iconfont-archer">&#xe606;</span>chainer</span>
+    
+        <span class="sidebar-tag-name" data-tags="入门教程"><span class="iconfont-archer">&#xe606;</span>入门教程</span>
+    
+        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
+    
+        <span class="sidebar-tag-name" data-tags="神经网络"><span class="iconfont-archer">&#xe606;</span>神经网络</span>
+    
+        <span class="sidebar-tag-name" data-tags="MECE"><span class="iconfont-archer">&#xe606;</span>MECE</span>
+    
+        <span class="sidebar-tag-name" data-tags="分类方法"><span class="iconfont-archer">&#xe606;</span>分类方法</span>
+    
+        <span class="sidebar-tag-name" data-tags="分析法"><span class="iconfont-archer">&#xe606;</span>分析法</span>
+    
+        <span class="sidebar-tag-name" data-tags="学习笔记"><span class="iconfont-archer">&#xe606;</span>学习笔记</span>
+    
+        <span class="sidebar-tag-name" data-tags="mac"><span class="iconfont-archer">&#xe606;</span>mac</span>
+    
+        <span class="sidebar-tag-name" data-tags="卸载"><span class="iconfont-archer">&#xe606;</span>卸载</span>
+    
+        <span class="sidebar-tag-name" data-tags="pandoc"><span class="iconfont-archer">&#xe606;</span>pandoc</span>
+    
+        <span class="sidebar-tag-name" data-tags="pickle"><span class="iconfont-archer">&#xe606;</span>pickle</span>
+    
+        <span class="sidebar-tag-name" data-tags="python入门"><span class="iconfont-archer">&#xe606;</span>python入门</span>
+    
+        <span class="sidebar-tag-name" data-tags="dict"><span class="iconfont-archer">&#xe606;</span>dict</span>
+    
+        <span class="sidebar-tag-name" data-tags="字典"><span class="iconfont-archer">&#xe606;</span>字典</span>
+    
+        <span class="sidebar-tag-name" data-tags="threading"><span class="iconfont-archer">&#xe606;</span>threading</span>
+    
+        <span class="sidebar-tag-name" data-tags="多线程"><span class="iconfont-archer">&#xe606;</span>多线程</span>
+    
+        <span class="sidebar-tag-name" data-tags="XSD"><span class="iconfont-archer">&#xe606;</span>XSD</span>
+    
+        <span class="sidebar-tag-name" data-tags="XML Schema"><span class="iconfont-archer">&#xe606;</span>XML Schema</span>
+    
+        <span class="sidebar-tag-name" data-tags="object detection"><span class="iconfont-archer">&#xe606;</span>object detection</span>
+    
+        <span class="sidebar-tag-name" data-tags="CNN"><span class="iconfont-archer">&#xe606;</span>CNN</span>
+    
+        <span class="sidebar-tag-name" data-tags="multi-region"><span class="iconfont-archer">&#xe606;</span>multi-region</span>
+    
+        <span class="sidebar-tag-name" data-tags="sematic segmentation-aware"><span class="iconfont-archer">&#xe606;</span>sematic segmentation-aware</span>
+    
+        <span class="sidebar-tag-name" data-tags="Reading Notes"><span class="iconfont-archer">&#xe606;</span>Reading Notes</span>
+    
+        <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="trick"><span class="iconfont-archer">&#xe606;</span>trick</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorboard"><span class="iconfont-archer">&#xe606;</span>tensorboard</span>
+    
+        <span class="sidebar-tag-name" data-tags="PCNH"><span class="iconfont-archer">&#xe606;</span>PCNH</span>
+    
+        <span class="sidebar-tag-name" data-tags="Privacy Detect"><span class="iconfont-archer">&#xe606;</span>Privacy Detect</span>
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="crawler"><span class="iconfont-archer">&#xe606;</span>crawler</span>
+    
+        <span class="sidebar-tag-name" data-tags="unicrawl"><span class="iconfont-archer">&#xe606;</span>unicrawl</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="latex"><span class="iconfont-archer">&#xe606;</span>latex</span>
+    
+        <span class="sidebar-tag-name" data-tags="caption"><span class="iconfont-archer">&#xe606;</span>caption</span>
+    
+        <span class="sidebar-tag-name" data-tags="long table"><span class="iconfont-archer">&#xe606;</span>long table</span>
+    
+        <span class="sidebar-tag-name" data-tags="表格跨页"><span class="iconfont-archer">&#xe606;</span>表格跨页</span>
+    
+        <span class="sidebar-tag-name" data-tags="数学符号"><span class="iconfont-archer">&#xe606;</span>数学符号</span>
+    
+        <span class="sidebar-tag-name" data-tags="磁盘"><span class="iconfont-archer">&#xe606;</span>磁盘</span>
+    
+        <span class="sidebar-tag-name" data-tags="空间"><span class="iconfont-archer">&#xe606;</span>空间</span>
+    
+        <span class="sidebar-tag-name" data-tags="mysql"><span class="iconfont-archer">&#xe606;</span>mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="mysql-python安装错误"><span class="iconfont-archer">&#xe606;</span>mysql-python安装错误</span>
+    
+        <span class="sidebar-tag-name" data-tags="bib"><span class="iconfont-archer">&#xe606;</span>bib</span>
+    
+        <span class="sidebar-tag-name" data-tags="bst"><span class="iconfont-archer">&#xe606;</span>bst</span>
+    
+        <span class="sidebar-tag-name" data-tags="zabbix安装"><span class="iconfont-archer">&#xe606;</span>zabbix安装</span>
+    
+        <span class="sidebar-tag-name" data-tags="lamp配置"><span class="iconfont-archer">&#xe606;</span>lamp配置</span>
+    
+        <span class="sidebar-tag-name" data-tags="商业模式"><span class="iconfont-archer">&#xe606;</span>商业模式</span>
+    
+        <span class="sidebar-tag-name" data-tags="商业"><span class="iconfont-archer">&#xe606;</span>商业</span>
+    
+        <span class="sidebar-tag-name" data-tags="模式"><span class="iconfont-archer">&#xe606;</span>模式</span>
+    
+        <span class="sidebar-tag-name" data-tags="读书笔记"><span class="iconfont-archer">&#xe606;</span>读书笔记</span>
+    
+        <span class="sidebar-tag-name" data-tags="商业模式设计"><span class="iconfont-archer">&#xe606;</span>商业模式设计</span>
+    
+        <span class="sidebar-tag-name" data-tags="jupyter"><span class="iconfont-archer">&#xe606;</span>jupyter</span>
+    
+        <span class="sidebar-tag-name" data-tags="远程访问"><span class="iconfont-archer">&#xe606;</span>远程访问</span>
+    
+        <span class="sidebar-tag-name" data-tags="ipython"><span class="iconfont-archer">&#xe606;</span>ipython</span>
+    
+        <span class="sidebar-tag-name" data-tags="notebook"><span class="iconfont-archer">&#xe606;</span>notebook</span>
+    
+        <span class="sidebar-tag-name" data-tags="商业画布"><span class="iconfont-archer">&#xe606;</span>商业画布</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mac"><span class="iconfont-archer">&#xe606;</span>Mac</span>
+    
+        <span class="sidebar-tag-name" data-tags="os"><span class="iconfont-archer">&#xe606;</span>os</span>
+    
+        <span class="sidebar-tag-name" data-tags="远程连接报错"><span class="iconfont-archer">&#xe606;</span>远程连接报错</span>
+    
+        <span class="sidebar-tag-name" data-tags="商业模式式样"><span class="iconfont-archer">&#xe606;</span>商业模式式样</span>
+    
+        <span class="sidebar-tag-name" data-tags="浙大邮箱"><span class="iconfont-archer">&#xe606;</span>浙大邮箱</span>
+    
+        <span class="sidebar-tag-name" data-tags="第三方登录"><span class="iconfont-archer">&#xe606;</span>第三方登录</span>
+    
+        <span class="sidebar-tag-name" data-tags="设置方法"><span class="iconfont-archer">&#xe606;</span>设置方法</span>
+    
+        <span class="sidebar-tag-name" data-tags="bpel"><span class="iconfont-archer">&#xe606;</span>bpel</span>
+    
+        <span class="sidebar-tag-name" data-tags="wsbpel"><span class="iconfont-archer">&#xe606;</span>wsbpel</span>
+    
+        <span class="sidebar-tag-name" data-tags="ws-bpel"><span class="iconfont-archer">&#xe606;</span>ws-bpel</span>
+    
+        <span class="sidebar-tag-name" data-tags="bpel2.0"><span class="iconfont-archer">&#xe606;</span>bpel2.0</span>
+    
+        <span class="sidebar-tag-name" data-tags="schema"><span class="iconfont-archer">&#xe606;</span>schema</span>
+    
+        <span class="sidebar-tag-name" data-tags="xsd"><span class="iconfont-archer">&#xe606;</span>xsd</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据分析"><span class="iconfont-archer">&#xe606;</span>数据分析</span>
+    
+        <span class="sidebar-tag-name" data-tags="owl"><span class="iconfont-archer">&#xe606;</span>owl</span>
+    
+        <span class="sidebar-tag-name" data-tags="本体"><span class="iconfont-archer">&#xe606;</span>本体</span>
+    
+        <span class="sidebar-tag-name" data-tags="XML"><span class="iconfont-archer">&#xe606;</span>XML</span>
+    
+        <span class="sidebar-tag-name" data-tags="Schema"><span class="iconfont-archer">&#xe606;</span>Schema</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "C_Meng"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
