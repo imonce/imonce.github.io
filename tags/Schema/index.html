@@ -99,7 +99,7 @@
   <meta name="description" content="A stupid old man with a humble learning heart. And his dog.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="C_Meng PSNA">
-<meta property="og:url" content="http://imonce.github.io/tags/schema/index.html">
+<meta property="og:url" content="http://imonce.github.io/tags/Schema/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="A stupid old man with a humble learning heart. And his dog.">
 <meta property="og:locale" content="default">
@@ -113,7 +113,7 @@
 
   
   
-  <link rel="canonical" href="http://imonce.github.io/tags/schema/">
+  <link rel="canonical" href="http://imonce.github.io/tags/Schema/">
 
 
 
@@ -123,7 +123,7 @@
   };
 </script>
 
-  <title>Tag: schema | C_Meng PSNA</title>
+  <title>Tag: Schema | C_Meng PSNA</title>
   
 
 
@@ -402,7 +402,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h2>schema<small>Tag</small>
+        <h2>Schema<small>Tag</small>
         </h2>
       </div>
 
@@ -414,95 +414,17 @@
 
       <h3 class="post-title">
         
-          <a class="post-title-link" href="/2019/03/22/WS-BPEL-2-0-xml-schema-详解-全/" itemprop="url">
+          <a class="post-title-link" href="/2019/03/15/XSD学习笔记完整版/" itemprop="url">
             
-              <span itemprop="name">WS-BPEL 2.0 xml schema 详解(1+2+3全，方便检索)</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-22T16:24:33+08:00" content="2019-03-22">
-          03-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/22/WS-BPEL-2-0-xml-schema-详解-三/" itemprop="url">
-            
-              <span itemprop="name">WS-BPEL 2.0 xml schema 详解(三)</span>
+              <span itemprop="name">XSD/XML Schema 学习笔记完整版</span>
             
           </a>
         
       </h3>
 
       <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-22T16:24:20+08:00" content="2019-03-22">
-          03-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/22/WS-BPEL-2-0-xml-schema-详解-二/" itemprop="url">
-            
-              <span itemprop="name">WS-BPEL 2.0 xml schema 详解(二)</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-22T16:24:10+08:00" content="2019-03-22">
-          03-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/21/WS-BPEL-2-0-xml-schema-详解(一)/" itemprop="url">
-            
-              <span itemprop="name">WS-BPEL 2.0 xml schema 详解(一)</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-21T22:11:55+08:00" content="2019-03-21">
-          03-21
+        <time class="post-time" itemprop="dateCreated" datetime="2019-03-15T15:12:45+08:00" content="2019-03-15">
+          03-15
         </time>
       </div>
 
@@ -1339,6 +1261,105 @@
 
           // remove loading animation
           $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+arch-pop-overlay").remove();
           $('body').css('overflow', '');
 
           proceedsearch();
