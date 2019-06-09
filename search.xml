@@ -19,12 +19,12 @@
     <url>%2F2019%2F06%2F07%2F%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97%EF%BC%9A%E6%84%BF%E6%99%AF%E5%92%8C%E6%8C%91%E6%88%98%2F</url>
     <content type="text"><![CDATA[边缘计算有可能解决响应时间要求、电池寿命限制、带宽成本节约以及数据安全和隐私等问题。本文首先介绍了边缘计算的定义，然后介绍了从云卸载到智能家居和城市，以及协同边缘到实现边缘计算概念的几个案例研究。最后，我们提出了边缘计算领域的一些挑战和机遇，希望本文能引起社会的关注，并对这一方向的研究有所启发。 为什么要研究边缘计算到2019年，由人、机器和事物产生的数据将达到500 zettabytes，正如思科全球云指数所估计的那样，但是到那时全球数据中心IP流量将仅达到10.4 zettabytes。到2019年，45%的物联网创建数据将存储、处理、分析，并在网络附近或边缘采取行动。思科互联网业务解决方案集团（Cisco Internet Business Solutions Group）预测，到2020年，将有500亿台设备连接到互联网上。有些物联网应用可能需要很短的响应时间，有些可能涉及到私有数据，有些可能产生大量的数据，这对网络来说可能是一个沉重的负担。云计算的效率不足以支持这些应用程序。 什么是边缘计算数据在网络边缘的生成越来越多，因此，在网络边缘处理数据也会更有效。以前的工作，如微型数据中心、Cloudlet和雾计算，已经引入到社区，因为当数据在网络边缘生成时，云计算并不总是有效的数据处理。在这一部分中，我们列出了一些原因，为什么对于某些计算服务，边缘计算比云计算更有效，然后我们给出了我们对边缘计算的定义和理解。 为什么需要边缘计算来自云计算的推动随着边缘数据生成量的不断增加，数据传输速度正成为云计算范式的瓶颈。例如，波音787每秒将生成大约5千兆字节的数据，但飞机与地面卫星或基站之间的带宽不足以传输数据。 来自物联网的拉动可以肯定的是，网络边缘的事物数量在几年内将发展到数十亿以上。因此，它们产生的原始数据将是巨大的，使得传统的云计算效率不足以处理所有这些数据。这意味着物联网产生的大部分数据将永远不会传输到云，而是将在网络边缘消耗。 从数据消费者到生产者的改变从数据消费者到数据生产者/消费者的变化需要在边缘放置更多的函数。例如，今天人们拍照或录像，然后通过云服务（如YouTube、Facebook、Twitter或Instagram）共享数据，这是很正常的。 此外，每一分钟内，YouTube用户上传72小时的新视频内容；Facebook用户分享近250万条内容；Twitter用户推特推特推特推特推特推特近30万次；Instagram用户发布近22万张新照片。 边缘计算是什么边缘计算是指允许在网络边缘、代表云服务的下游数据和代表物联网服务的上游数据进行计算的启用技术。在这里，我们将“边缘”定义为数据源和云数据中心之间的任何计算和网络资源。 边缘计算可以与雾计算互换，但是边缘计算更多地集中在事物方面，而雾计算更多地集中在基础设施方面。 边缘计算的优势在边缘计算中，我们希望将计算放在数据源附近。与传统的基于云的计算模式相比，这有几个好处。在这里，我们使用社区的一些早期结果来展示潜在的好处。研究人员建立了一个概念验证平台，用于运行人脸识别应用程序，通过将计算从云端移动到边缘，将响应时间从900 ms缩短到169ms。Ha等人使用Cloudlet卸载可穿戴认知辅助的计算任务，结果表明，响应时间在80-200ms之间，而且Cloudlet卸载还可以减少30%-40%的能耗。clonecloud在移动与云的结合分区、迁移与合并、按需实例化分区等方面，其原型可以为测试应用减少20倍的运行时间和能源。 案例研究云卸载在传统的内容交付网络中，只有数据缓存在边缘服务器上。这是基于内容提供商在互联网上提供数据的事实，这在过去几十年中是正确的。在物联网中，数据在边缘产生和消耗。因此，在边缘计算范式中，不仅应该在边缘缓存数据，还应该缓存应用于数据上的操作。 应用： 导航应用程序可以将导航或搜索服务移动到局部区域的边缘，在这种情况下，只涉及几个地图块。 可以在边缘节点上进行内容过滤/聚合，以减少要传输的数据量。 视觉辅助娱乐游戏、增强现实、互联健康等实时应用可以通过边缘节点快速响应。 视频分析由于数据传输延迟和隐私问题，云计算不再适用于需要视频分析的应用程序。 与单独的云计算相比，可以在每台边缘设备上利用数据和计算能力，并更快地获得结果。 智能家居下图显示了智能家居环境中Edgeos的一个变体的结构。Edgeos需要通过Wi-Fi、蓝牙、ZigBee或蜂窝网络等多种通信方式从移动设备和各种事物收集数据。来自不同来源的数据需要在数据抽象层中进行融合和按摩。 智慧城市 大数据分析：到2019年，拥有100万人口的城市每天将产生180 PB的数据。 低延迟 位置感知 边缘协作协作边缘将地理上分布的多个利益相关者的边缘连接起来，尽管这些利益相关者的物理位置和网络结构不同。这些特殊的连接边缘为利益相关者提供了共享和合作数据的机会。 例如医院会总结并分享某次流感爆发的信息，如平均成本、症状和人口等。理论上，患者会按照处方从药房获得药片。一种可能是病人没有接受治疗。然后医院必须承担再入院的责任，因为它不能得到病人没有服用药物的证据。现在，通过协作边缘，药房可以向医院提供患者的购买记录，这大大简化了医疗保健责任。 挑战和机遇可编程性通常，程序是用一种编程语言编写的，并为特定的目标平台编译，因为程序只在云中运行。然而，在边缘计算中，计算是从云上卸载的，边缘节点很可能是异构平台。在这种情况下，这些节点的运行时是不同的，程序员编写一个可能部署在边缘计算范式中的应用程序面临着巨大的困难。 命名在边缘计算中，一个重要的假设是事物的数量是巨大的。在边缘节点的顶部，有许多应用程序在运行，每个应用程序都有其自己的结构，说明如何提供服务。与所有计算机系统一样，边缘计算中的命名方案对于编程、寻址、事物识别和数据通信都非常重要。然而，边缘计算范式的有效命名机制尚未建立和标准化。边缘从业者通常需要学习各种通信和网络协议，以便与系统中的异构事物进行通信。边缘计算的命名方案需要处理事物的移动性、高度动态的网络拓扑、隐私和安全保护，以及针对大量不可靠事物的可扩展性。 数据抽象通过服务管理层的空气位置指示器，各种应用程序可以运行在消耗数据或提供服务的EDGEOS上。在无线传感器网络和云计算范式中，数据抽象已经得到了很好的讨论和研究。然而，在边缘计算中，这个问题变得更具挑战性。有了物联网，网络中会有大量的数据生成器，这里我们以一个智能家庭环境为例。在智能家居中，几乎所有的东西都会向Edgeos报告数据，更不用说在家里部署了大量的东西。然而，网络边缘的大多数东西，只定期向网关报告感应到的数据。 来自不同事物的报告数据具有不同的格式 有时很难确定数据抽象的程度 数据抽象的另一个问题是对事物的适用操作 服务管理 差异化：随着物联网部署的快速增长，我们预计将在网络边缘部署多种服务，如智能家居。 可扩展性：可扩展性在网络边缘可能是一个巨大的挑战，与移动系统不同，物联网中的东西可能是非常动态的。 隔离：隔离是网络边缘的另一个问题。 可靠性：最后但不是最不重要的，可靠性也是网络边缘的一个关键挑战。我们可以从服务、系统和数据的不同角度来识别可靠性方面的挑战。 隐私和安全 社区的隐私和安全意识。 从Edge上收集的数据的所有权。 缺少有效的工具来保护网络边缘的数据隐私和安全。 优化指标 延迟：延迟是评估性能的最重要指标之一，特别是在交互应用程序/服务中。 带宽：从延迟的角度来看，高带宽可以减少传输时间，特别是对于大数据（如视频等）。 能源：能源是网络边缘最宝贵的资源。 成本：从服务提供商的角度，如YouTube、Amazon等，边缘计算为他们提供了更少的延迟和能源消耗，潜在的增加投入和改进的用户体验。 结论现在，越来越多的服务被从云推到网络的边缘，因为在边缘处理数据可以确保更短的响应时间和更好的可靠性。此外，如果可以在边缘处理更大的数据部分，而不是上传到云端，那么也可以节省带宽。物联网和通用移动设备的迅速发展改变了EDGE在计算范式中的角色，从数据消费者转变为数据生产者/消费者。在网络边缘处理或按摩数据会更有效。 论文原文：Edge Computing: Vision and Challenges]]></content>
       <categories>
-        <category>READING NOTES</category>
-        <category>SERVICE COMPUTING</category>
+        <category>Reading Notes</category>
+        <category>Service Computing</category>
       </categories>
       <tags>
-        <tag>SERVICE COMPUTING</tag>
-        <tag>EDGE COMPUTING</tag>
+        <tag>Service Computing</tag>
+        <tag>Edge Computing</tag>
       </tags>
   </entry>
   <entry>
@@ -88,11 +88,11 @@
     <url>%2F2019%2F05%2F22%2FReading-Notes-A-Service-Computing-Manifesto-The-Next-Ten-Years%2F</url>
     <content type="text"><![CDATA[ABSTRACT这份宣言的主要内容 确定阻碍现实世界中服务计算发展和潜在实现的主要障碍 提出服务计算的研究方向 制定路线图，使服务计算领域能够重新定义自己和 成为社会和经济活动的强大引擎之一。 推荐关注于4个主要研究方向 服务设计 service design 服务集成 service composition 基于众包的信誉 crowdsourcing based reputation 物联网 the Internet of Things BACKGROUND服务计算的定义我们将服务计算（或者称为面向服务的计算）定义为：探索或开发为服务提供广泛支持的计算抽象、计算架构、计算技术和计算工具的学科。 We define service computing (alternatively termed service- oriented computing) as the discipline that seeks to develop computational abstractions, architectures, techniques, and tools to support services broadly. 服务计算的来源在计算的早期阶段，面临的挑战是以机器可读的格式表示信息，该格式由位和字节组成，称为数据。 随着时间的推移，人们对用意义补充数据产生了浓厚的兴趣，从而将其转化为信息。随着计算技术的进一步发展，人们开始在信息中加入推理，从而产生了知识。最近，对更高抽象级别的需求导致了向知识添加行动，从而产生服务的概念。 服务计算的目标服务计算的最终目标是弥合IT和业务服务之间的差距，使IT服务能够更有效地运行业务服务。 The ultimate goal of service computing is to bridge the gap between IT and business services to en- able IT services to run business services more effectively and efficiently. 服务计算的目标是利用服务范例的功能和简单性及其功能和非功能组件来构建模块化软件应用程序，并为选择和组合服务提供更高级别的抽象，从而将其提升到第一类对象状态。 服务计算的相关机构和会议为了自动化组合服务资源，以根据用户的目标和偏好提供定制的IT服务，标准化机构，如万维网联盟（W3C）和结构化信息标准促进组织（OASIS），已经为实施服务系统领导了规范和标准化工作。 服务计算的挑战现有的Web服务标准和技术无法为关键新兴领域的计算需求提供足够的支持，包括移动计算，云计算，大数据和社交计算。这些是IDC命名的第三平台的四项关键技术，目前正在影响全球业务的格局。 服务计算和SOA的区别面向服务的体系结构（SOA）是一种独立于技术的框架，用于定义，注册和调用服务。 服务计算比SOA更广泛，包括对较低级别的服务数据管理和分析的业务流程建模，管理和分析的上层。 SOA已成为服务计算的核心概念，并为实现服务计算提供了基础技术。 服务计算和传统计算的区别 服务计算的驱动因素是将服务计算与技术分离，以实现面向服务的系统，充分利用服务计算的承诺和期望 这项工作强调服务计算对计算新兴趋势的贡献和影响 CHALLENGES IN SERVICE COMPUTING RESEARCH 当前的服务计算研究主要集中在七个问题领域：架构，规范语言，协议，框架，生命周期，服务质量，以及跨越自治企业边界建立信任和声誉。 current service computing research focuses mostly on seven problem areas: architecture, specification languages, protocols, frameworks, lifecycle, quality of service, and the establishment of trust and reputation across the boundaries of autonomous enterprises. 服务计算中经常被忽视的战略挑战是分析为什么服务计算尚未在现实世界中发挥其全部潜力，以及需要采取哪些措施来改变这一点。 一项重大挑战是实现在不同平台上工作的多个组织的无缝合作，以满足消费者的需求。 我们确定了服务计算中的四个新兴研究挑战：服务设计，服务组合，基于群体的声誉和物联网（IoT）。 We identify four emerging research challenges in service computing: Service Design, Service Composition, Crowdsourcing-Based Reputation, and the Internet of Things (IoT). Challenges in Service Design服务设计是关于对服务性质及其关系的正式理解的映射。 现有设计方法： 通常不会考虑到服务系统固有地将自治部件集合在一起这一事实 没有任何全面的理论框架来定义和分析Web上复杂的服务系统 Challenges in Service Composition由于需要对大规模的Web和云服务进行组合，有以下几个挑战： 准确有效地从这些大型存储库中搜索服务正成为一个至关重要的挑战 现有服务选择，组合和推荐方法都是在假设静态数据环境下运行的，这是不充分的 从众多不断变化的设备和服务中选择和组合服务，以实时和上下文感知的方式满足用户需求 基于社会关系的服务构成构成了根本的严峻挑战 Challenges in Crowdsourcing-Based Reputation 众包的质量。鉴于声誉受到若干相关因素的影响，因此强烈需要预测众包声誉的结果。目前尚不清楚这些因素如何影响众包的质量。 众包贡献者的可信度。一些服务用户的意见可能是不公平的，甚至是对特定服务产品的恶意。 测试平台。对设计适当的评估指标以比较服务的信任和信誉模型存在强烈需求。 Challenges in the IoT物联网（IoT）是一个新兴和有前景的领域，它建议将每个有形实体转变为互联网上的一个节点。 物联网提出了两个基本挑战：（1）与事物的沟通（2）事物的管理。 一个挑战是资源有限，传统标准（如SOAP和BPEL）太庞大，无法应用于物联网。 此外，由于架构差异，现有的服务组合模型不能直接用于物联网互操作。与单类型Web服务组件模型（即，服务）相反，IoT组件模型是异构的和多层的（例如，设备，数据，服务和组织）。与传统设置相比，组件的所需功能更具动态性和上下文感知能力。 与服务计算相关的基本物联网挑战包括： 持续维护物联网设备的网络个性和环境。 特别是，物联网事物需要具有反映其物理空间的Web身份和Web表示（例如，Web代理）。 他们还需要在社交，环境，以用户为中心和应用程序环境中进行连接和通信，并且需要维护和管理此类上下文。 不断发现，集成和（重新）使用物联网事物及其数据。 具体而言，物联网环境是一个联合环境，其中事物及其数据，云服务和IT服务（例如，用于数据分析和可视化）通常由具有不同接口的独立提供商以及业务，成本提供。 和QoS模型。 为了提供新的互联网规模的服务，物联网必须（重新）使用他人部署的物联网和其他人为自己的目的收集的数据。 SERVICE COMPUTING RESEARCH ROADMAPService Design服务系统的设计应建立在正式的服务模型之上，以便能够有效地访问具有不同功能的大型服务空间。 服务模型支持不同服务及其操作之间的依赖关系非常重要。 总之，满足上述要求的正式服务模型将成为通过服务提供高效透明的计算资源访问的中心，这是充分发挥服务计算潜力的关键一步。 特别是，服务的三个关键特征至关重要：功能，行为和质量。 功能由服务提供的操作指定; 行为反映了如何调用服务操作，并由服务操作之间的依赖性约束决定; 质量决定了服务的非功能特性。 Service Composition几个研究方向： 大规模的Web和云服务组合。 服务组合研究应扩展到由纯文本描述的非WSDL描述的服务或服务。 大数据驱动的服务组合。当前大数据研究的一个重要主题是开发在线处理数据的算法和模型 基于社交网络的服务组合。大规模社交网络中的服务选择，推荐和组合应该结合社交网络和复杂的网络分析方法以及信任计算技术。 一个有希望的方向是结合记录服务用户与服务数据的交互的社交网络数据，以检测服务之间的隐藏关系并生成潜在的服务组合。可以通过捕获用户个人判断的社交媒体服务来提取反映用户选择和组合服务的兴趣的特定于域的质量特征 云计算环境为部署服务提供了一个有吸引力的选择，因为它提供了潜在的可扩展性和可访问性。 但是，它引入了与以下问题相关的问题： 维护 - 资源不受服务提供商的明确控制。 安全性 - 云可能不在服务提供商的企业边界内。 服务级别协议（SLA） - 资源分配是云提供商的责任。 例如，服务可能不可用，不仅是由于服务提供商的更新，还因为云提供商的更新。 Crowdsourcing-Based Reputation 众包的质量。应进行社会研究，以调查这些利益因素对众包可靠性的影响以及众包贡献者的范围。这两种因素，例如社会关系和个人偏好，可以同时相互影响。 未来的研究应该针对如何模拟两组因素之间的相互关系以及如何将它们整合起来预测它们对众包数据质量的影响。 众包贡献者的可信度。还应探索用于选择具有不同成本和可信赖的众包用户的权衡策略。 Internet of Things物联网研究的新方向在于设备发现和集成领域。一个有趣的方向是多跳连接，它利用人与物之间的相互作用来关联物联网事物。 CONCLUSION服务计算拥有光明的未来，支持新兴计算领域的巨大进步，如移动计算，云计算，大数据，社交计算等。 我们在本宣言中提出，服务计算的潜力远远大于迄今为止所取得的成就。 我们为将服务计算提升到创新的新高度铺平了道路。 为了开拓进取，我们做出了一个重要的声明，即，要使服务计算范例取得成功，就需要将其与当时的技术分离开来。 挑战可能很困难，但收益很大，没有理由为什么雄心勃勃的研究议程不会给计算机科学和社会带来巨大的好处。]]></content>
       <categories>
-        <category>READING NOTES</category>
-        <category>SERVICE COMPUTING</category>
+        <category>Reading Notes</category>
+        <category>Service Computing</category>
       </categories>
       <tags>
-        <tag>SERVICE COMPUTING</tag>
+        <tag>Service Computing</tag>
       </tags>
   </entry>
   <entry>
@@ -530,16 +530,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server]]></title>
-    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9A1130%20-%20Host%20'192.168.2.204'%20is%20not%20allowed%20to%20connect%20to%20this%20MySQL%20server%2F</url>
-    <content type="text"><![CDATA[问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。 解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。 具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 1234mysql -u root -p mysql&gt;use mysql; mysql&gt;update user set host = &apos;%&apos; where user =&apos;root&apos;; mysql&gt;flush privileges;]]></content>
-      <tags>
-        <tag>trick</tag>
-        <tag>mysql</tag>
-        <tag>远程连接报错</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Python入门：pickle模块简介]]></title>
     <url>%2F2017%2F04%2F24%2FPython%E5%85%A5%E9%97%A8%EF%BC%9Apickle%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B%2F</url>
     <content type="text"><![CDATA[概要这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看https://docs.python.org/2/library/pickle.html pickle简介pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。 就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。 用pickle保存对象到文件1234567891011121314151617#导入pickle模块import pickle#创建一个名为data1的对象data1 = &#123;'a': '123', 'b': [1, 2, 3, 4]&#125;#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)file_to_save = open("data1.pkl", "wb")#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。#第一个参数是要保存的对象名#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。pickle.dump(data1, file_to_save, -1)#关闭文件对象file_to_save.close() 用pickle从文件中读取对象(请接着上一个脚本运行)1234567891011121314#导入pickle模块import pickle#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)file_to_read = open('data1.pkl', 'rb')#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2data2 = pickle.load(file_to_read)#打印data2print data2#关闭文件对象file_to_read.close()]]></content>
@@ -550,9 +540,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)]]></title>
-    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9Aerror%202003%20%EF%BC%88hy000%EF%BC%89-can't%20connect%20to%20mysql%20server%20on%20'localhost'%20(10061)%2F</url>
-    <content type="text"><![CDATA[问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项： /etc/mysql/my.cnf /etc/mysql/mysqld.cnf 在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成： #bind-address = 127.0.0.1 然后执行 service mysql restart重新启动mysql服务使配置生效即可。]]></content>
+    <title><![CDATA[远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server]]></title>
+    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9A1130%20-%20Host%20'192.168.2.204'%20is%20not%20allowed%20to%20connect%20to%20this%20MySQL%20server%2F</url>
+    <content type="text"><![CDATA[问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。 解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。 具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 1234mysql -u root -p mysql&gt;use mysql; mysql&gt;update user set host = &apos;%&apos; where user =&apos;root&apos;; mysql&gt;flush privileges;]]></content>
       <tags>
         <tag>trick</tag>
         <tag>mysql</tag>
@@ -568,6 +558,16 @@
         <tag>trick</tag>
         <tag>mysql</tag>
         <tag>mysql-python安装错误</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)]]></title>
+    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9Aerror%202003%20%EF%BC%88hy000%EF%BC%89-can't%20connect%20to%20mysql%20server%20on%20'localhost'%20(10061)%2F</url>
+    <content type="text"><![CDATA[问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项： /etc/mysql/my.cnf /etc/mysql/mysqld.cnf 在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成： #bind-address = 127.0.0.1 然后执行 service mysql restart重新启动mysql服务使配置生效即可。]]></content>
+      <tags>
+        <tag>trick</tag>
+        <tag>mysql</tag>
+        <tag>远程连接报错</tag>
       </tags>
   </entry>
   <entry>
