@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[计算机应用数学学习笔记（二）：L0范式、L1范式、L2范式、...、L ∞ 范式]]></title>
+    <url>%2F2019%2F06%2F11%2FL0%E8%8C%83%E5%BC%8F%E3%80%81L1%E8%8C%83%E5%BC%8F%E3%80%81L2%E8%8C%83%E5%BC%8F%E3%80%81-%E3%80%81L-%E2%88%9E-%E8%8C%83%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[什么是范式简单来说，一个 $l_p$ 范式可以被定义为 $||x||_p = \sqrt[p]{\Sigma_i|x_i|^p}$ l0范式定义根据定义，l0范式应该是： $||x||_0 = \sqrt[0]{\Sigma_i|x_i|^0}$ 严格地说，l0范数实际上不是一个范数。它是一个基数函数，尽管许多人称之为范式。显然，任何x&gt;0都会变成1，但是零次幂的定义，特别是零次根的定义问题，在这里是混乱的。因此实际上，大多数数学家和工程师使用以下定义来代替l0范式： $||x||_0 = \sharp(i|x_i \neq 0)$ 这是指一个向量中非零元素的总数。 优化许多应用，包括压缩感测，都试图将对应于某些约束的向量的l0范数最小化，因此称为“l0最小化”。标准最小化问题的公式如下： $min ||x||_0$ subject to $Ax = b$ 然而，这样做并不容易。由于缺乏l0范数的数学表示，l0最小化被计算机科学家视为一个NP难题，简单地说它太复杂，几乎不可能解决。 在许多情况下，l0最小化问题被放宽为高阶规范问题，如l1最小化和l2最小化。 l1范式定义$||x||_1 = \Sigma_i|x_i|$ 这个规范在规范家族中很常见。它在各个领域有许多名称和形式，如曼哈顿范式是它的别称。 应用如果计算两个向量或矩阵之间的差的l1范数，即 $SAD(x_1, x_2)=||x_1-x_2||1=\Sigma|x{1_i}-x_{2_i}|$ 它在计算机视觉科学家之间被称为绝对差异之和（SAD）。 在信号差测量的一般情况下，可通过以下方式将其缩放为单位矢量： $MAE(x_1, x_2)=\frac{1}{n}||x_1-x_2||1=\frac{1}{n}\Sigma|x{1_i}-x_{2_i}|$ where $n$ is a size of $x$ . 这就是所谓的平均绝对误差(MAE)。 l2范式定义所有范式中最流行的是l_2-norm。它几乎应用于整个工程和科学的各个领域。根据基本定义，l_2-norm定义为 $||x||_2 = \sqrt{\Sigma_i|x_i|^2}$ 应用l2范数也被称为欧几里得范数，它被用作测量向量差的标准量。在l1范数中，如果欧几里得范数是针对向量差计算的，则称为欧几里得距离： $||X_1-X_2||_2=\sqrt{\Sigma_i(x_{1_i}-x_{2_i})^2}$ 或者以平方形式，即计算机视觉科学家之间所说的平方差之和（SSD）： $SSD(x_1,x_2)=||X_1-X_2||_2^2=\Sigma_i(x_{1_i}-x_{2_i})^2$ 在信号处理领域最著名的应用是均方误差（MSE）测量，它用于计算两个信号之间的相似性、质量或相关性。最小均方误差 $MSE(x_1,x_2)=\frac1n||X_1-X_2||_2^2=\frac1n\Sigma_i(x_{1_i}-x_{2_i})^2$ 正如前面在L_0-优化部分讨论的那样，由于从计算和数学的角度来看有许多问题，许多L_0-优化问题放松自己，变成L_1-和L_2-优化。因此，我们现在将讨论L_2的优化。 l $\infty$ 范式定义$||x||_\infty = \sqrt[\infty]{\Sigma_i|x_i|^\infty}$ 现在，这个定义看起来又很棘手，但实际上它是相当狭隘的。考虑向量 $x$ ，假设 $x_j$ 是向量 $x$ 中的最高项，根据无穷大本身的属性，我们可以这样说 $x_j^\infty \gg x_i^\infty \forall i \neq j$ 然后 $\Sigma_ix_i^\infty=x_j^\infty$ 然后 $||x||_\infty=\sqrt[\infty]{\Sigma_ix_i^\infty}=\sqrt[\infty]{x_j^\infty}=|x_j|$ 现在我们可以将l $\infty$ 范式简化为 $||x||_\infty=max(|x_i|)$ 其实也就是该向量的最大项的大小。 ref：https://rorasa.wordpress.com/2012/05/13/l0-norm-l1-norm-l2-norm-l-infinity-norm/]]></content>
+      <categories>
+        <category>计算机应用数学</category>
+      </categories>
+      <tags>
+        <tag>计算机应用数学</tag>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[计算机应用数学学习笔记（一）：背景知识]]></title>
     <url>%2F2019%2F06%2F10%2F%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%94%E7%94%A8%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86%2F</url>
     <content type="text"><![CDATA[挑战计算机科学现在面临的最大挑战是大数据，所有的大公司都在收集数据。为了构建数据化的世界和生活，需要做许多枯燥乏味的工作。需要处理现有的数据然后在此基础上构造新的数据。 纯步骤合成vs纯数据纯步骤合成：紧凑，但依赖人造，很少在实践中使用 纯数据：质量更高，但是灵活性更低 贝叶斯推理 不确定性的原理建模 非结构化数据的通用模型 不确定性下数据拟合与分析的有效算法 但目前它一直被用作黑盒 数据驱动建模 数据驱动的相关技术 数据驱动系统学习系统不是直接编程来解决问题，而是根据以下内容开发自己的程序： 他们应该如何表现的例子 从尝试解决问题的试错经验中 与标准CS不同，要实现未知功能，只需要访问样本输入输出对（训练样本） 学习问题的主要分类根据培训示例中的可用信息，学习场景会有所不同 监督学习：纠正输出可用 分类：1-of-N output（语音识别，对象识别，医学诊断） 回归：实际值输出（预测市场价格、温度） 无监督学习：无反馈，需要构建良好输出的度量 聚类：将参考技术的数据分类为连贯的“聚类” 新颖性检测：检测新的偏离正常的数据点 强化学习：尺度反馈，可能是临时的 更多的应用场景 时间序列分析 降维 模型选择 通用方法 图形化模型 为什么需要数据驱动的方法 开发增强型计算机系统 自动适应用户，自定义 经常很难获得必要的知识 在大型数据库中离线发现模式（数据挖掘） 提高对人类、生物学习的理解 计算分析提供了具体的理论，预测 发掘在学习过程中分析大脑活动的方法 时机不错 越来越多的可用数据 廉价而强大的计算机 一套算法，理论已经发展 成功的数据驱动算法会是什么]]></content>
@@ -8,8 +20,8 @@
         <category>计算机应用数学</category>
       </categories>
       <tags>
-        <tag>学习笔记</tag>
         <tag>计算机应用数学</tag>
+        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -278,10 +290,10 @@
     <url>%2F2019%2F04%2F02%2FMECE%E5%88%86%E6%9E%90%E6%B3%95%E5%AD%A6%E4%B9%A0-Mutually-Exclusive-Collectively-Exhaustive%2F</url>
     <content type="text"><![CDATA[本文摘自：MECE分析法 MECE分析法MECE，是Mutually Exclusive Collectively Exhaustive，中文意思是“相互独立，完全穷尽”。 也就是对于一个重大的议题，能够做到不重叠、不遗漏的分类，而且能够藉此有效把握问题的核心，并解决问题的方法。 所谓的不遗漏、不重叠指在将某个整体（不论是客观存在的还是概念性的整体）划分为不同的部分时，必须保证划分后的各部门符合以下要求： 各部分之间相互独立 （Mutually Exclusive） 所有部分完全穷尽 （Collectively Exhaustive） 通常的做法分两种： 一是在确立问题的时候，通过类似鱼刺图的方法，在确立主要问题的基础上，再逐个往下层层分解，直至所有的疑问都找到，通过问题的层层分解，可以分析出关键问题和初步的解决问题的思路； 另一种方法是结合头脑风暴法找到主要问题，然后在不考虑现有资源的限制基础上，考虑解决该问题的所有可能方法，在这个过程中，要特别注意多种方法的结合有可能是个新的解决方法，然后再往下分析，每种解决方法所需要的各种资源，并通过分析比较，从上述多种方案中找到目前状况下最现实最令人满意的答案。 分析步骤对于分析问题的标准程序: 收集信息=&gt;描述发现=&gt;得出结论=&gt;提出方案 MECE分析法主要有两个步骤 步骤一、确认问题是什么？步骤二、寻找MECE的切入点。 栗子]]></content>
       <tags>
+        <tag>学习笔记</tag>
         <tag>MECE</tag>
         <tag>分类方法</tag>
         <tag>分析法</tag>
-        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -486,8 +498,8 @@
     <url>%2F2018%2F09%2F06%2FTrick-bash-tensorboard-%E6%9C%AA%E6%89%BE%E5%88%B0%E5%91%BD%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[原因tensorboard命令不在环境变量中 解决思路找到tensorboard脚本路径，然后运行 解决方法1python3 /home/USERNAME/.local/lib/python3.6/site-packages/tensorboard/main.py --logdir=LOGDIR NOTE： USERNAME是指用户名称 LOGDIR是指log文件存放的相对或绝对目录]]></content>
       <tags>
-        <tag>linux</tag>
         <tag>trick</tag>
+        <tag>linux</tag>
         <tag>tensorboard</tag>
       </tags>
   </entry>
@@ -508,9 +520,9 @@
     <content type="text"><![CDATA[代码12345678910#定义字典dict = &#123;'a':1, 'b':2, 'c':3, 'd':4, 'e':5&#125;#根据key进行排序dict_sorted_by_key = sorted(dict.items(), key=lambda d: d[0])#根据key进行反向排序dict_sorted_by_key_reverse = sorted(dict.items(), key=lambda d: d[0], reverse=True)#根据value进行排序dict_sorted_by_value = sorted(dict.items(), key=lambda d: d[1])#根据value进行反向排序dict_sorted_by_value_reverse = sorted(dict.items(), key=lambda d: d[1], reverse=True) 示例]]></content>
       <tags>
         <tag>python</tag>
-        <tag>python入门</tag>
         <tag>dict</tag>
         <tag>字典</tag>
+        <tag>python入门</tag>
       </tags>
   </entry>
   <entry>
@@ -528,8 +540,8 @@
     <url>%2F2018%2F07%2F31%2FTrick-git-pull-%E5%BC%BA%E5%88%B6%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%2F</url>
     <content type="text"><![CDATA[123git fetch --all git reset --hard origin/mastergit pull note：出错的话就再试一次，说不定就可以了]]></content>
       <tags>
-        <tag>trick</tag>
         <tag>git</tag>
+        <tag>trick</tag>
       </tags>
   </entry>
   <entry>
@@ -537,29 +549,8 @@
     <url>%2F2018%2F07%2F31%2F%E5%9C%A8linux%E4%B8%8A%E5%88%9B%E5%BB%BAroot%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7%EF%BC%88%E4%B8%8D%E4%BF%AE%E6%94%B9%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%EF%BC%89%2F</url>
     <content type="text"><![CDATA[简略过程如我们现在要创建一个名为imonce的新用户： adduser imonce 赋予root权限 usermod -g sudo imonce 万事大吉 详细过程有空再补吧~(‾⌣‾~)]]></content>
       <tags>
+        <tag>trick</tag>
         <tag>linux</tag>
-        <tag>trick</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[mysql-python安装错误：EnvironmentError:mysql_config not found]]></title>
-    <url>%2F2017%2F04%2F24%2Fmysql-python%E5%AE%89%E8%A3%85%E9%94%99%E8%AF%AF%EF%BC%9AEnvironmentError-%20mysql_config%20not%20found%2F</url>
-    <content type="text"><![CDATA[问题描述：安装mysql-python时报错： 12345678910111213141516Collecting mysql-python Using cached MySQL-python-1.2.5.zip Complete output from command python setup.py egg_info: sh: 1: mysql_config: not found Traceback (most recent call last): File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt; File &quot;/tmp/pip-build-_itbcX/mysql-python/setup.py&quot;, line 17, in &lt;module&gt; metadata, options = get_config() File &quot;setup_posix.py&quot;, line 43, in get_config libs = mysql_config(&quot;libs_r&quot;) File &quot;setup_posix.py&quot;, line 25, in mysql_config raise EnvironmentError(&quot;%s not found&quot; % (mysql_config.path,)) EnvironmentError: mysql_config not found ----------------------------------------Command &quot;python setup.py egg_info&quot; failed with error code 1 in /tmp/pip-build-_itbcX/mysql-python/ 问题原因：没有安装libmysqlclient-dev。 解决方案：执行： sudo apt-get install libmysqlclient-dev 安装成功后，再运行pip install mysql-python即可。]]></content>
-      <tags>
-        <tag>python</tag>
-        <tag>trick</tag>
-        <tag>mysql</tag>
-        <tag>mysql-python安装错误</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server]]></title>
-    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9A1130%20-%20Host%20'192.168.2.204'%20is%20not%20allowed%20to%20connect%20to%20this%20MySQL%20server%2F</url>
-    <content type="text"><![CDATA[问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。 解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。 具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 1234mysql -u root -p mysql&gt;use mysql; mysql&gt;update user set host = &apos;%&apos; where user =&apos;root&apos;; mysql&gt;flush privileges;]]></content>
-      <tags>
-        <tag>trick</tag>
-        <tag>mysql</tag>
-        <tag>远程连接报错</tag>
       </tags>
   </entry>
   <entry>
@@ -573,13 +564,34 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server]]></title>
+    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9A1130%20-%20Host%20'192.168.2.204'%20is%20not%20allowed%20to%20connect%20to%20this%20MySQL%20server%2F</url>
+    <content type="text"><![CDATA[问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。 解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。 具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 1234mysql -u root -p mysql&gt;use mysql; mysql&gt;update user set host = &apos;%&apos; where user =&apos;root&apos;; mysql&gt;flush privileges;]]></content>
+      <tags>
+        <tag>trick</tag>
+        <tag>mysql</tag>
+        <tag>远程连接报错</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Python入门：pickle模块简介]]></title>
     <url>%2F2017%2F04%2F24%2FPython%E5%85%A5%E9%97%A8%EF%BC%9Apickle%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B%2F</url>
     <content type="text"><![CDATA[概要这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看https://docs.python.org/2/library/pickle.html pickle简介pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。 就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。 用pickle保存对象到文件1234567891011121314151617#导入pickle模块import pickle#创建一个名为data1的对象data1 = &#123;'a': '123', 'b': [1, 2, 3, 4]&#125;#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)file_to_save = open("data1.pkl", "wb")#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。#第一个参数是要保存的对象名#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。pickle.dump(data1, file_to_save, -1)#关闭文件对象file_to_save.close() 用pickle从文件中读取对象(请接着上一个脚本运行)1234567891011121314#导入pickle模块import pickle#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)file_to_read = open('data1.pkl', 'rb')#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2data2 = pickle.load(file_to_read)#打印data2print data2#关闭文件对象file_to_read.close()]]></content>
       <tags>
         <tag>python</tag>
-        <tag>pickle</tag>
         <tag>python入门</tag>
+        <tag>pickle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[mysql-python安装错误：EnvironmentError:mysql_config not found]]></title>
+    <url>%2F2017%2F04%2F24%2Fmysql-python%E5%AE%89%E8%A3%85%E9%94%99%E8%AF%AF%EF%BC%9AEnvironmentError-%20mysql_config%20not%20found%2F</url>
+    <content type="text"><![CDATA[问题描述：安装mysql-python时报错： 12345678910111213141516Collecting mysql-python Using cached MySQL-python-1.2.5.zip Complete output from command python setup.py egg_info: sh: 1: mysql_config: not found Traceback (most recent call last): File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt; File &quot;/tmp/pip-build-_itbcX/mysql-python/setup.py&quot;, line 17, in &lt;module&gt; metadata, options = get_config() File &quot;setup_posix.py&quot;, line 43, in get_config libs = mysql_config(&quot;libs_r&quot;) File &quot;setup_posix.py&quot;, line 25, in mysql_config raise EnvironmentError(&quot;%s not found&quot; % (mysql_config.path,)) EnvironmentError: mysql_config not found ----------------------------------------Command &quot;python setup.py egg_info&quot; failed with error code 1 in /tmp/pip-build-_itbcX/mysql-python/ 问题原因：没有安装libmysqlclient-dev。 解决方案：执行： sudo apt-get install libmysqlclient-dev 安装成功后，再运行pip install mysql-python即可。]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>trick</tag>
+        <tag>mysql</tag>
+        <tag>mysql-python安装错误</tag>
       </tags>
   </entry>
   <entry>
