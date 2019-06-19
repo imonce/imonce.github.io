@@ -15,7 +15,7 @@
 
 
 <html class="theme-next gemini use-motion" lang>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -248,7 +248,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">101</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">105</span></a>
 
   </li>
         
@@ -286,7 +286,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">59</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">60</span></a>
 
   </li>
         
@@ -511,40 +511,54 @@
 <p>对于这个问题，我们将会改变我们之前的线性回归器，同时引入一些隐藏的线性神经网络层，当然，也会引入一些非线性的激活函数。这种类型的架构通常被称为Multilayer Perceptron(MLP)。接下来我们就来看一下它是如何处理眼下的这个任务的。</p>
 <p>下面的这一段代码会帮助你下载、引入并结构化MNIST数据集。然而为了完成这部分工作，你还需要下载<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ltb25jZS9pbW9uY2UuZ2l0aHViLmlvL3RyZWUvbWFzdGVyL2Fzc2V0cy9maWxlcy9kYXRhLnB5" title="https://github.com/imonce/imonce.github.io/tree/master/assets/files/data.py">data.py<i class="fa fa-external-link"></i></span>文件，并把它放在你的工作目录(你的脚本或notebook所在的目录)下以方便导入。</p>
 <a id="more"></a>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># functions for importing the MNIST dataset.</span></span><br><span class="line"><span class="keyword">import</span> data</span><br><span class="line"></span><br><span class="line"><span class="comment"># We'll first import the data as a variable mnist.</span></span><br><span class="line"><span class="comment"># (If this is the first time you've run this function</span></span><br><span class="line"><span class="comment"># it could take a minute or two)</span></span><br><span class="line"></span><br><span class="line">mnist = data.load_mnist_data()</span><br></pre></td></tr></table></figure>
+
 <p>现在我们可以先看一下这些图片的样子：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">12</span>,<span class="number">5</span>))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    example = mnist[<span class="string">'data'</span>][i].reshape(<span class="number">28</span>, <span class="number">28</span>)</span><br><span class="line">    target = mnist[<span class="string">'target'</span>][i]</span><br><span class="line">    plt.subplot(<span class="number">2</span>, <span class="number">5</span>, i+<span class="number">1</span>)</span><br><span class="line">    plt.imshow(example, cmap=<span class="string">'gray'</span>)</span><br><span class="line">    plt.title(<span class="string">"Target Number: &#123;0&#125;"</span>.format(target))</span><br><span class="line">    plt.axis(<span class="string">"off"</span>)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20180809232611.png" alt></p>
 <p>现在，我们要把数据集中的图像和对应的真实数字分开，并分成训练集和测试集两部分，以便我们在最后检验我们的学习成果。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Separate the two parts of the MNIST dataset</span></span><br><span class="line">features = mnist[<span class="string">'data'</span>].astype(np.float32) / <span class="number">255</span></span><br><span class="line">targets = mnist[<span class="string">'target'</span>].astype(np.int32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Make a train/test split.</span></span><br><span class="line">x_train, x_test = np.split(features, [<span class="number">60000</span>])</span><br><span class="line">y_train, y_test = np.split(targets, [<span class="number">60000</span>])</span><br></pre></td></tr></table></figure>
+
 <p>这样一来，我们就可以集中精力训练我们的MLP了。MLP包含一系列不同的layer，Chainer又有一个很不错的方法，这可以帮我们把神经网络中所有的layer都封装到一个对象中。</p>
 <h3 id="FunctionSet简介"><a href="#FunctionSet简介" class="headerlink" title="FunctionSet简介"></a>FunctionSet简介</h3><p>这个方便的对象以命名后的layer作为关键字参数，以便我们之后可以引用它们。FunctionSet工作的方式如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = FunctionSet(layer1=&lt;place link here&gt;, layer2=&lt;place link here&gt;, ...etc.)</span><br></pre></td></tr></table></figure>
+
 <p>然后layer就会在类的实例中作为属性存在。这些layer都可以通过把FunctionSet实例交给optimizer的setup方法同时进行优化：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optimizer.setup(model)</span><br></pre></td></tr></table></figure>
+
 <p>理解了这个小tip之后，我们就可以继续构建我们的分类器了。我们需要把一个28x28像素的图像降维成一个10维的单形。输出的每一个维度代表一个具体的数字。</p>
 <h3 id="MLP架构"><a href="#MLP架构" class="headerlink" title="MLP架构"></a>MLP架构</h3><p>为了方便教学以及理解，我们在这里建立一个只有三层的神经网络。</p>
 <p>我们需要一个link来引入我们的28x28=784的图像，然后一步一步把它降维到10维。</p>
 <p><strong>另外，因为线性函数的组织是线性的，而深度学习又具有引入非线性变换的优点，所以当我们引入一些非线性函数时就会有非常好的重复线性层的堆叠。</strong></p>
 <!-- Additionally, since compositions of linear functions are linear and the benefit of deep learning models are their ability to approximate arbitrary nonlinear functions, it wouldn’t do us much good to stack repeated linear layers together without adding some nonlinear function to send them through-->
+
 <p>因此，在前向传播时，我们希望线性变换层和非线性的激活函数层交替出现。通过这种方法，我们的神经网络可以学习到非线性的数据模型以得到更好的预测结果。最后我们通过一个名为softmax的交叉熵损失函数来比较输出的矢量与我们的原本提取出的答案，然后基于计算出的损失来进行反向传播。</p>
 <p>最终我们的前向传播的架构应该是这样的形式：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">out = linear_layer1(data)</span><br><span class="line">out = relu(out)</span><br><span class="line">out = linear_layer2(out)</span><br><span class="line">out = relu(out)</span><br><span class="line">out = linear_layer3(out)</span><br></pre></td></tr></table></figure>
+
 <p>到了训练我们的模型的时候，我们希望能够每次处理一部分的样品并在更新权重前来统计它们的损失。</p>
 <h3 id="Define-the-Model"><a href="#Define-the-Model" class="headerlink" title="Define the Model"></a>Define the Model</h3><p>首先，我们通过声明link的集以及在训练过程中要用到的optimizer来定义模型。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Declare the model layers together as a FunctionSet</span></span><br><span class="line">mnist_model = FunctionSet(</span><br><span class="line">    linear1=L.Linear(<span class="number">784</span>, <span class="number">300</span>),</span><br><span class="line">    linear2=L.Linear(<span class="number">300</span>, <span class="number">100</span>),</span><br><span class="line">    linear3=L.Linear(<span class="number">100</span>, <span class="number">10</span>)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="comment"># Instantiate an optimizer (you should probably use an</span></span><br><span class="line"><span class="comment"># Adam optimizer here for best performance)</span></span><br><span class="line"><span class="comment"># and then setup the optimizer on the FunctionSet.</span></span><br><span class="line">mnist_optimizer = optimizers.Adam()</span><br><span class="line">mnist_optimizer.setup(mnist_model)</span><br></pre></td></tr></table></figure>
+
 <h3 id="构造训练函数"><a href="#构造训练函数" class="headerlink" title="构造训练函数"></a>构造训练函数</h3><p>现在我们构造一个合适的函数来进行前向传播、定义训练用的数据集以及生成训练之后对MNIST手写图像进行预测的结果。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Construct a forward pass through the network,</span></span><br><span class="line"><span class="comment"># moving sequentially through a layer then activation function</span></span><br><span class="line"><span class="comment"># as stated above.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mnist_forward</span><span class="params">(data, model)</span>:</span></span><br><span class="line"></span><br><span class="line">    out1 = model.linear1(data)</span><br><span class="line">    out2 = F.relu(out1)</span><br><span class="line">    out3 = model.linear2(out2)</span><br><span class="line">    out4 = F.relu(out3)</span><br><span class="line">    final = model.linear3(out4)</span><br><span class="line">    <span class="keyword">return</span> final</span><br><span class="line"></span><br><span class="line"><span class="comment"># Make a training function which takes in training data and targets</span></span><br><span class="line"><span class="comment"># as an input.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mnist_train</span><span class="params">(x, y, model, batchsize=<span class="number">1000</span>, n_epochs=<span class="number">20</span>)</span>:</span></span><br><span class="line"></span><br><span class="line">    data_size = x.shape[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># loop over epochs</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(n_epochs):</span><br><span class="line">        print(<span class="string">'epoch %d'</span> % (epoch + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># randomly shuffle the indices of the training data</span></span><br><span class="line">        shuffler = np.random.permutation(data_size)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># loop over batches</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, data_size, batchsize):</span><br><span class="line">            x_var = Variable(x[shuffler[i : i + batchsize]])</span><br><span class="line">            y_var = Variable(y[shuffler[i : i + batchsize]])</span><br><span class="line"></span><br><span class="line">            output = mnist_forward(x_var, model)</span><br><span class="line">            model.zerograds()</span><br><span class="line">            loss = F.softmax_cross_entropy(output, y_var)</span><br><span class="line">            loss.backward()</span><br><span class="line">            mnist_optimizer.update()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Make a prediction function, using a softmax and argmax in order to</span></span><br><span class="line"><span class="comment"># match the target space so that we can validate.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mnist_predict</span><span class="params">(x, model)</span>:</span></span><br><span class="line">    x = Variable(x)</span><br><span class="line"></span><br><span class="line">    output = mnist_forward(x, model)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> F.softmax(output).data.argmax(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
 <h3 id="Train-the-Model"><a href="#Train-the-Model" class="headerlink" title="Train the Model"></a>Train the Model</h3><p>我们现在可以开始训练神经网络了（这里我们使用一个比较小的训练次数和一个比较大的批大小，这样可以帮我们节省一些训练时间。你也可以修改一些参数，说不定就会出现更好的结果呢~）</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mnist_train(x_train, y_train, mnist_model, n_epochs=<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
 <h3 id="进行预测"><a href="#进行预测" class="headerlink" title="进行预测"></a>进行预测</h3><p>最后一件事情就是通过测试集来验证我们的模型的精确度，看看是否出现了过拟合的情况。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Call your prediction function on the test set</span></span><br><span class="line">pred = mnist_predict(x_test, mnist_model)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Compare the prediction to the ground truth target values.</span></span><br><span class="line">accuracy = (pred==y_test).mean()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print out test accuracy</span></span><br><span class="line">print(<span class="string">"Test accuracy: %f"</span> % accuracy)</span><br></pre></td></tr></table></figure>
+
 <p>out: <code>Test accuracy: 0.965900</code></p>
 <p>可以看到，我们才训练了5次就有了一个96.59%的准确率，amazing~</p>
 <h3 id="模型复用"><a href="#模型复用" class="headerlink" title="模型复用"></a>模型复用</h3><p>如果你觉得某一次的训练结果不错，想要保存下来以后使用，你可以通过Chainer的serializers来将其保存成hdf5格式：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serializers.save_hdf5(<span class="string">'test.model'</span>, mnist_model)</span><br><span class="line">serializers.save_hdf5(<span class="string">'test.state'</span>, mnist_optimizer)</span><br></pre></td></tr></table></figure>
+
 <p>要调出使用的时候也很简单：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serializers.load_hdf5(<span class="string">'my_model.model'</span>, model_name)</span><br><span class="line">serializers.load_hdf5(<span class="string">'my_optimizer.state'</span>, optimizer_name)</span><br></pre></td></tr></table></figure>
+
 <h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>通过这篇入门教程，相信大家对于机器学习以及Chainer都有了一定的概念。可以看出，Chainer是一个非常灵活且实用的框架，机器学习也并非难以理解。如果你想进一步Chaier这个框架，个人觉得去看看<span class="exturl" data-url="aHR0cDovL2RvY3MuY2hhaW5lci5vcmcvZW4vc3RhYmxlLw==" title="http://docs.chainer.org/en/stable/">Chainer的官方文档<i class="fa fa-external-link"></i></span>也是一个不错的选择~</p>
 <h3 id="Note"><a href="#Note" class="headerlink" title="Note:"></a>Note:</h3><p>本文译自：<span class="exturl" data-url="aHR0cDovL211bHRpdGhyZWFkZWQuc3RpdGNoZml4LmNvbS9ibG9nLzIwMTUvMTIvMDkvaW50cm8tdG8tY2hhaW5lci8=" title="http://multithreaded.stitchfix.com/blog/2015/12/09/intro-to-chainer/">Introduction to Chainer: Neural Networks in Python<i class="fa fa-external-link"></i></span></p>
 <h3 id="每日一句："><a href="#每日一句：" class="headerlink" title="每日一句："></a>每日一句：</h3><p>On n’est jamais content là où on est.（人们从来不会满意自己所在的地方。）</p>
@@ -600,8 +614,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/24/Python入门：pickle模块简介/" rel="prev" title="Python入门：pickle模块简介">
-                Python入门：pickle模块简介 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" rel="prev" title="远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server">
+                远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -677,7 +691,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -935,7 +949,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">101</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">105</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

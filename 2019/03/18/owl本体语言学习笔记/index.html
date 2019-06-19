@@ -15,7 +15,7 @@
 
 
 <html class="theme-next gemini use-motion" lang>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -259,7 +259,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">101</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">105</span></a>
 
   </li>
         
@@ -297,7 +297,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">59</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">60</span></a>
 
   </li>
         
@@ -532,6 +532,7 @@
 <h1 id="OWL中本体的结构"><a href="#OWL中本体的结构" class="headerlink" title="OWL中本体的结构"></a>OWL中本体的结构</h1><h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><p>在使用一组术语之前，需要精确地指出哪些具体的词汇表将会用到。一个典型的OWL本体以命名空间声明开始，这些命名空间写到<span class="exturl" data-url="cmRmOlJERlw=" title="rdf:RDF\">rdf:RDF\<i class="fa fa-external-link"></i></span>标签中。</p>
 <p>属性值是不具有命名空间的，在OWL里可以写出它们的完整URI。完整的URI中可以利用实体定义来简略。<br>如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE rdf:RDF [</span><br><span class="line">     &lt;!ENTITY vin  &quot;http://www.w3.org/TR/2004/REC-owl-guide-20040210/wine#&quot; &gt;</span><br><span class="line">     &lt;!ENTITY food &quot;http://www.w3.org/TR/2004/REC-owl-guide-20040210/food#&quot; &gt; ]&gt;</span><br></pre></td></tr></table></figure>
+
 <p>在声明这些实体后，我们可以将“&vin;merlot”作为<code>http://www.w3.org/TR/2004/REC -owl-guide-20040210/wine#merlot</code>的简写。</p>
 <h2 id="本体头部"><a href="#本体头部" class="headerlink" title="本体头部"></a>本体头部</h2><p>在owl：Ontology标签中给出本体的声明。这些标签支持一些重要的常务工作比如注释、版本控制以及其他本体的嵌入等。</p>
 <p>owl:Ontology元素是用来收集关于当前文档的OWL元数据的。</p>
@@ -547,6 +548,7 @@
 <p>rdf:ID=”Region” 被用于引入一个名称（作为定义的一部分）<br>在这一文档中，我们现在可以用#Region来引用Region类，例如 rdf:resource=”#Region”</p>
 <p>rdfs:subClassOf是用于类的基本分类构造符，次关系是可传递的<br>一个类的定义由两部分组成：引入或引用一个名称，以及一个限制表。</p>
 <h3 id="个体"><a href="#个体" class="headerlink" title="个体"></a>个体</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;owl:Thing rdf:ID=&quot;CentralCoastRegion&quot; /&gt; </span><br><span class="line">&lt;owl:Thing rdf:about=&quot;#CentralCoastRegion&quot;&gt; </span><br><span class="line">&lt;rdf:type rdf:resource=&quot;#Region&quot;/&gt; </span><br><span class="line">/*表示个体，type是一个rdf属性，用于关联一个个体和它所属的类*/</span><br><span class="line">  	</span><br><span class="line">&lt;/owl:Thing&gt;</span><br></pre></td></tr></table></figure>
+
 <p>或者使用<code>&lt;Region rdf:ID=&quot;CentralCoastRegion&quot; /&gt;</code> 语句来表示个体</p>
 <p>Web本体被设计成为分布式的，我们可以通过导入和补充已有的本体来创建衍生的本体。</p>
 <h3 id="使用方面的考虑"><a href="#使用方面的考虑" class="headerlink" title="使用方面的考虑"></a>使用方面的考虑</h3><p>一个类仅是一个名称和一些描述某集合内个体的属性；而个体是该集合的成员。因此，类应自然地对应于与某论域中的事物的出现集合，而个体应对应于可被归入这些类的实际的实体。</p>
@@ -557,14 +559,18 @@
 <p>数据类型属性（datatype properties）：类实例与RDF文字或XML Schema数据类型间的关系。</p>
 <p>对象属性（object properties）：两个类的实例间的关系。</p>
 <h3 id="定义属性"><a href="#定义属性" class="headerlink" title="定义属性"></a>定义属性</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;owl:ObjectProperty rdf:ID=&quot;madeFromGrape&quot;&gt; </span><br><span class="line">    &lt;rdfs:domain rdf:resource=&quot;#Wine&quot;/&gt; /*表示定义域*/</span><br><span class="line">    &lt;rdfs:range rdf:resource=&quot;#WineGrape&quot;/&gt; /*表示值域*/</span><br><span class="line">&lt;/owl:ObjectProperty&gt;</span><br></pre></td></tr></table></figure>
+
 <p>在OWL中，一个值域可被用来推断一个类型</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;owl:Thing rdf:ID=&quot;LindemansBin65Chardonnay&quot;&gt;</span><br><span class="line">    &lt;madeFromGrape rdf:resource=&quot;#ChardonnayGrape&quot; /&gt;</span><br><span class="line">&lt;/owl:Thing&gt;</span><br></pre></td></tr></table></figure>
+
 <p>可以推断出，LindemansBin65Chardonnay为一种葡萄酒，因为其定义域为wine</p>
 <p>可以定义子属性，属性是传递的，例如X为Y的子属性，如果具有属性X，则必然同时具有属性Y。</p>
 <h3 id="属性和数据类型"><a href="#属性和数据类型" class="headerlink" title="属性和数据类型"></a>属性和数据类型</h3><p>数据类型属性：将个体关联到数据（值域为：RDF文字或XML Schema数据类型）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;owl:Class rdf:ID=&quot;VintageYear&quot; /&gt;</span><br><span class="line">&lt;owl:DatatypeProperty rdf:ID=&quot;yearValue&quot;&gt;</span><br><span class="line">&lt;rdfs:domain rdf:resource=&quot;#VintageYear&quot; /&gt;</span><br><span class="line">    &lt;rdfs:range  rdf:resource=&quot;&amp;xsd;positiveInteger&quot;/&gt;</span><br><span class="line">&lt;/owl:DatatypeProperty&gt;</span><br></pre></td></tr></table></figure>
+
 <p>yearValue属性将VintageYears与一个整数值相关联。</p>
 <h3 id="个体的属性"><a href="#个体的属性" class="headerlink" title="个体的属性"></a>个体的属性</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;Region rdf:ID=&quot;SantaCruzMountainsRegion&quot;&gt;</span><br><span class="line">    &lt;locatedIn rdf:resource=&quot;#CaliforniaRegion&quot; /&gt;</span><br><span class="line">&lt;/Region&gt;</span><br><span class="line">&lt;Winery rdf:ID=&quot;SantaCruzMountainVineyard&quot; /&gt;</span><br><span class="line">&lt;CabernetSauvignon   rdf:ID=&quot;SantaCruzMountainVineyardCabernetSauvignon&quot; &gt;</span><br><span class="line">    &lt;locatedIn   rdf:resource=&quot;#SantaCruzMountainsRegion&quot;/&gt;  </span><br><span class="line">    &lt;hasMaker    rdf:resource=&quot;#SantaCruzMountainVineyard&quot; /&gt;   </span><br><span class="line">&lt;/CabernetSauvignon&gt;</span><br></pre></td></tr></table></figure>
+
 <h2 id="属性的特性"><a href="#属性的特性" class="headerlink" title="属性的特性"></a>属性的特性</h2><ul>
 <li>传递属性： P(x，y)，P(y，z)  P(x，z)</li>
 <li>对称属性： p(x，y)当且仅当P(y, x)【注意是同一个关系】</li>
@@ -585,21 +591,19 @@
 <table>
 <thead>
 <tr>
-<th style="text-align:left">关系</th>
-<th style="text-align:left">含意</th>
+<th align="left">关系</th>
+<th align="left">含意</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:left">allValuesFrom</td>
-<td style="text-align:left">对于所有的葡萄酒，如果它们有制造商，那么所有的制造商都是酿酒厂</td>
+<tbody><tr>
+<td align="left">allValuesFrom</td>
+<td align="left">对于所有的葡萄酒，如果它们有制造商，那么所有的制造商都是酿酒厂</td>
 </tr>
 <tr>
-<td style="text-align:left">someValuesFrom</td>
-<td style="text-align:left">对于所有的葡萄酒，它们中至少有一个的制造商是酿酒厂</td>
+<td align="left">someValuesFrom</td>
+<td align="left">对于所有的葡萄酒，它们中至少有一个的制造商是酿酒厂</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h3 id="基数限制"><a href="#基数限制" class="headerlink" title="基数限制"></a>基数限制</h3><p>owl:cardinality：这一约束允许对一个关系中的元素数目作出精确的限制。</p>
 <p>例如，我们可以将Vintage标识为恰好含有一个VintageYear的类。</p>
 <p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190318202608.png" alt></p>
@@ -613,6 +617,7 @@
 <h2 id="个体间的同一性"><a href="#个体间的同一性" class="headerlink" title="个体间的同一性"></a>个体间的同一性</h2><p>SameAs：描述个体之间相同的机制与描述类之间的相同机制类似，仅仅只要两个个体的声明形成一致的就可以了。</p>
 <p>假如hasMaker是一个函数型属性，那么下面的例子就不一定会产生冲突。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;owl:Thing rdf:about=&quot;#BancroftChardonnay&quot;&gt;</span><br><span class="line">    &lt;hasMaker rdf:resource=&quot;#Bancroft&quot; /&gt;</span><br><span class="line">    &lt;hasMaker rdf:resource=&quot;#Beringer&quot; /&gt;</span><br><span class="line">&lt;/owl:Thing&gt;</span><br></pre></td></tr></table></figure>
+
 <p>除非和我们本体中的其他信息发生冲突，不然的话这样的描述是没有冲突的，他说明Bancroft和Beringer是相同的个体。</p>
 <p>要清楚，修饰（或引用）两个类用sameAs还是用equivalentClass效果是不同的。用sameAs的时候，把一个类解释为一个个体，就像在OWL Full中一样，这有利于对本体进行分类。在OWL Full中，sameAs可以用来引用两个东西，如一个类和一个个体、一个类和一个属性等等，无论什么情况，都将被解释为个体。</p>
 <h2 id="不同的个体"><a href="#不同的个体" class="headerlink" title="不同的个体"></a>不同的个体</h2><p>这一机制提供了与sameAs相反的效果。</p>
@@ -623,6 +628,7 @@
 <h1 id="复杂类"><a href="#复杂类" class="headerlink" title="复杂类"></a>复杂类</h1><p>用于创建类的表达式。OWL支持基本的集合操作，即并，交和补运算。它们分别被命名为owl:unionOf,owl:intersectionOf,和owl:complementOf.此外，类还可以是枚举的。类的外延可以使用oneOf构造子来显示的声明。同时，我们也可以声明类的外延必须是互不相交的。</p>
 <p>注意：OWL类外延是由个体组成的集合，二这些个体都是类的成员。</p>
 <h2 id="集合运算符"><a href="#集合运算符" class="headerlink" title="集合运算符"></a>集合运算符</h2><h3 id="交运算"><a href="#交运算" class="headerlink" title="交运算"></a>交运算</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;owl:Class rdf:ID=&quot;WhiteWine&quot;&gt;</span><br><span class="line">   &lt;owl:intersectionOf rdf:parseType=&quot;Collection&quot;&gt; /*这是必须的，因为必须对集合操作*/</span><br><span class="line">     &lt;owl:Class rdf:about=&quot;#Wine&quot; /&gt;</span><br><span class="line">     &lt;owl:Restriction&gt;</span><br><span class="line">       &lt;owl:onProperty rdf:resource=&quot;#hasColor&quot; /&gt;</span><br><span class="line">       &lt;owl:hasValue rdf:resource=&quot;#White&quot; /&gt;</span><br><span class="line">     &lt;/owl:Restriction&gt;</span><br><span class="line">   &lt;/owl:intersectionOf&gt;</span><br><span class="line">&lt;/owl:Class&gt;</span><br></pre></td></tr></table></figure>
+
 <p>这个例子表示，白葡萄酒就是葡萄酒和白色物体的相交的集合。如果不这么表示，计算机只知道，白葡萄酒有白色的属性；却不知道，所有白色的葡萄酒是白葡萄酒</p>
 <p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190318203750.png" alt></p>
 <p>WhiteBurgundy类恰好是白葡萄酒和Burgundies的交集。依次，Burgundies生产在法国一个叫做Bourgogne的地方并且它是干葡萄酒（dry wine）。因此，所有满足这些标准的葡萄酒个体都是WhiteBurgundy类的外延的一部分。</p>
@@ -776,7 +782,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1034,7 +1040,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">101</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">105</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

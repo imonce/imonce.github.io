@@ -15,7 +15,7 @@
 
 
 <html class="theme-next gemini use-motion" lang>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -261,7 +261,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">101</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">105</span></a>
 
   </li>
         
@@ -299,7 +299,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">59</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">60</span></a>
 
   </li>
         
@@ -521,12 +521,16 @@
 
       
         <p>版本信息：<br>Ubuntu15.10<br>Apache2.4.12<br>php5.6.11（zabbix3.0要求php版本至少5.4以上）<br>Mysql5.6.31<br>zabbix3.0</p>
-<p>前言：本教程包括了ubuntu上LAMP(Linux+Apache+Mysql+Php)环境的搭建以及zabbix安装。因为我们最终是要通过外部计算机访问我们的服务器的，所以我希望你可以先运行一下“ifconfig -a”语句来查看以下自己的IP地址，以方便之后测试服务器。文中将以“IPAddr”来代替你的IP地址，阅读时请注意。<br>这是博主虚拟机上的IP地址：<br><a id="more"></a><br><img src="/assets/images/zabbix_2.jpg" alt="虚拟机上的IP地址"></p>
+<p>前言：本教程包括了ubuntu上LAMP(Linux+Apache+Mysql+Php)环境的搭建以及zabbix安装。因为我们最终是要通过外部计算机访问我们的服务器的，所以我希望你可以先运行一下“ifconfig -a”语句来查看以下自己的IP地址，以方便之后测试服务器。文中将以“IPAddr”来代替你的IP地址，阅读时请注意。<br>这是博主虚拟机上的IP地址：</p>
+<a id="more"></a>
+<p><img src="/assets/images/zabbix_2.jpg" alt="虚拟机上的IP地址"></p>
 <h2 id="0-预安装"><a href="#0-预安装" class="headerlink" title="0.预安装"></a>0.预安装</h2><p>后边会用到的软件，装一下即可：<br><code>sudo apt-get install vim -y</code></p>
 <h2 id="1-Apache安装"><a href="#1-Apache安装" class="headerlink" title="1.Apache安装"></a>1.Apache安装</h2><p>在命令行运行下列语句下载apache：<br><code>sudo apt-get install apache2 -y</code><br>启动apache服务：<br><code>sudo /etc/init.d/apache2 start</code><br>看到下列语句说明启动成功：<br><img src="/assets/images/zabbix_1.jpg" alt="[OK]Starting apache2 (via systemctl):apache2.service"><br>从其他PC上打开浏览器，输入<em><span class="exturl" data-url="aHR0cDovL0lQQWRkcg==" title="http://IPAddr">http://IPAddr<i class="fa fa-external-link"></i></span></em>，打开页面，如果显示如下，则表示Apache安装成功。<br><img src="/assets/images/zabbix_3.jpg" alt="Apache默认页面"></p>
 <h2 id="2-安装Mysql"><a href="#2-安装Mysql" class="headerlink" title="2.安装Mysql"></a>2.安装Mysql</h2><p>在命令行运行下列语句下载mysql：<br><code>sudo apt-get install mysql-server -y</code><br>安装的时候会弹出窗口让你设置root帐户的初始密码，根据个人喜好设置一个即可。<br>同样的，安装完了我们也要启动一下mysql的服务：<br><code>sudo /etc/init.d/mysql start</code><br>看到下列语句说明启动成功：<br><img src="/assets/images/zabbix_5.jpg" alt="[OK]Starting mysql (via systemctl):mysql.service"></p>
 <h2 id="3-安装php5"><a href="#3-安装php5" class="headerlink" title="3.安装php5"></a>3.安装php5</h2><p>在命令行输入下列语句下载php5：<br><code>sudo apt-get install php5 -y</code><br>接着安装phpmyadmin：<br><code>sudo apt-get install phpmyadmin -y</code><br>安装的过程中根据提示，选择apache2，dbconfig-common那里选择YES，再输入系统root的密码和数据库root的密码即可。版本不同，顺序可能不大一样，总之问什么答什么就对了。<br>顺便改写以下/var/www目录的权限，方便以后编辑网站文件：<br><code>sudo chmod 777 /var/www</code><br>创建phpmyadmin的链接：<br><code>sudo ln -s /usr/share/phpmyadmin /var/www/html/</code><br>修改一下php5的配置，打开配置文件：<br><code>sudo vim /etc/php5/apache2/php.ini</code><br>加入红框中的语句：<br><img src="/assets/images/zabbix_6.jpg" alt="extension=mysqli.d"><br>保存退出。<br>现在在其他的PC上打开浏览器，输入<em><span class="exturl" data-url="aHR0cDovL0lQQWRkci9waHBteWFkbWlu" title="http://IPAddr/phpmyadmin">http://IPAddr/phpmyadmin<i class="fa fa-external-link"></i></span></em>，显示以下页面表示配置成功：<br><img src="/assets/images/zabbix_7.jpg" alt="phpmyadmin登录页面"></p>
-<h2 id="4-安装配置zabbix-server"><a href="#4-安装配置zabbix-server" class="headerlink" title="4.安装配置zabbix server"></a>4.安装配置zabbix server</h2><p>###4.1 下载deb：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br><span class="line">wget http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb</span><br><span class="line">dpkg -i zabbix-release_3.0-1+trusty_all.deb</span><br><span class="line">apt-get update</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-安装配置zabbix-server"><a href="#4-安装配置zabbix-server" class="headerlink" title="4.安装配置zabbix server"></a>4.安装配置zabbix server</h2><p>###4.1 下载deb：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br><span class="line">wget http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb</span><br><span class="line">dpkg -i zabbix-release_3.0-1+trusty_all.deb</span><br><span class="line">apt-get update</span><br></pre></td></tr></table></figure>
+
 <p>###4.2 安装服务器端<br>运行下列语句：<br><code>sudo apt-get install zabbix-server-mysql zabbix-frontend-php -y</code><br>安装完成之后试着启动一下zabbix服务,出现下列语句即为成功：<br><img src="/assets/images/zabbix_8.jpg" alt="[OK]Starting zabbix_server (via systemctl):zabbix_server.service"></p>
 <p>###4.3 配置zabbix_server.conf<br>打开配置文件：<br><code>sudo vim /etc/zabbix/zabbix_server.conf</code><br>把对应项的值改为如下(没有的自己在对应位置加上即可)：</p>
 <ul>
@@ -535,7 +539,9 @@
 <li>DBUser=zabbix</li>
 <li>DBPassword=zabbix</li>
 </ul>
-<p>###4.4 配置mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">(输入你的数据库root密码)</span><br><span class="line">mysql&gt; create database zabbix character set utf8 collate utf8_bin;</span><br><span class="line">mysql&gt; grant all privileges on zabbix.* to zabbix@localhost identified by &apos;zabbix&apos;;</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">mysql&gt; \q</span><br><span class="line">cd /usr/share/doc/zabbix-server-mysql</span><br><span class="line">zcat create.sql.gz | mysql -u root -p zabbix</span><br><span class="line">（输入你的数据库root密码，点击回车后稍微等一会儿）</span><br><span class="line">sudo cp -r /usr/share/zabbix /var/www/html/zabbix</span><br><span class="line">/etc/init.d/zabbix-server restart</span><br></pre></td></tr></table></figure></p>
+<p>###4.4 配置mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">(输入你的数据库root密码)</span><br><span class="line">mysql&gt; create database zabbix character set utf8 collate utf8_bin;</span><br><span class="line">mysql&gt; grant all privileges on zabbix.* to zabbix@localhost identified by &apos;zabbix&apos;;</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">mysql&gt; \q</span><br><span class="line">cd /usr/share/doc/zabbix-server-mysql</span><br><span class="line">zcat create.sql.gz | mysql -u root -p zabbix</span><br><span class="line">（输入你的数据库root密码，点击回车后稍微等一会儿）</span><br><span class="line">sudo cp -r /usr/share/zabbix /var/www/html/zabbix</span><br><span class="line">/etc/init.d/zabbix-server restart</span><br></pre></td></tr></table></figure>
+
 <p>最后出现下列语句即为成功：<br><img src="/assets/images/zabbix_8.jpg" alt="[OK]Starting zabbix_server (via systemctl):zabbix_server.service"></p>
 <p>###4.5 配置php<br>编辑php的配置文件：<br><code>sudo vim /etc/php5/apache2/php.ini</code><br>把对应项的值改为如下(没有的自己在对应位置加上即可)：</p>
 <ul>
@@ -545,7 +551,8 @@
 <li>date.timezone = “Asia/Shanghai”</li>
 </ul>
 <p>改完之后重启apache2：<br><code>/etc/init.d/apache2 restart</code></p>
-<h2 id="5-进入zabbix"><a href="#5-进入zabbix" class="headerlink" title="5.进入zabbix"></a>5.进入zabbix</h2><p>在另外一台PC上打开浏览器，在地址栏输入：<br><em><span class="exturl" data-url="aHR0cDovL0lQQWRkci96YWJiaXg=" title="http://IPAddr/zabbix">http://IPAddr/zabbix<i class="fa fa-external-link"></i></span></em><br>显示以下页面：<br><img src="/assets/images/zabbix_9.jpg" alt="zabbix欢迎页面"><br>点击右下角的Next step进入Check of pre-requisites页面：<br><img src="/assets/images/zabbix_10.jpg" alt="Check of pre-requisites页面"><br>这个页面是检测服务器配置是否合格的页面，必须全部为OK才可以点击Next step进入Configure DB connection页面。<br><img src="/assets/images/zabbix_11.jpg" alt="Configure DB connection页面"><br>其中password为zabbix（我们刚刚配置数据库时设置的）。<br>接下来的Zabbix server details和Pre-installation summary两个页面无脑点Next step即可。<br>显示如下页面我们就可以点击Finish了。<br><img src="/assets/images/zabbix_12.jpg" alt="Congratulations"><br>点击Finish之后出现zabbix server的登录页面，这里Username为Admin，Password为zabbix，最后点击Sign in，大功告成~<br><img src="/assets/images/zabbix_13.jpg" alt="登录页面"><br><img src="/assets/images/zabbix_14.jpg" alt="zabbix管理页面"></p>
+<h2 id="5-进入zabbix"><a href="#5-进入zabbix" class="headerlink" title="5.进入zabbix"></a>5.进入zabbix</h2><p>在另外一台PC上打开浏览器，在地址栏输入：<br><em><span class="exturl" data-url="aHR0cDovL0lQQWRkci96YWJiaXg=" title="http://IPAddr/zabbix">http://IPAddr/zabbix<i class="fa fa-external-link"></i></span></em><br>显示以下页面：<br><img src="/assets/images/zabbix_9.jpg" alt="zabbix欢迎页面"><br>点击右下角的Next step进入Check of pre-requisites页面：<br><img src="/assets/images/zabbix_10.jpg" alt="Check of pre-requisites页面"><br>这个页面是检测服务器配置是否合格的页面，必须全部为OK才可以点击Next step进入Configure DB connection页面。<br><img src="/assets/images/zabbix_11.jpg" alt="Configure DB connection页面"><br>其中password为zabbix（我们刚刚配置数据库时设置的）。<br>接下来的Zabbix server details和Pre-installation summary两个页面无脑点Next step即可。<br>显示如下页面我们就可以点击Finish了。<br><img src="/assets/images/zabbix_12.jpg" alt="Congratulations"><br>点击Finish之后出现zabbix server的登录页面，这里Username为Admin，Password为zabbix，最后点击Sign in，大功告成~
+<img src="/assets/images/zabbix_13.jpg" alt="登录页面"><br><img src="/assets/images/zabbix_14.jpg" alt="zabbix管理页面"></p>
 
       
     </div>
@@ -667,7 +674,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -925,7 +932,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">101</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">105</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

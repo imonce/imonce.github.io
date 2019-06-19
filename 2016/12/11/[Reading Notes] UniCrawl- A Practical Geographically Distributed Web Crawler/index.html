@@ -15,7 +15,7 @@
 
 
 <html class="theme-next gemini use-motion" lang>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -246,7 +246,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">101</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">105</span></a>
 
   </li>
         
@@ -284,7 +284,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">59</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">60</span></a>
 
   </li>
         
@@ -494,7 +494,9 @@
 
       
         <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>Cause the wealth of information available on the web keeps growing, we want to use web crawler to get them. But the traditional method has a fatal limit of its large infrastructure cost. To reduce it, we developed this method, unicrawl, which can show a performance improvement of 93.6% in terms of network bandwidth consumption, and a speedup factor of 1.75.</p>
-<h2 id="I-introduction"><a href="#I-introduction" class="headerlink" title="I. introduction"></a>I. introduction</h2><p>Nowadays, it’s common that to use parallel process on a large number of machines to achieve a reasonable collection time. While this method requires large computing infrastructures. Like Google and Bing, who rely on big data centers.<br><a id="more"></a><br>As for the public crawl repositories, they require externalizing computation and data hosting to a commercial cloud provider. Which may pose the problem of data availability in the mid-long term. And cause there are large amounts of data unnecessary, postprocessing is needed.</p>
+<h2 id="I-introduction"><a href="#I-introduction" class="headerlink" title="I. introduction"></a>I. introduction</h2><p>Nowadays, it’s common that to use parallel process on a large number of machines to achieve a reasonable collection time. While this method requires large computing infrastructures. Like Google and Bing, who rely on big data centers. </p>
+<a id="more"></a>
+<p>As for the public crawl repositories, they require externalizing computation and data hosting to a commercial cloud provider. Which may pose the problem of data availability in the mid-long term. And cause there are large amounts of data unnecessary, postprocessing is needed.</p>
 <p>A solution to those problems is to distribute the crawling effort over several geographically distributed locations. For instance, by allowing several small companies to mutualize their crawling infrastructures. In addition, such an approach leverages data locality as sites can crawl web servers that are geographically nearby. But in this way, the synchronization between the crawler at the different sites is a new problem. Our goal is to reduce such communication costs.</p>
 <p>UniCrawl is an efficient geo-distributed crawler that aims at minimizing inter-site communication costs. Our design is both practical and scalable. We assess this claim with a detailed evaluation of UniCrawl in a controlled environment using the ClueWeb12 dataset, as well as in geo-distributed setting using 3 distinct sites located in Germany.</p>
 <h3 id="outline"><a href="#outline" class="headerlink" title="outline:"></a>outline:</h3><p>Section II is related work. Section III introduces the crawler architecture, refining it from existing well-founded central disigns. Section IV is the details about the internal implementaion. Section V presents the experimental results, both in-vitro, and in-vivo over multiple geographical locations in Germany. We discuss out results and future work in Section V. We conclude the paper inSection VII.</p>
@@ -537,17 +539,21 @@
 </ol>
 <h3 id="B-Multi-site-Operations"><a href="#B-Multi-site-Operations" class="headerlink" title="B. Multi-site Operations"></a>B. Multi-site Operations</h3><p>Several key ideas allow UniCrawl to be practical in this setting:</p>
 <ol>
-<li>Each site is independent and crawls the web autonomously</li>
-<li>We unite all the site data stores</li>
+<li><p>Each site is independent and crawls the web autonomously</p>
+</li>
+<li><p>We unite all the site data stores</p>
+</li>
 <li><p>Sites exchanges dynamically the URLs they discover over the course of the crawl</p>
 </li>
 <li><p>Federating the storage: One of the key design concerns of UniCrawl is to bring small monifications to the site code base in order be usable over multiple geographical locations.</p>
 </li>
-<li>collaboration between sites: Following the approach advocated by Cho and Garcia-Molina. UniCrawl exchanges newly discovered URLs over time. This exchange occurs at the end of the update phase.<ul>
+<li><p>collaboration between sites: Following the approach advocated by Cho and Garcia-Molina. UniCrawl exchanges newly discovered URLs over time. This exchange occurs at the end of the update phase.</p>
+<ul>
 <li>We implement the crawl database as a distributed ensemble map that span all the sites. This map operates in frontier mode with a replication factor of one.</li>
 </ul>
 </li>
-<li>Crawl quality and cost: The quality of the crawling operation is not only measured by means of pure web-graph exploration but also by the rounds it takes to discover the most interesting pages.</li>
+<li><p>Crawl quality and cost: The quality of the crawling operation is not only measured by means of pure web-graph exploration but also by the rounds it takes to discover the most interesting pages.</p>
+</li>
 </ol>
 <h2 id="IV-Implementation"><a href="#IV-Implementation" class="headerlink" title="IV. Implementation"></a>IV. Implementation</h2><p>We implemented UniCrawl inJava, starting from the code base of Nutch version 2.5.3.</p>
 <p>Nutch makes use of Apache Gora, an open-source framework that provides an in-memory and persistent data model for big data.</p>
@@ -698,7 +704,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -956,7 +962,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">101</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">105</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

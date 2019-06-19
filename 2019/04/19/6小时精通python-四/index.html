@@ -15,7 +15,7 @@
 
 
 <html class="theme-next gemini use-motion" lang>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -246,7 +246,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">101</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">105</span></a>
 
   </li>
         
@@ -284,7 +284,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">59</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">60</span></a>
 
   </li>
         
@@ -539,70 +539,81 @@
 <li>把下边的语句对着敲一边自然就会了，博主用的是jupyter notebook</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">####################################################</span></span><br><span class="line"><span class="comment">## 4. Functions</span></span><br><span class="line"><span class="comment">####################################################</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过def保留字来定义函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    print(<span class="string">"x is &#123;&#125; and y is &#123;&#125;"</span>.format(x, y))</span><br><span class="line">    <span class="comment"># return语句用来返回处理结果</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义之后可以带参调用</span></span><br><span class="line">c = add(<span class="number">5</span>, <span class="number">6</span>)</span><br><span class="line">print(c)</span><br></pre></td></tr></table></figure>
+
 <pre><code>x is 5 and y is 6
-11
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果不按照顺序输入参数，需要添加形式参数名称</span></span><br><span class="line">c = add(y=<span class="number">6</span>, x=<span class="number">5</span>)</span><br><span class="line">print(c)</span><br></pre></td></tr></table></figure>
+11</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果不按照顺序输入参数，需要添加形式参数名称</span></span><br><span class="line">c = add(y=<span class="number">6</span>, x=<span class="number">5</span>)</span><br><span class="line">print(c)</span><br></pre></td></tr></table></figure>
+
 <pre><code>x is 5 and y is 6
-11
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以传入参数列表（positional arguments）</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">varargs</span><span class="params">(*args)</span>:</span></span><br><span class="line">    print(type(args))</span><br><span class="line">    <span class="keyword">return</span> args</span><br></pre></td></tr></table></figure>
+11</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以传入参数列表（positional arguments）</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">varargs</span><span class="params">(*args)</span>:</span></span><br><span class="line">    print(type(args))</span><br><span class="line">    <span class="keyword">return</span> args</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c = varargs(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">print(c)</span><br></pre></td></tr></table></figure>
+
 <pre><code>&lt;class &apos;tuple&apos;&gt;
-(1, 2, 3)
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以通过keyword arguments来传入多个变量</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">keyword_args</span><span class="params">(**kwargs)</span>:</span></span><br><span class="line">    print(type(kwargs))</span><br><span class="line">    <span class="keyword">return</span> kwargs</span><br></pre></td></tr></table></figure>
+(1, 2, 3)</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以通过keyword arguments来传入多个变量</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">keyword_args</span><span class="params">(**kwargs)</span>:</span></span><br><span class="line">    print(type(kwargs))</span><br><span class="line">    <span class="keyword">return</span> kwargs</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c = keyword_args(one=<span class="string">'1'</span>, two=<span class="string">'2'</span>)</span><br><span class="line">print(c)</span><br></pre></td></tr></table></figure>
+
 <pre><code>&lt;class &apos;dict&apos;&gt;
-{&apos;one&apos;: &apos;1&apos;, &apos;two&apos;: &apos;2&apos;}
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以混合使用</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">all_the_args</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">    print(args)</span><br><span class="line">    print(kwargs)</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">all_the_args(1, 2, a=3, b=4) prints:</span></span><br><span class="line"><span class="string">    (1, 2)</span></span><br><span class="line"><span class="string">    &#123;"a": 3, "b": 4&#125;</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+{&apos;one&apos;: &apos;1&apos;, &apos;two&apos;: &apos;2&apos;}</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以混合使用</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">all_the_args</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">    print(args)</span><br><span class="line">    print(kwargs)</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">all_the_args(1, 2, a=3, b=4) prints:</span></span><br><span class="line"><span class="string">    (1, 2)</span></span><br><span class="line"><span class="string">    &#123;"a": 3, "b": 4&#125;</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 调用函数的时候，*和**也可以反过来使用</span></span><br><span class="line">args_call = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">kwargs_call = &#123;<span class="string">"a"</span>: <span class="number">3</span>, <span class="string">"b"</span>: <span class="number">4</span>&#125;</span><br><span class="line">all_the_args(*args_call)            <span class="comment"># equivalent to all_the_args(1, 2, 3, 4)</span></span><br><span class="line">all_the_args(**kwargs_call)         <span class="comment"># equivalent to all_the_args(a=3, b=4)</span></span><br><span class="line">all_the_args(*args_call, **kwargs_call)  <span class="comment"># equivalent to all_the_args(1, 2, 3, 4, a=3, b=4)</span></span><br></pre></td></tr></table></figure>
+
 <pre><code>(1, 2, 3, 4)
 {}
 ()
 {&apos;a&apos;: 3, &apos;b&apos;: 4}
 (1, 2, 3, 4)
-{&apos;a&apos;: 3, &apos;b&apos;: 4}
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个函数可以同时返回多个值</span></span><br><span class="line"><span class="comment"># 多个值是以不带括号的tuple的形式返回的</span></span><br><span class="line"><span class="comment"># 但是加了括号也没关系</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">swap</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> y, x</span><br></pre></td></tr></table></figure>
+{&apos;a&apos;: 3, &apos;b&apos;: 4}</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个函数可以同时返回多个值</span></span><br><span class="line"><span class="comment"># 多个值是以不带括号的tuple的形式返回的</span></span><br><span class="line"><span class="comment"># 但是加了括号也没关系</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">swap</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> y, x</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">1</span></span><br><span class="line">y = <span class="number">2</span></span><br><span class="line">x, y = swap(x, y)     <span class="comment"># =&gt; x = 2, y = 1</span></span><br><span class="line">(x, y) = swap(x, y)   <span class="comment"># 这一句和上一句一样</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 函数范围 </span></span><br><span class="line"><span class="comment"># 这里x是一个全局变量（global）</span></span><br><span class="line">x = <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_x</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="comment"># 函数内部可以访问外部全局变量</span></span><br><span class="line">    print(num)</span><br><span class="line">    print(x)   <span class="comment"># =&gt; 5</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_x</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="comment"># 但是不能在函数内部改变全局变量</span></span><br><span class="line">    <span class="comment"># 这里的x是一个新生成的，只在函数内生效的局部变量</span></span><br><span class="line">    x = num    <span class="comment"># =&gt; 43</span></span><br><span class="line">    print(x)   <span class="comment"># =&gt; 43</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_global_x</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="comment"># 如果想要在函数内部改变全局变量，需要通过global声明</span></span><br><span class="line">    <span class="keyword">global</span> x</span><br><span class="line">    print(x)   <span class="comment"># =&gt; 5</span></span><br><span class="line">    x = num    <span class="comment"># global var x is now set to num</span></span><br><span class="line">    print(x)   <span class="comment"># =&gt; num</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get_x(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+
 <pre><code>6
-5
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set_x(<span class="number">6</span>)</span><br><span class="line">print(x)</span><br></pre></td></tr></table></figure>
+5</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set_x(<span class="number">6</span>)</span><br><span class="line">print(x)</span><br></pre></td></tr></table></figure>
+
 <pre><code>6
-5
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set_global_x(<span class="number">6</span>)</span><br><span class="line">print(x)</span><br></pre></td></tr></table></figure>
+5</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set_global_x(<span class="number">6</span>)</span><br><span class="line">print(x)</span><br></pre></td></tr></table></figure>
+
 <pre><code>5
 6
-6
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python支持头等函数</span></span><br><span class="line"><span class="comment"># 简单来讲，return的函数就是上层函数的头等函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_adder</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="comment"># suber就是简单的嵌套定义了一个函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">suber</span><span class="params">(z)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> x - z</span><br><span class="line">    n = suber(<span class="number">5</span>)</span><br><span class="line">    <span class="comment"># adder参与返回值，是头等函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">adder</span><span class="params">(y)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> n + y</span><br><span class="line">    <span class="keyword">return</span> adder</span><br></pre></td></tr></table></figure>
+6</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python支持头等函数</span></span><br><span class="line"><span class="comment"># 简单来讲，return的函数就是上层函数的头等函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_adder</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="comment"># suber就是简单的嵌套定义了一个函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">suber</span><span class="params">(z)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> x - z</span><br><span class="line">    n = suber(<span class="number">5</span>)</span><br><span class="line">    <span class="comment"># adder参与返回值，是头等函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">adder</span><span class="params">(y)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> n + y</span><br><span class="line">    <span class="keyword">return</span> adder</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_10_minus_5 = create_adder(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_10_minus_5(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>8
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python也支持匿名函数</span></span><br><span class="line"><span class="comment"># (lambda &lt;形式参数（列表）&gt;: &lt;return语句&gt;)(&lt;实参&gt;)</span></span><br><span class="line">(<span class="keyword">lambda</span> x: x &gt; <span class="number">2</span>)(<span class="number">3</span>)                  <span class="comment"># =&gt; True</span></span><br></pre></td></tr></table></figure>
-<pre><code>True
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">lambda</span> x, y: x ** <span class="number">2</span> + y ** <span class="number">2</span>)(<span class="number">2</span>, <span class="number">1</span>)  <span class="comment"># =&gt; 5</span></span><br></pre></td></tr></table></figure>
-<pre><code>5
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 匿名函数，实际上也是可以命名的</span></span><br><span class="line">check_greater_than_2 = <span class="keyword">lambda</span> x: x &gt; <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>8</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python也支持匿名函数</span></span><br><span class="line"><span class="comment"># (lambda &lt;形式参数（列表）&gt;: &lt;return语句&gt;)(&lt;实参&gt;)</span></span><br><span class="line">(<span class="keyword">lambda</span> x: x &gt; <span class="number">2</span>)(<span class="number">3</span>)                  <span class="comment"># =&gt; True</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>True</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">lambda</span> x, y: x ** <span class="number">2</span> + y ** <span class="number">2</span>)(<span class="number">2</span>, <span class="number">1</span>)  <span class="comment"># =&gt; 5</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>5</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 匿名函数，实际上也是可以命名的</span></span><br><span class="line">check_greater_than_2 = <span class="keyword">lambda</span> x: x &gt; <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">check_greater_than_2(<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>True
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 还有内建的高阶函数</span></span><br><span class="line"><span class="comment"># 通过map将[1, 2, 3]分别装入add_10_minus_5进行运算</span></span><br><span class="line"><span class="comment"># 返回结果包装成list</span></span><br><span class="line">list(map(add_10_minus_5, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]))</span><br></pre></td></tr></table></figure>
-<pre><code>[6, 7, 8]
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># max是python的内建方法，求参数中的最大值</span></span><br><span class="line">max(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>3
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面的写法就是就是对位结合，进行计算</span></span><br><span class="line"><span class="comment"># 相当于list(max(1,4), max(2,2), max(3,1))</span></span><br><span class="line">list(map(max, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
-<pre><code>[4, 2, 3]
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># filter 可以把返回值为true的参数，返回出来</span></span><br><span class="line">list(filter(<span class="keyword">lambda</span> x: x &gt; <span class="number">5</span>, [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]))  <span class="comment"># =&gt; [6, 7]</span></span><br></pre></td></tr></table></figure>
-<pre><code>[6, 7]
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以根据对列表的理解，写出漂亮的map和filter</span></span><br><span class="line">[add_10_minus_5(i) <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]]</span><br></pre></td></tr></table></figure>
-<pre><code>[6, 7, 8]
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[x <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>] <span class="keyword">if</span> x &gt; <span class="number">5</span>]  <span class="comment"># =&gt; [6, 7]</span></span><br></pre></td></tr></table></figure>
-<pre><code>[6, 7]
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以写出漂亮的字典或者集合</span></span><br><span class="line">&#123;x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="string">'abcddeef'</span> <span class="keyword">if</span> x <span class="keyword">not</span> <span class="keyword">in</span> <span class="string">'abc'</span>&#125;  <span class="comment"># =&gt; &#123;'d', 'e', 'f'&#125;</span></span><br></pre></td></tr></table></figure>
-<pre><code>{&apos;d&apos;, &apos;e&apos;, &apos;f&apos;}
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;x: x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">5</span>)&#125;  <span class="comment"># =&gt; &#123;0: 0, 1: 1, 2: 4, 3: 9, 4: 16&#125;</span></span><br></pre></td></tr></table></figure>
-<pre><code>{0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
-</code></pre>
+
+<pre><code>True</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 还有内建的高阶函数</span></span><br><span class="line"><span class="comment"># 通过map将[1, 2, 3]分别装入add_10_minus_5进行运算</span></span><br><span class="line"><span class="comment"># 返回结果包装成list</span></span><br><span class="line">list(map(add_10_minus_5, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]))</span><br></pre></td></tr></table></figure>
+
+<pre><code>[6, 7, 8]</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># max是python的内建方法，求参数中的最大值</span></span><br><span class="line">max(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>3</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面的写法就是就是对位结合，进行计算</span></span><br><span class="line"><span class="comment"># 相当于list(max(1,4), max(2,2), max(3,1))</span></span><br><span class="line">list(map(max, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+
+<pre><code>[4, 2, 3]</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># filter 可以把返回值为true的参数，返回出来</span></span><br><span class="line">list(filter(<span class="keyword">lambda</span> x: x &gt; <span class="number">5</span>, [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]))  <span class="comment"># =&gt; [6, 7]</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>[6, 7]</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以根据对列表的理解，写出漂亮的map和filter</span></span><br><span class="line">[add_10_minus_5(i) <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]]</span><br></pre></td></tr></table></figure>
+
+<pre><code>[6, 7, 8]</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[x <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>] <span class="keyword">if</span> x &gt; <span class="number">5</span>]  <span class="comment"># =&gt; [6, 7]</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>[6, 7]</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以写出漂亮的字典或者集合</span></span><br><span class="line">&#123;x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="string">'abcddeef'</span> <span class="keyword">if</span> x <span class="keyword">not</span> <span class="keyword">in</span> <span class="string">'abc'</span>&#125;  <span class="comment"># =&gt; &#123;'d', 'e', 'f'&#125;</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>{&apos;d&apos;, &apos;e&apos;, &apos;f&apos;}</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;x: x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">5</span>)&#125;  <span class="comment"># =&gt; &#123;0: 0, 1: 1, 2: 4, 3: 9, 4: 16&#125;</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>{0: 0, 1: 1, 2: 4, 3: 9, 4: 16}</code></pre>
       
     </div>
 
@@ -722,7 +733,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -980,7 +991,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">101</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">105</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

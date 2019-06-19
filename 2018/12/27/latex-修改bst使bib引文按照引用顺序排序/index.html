@@ -15,7 +15,7 @@
 
 
 <html class="theme-next gemini use-motion" lang>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="问题使用spring的spbasic.bst模板，结果引文是按照作者名字的字母顺序排序的。 方法 使用任意一款文本编辑器打开spbasic.bst文件 找到其中所有的SORT行 修改为%SORT即可 注意大小写，spbasic.bst中应有两处   如果未生效，可能是bst编译的文件没有更新，试着把bbl文件删除，然后重新编译一下 解释 bst文件什么也不写的话默认是按照引用顺序来排序的 很多模板">
+  <meta name="description" content="问题使用spring的spbasic.bst模板，结果引文是按照作者名字的字母顺序排序的。 方法 使用任意一款文本编辑器打开spbasic.bst文件  找到其中所有的SORT行  修改为%SORT即可 注意大小写，spbasic.bst中应有两处   如果未生效，可能是bst编译的文件没有更新，试着把bbl文件删除，然后重新编译一下 解释 bst文件什么也不写的话默认是按照引用顺序来排序的 很多">
 <meta name="keywords" content="latex,bib,bst">
 <meta property="og:type" content="article">
 <meta property="og:title" content="latex:修改bst使bib引文按照引用顺序排序">
 <meta property="og:url" content="https://imonce.github.io/2018/12/27/latex-修改bst使bib引文按照引用顺序排序/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
-<meta property="og:description" content="问题使用spring的spbasic.bst模板，结果引文是按照作者名字的字母顺序排序的。 方法 使用任意一款文本编辑器打开spbasic.bst文件 找到其中所有的SORT行 修改为%SORT即可 注意大小写，spbasic.bst中应有两处   如果未生效，可能是bst编译的文件没有更新，试着把bbl文件删除，然后重新编译一下 解释 bst文件什么也不写的话默认是按照引用顺序来排序的 很多模板">
+<meta property="og:description" content="问题使用spring的spbasic.bst模板，结果引文是按照作者名字的字母顺序排序的。 方法 使用任意一款文本编辑器打开spbasic.bst文件  找到其中所有的SORT行  修改为%SORT即可 注意大小写，spbasic.bst中应有两处   如果未生效，可能是bst编译的文件没有更新，试着把bbl文件删除，然后重新编译一下 解释 bst文件什么也不写的话默认是按照引用顺序来排序的 很多">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-04-25T07:31:06.404Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="latex:修改bst使bib引文按照引用顺序排序">
-<meta name="twitter:description" content="问题使用spring的spbasic.bst模板，结果引文是按照作者名字的字母顺序排序的。 方法 使用任意一款文本编辑器打开spbasic.bst文件 找到其中所有的SORT行 修改为%SORT即可 注意大小写，spbasic.bst中应有两处   如果未生效，可能是bst编译的文件没有更新，试着把bbl文件删除，然后重新编译一下 解释 bst文件什么也不写的话默认是按照引用顺序来排序的 很多模板">
+<meta name="twitter:description" content="问题使用spring的spbasic.bst模板，结果引文是按照作者名字的字母顺序排序的。 方法 使用任意一款文本编辑器打开spbasic.bst文件  找到其中所有的SORT行  修改为%SORT即可 注意大小写，spbasic.bst中应有两处   如果未生效，可能是bst编译的文件没有更新，试着把bbl文件删除，然后重新编译一下 解释 bst文件什么也不写的话默认是按照引用顺序来排序的 很多">
 
 
 
@@ -246,7 +246,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">101</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">105</span></a>
 
   </li>
         
@@ -284,7 +284,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">59</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">60</span></a>
 
   </li>
         
@@ -507,8 +507,10 @@
       
         <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>使用spring的spbasic.bst模板，结果引文是按照作者名字的字母顺序排序的。</p>
 <h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><ol>
-<li>使用任意一款文本编辑器打开spbasic.bst文件</li>
-<li>找到其中所有的<code>SORT</code>行</li>
+<li><p>使用任意一款文本编辑器打开spbasic.bst文件</p>
+</li>
+<li><p>找到其中所有的<code>SORT</code>行</p>
+</li>
 <li><p>修改为<code>%SORT</code>即可</p>
 <p>注意大小写，spbasic.bst中应有两处</p>
 </li>
@@ -646,7 +648,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -904,7 +906,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">101</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">105</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

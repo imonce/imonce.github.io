@@ -15,7 +15,7 @@
 
 
 <html class="theme-next gemini use-motion" lang>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -248,7 +248,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">101</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">105</span></a>
 
   </li>
         
@@ -286,7 +286,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">59</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">60</span></a>
 
   </li>
         
@@ -496,6 +496,7 @@
 
       
         <h1 id="将以下脚本保存到本地，命名为uninstall-pandoc-pl"><a href="#将以下脚本保存到本地，命名为uninstall-pandoc-pl" class="headerlink" title="将以下脚本保存到本地，命名为uninstall-pandoc.pl"></a>将以下脚本保存到本地，命名为<strong>uninstall-pandoc.pl</strong></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/perl</span><br><span class="line"></span><br><span class="line"># Script to remove all files installed by the macOS pandoc installer</span><br><span class="line"># and unregister the package.  Modified from a script contributed</span><br><span class="line"># by Daniel T. Staal.</span><br><span class="line"></span><br><span class="line">use warnings;</span><br><span class="line">use strict;</span><br><span class="line"></span><br><span class="line">use File::Spec;</span><br><span class="line"></span><br><span class="line"># The main info: this is the list of files to remove and the pkg_id.</span><br><span class="line">my $pkg_id    = &apos;net.johnmacfarlane.pandoc&apos;;</span><br><span class="line"></span><br><span class="line"># Find which, if any, volume Pandoc is installed on.</span><br><span class="line">my $volume;</span><br><span class="line"></span><br><span class="line"># First check /, then other volumes on the box.</span><br><span class="line">my $cur_test = `pkgutil --pkgs=$pkg_id`;</span><br><span class="line">if ( $cur_test =~ m/$pkg_id/ ) &#123;</span><br><span class="line">    $volume = &apos;/&apos;;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    opendir( my $dh, &apos;/Volumes&apos; ) or die &quot;Can&apos;t list Volumes: $!\n&quot;;</span><br><span class="line">    foreach my $dir ( readdir($dh) ) &#123;</span><br><span class="line">      next if $dir =~ m/^\./;    # Skip dotfiles.</span><br><span class="line"></span><br><span class="line">      my $path = File::Spec-&gt;rel2abs( $dir, &apos;/Volumes&apos; );</span><br><span class="line">      next if !( -d $path );     # Skip anything that isn&apos;t a directory.</span><br><span class="line"></span><br><span class="line">      my $cur_test = `pkgutil --pkgs=$pkg_id --volume &apos;$path&apos;`;</span><br><span class="line">      if ( $cur_test =~ m/$pkg_id/ ) &#123;</span><br><span class="line">          $volume = $path;</span><br><span class="line">          last;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">die &quot;Pandoc not installed.\n&quot; if !( defined($volume) );</span><br><span class="line"></span><br><span class="line"># Get the list of files to remove.</span><br><span class="line">my @pkg_files = `pkgutil --volume &apos;$volume&apos; --only-files --files &apos;$pkg_id&apos;`;</span><br><span class="line">@pkg_files = map &#123; chomp; File::Spec-&gt;rel2abs($_, $volume) &#125; @pkg_files;</span><br><span class="line"></span><br><span class="line"># Confirm uninistall with the user.</span><br><span class="line">print &quot;The following files will be deleted:\n\n&quot;;</span><br><span class="line">print join(&quot;\n&quot;, @pkg_files);</span><br><span class="line">print &quot;\n\n&quot;;</span><br><span class="line">print &quot;Do you want to proceed and uninstall pandoc (Y/N)?&quot;;</span><br><span class="line">my $input = &lt;STDIN&gt;;</span><br><span class="line"></span><br><span class="line">if ($input =~ m/^[Yy]/) &#123;</span><br><span class="line"></span><br><span class="line">    # Actually remove the files.</span><br><span class="line">    foreach my $file (@pkg_files) &#123;</span><br><span class="line">        if ( -e $file ) &#123;</span><br><span class="line">            if ( system( &apos;sudo&apos;, &apos;rm&apos;, $file ) == 0 ) &#123;</span><br><span class="line">                warn &quot;Deleted $file\n&quot;;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                warn &quot;Unable to delete $file: $?\n&quot;;</span><br><span class="line">                die &quot;Aborting Uninstall.\n&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;  else &#123;</span><br><span class="line">            warn &quot;File $file does not exist.  Skipping.\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # Clean up the install.</span><br><span class="line">    if (system(&apos;sudo&apos;, &apos;pkgutil&apos;, &apos;--forget&apos;, $pkg_id, &apos;--volume&apos;, $volume) != 0) &#123;</span><br><span class="line">        die &quot;Unable to clean up install: $?\n&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125; else &#123;</span><br><span class="line"></span><br><span class="line">   print &quot;OK, aborting uninstall.\n&quot;;</span><br><span class="line">   exit;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print &quot;Pandoc has been successfully uninstalled.\n&quot;;</span><br><span class="line">exit;</span><br></pre></td></tr></table></figure>
+
 <h1 id="在uninstall-pandoc-pl目录下运行"><a href="#在uninstall-pandoc-pl目录下运行" class="headerlink" title="在uninstall-pandoc.pl目录下运行"></a>在uninstall-pandoc.pl目录下运行</h1><blockquote>
 <p>perl uninstall-pandoc.pl</p>
 </blockquote>
@@ -628,7 +629,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -886,7 +887,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">101</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">105</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

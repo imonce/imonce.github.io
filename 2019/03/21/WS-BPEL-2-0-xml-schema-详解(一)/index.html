@@ -15,7 +15,7 @@
 
 
 <html class="theme-next gemini use-motion" lang>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -246,7 +246,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">101</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">105</span></a>
 
   </li>
         
@@ -284,7 +284,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">59</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">60</span></a>
 
   </li>
         
@@ -509,17 +509,22 @@
 <p>相关xsd语法问题，请参见<a href="https://imonce.github.io/2019/03/15/XSD学习笔记完整版/#简单类型">XSD学习笔记完整版</a></p>
 <p>wsbpel2.0 xsd源码来自：<span class="exturl" data-url="aHR0cDovL2RvY3Mub2FzaXMtb3Blbi5vcmcvd3NicGVsLzIuMC9PUy9wcm9jZXNzL2V4ZWN1dGFibGUvd3MtYnBlbF9leGVjdXRhYmxlLnhzZA==" title="http://docs.oasis-open.org/wsbpel/2.0/OS/process/executable/ws-bpel_executable.xsd">ws-bpel_executable.xsd<i class="fa fa-external-link"></i></span></p>
 <h1 id="schema声明"><a href="#schema声明" class="headerlink" title="schema声明"></a>schema声明</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:schema xmlns=&quot;http://docs.oasis-open.org/wsbpel/2.0/process/executable&quot; </span><br><span class="line">	xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; targetNamespace=&quot;http://docs.oasis-open.org/wsbpel/2.0/process/executable&quot; elementFormDefault=&quot;qualified&quot; blockDefault=&quot;#all&quot;&gt;</span><br><span class="line">	...</span><br><span class="line">&lt;\xsd&gt;</span><br></pre></td></tr></table></figure>
+
 <p>声明命名空间<code>http://docs.oasis-open.org/wsbpel/2.0/process/executable</code>，没有前缀。</p>
 <p>引入<code>http://www.w3.org/2001/XMLSchema</code>的语素并以xsd为前缀。</p>
 <p><code>elementFormDefault=&quot;qualified&quot;</code>表示所有元素都必须加上前缀以表明其命名空间。</p>
 <p><code>blockDefault=&quot;#all&quot;</code>表示默认情况下不能通过派生类代替原类型。</p>
 <h1 id="annotation"><a href="#annotation" class="headerlink" title="annotation"></a>annotation</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:annotation&gt;</span><br><span class="line">	&lt;xsd:documentation&gt;</span><br><span class="line">Schema for Executable Process for WS-BPEL 2.0 OASIS Standard 11th April, 2007</span><br><span class="line">	&lt;/xsd:documentation&gt;</span><br><span class="line">&lt;/xsd:annotation&gt;</span><br></pre></td></tr></table></figure>
+
 <p>赠送了一个简单的文档说明。</p>
 <h1 id="import"><a href="#import" class="headerlink" title="import"></a>import</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:import namespace=&quot;http://www.w3.org/XML/1998/namespace&quot; schemaLocation=&quot;http://www.w3.org/2001/xml.xsd&quot;/&gt;</span><br></pre></td></tr></table></figure>
+
 <p>引入<code>http://www.w3.org/2001/xml.xsd</code>的xml语素，前缀默认为xml。</p>
 <h1 id="element：process"><a href="#element：process" class="headerlink" title="element：process"></a>element：process</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;process&quot; type=&quot;tProcess&quot;&gt;</span><br><span class="line">	&lt;xsd:annotation&gt;</span><br><span class="line">		&lt;xsd:documentation&gt;</span><br><span class="line">This is the root element for a WS-BPEL 2.0 process.</span><br><span class="line">		&lt;/xsd:documentation&gt;</span><br><span class="line">	&lt;/xsd:annotation&gt;</span><br><span class="line">&lt;/xsd:element&gt;</span><br></pre></td></tr></table></figure>
+
 <p>BPEL的根元素，此处没有定义任何内容，内部元素属性通过type=”tProcess”引入。</p>
 <h1 id="complexType：tProcess"><a href="#complexType：tProcess" class="headerlink" title="complexType：tProcess"></a>complexType：tProcess</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:complexType name=&quot;tProcess&quot;&gt;</span><br><span class="line">	&lt;xsd:complexContent&gt;</span><br><span class="line">		&lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">			&lt;xsd:sequence&gt;</span><br><span class="line">				&lt;xsd:element ref=&quot;extensions&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">				&lt;xsd:element ref=&quot;import&quot; minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">				&lt;xsd:element ref=&quot;partnerLinks&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">				&lt;xsd:element ref=&quot;messageExchanges&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">				&lt;xsd:element ref=&quot;variables&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">				&lt;xsd:element ref=&quot;correlationSets&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">				&lt;xsd:element ref=&quot;faultHandlers&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">				&lt;xsd:element ref=&quot;eventHandlers&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">				&lt;xsd:group ref=&quot;activity&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">			&lt;/xsd:sequence&gt;</span><br><span class="line">			&lt;xsd:attribute name=&quot;name&quot; type=&quot;xsd:NCName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">			&lt;xsd:attribute name=&quot;targetNamespace&quot; type=&quot;xsd:anyURI&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">			&lt;xsd:attribute name=&quot;queryLanguage&quot; type=&quot;xsd:anyURI&quot; default=&quot;urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0&quot;/&gt;</span><br><span class="line">			&lt;xsd:attribute name=&quot;expressionLanguage&quot; type=&quot;xsd:anyURI&quot; default=&quot;urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0&quot;/&gt;</span><br><span class="line">			&lt;xsd:attribute name=&quot;suppressJoinFailure&quot; type=&quot;tBoolean&quot; default=&quot;no&quot;/&gt;</span><br><span class="line">			&lt;xsd:attribute name=&quot;exitOnStandardFault&quot; type=&quot;tBoolean&quot; default=&quot;no&quot;/&gt;</span><br><span class="line">		&lt;/xsd:extension&gt;</span><br><span class="line">	&lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+
 <p>首先是一个名为tExtensibleElements的扩展，先放一下往后看。</p>
 <p>一个sequence，包括extensions，import，partnerLinks，messageExchanges，variables，correlationSets，faultHandlers，eventHandlers，还有一个activity的group，这里全部是ref，我们知道大概有些啥就行了，后边肯定会有详细的定义，先往后看吧。</p>
 <p>接着是一堆attribute，包括process的</p>
@@ -532,12 +537,14 @@
 <li>标准错误退出exitOnStandardFault，默认是否</li>
 </ul>
 <h1 id="complexType：tExtensibleElement"><a href="#complexType：tExtensibleElement" class="headerlink" title="complexType：tExtensibleElement"></a>complexType：tExtensibleElement</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:complexType name=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">    &lt;xsd:annotation&gt;</span><br><span class="line">        &lt;xsd:documentation&gt;</span><br><span class="line">This type is extended by other component types to allow elements and attributes from other namespaces to be added at the modeled places.</span><br><span class="line">        &lt;/xsd:documentation&gt;</span><br><span class="line">    &lt;/xsd:annotation&gt;</span><br><span class="line">    &lt;xsd:sequence&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;documentation&quot; minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">        &lt;xsd:any namespace=&quot;##other&quot; processContents=&quot;lax&quot; minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">    &lt;/xsd:sequence&gt;</span><br><span class="line">    &lt;xsd:anyAttribute namespace=&quot;##other&quot; processContents=&quot;lax&quot;/&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+
 <p>tExtensibleElements这个扩展马上就来了，可以看到，扩展除了0至多个documentation（后边再讲），还有</p>
 <ul>
 <li>element：来自该元素的父元素的目标命名空间之外的任何命名空间的元素，且即使不能获取该命名空间架构，也不会发生任何错误。</li>
 <li>attribute：同上</li>
 </ul>
 <h1 id="element：documentation"><a href="#element：documentation" class="headerlink" title="element：documentation"></a>element：documentation</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;documentation&quot; type=&quot;tDocumentation&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tDocumentation&quot; mixed=&quot;true&quot;&gt;</span><br><span class="line">    &lt;xsd:sequence&gt;</span><br><span class="line">        &lt;xsd:any processContents=&quot;lax&quot; minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">    &lt;/xsd:sequence&gt;</span><br><span class="line">    &lt;xsd:attribute name=&quot;source&quot; type=&quot;xsd:anyURI&quot;/&gt;</span><br><span class="line">    &lt;xsd:attribute ref=&quot;xml:lang&quot;/&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+
 <p>documentation中：</p>
 <ul>
 <li>element：一个字符元素可混合出现的，元素可随意引入，不在此命名空间也没关系</li>
@@ -548,118 +555,118 @@
 </li>
 </ul>
 <h1 id="group：activity"><a href="#group：activity" class="headerlink" title="group：activity"></a>group：activity</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:group name=&quot;activity&quot;&gt;</span><br><span class="line">    &lt;xsd:annotation&gt;</span><br><span class="line">        &lt;xsd:documentation&gt;</span><br><span class="line">All standard WS-BPEL 2.0 activities in alphabetical order. Basic activities and structured activities. Addtional constraints: - rethrow activity can be used ONLY within a fault handler (i.e. &quot;catch&quot; and &quot;catchAll&quot; element) - compensate or compensateScope activity can be used ONLY within a fault handler, a compensation handler or a termination handler</span><br><span class="line">        &lt;/xsd:documentation&gt;</span><br><span class="line">    &lt;/xsd:annotation&gt;</span><br><span class="line">    &lt;xsd:choice&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;assign&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;compensate&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;compensateScope&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;empty&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;exit&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;extensionActivity&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;flow&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;forEach&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;if&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;invoke&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;pick&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;receive&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;repeatUntil&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;reply&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;rethrow&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;scope&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;sequence&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;throw&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;validate&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;wait&quot;/&gt;</span><br><span class="line">        &lt;xsd:element ref=&quot;while&quot;/&gt;</span><br><span class="line">    &lt;/xsd:choice&gt;</span><br><span class="line">&lt;/xsd:group&gt;</span><br></pre></td></tr></table></figure>
+
 <p>定义了一个activity的group，用于在其他地方引用，比如说通过tProcess引用到process里边。</p>
 <p>一个activity可以是以下元素中的一个，没写到的看后边源码解读好了：</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">基本活动名称</th>
-<th style="text-align:left">释义</th>
+<th align="left">基本活动名称</th>
+<th align="left">释义</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:left">assign</td>
-<td style="text-align:left">活动的作用是用新的数据来更新变量的值。Assign活动可以包括任意数量的基本复制操作。</td>
+<tbody><tr>
+<td align="left">assign</td>
+<td align="left">活动的作用是用新的数据来更新变量的值。Assign活动可以包括任意数量的基本复制操作。</td>
 </tr>
 <tr>
-<td style="text-align:left">compensate</td>
-<td style="text-align:left">通过该活动做一些补偿动作，通常需要和scope联合使用。只能从故障处理程序或另一个补偿处理活动中调用这个活动。补偿处理程序只能被调用一次。</td>
+<td align="left">compensate</td>
+<td align="left">通过该活动做一些补偿动作，通常需要和scope联合使用。只能从故障处理程序或另一个补偿处理活动中调用这个活动。补偿处理程序只能被调用一次。</td>
 </tr>
 <tr>
-<td style="text-align:left">compensateScope</td>
-<td style="text-align:left"></td>
+<td align="left">compensateScope</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td style="text-align:left">empty</td>
-<td style="text-align:left">无所事事，比如在一个错误发生后可以不做反应来消除这个错误</td>
+<td align="left">empty</td>
+<td align="left">无所事事，比如在一个错误发生后可以不做反应来消除这个错误</td>
 </tr>
 <tr>
-<td style="text-align:left">exit</td>
-<td style="text-align:left">该活动用于立刻终止业务流程实例。所有当前运行的活动必须被立刻终止。不用引用任何终点处理、错误处理或者补偿行为。</td>
+<td align="left">exit</td>
+<td align="left">该活动用于立刻终止业务流程实例。所有当前运行的活动必须被立刻终止。不用引用任何终点处理、错误处理或者补偿行为。</td>
 </tr>
 <tr>
-<td style="text-align:left">forEach</td>
-<td style="text-align:left"></td>
+<td align="left">forEach</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td style="text-align:left">invoke</td>
-<td style="text-align:left">活动允许业务流程同步或异步调用由合作伙伴提供的服务，服务实现可以是单向或请求-响应操作。Invoke活动使用“partnerLink”来引用伙伴服务。同过“portType”和“operation”指定相应的WSDL接口和操作。</td>
+<td align="left">invoke</td>
+<td align="left">活动允许业务流程同步或异步调用由合作伙伴提供的服务，服务实现可以是单向或请求-响应操作。Invoke活动使用“partnerLink”来引用伙伴服务。同过“portType”和“operation”指定相应的WSDL接口和操作。</td>
 </tr>
 <tr>
-<td style="text-align:left">pick</td>
-<td style="text-align:left">活动会等待一组相互排斥事件中的一个事件的发生，然后执行与发生的事件相关联的活动。它会阻塞业务流程执行，以等待某一特定的事件发生，比如接收到一个合适的消息或超时警报响起。当其中任何一个事件被触发后，业务流程就会继续执行，pick也随即完成了，不会再等待其他事件的发生。</td>
+<td align="left">pick</td>
+<td align="left">活动会等待一组相互排斥事件中的一个事件的发生，然后执行与发生的事件相关联的活动。它会阻塞业务流程执行，以等待某一特定的事件发生，比如接收到一个合适的消息或超时警报响起。当其中任何一个事件被触发后，业务流程就会继续执行，pick也随即完成了，不会再等待其他事件的发生。</td>
 </tr>
 <tr>
-<td style="text-align:left">receive</td>
-<td style="text-align:left">活动从流程的外部伙伴那获取数据，并将其保存到流程变量。通常一个Receive是一个流程的初始点，它会阻塞执行直到匹配的消息的到达。</td>
+<td align="left">receive</td>
+<td align="left">活动从流程的外部伙伴那获取数据，并将其保存到流程变量。通常一个Receive是一个流程的初始点，它会阻塞执行直到匹配的消息的到达。</td>
 </tr>
 <tr>
-<td style="text-align:left">reply</td>
-<td style="text-align:left">活动发送消息给伙伴来应答通过receive活动所接收到的消息。receive和reply的组合对应着WSDL portType上定义的一个请求-响应操作。如果receive活动对应着一个单向(one-way)操作，则不能在流程中定义对应的reply活动。</td>
+<td align="left">reply</td>
+<td align="left">活动发送消息给伙伴来应答通过receive活动所接收到的消息。receive和reply的组合对应着WSDL portType上定义的一个请求-响应操作。如果receive活动对应着一个单向(one-way)操作，则不能在流程中定义对应的reply活动。</td>
 </tr>
 <tr>
-<td style="text-align:left">rethrow</td>
-<td style="text-align:left"></td>
+<td align="left">rethrow</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td style="text-align:left">throw</td>
-<td style="text-align:left">提示一个错误，一个故障处理可以处理这样的错误。假如一个错误不被处理的话它最终到达最高层后导致过程的终止</td>
+<td align="left">throw</td>
+<td align="left">提示一个错误，一个故障处理可以处理这样的错误。假如一个错误不被处理的话它最终到达最高层后导致过程的终止</td>
 </tr>
 <tr>
-<td style="text-align:left">validate</td>
-<td style="text-align:left"></td>
+<td align="left">validate</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td style="text-align:left">wait</td>
-<td style="text-align:left">活动会暂停流程执行，等待一段给定的时间或等到某一时刻才继续运行。在WebSphere Process Server 6.0中，开发者可以非常灵活地指定wait中的到期条件，比如等待多少秒，等到特定的一个日期，或是使用内置的日期表现法。也可以使用Java代码来动态指定等待时间。</td>
+<td align="left">wait</td>
+<td align="left">活动会暂停流程执行，等待一段给定的时间或等到某一时刻才继续运行。在WebSphere Process Server 6.0中，开发者可以非常灵活地指定wait中的到期条件，比如等待多少秒，等到特定的一个日期，或是使用内置的日期表现法。也可以使用Java代码来动态指定等待时间。</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">结构化活动名称</th>
-<th style="text-align:left">释义</th>
+<th align="left">结构化活动名称</th>
+<th align="left">释义</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:left">extensionActivity</td>
-<td style="text-align:left"></td>
+<tbody><tr>
+<td align="left">extensionActivity</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td style="text-align:left">flow</td>
-<td style="text-align:left">可以描述更为复杂的活动执行顺序。我们可以利用flow指定一个或多个并行执行的活动。为了定义任意的控制结构，可以在并行的活动中使用链接。</td>
+<td align="left">flow</td>
+<td align="left">可以描述更为复杂的活动执行顺序。我们可以利用flow指定一个或多个并行执行的活动。为了定义任意的控制结构，可以在并行的活动中使用链接。</td>
 </tr>
 <tr>
-<td style="text-align:left">if</td>
-<td style="text-align:left"></td>
+<td align="left">if</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td style="text-align:left">repeatUntil</td>
-<td style="text-align:left"></td>
+<td align="left">repeatUntil</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td style="text-align:left">scope</td>
-<td style="text-align:left">使用这个结构可以将一组活动组织在一起作为一个处理单位。通过这个组织方法多个活动可以使用同一个故障处理、事故处理和补偿处理。通过补偿处理BPEL可以处理长时间的处理。</td>
+<td align="left">scope</td>
+<td align="left">使用这个结构可以将一组活动组织在一起作为一个处理单位。通过这个组织方法多个活动可以使用同一个故障处理、事故处理和补偿处理。通过补偿处理BPEL可以处理长时间的处理。</td>
 </tr>
 <tr>
-<td style="text-align:left">sequence</td>
-<td style="text-align:left">定义一组按顺序先后执行的活动。执行顺序是sequence活动中嵌套活动的先后顺序。当sequence中的最后一个活动完成后，该sequence活动也就完成了。</td>
+<td align="left">sequence</td>
+<td align="left">定义一组按顺序先后执行的活动。执行顺序是sequence活动中嵌套活动的先后顺序。当sequence中的最后一个活动完成后，该sequence活动也就完成了。</td>
 </tr>
 <tr>
-<td style="text-align:left">while</td>
-<td style="text-align:left">继承于传统的结构化编程思想，提供了while-do循环结构的支持。它可以包含一个或多个活动。它指定反复执行其内部活动，直到成功条件不被满足为止。在WPS中允许其使用Java代码来描述条件表达式。</td>
+<td align="left">while</td>
+<td align="left">继承于传统的结构化编程思想，提供了while-do循环结构的支持。它可以包含一个或多个活动。它指定反复执行其内部活动，直到成功条件不被满足为止。在WPS中允许其使用Java代码来描述条件表达式。</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h1 id="element：extensions"><a href="#element：extensions" class="headerlink" title="element：extensions"></a>element：extensions</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;extensions&quot; type=&quot;tExtensions&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tExtensions&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;extension&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:element name=&quot;extension&quot; type=&quot;tExtension&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tExtension&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;namespace&quot; type=&quot;xsd:anyURI&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;mustUnderstand&quot; type=&quot;tBoolean&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+
 <p>一个extensions由1到多个extension组成。</p>
 <p>extension扩展自tExtensibleElements，增加了namespace和mustUnderstand两个属性。</p>
 <h1 id="element：import"><a href="#element：import" class="headerlink" title="element：import"></a>element：import</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;import&quot; type=&quot;tImport&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tImport&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;namespace&quot; type=&quot;xsd:anyURI&quot; use=&quot;optional&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;location&quot; type=&quot;xsd:anyURI&quot; use=&quot;optional&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;importType&quot; type=&quot;xsd:anyURI&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+
 <p>BPEL允许import，import元素在tExtensibleElements的基础上，增加namespace、location、importType三个属性，和xsd的import类似。</p>
 <h1 id="element：partnerLinks"><a href="#element：partnerLinks" class="headerlink" title="element：partnerLinks"></a>element：partnerLinks</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;partnerLinks&quot; type=&quot;tPartnerLinks&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tPartnerLinks&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;partnerLink&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:element name=&quot;partnerLink&quot; type=&quot;tPartnerLink&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tPartnerLink&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;name&quot; type=&quot;xsd:NCName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;partnerLinkType&quot; type=&quot;xsd:QName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;myRole&quot; type=&quot;xsd:NCName&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;partnerRole&quot; type=&quot;xsd:NCName&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;initializePartnerRole&quot; type=&quot;tBoolean&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+
 <p>和extensions相似，partnerLinks由1到多个partnerLink组成，同时支持tExtensibleElements扩展。</p>
 <p>partnerLink在tExtensibleElements的基础上，增加了以下5个属性</p>
 <ul>
@@ -670,12 +677,14 @@
 <li>initializaPartnerRole</li>
 </ul>
 <h1 id="element：messageExchanges"><a href="#element：messageExchanges" class="headerlink" title="element：messageExchanges"></a>element：messageExchanges</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;messageExchanges&quot; type=&quot;tMessageExchanges&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tMessageExchanges&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;messageExchange&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:element name=&quot;messageExchange&quot; type=&quot;tMessageExchange&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tMessageExchange&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;name&quot; type=&quot;xsd:NCName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+
 <p>和extensions相似，messageExchanges由1到多个messageExchange组成，同时支持tExtensibleElements扩展。</p>
 <p>messageExchange在tExtensibleElements的基础上，增加了一个属性</p>
 <ul>
 <li>name</li>
 </ul>
 <h1 id="element：variables"><a href="#element：variables" class="headerlink" title="element：variables"></a>element：variables</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;variables&quot; type=&quot;tVariables&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tVariables&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;variable&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:element name=&quot;variable&quot; type=&quot;tVariable&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tVariable&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;from&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;name&quot; type=&quot;BPELVariableName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;messageType&quot; type=&quot;xsd:QName&quot; use=&quot;optional&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;type&quot; type=&quot;xsd:QName&quot; use=&quot;optional&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;element&quot; type=&quot;xsd:QName&quot; use=&quot;optional&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+
 <p>和extensions相似，variables由1到多个variable组成，同时支持tExtensibleElements扩展。</p>
 <p>variable在tExtensibleElements的基础上，增加了一个元素</p>
 <ul>
@@ -689,8 +698,10 @@
 <li>element</li>
 </ul>
 <h1 id="simpleType：BPELVariableName"><a href="#simpleType：BPELVariableName" class="headerlink" title="simpleType：BPELVariableName"></a>simpleType：BPELVariableName</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:simpleType name=&quot;BPELVariableName&quot;&gt;</span><br><span class="line">    &lt;xsd:restriction base=&quot;xsd:NCName&quot;&gt;</span><br><span class="line">        &lt;xsd:pattern value=&quot;[^\.]+&quot;/&gt;</span><br><span class="line">    &lt;/xsd:restriction&gt;</span><br><span class="line">&lt;/xsd:simpleType&gt;</span><br></pre></td></tr></table></figure>
+
 <p>bpel变量的一个限制，BPELVariableName需要满足xsd:NCName限制，不能以<code>.</code>开头，且长度大于等于一个字符。</p>
 <h1 id="element：correlationSets"><a href="#element：correlationSets" class="headerlink" title="element：correlationSets"></a>element：correlationSets</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;correlationSets&quot; type=&quot;tCorrelationSets&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tCorrelationSets&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;correlationSet&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:element name=&quot;correlationSet&quot; type=&quot;tCorrelationSet&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tCorrelationSet&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;properties&quot; type=&quot;QNames&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;name&quot; type=&quot;xsd:NCName&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+
 <p>和extensions相似，correlationSets由1到多个correlationSet组成，同时支持tExtensibleElements扩展。</p>
 <p>correlationSet在tExtensibleElements的基础上，增加了2个属性</p>
 <ul>
@@ -698,14 +709,17 @@
 <li>name</li>
 </ul>
 <h1 id="simpleType：QNames"><a href="#simpleType：QNames" class="headerlink" title="simpleType：QNames"></a>simpleType：QNames</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:simpleType name=&quot;QNames&quot;&gt;</span><br><span class="line">    &lt;xsd:restriction&gt;</span><br><span class="line">        &lt;xsd:simpleType&gt;</span><br><span class="line">            &lt;xsd:list itemType=&quot;xsd:QName&quot;/&gt;</span><br><span class="line">        &lt;/xsd:simpleType&gt;</span><br><span class="line">        &lt;xsd:minLength value=&quot;1&quot;/&gt;</span><br><span class="line">    &lt;/xsd:restriction&gt;</span><br><span class="line">&lt;/xsd:simpleType&gt;</span><br></pre></td></tr></table></figure>
+
 <p>QNames就是一个QName的list，最少1个，默认空格分割。</p>
 <h1 id="element：faultHandlers"><a href="#element：faultHandlers" class="headerlink" title="element：faultHandlers"></a>element：faultHandlers</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;faultHandlers&quot; type=&quot;tFaultHandlers&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tFaultHandlers&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;catch&quot; minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">                &lt;xsd:element ref=&quot;catchAll&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+
 <p>faultHandlers，听名字就知道是干啥的了，同样支持tExtensibleElements扩展，由2种元素的sequence组成：</p>
 <ul>
 <li>catch</li>
 <li>catchAll</li>
 </ul>
 <h1 id="element：catch"><a href="#element：catch" class="headerlink" title="element：catch"></a>element：catch</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;catch&quot; type=&quot;tCatch&quot;&gt;</span><br><span class="line">    &lt;xsd:annotation&gt;</span><br><span class="line">        &lt;xsd:documentation&gt;</span><br><span class="line">This element can contain all activities including the activities compensate, compensateScope and rethrow.</span><br><span class="line">        &lt;/xsd:documentation&gt;</span><br><span class="line">    &lt;/xsd:annotation&gt;</span><br><span class="line">&lt;/xsd:element&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tCatch&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tActivityContainer&quot;&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;faultName&quot; type=&quot;xsd:QName&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;faultVariable&quot; type=&quot;BPELVariableName&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;faultMessageType&quot; type=&quot;xsd:QName&quot;/&gt;</span><br><span class="line">            &lt;xsd:attribute name=&quot;faultElement&quot; type=&quot;xsd:QName&quot;/&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+
 <p>catch扩展自tActivityContainer，包含4个属性，对catch做了限定：</p>
 <ul>
 <li>faultName</li>
@@ -714,6 +728,7 @@
 <li>faultElement</li>
 </ul>
 <h1 id="element：catchAll"><a href="#element：catchAll" class="headerlink" title="element：catchAll"></a>element：catchAll</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;xsd:element name=&quot;catchAll&quot; type=&quot;tActivityContainer&quot;&gt;</span><br><span class="line">    &lt;xsd:annotation&gt;</span><br><span class="line">        &lt;xsd:documentation&gt;</span><br><span class="line">This element can contain all activities including the activities compensate, compensateScope and rethrow.</span><br><span class="line">        &lt;/xsd:documentation&gt;</span><br><span class="line">    &lt;/xsd:annotation&gt;</span><br><span class="line">&lt;/xsd:element&gt;</span><br><span class="line"></span><br><span class="line">&lt;xsd:complexType name=&quot;tActivityContainer&quot;&gt;</span><br><span class="line">    &lt;xsd:complexContent&gt;</span><br><span class="line">        &lt;xsd:extension base=&quot;tExtensibleElements&quot;&gt;</span><br><span class="line">            &lt;xsd:sequence&gt;</span><br><span class="line">                &lt;xsd:group ref=&quot;activity&quot; minOccurs=&quot;1&quot;/&gt;</span><br><span class="line">            &lt;/xsd:sequence&gt;</span><br><span class="line">        &lt;/xsd:extension&gt;</span><br><span class="line">    &lt;/xsd:complexContent&gt;</span><br><span class="line">&lt;/xsd:complexType&gt;</span><br></pre></td></tr></table></figure>
+
 <p>不同于catch，catchAll没有那么多属性（我全都要），就是tActivityContainer本尊，扩展自tExtensibleElements，同时包含一个activity的sequence。</p>
 
       
@@ -848,7 +863,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1106,7 +1121,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">101</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">105</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

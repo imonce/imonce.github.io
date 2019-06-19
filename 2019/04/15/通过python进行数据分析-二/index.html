@@ -15,7 +15,7 @@
 
 
 <html class="theme-next gemini use-motion" lang>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -250,7 +250,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">101</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">105</span></a>
 
   </li>
         
@@ -288,7 +288,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">59</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">60</span></a>
 
   </li>
         
@@ -510,9 +510,13 @@
 
       
         <h3 id="Counting-time-zones-with-pandas"><a href="#Counting-time-zones-with-pandas" class="headerlink" title="Counting time zones with pandas"></a>Counting time zones with pandas</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># %matplotlib主要是在使用jupyter notebook 或者 jupyter qtconsole的时候才会用到</span></span><br><span class="line"><span class="comment"># 具体作用是当你调用matplotlib.pyplot的绘图函数plot()进行绘图的时候，可以直接在你的python console里面生成图像</span></span><br><span class="line"><span class="comment"># 默认是弹出一个绘图窗口</span></span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python有多个版本，Python 2.7到Python 3.x，Python提供了__future__模块，把3.x新版本的特性导入到当前版本</span></span><br><span class="line"><span class="comment"># 这一句的意思是除法按照python3来：</span></span><br><span class="line"><span class="comment"># 区别就是python2里边10/3=3，python3里边10/3=3.3333333333333335</span></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> division</span><br><span class="line"><span class="comment"># 导入numpy中的随机函数randn</span></span><br><span class="line"><span class="keyword">from</span> numpy.random <span class="keyword">import</span> randn</span><br><span class="line"><span class="comment"># 到处numpy包，并命名为np</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment"># 导入os包</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="comment"># 导入matplotlib.pyplot，并命名为plt，主要用于绘图</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="comment"># 导入pandas包，并命名为pd</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="comment"># 利用rc方法，plt.rc('figure',figsize=(10,6))全局默认图像大小为10X6</span></span><br><span class="line">plt.rc(<span class="string">'figure'</span>, figsize=(<span class="number">10</span>, <span class="number">6</span>))</span><br><span class="line"><span class="comment"># numpy set print options 小数点后4位</span></span><br><span class="line">np.set_printoptions(precision=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入json包</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="comment"># 赋值</span></span><br><span class="line">path = <span class="string">'ch02/usagov_bitly_data2012-03-16-1331923249.txt'</span></span><br><span class="line"><span class="comment"># 逐行遍历path文件中的数据，通过按照json格式读取，然后每一行的作为一个item组成list</span></span><br><span class="line">lines = open(path).readlines()</span><br><span class="line">records = [json.loads(line) <span class="keyword">for</span> line <span class="keyword">in</span> lines]</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入pandas的两个方法</span></span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> DataFrame, Series</span><br><span class="line"><span class="comment"># 导入pandas包，并命名为pd</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="comment"># 建立DataFrame对象，把key作为列名，value作为值填到一张表中，没有的键值对会用NaN（空值）填充</span></span><br><span class="line"><span class="comment"># 并自动生成索引，就是左边的0 1 2 3...</span></span><br><span class="line">frame = DataFrame(records)</span><br><span class="line"><span class="comment"># 打印出来看一下（这是一个pandas对象）</span></span><br><span class="line">print(frame)</span><br></pre></td></tr></table></figure>
+
 <pre><code>       _heartbeat_                                                  a  \
 0              NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
 1              NaN                             GoogleMaps/RochesterNY   
@@ -891,8 +895,8 @@
 3558  America/Los_Angeles                http://www.ahrq.gov/qual/qitoolkit/  
 3559     America/New_York  http://herndon-va.gov/Content/public_safety/Pu...  
 
-[3560 rows x 18 columns]
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打印frame这个表中的‘tz’列的前10行</span></span><br><span class="line"><span class="comment"># 注意，这还是一个pandas对象，出了索引，还有Name：tz，dtype（数据类型）：object</span></span><br><span class="line">print(frame[<span class="string">'tz'</span>][:<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+[3560 rows x 18 columns]</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打印frame这个表中的‘tz’列的前10行</span></span><br><span class="line"><span class="comment"># 注意，这还是一个pandas对象，出了索引，还有Name：tz，dtype（数据类型）：object</span></span><br><span class="line">print(frame[<span class="string">'tz'</span>][:<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+
 <pre><code>0     America/New_York
 1       America/Denver
 2     America/New_York
@@ -903,8 +907,8 @@
 7                     
 8                     
 9                     
-Name: tz, dtype: object
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 统计frame表格中‘tz’列的值的出现次数</span></span><br><span class="line">tz_counts = frame[<span class="string">'tz'</span>].value_counts()</span><br><span class="line"><span class="comment"># 输出前10个看看</span></span><br><span class="line"><span class="comment"># 空值出现了521次</span></span><br><span class="line">print(tz_counts[:<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+Name: tz, dtype: object</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 统计frame表格中‘tz’列的值的出现次数</span></span><br><span class="line">tz_counts = frame[<span class="string">'tz'</span>].value_counts()</span><br><span class="line"><span class="comment"># 输出前10个看看</span></span><br><span class="line"><span class="comment"># 空值出现了521次</span></span><br><span class="line">print(tz_counts[:<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+
 <pre><code>America/New_York       1251
                         521
 America/Chicago         400
@@ -915,8 +919,8 @@ Asia/Tokyo               37
 Pacific/Honolulu         36
 Europe/Madrid            35
 America/Sao_Paulo        33
-Name: tz, dtype: int64
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 空值处理起来会比较麻烦（直接进行操作容易报错）</span></span><br><span class="line"><span class="comment"># fillna（str）方法可以直接用str替代所有的空值</span></span><br><span class="line">clean_tz = frame[<span class="string">'tz'</span>].fillna(<span class="string">'Missing'</span>)</span><br><span class="line"><span class="comment"># 上边替代的不存在key的空值，但是还有另一种空值，key是存在的，但是value是空的（可以看作长度是0的字符串）</span></span><br><span class="line"><span class="comment"># 这里把所有value是‘’的替代成'Unknown'</span></span><br><span class="line">clean_tz[clean_tz == <span class="string">''</span>] = <span class="string">'Unknown'</span></span><br><span class="line"><span class="comment"># 我们再重新统计一遍看看</span></span><br><span class="line">tz_counts = clean_tz.value_counts()</span><br><span class="line">print(tz_counts[:<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+Name: tz, dtype: int64</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 空值处理起来会比较麻烦（直接进行操作容易报错）</span></span><br><span class="line"><span class="comment"># fillna（str）方法可以直接用str替代所有的空值</span></span><br><span class="line">clean_tz = frame[<span class="string">'tz'</span>].fillna(<span class="string">'Missing'</span>)</span><br><span class="line"><span class="comment"># 上边替代的不存在key的空值，但是还有另一种空值，key是存在的，但是value是空的（可以看作长度是0的字符串）</span></span><br><span class="line"><span class="comment"># 这里把所有value是‘’的替代成'Unknown'</span></span><br><span class="line">clean_tz[clean_tz == <span class="string">''</span>] = <span class="string">'Unknown'</span></span><br><span class="line"><span class="comment"># 我们再重新统计一遍看看</span></span><br><span class="line">tz_counts = clean_tz.value_counts()</span><br><span class="line">print(tz_counts[:<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+
 <pre><code>America/New_York       1251
 Unknown                 521
 America/Chicago         400
@@ -927,31 +931,31 @@ Europe/London            74
 Asia/Tokyo               37
 Pacific/Honolulu         36
 Europe/Madrid            35
-Name: tz, dtype: int64
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义画布尺寸为10*4 单位是英寸</span></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+Name: tz, dtype: int64</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义画布尺寸为10*4 单位是英寸</span></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+
 <pre><code>&lt;matplotlib.figure.Figure at 0x10d7ae940&gt;
 
 
 
 
-&lt;matplotlib.figure.Figure at 0x10d7ae940&gt;
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把tz_counts的统计结果绘制成图，类型为柱状图bar，横向h（horizontal）</span></span><br><span class="line"><span class="comment"># kind : str</span></span><br><span class="line"><span class="comment"># ‘line’ : line plot (default)</span></span><br><span class="line"><span class="comment"># ‘bar’ : vertical bar plot</span></span><br><span class="line"><span class="comment"># ‘barh’ : horizontal bar plot</span></span><br><span class="line"><span class="comment"># ‘hist’ : histogram</span></span><br><span class="line"><span class="comment"># ‘box’ : boxplot</span></span><br><span class="line"><span class="comment"># ‘kde’ : Kernel Density Estimation plot</span></span><br><span class="line"><span class="comment"># ‘density’ : same as ‘kde’</span></span><br><span class="line"><span class="comment"># ‘area’ : area plot</span></span><br><span class="line"><span class="comment"># ‘pie’ : pie plot</span></span><br><span class="line"><span class="comment"># ‘scatter’ : scatter plot</span></span><br><span class="line"><span class="comment"># ‘hexbin’ : hexbin plot</span></span><br><span class="line"><span class="comment"># rot : int, default None. Rotation for ticks (xticks for vertical, yticks for horizontal plots)</span></span><br><span class="line">tz_counts[:<span class="number">10</span>].plot(kind=<span class="string">'barh'</span>, rot=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x10d784eb8&gt;
-</code></pre><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190415212511.png" alt></p>
+&lt;matplotlib.figure.Figure at 0x10d7ae940&gt;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把tz_counts的统计结果绘制成图，类型为柱状图bar，横向h（horizontal）</span></span><br><span class="line"><span class="comment"># kind : str</span></span><br><span class="line"><span class="comment"># ‘line’ : line plot (default)</span></span><br><span class="line"><span class="comment"># ‘bar’ : vertical bar plot</span></span><br><span class="line"><span class="comment"># ‘barh’ : horizontal bar plot</span></span><br><span class="line"><span class="comment"># ‘hist’ : histogram</span></span><br><span class="line"><span class="comment"># ‘box’ : boxplot</span></span><br><span class="line"><span class="comment"># ‘kde’ : Kernel Density Estimation plot</span></span><br><span class="line"><span class="comment"># ‘density’ : same as ‘kde’</span></span><br><span class="line"><span class="comment"># ‘area’ : area plot</span></span><br><span class="line"><span class="comment"># ‘pie’ : pie plot</span></span><br><span class="line"><span class="comment"># ‘scatter’ : scatter plot</span></span><br><span class="line"><span class="comment"># ‘hexbin’ : hexbin plot</span></span><br><span class="line"><span class="comment"># rot : int, default None. Rotation for ticks (xticks for vertical, yticks for horizontal plots)</span></span><br><span class="line">tz_counts[:<span class="number">10</span>].plot(kind=<span class="string">'barh'</span>, rot=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x10d784eb8&gt;</code></pre><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190415212511.png" alt></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 看看frame这个表格里‘a’列的第二行（index是1）是什么</span></span><br><span class="line">print(frame[<span class="string">'a'</span>][<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
-<pre><code>GoogleMaps/RochesterNY
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在jupyter里边直接写变量名会自动print出来，是一种不标准的简化写法</span></span><br><span class="line">frame[<span class="string">'a'</span>][<span class="number">50</span>]</span><br></pre></td></tr></table></figure>
-<pre><code>&apos;Mozilla/5.0 (Windows NT 5.1; rv:10.0.2) Gecko/20100101 Firefox/10.0.2&apos;
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在jupyter里边直接写变量名会自动print出来，是一种不标准的简化写法</span></span><br><span class="line">frame[<span class="string">'a'</span>][<span class="number">51</span>]</span><br></pre></td></tr></table></figure>
-<pre><code>&apos;Mozilla/5.0 (Linux; U; Android 2.2.2; en-us; LG-P925/V10e Build/FRG83G) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1&apos;
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dropna()函数可以去掉包含有NaN值得item</span></span><br><span class="line"><span class="comment"># frame.a.drapna()就是提取frame表格里列表为a的那一列，去除掉NA值得那些行的值</span></span><br><span class="line"><span class="comment"># x.split(str) 通过指定分隔符str对字符串x进行切片，默认分隔符为空格，x.split(str)[0]意在取切完片的第一个值</span></span><br><span class="line"><span class="comment"># [x.split()[0] for x in frame.a.dropna()]就是提取frame表格里列表为a的那一列，去除掉NA值得那些行的值，并用split进行分割，并且最后保存分割后的第一个值，构成一个list</span></span><br><span class="line"><span class="comment"># Series是Pandas包中的方法，构建Series对象，添加索引</span></span><br><span class="line">results = Series([x.split()[<span class="number">0</span>] <span class="keyword">for</span> x <span class="keyword">in</span> frame.a.dropna()])</span><br><span class="line"><span class="comment"># 打印出来看看，后边的乱七八糟的信息已经没有了</span></span><br><span class="line">results[:<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+
+<pre><code>GoogleMaps/RochesterNY</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在jupyter里边直接写变量名会自动print出来，是一种不标准的简化写法</span></span><br><span class="line">frame[<span class="string">'a'</span>][<span class="number">50</span>]</span><br></pre></td></tr></table></figure>
+
+<pre><code>&apos;Mozilla/5.0 (Windows NT 5.1; rv:10.0.2) Gecko/20100101 Firefox/10.0.2&apos;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在jupyter里边直接写变量名会自动print出来，是一种不标准的简化写法</span></span><br><span class="line">frame[<span class="string">'a'</span>][<span class="number">51</span>]</span><br></pre></td></tr></table></figure>
+
+<pre><code>&apos;Mozilla/5.0 (Linux; U; Android 2.2.2; en-us; LG-P925/V10e Build/FRG83G) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1&apos;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dropna()函数可以去掉包含有NaN值得item</span></span><br><span class="line"><span class="comment"># frame.a.drapna()就是提取frame表格里列表为a的那一列，去除掉NA值得那些行的值</span></span><br><span class="line"><span class="comment"># x.split(str) 通过指定分隔符str对字符串x进行切片，默认分隔符为空格，x.split(str)[0]意在取切完片的第一个值</span></span><br><span class="line"><span class="comment"># [x.split()[0] for x in frame.a.dropna()]就是提取frame表格里列表为a的那一列，去除掉NA值得那些行的值，并用split进行分割，并且最后保存分割后的第一个值，构成一个list</span></span><br><span class="line"><span class="comment"># Series是Pandas包中的方法，构建Series对象，添加索引</span></span><br><span class="line">results = Series([x.split()[<span class="number">0</span>] <span class="keyword">for</span> x <span class="keyword">in</span> frame.a.dropna()])</span><br><span class="line"><span class="comment"># 打印出来看看，后边的乱七八糟的信息已经没有了</span></span><br><span class="line">results[:<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+
 <pre><code>0               Mozilla/5.0
 1    GoogleMaps/RochesterNY
 2               Mozilla/4.0
 3               Mozilla/5.0
 4               Mozilla/5.0
-dtype: object
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Pandas对象又可以直接通过value_counts方法做统计了，取出前8个看看</span></span><br><span class="line">results.value_counts()[:<span class="number">8</span>]</span><br></pre></td></tr></table></figure>
+dtype: object</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Pandas对象又可以直接通过value_counts方法做统计了，取出前8个看看</span></span><br><span class="line">results.value_counts()[:<span class="number">8</span>]</span><br></pre></td></tr></table></figure>
+
 <pre><code>Mozilla/5.0                 2594
 Mozilla/4.0                  601
 GoogleMaps/RochesterNY       121
@@ -960,10 +964,10 @@ TEST_INTERNET_AGENT           24
 GoogleProducer                21
 Mozilla/6.0                    5
 BlackBerry8520/5.0.0.681       4
-dtype: int64
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># frame.a.notnull()：frame表格的a列中，不是NaN就是true，是NaN就是False</span></span><br><span class="line"><span class="comment"># frame[frame.a.notnull()]：取出frame这个表格中所有a列不为NaN的行</span></span><br><span class="line">cframe = frame[frame.a.notnull()]</span><br><span class="line"><span class="comment"># 随便打几行看看，a列没有NaN（其他列暂时不管）</span></span><br><span class="line">cframe[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
-<pre><code>（表格太大了，略）
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cframe['a'].str 意思是将cframe表格中的‘a’列取出来，转化为padas 中string方法组成的列表，可以调用string相关的方法</span></span><br><span class="line"><span class="comment"># .contains('Windows') string中包含Windows返回True，不包含返回False</span></span><br><span class="line"><span class="comment"># 顺便输出前10行看看</span></span><br><span class="line">cframe[<span class="string">'a'</span>].str.contains(<span class="string">'Windows'</span>)[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+dtype: int64</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># frame.a.notnull()：frame表格的a列中，不是NaN就是true，是NaN就是False</span></span><br><span class="line"><span class="comment"># frame[frame.a.notnull()]：取出frame这个表格中所有a列不为NaN的行</span></span><br><span class="line">cframe = frame[frame.a.notnull()]</span><br><span class="line"><span class="comment"># 随便打几行看看，a列没有NaN（其他列暂时不管）</span></span><br><span class="line">cframe[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+
+<pre><code>（表格太大了，略）</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cframe['a'].str 意思是将cframe表格中的‘a’列取出来，转化为padas 中string方法组成的列表，可以调用string相关的方法</span></span><br><span class="line"><span class="comment"># .contains('Windows') string中包含Windows返回True，不包含返回False</span></span><br><span class="line"><span class="comment"># 顺便输出前10行看看</span></span><br><span class="line">cframe[<span class="string">'a'</span>].str.contains(<span class="string">'Windows'</span>)[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+
 <pre><code>0     True
 1    False
 2     True
@@ -974,17 +978,18 @@ dtype: int64
 7     True
 8    False
 9     True
-Name: a, dtype: bool
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 要理解np.where()这个函数，先看下边几行</span></span><br><span class="line"><span class="comment"># &gt;&gt;&gt; a</span></span><br><span class="line"><span class="comment"># array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</span></span><br><span class="line"><span class="comment"># &gt;&gt;&gt; np.where(a &lt; 5, 0, 1)</span></span><br><span class="line"><span class="comment"># array([ 0,  0,  0,  0,  0, 1, 1, 1, 1, 1])</span></span><br><span class="line"><span class="comment"># 也就是说，对于array a，满足&lt;5的项，用0代替，不满足&lt;5的项用1代替</span></span><br><span class="line"><span class="comment"># np.where(cframe['a'].str.contains('Windows'), 'Windows', 'Not Windows')，返回True的用Windows替代，返回False的用Not Windows替代</span></span><br><span class="line">operating_system = np.where(cframe[<span class="string">'a'</span>].str.contains(<span class="string">'Windows'</span>),</span><br><span class="line">                            <span class="string">'Windows'</span>, <span class="string">'Not Windows'</span>)</span><br><span class="line"><span class="comment"># 打印前五行，因通过numpy方法得到的结果，所以是一个numpy array</span></span><br><span class="line">operating_system[:<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+Name: a, dtype: bool</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 要理解np.where()这个函数，先看下边几行</span></span><br><span class="line"><span class="comment"># &gt;&gt;&gt; a</span></span><br><span class="line"><span class="comment"># array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</span></span><br><span class="line"><span class="comment"># &gt;&gt;&gt; np.where(a &lt; 5, 0, 1)</span></span><br><span class="line"><span class="comment"># array([ 0,  0,  0,  0,  0, 1, 1, 1, 1, 1])</span></span><br><span class="line"><span class="comment"># 也就是说，对于array a，满足&lt;5的项，用0代替，不满足&lt;5的项用1代替</span></span><br><span class="line"><span class="comment"># np.where(cframe['a'].str.contains('Windows'), 'Windows', 'Not Windows')，返回True的用Windows替代，返回False的用Not Windows替代</span></span><br><span class="line">operating_system = np.where(cframe[<span class="string">'a'</span>].str.contains(<span class="string">'Windows'</span>),</span><br><span class="line">                            <span class="string">'Windows'</span>, <span class="string">'Not Windows'</span>)</span><br><span class="line"><span class="comment"># 打印前五行，因通过numpy方法得到的结果，所以是一个numpy array</span></span><br><span class="line">operating_system[:<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+
 <pre><code>array([&apos;Windows&apos;, &apos;Not Windows&apos;, &apos;Windows&apos;, &apos;Not Windows&apos;, &apos;Windows&apos;],
-      dtype=&apos;&lt;U11&apos;)
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cframe.groupby([key1, key2, ...])为将cframe表格中的数据按照key进行分组</span></span><br><span class="line"><span class="comment"># key可以是2种：1. cframe表格中的列名，2.长度和cframe表格相同的数组</span></span><br><span class="line"><span class="comment"># cframe.groupby(['tz', operating_system])的意思就是：</span></span><br><span class="line"><span class="comment"># 第一个分组维度为‘tz’列，改列值相同的为一组</span></span><br><span class="line"><span class="comment"># 第二个分组维度为operating_system数组，也就是Windows的一组，Not Windows的一组</span></span><br><span class="line"><span class="comment"># .size()为统计每个小组的数据量</span></span><br><span class="line"><span class="comment"># .unstack()为把堆叠的分组表格展开（把这个函数去掉试一下就知道区别了）</span></span><br><span class="line"><span class="comment"># .fillna(0)之前说了，把不存在值的格子填充上0</span></span><br><span class="line">agg_counts = cframe.groupby([<span class="string">'tz'</span>, operating_system]).size().unstack().fillna(<span class="number">0</span>)</span><br><span class="line"><span class="comment"># 打出前10行看看</span></span><br><span class="line"><span class="comment"># 第一行不是总数，tz的值为空字符串‘’而已</span></span><br><span class="line">agg_counts[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+      dtype=&apos;&lt;U11&apos;)</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cframe.groupby([key1, key2, ...])为将cframe表格中的数据按照key进行分组</span></span><br><span class="line"><span class="comment"># key可以是2种：1. cframe表格中的列名，2.长度和cframe表格相同的数组</span></span><br><span class="line"><span class="comment"># cframe.groupby(['tz', operating_system])的意思就是：</span></span><br><span class="line"><span class="comment"># 第一个分组维度为‘tz’列，改列值相同的为一组</span></span><br><span class="line"><span class="comment"># 第二个分组维度为operating_system数组，也就是Windows的一组，Not Windows的一组</span></span><br><span class="line"><span class="comment"># .size()为统计每个小组的数据量</span></span><br><span class="line"><span class="comment"># .unstack()为把堆叠的分组表格展开（把这个函数去掉试一下就知道区别了）</span></span><br><span class="line"><span class="comment"># .fillna(0)之前说了，把不存在值的格子填充上0</span></span><br><span class="line">agg_counts = cframe.groupby([<span class="string">'tz'</span>, operating_system]).size().unstack().fillna(<span class="number">0</span>)</span><br><span class="line"><span class="comment"># 打出前10行看看</span></span><br><span class="line"><span class="comment"># 第一行不是总数，tz的值为空字符串‘’而已</span></span><br><span class="line">agg_counts[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+
 <div><style>    .dataframe thead tr:only-child th {        text-align: right;    }    .dataframe thead th {        text-align: left;    }    .dataframe tbody tr th {        vertical-align: top;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>Not Windows</th><th>Windows</th></tr><tr><th>tz</th><th></th><th></th></tr></thead><tbody><tr><th></th><td>245.0</td><td>276.0</td></tr><tr><th>Africa/Cairo</th><td>0.0</td><td>3.0</td></tr><tr><th>Africa/Casablanca</th><td>0.0</td><td>1.0</td></tr><tr><th>Africa/Ceuta</th><td>0.0</td><td>2.0</td></tr><tr><th>Africa/Johannesburg</th><td>0.0</td><td>1.0</td></tr><tr><th>Africa/Lusaka</th><td>0.0</td><td>1.0</td></tr><tr><th>America/Anchorage</th><td>4.0</td><td>1.0</td></tr><tr><th>America/Argentina/Buenos_Aires</th><td>1.0</td><td>0.0</td></tr><tr><th>America/Argentina/Cordoba</th><td>0.0</td><td>1.0</td></tr><tr><th>America/Argentina/Mendoza</th><td>0.0</td><td>1.0</td></tr></tbody></table></div>
 
 
 
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># agg_counts.sum(1) 意思是按照第二维方向相加，也就是把Windows和Not Windows加到一起</span></span><br><span class="line"><span class="comment"># 这里打印10行</span></span><br><span class="line">agg_counts_sum = agg_counts.sum(<span class="number">1</span>)</span><br><span class="line">agg_counts_sum[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+
 <pre><code>tz
                                   521.0
 Africa/Cairo                        3.0
@@ -996,8 +1001,8 @@ America/Anchorage                   5.0
 America/Argentina/Buenos_Aires      1.0
 America/Argentina/Cordoba           1.0
 America/Argentina/Mendoza           1.0
-dtype: float64
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .argsort()：按照从小到大的顺序排列，返回排列后item在原数组中对应的index</span></span><br><span class="line">indexer = agg_counts_sum.argsort()</span><br><span class="line"><span class="comment"># 打出前10个，这个时候左边的tz和右边的数字已经没有对应关系了</span></span><br><span class="line"><span class="comment"># 第一个24表示，按照从小到大排序，排在第一位的应该是原本数组中排在第25个（index为24）的那个item</span></span><br><span class="line"><span class="comment"># 第二个20表示，按照从小到大排序，排在第二位的应该是原本数组中排在第21个（index为20）的那个item</span></span><br><span class="line"><span class="comment"># 以此类推</span></span><br><span class="line">indexer[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+dtype: float64</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .argsort()：按照从小到大的顺序排列，返回排列后item在原数组中对应的index</span></span><br><span class="line">indexer = agg_counts_sum.argsort()</span><br><span class="line"><span class="comment"># 打出前10个，这个时候左边的tz和右边的数字已经没有对应关系了</span></span><br><span class="line"><span class="comment"># 第一个24表示，按照从小到大排序，排在第一位的应该是原本数组中排在第25个（index为24）的那个item</span></span><br><span class="line"><span class="comment"># 第二个20表示，按照从小到大排序，排在第二位的应该是原本数组中排在第21个（index为20）的那个item</span></span><br><span class="line"><span class="comment"># 以此类推</span></span><br><span class="line">indexer[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+
 <pre><code>tz
                                   24
 Africa/Cairo                      20
@@ -1009,8 +1014,8 @@ America/Anchorage                 54
 America/Argentina/Buenos_Aires    57
 America/Argentina/Cordoba         26
 America/Argentina/Mendoza         55
-dtype: int64
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 让原本的数字按照这个排好的indexer输出，我们就可以得到排序后的数据了</span></span><br><span class="line">agg_counts_sum[indexer]</span><br></pre></td></tr></table></figure>
+dtype: int64</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 让原本的数字按照这个排好的indexer输出，我们就可以得到排序后的数据了</span></span><br><span class="line">agg_counts_sum[indexer]</span><br></pre></td></tr></table></figure>
+
 <pre><code>tz
 America/Mazatlan                     1.0
 America/La_Paz                       1.0
@@ -1073,33 +1078,33 @@ America/Los_Angeles                382.0
 America/Chicago                    400.0
                                    521.0
 America/New_York                  1251.0
-Length: 97, dtype: float64
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># agg_counts.take([index1, index2, ...], axis=0)：在axis维度（0为行，1为列）上，按照index顺序取出数据</span></span><br><span class="line"><span class="comment"># 这里没有输入axis的值，默认为0，按行取</span></span><br><span class="line"><span class="comment"># 顺序为按照indexer</span></span><br><span class="line"><span class="comment"># [-10:]：把最后10个取出来</span></span><br><span class="line">count_subset = agg_counts.take(indexer)[<span class="number">-10</span>:]</span><br><span class="line">count_subset</span><br></pre></td></tr></table></figure>
+Length: 97, dtype: float64</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># agg_counts.take([index1, index2, ...], axis=0)：在axis维度（0为行，1为列）上，按照index顺序取出数据</span></span><br><span class="line"><span class="comment"># 这里没有输入axis的值，默认为0，按行取</span></span><br><span class="line"><span class="comment"># 顺序为按照indexer</span></span><br><span class="line"><span class="comment"># [-10:]：把最后10个取出来</span></span><br><span class="line">count_subset = agg_counts.take(indexer)[<span class="number">-10</span>:]</span><br><span class="line">count_subset</span><br></pre></td></tr></table></figure>
+
 <div><style>    .dataframe thead tr:only-child th {        text-align: right;    }    .dataframe thead th {        text-align: left;    }    .dataframe tbody tr th {        vertical-align: top;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>Not Windows</th><th>Windows</th></tr><tr><th>tz</th><th></th><th></th></tr></thead><tbody><tr><th>America/Sao_Paulo</th><td>13.0</td><td>20.0</td></tr><tr><th>Europe/Madrid</th><td>16.0</td><td>19.0</td></tr><tr><th>Pacific/Honolulu</th><td>0.0</td><td>36.0</td></tr><tr><th>Asia/Tokyo</th><td>2.0</td><td>35.0</td></tr><tr><th>Europe/London</th><td>43.0</td><td>31.0</td></tr><tr><th>America/Denver</th><td>132.0</td><td>59.0</td></tr><tr><th>America/Los_Angeles</th><td>130.0</td><td>252.0</td></tr><tr><th>America/Chicago</th><td>115.0</td><td>285.0</td></tr><tr><th></th><td>245.0</td><td>276.0</td></tr><tr><th>America/New_York</th><td>339.0</td><td>912.0</td></tr></tbody></table></div>
 
 
 
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置一块自定义大小的画布，生成画布对象（这里没写残书就是默认）</span></span><br><span class="line">plt.figure()</span><br></pre></td></tr></table></figure>
+
 <pre><code>&lt;matplotlib.figure.Figure at 0x112f87e10&gt;
 
 
 
 
-&lt;matplotlib.figure.Figure at 0x112f87e10&gt;
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把count_subset这个表格中的数据绘制成图，类型为柱状图bar，横向h（horizontal）</span></span><br><span class="line"><span class="comment"># stacked=True表示多个维度的数据堆叠显示（不明白的话改成False看看就知道了）</span></span><br><span class="line">count_subset.plot(kind=<span class="string">'barh'</span>, stacked=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1134d2630&gt;
-</code></pre><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190416211434.png" alt></p>
+&lt;matplotlib.figure.Figure at 0x112f87e10&gt;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把count_subset这个表格中的数据绘制成图，类型为柱状图bar，横向h（horizontal）</span></span><br><span class="line"><span class="comment"># stacked=True表示多个维度的数据堆叠显示（不明白的话改成False看看就知道了）</span></span><br><span class="line">count_subset.plot(kind=<span class="string">'barh'</span>, stacked=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1134d2630&gt;</code></pre><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190416211434.png" alt></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置一块自定义大小的画布，生成画布对象（这里没写残书就是默认）</span></span><br><span class="line">plt.figure()</span><br></pre></td></tr></table></figure>
+
 <pre><code>&lt;matplotlib.figure.Figure at 0x1136fd2e8&gt;
 
 
 
 
-&lt;matplotlib.figure.Figure at 0x1136fd2e8&gt;
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># count_subset.sum(1)：把count_subset按照第一维的方向相加</span></span><br><span class="line"><span class="comment"># count_subset.div(count_subset.sum(1),axis=0)：按行除以相加的结果</span></span><br><span class="line"><span class="comment"># 相当于把每一行所有数值变成了在当前行占的百分比</span></span><br><span class="line">normed_subset = count_subset.div(count_subset.sum(<span class="number">1</span>), axis=<span class="number">0</span>)</span><br><span class="line"><span class="comment"># stacked=True表示多个维度的数据堆叠显示（不明白的话改成False看看就知道了）</span></span><br><span class="line">normed_subset.plot(kind=<span class="string">'barh'</span>, stacked=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1138b6fd0&gt;
-</code></pre><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190416211504.png" alt></p>
+&lt;matplotlib.figure.Figure at 0x1136fd2e8&gt;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># count_subset.sum(1)：把count_subset按照第一维的方向相加</span></span><br><span class="line"><span class="comment"># count_subset.div(count_subset.sum(1),axis=0)：按行除以相加的结果</span></span><br><span class="line"><span class="comment"># 相当于把每一行所有数值变成了在当前行占的百分比</span></span><br><span class="line">normed_subset = count_subset.div(count_subset.sum(<span class="number">1</span>), axis=<span class="number">0</span>)</span><br><span class="line"><span class="comment"># stacked=True表示多个维度的数据堆叠显示（不明白的话改成False看看就知道了）</span></span><br><span class="line">normed_subset.plot(kind=<span class="string">'barh'</span>, stacked=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1138b6fd0&gt;</code></pre><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190416211504.png" alt></p>
 
       
     </div>
@@ -1225,7 +1230,7 @@ Length: 97, dtype: float64
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1483,7 +1488,15 @@ Length: 97, dtype: float64
                     
                       
                     
-                    <span class="site-state-item-count">101</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">105</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
