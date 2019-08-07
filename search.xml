@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[软件架构及常用的架构风格]]></title>
+    <url>%2F2019%2F08%2F07%2F%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%8F%8A%E5%B8%B8%E7%94%A8%E7%9A%84%E6%9E%B6%E6%9E%84%E9%A3%8E%E6%A0%BC%2F</url>
+    <content type="text"><![CDATA[前言：本来只想做一个“什么是微服务架构”，后来发现有许多基础的知识如果不做会很难看懂，因此把软件架构和常用的架构风格也一并讲了。大佬们的请直接移步第三部分。 软件架构软件架构的定义要理解微服务架构，首先要理解什么是软件架构。 计算机系统的软件架构是构建这个系统所需要的一组结构，包括软件元素、它们之间的关系以及两者的属性。————卡耐基梅隆大学 Len Bass 这句话，本质上就是在讲：应用程序的架构是将软件分解为元素（element），这些元素之间的关系（relation），以及这些元素自有的属性（property）。 软件架构的意义应用程序有两个层面的需求。第一类是功能性需求，这些需求决定一个应用程序做什么。这些通常都包含在用例（use case）或者用户故事（user story）中。应用的架构其实跟这些功能性需求没什么关系。功能性需求可以通过任意的架构来实现，甚至是非常糟糕的大泥球架构。 架构的重要性在于，它帮助应用程序满足了第二类需求：非功能性需求。我们把这类需求也称之为质量属性需求，或者简称为“能力”。这些非功能性需求决定一个应用程序在运行时的质量，比如可扩展性和可靠性。它们也决定了开发阶段的质量，包括可维护性、可测试性、可扩展性和可部署性。为应用程序所选择的架构将决定这些质量属性。 也可以从以下几点来讲软件架构的意义： 它促进了劳动和知识的分工。它使具有特定专业知识的人们（或多个团队）能够就应用程序高效地协同工作。 它定义了软件元素的交互方式。 将软件分解成元素以及定义这些元素之间的关系，决定了软件的能力。 软件架构的4+1视图模型 每个视图的目的如下： 逻辑视图：开发人员创建的软件元素。在面向对象的语言中，这些元素是类和包。它们之间的关系是类和包之间的关系，包括继承、关联和依赖。 实现视图：构建编译系统的输出。此视图由表示打包代码的模块和组件组成，组件是由一个或多个模块组成的可执行或可部署单元。在Java中，模块是JAR文件，组件通常是WAR文件或可执行JAR文件。它们之间的关系包括模块之间的依赖关系以及组件和模块之间的组合关系。 进程视图：运行时的组件。每个元素都是一个进程，进程之间的关系代表进程间通信。 部署视图：进程如何映射到机器。此视图中的元素由（物理或虚拟）计算机和进程组成。机器之间的关系代表网络。该视图还描述了进程和机器之间的关系。 除了这四个视图以外，4+1中的+1是指场景，它负责把视图串联在一起。每个场景负责描述在一个视图中的多个架构元素如何协作，以完成一个请求。例如，在逻辑视图中的场景，展现了类是如何协作的。同样，在进程视图中的场景，展现了进程是如何协作的。 常用的架构风格架构风格的定义如下： 架构风格根据结构组织模式定义了一系列此类系统。更具体地说，架构风格确定可以在该风格的实例中使用的组件和连接器的词汇表，以及关于如何组合它们的一组约束。————David Garlan and Mary Shaw 特定的架构风格提供了有限的元素（组件）和关系（连接器），你可以从中定义应用程序架构的视图。应用程序通常使用多种架构风格的组合。例如，单体架构可以通过不同的风格通的实现视图构造为单个（可执行与可部署）组件的架构样式。微服务架构将应用程序构造为一组松散耦合的服务，也可以通过不同的风格进行表示。 分层式架构风格架构的典型例子是分层架构。分层架构将软件元素按“层”的方式组织。每个层都有明确定义的职责。分层架构还限制了层之间的依赖关系。每一层只能依赖于紧邻其下方的层（如果严格分层）或其下面的任何层。 可以将分层架构应用于前面讨论的四个视图中的任何一个。流行的三层架构是应用于逻辑视图的分层架构。它将应用程序的类组织到以下层中： 表现层：包含实现用户界面或外部API的代码。 业务逻辑层：包含业务逻辑。 数据持久化层：实现与数据库交互的逻辑。 分层架构是架构风格的一个很好的例子，但它确实有一些明显的弊端： 单个表现层：它无法展现应用程序可能不仅仅由单个系统调用的事实。 单一数据持久化层：它无法展现应用程序可能与多个数据库进行交互的事实。 将业务逻辑层定义为依赖于数据持久化层：理论上，这样的依赖性会妨碍你在没有数据库的情况下测试业务逻辑。 此外，分层架构错误地表示了精心设计的应用程序中的依赖关系。业务逻辑通常定义数据访问方法的接口或接口库。数据持久化层则定义了实现存储库接口的DAO类。换句话说，依赖关系与分层架构所描述的相反。 六边形架构风格六边形架构是分层架构风格的替代品。如图所示，六边形架构风格选择以业务逻辑为中心的方式组织逻辑视图。应用程序具有一个或多个入站适配器，而不是表示层，它通过调用业务逻辑来处理来自外部的请求。同样，应用程序具有一个或多个出站适配器，而不是数据持久化层，这些出站适配器由业务逻辑调用并调用外部应用程序。此架构的一个关键特性和优点是业务逻辑不依赖于适配器。相反，各种适配器都依赖业务逻辑。 业务逻辑具有一个或多个端口（port）。端口定义了一组操作，关于业务逻辑如何与外部交互。例如，在Java中，端口通常是Java接口。有两种端口：入站和出站端口。入站端口是业务逻辑公开的API，它使外部应用程序可以调用它。入站端口的一个实例是服务接口，它定义服务的公共方法。出站端口是业务逻辑调用外部系统的方式。出站端口的一个实例是存储库接口，它定义数据访问操作的集合。 业务逻辑的周围是适配器。与端口一样，有两种类型的适配器：入站和出站。入站适配器通过调用入站端口来处理来自外部世界的请求。入站适配器的一个实例是Spring MVC Controller，它实现一组REST接口（endpoint）或一组Web页面。另一个实例是订阅消息的消息代理客户端。多个入站适配器可以调用相同的入站端口。 出站适配器实现出站端口，并通过调用外部应用程序或服务处理来自业务逻辑的请求。出站适配器的一个实例是实现访问数据库的操作的数据访问对象（DAO）类。另一个实例是调用远程服务的代理类。出站适配器也可以发布事件。 六边形架构风格的一个重要好处是它将业务逻辑与适配器中包含的表示层和数据访问层的逻辑分离开来。业务逻辑不依赖于表示层逻辑或数据访问层逻辑。 由于这种分离，单独测试业务逻辑要容易得多。另一个好处是它更准确地反映了现代应用程序的架构。可以通过多个适配器调用业务逻辑，每个适配器实现特定的API或用户界面。业务逻辑还可以调用多个适配器，每个适配器调用不同的外部系统。六边形架构是描述微服务架构中每个服务的架构的好方法。 reference:https://mp.weixin.qq.com/s/r9eKHhEKWo5TovFN87HtPw]]></content>
+      <categories>
+        <category>软件架构和服务架构</category>
+      </categories>
+      <tags>
+        <tag>软件架构</tag>
+        <tag>架构风格</tag>
+        <tag>software architecture</tag>
+        <tag>architecture style</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[如何走出职场焦虑、避免中年危机]]></title>
     <url>%2F2019%2F08%2F06%2F%E5%A6%82%E4%BD%95%E8%B5%B0%E5%87%BA%E8%81%8C%E5%9C%BA%E7%84%A6%E8%99%91%E3%80%81%E9%81%BF%E5%85%8D%E4%B8%AD%E5%B9%B4%E5%8D%B1%E6%9C%BA%2F</url>
     <content type="text"><![CDATA[自我认识有人对自己工作进行抱怨时，经常会用到“不会做，不好做，不想做”这样的词语。然而“不会做”，“不好做”，“不想做”表达的是同样的含义么？这些表述背后又透露了什么信息呢？ 为了帮助大家分析自己，美国著名心理学家麦克利兰提出了一个“冰山模型”，把一个人的素质要素分成了三类： 知识、技能 能力 价值观、性格特质、动机 知识、技能 能力 价值观、性格特质、动机 解释 通过学习和实践获得的可以使用在特定领域的认知、经验、技术，如学过的数学知识、写作修辞手法、office套件的使用方法等 可以在不同领域使用的通用能力，如学习能力、人际交往能力 判断事物的是非标准、行为偏好、成就动机、权利动机、亲和动机 和工作不匹配的表现 不会做，慌乱焦虑、无所适从 不好做，低效、无奈 不想做，矛盾纠结、没热情、心累 职业匹配职业，本质上是关键业务的集合。看一个人和他的职业匹不匹配，就是看他是否需要、擅长、喜欢自己负责的业务。 可以通过下表来对自己和职业的匹配进行评估，只需要根据冰山模型填上自己的个人素质、自己目前需要什么（钱、社区、人脉等），再根据和每个业务的匹配关系给出1-5的评分即可。 个人素质 业务1的匹配分数 业务2的匹配分数 ... 喜欢 价值观 性格特质 动机 擅长 知识 技能 能力 需要 需要 职业调整当我们对自己进行职业匹配之后，发现自己不喜欢、不擅长、不需要某一份工作的时候应该怎么办呢？ 不喜欢不喜欢是和一个人的根本挂钩的，很难靠改变自己来喜欢上某个工作或者业务，最好是对工作进行调整： 调整业务内容和目标（业务内调整） 更换负责的业务（岗位内调整） 请求更换岗位（公司内调整） 跳槽 不擅长不擅长说白了是自己的知识储备不够、技术水平不过关、能力不足导致的。需要不是外界的调整，而是自我的提升。 不需要不需要，本质上是这份工作不能满足你的某些需求。那么只需要分析其中的原因即可： 业务原因。这个业务不被重视，没有前景，可能会被砍掉 行业原因。行业普遍工资低/加班等 职业原因。某类岗位就是重复性机械劳动，难以接触新的事物 公司原因。这公司药丸 分析清楚了原因，就知道从哪里下手了。 内在提升时间要投入到自我提升上，才会有工资的提升。自我提升有以下几种： 知识提升提升自己的知识储备，不必每次都去搜索学习。 但是要注意，学了知识之后，如果可以灵活运营，则满腹经纶指点江山，否则就是读死书，浪费时间。 因此，要注意： 要学会提取知识的核心，掌握20%的核心知识。比如做ppt漂亮的核心就是饱和度、边框、行间距 知识和问题关联起来，学习知识的时候就要联系到它能解决什么问题 系统化训练，刻意使用刚刚学到的知识，不要快速遗忘 技能提升技能的定价和天花板取决于其稀缺性。 某一技能可能在稀缺时期很值钱，但是随着供求关系发生变化，其市场价值依然会产生波动。 能力提升技能熟练，只是一个好兵，能力强大，才能得到提升，成为将才。 能力提升可以跨行业跨职业，一旦积累到一定高度，换个公司、行业、职业一样可以吃的开，挣到钱。 提升自我、认识自我提升自我：对事物有更加深刻的看法，有更加成熟的三观，锻炼自己的某种特质 认识自我：有自知之明，找到更加适合自己的环境和土壤 外在提升外在提升主要就是提升自己周围的环境，物理环境和社会环境。 物理环境的提升可以通过搬家、打扫卫生等完成。 社会环境，主要由自己的人脉构成，扩展、优化自己的人脉，就是提升自己的社会环境的过程。 提升过程中需要注意以下几个误区： 皇冠综合症：只顾低头做事，等待伯乐发现自己，给自己戴上皇冠，这是不对的。要学会主动争取，树立个人品牌，展现自己的价值 名片囤积：人脉的构建不是基于名片的互换，而是基于价值的互换 人脉关系中存在以下几种角色，可以帮助你迅速定位自己： 节点：把大家连接在一起的人 专家：掌握信息、知识甚至是资源的人 明星：有强烈个人魅力的人 助理：在圈子里提供服务的人 持续成长 长远规划，给自己定好发展方向 提升能力，成为可迁移人才 提升认知高度，成为纵向深度人才，多思考： 这个行业中的关键成功要素是什么 行业的社会价值是什么 部门、岗位、公司的核心价值是什么 在成长的几个阶段，需要注意： 起步期：靠自己 思维方面，形成独立见解 效率方面，学会多任务，能够高效处理工作，管理时间 沟通方面，理解他人需求，条理清楚 交际方面，懂得人际拓展方法 发展期：靠别人 思维方面，掌握解决复杂问题、拆分工作的方法 效率方面，懂得如何辅导和激励下属工作，不让自己累死 沟通方面，掌握说服他人的技巧，懂得公开表达 交际方面，能够处理团队内部或跨部门的冲突，进行高难度沟通 成熟期：靠影响力 思维方面，要更加有高度，掌握战略思维、经济学思维等 效率方面，掌握运营和财务的知识，更好的配置资源 沟通方面，了解公司，知道如何向用户推销自己，营销思维 交际方面，全面进阶的领导力]]></content>
@@ -196,9 +210,9 @@
         <category>昨天、今天、明天</category>
       </categories>
       <tags>
-        <tag>服务</tag>
         <tag>Service</tag>
         <tag>Service Industry</tag>
+        <tag>服务</tag>
         <tag>服务业</tag>
         <tag>现代服务业</tag>
       </tags>
@@ -250,8 +264,8 @@
         <category>计算机应用数学</category>
       </categories>
       <tags>
-        <tag>学习笔记</tag>
         <tag>计算机应用数学</tag>
+        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -262,8 +276,8 @@
         <category>计算机应用数学</category>
       </categories>
       <tags>
-        <tag>学习笔记</tag>
         <tag>计算机应用数学</tag>
+        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -274,8 +288,8 @@
         <category>昨天、今天、明天</category>
       </categories>
       <tags>
-        <tag>互联网医疗</tag>
         <tag>服务</tag>
+        <tag>互联网医疗</tag>
         <tag>SERVICE</tag>
         <tag>昨天、今天、明天</tag>
       </tags>
@@ -532,10 +546,10 @@
     <url>%2F2019%2F04%2F02%2FMECE%E5%88%86%E6%9E%90%E6%B3%95%E5%AD%A6%E4%B9%A0-Mutually-Exclusive-Collectively-Exhaustive%2F</url>
     <content type="text"><![CDATA[本文摘自：MECE分析法 MECE分析法MECE，是Mutually Exclusive Collectively Exhaustive，中文意思是“相互独立，完全穷尽”。 也就是对于一个重大的议题，能够做到不重叠、不遗漏的分类，而且能够藉此有效把握问题的核心，并解决问题的方法。 所谓的不遗漏、不重叠指在将某个整体（不论是客观存在的还是概念性的整体）划分为不同的部分时，必须保证划分后的各部门符合以下要求： 各部分之间相互独立 （Mutually Exclusive） 所有部分完全穷尽 （Collectively Exhaustive） 通常的做法分两种： 一是在确立问题的时候，通过类似鱼刺图的方法，在确立主要问题的基础上，再逐个往下层层分解，直至所有的疑问都找到，通过问题的层层分解，可以分析出关键问题和初步的解决问题的思路； 另一种方法是结合头脑风暴法找到主要问题，然后在不考虑现有资源的限制基础上，考虑解决该问题的所有可能方法，在这个过程中，要特别注意多种方法的结合有可能是个新的解决方法，然后再往下分析，每种解决方法所需要的各种资源，并通过分析比较，从上述多种方案中找到目前状况下最现实最令人满意的答案。 分析步骤对于分析问题的标准程序: 收集信息=&gt;描述发现=&gt;得出结论=&gt;提出方案 MECE分析法主要有两个步骤 步骤一、确认问题是什么？步骤二、寻找MECE的切入点。 栗子]]></content>
       <tags>
+        <tag>学习笔记</tag>
         <tag>MECE</tag>
         <tag>分类方法</tag>
         <tag>分析法</tag>
-        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -740,8 +754,8 @@
     <url>%2F2018%2F09%2F06%2FTrick-bash-tensorboard-%E6%9C%AA%E6%89%BE%E5%88%B0%E5%91%BD%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[原因tensorboard命令不在环境变量中 解决思路找到tensorboard脚本路径，然后运行 解决方法1python3 /home/USERNAME/.local/lib/python3.6/site-packages/tensorboard/main.py --logdir=LOGDIR NOTE： USERNAME是指用户名称 LOGDIR是指log文件存放的相对或绝对目录]]></content>
       <tags>
-        <tag>trick</tag>
         <tag>linux</tag>
+        <tag>trick</tag>
         <tag>tensorboard</tag>
       </tags>
   </entry>
@@ -751,9 +765,9 @@
     <content type="text"><![CDATA[构造方法：Thread(group=None, target=None, name=None, args=(), kwargs={}) group: 线程组，目前还没有实现，库引用中提示必须是None； target: 要执行的方法； name: 线程名； args/kwargs: 要传入方法的参数。 实例方法： isAlive(): 返回线程是否在运行。正在运行指启动后、终止前。 get/setName(name): 获取/设置线程名。 start(): 线程准备就绪，等待CPU调度 is/setDaemon(bool): 获取/设置是后台线程（默认前台线程（False））。（在start之前设置） 如果是后台线程，主线程执行过程中，后台线程也在进行，主线程执行完毕后，后台线程不论成功与否，主线程和后台线程均停止 如果是前台线程，主线程执行过程中，前台线程也在进行，主线程执行完毕后，等待前台线程也执行完成后，程序停止 start(): 启动线程。 join([timeout]): 阻塞当前上下文环境的线程，直到调用此方法的线程终止或到达指定的timeout（可选参数）。 示例代码123456789101112# Split items and run function through n threads# func形如func(arg_list[0], ..., arg_list[n], items),run_through_threads 可以把items分为num份分配给num个线程运行def run_through_threads(func, arg_list, items, num=4): threads = [] item_len = len(items) for i in range(num): threads.append(threading.Thread(target=func, args=(*arg_list, items[int(i*item_len/num):int((i+1)*item_len/num)]))) for t in threads: t.setDaemon(True) t.start() for t in threads: t.join()]]></content>
       <tags>
         <tag>python</tag>
+        <tag>python入门</tag>
         <tag>threading</tag>
         <tag>多线程</tag>
-        <tag>python入门</tag>
       </tags>
   </entry>
   <entry>
@@ -782,8 +796,8 @@
     <url>%2F2018%2F07%2F31%2FTrick-git-pull-%E5%BC%BA%E5%88%B6%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%2F</url>
     <content type="text"><![CDATA[123git fetch --all git reset --hard origin/mastergit pull note：出错的话就再试一次，说不定就可以了]]></content>
       <tags>
-        <tag>git</tag>
         <tag>trick</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -791,29 +805,8 @@
     <url>%2F2018%2F07%2F31%2F%E5%9C%A8linux%E4%B8%8A%E5%88%9B%E5%BB%BAroot%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7%EF%BC%88%E4%B8%8D%E4%BF%AE%E6%94%B9%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%EF%BC%89%2F</url>
     <content type="text"><![CDATA[简略过程如我们现在要创建一个名为imonce的新用户： adduser imonce 赋予root权限 usermod -g sudo imonce 万事大吉 详细过程有空再补吧(‾⌣‾)]]></content>
       <tags>
-        <tag>trick</tag>
         <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Python入门：pickle模块简介]]></title>
-    <url>%2F2017%2F04%2F24%2FPython%E5%85%A5%E9%97%A8%EF%BC%9Apickle%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B%2F</url>
-    <content type="text"><![CDATA[概要这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看https://docs.python.org/2/library/pickle.html pickle简介pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。 就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。 用pickle保存对象到文件1234567891011121314151617#导入pickle模块import pickle#创建一个名为data1的对象data1 = &#123;'a': '123', 'b': [1, 2, 3, 4]&#125;#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)file_to_save = open("data1.pkl", "wb")#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。#第一个参数是要保存的对象名#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。pickle.dump(data1, file_to_save, -1)#关闭文件对象file_to_save.close() 用pickle从文件中读取对象(请接着上一个脚本运行) 1234567891011121314#导入pickle模块import pickle#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)file_to_read = open('data1.pkl', 'rb')#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2data2 = pickle.load(file_to_read)#打印data2print data2#关闭文件对象file_to_read.close()]]></content>
-      <tags>
-        <tag>python</tag>
-        <tag>python入门</tag>
-        <tag>pickle</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[mysql-python安装错误：EnvironmentError:mysql_config not found]]></title>
-    <url>%2F2017%2F04%2F24%2Fmysql-python%E5%AE%89%E8%A3%85%E9%94%99%E8%AF%AF%EF%BC%9AEnvironmentError-%20mysql_config%20not%20found%2F</url>
-    <content type="text"><![CDATA[问题描述：安装mysql-python时报错： 12345678910111213141516Collecting mysql-python Using cached MySQL-python-1.2.5.zip Complete output from command python setup.py egg_info: sh: 1: mysql_config: not found Traceback (most recent call last): File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt; File &quot;/tmp/pip-build-_itbcX/mysql-python/setup.py&quot;, line 17, in &lt;module&gt; metadata, options = get_config() File &quot;setup_posix.py&quot;, line 43, in get_config libs = mysql_config(&quot;libs_r&quot;) File &quot;setup_posix.py&quot;, line 25, in mysql_config raise EnvironmentError(&quot;%s not found&quot; % (mysql_config.path,)) EnvironmentError: mysql_config not found ----------------------------------------Command &quot;python setup.py egg_info&quot; failed with error code 1 in /tmp/pip-build-_itbcX/mysql-python/ 问题原因：没有安装libmysqlclient-dev。 解决方案：执行： sudo apt-get install libmysqlclient-dev 安装成功后，再运行pip install mysql-python即可。]]></content>
-      <tags>
-        <tag>python</tag>
         <tag>trick</tag>
-        <tag>mysql</tag>
-        <tag>mysql-python安装错误</tag>
       </tags>
   </entry>
   <entry>
@@ -834,6 +827,27 @@
         <tag>trick</tag>
         <tag>mysql</tag>
         <tag>远程连接报错</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[mysql-python安装错误：EnvironmentError:mysql_config not found]]></title>
+    <url>%2F2017%2F04%2F24%2Fmysql-python%E5%AE%89%E8%A3%85%E9%94%99%E8%AF%AF%EF%BC%9AEnvironmentError-%20mysql_config%20not%20found%2F</url>
+    <content type="text"><![CDATA[问题描述：安装mysql-python时报错： 12345678910111213141516Collecting mysql-python Using cached MySQL-python-1.2.5.zip Complete output from command python setup.py egg_info: sh: 1: mysql_config: not found Traceback (most recent call last): File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt; File &quot;/tmp/pip-build-_itbcX/mysql-python/setup.py&quot;, line 17, in &lt;module&gt; metadata, options = get_config() File &quot;setup_posix.py&quot;, line 43, in get_config libs = mysql_config(&quot;libs_r&quot;) File &quot;setup_posix.py&quot;, line 25, in mysql_config raise EnvironmentError(&quot;%s not found&quot; % (mysql_config.path,)) EnvironmentError: mysql_config not found ----------------------------------------Command &quot;python setup.py egg_info&quot; failed with error code 1 in /tmp/pip-build-_itbcX/mysql-python/ 问题原因：没有安装libmysqlclient-dev。 解决方案：执行： sudo apt-get install libmysqlclient-dev 安装成功后，再运行pip install mysql-python即可。]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>trick</tag>
+        <tag>mysql</tag>
+        <tag>mysql-python安装错误</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Python入门：pickle模块简介]]></title>
+    <url>%2F2017%2F04%2F24%2FPython%E5%85%A5%E9%97%A8%EF%BC%9Apickle%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B%2F</url>
+    <content type="text"><![CDATA[概要这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看https://docs.python.org/2/library/pickle.html pickle简介pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。 就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。 用pickle保存对象到文件1234567891011121314151617#导入pickle模块import pickle#创建一个名为data1的对象data1 = &#123;'a': '123', 'b': [1, 2, 3, 4]&#125;#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)file_to_save = open("data1.pkl", "wb")#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。#第一个参数是要保存的对象名#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。pickle.dump(data1, file_to_save, -1)#关闭文件对象file_to_save.close() 用pickle从文件中读取对象(请接着上一个脚本运行) 1234567891011121314#导入pickle模块import pickle#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)file_to_read = open('data1.pkl', 'rb')#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2data2 = pickle.load(file_to_read)#打印data2print data2#关闭文件对象file_to_read.close()]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>pickle</tag>
+        <tag>python入门</tag>
       </tags>
   </entry>
   <entry>
