@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[[转]知识图谱应用需要了解的16个知识]]></title>
+    <url>%2F2019%2F08%2F08%2F%E8%BD%AC-%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%BA%94%E7%94%A8%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%8416%E4%B8%AA%E7%9F%A5%E8%AF%86%2F</url>
+    <content type="text"><![CDATA[1、知识图谱系统的关键特性有哪些？1.当然是可视化展示，知识图谱的魅力之一就是让人直观的看到多实体之间的关系，能用图标示的就不要哔哔 2.多种服务提供方式，有些服务使用方，不需要图，那么可能通过api或者批量文件的方式比较合适。所以从系统建设角度来看，最好能提供多样的服务对接方式，满足前端服务使用方的不同需要，发挥系统价值，是值得考虑的地方。 3.查询速度，在用户进行图操作，例如实体查询、关系推演扩展时，系统响应时间应该较低，避免大并发情况下用户体验的降低。 数据建模、批量时间相对来说，外界感知不到，因此不那么重要。 2、知识图谱适用场景有哪些？主要涉及关系分析的场景，利用账户、自然人或者资金交易形成的关系来判定结果是否可用时，比如担保圈、分析实际控制人、实际受益人、识别冒名贷款。而且通常，数据分析的深度在3度到5度，才能体现出优势。 分析深度小于3度，与传统关系型数据库没有太大差别，大于5度有可能引入较多的噪音数据。当然不排除某些场景下分析5度以上数据的可能性。 3、有没有业务场景是只能用知识图谱实现的？而其他技术方法无法实现？从技术角度考虑，应该没有，有的是效率孰高孰低、开发成本孰高孰低。 4、知识图谱应用时会面临哪些主要的困难，如何解决？主要是确认需求，一方面是适不适合用知识图谱这个工具，另一方面做好与其他系统的对接工作，如何能将知识图谱这个服务以简便快捷的方式输出给其他系统。前者可以和多方面行内外专家交流，后者主要还是要与业务部门进行沟通，确认业务部门的期望，技术实现大多时候不是难点，难的是如何满足欲壑难填的需求。 5、知识图谱系统的建设核心是什么？该如何选型？建设核心是图数据的存储和分析方法。不同的核心，外围使用的方法也不同。 以titan为例，它是集成在hadoop上的。数据的分析加工主要在使用sparksql和graphx，结果会存放在titan中，数量较多的明细流水会放在hbase中，常用的查询关键字，姓名、手机号码等会放在elasticsearch中，三者通过key相互关联。 如果换一种图数据库，比如neo4j，整个外围都会跟着调整。所以图数据库的选型不能进场图数据本身考虑，而应该结合整体规划，建设成本，多系统间的关联关系层面进行统筹考虑，甚至可能会为了大局牺牲一些效率。 6、图形数据库应该怎么选型？选的时候需要考虑哪些问题？从系统自身考虑的话，包括高可靠性，读写效率、扩展性，与其他系统相同。 除此之外，还应该从整体规划和这个系统所处的位置进行考虑，为了满足整体规划，牺牲一些性能或者成本也是必要的。比如为了避免海量数据的多系统存储分析，就选用了以hadoop为基础的图数据库，这样所有的数据只需一份，可以供平台上的多个子系统进行使用。 7、为满足关键特性系统的架构或组件选择是怎样的？（主要针对hadoop架构）1.可视化需要开发一个专门的知识图谱展示界面，将知识图谱中的实体、关系属性等以美观已操作的方式展示出来，因为颜值即正义。可以借用当前比较流行的bootstrap等前端开发语言。 2.为满足快速查询，可以将部分索引关键字放在索引es中，索引命中后在使用key去titian中查询。 3.多种服务方式，需要从设计时就进行考虑，至少满足三种api、可视化界面、批量文件。批量文件主要从hive中进行导出，而api接口则需要开发一个服务层，将所有图数据库的命令行操作转换为对应的api接口，轻量级的开发一个java服务放在tomcat中，有条件的可以使用微服务框架。 8、知识图谱的建设都有哪些重要的环节，需要注意什么？从自身项目实施来看，有三个地方： 1.建模时多系统数据的融合，比如客户的信息存在多个系统中，核心、信贷、理财等，因为系统建设时间不一、多次升级等问题，导致数据不一致，数据质量较差，这样就需要花费很大精力去处理数据质量问题，还可能导致程序返工。 2.模型开发过中，选择哪些业务场景也很重要，知识图谱不是万金油，有些场景比较费力。应该选择那些跟关联关系分析相关的，有明确结果，业务人员能够明确正确与否的应用场景，便于展示这个工具的优越性。 3.交付前的测试也很重要。因为知识图谱基本上都是需要融合各个业务系统的数据，涉及面较广。因此要给测试过程留够时间，便于测试人员发现一些数据处理上的遗漏。 9、知识图谱与智能客服如何对接？主要是通过API接口，在接入的同时系统自动调出客户当前的资产负债状况，最近的交易明细，购买产品的状况。在提问的时候，通过nlp系统解析问题中的关键字，识别询问的实体、关系等，找到关联的问题，引导客户按照提问已有的问题。使用知识图谱的好处在于，可以快速的查询出客户周边的所有数据。如果使用传统关系型数据库，则需要按照业务种类，逐个表进行查询，分模块展示。在图谱中则可以一起展示出来，因为是从客户出发按照关联关系进行查询的，并且可以用一张图进行直观的展示。 10、部署时需要满足怎样的性能要求，qps或tps？如果建设面向外部客户的大规模知识图谱，有哪些可以优化的方向？性能的需求应该是与业务场景强相关的，如果是面向外部客户那就要考虑扩容节点提升整体性能，明细数据可以从hbase迁移到es中，加快查询速度，限制部分查询内容或者只能查看经过分析的子图。 对于行内系统，从数据安全角度来看，只有少部分人能看到所有数据，绝大多数人只能看到部分数据，而且应该是具有特定业务含义的数据，比如某个预警模型的结果。在这种情况下，权限范围内的数据量就很小了，那么在查询的过程中，效率也会相应提升，不会全表扫描。 11、有没有合适的企业级的分布式知识图谱技术架构？横向涉猎不多，答错勿怪。 titian就是分布式的，因为它是基于hbase的。 Neo4j 好像就不支持，不像hbase这么简单就可以进行扩展。 12、知识图谱存储会不会引起数据膨胀？图数据库本身不会，但是知识图谱这个系统会，一份数据至少存在于hive加工区和hbase查询区，还有少量的elasticsearch索引区。 13、关于实体、属性、关系的识别和存储？大多数情况下实体关系属性都是比较明确的，因为知识图谱的建模是与现实世界相符的。 比如银行来说客户就是实体，姓名，身 份 证 号码，手机号都是属性。 关系相对稍微复杂一点，不过常见的关系也都比较明确，比如客户经理和贷款户，机构和对公客户，合同和借款人等等。 银行这边的实体基本上都是自然人、账号，机构，合同、押品等，关系就是实体之间的关系，比如账号和自然人的归属关系。 实体、关系和属性都是存在titan里的，交易明细存在hbase里。 14、脏数据的处理机制是什么？知识图谱作为下游系统其实没有好的办法处理脏数据，基本上有两种策略： 第一：确定一个优先级，某个属性以哪个系统为准，当两个系统不一致时，不管对错永远以某个系统为准。 第二：前一种方法不适用的，就将这些数据打入“冷宫”，放到一张表里，定期拿出来，找原系统进行数据修正，这是一个比较漫长的过程。 不过好在，80%以上的数据是正常的，脏数据多数由于客户长期未发生业务，渠道无法强制客户更新数据。 15、如何解决外部数据源准确性？我个人无法从根本上解决，因为我们只是数据的使用方，准确性是需要从产生的根源上解决的问题。 不过在使用的时候可以进行多数据源的交叉验证，来提高准确性，完全消除是难以实现的。 16、用知识图谱做传统的风控行业，局限性在哪里？利用大数据挖掘，除知识图谱外，还有哪些比较好的风控模型？1.知识图谱是一种工具，是一种与关系型数据库相对的数据组织方式，有其擅长的领域，但不能手里拿着锤子，看哪里都是钉子。知识图谱也有不擅长的领域。 2.除大数据外，基于传统的关系型数据库开发一些机器学习或深度学习模型也可以做到风控。 原文链接：https://mp.weixin.qq.com/s/kAxnYpW16fc-JvwhAA8onA]]></content>
+      <tags>
+        <tag>知识图谱</tag>
+        <tag>knowledge graph</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[什么是微服务架构（Microservice Architecture）]]></title>
     <url>%2F2019%2F08%2F07%2F%E4%BB%80%E4%B9%88%E6%98%AF%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%EF%BC%88Microservice-Architecture%EF%BC%89%2F</url>
     <content type="text"><![CDATA[背景假设你在开发一个服务端应用。该应用必须支持各种各样的客户端，包括桌面浏览器、手机浏览器和本地手机应用。应用可能也需要公开部分API供第三方使用，还可能与其他应用通过web service或消息代理(message broker)相集成。应用执行业务逻辑来处理请求(HTTP请求或者消息)；访问数据库；与其他系统交换消息；并返回HTML/JSON/XML类型的响应。 应用或是多层架构或是六角架构，并且包含多种类型的组件： 表示组件(Presentation components) - 响应处理HTTP请求，并返回HTML或JSON/XML(对于web service API) 业务逻辑(Business logic) - 应用的业务逻辑 数据库访问逻辑(Database access logic) - 数据访问对象用于访问数据库 应用集成逻辑(Application integration logic) - 消息层，如基于Spring的集成 这些逻辑组件分别响应应用中不同的功能模块。 问题应用的部署架构是什么？ 动机 该应用由一个开发者团队在维护 团队新成员必须快速上手 应用应该易于理解和修改 你想对应用进行持续集成 你必须在多台机器上部署多份应用的拷贝，以满足可伸缩性和可用性的要求 你想使用新技术(框架、编程语言等) 解决方案通过采用伸缩立方(Scale Cube)(特别是y轴方向上的伸缩)来架构应用，将应用按功能分解为一组相互协作的服务的集合。每个服务实现一组有限并相关的功能。比如，一个应用可能包含订单管理服务，客户管理服务等。 服务间通过HTTP/REST等同步协议或AMQP等异步协议进行通讯。 服务独立开发和部署。 每个服务为了与其他服务解耦，都有自己的数据库。必要时，数据库间的一致性通过数据库复制机制或应用级事件来维护。 举例我们假设你在构建一个电子商务应用，应用从客户接收订单，验证库存和可用额度，并派送订单。应用包含多个组件，包括StoreFrontUI，用来实现用户接口，以及一些后台服务，用于检测信用额度、维护库存和派送订单。 应用作为一组服务部署。 结果这个方案有一些好处： 每个微服务都相对较小 易于开发者理解 IDE反应更快，开发者更高效 web容器启动更快，开发者更高效，并提升了部署速度 每个服务都可以独立部署 - 易于频繁部署新版本的服务 易于伸缩开发组织结构。你可以对多个团队的开发工作进行组织。每个(双披萨[1])团队负责单个服务。每个团队可以独立于其他团队开发、部署和伸缩服务。 提升故障隔离(fault isolation)。比如，如果一个服务存在内存泄露，那么只有该服务受影响，其他服务仍然可以处理请求。相比之下，一体架构的一个出错组件可以拖垮整个系统。 每个服务可以单独开发和部署 消除了任何对技术栈(technologh stack)的长期投入(long-term commitments) 这个方案也有一些缺点： 开发者要处理分布式系统的额外复杂度。 开发者工具/IDE是面向构建一体应用的，并没有显示提供对开发分布式应用的支持 测试更加困难 开发者需要实现服务间通信机制 不使用分布式事务实现跨服务的用例更加困难 实现跨服务的用例需要团队间的细致协作 生产环境的部署复杂度。对于包含多种不同服务类型的系统，部署和管理的操作复杂度仍然存在。 内存消耗增加。微服务架构使用NxM个服务实例来替代N个一体应用实例。如果每个服务运行在自己独立的JVM(或类似)上，通常有必要对实例进行隔离，对这么多运行的JVN，就有M倍的开销。另外，如果每个服务运行在独立的VM(如EC2实例)，如Netflix，开销会更高。 挑战什么时候使用微服务架构使用该方法的一个挑战就是决定何时使用才合理。在开发应用的初期，你通常不会遇到这种方法试图解决的问题。而且，使用这个精细、分布式的架构将会拖慢开发进度。对初创公司，这是个严重问题，因为它们的最大挑战通常是如何快速发展业务模型及相关应用。使用Y轴切分使快速迭代更加困难。但是之后，当挑战变成如何伸缩，你需要使用功能分解将一体应用切分为一组服务时，混乱的依赖关系可能使之变得困难。 如何拆分应用到服务另一个挑战是如何将系统分隔为微服务。这是个技术活，但有些策略可能有帮助。 按业务能力分解，定义与业务能力对应的服务。 按领域驱动设计的子域分解。 按动词或用例分解并定义负责特定操作的服务。例如，负责装运完整订单的运输服务。 通过定义负责对给定类型的实体/资源执行所有操作的服务，按名词或资源进行分解。例如，负责管理用户帐户的帐户服务。 理论上，每个服务应该只承担很小的职责。Bob Martin(大叔)讲过使用单一职责原则(SRP)来设计类。SRP定义类的职责作为变化的原因，而且类应该只有一个变化的原因。使用SRP来设计服务也是合理的。 另一个有助于服务设计的类比是Unix实用工具的设计方法。Unix提供大量的实用工具如grep、cat和find。每个工具只做一件事，通常做得非常好，并且可以跟其他工具使用shell脚本组合来执行复杂任务。 如何保持数据一致性为了确保松耦合，每个服务都有自己的数据库。维护服务之间的数据一致性是一个挑战，因为对于许多应用程序来说，两阶段提交/分布式事务不是一个选项。应用程序必须使用SAGA模式。服务在其数据更改时发布事件。其他服务使用该事件并更新其数据。有几种可靠更新数据和发布事件的方法，包括事件源和事务日志跟踪。 如何实现查询另一个挑战是实现需要检索多个服务拥有的数据的查询。 API组合和命令查询责任分离（CQR）模式。 相关模式有许多与微服务模式相关的模式。单片架构是微服务架构的替代方案。其他模式解决了应用微服务体系结构时会遇到的问题。如API网关模式定义了客户端如何访问服务。 分解模式 按业务能力分解 按子域分解 每个服务模式的数据库描述了每个服务如何拥有自己的数据库，以确保松耦合。 API网关模式定义了客户机如何访问微服务体系结构中的服务。 客户端发现和服务器端发现模式用于将客户端请求路由到微服务体系结构中的可用服务实例。 消息传递和远程过程调用模式是两种不同的服务通信方式。 每个主机的单个服务和每个主机的多个服务模式是两种不同的部署策略。 交叉关注模式：微服务机箱模式和外部化配置 测试模式：服务组件测试和服务集成契约测试 断路器 访问令牌 可观测性模式： 日志聚合 应用程序度量 审核日志记录 分布式跟踪 异常跟踪 健康检查API 记录部署和更改 用户界面模式： 服务器端页面片段组合 客户端UI组成 著名案例大多数大规模的web站点，如 Netflix, Amazon和eBay都从一体架构转变为微服务架构。 Netflix是个非常受欢迎的视频流服务提供商，占有多达30%的互联网流量，它有着大规模、基于服务的架构。他们每天处理800+不同类型设备超过10亿次视频流API的请求。每个API可以展开成平均6次对后端服务的调用。 Amazon.com原有个两层架构。为了伸缩，他们迁移到一个包含上百个后端服务的基于服务的架构。调用这些服务的应用中包括实现Amazon.com网站和web service API的应用。Amazon.com网站应用调用100-150个服务来获取数据用于构建网页。 拍卖网站ebay.com也从一体架构发展成基于服务的架构。应用层包含多个独立的应用。每个应用实现特定功能模块(如购买或销售)的业务逻辑。每个应用使用X轴的分隔，有些应用如搜索，使用Z轴分隔。Ebay.com也对数据库层采用X,Y,Z的组合伸缩方式。 译自：https://microservices.io/patterns/microservices.html]]></content>
@@ -797,9 +806,9 @@
     <content type="text"><![CDATA[构造方法：Thread(group=None, target=None, name=None, args=(), kwargs={}) group: 线程组，目前还没有实现，库引用中提示必须是None； target: 要执行的方法； name: 线程名； args/kwargs: 要传入方法的参数。 实例方法： isAlive(): 返回线程是否在运行。正在运行指启动后、终止前。 get/setName(name): 获取/设置线程名。 start(): 线程准备就绪，等待CPU调度 is/setDaemon(bool): 获取/设置是后台线程（默认前台线程（False））。（在start之前设置） 如果是后台线程，主线程执行过程中，后台线程也在进行，主线程执行完毕后，后台线程不论成功与否，主线程和后台线程均停止 如果是前台线程，主线程执行过程中，前台线程也在进行，主线程执行完毕后，等待前台线程也执行完成后，程序停止 start(): 启动线程。 join([timeout]): 阻塞当前上下文环境的线程，直到调用此方法的线程终止或到达指定的timeout（可选参数）。 示例代码123456789101112# Split items and run function through n threads# func形如func(arg_list[0], ..., arg_list[n], items),run_through_threads 可以把items分为num份分配给num个线程运行def run_through_threads(func, arg_list, items, num=4): threads = [] item_len = len(items) for i in range(num): threads.append(threading.Thread(target=func, args=(*arg_list, items[int(i*item_len/num):int((i+1)*item_len/num)]))) for t in threads: t.setDaemon(True) t.start() for t in threads: t.join()]]></content>
       <tags>
         <tag>python</tag>
-        <tag>python入门</tag>
         <tag>threading</tag>
         <tag>多线程</tag>
+        <tag>python入门</tag>
       </tags>
   </entry>
   <entry>
@@ -808,9 +817,9 @@
     <content type="text"><![CDATA[代码12345678910#定义字典dict = &#123;'a':1, 'b':2, 'c':3, 'd':4, 'e':5&#125;#根据key进行排序dict_sorted_by_key = sorted(dict.items(), key=lambda d: d[0])#根据key进行反向排序dict_sorted_by_key_reverse = sorted(dict.items(), key=lambda d: d[0], reverse=True)#根据value进行排序dict_sorted_by_value = sorted(dict.items(), key=lambda d: d[1])#根据value进行反向排序dict_sorted_by_value_reverse = sorted(dict.items(), key=lambda d: d[1], reverse=True) 示例]]></content>
       <tags>
         <tag>python</tag>
+        <tag>python入门</tag>
         <tag>dict</tag>
         <tag>字典</tag>
-        <tag>python入门</tag>
       </tags>
   </entry>
   <entry>
@@ -842,16 +851,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Python入门：pickle模块简介]]></title>
-    <url>%2F2017%2F04%2F24%2FPython%E5%85%A5%E9%97%A8%EF%BC%9Apickle%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B%2F</url>
-    <content type="text"><![CDATA[概要这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看https://docs.python.org/2/library/pickle.html pickle简介pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。 就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。 用pickle保存对象到文件1234567891011121314151617#导入pickle模块import pickle#创建一个名为data1的对象data1 = &#123;'a': '123', 'b': [1, 2, 3, 4]&#125;#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)file_to_save = open("data1.pkl", "wb")#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。#第一个参数是要保存的对象名#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。pickle.dump(data1, file_to_save, -1)#关闭文件对象file_to_save.close() 用pickle从文件中读取对象(请接着上一个脚本运行) 1234567891011121314#导入pickle模块import pickle#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)file_to_read = open('data1.pkl', 'rb')#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2data2 = pickle.load(file_to_read)#打印data2print data2#关闭文件对象file_to_read.close()]]></content>
-      <tags>
-        <tag>python</tag>
-        <tag>python入门</tag>
-        <tag>pickle</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[mysql-python安装错误：EnvironmentError:mysql_config not found]]></title>
     <url>%2F2017%2F04%2F24%2Fmysql-python%E5%AE%89%E8%A3%85%E9%94%99%E8%AF%AF%EF%BC%9AEnvironmentError-%20mysql_config%20not%20found%2F</url>
     <content type="text"><![CDATA[问题描述：安装mysql-python时报错： 12345678910111213141516Collecting mysql-python Using cached MySQL-python-1.2.5.zip Complete output from command python setup.py egg_info: sh: 1: mysql_config: not found Traceback (most recent call last): File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt; File &quot;/tmp/pip-build-_itbcX/mysql-python/setup.py&quot;, line 17, in &lt;module&gt; metadata, options = get_config() File &quot;setup_posix.py&quot;, line 43, in get_config libs = mysql_config(&quot;libs_r&quot;) File &quot;setup_posix.py&quot;, line 25, in mysql_config raise EnvironmentError(&quot;%s not found&quot; % (mysql_config.path,)) EnvironmentError: mysql_config not found ----------------------------------------Command &quot;python setup.py egg_info&quot; failed with error code 1 in /tmp/pip-build-_itbcX/mysql-python/ 问题原因：没有安装libmysqlclient-dev。 解决方案：执行： sudo apt-get install libmysqlclient-dev 安装成功后，再运行pip install mysql-python即可。]]></content>
@@ -870,6 +869,16 @@
         <tag>trick</tag>
         <tag>mysql</tag>
         <tag>远程连接报错</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Python入门：pickle模块简介]]></title>
+    <url>%2F2017%2F04%2F24%2FPython%E5%85%A5%E9%97%A8%EF%BC%9Apickle%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B%2F</url>
+    <content type="text"><![CDATA[概要这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看https://docs.python.org/2/library/pickle.html pickle简介pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。 就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。 用pickle保存对象到文件1234567891011121314151617#导入pickle模块import pickle#创建一个名为data1的对象data1 = &#123;'a': '123', 'b': [1, 2, 3, 4]&#125;#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)file_to_save = open("data1.pkl", "wb")#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。#第一个参数是要保存的对象名#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。pickle.dump(data1, file_to_save, -1)#关闭文件对象file_to_save.close() 用pickle从文件中读取对象(请接着上一个脚本运行) 1234567891011121314#导入pickle模块import pickle#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)file_to_read = open('data1.pkl', 'rb')#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2data2 = pickle.load(file_to_read)#打印data2print data2#关闭文件对象file_to_read.close()]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>python入门</tag>
+        <tag>pickle</tag>
       </tags>
   </entry>
   <entry>
