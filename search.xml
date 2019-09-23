@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[[Reading Notes]Service system fundamentals: Work system, value chain, and life cycle]]></title>
+    <url>%2F2019%2F09%2F23%2FReading-Notes-Service-system-fundamentals-Work-system-value-chain-and-life-cycle%2F</url>
+    <content type="text"><![CDATA[This paper presents three interrelated frameworks as a first attempt to define the fundamentals of service systems. The work system framework uses nine basic elements to provide a system-oriented view of any system that performs work within or across organizations. Service systems are work systems. The service value chain framework augments the work system framework by introducing functions that are associated specifically with services. It presents a two-sided view of service processes based on the common observation that services are typically coproduced by service providers and customers. The work system life cycle model looks at how work systems (including service systems) change and evolve over time. It treats the life cycle of a system as a set of iterations involving planned and unplanned change. This paper uses two examples, one largely manual and one highly automated, to illustrate the potential usefulness of the three frameworks, which can be applied together to describe, analyze, and study how service systems are created, how they operate, and how they evolve through a combination of planned and unplanned change.]]></content>
+      <categories>
+        <category>Reading Notes</category>
+        <category>Service Computing</category>
+      </categories>
+      <tags>
+        <tag>service system</tag>
+        <tag>value chain</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[BPMN2.0入门到掌握，这一篇就够了]]></title>
     <url>%2F2019%2F09%2F19%2FBPMN2-0%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A%EF%BC%8C%E8%BF%99%E4%B8%80%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86%2F</url>
     <content type="text"><![CDATA[BPMN2.0入门到精通，这一篇就够了 笔者默认看这篇文章的同学都是了解、知道什么是BPMN的，因此背景知识、历史发展什么的都直接略过，我们直切正题：BPMN中的五个基础元素类别。 流对象（Flow Objects）：流对象是定义业务流程的主要图形元素，主要有三种流对象 事件（Events） 活动（Activities） 网关（Gateways） 数据（Data）：数据主要通过四种元素表示 数据对象（Data Objects） 数据输入（Data Inputs） 数据输出（Data Outputs） 数据存储（Data Stores） 连接对象（Connecting Objects）：流对象彼此互相连接或者连接到其他信息的方法主要有四种 顺序流（Sequence Flows） 信息流（Message Flows） 协同（Associations） 数据协同（Data Associations） 泳道（Swimlanes）：有两种方式通过泳道对主要的建模元素进行分组 泳池：Pools 泳道：Lanes Artifacts：主要用来提供关于流程的额外信息。BPMN2.0定义两种标准Artifacts，但是建模者或者建模工具可以增加任意多Artifacts。（Artifacts，有的地方翻译成“工件”，但是感觉不管翻译成什么都不够传神，所以本文中就不翻译这个词了。） 组：Group 文本注释：Text Annotation 流对象（Flow Objects）事件（Event） 元素 Element 描述 Description 符号 Notation 开始事件 Start 表示一个流程(Process)或一个编排(choreography)的开始 中间事件 Intermediate 发生在开始和结束事件之间，影响处理流程 结束事件 End 表示一个流程(Process)或一个编排(choreography)的结束 其他 开始事件和一些中间事件具有定义事件原因的“触发器”。结束事件可以定义作为序列流路径结束的“结果”。开始事件只能对触发器（“catch”）做出反应。结束事件只能创建（“抛出”）结果。中间事件可以捕获或抛出触发器。对于捕获的事件、触发器，标记未填充；对于抛出的触发器和结果，标记已填充。另外，在bpmn 1.1中用来中断活动的一些事件现在可以在不中断的模式下使用。这些事件的边界是虚线（见右图）。 活动（Activity） 元素 Element 描述 Description 符号 Notation 活动 Activity 活动是公司在流程中执行的工作的通用术语。活动可以是原子的或非原子的（聚合物）。作为流程模型一部分的活动类型有：子流程和任务，它们都是圆角矩形。活动用于标准流程Process和编排Choreography。 任务（原子） Task（atomic） 任务是包含在流程中的原子活动。任务是当流程中的工作无法分解为更精细的流程细节级别时使用。 编排任务 Choreography Task 表示一个或多个消息交换的集合。每个编排任务涉及两个参与者。 子流程 Sub-Process 子流程是包含在流程或编排中的复合活动。它是复合的，因为它可以通过一组子活动分解为更细粒度级别的流程或编排。子流程活动主要有以下四类 Collapsed Sub-ProcessExpanded Sub-ProcessCollapsed Sub- ChoreographyExpanded Sub-Choreography 网关（Gateway） 元素 Element 描述 Description 符号 Notation 网关 Gateway 网关用于顺序流程和编排中序列流的发散和收敛。因此，它将决定路径的分支、分叉、合并和连接。内部标记将指示行为控制的类型（见下边一行）。 网关控制类型 Gateway Control Type 网关菱形内的图标将指示流控制行为的类型。控制类型包括：•排他型exclusive决策和合并。排他型exclusive和基于事件event-based的网关都执行排他决策，合并排他可以使用或不使用“x”标记来显示。•基于事件event-based和基于并行事件parallel event-based的网关可以启动流程的新实例。•包容型inclusive网关决策和合并。•复杂型complex网关——复杂的条件和情况。•并行parallel网关分叉和连接。每种类型的控件都会影响传入和传出流。 数据（Data）数据对象提供有关需要执行的活动和/或它们产生的内容的信息，数据对象可以表示单个数据对象或数据对象集合。数据输入和数据输出为流程提供相同的信息。 连接对象（Connecting Objects） 元素 Element 描述 Description 符号 Notation 顺序流 Sequence Flow 表示活动的执行顺序 信息流 Message Flow 表示两个参与者之间准备发送和接收的信息流 协同 Association 协同用于将信息和artifact与图形元素链接。如果有箭头，则表示流向（如数据）。 泳道（Swimlanes） 元素 Element 描述 Description 符号 Notation 泳池 Pool 泳池是协作中参与者的图形表示。它还充当一个“泳道”和一个图形容器，用于从其他池中分割一组活动，通常是在B2B环境中。泳池可以具有内部详细信息，以将要执行的进程的形式显示。或者一个泳池可能没有内部细节，也就是说，它可以是一个“黑匣子”。 泳道 Lane lane是进程中的一个子分区，有时在泳池中，它将垂直或水平地扩展进程的整个长度。泳道用于组织和分类活动。 Artifacts 元素 Element 描述 Description 符号 Notation 组 Group 组是同一类别内的图形元素的组。这种类型的分组不影响组内的序列流。类别名称在关系图上显示为组标签。类别可用于文档或分析目的。组是可以在图表上直观显示对象类别的一种方式。 文本注释 Text Annotation 是一个帮助建模者给图形元素增加额外文本说明的机制。 总结至此，你已经通过 20% 的时间了解了BPMN2.0 接近 80% 的内容。虽然BPMN底层语法以及结构还没有学习，但是这并不影响你已经可以通过BPMN2.0对你所在的业务进行详尽的描述！]]></content>
@@ -904,6 +917,16 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server]]></title>
+    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9A1130%20-%20Host%20'192.168.2.204'%20is%20not%20allowed%20to%20connect%20to%20this%20MySQL%20server%2F</url>
+    <content type="text"><![CDATA[问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。 解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。 具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 1234mysql -u root -p mysql&gt;use mysql; mysql&gt;update user set host = &apos;%&apos; where user =&apos;root&apos;; mysql&gt;flush privileges;]]></content>
+      <tags>
+        <tag>trick</tag>
+        <tag>mysql</tag>
+        <tag>远程连接报错</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Python入门：pickle模块简介]]></title>
     <url>%2F2017%2F04%2F24%2FPython%E5%85%A5%E9%97%A8%EF%BC%9Apickle%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B%2F</url>
     <content type="text"><![CDATA[概要这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看https://docs.python.org/2/library/pickle.html pickle简介pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。 就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。 用pickle保存对象到文件1234567891011121314151617#导入pickle模块import pickle#创建一个名为data1的对象data1 = &#123;'a': '123', 'b': [1, 2, 3, 4]&#125;#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)file_to_save = open("data1.pkl", "wb")#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。#第一个参数是要保存的对象名#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。pickle.dump(data1, file_to_save, -1)#关闭文件对象file_to_save.close() 用pickle从文件中读取对象(请接着上一个脚本运行) 1234567891011121314#导入pickle模块import pickle#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)file_to_read = open('data1.pkl', 'rb')#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2data2 = pickle.load(file_to_read)#打印data2print data2#关闭文件对象file_to_read.close()]]></content>
@@ -911,16 +934,6 @@
         <tag>python</tag>
         <tag>python入门</tag>
         <tag>pickle</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)]]></title>
-    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9Aerror%202003%20%EF%BC%88hy000%EF%BC%89-can't%20connect%20to%20mysql%20server%20on%20'localhost'%20(10061)%2F</url>
-    <content type="text"><![CDATA[问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项： /etc/mysql/my.cnf /etc/mysql/mysqld.cnf 在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成： #bind-address = 127.0.0.1 然后执行 service mysql restart重新启动mysql服务使配置生效即可。]]></content>
-      <tags>
-        <tag>trick</tag>
-        <tag>mysql</tag>
-        <tag>远程连接报错</tag>
       </tags>
   </entry>
   <entry>
@@ -935,9 +948,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server]]></title>
-    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9A1130%20-%20Host%20'192.168.2.204'%20is%20not%20allowed%20to%20connect%20to%20this%20MySQL%20server%2F</url>
-    <content type="text"><![CDATA[问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。 解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。 具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 1234mysql -u root -p mysql&gt;use mysql; mysql&gt;update user set host = &apos;%&apos; where user =&apos;root&apos;; mysql&gt;flush privileges;]]></content>
+    <title><![CDATA[远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)]]></title>
+    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9Aerror%202003%20%EF%BC%88hy000%EF%BC%89-can't%20connect%20to%20mysql%20server%20on%20'localhost'%20(10061)%2F</url>
+    <content type="text"><![CDATA[问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项： /etc/mysql/my.cnf /etc/mysql/mysqld.cnf 在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成： #bind-address = 127.0.0.1 然后执行 service mysql restart重新启动mysql服务使配置生效即可。]]></content>
       <tags>
         <tag>trick</tag>
         <tag>mysql</tag>
