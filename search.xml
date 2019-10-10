@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[一文读懂Curry-Howard同构]]></title>
+    <url>%2F2019%2F10%2F10%2F%E4%B8%80%E6%96%87%E8%AF%BB%E6%87%82Curry-Howard%E5%90%8C%E6%9E%84%2F</url>
+    <content type="text"><![CDATA[背景柯里-霍华德同构，Curry-Howard Isomorphism，又称柯里-霍华德对应（Curry-Howard correspondence）是在计算机程序和数学证明之间的紧密联系；这种对应也叫做公式为类型对应或命题为类型对应。这是对形式逻辑系统和公式计算（computational calculus）之间符号的相似性的推广。命名来自它的两位发现者：美国数学家哈斯凯尔·柯里和逻辑学家威廉·阿尔文·霍瓦德。 同构对应Curry-Howard 同构显示了推理系统和程序语言之间的相似性，在此框架下： 程序语言的语言构造同构为推理系统的推理规则 程序的类型同构为逻辑命题 闭合程序（不依赖环境的程序）可以同构为一条定理的证明过程，其类型就是一条定理 逻辑上下文同构为自由变量类型指派 Lambda 演算同构为 Gentzen 的自然演绎 函数调用就是蕴含消除 函数抽象就是蕴含介入 参数多态就是全称量化 模板类型就是谓词 结构类型就是合取 联合类型就是析取 收参数但不返回就是否定 call/cc 就是双重否定消除 SK 组合子演算同构为直觉 Hilbert 推理系统 S 和 K 就是演算系统的两条公理 Curry-Howard 同构与 Martin-Löf 类型论系统这个框架里灵活性最高的是 Martin-Löf 的系统，两个高度抽象的算子——[公式]和[公式]进一步泛化了函数调用与合取，这使得它有极其恐怖的抽象能力。这个系统的推理规则是一下几条： Introduction rule for $\prod$$\frac{\Gamma,x:A\vdash b:B}{\Gamma\vdash\lambda x.b:(\prod x:A)B}(\prod I)$ Elimination rule for $\prod$$\frac{\Gamma\vdash f:(\prod x:A)B\quad\Gamma\vdash a:A}{\Gamma\vdash apply(f,a):B[a/x]}(\prod E)$ Introduction rule for $\sum$$\frac{\Gamma\vdash a:A\quad\Gamma\vdash b:B[a/x]}{\Gamma\vdash\lta,b\gt:(\sum x:A)B}(\sum I)$ Elimination rule for $\sum$$\frac{\Gamma\vdash c:(\sum x:A)B\quad\Gamma,x:A,y:B\vdash d:C[\lt x,y\gt/z]}{\Gamma\vdash split(c,\lambda x.\lambda y.d):C[c/z]}(\sum I)$ where: $split(\lt a,b\gt,\lambda x.\lambda y.d)=(\lambda x.\lambda y.d)(a)(b)$ referencehttps://www.zhihu.com/question/22959608/answer/24770830https://zh.wikipedia.org/zh-hans/柯里-霍华德同构http://www2.math.uu.se/~palmgren/tillog/klogik04-01eng.pdf]]></content>
+      <tags>
+        <tag>Curry-Howard Isomorphism</tag>
+        <tag>Type Theory</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[[Reading Notes]Customer Value Chain Analysis]]></title>
     <url>%2F2019%2F09%2F27%2FReading-Notes-Customer-Value-Chain-Analysis%2F</url>
     <content type="text"><![CDATA[overallCustomer Value Chain Analysis (CVCA) is an original methodological tool that enables design teams in the product definition phase to comprehensively identify pertinent stakeholders, their relationships with each other, and their role in the product’s life cycle. method CVCA Step 1: Determine the business model for the vending machine. CVCA Step 2: Delineate pertinent parties involved with the vending machine’s life cycle. CVCA Step 3: Determine how the vending machine’s customers are related to each other. CVCA Step 4: Identify the value propositions of the vending machine’s customers and define the flows between them. CVCA Step 5: Analyze the Customer Chain to determine the vending machine’s critical customers and their value propositions. The vending operator and the soft drink bottler (circled) were determined to be the critical customers to the vending machine manufacturer. case studyCase study 1: electrocardiogram (EKG) machine Case study 2: pacemaker alert system Case study 3: donor-funded micro-irrigation pump]]></content>
@@ -55,7 +64,7 @@
     <url>%2F2019%2F08%2F21%2F%E6%9E%84%E9%80%A0%E7%B1%BB%E5%9E%8B%E8%AE%BA%E7%AE%80%E4%BB%8B%2F</url>
     <content type="text"><![CDATA[Taken from：http://xueshu.baidu.com/usercenter/paper/show?paperid=baa0175c22e30823d9b1e14e01cf4141&amp;site=xueshu_se&amp;hitarticle=1 背景及简介构造类型论为计算机科学家提供了一个框架, 以一种优雅和灵活的方式把逻辑和程序设计语言结合起来: 在同一形式系统中, 可以同时表达规约和(函数式语言)程序, 从证明规则可以导出正确的程序, 并验证程序具有某种性质, 从而在同一系统内完成程序的开发和验证。 构造类型轮的理论基础及相互关系构造类型论三大理论基石 直觉类型论和构造数学：构造类型论的直接基础是Martin-Lof的直觉类型论，它为构造数学提供直觉解释。它是一个逻辑框架，可以表达和解释其他逻辑或理论，从他的规范化证明立即得出其所表达理论的规范化。与此作用相同的还有T.Coquand和Giared的构造演算。 lambda演算和函数式语言程序设计与实现。lambda演算是函数式语言理论的基础，是函数式程序设计语言的纯理论部分的范式(canonical form)，是由函数抽象和函数应用组成的系统，而这两个特点也是程序设计语言所具有的的共同之处。 证明论和Curry-Howard同态。证明轮中直觉注意逻辑的Gentzen自然演绎、一些自动演绎技术及定理证明技术是构造类型轮实现系统主要使用的技术。 相互关系Curry-Howard童泰是Martin-Lof直觉类型轮的基础：把命题解释称类型（propositions-a-types），或命题作为集合（propositions=as=sets）。利用命题与集合之间的等价，推导的规范化与计算机表示该推导的证明项的值对应。 直觉主义（构造）逻辑和有类型lambda盐酸在Curry-Howard同态下可以相互转化：直觉逻辑自然演绎的证明可用某种有类型lambda项表示，并且自然演绎的证明规范化与lambda盐酸的beta变换对应。 构造类型轮与程序设计的对应关系构造数学和计算机科学有一些基本概念是共同的。Bishop认为构造数学可以作为计算机科学的灵感的重要来源。 构造性证明与计算机程序概念的关系构造性的证明与计算机程序概念有密切关系：为构造地证明命题 $(\forall x \in A)(\exists y \in B)P(x,y)$ ，必须要给出函数f，使f应用于A中元素a时，产生B中元素b，使P(a,b)满足。如果P(a,b)描述了一个规约，则证明该命题的函数f就是满足该规约的一个程序。所以，可以吧构造证明本身看成是一个计算机程序，程序的计算过程与证明的规范化对应。正因为构造性证明的这一计算内容，可把类型轮用作一种程序设计语言，而且，由于程序是从他的说明的证明中得到的，类型轮还可以用作程序设计逻辑。 Martin-Lof直觉类型论和计算机程序概念的关系类型轮不是基于谓词逻辑，它不再使用Tarski的真值语义，而是利用命题和集合之间的Curry-Howard同态——“命题作为集合”的直觉主义语义来解释逻辑常数。这里，命题被解释称一个集合，若他的元素则被解释称命题的一个证明。根据Kolmogorov对直觉命题的解释，还可以吧集合看成是问题的描述，尤其是把集合看成是程序要解决问题的规约时，集合的元素就是满足该规约的程序。 用类型轮进行程序构造的好处是，可以在同一形式系统中表达规约和程序。同时，因为可以从证明规则到处正确的程序，并验证程序具有的性质，所以程序开发的验证也是在同一系统用中完成的。 构造类型轮的一些实现类型论的一个主要应用是作为变成逻辑，在其中能够从规约推导出程序。近年来，有几种类型轮的实现： Conell大学的Nurpl Edinburgh大学的LCF INRIA的Coq Edinburgh大学的LEGO Goteborg的ALF 其中，Coq和LEGO是基于构造演算CoC，与Martin-Lof直觉类型论的作用类似，也是提供了一种逻辑框架，利用了把命题解释成集合的思想。两者的区别是：Martin-Lof是直谓的（predicative），而CoC是非直谓的（impredicative）。所谓非直谓的，就是指可以对所有命题的类型Prop进行全称量化来构造类型。因此Martin-Lof直觉类型论只能够结实谓词逻辑，不能解释二姐逻辑，而CoC则能够解释高阶逻辑。 直觉主义（构造）逻辑和经典逻辑直觉注意逻辑更多的从证明论和模型论的角度展现逻辑：也就是说，它是一个构造的逻辑（constructive logic）。所谓构造性（constructivity）是指：与经典逻辑只关心公式的真值不同，构造逻辑关注的是实际的证明对象本身。“构造”可以指一个过程以及执行该过程的结果。 两者的主要不同在于语义基础不同。经典逻辑的基础是真值函数的语义：每个命题都为真或者假，这是Tarski语义的本质。而在直觉主义（构造）逻辑中，命题的定义就是把该命题的证明写下来，只有当存在一个与该命题对应的证明对象时，命题才为真，这是Brouwer-Heyting-Kolmogorov基于证明论语义的本质。因此从构造逻辑的角度来说，命题的真等价于命题的可证明性。其余区别见表： Curry-Howard同态Curry-Howard同态在有类型的lambda演算和直觉命题逻辑之间建立了密切的关系。 用 $t:\sigma$ 表示项t具有类型 $\sigma$ 。在有类型lambda盐酸中项的构造有三种：变量（用x，y，z等表示）；抽象（用 $\lambda x.t$ 表示）；应用（用tu表示）。构造项的规则用自然演绎的方式描述如下： 变量形成规则： $\frac{}{x:\sigma \to x:\sigma}$ 抽象形成规则： $\frac{\Gamma,x:\sigma \to t:r}{\Gamma \mapsto (\lambda x.t):\sigma \to r}$ 变量形成规则： $\frac{\Gamma \mapsto t:\sigma \to r \Delta \mapsto u:\sigma}{\Gamma,\Delta \mapsto (tu):\sigma}$ 对上边的规则形式进行改造： 把其中的项都去掉 用蕴含符号 $\Rightarrow$ 取代函数符号 $\to$ 用逻辑共识取代项 则可以得到直觉逻辑的自然演绎表示 公理： $\frac{}{A\mapsto A}$ 引入规则： $\frac{\Gamma, A \mapsto B}{\Gamma \mapsto A\Rightarrow B}(\Rightarrow I)$ 消除规则： $\frac{\Gamma \mapsto A\Rightarrow B\Delta \mapsto A}{\Gamma,\Delta \mapsto B}(\Rightarrow E)$ 这三条规则分别是直觉逻辑的自然演绎系统的定理、蕴含引入和蕴含消除规则。这就是Curry=Howard同态。 总结： lambda演算的项（或函数式语言程序）的类型与直觉逻辑的公式之间的对应：公式作为类型（formula-as-types） lambda演算的项与逻辑的证明对应：变量与公理对应，抽象与 $\Rightarrow$ 引入规则对应，应用与 $\Rightarrow$ 消除规则对应。而lambda演算的项就是函数式语言的程序，这就是：证明作为程序（proofs-as-programs） lambda演算与beta规约的过程与逻辑中的规范化过程对应，这就是计算作为规范化（computation-as-normalization） Martin-Lof直觉类型论概述对命题的直觉解释：命题作为集合类型论不是基于谓词演算，它的逻辑常熟市通过命题和集合之间的Curry-Howard同态解释的：命题被解释称集合，集合的元素代表了该命题的证明。 1）逻辑蕴含： $A \supset B$ $A \supset B$ 的证明是一个函数（方法，证明）。对A的每一证明，给出B的一个证明。 $A \supset B$ 等价于 $A \to B$ ，是从A到B的函数的集合。 集合 $A \to B$ 中元素都是函数，形式为 $\lambda x.b$ ，其中 $b\in B$ ，并且b可能依赖于 $x \in A$ 。 2）逻辑合取： $A \wedge B$ $A \wedge B$ 的证明是一个有序组，其中第一分量是A的每一证明，第二分量是B的一个证明。 $A \wedge B$ 等价于 $A \times B$ ，是A与B的笛卡尔积。 集合 $A \times B$ 中元素的形式为(a,b)，其中 $a\in A, b \in B$ 。 3）逻辑析取： $A \vee B$ 一个析取是构造地真，当且仅当我们能够证明析取式之一。所以， $A \vee B$ 的证明包括：A或者B的一个证明，加上有关到底是A还是B的证明的信息。 $A\vee B$ 等价于 A + B，是A与B的不想交并。 集合A+B中的元素的形式为inl(a)或inr(b)，其中 $a\in A, b \in B$ . 4）逻辑非： $\not A$ 命题A的反可以定义为： $\not A \equiv A \supset \perp$ 。其中 $\perp$ 代表荒谬（absurdity）。即一个没有证明的命题。如果用 $\Phi$ 代表空集，则利用逻辑蕴含的解释，有 $\not A$ 等价于 $A \to \Phi$ 。 为了对用两次定义的命题进行解释，我们来定义在集合族上的操作，即集合B依赖于集合A中的元素x。用 $B[x\leftarrow a]$ 表示把B中所有自由出现的x都用a替换后得到的表达式。 5）存在量词： $(\exists x \in A)B$ $(\exists x \in A)B$ 的证明包括：集合A的一个元素的构造，以及 $B[x\leftarrow a]$ 的一个证明。因此， $(\exists x \in A)B$ 的证明是一有序对，其第一分量是集合A的一个元素，第二分量是 $B[x\leftarrow a]$ 的一个证明。 $(\exists x \in A)B$ 等价于 $(\Sigma x\in A)B$ ， $(\Sigma x\in A)B$ 是一集合族的不相交并（disjoint union）。 集合中 $(\Sigma x\in A)B$ 中元素的形式为序偶 &lt;a,b&gt; ，其中 $a\in A, b \in B[x \leftarrow a]$。 6）全称量词： $(\forall x\in A)B$ $(\forall x \in A)B$ 的证明是一个函数（方法，程序），对于集合A中的每一个元素a给出 $B[x\leftarrow a]$ 的一个证明。因此， $(\forall x \in A)B$ 等价于 $(\prod x\in A)B$ ， $(\prod x\in A)B$ 是一集合族的笛卡尔积。 集合中 $(\prod x\in A)B$ 中元素都是函数，当应用与集合A中元素a时，给出集合 $B[x\leftarrow a]$ 中的一个元素。该集合中的元素形式为 $\lambda x.b$ ，其中 $b\in B$ ，并且b和B都可能依赖于 $x\in A$ 。 类型的概念类型轮中最基本的概念是类型的概念。对类型的直觉解释需要两方面的内容： 说明类型的对象是什么 说明该类型的两个对象相等的意义 类型论中有四种断言形式，对他们的直觉解释如下： A type，A是一个类型。 A=B，A和B是相等的类型。 $a\in A$ ，a是类型A中的一个对象。 $a=b\in A$ ，a和b是类型A中的相等对象 假言断言前边的四种断言不依赖于任何假设，假言断言（hypothetical judgement）通常都有一个上下文（context）. 下面我们只对当上下文的长度为1分别对前面4中断言的假言形式进行解释，其他可以通过归纳解释得到：上下文长度为0时，就是上一节的情况。以下使C是任意不依赖于任何假设的类型。 A type $[x\in C]$ ，当 $[x\in C]$ 时，A是一类型 A = B $[x\in C]$ ，A和B是类型C上相等的类型族 $a\in A[x\in C]$ ，a是依赖于 $[x\in C]$ 的类型A中的一个对象 $a=b\in A[x\in C]$ ，a和b是依赖于 $[x\in C]$ 的类型A中的相等对象 类型组成 产生基本类型的方式 类型Set 如果 $A\in Set$ ，A中元素的类型： $\frac{A\in Set}{El(A)type}$ 引入其他类型的方式 函数类型： $\frac{AtypeBtype[x\in A]}{(x\in A)Btype}$ ，相等函数类型 $\frac{A=A’B=B’[x\in A]}{(x\in A)B=(x\in A’)B’}$ 把函数应用于对象： $\frac{c\in (x\in A)Ba\in A}{c(a)\in B[x\leftarrow a]}$ ， $\frac{c\in (x\in A)Ba=b\in A}{c(a)=c(b)\in B[x\leftarrow a]}$ 引入函数的基本方法是对表达式共的一个变量进行抽象。： $\frac{b\in B[x\in A]}{[x]b\in (x\in A)B}$ 归纳定义的集合 常数的引入新的常数： 定义常数（defined constant）：用其他对象来定义的 显示定义常数：给出明确定义，实际上是某个类型中对象的简写 隐式定义常数：用于说明当把它应用于它的参数后，得到什么定义者 原始常数（primitive constant），值就是常数本身，只有一个类型，没有定义，也成为构造子（constructor），如自然数集合的定义就是通过声明以下常数： $N\in Set$ $succ\in (N)N$ $0\in N$]]></content>
       <tags>
-        <tag>type theory</tag>
+        <tag>Type Theory</tag>
         <tag>类型论</tag>
       </tags>
   </entry>
@@ -384,8 +393,8 @@
         <category>计算机应用数学</category>
       </categories>
       <tags>
-        <tag>计算机应用数学</tag>
         <tag>学习笔记</tag>
+        <tag>计算机应用数学</tag>
       </tags>
   </entry>
   <entry>
@@ -396,8 +405,8 @@
         <category>计算机应用数学</category>
       </categories>
       <tags>
-        <tag>计算机应用数学</tag>
         <tag>学习笔记</tag>
+        <tag>计算机应用数学</tag>
       </tags>
   </entry>
   <entry>
@@ -526,10 +535,10 @@
     <url>%2F2019%2F04%2F24%2FLambda%E6%BC%94%E7%AE%97%E7%B2%BE%E7%AE%80%E6%95%99%E7%A8%8B%2F</url>
     <content type="text"><![CDATA[前言这篇文章译自：https://learnxinyminutes.com/docs/lambda-calculus/，写的精简了点，理解起来可能有些困难 建议配合让我们谈谈 $\lambda$ 演算.pdf一起食用（出自https://github.com/txyyss/Lambda-Calculus/releases）。这篇不算长，深入浅出，写的也极好。 整体介绍Lambda演算( $\lambda$ 演算)由Alonzo Church提出，是世界上最简洁的变成语言。尽管没有数字、字符串、布尔值等非函数数据类型，lambda演算还是可以表达任何图灵机。 Lambda演算由三种元素组成：变量（variables），函数（functions），以及应用（applications）。 名称 语法 例子 解释 Variable &lt;name&gt; x 一个名为“x”的变量 Function $\lambda$ &lt;parameters&gt;.&lt;body&gt; $\lambda$ x.x 一个拥有参数“x”以及函数体x的函数 Application &lt;function&gt;&lt;variable or function&gt; ( $\lambda$ x.x).a 调用函数“ $\lambda$ x.x”且参数值为“a” 最基础的函数就是恒等函数： $\lambda$ x.x（即f(x)=x）。第一个“x”代表函数的参数，第二个“x”代表函数体。 自由变量vs约束变量 在 $\lambda$ x.x函数中，x被称为约束变量，因为它同时位于函数体和参数中。 在 $\lambda$ x.y函数中，y被称为自由变量，因为它从未被事先声明过。 计算通过 $\beta$ 规约进行计算，其基本上是词法范围的替代。 在计算表达式( $\lambda$ x.x)a时，我们用“a”替换函数体中出现的所有“x”。 ( $\lambda$ x.x)a 计算结果为：a ( $\lambda$ x.y)a 计算结果为：y 也可以创建高阶函数： ( $\lambda$ x.( $\lambda$ y.x))a 计算结果为： $\lambda$ y.a 虽然lambda演算传统上只支持单参数函数，但是我们可以使用一种称为currying的技术创建多参数函数。 ( $\lambda$ x. $\lambda$ y. $\lambda$ z.xyz) 即 f(x, y, z) = ((x y) z) 有时 $\lambda$ xy.&lt;body&gt;可与 $\lambda$ x. $\lambda$ y.&lt;body&gt;交替使用。 重要的是要认识到传统的lambda演算没有数字，字符或任何非函数数据类型！ 布尔逻辑在lambda演算中没有“True”或“False”。甚至没有1或0。 取而代之的是： T表示为： $\lambda$ x. $\lambda$ y.x F表示为： $\lambda$ x. $\lambda$ y.y 首先，我们可以定义一个“if”函数 $\lambda$ btf，如果b为True则返回t，如果b为False则返回f IF 也等同于 $\lambda$ b. $\lambda$ t. $\lambda$ f.b t f 通过使用IF，我们可以定义基础的布尔逻辑运算： a AND b 等同于: $\lambda$ ab.IF a b F a OR b 等同于: $\lambda$ ab.IF a T b NOT a 等同于: $\lambda$ a.IF a F T 注意: IF a b c 本质上是: IF((a b) c) 数字尽管lambda演算中没有数字，我们可以通过邱奇数编码数字。 任意数字n都可以编码为： $n = \lambda f.f^n$ 。因此： 0 = $\lambda$ f. $\lambda$ x.x 1 = $\lambda$ f. $\lambda$ x.f x 2 = $\lambda$ f. $\lambda$ x.f(f x) 3 = $\lambda$ f. $\lambda$ x.f(f(f x)) 为了增加邱奇数，我们使用继承函数s(n)=n+1，即 S = $\lambda$ n. $\lambda$ f. $\lambda$ x.f((n f) x) 通过继承，我们可以定义add： ADD = $\lambda$ ab.(a S)b 挑战：试着定义你自己的乘法函数！ 变得更精致：SKI，SK以及IotaSKI组合子演算使S, K, I，分别为以下函数： I x = x K x y = x S x y z = x z (y z) 我们可以将lambda演算中的表达式转换为SKI组合子演算中的表达式： $\lambda$ x.x = I $\lambda$ x.c = Kc $\lambda$ x.(y z) = S ( $\lambda$ x.y) ( $\lambda$ x.z) 以邱奇数2为例子： 2 = $\lambda$ f. $\lambda$ x.f(f x) 对于内部部分 $\lambda$ x.f(f x): $$\begin{split}\lambda x.f(f x) &amp;=&amp; S ( \lambda x.f) ( \lambda x.(f x)) (case 3) \\&amp;=&amp; S (K f) (S ( \lambda x.f) ( \lambda x.x)) (case 2, 3) \\&amp;=&amp; S (K f) (S (K f) I) (case 2, 1)\end{split}$$ 因此： $$\begin{split}2 &amp;=&amp; \lambda f. \lambda x.f(f x) \\&amp;=&amp; \lambda f.(S (K f) (S (K f) I)) \\&amp;=&amp; \lambda f.((S (K f)) (S (K f) I)) \\&amp;=&amp; S ( \lambda f.(S (K f))) ( \lambda f.(S (K f) I)) (case 3)\end{split}$$ 对于第一个参数 \lambda f.(S (K f))： $$\begin{split}\lambda f.(S (K f))&amp;=&amp; S ( \lambda f.S) ( \lambda f.(K f)) (case 3)\\&amp;=&amp; S (K S) (S ( \lambda f.K) ( \lambda f.f)) (case 2, 3)\\&amp;=&amp; S (K S) (S (K K) I) (case 2, 3)\end{split}$$ 对于第二个参数 \lambda f.(S (K f) I)： $$\begin{split} \lambda f.(S (K f) I)&amp;=&amp; \lambda f.((S (K f)) I)\\&amp;=&amp; S ( \lambda f.(S (K f))) ( \lambda f.I) (case 3)\\&amp;=&amp; S (S ( \lambda f.S) ( \lambda f.(K f))) (K I) (case 2, 3)\\&amp;=&amp; S (S (K S) (S ( \lambda f.K) ( \lambda f.f))) (K I) (case 1, 3)\\&amp;=&amp; S (S (K S) (S (K K) I)) (K I) (case 1, 2)\end{split}$$ 合到一起： $$\begin{split} 2&amp;=&amp; S ( \lambda f.(S (K f))) ( \lambda f.(S (K f) I))\\&amp;=&amp; S (S (K S) (S (K K) I)) (S (S (K S) (S (K K) I)) (K I))\end{split}$$ SK 组合子运算SKI组合子运算仍可进一步简化。我们可以通过注意I = SKK来移除I组合子。我们可以用SKK替换所有I。 Iota组合子SK组合子运算依然不是最简洁的。定义： $$\begin{split}ι = \lambda f.((f S) K)\end{split}$$ 我们就有： $$\begin{split}I &amp;=&amp; ιι\\K &amp;=&amp; ι(ιI) = ι(ι(ιι))\\S &amp;=&amp; ι(K) = ι(ι(ι(ιι)))\end{split}$$]]></content>
       <tags>
-        <tag>学习笔记</tag>
         <tag>lambda</tag>
         <tag>lambda演算</tag>
         <tag>lambda calculus</tag>
+        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -874,8 +883,8 @@
     <url>%2F2018%2F09%2F06%2FTrick-bash-tensorboard-%E6%9C%AA%E6%89%BE%E5%88%B0%E5%91%BD%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[原因tensorboard命令不在环境变量中 解决思路找到tensorboard脚本路径，然后运行 解决方法1python3 /home/USERNAME/.local/lib/python3.6/site-packages/tensorboard/main.py --logdir=LOGDIR NOTE： USERNAME是指用户名称 LOGDIR是指log文件存放的相对或绝对目录]]></content>
       <tags>
-        <tag>linux</tag>
         <tag>trick</tag>
+        <tag>linux</tag>
         <tag>tensorboard</tag>
       </tags>
   </entry>
@@ -916,8 +925,8 @@
     <url>%2F2018%2F07%2F31%2FTrick-git-pull-%E5%BC%BA%E5%88%B6%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%2F</url>
     <content type="text"><![CDATA[123git fetch --all git reset --hard origin/mastergit pull note：出错的话就再试一次，说不定就可以了]]></content>
       <tags>
-        <tag>trick</tag>
         <tag>git</tag>
+        <tag>trick</tag>
       </tags>
   </entry>
   <entry>
@@ -925,28 +934,8 @@
     <url>%2F2018%2F07%2F31%2F%E5%9C%A8linux%E4%B8%8A%E5%88%9B%E5%BB%BAroot%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7%EF%BC%88%E4%B8%8D%E4%BF%AE%E6%94%B9%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%EF%BC%89%2F</url>
     <content type="text"><![CDATA[简略过程如我们现在要创建一个名为imonce的新用户： adduser imonce 赋予root权限 usermod -g sudo imonce 万事大吉 详细过程有空再补吧(‾⌣‾)]]></content>
       <tags>
+        <tag>trick</tag>
         <tag>linux</tag>
-        <tag>trick</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server]]></title>
-    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9A1130%20-%20Host%20'192.168.2.204'%20is%20not%20allowed%20to%20connect%20to%20this%20MySQL%20server%2F</url>
-    <content type="text"><![CDATA[问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。 解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。 具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 1234mysql -u root -p mysql&gt;use mysql; mysql&gt;update user set host = &apos;%&apos; where user =&apos;root&apos;; mysql&gt;flush privileges;]]></content>
-      <tags>
-        <tag>trick</tag>
-        <tag>mysql</tag>
-        <tag>远程连接报错</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)]]></title>
-    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9Aerror%202003%20%EF%BC%88hy000%EF%BC%89-can't%20connect%20to%20mysql%20server%20on%20'localhost'%20(10061)%2F</url>
-    <content type="text"><![CDATA[问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项： /etc/mysql/my.cnf /etc/mysql/mysqld.cnf 在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成： #bind-address = 127.0.0.1 然后执行 service mysql restart重新启动mysql服务使配置生效即可。]]></content>
-      <tags>
-        <tag>trick</tag>
-        <tag>mysql</tag>
-        <tag>远程连接报错</tag>
       </tags>
   </entry>
   <entry>
@@ -960,6 +949,16 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)]]></title>
+    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9Aerror%202003%20%EF%BC%88hy000%EF%BC%89-can't%20connect%20to%20mysql%20server%20on%20'localhost'%20(10061)%2F</url>
+    <content type="text"><![CDATA[问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项： /etc/mysql/my.cnf /etc/mysql/mysqld.cnf 在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成： #bind-address = 127.0.0.1 然后执行 service mysql restart重新启动mysql服务使配置生效即可。]]></content>
+      <tags>
+        <tag>trick</tag>
+        <tag>mysql</tag>
+        <tag>远程连接报错</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[mysql-python安装错误：EnvironmentError:mysql_config not found]]></title>
     <url>%2F2017%2F04%2F24%2Fmysql-python%E5%AE%89%E8%A3%85%E9%94%99%E8%AF%AF%EF%BC%9AEnvironmentError-%20mysql_config%20not%20found%2F</url>
     <content type="text"><![CDATA[问题描述：安装mysql-python时报错： 12345678910111213141516Collecting mysql-python Using cached MySQL-python-1.2.5.zip Complete output from command python setup.py egg_info: sh: 1: mysql_config: not found Traceback (most recent call last): File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt; File &quot;/tmp/pip-build-_itbcX/mysql-python/setup.py&quot;, line 17, in &lt;module&gt; metadata, options = get_config() File &quot;setup_posix.py&quot;, line 43, in get_config libs = mysql_config(&quot;libs_r&quot;) File &quot;setup_posix.py&quot;, line 25, in mysql_config raise EnvironmentError(&quot;%s not found&quot; % (mysql_config.path,)) EnvironmentError: mysql_config not found ----------------------------------------Command &quot;python setup.py egg_info&quot; failed with error code 1 in /tmp/pip-build-_itbcX/mysql-python/ 问题原因：没有安装libmysqlclient-dev。 解决方案：执行： sudo apt-get install libmysqlclient-dev 安装成功后，再运行pip install mysql-python即可。]]></content>
@@ -968,6 +967,16 @@
         <tag>trick</tag>
         <tag>mysql</tag>
         <tag>mysql-python安装错误</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server]]></title>
+    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9A1130%20-%20Host%20'192.168.2.204'%20is%20not%20allowed%20to%20connect%20to%20this%20MySQL%20server%2F</url>
+    <content type="text"><![CDATA[问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。 解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。 具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 1234mysql -u root -p mysql&gt;use mysql; mysql&gt;update user set host = &apos;%&apos; where user =&apos;root&apos;; mysql&gt;flush privileges;]]></content>
+      <tags>
+        <tag>trick</tag>
+        <tag>mysql</tag>
+        <tag>远程连接报错</tag>
       </tags>
   </entry>
   <entry>
