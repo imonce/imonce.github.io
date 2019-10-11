@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="背景柯里-霍华德同构，Curry-Howard Isomorphism，又称柯里-霍华德对应（Curry-Howard correspondence）是在计算机程序和数学证明之间的紧密联系；这种对应也叫做公式为类型对应或命题为类型对应。这是对形式逻辑系统和公式计算（computational calculus）之间符号的相似性的推广。命名来自它的两位发现者：美国数学家哈斯凯尔·柯里和逻辑学家威廉·">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-10T03:34:16.436Z">
+<meta property="og:updated_time" content="2019-10-11T13:15:36.648Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一文读懂Curry-Howard同构">
 <meta name="twitter:description" content="背景柯里-霍华德同构，Curry-Howard Isomorphism，又称柯里-霍华德对应（Curry-Howard correspondence）是在计算机程序和数学证明之间的紧密联系；这种对应也叫做公式为类型对应或命题为类型对应。这是对形式逻辑系统和公式计算（computational calculus）之间符号的相似性的推广。命名来自它的两位发现者：美国数学家哈斯凯尔·柯里和逻辑学家威廉·">
@@ -434,12 +434,24 @@
                 
               
 
-              <time title="Created: 2019-10-10 10:42:29 / Modified: 11:34:16" itemprop="dateCreated datePublished" datetime="2019-10-10T10:42:29+08:00">2019-10-10</time>
+              <time title="Created: 2019-10-10 10:42:29" itemprop="dateCreated datePublished" datetime="2019-10-10T10:42:29+08:00">2019-10-10</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-11 21:15:36" itemprop="dateModified" datetime="2019-10-11T21:15:36+08:00">2019-10-11</time>
               
             
           </span>
@@ -521,7 +533,7 @@
 <h2 id="Elimination-rule-for-prod"><a href="#Elimination-rule-for-prod" class="headerlink" title="Elimination rule for $\prod$"></a>Elimination rule for $\prod$</h2><p>$$\frac{\Gamma\vdash f:(\prod x:A)B\quad\Gamma\vdash a:A}{\Gamma\vdash apply(f,a):B[a/x]}(\prod E)$$</p>
 <p>Suppose $f = \lambda x.x$, then $apply(f,a)=(\lambda x.x)a$ </p>
 <h2 id="Introduction-rule-for-sum"><a href="#Introduction-rule-for-sum" class="headerlink" title="Introduction rule for $\sum$"></a>Introduction rule for $\sum$</h2><p>$$\frac{\Gamma\vdash a:A\quad\Gamma\vdash b:B[a/x]}{\Gamma\vdash\lt a,b\gt:(\sum x:A)B}(\sum I)$$</p>
-<h2 id="Elimination-rule-for-sum"><a href="#Elimination-rule-for-sum" class="headerlink" title="Elimination rule for $\sum$"></a>Elimination rule for $\sum$</h2><p>$$\frac{\Gamma\vdash c:(\sum x:A)B\quad\Gamma,x:A,y:B\vdash d:C[\lt x,y\gt/z]}{\Gamma\vdash split(c,\lambda x.\lambda y.d):C[c/z]}(\sum I)$$</p>
+<h2 id="Elimination-rule-for-sum"><a href="#Elimination-rule-for-sum" class="headerlink" title="Elimination rule for $\sum$"></a>Elimination rule for $\sum$</h2><p>$$\frac{\Gamma\vdash c:(\sum x:A)B\quad\Gamma,x:A,y:B\vdash d:C[\lt x,y\gt/z]}{\Gamma\vdash split(c,\lambda x.\lambda y.d):C[c/z]}(\sum E)$$</p>
 <p>where: $split(\lt a,b\gt,\lambda x.\lambda y.d)=(\lambda x.\lambda y.d)(a)(b)$ </p>
 <blockquote>
 <p>reference<br><span class="exturl" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3F1ZXN0aW9uLzIyOTU5NjA4L2Fuc3dlci8yNDc3MDgzMA==" title="https://www.zhihu.com/question/22959608/answer/24770830">https://www.zhihu.com/question/22959608/answer/24770830<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly96aC53aWtpcGVkaWEub3JnL3poLWhhbnMv5p+v6YeMLemcjeWNjuW+t+WQjOaehA==" title="https://zh.wikipedia.org/zh-hans/柯里-霍华德同构">https://zh.wikipedia.org/zh-hans/柯里-霍华德同构<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cDovL3d3dzIubWF0aC51dS5zZS9+cGFsbWdyZW4vdGlsbG9nL2tsb2dpazA0LTAxZW5nLnBkZg==" title="http://www2.math.uu.se/~palmgren/tillog/klogik04-01eng.pdf">http://www2.math.uu.se/~palmgren/tillog/klogik04-01eng.pdf<i class="fa fa-external-link"></i></span></p>

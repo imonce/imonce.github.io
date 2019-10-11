@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://imonce.github.io/2019/08/21/%E6%9E%84%E9%80%A0%E7%B1%BB%E5%9E%8B%E8%AE%BA%E7%AE%80%E4%BB%8B/</loc>
+    <loc>https://imonce.github.io/2019/10/10/%E4%B8%80%E6%96%87%E8%AF%BB%E6%87%82Curry-Howard%E5%90%8C%E6%9E%84/</loc>
     
-    <lastmod>2019-10-11T12:30:05.987Z</lastmod>
+    <lastmod>2019-10-11T13:15:36.648Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://imonce.github.io/2019/10/10/%E4%B8%80%E6%96%87%E8%AF%BB%E6%87%82Curry-Howard%E5%90%8C%E6%9E%84/</loc>
+    <loc>https://imonce.github.io/2019/08/21/%E6%9E%84%E9%80%A0%E7%B1%BB%E5%9E%8B%E8%AE%BA%E7%AE%80%E4%BB%8B/</loc>
     
-    <lastmod>2019-10-10T03:34:16.436Z</lastmod>
+    <lastmod>2019-10-11T12:30:05.987Z</lastmod>
     
   </url>
   
@@ -212,13 +212,6 @@
   </url>
   
   <url>
-    <loc>https://imonce.github.io/2019/04/19/6%E5%B0%8F%E6%97%B6%E7%B2%BE%E9%80%9Apython-%E5%85%AD-%E5%AE%8C%E7%BB%93/</loc>
-    
-    <lastmod>2019-06-26T09:24:55.222Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://imonce.github.io/2019/04/19/6%E5%B0%8F%E6%97%B6%E7%B2%BE%E9%80%9Apython-%E5%9B%9B/</loc>
     
     <lastmod>2019-06-26T09:24:55.222Z</lastmod>
@@ -226,7 +219,14 @@
   </url>
   
   <url>
-    <loc>https://imonce.github.io/2019/04/19/6%E5%B0%8F%E6%97%B6%E7%B2%BE%E9%80%9Apython-%E4%B8%89/</loc>
+    <loc>https://imonce.github.io/2019/04/19/6%E5%B0%8F%E6%97%B6%E7%B2%BE%E9%80%9Apython-%E5%85%AD-%E5%AE%8C%E7%BB%93/</loc>
+    
+    <lastmod>2019-06-26T09:24:55.222Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/2019/04/19/6%E5%B0%8F%E6%97%B6%E7%B2%BE%E9%80%9Apython-%E4%BA%8C/</loc>
     
     <lastmod>2019-06-26T09:24:55.221Z</lastmod>
     
@@ -240,7 +240,7 @@
   </url>
   
   <url>
-    <loc>https://imonce.github.io/2019/04/19/6%E5%B0%8F%E6%97%B6%E7%B2%BE%E9%80%9Apython-%E4%BA%8C/</loc>
+    <loc>https://imonce.github.io/2019/04/19/6%E5%B0%8F%E6%97%B6%E7%B2%BE%E9%80%9Apython-%E4%B8%89/</loc>
     
     <lastmod>2019-06-26T09:24:55.221Z</lastmod>
     
