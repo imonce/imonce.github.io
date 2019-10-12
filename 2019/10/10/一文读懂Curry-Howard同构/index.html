@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="背景柯里-霍华德同构，Curry-Howard Isomorphism，又称柯里-霍华德对应（Curry-Howard correspondence）是在计算机程序和数学证明之间的紧密联系；这种对应也叫做公式为类型对应或命题为类型对应。这是对形式逻辑系统和公式计算（computational calculus）之间符号的相似性的推广。命名来自它的两位发现者：美国数学家哈斯凯尔·柯里和逻辑学家威廉·">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-11T13:15:36.648Z">
+<meta property="og:updated_time" content="2019-10-12T02:48:23.152Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一文读懂Curry-Howard同构">
 <meta name="twitter:description" content="背景柯里-霍华德同构，Curry-Howard Isomorphism，又称柯里-霍华德对应（Curry-Howard correspondence）是在计算机程序和数学证明之间的紧密联系；这种对应也叫做公式为类型对应或命题为类型对应。这是对形式逻辑系统和公式计算（computational calculus）之间符号的相似性的推广。命名来自它的两位发现者：美国数学家哈斯凯尔·柯里和逻辑学家威廉·">
@@ -451,7 +451,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-11 21:15:36" itemprop="dateModified" datetime="2019-10-11T21:15:36+08:00">2019-10-11</time>
+                <time title="Modified: 2019-10-12 10:48:23" itemprop="dateModified" datetime="2019-10-12T10:48:23+08:00">2019-10-12</time>
               
             
           </span>
@@ -528,7 +528,7 @@
 </ul>
 </li>
 </ul>
-<h1 id="Curry-Howard-同构与-Martin-Lof-类型论系统"><a href="#Curry-Howard-同构与-Martin-Lof-类型论系统" class="headerlink" title="Curry-Howard 同构与 Martin-Löf 类型论系统"></a>Curry-Howard 同构与 Martin-Löf 类型论系统</h1><p>这个框架里灵活性最高的是 Martin-Löf 的系统，两个高度抽象的算子——[公式]和[公式]进一步泛化了函数调用与合取，这使得它有极其恐怖的抽象能力。这个系统的推理规则是一下几条：</p>
+<h1 id="Curry-Howard-同构与-Martin-Lof-类型论系统"><a href="#Curry-Howard-同构与-Martin-Lof-类型论系统" class="headerlink" title="Curry-Howard 同构与 Martin-Löf 类型论系统"></a>Curry-Howard 同构与 Martin-Löf 类型论系统</h1><p>这个框架里灵活性最高的是 Martin-Löf 的系统，两个高度抽象的算子—— $\prod$ 和 $\sum$ 进一步泛化了函数调用与合取，这使得它有极其恐怖的抽象能力。这个系统的推理规则是一下几条：</p>
 <h2 id="Introduction-rule-for-prod"><a href="#Introduction-rule-for-prod" class="headerlink" title="Introduction rule for $\prod$"></a>Introduction rule for $\prod$</h2><p>$$\frac{\Gamma,x:A\vdash b:B}{\Gamma\vdash\lambda x.b:(\prod x:A)B}(\prod I)$$</p>
 <h2 id="Elimination-rule-for-prod"><a href="#Elimination-rule-for-prod" class="headerlink" title="Elimination rule for $\prod$"></a>Elimination rule for $\prod$</h2><p>$$\frac{\Gamma\vdash f:(\prod x:A)B\quad\Gamma\vdash a:A}{\Gamma\vdash apply(f,a):B[a/x]}(\prod E)$$</p>
 <p>Suppose $f = \lambda x.x$, then $apply(f,a)=(\lambda x.x)a$ </p>
