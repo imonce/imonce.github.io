@@ -932,7 +932,7 @@ usermod -g sudo imonce
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="C_Meng">
@@ -952,7 +952,7 @@ usermod -g sudo imonce
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" class="post-title-link" itemprop="url">mysql-python安装错误：EnvironmentError:mysql_config not found</a>
+                <a href="/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" class="post-title-link" itemprop="url">远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
               
             
           </h2>
@@ -994,7 +994,7 @@ usermod -g sudo imonce
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-07-31 13:56:06" itemprop="dateModified" datetime="2018-07-31T13:56:06+08:00">2018-07-31</time>
+                <time title="Modified: 2018-07-31 13:56:36" itemprop="dateModified" datetime="2018-07-31T13:56:36+08:00">2018-07-31</time>
               
             
           </span>
@@ -1012,8 +1012,8 @@ usermod -g sudo imonce
                 </span>
             
                 <span class="post-meta-item-text">Comments: </span>
-                <a href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" itemprop="commentCount"></span>
+                <a href="/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1044,14 +1044,27 @@ usermod -g sudo imonce
         
           
             <p>
-              问题描述：安装mysql-python时报错：
-Collecting mysql-python  Using cached MySQL-python-1.2.5.zip    Complete output from command python setup.py egg_info:    sh: 1: mysql_config: not found    Traceback (most recent call last):      File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;      File &quot;/tmp/pip-build-_itbcX/mysql-python/setup.py&quot;, line 17, in &lt;module&gt;        metadata, options = 
-              ...
+              问题原因mysql配置文件中有一句：
+bind-address = 127.0.0.1
+导致mysql只能从本地进行连接。
+解决思路找到mysql的配置文件，将这一行注释掉。
+具体解决方案去两个配置文件中找这个配置项：
+
+/etc/mysql/my.cnf
+/etc/mysql/mysqld.cnf
+
+在这两个文件的任意一个中找到
+bind-address = 127.0.0.1
+后，将其修改成：
+#bind-address = 127.0.0.1
+然后执行 service mysql restart重新启动mysql服务使配置生效即可。
+
+              
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/#more" rel="contents">
+              <a class="btn" href="/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1280,7 +1293,7 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="C_Meng">
@@ -1300,7 +1313,7 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" class="post-title-link" itemprop="url">远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)</a>
+                <a href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" class="post-title-link" itemprop="url">mysql-python安装错误：EnvironmentError:mysql_config not found</a>
               
             
           </h2>
@@ -1342,7 +1355,7 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-07-31 13:56:36" itemprop="dateModified" datetime="2018-07-31T13:56:36+08:00">2018-07-31</time>
+                <time title="Modified: 2018-07-31 13:56:06" itemprop="dateModified" datetime="2018-07-31T13:56:06+08:00">2018-07-31</time>
               
             
           </span>
@@ -1360,8 +1373,8 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
                 </span>
             
                 <span class="post-meta-item-text">Comments: </span>
-                <a href="/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" itemprop="commentCount"></span>
+                <a href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1392,27 +1405,14 @@ pickle简介pickle模块是python中用来持久化对象的一个模块。所�
         
           
             <p>
-              问题原因mysql配置文件中有一句：
-bind-address = 127.0.0.1
-导致mysql只能从本地进行连接。
-解决思路找到mysql的配置文件，将这一行注释掉。
-具体解决方案去两个配置文件中找这个配置项：
-
-/etc/mysql/my.cnf
-/etc/mysql/mysqld.cnf
-
-在这两个文件的任意一个中找到
-bind-address = 127.0.0.1
-后，将其修改成：
-#bind-address = 127.0.0.1
-然后执行 service mysql restart重新启动mysql服务使配置生效即可。
-
-              
+              问题描述：安装mysql-python时报错：
+Collecting mysql-python  Using cached MySQL-python-1.2.5.zip    Complete output from command python setup.py egg_info:    sh: 1: mysql_config: not found    Traceback (most recent call last):      File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;      File &quot;/tmp/pip-build-_itbcX/mysql-python/setup.py&quot;, line 17, in &lt;module&gt;        metadata, options = 
+              ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/#more" rel="contents">
+              <a class="btn" href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
