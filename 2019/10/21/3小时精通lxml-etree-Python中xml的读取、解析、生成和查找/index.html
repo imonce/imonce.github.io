@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="Reference:https://lxml.de/tutorial.html  12from lxml import etreefrom copy import deepcopy  12345678910111213# 添加Element默认添加为根节点root = etree.Element(&quot;root&quot;)# 通过append添加子节点root.append(etree.Element(&quot;c">
+  <meta name="description" content="本文主要参考官方文档https://lxml.de/tutorial.html整理，如有错误欢迎指出。 12from lxml import etreefrom copy import deepcopy  12345678910111213# 添加Element默认添加为根节点root = etree.Element(&quot;root&quot;)# 通过append添加子节点root.append(etree.">
 <meta name="keywords" content="python,python3,lxml,etree">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3小时精通lxml.etree:Python中xml的读取、解析、生成和查找">
 <meta property="og:url" content="https://imonce.github.io/2019/10/21/3小时精通lxml-etree-Python中xml的读取、解析、生成和查找/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
-<meta property="og:description" content="Reference:https://lxml.de/tutorial.html  12from lxml import etreefrom copy import deepcopy  12345678910111213# 添加Element默认添加为根节点root = etree.Element(&quot;root&quot;)# 通过append添加子节点root.append(etree.Element(&quot;c">
+<meta property="og:description" content="本文主要参考官方文档https://lxml.de/tutorial.html整理，如有错误欢迎指出。 12from lxml import etreefrom copy import deepcopy  12345678910111213# 添加Element默认添加为根节点root = etree.Element(&quot;root&quot;)# 通过append添加子节点root.append(etree.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-04T06:00:31.422Z">
+<meta property="og:updated_time" content="2019-11-04T06:12:49.673Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="3小时精通lxml.etree:Python中xml的读取、解析、生成和查找">
-<meta name="twitter:description" content="Reference:https://lxml.de/tutorial.html  12from lxml import etreefrom copy import deepcopy  12345678910111213# 添加Element默认添加为根节点root = etree.Element(&quot;root&quot;)# 通过append添加子节点root.append(etree.Element(&quot;c">
+<meta name="twitter:description" content="本文主要参考官方文档https://lxml.de/tutorial.html整理，如有错误欢迎指出。 12from lxml import etreefrom copy import deepcopy  12345678910111213# 添加Element默认添加为根节点root = etree.Element(&quot;root&quot;)# 通过append添加子节点root.append(etree.">
 
 
 
@@ -451,7 +451,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-11-04 14:00:31" itemprop="dateModified" datetime="2019-11-04T14:00:31+08:00">2019-11-04</time>
+                <time title="Modified: 2019-11-04 14:12:49" itemprop="dateModified" datetime="2019-11-04T14:12:49+08:00">2019-11-04</time>
               
             
           </span>
@@ -530,9 +530,7 @@
       
 
       
-        <blockquote>
-<p>Reference:<br><span class="exturl" data-url="aHR0cHM6Ly9seG1sLmRlL3R1dG9yaWFsLmh0bWw=" title="https://lxml.de/tutorial.html">https://lxml.de/tutorial.html<i class="fa fa-external-link"></i></span></p>
-</blockquote>
+        <p>本文主要参考官方文档<span class="exturl" data-url="aHR0cHM6Ly9seG1sLmRlL3R1dG9yaWFsLmh0bWw=" title="https://lxml.de/tutorial.html">https://lxml.de/tutorial.html<i class="fa fa-external-link"></i></span>整理，如有错误欢迎指出。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="keyword">from</span> copy <span class="keyword">import</span> deepcopy</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加Element默认添加为根节点</span></span><br><span class="line">root = etree.Element(<span class="string">"root"</span>)</span><br><span class="line"><span class="comment"># 通过append添加子节点</span></span><br><span class="line">root.append(etree.Element(<span class="string">"child1"</span>))</span><br><span class="line"><span class="comment"># 通过SubElement添加子节点</span></span><br><span class="line">child2 = etree.SubElement(root, <span class="string">"child2"</span>)</span><br><span class="line">child3 = etree.SubElement(root, <span class="string">"child3"</span>)</span><br><span class="line">print(etree.tostring(root))</span><br><span class="line">print(etree.tostring(root, pretty_print=<span class="keyword">True</span>))</span><br><span class="line"><span class="comment"># 默认encoding是ASCII</span></span><br><span class="line">print(etree.tostring(root, encoding=<span class="string">'iso-8859-1'</span>))</span><br><span class="line"><span class="comment"># 如果要把byte转成str输出的话，可以用下边的语句</span></span><br><span class="line">print(str(etree.tostring(root, pretty_print=<span class="keyword">True</span>),encoding=<span class="string">'utf-8'</span>))</span><br></pre></td></tr></table></figure>
