@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[启发式算法学习（一）：粒子群算法]]></title>
+    <url>%2F2019%2F11%2F06%2F%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E7%B2%92%E5%AD%90%E7%BE%A4%E7%AE%97%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[算法简介粒子群算法（Particle swarm optimization，PSO）是模拟群体智能所建立起来的一种优化算法，主要用于解决最优化问题（optimization problems）。1995年由 Eberhart和Kennedy 提出，是基于对鸟群觅食行为的研究和模拟而来的。 假设一群鸟在觅食，在觅食范围内，只在一个地方有食物，所有鸟儿都看不到食物（即不知道食物的具体位置。当然不知道了，知道了就不用觅食了），但是能闻到食物的味道（即能知道食物距离自己是远是近。鸟的嗅觉是很灵敏的）。 假设鸟与鸟之间能共享信息（即互相知道每个鸟离食物多远。这个是人工假定，实际上鸟们肯定不会也不愿意），那么最好的策略就是结合自己离食物最近的位置和鸟群中其他鸟距离食物最近的位置这2个因素综合考虑找到最好的搜索位置。 粒子群算法与《遗传算法》等进化算法有很多相似之处。也需要初始化种群，计算适应度值，通过进化进行迭代等。但是与遗传算法不同，它没有交叉，变异等进化操作。与遗传算法比较，PSO的优势在于很容易编码，需要调整的参数也很少。 核心概念PSO有几个核心概念： 粒子（particle）：一只鸟。类似于遗传算法中的个体。 种群（population）：一群鸟。类似于遗传算法中的种群。 位置（position）：一个粒子（鸟）当前所在的位置。 经验（best）：一个粒子（鸟）自身曾经离食物最近的位置。 速度（velocity ）：一个粒子（鸟）飞行的速度。 适应度（fitness）：一个粒子（鸟）距离食物的远近。与遗传算法中的适应度类似。 算法过程 算法说明两个核心公式加速度更新公式： $$v[i] = w * v[i] + c1 * rand() *(pbest[i] - present[i]) + c2 * rand() * (gbest - present[i])$$ 其中v[i]代表第i个粒子的速度，w代表惯性权值,c1和c2表示学习参数，rand()表示在0-1之间的随机数,pbest[i]代表第i个粒子搜索到的最优值,gbest代表整个集群搜索到的最优值,present[i]代表第i个粒子的当前位置。 位置更新公式： $$present[i]=present[i]+v[i]$$ 解释说明1.粒子数：粒子数的选取一般在20个到40个之间，但是需要具体问题具体对待，如果对于复杂问题，则需要设置更多的粒子，粒子数量越多，其搜索范围就越大。 2.惯性因子 $w$ ：用来控制继承多少粒子当前的速度的，越大则对于当前速度的继承程度越小，越小则对于当前速度的继承程度越大。有些同学可能会产生疑问，是不是说反了。其实不是，从公式中可以明确看出，其值越大，则速度的改变幅度就越大，则对于粒子的当前速度继承越小；反之，速度的改变幅度越小，则对于粒子当前速度继承越大。因此如果的值越大，则解的搜索范围越大，可以提高算法的全局搜索能力，但也损失了局部搜索能力，有可能错失最优解；反之如果的值越小，则解的搜索范围也就越小，算法的全局搜索能力也就越小，容易陷入局部最优。如果是变量，则其值应该随着迭代次数的增加而减小（类似于梯度下降当中的学习率）。如果为定值，则建议在0.6到0.75之间进行选取。 3.加速常数 $c1,c2$ ：通过公式一可以看出，加速常数控制着飞翔速度的计算是更加看重自身经验还是群体经验。公式一中的第二项就是自身经验的体现，加速常数可以看做是用来调整自身经验在计算粒子飞翔速度上的权重。同理是用来控制群体经验在计算粒子飞翔速度过程中的权重的。如果为0，则自身经验对于速度的计算不起作用，如果为0，则群体经验对于粒子飞翔速度的计算不起作用。的取值在学术界分歧很大主要有如下几种情况： 学者 参数取值 Clerc c1=c2=2.05 Carlisle c1=2.8, c2=1.3 Trelea w=0.6, c1=c2=1.7 Eberhart w=0.729, c1=c2=1.494 python实现12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758# -*- coding: utf-8 -*-"""f(x1,x2) = x1**2 + x2**2, x1,x2 belongs to [-10,10],求Min f"""import matplotlib.pyplot as pltimport numpy as np class PSO(object): def __init__(self, population_size, max_steps): self.w = 0.6 # 惯性权重 self.c1 = self.c2 = 2 self.population_size = population_size # 粒子群数量 self.dim = 2 # 搜索空间的维度 self.max_steps = max_steps # 迭代次数 self.x_bound = [-10, 10] # 解空间范围 self.x = np.random.uniform(self.x_bound[0], self.x_bound[1], (self.population_size, self.dim)) # 初始化粒子群位置 self.v = np.random.rand(self.population_size, self.dim) # 初始化粒子群速度 fitness = self.calculate_fitness(self.x) self.p = self.x # 个体的最佳位置 self.pg = self.x[np.argmin(fitness)] # 全局最佳位置 self.individual_best_fitness = fitness # 个体的最优适应度 self.global_best_fitness = np.max(fitness) # 全局最佳适应度 def calculate_fitness(self, x): return np.sum(np.square(x), axis=1) def evolve(self): fig = plt.figure() for step in range(self.max_steps): r1 = np.random.rand(self.population_size, self.dim) r2 = np.random.rand(self.population_size, self.dim) # 更新速度和权重 self.v = self.w*self.v+self.c1*r1*(self.p-self.x)+self.c2*r2*(self.pg-self.x) self.x = self.v + self.x plt.clf() plt.scatter(self.x[:, 0], self.x[:, 1], s=30, color='k') plt.xlim(self.x_bound[0], self.x_bound[1]) plt.ylim(self.x_bound[0], self.x_bound[1]) plt.pause(0.01) # plt.ion() # plt.show() fitness = self.calculate_fitness(self.x) # 需要更新的个体 update_id = np.greater(self.individual_best_fitness, fitness) self.p[update_id] = self.x[update_id] self.individual_best_fitness[update_id] = fitness[update_id] # 新一代出现了更小的fitness，所以更新全局最优fitness和位置 if np.min(fitness) &lt; self.global_best_fitness: self.pg = self.x[np.argmin(fitness)] self.global_best_fitness = np.min(fitness) print('best fitness: %.5f, mean fitness: %.5f' % (self.global_best_fitness, np.mean(fitness))) pso = PSO(10, 100)pso.evolve() Reference:https://blog.csdn.net/zhaozx19950803/article/details/79854466https://blog.csdn.net/yy2050645/article/details/80740641https://blog.csdn.net/zj15527620802/article/details/81366105flowchat st=>start: Start op1=>operation: 初始化参数 op2=>operation: 计算各粒子适应值 op3=>operation: 找出个体和群体的最优值和最优位置 op4=>operation: 更新各个粒子的位置和速度 cond=>condition: 是否满足终止条件? e=>end st->op1->op2->op3->op4->cond cond(yes)->e cond(no)->op2{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12} var code = document.getElementById("flowchart-0-code").value; var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value)); var diagram = flowchart.parse(code); diagram.drawSVG("flowchart-0", options);]]></content>
+      <categories>
+        <category>启发式算法</category>
+      </categories>
+      <tags>
+        <tag>启发式算法</tag>
+        <tag>pso</tag>
+        <tag>粒子群算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[常见QoS指标一览]]></title>
     <url>%2F2019%2F11%2F04%2F%E5%B8%B8%E8%A7%81QoS%E6%8C%87%E6%A0%87%E4%B8%80%E8%A7%88%2F</url>
     <content type="text"><![CDATA[英文： Quality of Service中文： 服务质量介绍： 指一个网络能够利用各种基础技术，为指定的网络通信提供更好的服务能力，是网络的一种安全机制，是用来解决网络延迟和阻塞等问题的一种技术。 通过配置QoS，对企业的网络流量进行调控，避免并管理网络拥塞，减少报文的丢失率，同时也可以为企业用户提供专用带宽或者为不同的业务（语音、视频、数据等）提供差分服务。 在正常情况下，如果网络只用于特定的无时间限制的应用系统，并不需要QoS，比如Web应用，或E-mail设置等。但是对关键应用和多媒体应用就十分必要。当网络过载或拥塞时，==QoS能确保重要业务量不受延迟或丢弃==，同时保证网络的高效运行。在RFC 3644上有对QoS的说明。 可用性是当用户需要时网络即能工作的时间百分比。可用性主要是设备可靠性和网络存活性相结合的结果。对它起作用的还有一些其他因素，包括软件稳定性以及网络演进或升级时不中断服务的能力。 在连续5min内，如果一个IP网络所提供的丢包率&lt;=75%，则认为该时间段是可用的，否则是不可用的。 吞吐量(网络带宽)网络带宽是指在单位时间（一般指的是1秒钟）内能传输的数据量。对IP网而言可以从帧中继网借用一些概念。根据应用和服务类型，服务水平协议(SLA)可以规定承诺信息速率(CIR)、突发信息速率(BIR)和最大突发信号长度。承诺信息速率是应该予以严格保证的，对突发信息速率可以有所限定，以在容纳预定长度突发信号的同时容纳从话音到视像以及一般数据的各种服务。一般讲，吞吐量越大越好。 时延指一项服务从网络入口到出口的平均经过时间。许多服务，特别是话音和视像等实时服务都是高度不能容忍时延的。当时延超过200-250毫秒时，交互式会话是非常麻烦的。为了提供高质量话音和会议电视，网络设备必须能保证低的时延。产生时延的因素很多，包括分组时延、排队时延、交换时延和传播时延。传播时延是信息通过铜线、光纤或无线链路所需的时间，它是光速的函数。在任何系统中，包括同步数字系列(SDH)、异步传输模式（ATM）和弹性分组环路(RPR)，传播时延总是存在的。 时延变化(抖动)是指同一业务流中不同分组所呈现的时延不同。高频率的时延变化称作抖动，而低频率的时延变化称作漂移。抖动主要是由于业务流中相继分组的排队等候时间不同引起的，是对服务质量影响最大的一个问题。 ​某些业务类型（特别是语音和视频等实时业务）是极其不能容忍抖动的。报文到达时间的差异将在语音或视频中造成断续；另外，抖动也会影响一些网络协议的处理，有些协议是按固定的时间间隔发送交互性报文，抖动过大就会导致协议震荡，而实际上所有传输系统都有抖动，但只要抖动在规定容差之内就不会影响服务质量，另外，可利用缓存来克服过量的抖动，但这将会增加时延。 漂移是任何同步传输系统都有的一个问题。在SDH系统中是通过严格的全网分级定时来克服漂移的。在异步系统中，漂移一般不是问题。漂移会造成基群失帧，使服务质量的要求不能满足。 丢包不管是比特丢失还是分组丢失，对分组数据业务的影响比对实时业务的影响都大。在通话期间，丢失一个比特或一个分组的信息往往用户注意不到。在视像广播期间，这在屏幕上可能造成瞬间的波形干扰，然后视像很快恢复如初。即便是用传输控制协议(TCP)传送数据也能处理丢失，因为传输控制协议允许丢失的信息重发。事实上，一种叫做随机早丢(RED)的拥塞控制机制在故意丢失分组，其目的是在流量达到设定门限时抑制TCP传输速率，减少拥塞，同时还使TCP流失去同步，以防止因速率窗口的闭合引起吞吐量摆动。但分组丢失多了，会影响传输质量。所以，要保持统计数字，当超过预定门限时就向网络管理人员告警。 丢包（packetloss）可能在所有环节中发生，例如： 处理过程：路由器在收到报文的时候可能由于CPU繁忙，无法处理报文而导致丢包； 排队过程：在把报文调度到队列的时候可能由于队列被装满而导致丢包； 传输过程：报文在链路上传输的过程中，可能由于种种原因（如链路故障等）导致的丢包。 References:https://blog.csdn.net/qq_25077833/article/details/53428655https://blog.csdn.net/kakingka/article/details/45698709https://blog.csdn.net/qq_38265137/article/details/80466737]]></content>
@@ -430,8 +443,8 @@
         <category>计算机应用数学</category>
       </categories>
       <tags>
-        <tag>计算机应用数学</tag>
         <tag>学习笔记</tag>
+        <tag>计算机应用数学</tag>
       </tags>
   </entry>
   <entry>
@@ -442,8 +455,8 @@
         <category>计算机应用数学</category>
       </categories>
       <tags>
-        <tag>计算机应用数学</tag>
         <tag>学习笔记</tag>
+        <tag>计算机应用数学</tag>
       </tags>
   </entry>
   <entry>
@@ -572,10 +585,10 @@
     <url>%2F2019%2F04%2F24%2FLambda%E6%BC%94%E7%AE%97%E7%B2%BE%E7%AE%80%E6%95%99%E7%A8%8B%2F</url>
     <content type="text"><![CDATA[前言这篇文章译自：https://learnxinyminutes.com/docs/lambda-calculus/，写的精简了点，理解起来可能有些困难 建议配合让我们谈谈 $\lambda$ 演算.pdf一起食用（出自https://github.com/txyyss/Lambda-Calculus/releases）。这篇不算长，深入浅出，写的也极好。 整体介绍Lambda演算( $\lambda$ 演算)由Alonzo Church提出，是世界上最简洁的编程语言。尽管没有数字、字符串、布尔值等非函数数据类型，lambda演算还是可以表达任何图灵机。 Lambda演算由三种元素组成：变量（variables），函数（functions），以及应用（applications）。 名称 语法 例子 解释 Variable &lt;name&gt; x 一个名为“x”的变量 Function $\lambda$ &lt;parameters&gt;.&lt;body&gt; $\lambda$ x.x 一个拥有参数“x”以及函数体x的函数 Application &lt;function&gt;&lt;variable or function&gt; ( $\lambda$ x.x).a 调用函数“ $\lambda$ x.x”且参数值为“a” 最基础的函数就是恒等函数： $\lambda$ x.x（即f(x)=x）。第一个“x”代表函数的参数，第二个“x”代表函数体。 自由变量vs约束变量 在 $\lambda$ x.x函数中，x被称为约束变量，因为它同时位于函数体和参数中。 在 $\lambda$ x.y函数中，y被称为自由变量，因为它从未被事先声明过。 计算通过 $\beta$ 规约进行计算，其基本上是词法范围的替代。 在计算表达式( $\lambda$ x.x)a时，我们用“a”替换函数体中出现的所有“x”。 ( $\lambda$ x.x)a 计算结果为：a ( $\lambda$ x.y)a 计算结果为：y 也可以创建高阶函数： ( $\lambda$ x.( $\lambda$ y.x))a 计算结果为： $\lambda$ y.a 虽然lambda演算传统上只支持单参数函数，但是我们可以使用一种称为currying的技术创建多参数函数。 ( $\lambda$ x. $\lambda$ y. $\lambda$ z.xyz) 即 f(x, y, z) = ((x y) z) 有时 $\lambda$ xy.&lt;body&gt;可与 $\lambda$ x. $\lambda$ y.&lt;body&gt;交替使用。 重要的是要认识到传统的lambda演算没有数字，字符或任何非函数数据类型！ 布尔逻辑在lambda演算中没有“True”或“False”。甚至没有1或0。 取而代之的是： T表示为： $\lambda$ x. $\lambda$ y.x F表示为： $\lambda$ x. $\lambda$ y.y 首先，我们可以定义一个“if”函数 $\lambda$ btf，如果b为True则返回t，如果b为False则返回f IF 也等同于 $\lambda$ b. $\lambda$ t. $\lambda$ f.b t f 通过使用IF，我们可以定义基础的布尔逻辑运算： a AND b 等同于: $\lambda$ ab.IF a b F a OR b 等同于: $\lambda$ ab.IF a T b NOT a 等同于: $\lambda$ a.IF a F T 注意: IF a b c 本质上是: IF((a b) c) 数字尽管lambda演算中没有数字，我们可以通过邱奇数编码数字。 任意数字n都可以编码为： $n = \lambda f.f^n$ 。因此： 0 = $\lambda$ f. $\lambda$ x.x 1 = $\lambda$ f. $\lambda$ x.f x 2 = $\lambda$ f. $\lambda$ x.f(f x) 3 = $\lambda$ f. $\lambda$ x.f(f(f x)) 为了增加邱奇数，我们使用继承函数s(n)=n+1，即 S = $\lambda$ n. $\lambda$ f. $\lambda$ x.f((n f) x) 通过继承，我们可以定义add： ADD = $\lambda$ ab.(a S)b 挑战：试着定义你自己的乘法函数！ 变得更精致：SKI，SK以及IotaSKI组合子演算使S, K, I，分别为以下函数： I x = x K x y = x S x y z = x z (y z) 我们可以将lambda演算中的表达式转换为SKI组合子演算中的表达式： $\lambda$ x.x = I $\lambda$ x.c = Kc $\lambda$ x.(y z) = S ( $\lambda$ x.y) ( $\lambda$ x.z) 以邱奇数2为例子： 2 = $\lambda$ f. $\lambda$ x.f(f x) 对于内部部分 $\lambda$ x.f(f x): $$\begin{split}\lambda x.f(f x) &amp;=&amp; S ( \lambda x.f) ( \lambda x.(f x)) (case 3) \\&amp;=&amp; S (K f) (S ( \lambda x.f) ( \lambda x.x)) (case 2, 3) \\&amp;=&amp; S (K f) (S (K f) I) (case 2, 1)\end{split}$$ 因此： $$\begin{split}2 &amp;=&amp; \lambda f. \lambda x.f(f x) \\&amp;=&amp; \lambda f.(S (K f) (S (K f) I)) \\&amp;=&amp; \lambda f.((S (K f)) (S (K f) I)) \\&amp;=&amp; S ( \lambda f.(S (K f))) ( \lambda f.(S (K f) I)) (case 3)\end{split}$$ 对于第一个参数 \lambda f.(S (K f))： $$\begin{split}\lambda f.(S (K f))&amp;=&amp; S ( \lambda f.S) ( \lambda f.(K f)) (case 3)\\&amp;=&amp; S (K S) (S ( \lambda f.K) ( \lambda f.f)) (case 2, 3)\\&amp;=&amp; S (K S) (S (K K) I) (case 2, 3)\end{split}$$ 对于第二个参数 \lambda f.(S (K f) I)： $$\begin{split} \lambda f.(S (K f) I)&amp;=&amp; \lambda f.((S (K f)) I)\\&amp;=&amp; S ( \lambda f.(S (K f))) ( \lambda f.I) (case 3)\\&amp;=&amp; S (S ( \lambda f.S) ( \lambda f.(K f))) (K I) (case 2, 3)\\&amp;=&amp; S (S (K S) (S ( \lambda f.K) ( \lambda f.f))) (K I) (case 1, 3)\\&amp;=&amp; S (S (K S) (S (K K) I)) (K I) (case 1, 2)\end{split}$$ 合到一起： $$\begin{split} 2&amp;=&amp; S ( \lambda f.(S (K f))) ( \lambda f.(S (K f) I))\\&amp;=&amp; S (S (K S) (S (K K) I)) (S (S (K S) (S (K K) I)) (K I))\end{split}$$ SK 组合子运算SKI组合子运算仍可进一步简化。我们可以通过注意I = SKK来移除I组合子。我们可以用SKK替换所有I。 Iota组合子SK组合子运算依然不是最简洁的。定义： $$\begin{split}ι = \lambda f.((f S) K)\end{split}$$ 我们就有： $$\begin{split}I &amp;=&amp; ιι\\K &amp;=&amp; ι(ιI) = ι(ι(ιι))\\S &amp;=&amp; ι(K) = ι(ι(ι(ιι)))\end{split}$$]]></content>
       <tags>
-        <tag>学习笔记</tag>
         <tag>lambda</tag>
         <tag>lambda演算</tag>
         <tag>lambda calculus</tag>
+        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -598,9 +611,9 @@
         <category>Learn Python in Y minutes</category>
       </categories>
       <tags>
+        <tag>6小时精通python</tag>
         <tag>python</tag>
         <tag>python3</tag>
-        <tag>6小时精通python</tag>
         <tag>python精通</tag>
       </tags>
   </entry>
@@ -626,9 +639,9 @@
         <category>Learn Python in Y minutes</category>
       </categories>
       <tags>
+        <tag>6小时精通python</tag>
         <tag>python</tag>
         <tag>python3</tag>
-        <tag>6小时精通python</tag>
         <tag>python精通</tag>
       </tags>
   </entry>
@@ -641,9 +654,9 @@
         <category>Learn Python in Y minutes</category>
       </categories>
       <tags>
+        <tag>6小时精通python</tag>
         <tag>python</tag>
         <tag>python3</tag>
-        <tag>6小时精通python</tag>
         <tag>python精通</tag>
       </tags>
   </entry>
@@ -656,9 +669,9 @@
         <category>Learn Python in Y minutes</category>
       </categories>
       <tags>
+        <tag>6小时精通python</tag>
         <tag>python</tag>
         <tag>python3</tag>
-        <tag>6小时精通python</tag>
         <tag>python精通</tag>
       </tags>
   </entry>
@@ -671,9 +684,9 @@
         <category>Learn Python in Y minutes</category>
       </categories>
       <tags>
+        <tag>6小时精通python</tag>
         <tag>python</tag>
         <tag>python3</tag>
-        <tag>6小时精通python</tag>
         <tag>python精通</tag>
       </tags>
   </entry>
@@ -929,9 +942,9 @@
     <content type="text"><![CDATA[构造方法：Thread(group=None, target=None, name=None, args=(), kwargs={}) group: 线程组，目前还没有实现，库引用中提示必须是None； target: 要执行的方法； name: 线程名； args/kwargs: 要传入方法的参数。 实例方法： isAlive(): 返回线程是否在运行。正在运行指启动后、终止前。 get/setName(name): 获取/设置线程名。 start(): 线程准备就绪，等待CPU调度 is/setDaemon(bool): 获取/设置是后台线程（默认前台线程（False））。（在start之前设置） 如果是后台线程，主线程执行过程中，后台线程也在进行，主线程执行完毕后，后台线程不论成功与否，主线程和后台线程均停止 如果是前台线程，主线程执行过程中，前台线程也在进行，主线程执行完毕后，等待前台线程也执行完成后，程序停止 start(): 启动线程。 join([timeout]): 阻塞当前上下文环境的线程，直到调用此方法的线程终止或到达指定的timeout（可选参数）。 示例代码123456789101112# Split items and run function through n threads# func形如func(arg_list[0], ..., arg_list[n], items),run_through_threads 可以把items分为num份分配给num个线程运行def run_through_threads(func, arg_list, items, num=4): threads = [] item_len = len(items) for i in range(num): threads.append(threading.Thread(target=func, args=(*arg_list, items[int(i*item_len/num):int((i+1)*item_len/num)]))) for t in threads: t.setDaemon(True) t.start() for t in threads: t.join()]]></content>
       <tags>
         <tag>python</tag>
-        <tag>python入门</tag>
         <tag>threading</tag>
         <tag>多线程</tag>
+        <tag>python入门</tag>
       </tags>
   </entry>
   <entry>
@@ -984,23 +997,13 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)]]></title>
-    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9Aerror%202003%20%EF%BC%88hy000%EF%BC%89-can't%20connect%20to%20mysql%20server%20on%20'localhost'%20(10061)%2F</url>
-    <content type="text"><![CDATA[问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项： /etc/mysql/my.cnf /etc/mysql/mysqld.cnf 在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成： #bind-address = 127.0.0.1 然后执行 service mysql restart重新启动mysql服务使配置生效即可。]]></content>
-      <tags>
-        <tag>trick</tag>
-        <tag>mysql</tag>
-        <tag>远程连接报错</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Python入门：pickle模块简介]]></title>
     <url>%2F2017%2F04%2F24%2FPython%E5%85%A5%E9%97%A8%EF%BC%9Apickle%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B%2F</url>
     <content type="text"><![CDATA[概要这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看https://docs.python.org/2/library/pickle.html pickle简介pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。 就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。 用pickle保存对象到文件1234567891011121314151617#导入pickle模块import pickle#创建一个名为data1的对象data1 = &#123;'a': '123', 'b': [1, 2, 3, 4]&#125;#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)file_to_save = open("data1.pkl", "wb")#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。#第一个参数是要保存的对象名#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。pickle.dump(data1, file_to_save, -1)#关闭文件对象file_to_save.close() 用pickle从文件中读取对象(请接着上一个脚本运行) 1234567891011121314#导入pickle模块import pickle#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)file_to_read = open('data1.pkl', 'rb')#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2data2 = pickle.load(file_to_read)#打印data2print data2#关闭文件对象file_to_read.close()]]></content>
       <tags>
         <tag>python</tag>
-        <tag>pickle</tag>
         <tag>python入门</tag>
+        <tag>pickle</tag>
       </tags>
   </entry>
   <entry>
@@ -1012,6 +1015,16 @@
         <tag>trick</tag>
         <tag>mysql</tag>
         <tag>mysql-python安装错误</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)]]></title>
+    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9Aerror%202003%20%EF%BC%88hy000%EF%BC%89-can't%20connect%20to%20mysql%20server%20on%20'localhost'%20(10061)%2F</url>
+    <content type="text"><![CDATA[问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项： /etc/mysql/my.cnf /etc/mysql/mysqld.cnf 在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成： #bind-address = 127.0.0.1 然后执行 service mysql restart重新启动mysql服务使配置生效即可。]]></content>
+      <tags>
+        <tag>trick</tag>
+        <tag>mysql</tag>
+        <tag>远程连接报错</tag>
       </tags>
   </entry>
   <entry>
