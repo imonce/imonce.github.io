@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="算法简介模拟退火算法的思想借鉴于固体的退火原理，当固体的温度很高的时候，内能比较大，固体的内部粒子处于快速无序运动，当温度慢慢降低的过程中，固体的内能减小，粒子的慢慢趋于有序，最终，当固体处于常温时，内能达到最小，此时，粒子最为稳定。模拟退火算法便是基于这样的原理设计而成。 模拟退火算法从某一高温出发，在高温状态下计算初始解，然后以预设的邻域函数产生一个扰动量，从而得到新的状态，即模拟粒子的无序运">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-06T14:41:09.654Z">
+<meta property="og:updated_time" content="2019-11-06T15:16:24.851Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="启发式算法学习（二）：模拟退火算法">
 <meta name="twitter:description" content="算法简介模拟退火算法的思想借鉴于固体的退火原理，当固体的温度很高的时候，内能比较大，固体的内部粒子处于快速无序运动，当温度慢慢降低的过程中，固体的内能减小，粒子的慢慢趋于有序，最终，当固体处于常温时，内能达到最小，此时，粒子最为稳定。模拟退火算法便是基于这样的原理设计而成。 模拟退火算法从某一高温出发，在高温状态下计算初始解，然后以预设的邻域函数产生一个扰动量，从而得到新的状态，即模拟粒子的无序运">
@@ -434,7 +434,7 @@
                 
               
 
-              <time title="Created: 2019-11-06 20:11:32 / Modified: 22:41:09" itemprop="dateCreated datePublished" datetime="2019-11-06T20:11:32+08:00">2019-11-06</time>
+              <time title="Created: 2019-11-06 20:11:32 / Modified: 23:16:24" itemprop="dateCreated datePublished" datetime="2019-11-06T20:11:32+08:00">2019-11-06</time>
             
 
             
@@ -517,7 +517,7 @@
 
 <h1 id="状态空间与邻域函数"><a href="#状态空间与邻域函数" class="headerlink" title="状态空间与邻域函数"></a>状态空间与邻域函数</h1><p>状态空间也称为搜索空间，它由经过编码的可行解的集合所组成。而邻域函数应尽可能满足产生的候选解遍布全部状态空间。其通常由产生候选解的方式和候选解产生的概率分布组成。候选解一般按照某一概率密度函数对解空间进行随机采样获得，而概率分布可以为均匀分布、正态分布、指数分布等。</p>
 <h1 id="状态概率分布（Metropolis准则）"><a href="#状态概率分布（Metropolis准则）" class="headerlink" title="状态概率分布（Metropolis准则）"></a>状态概率分布（Metropolis准则）</h1><p>状态转移概率是指从一个状态转换成另一个状态的概率，模拟退火算法中一般采用Metropolis准则，具体如下：</p>
-<p>$$f(x)=\left{<br>\begin{aligned}<br>1 &amp; , &amp; E(x_{new}) &lt; E(x_{old}) \<br>exp(-\frac{E(x_{new})-E(x_{old})}{T}) &amp; , &amp; E(x_{new}) \ge E(x_{old})<br>\end{aligned}<br>\right.$$</p>
+<p>$$f(x)=\left\lbrace\begin{array}{cll}<br>1 &amp; , &amp; E(x_{new}) &lt; E(x_{old}) \\<br>exp(-\frac{E(x_{new})-E(x_{old})}{T}) &amp; , &amp; E(x_{new}) \ge E(x_{old})<br>\end{array}\right.$$</p>
 <p>其与当前温度参数T有关，随温度的下降而减小。</p>
 <h1 id="冷却进度表"><a href="#冷却进度表" class="headerlink" title="冷却进度表"></a>冷却进度表</h1><p>冷却进度表是指从某一高温状态T向低温状态冷却时的降温函数,设时刻的温度为T(t)，则经典模拟退火算法的降温方式为：</p>
 <p>$$T(t)=\frac{T_{0}}{lg(1+t)}$$</p>
