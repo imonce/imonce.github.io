@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="算法简介粒子群算法（Particle swarm optimization，PSO）是模拟群体智能所建立起来的一种优化算法，主要用于解决最优化问题（optimization problems）。1995年由 Eberhart和Kennedy 提出，是基于对鸟群觅食行为的研究和模拟而来的。 假设一群鸟在觅食，在觅食范围内，只在一个地方有食物，所有鸟儿都看不到食物（即不知道食物的具体位置。当然不知道了">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-06T09:00:33.130Z">
+<meta property="og:updated_time" content="2019-11-06T14:47:26.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="启发式算法学习（一）：粒子群算法">
 <meta name="twitter:description" content="算法简介粒子群算法（Particle swarm optimization，PSO）是模拟群体智能所建立起来的一种优化算法，主要用于解决最优化问题（optimization problems）。1995年由 Eberhart和Kennedy 提出，是基于对鸟群觅食行为的研究和模拟而来的。 假设一群鸟在觅食，在觅食范围内，只在一个地方有食物，所有鸟儿都看不到食物（即不知道食物的具体位置。当然不知道了">
@@ -246,7 +246,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">154</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">156</span></a>
 
   </li>
         
@@ -284,7 +284,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">96</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">98</span></a>
 
   </li>
         
@@ -434,7 +434,7 @@
                 
               
 
-              <time title="Created: 2019-11-06 16:47:13 / Modified: 17:00:33" itemprop="dateCreated datePublished" datetime="2019-11-06T16:47:13+08:00">2019-11-06</time>
+              <time title="Created: 2019-11-06 16:47:13 / Modified: 22:47:26" itemprop="dateCreated datePublished" datetime="2019-11-06T16:47:13+08:00">2019-11-06</time>
             
 
             
@@ -561,8 +561,7 @@
 <h1 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">f(x1,x2) = x1**2 + x2**2, x1,x2 belongs to [-10,10],求Min f</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PSO</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, population_size, max_steps)</span>:</span></span><br><span class="line">        self.w = <span class="number">0.6</span>  <span class="comment"># 惯性权重</span></span><br><span class="line">        self.c1 = self.c2 = <span class="number">2</span></span><br><span class="line">        self.population_size = population_size  <span class="comment"># 粒子群数量</span></span><br><span class="line">        self.dim = <span class="number">2</span>  <span class="comment"># 搜索空间的维度</span></span><br><span class="line">        self.max_steps = max_steps  <span class="comment"># 迭代次数</span></span><br><span class="line">        self.x_bound = [<span class="number">-10</span>, <span class="number">10</span>]  <span class="comment"># 解空间范围</span></span><br><span class="line">        self.x = np.random.uniform(self.x_bound[<span class="number">0</span>], self.x_bound[<span class="number">1</span>],</span><br><span class="line">                                   (self.population_size, self.dim))  <span class="comment"># 初始化粒子群位置</span></span><br><span class="line">        self.v = np.random.rand(self.population_size, self.dim)  <span class="comment"># 初始化粒子群速度</span></span><br><span class="line">        fitness = self.calculate_fitness(self.x)</span><br><span class="line">        self.p = self.x  <span class="comment"># 个体的最佳位置</span></span><br><span class="line">        self.pg = self.x[np.argmin(fitness)]  <span class="comment"># 全局最佳位置</span></span><br><span class="line">        self.individual_best_fitness = fitness  <span class="comment"># 个体的最优适应度</span></span><br><span class="line">        self.global_best_fitness = np.max(fitness)  <span class="comment"># 全局最佳适应度</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">calculate_fitness</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> np.sum(np.square(x), axis=<span class="number">1</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">evolve</span><span class="params">(self)</span>:</span></span><br><span class="line">        fig = plt.figure()</span><br><span class="line">        <span class="keyword">for</span> step <span class="keyword">in</span> range(self.max_steps):</span><br><span class="line">            r1 = np.random.rand(self.population_size, self.dim)</span><br><span class="line">            r2 = np.random.rand(self.population_size, self.dim)</span><br><span class="line">            <span class="comment"># 更新速度和权重</span></span><br><span class="line">            self.v = self.w*self.v+self.c1*r1*(self.p-self.x)+self.c2*r2*(self.pg-self.x)</span><br><span class="line">            self.x = self.v + self.x</span><br><span class="line">            plt.clf()</span><br><span class="line">            plt.scatter(self.x[:, <span class="number">0</span>], self.x[:, <span class="number">1</span>], s=<span class="number">30</span>, color=<span class="string">'k'</span>)</span><br><span class="line">            plt.xlim(self.x_bound[<span class="number">0</span>], self.x_bound[<span class="number">1</span>])</span><br><span class="line">            plt.ylim(self.x_bound[<span class="number">0</span>], self.x_bound[<span class="number">1</span>])</span><br><span class="line">            plt.pause(<span class="number">0.01</span>)</span><br><span class="line">            <span class="comment"># plt.ion()</span></span><br><span class="line">            <span class="comment"># plt.show()</span></span><br><span class="line">           </span><br><span class="line">            fitness = self.calculate_fitness(self.x)</span><br><span class="line">            <span class="comment"># 需要更新的个体</span></span><br><span class="line">            update_id = np.greater(self.individual_best_fitness, fitness)</span><br><span class="line">            self.p[update_id] = self.x[update_id]</span><br><span class="line">            self.individual_best_fitness[update_id] = fitness[update_id]</span><br><span class="line">            <span class="comment"># 新一代出现了更小的fitness，所以更新全局最优fitness和位置</span></span><br><span class="line">            <span class="keyword">if</span> np.min(fitness) &lt; self.global_best_fitness:</span><br><span class="line">                self.pg = self.x[np.argmin(fitness)]</span><br><span class="line">                self.global_best_fitness = np.min(fitness)</span><br><span class="line">            print(<span class="string">'best fitness: %.5f, mean fitness: %.5f'</span> % (self.global_best_fitness, np.mean(fitness)))</span><br><span class="line">            </span><br><span class="line">pso = PSO(<span class="number">10</span>, <span class="number">100</span>)</span><br><span class="line">pso.evolve()</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>Reference:<br><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poYW96eDE5OTUwODAzL2FydGljbGUvZGV0YWlscy83OTg1NDQ2Ng==" title="https://blog.csdn.net/zhaozx19950803/article/details/79854466">https://blog.csdn.net/zhaozx19950803/article/details/79854466<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3l5MjA1MDY0NS9hcnRpY2xlL2RldGFpbHMvODA3NDA2NDE=" title="https://blog.csdn.net/yy2050645/article/details/80740641">https://blog.csdn.net/yy2050645/article/details/80740641<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pqMTU1Mjc2MjA4MDIvYXJ0aWNsZS9kZXRhaWxzLzgxMzY2MTA1" title="https://blog.csdn.net/zj15527620802/article/details/81366105">https://blog.csdn.net/zj15527620802/article/details/81366105<i class="fa fa-external-link"></i></span><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">flowchat
-st=>start: Start
+<p>Reference:<br><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poYW96eDE5OTUwODAzL2FydGljbGUvZGV0YWlscy83OTg1NDQ2Ng==" title="https://blog.csdn.net/zhaozx19950803/article/details/79854466">https://blog.csdn.net/zhaozx19950803/article/details/79854466<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3l5MjA1MDY0NS9hcnRpY2xlL2RldGFpbHMvODA3NDA2NDE=" title="https://blog.csdn.net/yy2050645/article/details/80740641">https://blog.csdn.net/yy2050645/article/details/80740641<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pqMTU1Mjc2MjA4MDIvYXJ0aWNsZS9kZXRhaWxzLzgxMzY2MTA1" title="https://blog.csdn.net/zj15527620802/article/details/81366105">https://blog.csdn.net/zj15527620802/article/details/81366105<i class="fa fa-external-link"></i></span><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: Start
 op1=>operation: 初始化参数
 op2=>operation: 计算各粒子适应值
 op3=>operation: 找出个体和群体的最优值和最优位置
@@ -622,6 +621,10 @@ cond(no)->op2</textarea><textarea id="flowchart-0-options" style="display: none"
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/06/启发式算法学习（二）：模拟退火算法/" rel="prev" title="启发式算法学习（二）：模拟退火算法">
+                启发式算法学习（二）：模拟退火算法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -696,7 +699,7 @@ cond(no)->op2</textarea><textarea id="flowchart-0-options" style="display: none"
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">96</span>
+                    <span class="site-state-item-count">98</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1074,7 +1077,11 @@ cond(no)->op2</textarea><textarea id="flowchart-0-options" style="display: none"
                     
                       
                     
-                    <span class="site-state-item-count">154</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">156</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

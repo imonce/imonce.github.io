@@ -261,7 +261,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">154</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">156</span></a>
 
   </li>
         
@@ -299,7 +299,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">96</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">98</span></a>
 
   </li>
         
@@ -542,8 +542,7 @@
 <p>###4.4 配置mysql</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">(输入你的数据库root密码)</span><br><span class="line">mysql&gt; create database zabbix character set utf8 collate utf8_bin;</span><br><span class="line">mysql&gt; grant all privileges on zabbix.* to zabbix@localhost identified by &apos;zabbix&apos;;</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">mysql&gt; \q</span><br><span class="line">cd /usr/share/doc/zabbix-server-mysql</span><br><span class="line">zcat create.sql.gz | mysql -u root -p zabbix</span><br><span class="line">（输入你的数据库root密码，点击回车后稍微等一会儿）</span><br><span class="line">sudo cp -r /usr/share/zabbix /var/www/html/zabbix</span><br><span class="line">/etc/init.d/zabbix-server restart</span><br></pre></td></tr></table></figure>
 
-<p>最后出现下列语句即为成功：<br><img src="/assets/images/zabbix_8.jpg" alt="[OK]Starting zabbix_server (via systemctl):zabbix_server.service"></p>
-<p>###4.5 配置php<br>编辑php的配置文件：<br><code>sudo vim /etc/php5/apache2/php.ini</code><br>把对应项的值改为如下(没有的自己在对应位置加上即可)：</p>
+<p>最后出现下列语句即为成功：<br><img src="/assets/images/zabbix_8.jpg" alt="[OK]Starting zabbix_server (via systemctl):zabbix_server.service"><br>###4.5 配置php<br>编辑php的配置文件：<br><code>sudo vim /etc/php5/apache2/php.ini</code><br>把对应项的值改为如下(没有的自己在对应位置加上即可)：</p>
 <ul>
 <li>post_max_size = 16M</li>
 <li>max_execution_time = 300</li>
@@ -551,8 +550,7 @@
 <li>date.timezone = “Asia/Shanghai”</li>
 </ul>
 <p>改完之后重启apache2：<br><code>/etc/init.d/apache2 restart</code></p>
-<h2 id="5-进入zabbix"><a href="#5-进入zabbix" class="headerlink" title="5.进入zabbix"></a>5.进入zabbix</h2><p>在另外一台PC上打开浏览器，在地址栏输入：<br><em><span class="exturl" data-url="aHR0cDovL0lQQWRkci96YWJiaXg=" title="http://IPAddr/zabbix">http://IPAddr/zabbix<i class="fa fa-external-link"></i></span></em><br>显示以下页面：<br><img src="/assets/images/zabbix_9.jpg" alt="zabbix欢迎页面"><br>点击右下角的Next step进入Check of pre-requisites页面：<br><img src="/assets/images/zabbix_10.jpg" alt="Check of pre-requisites页面"><br>这个页面是检测服务器配置是否合格的页面，必须全部为OK才可以点击Next step进入Configure DB connection页面。<br><img src="/assets/images/zabbix_11.jpg" alt="Configure DB connection页面"><br>其中password为zabbix（我们刚刚配置数据库时设置的）。<br>接下来的Zabbix server details和Pre-installation summary两个页面无脑点Next step即可。<br>显示如下页面我们就可以点击Finish了。<br><img src="/assets/images/zabbix_12.jpg" alt="Congratulations"><br>点击Finish之后出现zabbix server的登录页面，这里Username为Admin，Password为zabbix，最后点击Sign in，大功告成~
-<img src="/assets/images/zabbix_13.jpg" alt="登录页面"><br><img src="/assets/images/zabbix_14.jpg" alt="zabbix管理页面"></p>
+<h2 id="5-进入zabbix"><a href="#5-进入zabbix" class="headerlink" title="5.进入zabbix"></a>5.进入zabbix</h2><p>在另外一台PC上打开浏览器，在地址栏输入：<br><em><span class="exturl" data-url="aHR0cDovL0lQQWRkci96YWJiaXg=" title="http://IPAddr/zabbix">http://IPAddr/zabbix<i class="fa fa-external-link"></i></span></em><br>显示以下页面：<br><img src="/assets/images/zabbix_9.jpg" alt="zabbix欢迎页面"><br>点击右下角的Next step进入Check of pre-requisites页面：<br><img src="/assets/images/zabbix_10.jpg" alt="Check of pre-requisites页面"><br>这个页面是检测服务器配置是否合格的页面，必须全部为OK才可以点击Next step进入Configure DB connection页面。<br><img src="/assets/images/zabbix_11.jpg" alt="Configure DB connection页面"><br>其中password为zabbix（我们刚刚配置数据库时设置的）。<br>接下来的Zabbix server details和Pre-installation summary两个页面无脑点Next step即可。<br>显示如下页面我们就可以点击Finish了。<br><img src="/assets/images/zabbix_12.jpg" alt="Congratulations"><br>点击Finish之后出现zabbix server的登录页面，这里Username为Admin，Password为zabbix，最后点击Sign in，大功告成~<br><img src="/assets/images/zabbix_13.jpg" alt="登录页面"><br><img src="/assets/images/zabbix_14.jpg" alt="zabbix管理页面"></p>
 
       
     </div>
@@ -674,7 +672,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">96</span>
+                    <span class="site-state-item-count">98</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1052,7 +1050,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">154</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">156</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
