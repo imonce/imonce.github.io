@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="问题描述：安装mysql-python时报错： 12345678910111213141516Collecting mysql-python  Using cached MySQL-python-1.2.5.zip    Complete output from command python setup.py egg_info:    sh: 1: mysql_config: not found">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-31T05:56:06.519Z">
+<meta property="og:updated_time" content="2019-11-07T11:54:51.509Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql-python安装错误：EnvironmentError:mysql_config not found">
 <meta name="twitter:description" content="问题描述：安装mysql-python时报错： 12345678910111213141516Collecting mysql-python  Using cached MySQL-python-1.2.5.zip    Complete output from command python setup.py egg_info:    sh: 1: mysql_config: not found">
@@ -246,7 +246,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">156</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">159</span></a>
 
   </li>
         
@@ -284,7 +284,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">98</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">99</span></a>
 
   </li>
         
@@ -451,7 +451,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-07-31 13:56:06" itemprop="dateModified" datetime="2018-07-31T13:56:06+08:00">2018-07-31</time>
+                <time title="Modified: 2019-11-07 19:54:51" itemprop="dateModified" datetime="2019-11-07T19:54:51+08:00">2019-11-07</time>
               
             
           </span>
@@ -506,7 +506,7 @@
 
       
         <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><p>安装mysql-python时报错：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Collecting mysql-python</span><br><span class="line">  Using cached MySQL-python-1.2.5.zip</span><br><span class="line">    Complete output from command python setup.py egg_info:</span><br><span class="line">    sh: 1: mysql_config: not found</span><br><span class="line">    Traceback (most recent call last):</span><br><span class="line">      File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">      File &quot;/tmp/pip-build-_itbcX/mysql-python/setup.py&quot;, line 17, in &lt;module&gt;</span><br><span class="line">        metadata, options = get_config()</span><br><span class="line">      File &quot;setup_posix.py&quot;, line 43, in get_config</span><br><span class="line">        libs = mysql_config(&quot;libs_r&quot;)</span><br><span class="line">      File &quot;setup_posix.py&quot;, line 25, in mysql_config</span><br><span class="line">        raise EnvironmentError(&quot;%s not found&quot; % (mysql_config.path,))</span><br><span class="line">    EnvironmentError: mysql_config not found</span><br><span class="line"></span><br><span class="line">    ----------------------------------------</span><br><span class="line">Command &quot;python setup.py egg_info&quot; failed with error code 1 in /tmp/pip-build-_itbcX/mysql-python/</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Collecting mysql-python</span><br><span class="line">  Using cached MySQL-python-1.2.5.zip</span><br><span class="line">    Complete output from <span class="built_in">command</span> python setup.py egg_info:</span><br><span class="line">    sh: 1: mysql_config: not found</span><br><span class="line">    Traceback (most recent call last):</span><br><span class="line">      File <span class="string">"&lt;string&gt;"</span>, line 1, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">      File <span class="string">"/tmp/pip-build-_itbcX/mysql-python/setup.py"</span>, line 17, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">        metadata, options = get_config()</span><br><span class="line">      File <span class="string">"setup_posix.py"</span>, line 43, <span class="keyword">in</span> get_config</span><br><span class="line">        libs = mysql_config(<span class="string">"libs_r"</span>)</span><br><span class="line">      File <span class="string">"setup_posix.py"</span>, line 25, <span class="keyword">in</span> mysql_config</span><br><span class="line">        raise EnvironmentError(<span class="string">"%s not found"</span> % (mysql_config.path,))</span><br><span class="line">    EnvironmentError: mysql_config not found</span><br><span class="line"></span><br><span class="line">    ----------------------------------------</span><br><span class="line">Command <span class="string">"python setup.py egg_info"</span> failed with error code 1 <span class="keyword">in</span> /tmp/pip-build-_itbcX/mysql-python/</span><br></pre></td></tr></table></figure>
 
 <h2 id="问题原因："><a href="#问题原因：" class="headerlink" title="问题原因："></a>问题原因：</h2><p>没有安装libmysqlclient-dev。</p>
 <h2 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h2><p>执行：</p>
@@ -641,7 +641,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">98</span>
+                    <span class="site-state-item-count">99</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1023,7 +1023,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">156</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">159</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

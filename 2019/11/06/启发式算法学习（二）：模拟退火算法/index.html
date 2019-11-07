@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="算法简介模拟退火算法的思想借鉴于固体的退火原理，当固体的温度很高的时候，内能比较大，固体的内部粒子处于快速无序运动，当温度慢慢降低的过程中，固体的内能减小，粒子的慢慢趋于有序，最终，当固体处于常温时，内能达到最小，此时，粒子最为稳定。模拟退火算法便是基于这样的原理设计而成。 模拟退火算法从某一高温出发，在高温状态下计算初始解，然后以预设的邻域函数产生一个扰动量，从而得到新的状态，即模拟粒子的无序运">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-06T15:16:24.851Z">
+<meta property="og:updated_time" content="2019-11-07T12:36:39.544Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="启发式算法学习（二）：模拟退火算法">
 <meta name="twitter:description" content="算法简介模拟退火算法的思想借鉴于固体的退火原理，当固体的温度很高的时候，内能比较大，固体的内部粒子处于快速无序运动，当温度慢慢降低的过程中，固体的内能减小，粒子的慢慢趋于有序，最终，当固体处于常温时，内能达到最小，此时，粒子最为稳定。模拟退火算法便是基于这样的原理设计而成。 模拟退火算法从某一高温出发，在高温状态下计算初始解，然后以预设的邻域函数产生一个扰动量，从而得到新的状态，即模拟粒子的无序运">
@@ -246,7 +246,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">156</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">159</span></a>
 
   </li>
         
@@ -284,7 +284,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">98</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">99</span></a>
 
   </li>
         
@@ -434,12 +434,24 @@
                 
               
 
-              <time title="Created: 2019-11-06 20:11:32 / Modified: 23:16:24" itemprop="dateCreated datePublished" datetime="2019-11-06T20:11:32+08:00">2019-11-06</time>
+              <time title="Created: 2019-11-06 20:11:32" itemprop="dateCreated datePublished" datetime="2019-11-06T20:11:32+08:00">2019-11-06</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-11-07 20:36:39" itemprop="dateModified" datetime="2019-11-07T20:36:39+08:00">2019-11-07</time>
               
             
           </span>
@@ -547,24 +559,21 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SA</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, interval, tab=<span class="string">'min'</span>, T_max=<span class="number">10000</span>, T_min=<span class="number">1</span>, iterMax=<span class="number">1000</span>, rate=<span class="number">0.95</span>)</span>:</span></span><br><span class="line">        self.interval = interval <span class="comment"># 给定状态空间 - 即待求解空间</span></span><br><span class="line">        self.T_max = T_max <span class="comment"># 初始退火温度 - 温度上限</span></span><br><span class="line">        self.T_min = T_min <span class="comment"># 截止退火温度 - 温度下限</span></span><br><span class="line">        self.iterMax = iterMax <span class="comment"># 定温内部迭代次数</span></span><br><span class="line">        self.rate = rate <span class="comment"># 退火降温速度</span></span><br><span class="line">        </span><br><span class="line">        self.x_seed = random.uniform(interval[<span class="number">0</span>], interval[<span class="number">1</span>]) <span class="comment"># 解空间内的种子</span></span><br><span class="line">        self.tab = tab.strip() <span class="comment"># 求解最大值还是最小值的标签: 'min' - 最小值；'max' - 最大值</span></span><br><span class="line"></span><br><span class="line">        self.solve() <span class="comment"># 完成主体的求解过程</span></span><br><span class="line">        self.display() <span class="comment"># 数据可视化展示</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">solve</span><span class="params">(self)</span>:</span></span><br><span class="line">        temp = <span class="string">'deal_'</span> + self.tab <span class="comment"># 采用反射方法提取对应的函数</span></span><br><span class="line">        <span class="keyword">if</span> hasattr(self, temp):</span><br><span class="line">            deal = getattr(self, temp)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            exit(<span class="string">'&gt;&gt;&gt;tab标签传参有误："min"|"max"&lt;&lt;&lt;'</span>)  </span><br><span class="line">        x1 = self.x_seed</span><br><span class="line">        T = self.T_max</span><br><span class="line">        <span class="keyword">while</span> T &gt;= self.T_min:</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(self.iterMax):</span><br><span class="line">                f1 = self.func(x1)</span><br><span class="line">                delta_x = random.random() * <span class="number">2</span> - <span class="number">1</span> <span class="comment"># [-1,1)之间的随机值</span></span><br><span class="line">                <span class="keyword">if</span> x1 + delta_x &gt;= self.interval[<span class="number">0</span>] <span class="keyword">and</span> x1 + delta_x &lt;= self.interval[<span class="number">1</span>]:   <span class="comment"># 将随机解束缚在给定状态空间内</span></span><br><span class="line">                    x2 = x1 + delta_x</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    x2 = x1 - delta_x</span><br><span class="line">                f2 = self.func(x2)</span><br><span class="line">                delta_f = f2 - f1</span><br><span class="line">                x1 = deal(x1, x2, delta_f, T)</span><br><span class="line">            T *= self.rate</span><br><span class="line">        self.x_solu = x1 <span class="comment"># 提取最终退火解       </span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(self, x)</span>:</span> <span class="comment"># 状态产生函数 - 即待求解函数</span></span><br><span class="line">        value = np.sin(x**<span class="number">2</span>) * (x**<span class="number">2</span> - <span class="number">5</span>*x)</span><br><span class="line">        <span class="keyword">return</span> value</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">p_min</span><span class="params">(self, delta, T)</span>:</span> <span class="comment"># 计算最小值时，容忍解的状态迁移概率</span></span><br><span class="line">        probability = np.exp(-delta/T)</span><br><span class="line">        <span class="keyword">return</span> probability</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">p_max</span><span class="params">(self, delta, T)</span>:</span></span><br><span class="line">        probability = np.exp(delta/T) <span class="comment"># 计算最大值时，容忍解的状态迁移概率</span></span><br><span class="line">        <span class="keyword">return</span> probability</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">deal_min</span><span class="params">(self, x1, x2, delta, T)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> delta &lt; <span class="number">0</span>: <span class="comment"># 更优解</span></span><br><span class="line">            <span class="keyword">return</span> x2</span><br><span class="line">        <span class="keyword">else</span>: <span class="comment"># 容忍解</span></span><br><span class="line">            P = self.p_min(delta, T)</span><br><span class="line">            <span class="keyword">if</span> P &gt; random.random(): <span class="keyword">return</span> x2</span><br><span class="line">            <span class="keyword">else</span>: <span class="keyword">return</span> x1</span><br><span class="line">            </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">deal_max</span><span class="params">(self, x1, x2, delta, T)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> delta &gt; <span class="number">0</span>: <span class="comment"># 更优解</span></span><br><span class="line">            <span class="keyword">return</span> x2</span><br><span class="line">        <span class="keyword">else</span>: <span class="comment"># 容忍解</span></span><br><span class="line">            P = self.p_max(delta, T)</span><br><span class="line">            <span class="keyword">if</span> P &gt; random.random(): <span class="keyword">return</span> x2</span><br><span class="line">            <span class="keyword">else</span>: <span class="keyword">return</span> x1</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">display</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'seed: &#123;&#125;\nsolution: &#123;&#125;'</span>.format(self.x_seed, self.x_solu))</span><br><span class="line">        plt.figure(figsize=(<span class="number">6</span>, <span class="number">4</span>))</span><br><span class="line">        x = np.linspace(self.interval[<span class="number">0</span>], self.interval[<span class="number">1</span>], <span class="number">300</span>)</span><br><span class="line">        y = self.func(x)</span><br><span class="line">        plt.plot(x, y, <span class="string">'g-'</span>, label=<span class="string">'function'</span>)</span><br><span class="line">        plt.plot(self.x_seed, self.func(self.x_seed), <span class="string">'bo'</span>, label=<span class="string">'seed'</span>)</span><br><span class="line">        plt.plot(self.x_solu, self.func(self.x_solu), <span class="string">'r*'</span>, label=<span class="string">'solution'</span>)</span><br><span class="line">        plt.title(<span class="string">'solution = &#123;&#125;'</span>.format(self.x_solu))</span><br><span class="line">        plt.xlabel(<span class="string">'x'</span>)</span><br><span class="line">        plt.ylabel(<span class="string">'y'</span>)</span><br><span class="line">        plt.legend()</span><br><span class="line">        plt.savefig(<span class="string">'SA.png'</span>, dpi=<span class="number">500</span>)</span><br><span class="line">        plt.show()</span><br><span class="line">        plt.close()</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    SA([<span class="number">-5</span>, <span class="number">5</span>], <span class="string">'max'</span>)</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>Reference<br><span class="exturl" data-url="aHR0cHM6Ly93d3cuaW1vb2MuY29tL2FydGljbGUvMzAxNjA=" title="https://www.imooc.com/article/30160">https://www.imooc.com/article/30160<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS/mqKHmi5/pgIDngavnrpfms5UvMzU1NTA4P2ZyPWFsYWRkaW4=" title="https://baike.baidu.com/item/模拟退火算法/355508?fr=aladdin">https://baike.baidu.com/item/模拟退火算法/355508?fr=aladdin<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dvb2dsZTE5ODkwMTAyL2FydGljbGUvZGV0YWlscy80NTM5NTI1Nw==" title="https://blog.csdn.net/google19890102/article/details/45395257">https://blog.csdn.net/google19890102/article/details/45395257<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20veHhoYmRrL3AvOTE5Mjc1MC5odG1s" title="https://www.cnblogs.com/xxhbdk/p/9192750.html">https://www.cnblogs.com/xxhbdk/p/9192750.html<i class="fa fa-external-link"></i></span><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">flowchat
-st=>start: Start
+<p>Reference<br><span class="exturl" data-url="aHR0cHM6Ly93d3cuaW1vb2MuY29tL2FydGljbGUvMzAxNjA=" title="https://www.imooc.com/article/30160">https://www.imooc.com/article/30160<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS/mqKHmi5/pgIDngavnrpfms5UvMzU1NTA4P2ZyPWFsYWRkaW4=" title="https://baike.baidu.com/item/模拟退火算法/355508?fr=aladdin">https://baike.baidu.com/item/模拟退火算法/355508?fr=aladdin<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dvb2dsZTE5ODkwMTAyL2FydGljbGUvZGV0YWlscy80NTM5NTI1Nw==" title="https://blog.csdn.net/google19890102/article/details/45395257">https://blog.csdn.net/google19890102/article/details/45395257<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20veHhoYmRrL3AvOTE5Mjc1MC5odG1s" title="https://www.cnblogs.com/xxhbdk/p/9192750.html">https://www.cnblogs.com/xxhbdk/p/9192750.html<i class="fa fa-external-link"></i></span><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: Start
 op1=>operation: 随机生成初始解w，计算目标函数f(w)
 op2=>operation: 扰动产生新解w'，计算目标函数f(w')
-op3=>operation: 接受新解，w=w',f(w)=f(w')
+op3=>operation: 接受新解，w=w'，f(w)=f(w')
 op4=>operation: 按照Metropolis准则接受新解
 op5=>operation: 缓慢降低温度，重置迭代次数
 op6=>operation: 运算结束，返回最优解
-cond1=>condition: f(w')-f(w)<=0? cond2>condition: 是否达到迭代次数?
+cond1=>condition: f(w')更接近优化目标？
+cond2=>condition: 是否达到迭代次数?
 cond3=>condition: 满足终止条件?
 ed=>end: End
-st->op1->op2->cond1
-cond1(yes)->op3->cond2
+st->op1->op2->cond1(yes)->op3->cond2(no)->cond3(yes)->op6->ed
 cond1(no)->op4->cond2
-cond2(yes)->cond3
-cond2(no)->op2
-cond3(yes)->op6->end
-cond3(no)->op5(top)->op2</=0?></textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script></p>
+cond2(yes)->op6->ed
+cond3(no)->op5(top)->op2</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script></p>
 </blockquote>
 
       
@@ -691,7 +700,7 @@ cond3(no)->op5(top)->op2</=0?></textarea><textarea id="flowchart-0-options" styl
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">98</span>
+                    <span class="site-state-item-count">99</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1073,7 +1082,13 @@ cond3(no)->op5(top)->op2</=0?></textarea><textarea id="flowchart-0-options" styl
                     
                       
                     
-                    <span class="site-state-item-count">156</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">159</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

@@ -118,7 +118,7 @@
 <meta property="og:image" content="https://imonce.github.io/assets/images/zabbix_12.jpg">
 <meta property="og:image" content="https://imonce.github.io/assets/images/zabbix_13.jpg">
 <meta property="og:image" content="https://imonce.github.io/assets/images/zabbix_14.jpg">
-<meta property="og:updated_time" content="2016-12-10T15:58:40.000Z">
+<meta property="og:updated_time" content="2019-11-07T11:54:57.046Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从0到100：zabbix及其支持环境的完整安装教程">
 <meta name="twitter:description" content="版本信息：Ubuntu15.10Apache2.4.12php5.6.11（zabbix3.0要求php版本至少5.4以上）Mysql5.6.31zabbix3.0 前言：本教程包括了ubuntu上LAMP(Linux+Apache+Mysql+Php)环境的搭建以及zabbix安装。因为我们最终是要通过外部计算机访问我们的服务器的，所以我希望你可以先运行一下“ifconfig -a”语句来查看以">
@@ -261,7 +261,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">156</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">159</span></a>
 
   </li>
         
@@ -299,7 +299,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">98</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">99</span></a>
 
   </li>
         
@@ -466,7 +466,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2016-12-10 23:58:40" itemprop="dateModified" datetime="2016-12-10T23:58:40+08:00">2016-12-10</time>
+                <time title="Modified: 2019-11-07 19:54:57" itemprop="dateModified" datetime="2019-11-07T19:54:57+08:00">2019-11-07</time>
               
             
           </span>
@@ -529,7 +529,7 @@
 <h2 id="2-安装Mysql"><a href="#2-安装Mysql" class="headerlink" title="2.安装Mysql"></a>2.安装Mysql</h2><p>在命令行运行下列语句下载mysql：<br><code>sudo apt-get install mysql-server -y</code><br>安装的时候会弹出窗口让你设置root帐户的初始密码，根据个人喜好设置一个即可。<br>同样的，安装完了我们也要启动一下mysql的服务：<br><code>sudo /etc/init.d/mysql start</code><br>看到下列语句说明启动成功：<br><img src="/assets/images/zabbix_5.jpg" alt="[OK]Starting mysql (via systemctl):mysql.service"></p>
 <h2 id="3-安装php5"><a href="#3-安装php5" class="headerlink" title="3.安装php5"></a>3.安装php5</h2><p>在命令行输入下列语句下载php5：<br><code>sudo apt-get install php5 -y</code><br>接着安装phpmyadmin：<br><code>sudo apt-get install phpmyadmin -y</code><br>安装的过程中根据提示，选择apache2，dbconfig-common那里选择YES，再输入系统root的密码和数据库root的密码即可。版本不同，顺序可能不大一样，总之问什么答什么就对了。<br>顺便改写以下/var/www目录的权限，方便以后编辑网站文件：<br><code>sudo chmod 777 /var/www</code><br>创建phpmyadmin的链接：<br><code>sudo ln -s /usr/share/phpmyadmin /var/www/html/</code><br>修改一下php5的配置，打开配置文件：<br><code>sudo vim /etc/php5/apache2/php.ini</code><br>加入红框中的语句：<br><img src="/assets/images/zabbix_6.jpg" alt="extension=mysqli.d"><br>保存退出。<br>现在在其他的PC上打开浏览器，输入<em><span class="exturl" data-url="aHR0cDovL0lQQWRkci9waHBteWFkbWlu" title="http://IPAddr/phpmyadmin">http://IPAddr/phpmyadmin<i class="fa fa-external-link"></i></span></em>，显示以下页面表示配置成功：<br><img src="/assets/images/zabbix_7.jpg" alt="phpmyadmin登录页面"></p>
 <h2 id="4-安装配置zabbix-server"><a href="#4-安装配置zabbix-server" class="headerlink" title="4.安装配置zabbix server"></a>4.安装配置zabbix server</h2><p>###4.1 下载deb：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br><span class="line">wget http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb</span><br><span class="line">dpkg -i zabbix-release_3.0-1+trusty_all.deb</span><br><span class="line">apt-get update</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">wget http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb</span><br><span class="line">dpkg -i zabbix-release_3.0-1+trusty_all.deb</span><br><span class="line">apt-get update</span><br></pre></td></tr></table></figure>
 
 <p>###4.2 安装服务器端<br>运行下列语句：<br><code>sudo apt-get install zabbix-server-mysql zabbix-frontend-php -y</code><br>安装完成之后试着启动一下zabbix服务,出现下列语句即为成功：<br><img src="/assets/images/zabbix_8.jpg" alt="[OK]Starting zabbix_server (via systemctl):zabbix_server.service"></p>
 <p>###4.3 配置zabbix_server.conf<br>打开配置文件：<br><code>sudo vim /etc/zabbix/zabbix_server.conf</code><br>把对应项的值改为如下(没有的自己在对应位置加上即可)：</p>
@@ -540,7 +540,7 @@
 <li>DBPassword=zabbix</li>
 </ul>
 <p>###4.4 配置mysql</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">(输入你的数据库root密码)</span><br><span class="line">mysql&gt; create database zabbix character set utf8 collate utf8_bin;</span><br><span class="line">mysql&gt; grant all privileges on zabbix.* to zabbix@localhost identified by &apos;zabbix&apos;;</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">mysql&gt; \q</span><br><span class="line">cd /usr/share/doc/zabbix-server-mysql</span><br><span class="line">zcat create.sql.gz | mysql -u root -p zabbix</span><br><span class="line">（输入你的数据库root密码，点击回车后稍微等一会儿）</span><br><span class="line">sudo cp -r /usr/share/zabbix /var/www/html/zabbix</span><br><span class="line">/etc/init.d/zabbix-server restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">(输入你的数据库root密码)</span><br><span class="line">mysql&gt; create database zabbix character set utf8 collate utf8_bin;</span><br><span class="line">mysql&gt; grant all privileges on zabbix.* to zabbix@localhost identified by 'zabbix';</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">mysql&gt; \q</span><br><span class="line">cd /usr/share/doc/zabbix-server-mysql</span><br><span class="line">zcat create.sql.gz | mysql -u root -p zabbix</span><br><span class="line">（输入你的数据库root密码，点击回车后稍微等一会儿）</span><br><span class="line">sudo cp -r /usr/<span class="keyword">share</span>/zabbix /<span class="keyword">var</span>/www/html/zabbix</span><br><span class="line">/etc/init.d/zabbix-<span class="keyword">server</span> restart</span><br></pre></td></tr></table></figure>
 
 <p>最后出现下列语句即为成功：<br><img src="/assets/images/zabbix_8.jpg" alt="[OK]Starting zabbix_server (via systemctl):zabbix_server.service"><br>###4.5 配置php<br>编辑php的配置文件：<br><code>sudo vim /etc/php5/apache2/php.ini</code><br>把对应项的值改为如下(没有的自己在对应位置加上即可)：</p>
 <ul>
@@ -672,7 +672,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">98</span>
+                    <span class="site-state-item-count">99</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1054,7 +1054,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">156</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">159</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

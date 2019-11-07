@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="方法使用包\usepackage{longtable}，然后使用\begin{longtable}...\end{longtable}代替tabular即可 注意不能在一个表格上同时使用table和longtable，比如\begin{table}\begin{longtable}...\end{longtable}\end{table}，这会使longtable无法分页。 栗子123456789">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-27T07:40:05.321Z">
+<meta property="og:updated_time" content="2019-11-07T11:54:54.162Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="latex:使用longtable实现表格跨页">
 <meta name="twitter:description" content="方法使用包\usepackage{longtable}，然后使用\begin{longtable}...\end{longtable}代替tabular即可 注意不能在一个表格上同时使用table和longtable，比如\begin{table}\begin{longtable}...\end{longtable}\end{table}，这会使longtable无法分页。 栗子123456789">
@@ -246,7 +246,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">156</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">159</span></a>
 
   </li>
         
@@ -284,7 +284,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">98</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">99</span></a>
 
   </li>
         
@@ -434,12 +434,24 @@
                 
               
 
-              <time title="Created: 2018-12-27 15:16:55 / Modified: 15:40:05" itemprop="dateCreated datePublished" datetime="2018-12-27T15:16:55+08:00">2018-12-27</time>
+              <time title="Created: 2018-12-27 15:16:55" itemprop="dateCreated datePublished" datetime="2018-12-27T15:16:55+08:00">2018-12-27</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-11-07 19:54:54" itemprop="dateModified" datetime="2019-11-07T19:54:54+08:00">2019-11-07</time>
               
             
           </span>
@@ -495,7 +507,7 @@
       
         <h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>使用包<code>\usepackage{longtable}</code>，然后使用<code>\begin{longtable}...\end{longtable}</code>代替tabular即可</p>
 <p>注意<strong><em>不能在一个表格上同时使用table和longtable</em></strong>，比如<code>\begin{table}\begin{longtable}...\end{longtable}\end{table}</code>，这会使longtable无法分页。</p>
-<h1 id="栗子"><a href="#栗子" class="headerlink" title="栗子"></a>栗子</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;center&#125;</span><br><span class="line">	\begin&#123;longtable&#125;&#123;p&#123;2.4cm&#125;p&#123;5.4cm&#125;p&#123;3.6cm&#125;&#125;</span><br><span class="line">		\caption&#123;服务模式的语义解释和案例&#125;\\</span><br><span class="line">		\label&#123;revenuepatternexplain&#125;\\</span><br><span class="line">		\hline\noalign&#123;\smallskip&#125;</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		\hline</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 \\</span><br><span class="line">		\hline</span><br><span class="line">	\end&#123;longtable&#125;</span><br><span class="line">\end&#123;center&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="栗子"><a href="#栗子" class="headerlink" title="栗子"></a>栗子</h1><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;center&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">begin</span><span class="string">&#123;longtable&#125;</span><span class="string">&#123;p&#123;2.4cm&#125;</span></span>p&#123;5.4cm&#125;p&#123;3.6cm&#125;&#125;</span><br><span class="line">		<span class="tag">\<span class="name">caption</span><span class="string">&#123;服务模式的语义解释和案例&#125;</span></span><span class="tag">\<span class="name">\</span></span></span><br><span class="line">		<span class="tag">\<span class="name">label</span><span class="string">&#123;revenuepatternexplain&#125;</span></span><span class="tag">\<span class="name">\</span></span></span><br><span class="line">		<span class="tag">\<span class="name">hline</span></span><span class="tag">\<span class="name">noalign</span><span class="string">&#123;\smallskip&#125;</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		<span class="tag">\<span class="name">hline</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		名称 &amp; 语义解释 &amp; 案例说明 <span class="tag">\<span class="name">\</span></span></span><br><span class="line">		<span class="tag">\<span class="name">hline</span></span></span><br><span class="line">	<span class="tag">\<span class="name">end</span><span class="string">&#123;longtable&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;center&#125;</span></span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -622,7 +634,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">98</span>
+                    <span class="site-state-item-count">99</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1004,7 +1016,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">156</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">159</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

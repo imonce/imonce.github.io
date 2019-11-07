@@ -105,7 +105,7 @@
 <meta property="og:description" content="III. 训练一个手写体识别器在这一部分中，我们将使用MNIST手写数字数据集来尝试区分一个28x28像素的手写体图像。这是一个典型的有监督的深度学习。 对于这个问题，我们将会改变我们之前的线性回归器，同时引入一些隐藏的线性神经网络层，当然，也会引入一些非线性的激活函数。这种类型的架构通常被称为Multilayer Perceptron(MLP)。接下来我们就来看一下它是如何处理眼下的这个任务的。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20180809232611.png">
-<meta property="og:updated_time" content="2018-08-09T15:32:08.977Z">
+<meta property="og:updated_time" content="2019-11-07T11:54:49.458Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chainer入门教程(下)：MNIST手写体识别">
 <meta name="twitter:description" content="III. 训练一个手写体识别器在这一部分中，我们将使用MNIST手写数字数据集来尝试区分一个28x28像素的手写体图像。这是一个典型的有监督的深度学习。 对于这个问题，我们将会改变我们之前的线性回归器，同时引入一些隐藏的线性神经网络层，当然，也会引入一些非线性的激活函数。这种类型的架构通常被称为Multilayer Perceptron(MLP)。接下来我们就来看一下它是如何处理眼下的这个任务的。">
@@ -248,7 +248,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">156</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">159</span></a>
 
   </li>
         
@@ -286,7 +286,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">98</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">99</span></a>
 
   </li>
         
@@ -453,7 +453,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-08-09 23:32:08" itemprop="dateModified" datetime="2018-08-09T23:32:08+08:00">2018-08-09</time>
+                <time title="Modified: 2019-11-07 19:54:49" itemprop="dateModified" datetime="2019-11-07T19:54:49+08:00">2019-11-07</time>
               
             
           </span>
@@ -523,10 +523,10 @@
 
 <p>这样一来，我们就可以集中精力训练我们的MLP了。MLP包含一系列不同的layer，Chainer又有一个很不错的方法，这可以帮我们把神经网络中所有的layer都封装到一个对象中。</p>
 <h3 id="FunctionSet简介"><a href="#FunctionSet简介" class="headerlink" title="FunctionSet简介"></a>FunctionSet简介</h3><p>这个方便的对象以命名后的layer作为关键字参数，以便我们之后可以引用它们。FunctionSet工作的方式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = FunctionSet(layer1=&lt;place link here&gt;, layer2=&lt;place link here&gt;, ...etc.)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = FunctionSet(layer1=&lt;place link here&gt;, layer2=&lt;place link here&gt;, ...etc.)</span><br></pre></td></tr></table></figure>
 
 <p>然后layer就会在类的实例中作为属性存在。这些layer都可以通过把FunctionSet实例交给optimizer的setup方法同时进行优化：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optimizer.setup(model)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optimizer.setup(model)</span><br></pre></td></tr></table></figure>
 
 <p>理解了这个小tip之后，我们就可以继续构建我们的分类器了。我们需要把一个28x28像素的图像降维成一个10维的单形。输出的每一个维度代表一个具体的数字。</p>
 <h3 id="MLP架构"><a href="#MLP架构" class="headerlink" title="MLP架构"></a>MLP架构</h3><p>为了方便教学以及理解，我们在这里建立一个只有三层的神经网络。</p>
@@ -536,7 +536,7 @@
 
 <p>因此，在前向传播时，我们希望线性变换层和非线性的激活函数层交替出现。通过这种方法，我们的神经网络可以学习到非线性的数据模型以得到更好的预测结果。最后我们通过一个名为softmax的交叉熵损失函数来比较输出的矢量与我们的原本提取出的答案，然后基于计算出的损失来进行反向传播。</p>
 <p>最终我们的前向传播的架构应该是这样的形式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">out = linear_layer1(data)</span><br><span class="line">out = relu(out)</span><br><span class="line">out = linear_layer2(out)</span><br><span class="line">out = relu(out)</span><br><span class="line">out = linear_layer3(out)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">out = linear_layer1(data)</span><br><span class="line">out = relu(out)</span><br><span class="line">out = linear_layer2(out)</span><br><span class="line">out = relu(out)</span><br><span class="line">out = linear_layer3(out)</span><br></pre></td></tr></table></figure>
 
 <p>到了训练我们的模型的时候，我们希望能够每次处理一部分的样品并在更新权重前来统计它们的损失。</p>
 <h3 id="Define-the-Model"><a href="#Define-the-Model" class="headerlink" title="Define the Model"></a>Define the Model</h3><p>首先，我们通过声明link的集以及在训练过程中要用到的optimizer来定义模型。</p>
@@ -614,8 +614,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" rel="prev" title="远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server">
-                远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/" rel="prev" title="远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)">
+                远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -691,7 +691,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">98</span>
+                    <span class="site-state-item-count">99</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1073,7 +1073,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">156</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">159</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
