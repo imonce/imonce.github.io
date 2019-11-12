@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="英文： Quality of Service中文： 服务质量介绍： 指一个网络能够利用各种基础技术，为指定的网络通信提供更好的服务能力，是网络的一种安全机制，是用来解决网络延迟和阻塞等问题的一种技术。 通过配置QoS，对企业的网络流量进行调控，避免并管理网络拥塞，减少报文的丢失率，同时也可以为企业用户提供专用带宽或者为不同的业务（语音、视频、数据等）提供差分服务。 在正常情况下，如果网络只用于特定">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-04T08:33:24.962Z">
+<meta property="og:updated_time" content="2019-11-12T09:33:44.353Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见QoS指标一览">
 <meta name="twitter:description" content="英文： Quality of Service中文： 服务质量介绍： 指一个网络能够利用各种基础技术，为指定的网络通信提供更好的服务能力，是网络的一种安全机制，是用来解决网络延迟和阻塞等问题的一种技术。 通过配置QoS，对企业的网络流量进行调控，避免并管理网络拥塞，减少报文的丢失率，同时也可以为企业用户提供专用带宽或者为不同的业务（语音、视频、数据等）提供差分服务。 在正常情况下，如果网络只用于特定">
@@ -434,12 +434,24 @@
                 
               
 
-              <time title="Created: 2019-11-04 16:22:15 / Modified: 16:33:24" itemprop="dateCreated datePublished" datetime="2019-11-04T16:22:15+08:00">2019-11-04</time>
+              <time title="Created: 2019-11-04 16:22:15" itemprop="dateCreated datePublished" datetime="2019-11-04T16:22:15+08:00">2019-11-04</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-11-12 17:33:44" itemprop="dateModified" datetime="2019-11-12T17:33:44+08:00">2019-11-12</time>
               
             
           </span>
@@ -495,13 +507,13 @@
       
         <p>英文： Quality of Service<br>中文： 服务质量<br>介绍： 指一个网络能够利用各种基础技术，为指定的网络通信提供更好的服务能力，是网络的一种安全机制，<strong>是用来解决网络延迟和阻塞等问题的一种技术</strong>。 通过配置QoS，对企业的网络流量进行调控，避免并管理网络拥塞，减少报文的丢失率，同时也可以为企业用户提供专用带宽或者为不同的业务（语音、视频、数据等）提供差分服务。</p>
 <p>在正常情况下，如果网络只用于特定的无时间限制的应用系统，并不需要QoS，比如Web应用，或E-mail设置等。但是对关键应用和多媒体应用就十分必要。当网络过载或拥塞时，==QoS能确保重要业务量不受延迟或丢弃==，同时保证网络的高效运行。在RFC 3644上有对QoS的说明。</p>
-<h1 id="可用性"><a href="#可用性" class="headerlink" title="可用性"></a>可用性</h1><p>是当用户需要时网络即能工作的时间百分比。可用性主要是设备可靠性和网络存活性相结合的结果。对它起作用的还有一些其他因素，包括软件稳定性以及网络演进或升级时不中断服务的能力。 在连续5min内，如果一个IP网络所提供的丢包率&lt;=75%，则认为该时间段是可用的，否则是不可用的。</p>
-<h1 id="吞吐量-网络带宽"><a href="#吞吐量-网络带宽" class="headerlink" title="吞吐量(网络带宽)"></a>吞吐量(网络带宽)</h1><p>网络带宽是指在单位时间（一般指的是1秒钟）内能传输的数据量。对IP网而言可以从帧中继网借用一些概念。根据应用和服务类型，服务水平协议(SLA)可以规定承诺信息速率(CIR)、突发信息速率(BIR)和最大突发信号长度。承诺信息速率是应该予以严格保证的，对突发信息速率可以有所限定，以在容纳预定长度突发信号的同时容纳从话音到视像以及一般数据的各种服务。一般讲，吞吐量越大越好。</p>
-<h1 id="时延"><a href="#时延" class="headerlink" title="时延"></a>时延</h1><p>指一项服务从网络入口到出口的平均经过时间。许多服务，特别是话音和视像等实时服务都是高度不能容忍时延的。当时延超过200-250毫秒时，交互式会话是非常麻烦的。为了提供高质量话音和会议电视，网络设备必须能保证低的时延。<br>产生时延的因素很多，包括分组时延、排队时延、交换时延和传播时延。传播时延是信息通过铜线、光纤或无线链路所需的时间，它是光速的函数。在任何系统中，包括同步数字系列(SDH)、异步传输模式（ATM）和弹性分组环路(RPR)，传播时延总是存在的。</p>
-<h1 id="时延变化-抖动"><a href="#时延变化-抖动" class="headerlink" title="时延变化(抖动)"></a>时延变化(抖动)</h1><p>是指同一业务流中不同分组所呈现的时延不同。高频率的时延变化称作抖动，而低频率的时延变化称作漂移。抖动主要是由于业务流中相继分组的排队等候时间不同引起的，是对服务质量影响最大的一个问题。</p>
+<h1 id="可用性-Usability"><a href="#可用性-Usability" class="headerlink" title="可用性(Usability)"></a>可用性(Usability)</h1><p>是当用户需要时网络即能工作的时间百分比。可用性主要是设备可靠性和网络存活性相结合的结果。对它起作用的还有一些其他因素，包括软件稳定性以及网络演进或升级时不中断服务的能力。 在连续5min内，如果一个IP网络所提供的丢包率&lt;=75%，则认为该时间段是可用的，否则是不可用的。</p>
+<h1 id="吞吐量-网络带宽-Throughput"><a href="#吞吐量-网络带宽-Throughput" class="headerlink" title="吞吐量(网络带宽)(Throughput)"></a>吞吐量(网络带宽)(Throughput)</h1><p>网络带宽是指在单位时间（一般指的是1秒钟）内能传输的数据量。对IP网而言可以从帧中继网借用一些概念。根据应用和服务类型，服务水平协议(SLA)可以规定承诺信息速率(CIR)、突发信息速率(BIR)和最大突发信号长度。承诺信息速率是应该予以严格保证的，对突发信息速率可以有所限定，以在容纳预定长度突发信号的同时容纳从话音到视像以及一般数据的各种服务。一般讲，吞吐量越大越好。</p>
+<h1 id="时延-Latency-Packet-delay"><a href="#时延-Latency-Packet-delay" class="headerlink" title="时延(Latency)(Packet delay)"></a>时延(Latency)(Packet delay)</h1><p>指一项服务从网络入口到出口的平均经过时间。许多服务，特别是话音和视像等实时服务都是高度不能容忍时延的。当时延超过200-250毫秒时，交互式会话是非常麻烦的。为了提供高质量话音和会议电视，网络设备必须能保证低的时延。<br>产生时延的因素很多，包括分组时延、排队时延、交换时延和传播时延。传播时延是信息通过铜线、光纤或无线链路所需的时间，它是光速的函数。在任何系统中，包括同步数字系列(SDH)、异步传输模式（ATM）和弹性分组环路(RPR)，传播时延总是存在的。</p>
+<h1 id="时延变化-抖动-Packet-delay-variation"><a href="#时延变化-抖动-Packet-delay-variation" class="headerlink" title="时延变化(抖动)(Packet delay variation)"></a>时延变化(抖动)(Packet delay variation)</h1><p>是指同一业务流中不同分组所呈现的时延不同。高频率的时延变化称作抖动，而低频率的时延变化称作漂移。抖动主要是由于业务流中相继分组的排队等候时间不同引起的，是对服务质量影响最大的一个问题。</p>
 <p>​某些业务类型（特别是语音和视频等实时业务）是极其不能容忍抖动的。报文到达时间的差异将在语音或视频中造成断续；另外，抖动也会影响一些网络协议的处理，有些协议是按固定的时间间隔发送交互性报文，抖动过大就会导致协议震荡，而实际上所有传输系统都有抖动，但只要抖动在规定容差之内就不会影响服务质量，另外，可利用缓存来克服过量的抖动，但这将会增加时延。</p>
 <p>漂移是任何同步传输系统都有的一个问题。在SDH系统中是通过严格的全网分级定时来克服漂移的。在异步系统中，漂移一般不是问题。漂移会造成基群失帧，使服务质量的要求不能满足。</p>
-<h1 id="丢包"><a href="#丢包" class="headerlink" title="丢包"></a>丢包</h1><p>不管是比特丢失还是分组丢失，对分组数据业务的影响比对实时业务的影响都大。在通话期间，丢失一个比特或一个分组的信息往往用户注意不到。在视像广播期间，这在屏幕上可能造成瞬间的波形干扰，然后视像很快恢复如初。即便是用传输控制协议(TCP)传送数据也能处理丢失，因为传输控制协议允许丢失的信息重发。事实上，一种叫做随机早丢(RED)的拥塞控制机制在故意丢失分组，其目的是在流量达到设定门限时抑制TCP传输速率，减少拥塞，同时还使TCP流失去同步，以防止因速率窗口的闭合引起吞吐量摆动。但分组丢失多了，会影响传输质量。所以，要保持统计数字，当超过预定门限时就向网络管理人员告警。</p>
+<h1 id="丢包-Packet-loss"><a href="#丢包-Packet-loss" class="headerlink" title="丢包(Packet loss)"></a>丢包(Packet loss)</h1><p>不管是比特丢失还是分组丢失，对分组数据业务的影响比对实时业务的影响都大。在通话期间，丢失一个比特或一个分组的信息往往用户注意不到。在视像广播期间，这在屏幕上可能造成瞬间的波形干扰，然后视像很快恢复如初。即便是用传输控制协议(TCP)传送数据也能处理丢失，因为传输控制协议允许丢失的信息重发。事实上，一种叫做随机早丢(RED)的拥塞控制机制在故意丢失分组，其目的是在流量达到设定门限时抑制TCP传输速率，减少拥塞，同时还使TCP流失去同步，以防止因速率窗口的闭合引起吞吐量摆动。但分组丢失多了，会影响传输质量。所以，要保持统计数字，当超过预定门限时就向网络管理人员告警。</p>
 <p>丢包（packetloss）可能在所有环节中发生，例如：</p>
 <ul>
 <li>处理过程：路由器在收到报文的时候可能由于CPU繁忙，无法处理报文而导致丢包；</li>
@@ -1118,7 +1130,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#可用性"><span class="nav-number">1.</span> <span class="nav-text">可用性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#吞吐量-网络带宽"><span class="nav-number">2.</span> <span class="nav-text">吞吐量(网络带宽)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时延"><span class="nav-number">3.</span> <span class="nav-text">时延</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时延变化-抖动"><span class="nav-number">4.</span> <span class="nav-text">时延变化(抖动)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#丢包"><span class="nav-number">5.</span> <span class="nav-text">丢包</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#可用性-Usability"><span class="nav-number">1.</span> <span class="nav-text">可用性(Usability)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#吞吐量-网络带宽-Throughput"><span class="nav-number">2.</span> <span class="nav-text">吞吐量(网络带宽)(Throughput)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时延-Latency-Packet-delay"><span class="nav-number">3.</span> <span class="nav-text">时延(Latency)(Packet delay)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时延变化-抖动-Packet-delay-variation"><span class="nav-number">4.</span> <span class="nav-text">时延变化(抖动)(Packet delay variation)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#丢包-Packet-loss"><span class="nav-number">5.</span> <span class="nav-text">丢包(Packet loss)</span></a></li></ol></div>
             
 
           </div>
