@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="算法简介蚁群算法（Ant Colony Algorithm, AG, or Ant Colony Optimization, ACO），又称蚂蚁算法，是一种用来在图中寻找优化路径的机率型算法。它由Marco Dorigo于1992年在他的博士论文“Ant system: optimization by a colony of cooperating agents”中提出，其灵感来源于蚂蚁在寻找食物">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-11T06:56:25.073Z">
+<meta property="og:updated_time" content="2019-11-13T07:25:14.177Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="启发式算法学习（四）：蚁群算法ACO">
 <meta name="twitter:description" content="算法简介蚁群算法（Ant Colony Algorithm, AG, or Ant Colony Optimization, ACO），又称蚂蚁算法，是一种用来在图中寻找优化路径的机率型算法。它由Marco Dorigo于1992年在他的博士论文“Ant system: optimization by a colony of cooperating agents”中提出，其灵感来源于蚂蚁在寻找食物">
@@ -451,7 +451,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-11-11 14:56:25" itemprop="dateModified" datetime="2019-11-11T14:56:25+08:00">2019-11-11</time>
+                <time title="Modified: 2019-11-13 15:25:14" itemprop="dateModified" datetime="2019-11-13T15:25:14+08:00">2019-11-13</time>
               
             
           </span>
@@ -536,7 +536,7 @@
 <div id="flowchart-0" class="flow-chart"></div>
 
 <h1 id="数学模型"><a href="#数学模型" class="headerlink" title="数学模型"></a>数学模型</h1><p>这个利用TSP问题来说明这个数学模型，对于TSP问题，设蚂蚁群体中蚂蚁的数量为m，城市的数量为n，城市i与城市j之间的距离为 $d_{ij}$ ，t时刻城市i与城市j连接路径上的信息素浓度为 $c_{ij}(t)$ 。初始时刻，蚂蚁被放置在不同的城市里，且各城市键连接路径上的信息素浓度相同。然后蚂蚁将按一定概率选择线路，不放设 $p^k_{ij}(t)$ 为t时刻蚂蚁k从城市i转移到城市j的概率。“蚂蚁TSP”策略收到两方面的左右，首先是访问某城市的期望，领完便是其他蚂蚁释放的信息素浓度。所以已定义：</p>
-<p>$$p^k_{ij}(t)=\left\lbrace\begin{array}{cll}<br>\frac{[c_{ij}(t)]^a<em>[n_{ij}(t)]^b}{sum([c_{ij}(t)]^a</em>[n_{ij}(t)]^b)} &amp; , &amp; j \in allowk \\<br>0 &amp; , &amp; j \notin allowk<br>\end{array}\right.$$</p>
+<p>$$p_{ij}^{k}(t)=\left\lbrace\begin{array}{cll}<br>\frac{[c_{ij}(t)]^{a} * [n_{ij}(t)]^{b}}{\sum [c_{ij}(t)]^{a} * [n_{ij}(t)]^{b}} &amp; , &amp; j \in allowk \\<br>0 &amp; , &amp; j \notin allowk<br>\end{array}\right.$$</p>
 <p>其中：</p>
 <ul>
 <li>$n_{ij}(t)$ 为启发函数，表示蚂蚁从城市i转移到城市j的期望</li>
