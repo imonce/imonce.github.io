@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="算法简介模拟退火算法（Simulated annealing algorithm，SAA）的思想借鉴于固体的退火原理，当固体的温度很高的时候，内能比较大，固体的内部粒子处于快速无序运动，当温度慢慢降低的过程中，固体的内能减小，粒子的慢慢趋于有序，最终，当固体处于常温时，内能达到最小，此时，粒子最为稳定。模拟退火算法便是基于这样的原理设计而成。 模拟退火算法从某一高温出发，在高温状态下计算初始解，然">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-11T05:56:48.678Z">
+<meta property="og:updated_time" content="2019-11-25T13:09:14.610Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="启发式算法学习（二）：模拟退火算法SAA">
 <meta name="twitter:description" content="算法简介模拟退火算法（Simulated annealing algorithm，SAA）的思想借鉴于固体的退火原理，当固体的温度很高的时候，内能比较大，固体的内部粒子处于快速无序运动，当温度慢慢降低的过程中，固体的内能减小，粒子的慢慢趋于有序，最终，当固体处于常温时，内能达到最小，此时，粒子最为稳定。模拟退火算法便是基于这样的原理设计而成。 模拟退火算法从某一高温出发，在高温状态下计算初始解，然">
@@ -451,7 +451,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-11-11 13:56:48" itemprop="dateModified" datetime="2019-11-11T13:56:48+08:00">2019-11-11</time>
+                <time title="Modified: 2019-11-25 21:09:14" itemprop="dateModified" datetime="2019-11-25T21:09:14+08:00">2019-11-25</time>
               
             
           </span>
@@ -537,11 +537,9 @@
 <p>$$T(t)=\frac{T_{0}}{1+t}$$</p>
 <p>其他方法不再赘述。</p>
 <h1 id="初始温度"><a href="#初始温度" class="headerlink" title="初始温度"></a>初始温度</h1><p>一般来说，初始温度越大，获得高质量解的几率越大，但是花费的时间也会随之增加，因此，初温的确定应该同时考虑计算效率与优化质量，常用的方法包括：</p>
-<ol>
-<li>均匀抽样一组状态，以各状态目标值的方差为初温。</li>
-<li>随机产生一组状态，确定两两状态间的最大目标值差，然后根据差值，利用一定的函数确定初温，如： $T_{0}=-\frac{\Delta_{max}}{Pr}$ ,其中Pr为初始接受概率。</li>
-<li>根据经验公式给出。</li>
-</ol>
+<p>1.均匀抽样一组状态，以各状态目标值的方差为初温。</p>
+<p>2.随机产生一组状态，确定两两状态间的最大目标值差，然后根据差值，利用一定的函数确定初温，如： $T_{0}=-\frac{\Delta_{max}}{Pr}$ ,其中Pr为初始接受概率。</p>
+<p>3.根据经验公式给出。</p>
 <h1 id="循环终止准则"><a href="#循环终止准则" class="headerlink" title="循环终止准则"></a>循环终止准则</h1><p>内循环（求解循环）终止准则：</p>
 <ol>
 <li>检验目标函数的均值是否稳定</li>
