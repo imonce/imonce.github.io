@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[UML类图常用关系]]></title>
+    <url>%2F2019%2F12%2F02%2FUML%E7%B1%BB%E5%9B%BE%E5%B8%B8%E7%94%A8%E5%85%B3%E7%B3%BB%2F</url>
+    <content type="text"><![CDATA[图例 说明 关系名称 说明 图形 泛化（Generalization） 是一种继承关系, 表示一般与特殊的关系, 它指定了子类如何特化父类的所有特征和行为. 带三角箭头的实线，箭头指向父类 实现（Realization） 是一种类与接口的关系, 表示类是接口所有特征和行为的实现. 带三角箭头的虚线，箭头指向接口 关联（Association) 是一种拥有的关系, 它使一个类知道另一个类的属性和方法 带普通箭头（或实心三角形箭头）的实心线，指向被拥有者 聚合（Aggregation） 是整体与部分的关系, 且部分可以离开整体而单独存在 带空心菱形的实心线，菱形指向整体 组合(Composition) 是整体与部分的关系, 但部分不能离开整体而单独存在 带实心菱形的实线，菱形指向整体 依赖(Dependency) 是一种使用的关系, 即一个类的实现需要另一个类的协助 带箭头的虚线，指向被使用者]]></content>
+      <tags>
+        <tag>UML</tag>
+        <tag>类图</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[多目标优化简述]]></title>
     <url>%2F2019%2F11%2F28%2F%E5%A4%9A%E7%9B%AE%E6%A0%87%E4%BC%98%E5%8C%96%E7%AE%80%E8%BF%B0%2F</url>
     <content type="text"><![CDATA[多目标优化是多准则决策的一个领域，它是涉及多个目标函数同时优化的数学问题。多目标优化已经应用于许多科学领域，包括工程、经济和物流，其中需要在两个或多个相互冲突的目标之间进行权衡的情况下作出最优决策。分别涉及两个和三个目标的多目标优化问题的例子有：在购买汽车时降低成本，同时使舒适性最大化；在使车辆的燃料消耗和污染物排放最小化的同时将性能最大化。在实际问题中，甚至可以有三多个目标。 对于非平凡多目标优化问题，不存在同时优化每个目标的单个解决方案。在这种情况下，目标函数被说成是冲突的，并且存在一个（可能无限）数量的帕累托最优解。如果目标函数在值上不能改进而不降低其他一些目标值，则解决方案称为非支配、Pareto最优、Pareto有效或非劣解。如果没有额外的主观偏好信息，所有Pareto最优解都被认为是同样好的（因为向量不能完全排序）。研究人员从不同的角度研究多目标优化问题，从而在设置和解决多目标优化问题时存在不同的求解哲学和目标。目标可以是找到帕累托最优解的代表性集合，and/or量化满足不同目标的折衷，and/or找到满足人类决策者decision maker(DM)的主观偏好的单一解决方案。 形式化定义$$\begin{array}{cl}{\min / \max } &amp; {f_{m}(x), \quad m=1,2, \ldots, M} \\ {\text { subject to }} &amp; {g_{j}(x) \geq 0, \quad j=1,2, \ldots, J} \\ {} &amp; {h_{k}(x)=0, \quad k=1,2, \ldots, K} \\ {} &amp; {x_{i}^{(Lower)} \leq x_{i} \leq x_{i}^{(Upper)}, \quad i=1,2, \ldots, n} \end{array}$$ 发展历史 年份 事件 相关论文 1906 Pareto提出核心思想 Pareto, V. (1906). Manuale di economia politica (Vol. 13). Societa Editrice. 1979 Stadler, W. 对帕累托最优进一步回顾 Stadler, W. (1979). A survey of multicriteria optimization or the vector maximum problem, part I: 1776–1960. Journal of Optimization Theory and Applications, 29(1), 1-52. 2008 Miettinen, K.提出一种混合方法解决多目标问题 Miettinen, K., Ruiz, F., &amp; Wierzbicki, A. P. (2008). Introduction to multiobjective optimization: interactive approaches. In Multiobjective Optimization (pp. 27-57). Springer, Berlin, Heidelberg. 2014 Deb, K.对多目标优化进行回顾 Deb, K. (2014). Multi-objective optimization. In Search methodologies (pp. 403-449). Springer, Boston, MA. 2018 Sener, O., &amp; Koltun, V.提出多任务学习来作为多目标优化的策略 Sener, O., &amp; Koltun, V. (2018). Multi-task learning as multi-objective optimization. In Advances in Neural Information Processing Systems (pp. 524-535). 多目标优化算法归结起来有传统优化算法和智能优化算法两大类。 传统优化算法包括加权法、约束法和线性规划法等，实质上就是将多目标函数转化为单目标函数，通过采用单目标优化的方法达到对多目标函数的求解。 智能优化算法包括进化算法（Evolutionary Algorithm, 简称EA）、粒子群算法（Particle Swarm Optimization, PSO）等。 从九十年代初开始，进化算法系列算法被统一，如遗传算法等。 多目标优化问题的解在单目标优化问题中，通常最优解只有一个，而且能用比较简单和常用的数学方法求出其最优解。然而在多目标优化问题中，各个目标之间相互制约，可能使得一个目标性能的改善往往是以损失其它目标性能为代价，不可能存在一个使所有目标性能都达到最优的解，所以对于多目标优化问题，其解通常是一个非劣解的集合——Pareto解集。 帕累托最优（Pareto Optimal）：帕雷托最优是指资源分配的一种理想状态。给定固有的一群人和可分配的资源，如果从一种分配状态到另一种状态的变化中，在没有使任何人境况变坏的前提下，使得至少一个人变得更好，这就是帕雷托改善。帕雷托最优的状态就是不可能再有更多的帕雷托改善的状态；换句话说，不可能在不使任何其他人受损的情况下再改善某些人的境况。帕累托最优解集的边界（boundary）被称为帕累托最优前沿面（Pareto-optimal front）。 在存在多个Pareto最优解的情况下，如果没有关于问题的更多的信息，那么很难选择哪个解更可取，因此所有的Pareto最优解都可以被认为是同等重要的。由此可知，对于多目标优化问题，最重要的任务是找到尽可能多的关于该优化问题的Pareto最优解。因而，在多目标优化中主要完成以下两个任务： 找到一组尽可能接近Pareto最优域的解。 找到一组尽可能不同的解。 第一个任务是在任何优化工作中都必须的做到的，收敛不到接近真正Pareto最优解集的解是不可取的，只有当一组解收敛到接近真正Pareto最优解，才能确保该组解近似最优的这一特性。 几种常用的多目标优化问题解决方法Weighted Sum Method线性加权法，其中权重代表了每个目标函数的重要程度。 $$\begin{array}{rl}{\min } &amp; {F(x)=\sum_{m=1}^{M} w_{m} f_{m}(x)} \\ {\text { subject to }} &amp; {g_{j}(x) \geq 0, \quad j=1,2, \ldots, J} \\ {} &amp; {h_{k}(x)=0, \quad k=1,2, \ldots, K} \\ {} &amp; {x_{i}^{(Lower)} \leq x_{i} \leq x_{i}^{(Upper)}, \quad i=1,2, \ldots, n}\end{array}$$ 优点：简单 缺点：很难设定一个权重向量能够去获得帕累托最优解；在一些非凸情况不能够保证获得帕累托最优解 $\varepsilon$ -constraint method只保留一个目标函数，其他的目标函数被设定的值约束。 $$\begin{array}{cl}{\min } &amp; {f_{\mu}(x)} \\ {\text {subject to }} &amp; {f_{m}(x) \leq \epsilon_{m}, \quad m=1,2, \ldots, M \text { and } m \neq \mu} \\ {} &amp; {g_{j}(x) \geq 0, \quad j=1,2, \ldots, J} \\ {} &amp; {h_{k}(x)=0,} \quad {k=1,2, \ldots, K} \\ {} &amp; {x_{i}^{(Lower)} \leq x_{i} \leq x_{i}^{(Upper)},} \quad {i=1,2, \ldots, n}\end{array}$$ 优点：能够应用到凸函数和非凸函数场景下 缺点：函数需要精心选择；需要在独立目标函数的最小值或最大值之内 Weighted Metric Method$$\begin{array}{cl}{\min } &amp; {l_{p}(x)=\left(\sum_{m=1}^{M} w_{m}\left|f_{m}(x)-z_{m}^{*}\right|\right)^{1 / p}} \\ {\text { subject to }} &amp; {g_{j}(x) \geq 0, \quad j=1,2, \ldots, J} \\ {} &amp; {h_{k}(x)=0, \quad k=1,2, \ldots, K} \\ {} &amp; {x_{i}^{(Lower)} \leq x_{i} \leq x_{i}^{(Upper)}, \quad i=1,2, \ldots, n}\end{array}$$ 优点：weighted Techebycheff metirc能够保证获得所有帕累托最优解 缺点：需要有每个函数最大值和最小值的先验知识；需要每个目标函数的 $z^{*}$ 能够独立被找到；对于较小的p值，不一定保证所有能够获得所有帕累托最优解；随着p增加，问题会变得不可求导 Multi-Objective Genetic Algorithms基于遗传算法的多目标优化就是利用遗传算法的原理来搜索帕累托最优前沿面。 遗传算法相比与传统算法的优点是能够得到一个最优解集，而不是单单一个最优解，这样给我们更多的选择。但计算复杂度可能稍高，而且里面涉及的一些函数需要精心设计。 详见：https://imonce.github.io/2019/11/07/启发式算法学习（三）：遗传算法/ 发展分析多目标优化算法相对成熟，在不同的问题使用不同的优化算法。NSGA-II, SPEA 或者 MOPSO都是可选项，而到底选择哪一个方法，还需要根据特定的情景选择。 尽管多目标优化算法应用于动态的制造系统，dynamic manufacturing systems，但是制造系统和很复杂的，并且是动态的，因此算法还是有一定的缺陷性。 未来发展方向： 因为多种多目标方法已经被提出，混合方法 hybrid method可以被进一步发展。 现在的动态制造系统中的多目标优化算法需要动态调度的能力 Reference:https://www.jiqizhixin.com/graph/technologies/cf8932be-519a-4fd9-84f9-c6ffa997a554https://blog.csdn.net/paulfeng20171114/article/details/82454310https://hpzhao.github.io/2018/09/17/多目标优化四种方法/https://zh.wikipedia.org/wiki/帕累托最优]]></content>
@@ -501,8 +510,8 @@
         <category>计算机应用数学</category>
       </categories>
       <tags>
-        <tag>计算机应用数学</tag>
         <tag>学习笔记</tag>
+        <tag>计算机应用数学</tag>
       </tags>
   </entry>
   <entry>
@@ -513,8 +522,8 @@
         <category>计算机应用数学</category>
       </categories>
       <tags>
-        <tag>计算机应用数学</tag>
         <tag>学习笔记</tag>
+        <tag>计算机应用数学</tag>
       </tags>
   </entry>
   <entry>
@@ -643,10 +652,10 @@
     <url>%2F2019%2F04%2F24%2FLambda%E6%BC%94%E7%AE%97%E7%B2%BE%E7%AE%80%E6%95%99%E7%A8%8B%2F</url>
     <content type="text"><![CDATA[前言这篇文章译自：https://learnxinyminutes.com/docs/lambda-calculus/，写的精简了点，理解起来可能有些困难 建议配合让我们谈谈 $\lambda$ 演算.pdf一起食用（出自https://github.com/txyyss/Lambda-Calculus/releases）。这篇不算长，深入浅出，写的也极好。 整体介绍Lambda演算( $\lambda$ 演算)由Alonzo Church提出，是世界上最简洁的编程语言。尽管没有数字、字符串、布尔值等非函数数据类型，lambda演算还是可以表达任何图灵机。 Lambda演算由三种元素组成：变量（variables），函数（functions），以及应用（applications）。 名称 语法 例子 解释 Variable &lt;name&gt; x 一个名为“x”的变量 Function $\lambda$ &lt;parameters&gt;.&lt;body&gt; $\lambda$ x.x 一个拥有参数“x”以及函数体x的函数 Application &lt;function&gt;&lt;variable or function&gt; ( $\lambda$ x.x).a 调用函数“ $\lambda$ x.x”且参数值为“a” 最基础的函数就是恒等函数： $\lambda$ x.x（即f(x)=x）。第一个“x”代表函数的参数，第二个“x”代表函数体。 自由变量vs约束变量 在 $\lambda$ x.x函数中，x被称为约束变量，因为它同时位于函数体和参数中。 在 $\lambda$ x.y函数中，y被称为自由变量，因为它从未被事先声明过。 计算通过 $\beta$ 规约进行计算，其基本上是词法范围的替代。 在计算表达式( $\lambda$ x.x)a时，我们用“a”替换函数体中出现的所有“x”。 ( $\lambda$ x.x)a 计算结果为：a ( $\lambda$ x.y)a 计算结果为：y 也可以创建高阶函数： ( $\lambda$ x.( $\lambda$ y.x))a 计算结果为： $\lambda$ y.a 虽然lambda演算传统上只支持单参数函数，但是我们可以使用一种称为currying的技术创建多参数函数。 ( $\lambda$ x. $\lambda$ y. $\lambda$ z.xyz) 即 f(x, y, z) = ((x y) z) 有时 $\lambda$ xy.&lt;body&gt;可与 $\lambda$ x. $\lambda$ y.&lt;body&gt;交替使用。 重要的是要认识到传统的lambda演算没有数字，字符或任何非函数数据类型！ 布尔逻辑在lambda演算中没有“True”或“False”。甚至没有1或0。 取而代之的是： T表示为： $\lambda$ x. $\lambda$ y.x F表示为： $\lambda$ x. $\lambda$ y.y 首先，我们可以定义一个“if”函数 $\lambda$ btf，如果b为True则返回t，如果b为False则返回f IF 也等同于 $\lambda$ b. $\lambda$ t. $\lambda$ f.b t f 通过使用IF，我们可以定义基础的布尔逻辑运算： a AND b 等同于: $\lambda$ ab.IF a b F a OR b 等同于: $\lambda$ ab.IF a T b NOT a 等同于: $\lambda$ a.IF a F T 注意: IF a b c 本质上是: IF((a b) c) 数字尽管lambda演算中没有数字，我们可以通过邱奇数编码数字。 任意数字n都可以编码为： $n = \lambda f.f^n$ 。因此： 0 = $\lambda$ f. $\lambda$ x.x 1 = $\lambda$ f. $\lambda$ x.f x 2 = $\lambda$ f. $\lambda$ x.f(f x) 3 = $\lambda$ f. $\lambda$ x.f(f(f x)) 为了增加邱奇数，我们使用继承函数s(n)=n+1，即 S = $\lambda$ n. $\lambda$ f. $\lambda$ x.f((n f) x) 通过继承，我们可以定义add： ADD = $\lambda$ ab.(a S)b 挑战：试着定义你自己的乘法函数！ 变得更精致：SKI，SK以及IotaSKI组合子演算使S, K, I，分别为以下函数： I x = x K x y = x S x y z = x z (y z) 我们可以将lambda演算中的表达式转换为SKI组合子演算中的表达式： $\lambda$ x.x = I $\lambda$ x.c = Kc $\lambda$ x.(y z) = S ( $\lambda$ x.y) ( $\lambda$ x.z) 以邱奇数2为例子： 2 = $\lambda$ f. $\lambda$ x.f(f x) 对于内部部分 $\lambda$ x.f(f x): $$\begin{split}\lambda x.f(f x) &amp;=&amp; S ( \lambda x.f) ( \lambda x.(f x)) (case 3) \\&amp;=&amp; S (K f) (S ( \lambda x.f) ( \lambda x.x)) (case 2, 3) \\&amp;=&amp; S (K f) (S (K f) I) (case 2, 1)\end{split}$$ 因此： $$\begin{split}2&amp;=&amp; \lambda f. \lambda x.f(f x) \\&amp;=&amp; \lambda f.(S (K f) (S (K f) I)) \\&amp;=&amp; \lambda f.((S (K f)) (S (K f) I)) \\&amp;=&amp; S ( \lambda f.(S (K f))) ( \lambda f.(S (K f) I)) (case 3)\end{split}$$ 对于第一个参数 \lambda f.(S (K f))： $$\begin{split}\lambda f.(S (K f))&amp;=&amp; S ( \lambda f.S) ( \lambda f.(K f)) (case 3)\\&amp;=&amp; S (K S) (S ( \lambda f.K) ( \lambda f.f)) (case 2, 3)\\&amp;=&amp; S (K S) (S (K K) I) (case 2, 3)\end{split}$$ 对于第二个参数 \lambda f.(S (K f) I)： $$\begin{split} \lambda f.(S (K f) I)&amp;=&amp; \lambda f.((S (K f)) I)\\&amp;=&amp; S ( \lambda f.(S (K f))) ( \lambda f.I) (case 3)\\&amp;=&amp; S (S ( \lambda f.S) ( \lambda f.(K f))) (K I) (case 2, 3)\\&amp;=&amp; S (S (K S) (S ( \lambda f.K) ( \lambda f.f))) (K I) (case 1, 3)\\&amp;=&amp; S (S (K S) (S (K K) I)) (K I) (case 1, 2)\end{split}$$ 合到一起： $$\begin{split} 2&amp;=&amp; S ( \lambda f.(S (K f))) ( \lambda f.(S (K f) I))\\&amp;=&amp; S (S (K S) (S (K K) I)) (S (S (K S) (S (K K) I)) (K I))\end{split}$$ SK 组合子运算SKI组合子运算仍可进一步简化。我们可以通过注意I = SKK来移除I组合子。我们可以用SKK替换所有I。 Iota组合子SK组合子运算依然不是最简洁的。定义： $$\begin{split}ι = \lambda f.((f S) K)\end{split}$$ 我们就有： $$\begin{split}I &amp;=&amp; ιι\\K &amp;=&amp; ι(ιI) = ι(ι(ιι))\\S &amp;=&amp; ι(K) = ι(ι(ι(ιι)))\end{split}$$]]></content>
       <tags>
-        <tag>学习笔记</tag>
         <tag>lambda</tag>
         <tag>lambda演算</tag>
         <tag>lambda calculus</tag>
+        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -989,8 +998,8 @@
     <url>%2F2018%2F09%2F06%2FTrick-bash-tensorboard-%E6%9C%AA%E6%89%BE%E5%88%B0%E5%91%BD%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[原因tensorboard命令不在环境变量中 解决思路找到tensorboard脚本路径，然后运行 解决方法1python3 /home/USERNAME/.local/lib/python3.6/site-packages/tensorboard/main.py --logdir=LOGDIR NOTE： USERNAME是指用户名称 LOGDIR是指log文件存放的相对或绝对目录]]></content>
       <tags>
-        <tag>trick</tag>
         <tag>linux</tag>
+        <tag>trick</tag>
         <tag>tensorboard</tag>
       </tags>
   </entry>
@@ -1031,8 +1040,8 @@
     <url>%2F2018%2F07%2F31%2FTrick-git-pull-%E5%BC%BA%E5%88%B6%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%2F</url>
     <content type="text"><![CDATA[123git fetch --all git reset --hard origin/mastergit pull note：出错的话就再试一次，说不定就可以了]]></content>
       <tags>
-        <tag>git</tag>
         <tag>trick</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -1040,8 +1049,18 @@
     <url>%2F2018%2F07%2F31%2F%E5%9C%A8linux%E4%B8%8A%E5%88%9B%E5%BB%BAroot%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7%EF%BC%88%E4%B8%8D%E4%BF%AE%E6%94%B9%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%EF%BC%89%2F</url>
     <content type="text"><![CDATA[简略过程如我们现在要创建一个名为imonce的新用户： adduser imonce 赋予root权限 usermod -g sudo imonce 万事大吉 详细过程有空再补吧(‾⌣‾)]]></content>
       <tags>
-        <tag>trick</tag>
         <tag>linux</tag>
+        <tag>trick</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)]]></title>
+    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9Aerror%202003%20%EF%BC%88hy000%EF%BC%89-can't%20connect%20to%20mysql%20server%20on%20'localhost'%20(10061)%2F</url>
+    <content type="text"><![CDATA[问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项： /etc/mysql/my.cnf /etc/mysql/mysqld.cnf 在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成： #bind-address = 127.0.0.1 然后执行 service mysql restart重新启动mysql服务使配置生效即可。]]></content>
+      <tags>
+        <tag>trick</tag>
+        <tag>mysql</tag>
+        <tag>远程连接报错</tag>
       </tags>
   </entry>
   <entry>
@@ -1063,16 +1082,6 @@
         <tag>trick</tag>
         <tag>mysql</tag>
         <tag>mysql-python安装错误</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)]]></title>
-    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9Aerror%202003%20%EF%BC%88hy000%EF%BC%89-can't%20connect%20to%20mysql%20server%20on%20'localhost'%20(10061)%2F</url>
-    <content type="text"><![CDATA[问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项： /etc/mysql/my.cnf /etc/mysql/mysqld.cnf 在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成： #bind-address = 127.0.0.1 然后执行 service mysql restart重新启动mysql服务使配置生效即可。]]></content>
-      <tags>
-        <tag>trick</tag>
-        <tag>mysql</tag>
-        <tag>远程连接报错</tag>
       </tags>
   </entry>
   <entry>
@@ -1113,8 +1122,8 @@
     <content type="text"><![CDATA[AbstractThis article propose an object detection system that relies on a multi-region deep convolutional neural network that also encodes sematic segmentation-aware features. The module aims at capturing a diverse set of discriminative appearance factors and exhibits localization sensitivity that is essential for accurate object localization. They exploit the above properties of their recognition module by intergrating it on an iterative localization mechanism that alternates between socring a box proposal and refgining its location with a deep CNN regression model. And consiquently, they detect objects with very high localization accuracy. I. IntroductionThe definition of object detection: Given an image return all the instances of one or more type of objects in form of bounding boxes that tightly enclose them. Overfeat: Using two CNN models that apply in a sliding window fashion on multiple scales of an image. The first is used to classify if a window contains an object. The second is to predict the true bounding box location of the object. And use greedy algorithm in the end to merge them. R-CNN: Using Alex Krizhevsky’s Net to extract features from box proposals provided by selective search and then it classifies them with class specific linear SVMs. How to further advance the state-of-the-art on object detection? Focusing on object representation and object localization. Object representation: Indeed features matter a lot on object detection. Instead of proposing only a network architecture that is deeper, here they also opt for an architecture of greater width. And that was accomplished at two levels: They want their object representation to capture several different aspects of an object. To achieve this, they propose a multi-component CNN model (multi-region CNN). Each component of it is steered to focus on a different region. They wish to enrich the above representation so that it also captures semantic segmentation information Object localization: They attempt to built a more powerful localization system that combines their multi-region CNN model with a CNN-model for bounding box regression, which are used within an iterative scheme that alternates between scoring candidate boxes and reﬁning their coordinates. Their Contributions: They develop a multi-region CNN recognition model that yields an enriched object representation capable of capturing a diversity of discriminative appearance factors and of exhibiting localization sensitivity that is desired for the task of accurate object localization. They furthermore extend the above model by proposing a uniﬁed neural network architecture that also learns semantic segmentation-aware CNN features for the task of object detection. They show how to significantly improve the localization capability by coupling the aforementioned CNN recognition model with a CNN model for bounding box regression. Their detection system achieves mAP of 78.2% and 73.9% on VOC2007 and VOC2012 detection challenges respectively. II. Multi-Region CNN Model Activation maps module This part of the network gets as input the entire image and outputs activation maps (feature maps) by forwarding it through a sequence of convolutional layers. Region adaptation module Given a region R on the image and the activation maps of the image, this module projects R on the activation maps, crops the activations that lay inside it, pools them with a spatially adaptive (max-)pooling layer, and then forwards them through a multi-layer network. This is the architecture of the Multi-Region CNN model: There are two aims of that: to force the network to capture various complementary aspects of the objects appearance, thus leading to a much richer and more robust object representation to also make the resulting representation more sensitive to inaccurate localization, which is also crucial for object detection The regions they deploy: Original candidate box Half boxes Central Regions Border Regions Contextual Region Why these regions helps? Discriminative feature diversification Localization-aware representation III. Semantic Segmentation-Aware CNN Model Activation maps module for semantic segmentation aware features Weakly supervised training(see Figure 4) Activation maps Region adaptation module for semantic segmentation aware features They combine the Multi-Region CNN features and the semantic segmentation aware CNN features by concatenating them. The resulting network thus jointly learns deep features of both types during training. IV. Object LocalizationThere are three main components in this section: CNN region adaptation module for bounding box regression It is applied on top of the activation maps produced from the Multi-Region CNN model and, instead of a typical one-layer ridge regression model, consists of two hidden fully connected layers and one prediction layer that outputs 4 values per category. In order to allow it to predict the location of object instances that are not in the close proximity of any of the initial candidate boxes, we Use as region a box obtained by enlarging the candidate box by a factor of 1.3. This combination offers a significant boost on the detection performance of out system by allowing it to make more accurate predictions and for more distant objects. Iterative Localization Their localization scheme starts from the selective search proposals and works by iteratively scoring them and refining their coordinates. Bounding box voting Because of the multiple regression steps, the generated boxes will be highly concentrated around the actual objects of interest. They exploit this “by-product” of the iterative localization scheme by adding a step of bounding box voting. V. Implementation Details For all the CNN models involved in their proposed system, we used the publicly available 16-layers VGG model pre-trained on ImageNet for the task of image classification. Multi-Region CNN model Its activation maps module consistes of the convolustional part of the 16-layers VGG-Net that outputs 512 feature channels. The max-pooling layer right after the last convolutional layer is omitted on this module. Each region adaptation module inherits the fully connected layers of the 16-layers VGG-Net and is fine-tuned separately from the others. Semantic segmentation-aware CNN model The activation maps module architecture consists of the 16-layers VGG-Net without the last classification layer and transformed to a Fully Convolutional Network. Classification SVMs The ground truth bounding boxes are used as positive samples and the selective search proposals that overlap with the ground truth boxes by less than 0.3, are used as negative samples. CNN region adaptation module for bounding box regression The region adaptation module for bounding box regression inherits the fully connected hidden layers of the 16-layers VGG-Net. As a loss function they use the euclidean distance between the target values and the network predictions. VI. Experimental Evaluation Results on PASCAL VOC2007 Detection error analysis Results on PASCAL VOC2012 VII. ConclusionTwo key factors: the diversification of the discriminative appearance factors that it captures by steering its focus on different regions of the object the encoding of semantic segmentation-aware features. By using it in the context of a CNN-based localization refinement scheme, they showed that it achieves excellent results that surpass the state-of-the-are by a significant margin]]></content>
       <tags>
         <tag>Reading Notes</tag>
-        <tag>object detection</tag>
         <tag>CNN</tag>
+        <tag>object detection</tag>
         <tag>multi-region</tag>
         <tag>sematic segmentation-aware</tag>
       </tags>
@@ -1141,8 +1150,8 @@
     <content type="text"><![CDATA[MotivationMobile devices have revolutionized how people share photos with each other on social networks with a single click of a button. The content of the photos people shared to the internet are rarely analyzed by the websites before the photos are made available to view. After the photos are posted on the social network to the public to view, it is close to impossible to permanently delete the uploaded photos. Photo leakage, regretion after posting and malicious posting happens from time to time. Related WorksExisting works on photo privacy detection, which rely on low-level vision features, are non-informative to the users regarding what privacy information is leaked from their photos. Detailed Design PCNH is a combination of PCNN and PONN. Given the image features in the input layer, the object features learning pipeline processes the features using hi(x) as the activation functions and the param eters of network structure is encoded as Vi, finally obtaining the photo privacy detection result in the output layer. The convolutional features learning pipeline processes the features using j(x) as the activation function and the parameters of network structure is encoded as Ws, finally obtaining the photo privacy detection result in the output layer. hi(x), j(x) are activation functions, which map from a vector to a scalar. Evaluation]]></content>
       <tags>
         <tag>Reading Notes</tag>
-        <tag>CNN</tag>
         <tag>PCNH</tag>
+        <tag>CNN</tag>
         <tag>Privacy Detect</tag>
       </tags>
   </entry>
