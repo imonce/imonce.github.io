@@ -200,9 +200,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[阿里业务中台架构详解]]></title>
+    <title><![CDATA[[转]阿里业务中台架构详解]]></title>
     <url>%2F2019%2F08%2F08%2F%E9%98%BF%E9%87%8C%E4%B8%9A%E5%8A%A1%E4%B8%AD%E5%8F%B0%E6%9E%B6%E6%9E%84%E8%AF%A6%E8%A7%A3%2F</url>
-    <content type="text"><![CDATA[阿里业务中台架构图 基础设施服务，即IAAS层，提供硬件底层支持。 基础服务层，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。 互联网业务中台，包括各服务中心的抽象出来的各种业务能力，包括交易中心、支付中心、营销中心、结算中心、用户中心、账户中心等等。也包括非业务类服务，如日志分析中心、配置中心、序列中心、基础中心。 业务应用，经过调取业务中台，组装形成独立业务服务能力的业务应用，如网银、手机银行。 交易来源，就是前台用户使用的各个端，如淘宝App、PC站等。 通过阿里云平台将技术中台进行部署，对集团内共享业务单元提供支撑，并最终对前台各业务线提供服务化能力输出。 产品形态 从这张产品形态图上边我们可以看出来，阿里巴巴的开发者主要开发的是能力，然后构建内部的能力地图，这里的能力可以看作是一个原子服务。在接收新的需求后，将需求进行结构化，通过已有能力配置产生新的业务，组成业务列表和业务全景。最后给这个业务一个身份标识，进行业务度量。 全剧架构 业务开发生命周期、业务创新和智能化 能力地图下放到需求域，商业能力可沉淀。根据已有数据进行分析，持续进化。 数据中台架构 数据中台本质上是在原有的计算存储平台与应用服务之间增加了一层统一数据服务中间件（OneService）。 形成了统一全域数据体系，实现了计算存储累计过亿的成本降低、响应业务效率多倍提升、为业务快速创新提供坚实保障。 全域数据采集与引入：以需求为驱动，以数据多样性的全域思想为指导，采集与引入全业务、多终端、多形态的数据； 标准规范数据架构与研发：统一基础层、公共中间层、百花齐放应用层的数据分层架构模式，通过数据指标结构化规范化的方式实现指标口径统一； 连接与深度萃取数据价值：形成以业务核心对象为中心的连接和标签体系，深度萃取数据价值； 统一数据资产管理：构建元数据中心，通过资产分析、应用、优化、运营四方面对看清数据资产、降低数据管理成本、追踪数据价值。 统一主题式服务：通过构建服务元数据中心和数据服务查询引擎，面向业务统一数据出口与数据查询逻辑，屏蔽多数据源与多物理表； 极大的丰富和完善了阿里巴巴大数据中心，OneData、OneID、OneService渐趋成熟并成为上至CEO、下至一线员工共识的方法论体系。 阿里技术全栈全景图 阿里技术全栈包含：移动中台、业务中台、数据中台、基本中间件、基础设施、前台业务、后台业务。 移动中台，包括移动网关、开发套件&amp;框架、消息推送、移动IM等等，提供了限流、负载、鉴权、消息推送、开发框架等等，使得移动端应用开发效率更高。 业务中台和数据中台，将业务、数据抽象和沉淀形成服务能力，对前台提供调用。 阿里技术平台底座 几百个业务应用，共享一个技术平台底座。 大中台、小前台 阿里巴巴集团在近期的组织结构调整中，组成由“小前台，大中台”互为协同的创新管理模式。原阿里巴巴中国零售事业群总裁张建锋将担负起“中台”的重要工作，负责共享、数据、搜索，以及闲鱼、淘宝头条等创新孵化业务。 reference:https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ]]></content>
+    <content type="text"><![CDATA[reference:https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ 阿里业务中台架构图 基础设施服务，即IAAS层，提供硬件底层支持。 基础服务层，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。 互联网业务中台，包括各服务中心的抽象出来的各种业务能力，包括交易中心、支付中心、营销中心、结算中心、用户中心、账户中心等等。也包括非业务类服务，如日志分析中心、配置中心、序列中心、基础中心。 业务应用，经过调取业务中台，组装形成独立业务服务能力的业务应用，如网银、手机银行。 交易来源，就是前台用户使用的各个端，如淘宝App、PC站等。 通过阿里云平台将技术中台进行部署，对集团内共享业务单元提供支撑，并最终对前台各业务线提供服务化能力输出。 产品形态 从这张产品形态图上边我们可以看出来，阿里巴巴的开发者主要开发的是能力，然后构建内部的能力地图，这里的能力可以看作是一个原子服务。在接收新的需求后，将需求进行结构化，通过已有能力配置产生新的业务，组成业务列表和业务全景。最后给这个业务一个身份标识，进行业务度量。 全剧架构 业务开发生命周期、业务创新和智能化 能力地图下放到需求域，商业能力可沉淀。根据已有数据进行分析，持续进化。 数据中台架构 数据中台本质上是在原有的计算存储平台与应用服务之间增加了一层统一数据服务中间件（OneService）。 形成了统一全域数据体系，实现了计算存储累计过亿的成本降低、响应业务效率多倍提升、为业务快速创新提供坚实保障。 全域数据采集与引入：以需求为驱动，以数据多样性的全域思想为指导，采集与引入全业务、多终端、多形态的数据； 标准规范数据架构与研发：统一基础层、公共中间层、百花齐放应用层的数据分层架构模式，通过数据指标结构化规范化的方式实现指标口径统一； 连接与深度萃取数据价值：形成以业务核心对象为中心的连接和标签体系，深度萃取数据价值； 统一数据资产管理：构建元数据中心，通过资产分析、应用、优化、运营四方面对看清数据资产、降低数据管理成本、追踪数据价值。 统一主题式服务：通过构建服务元数据中心和数据服务查询引擎，面向业务统一数据出口与数据查询逻辑，屏蔽多数据源与多物理表； 极大的丰富和完善了阿里巴巴大数据中心，OneData、OneID、OneService渐趋成熟并成为上至CEO、下至一线员工共识的方法论体系。 阿里技术全栈全景图 阿里技术全栈包含：移动中台、业务中台、数据中台、基本中间件、基础设施、前台业务、后台业务。 移动中台，包括移动网关、开发套件&amp;框架、消息推送、移动IM等等，提供了限流、负载、鉴权、消息推送、开发框架等等，使得移动端应用开发效率更高。 业务中台和数据中台，将业务、数据抽象和沉淀形成服务能力，对前台提供调用。 阿里技术平台底座 几百个业务应用，共享一个技术平台底座。 大中台、小前台 阿里巴巴集团在近期的组织结构调整中，组成由“小前台，大中台”互为协同的创新管理模式。原阿里巴巴中国零售事业群总裁张建锋将担负起“中台”的重要工作，负责共享、数据、搜索，以及闲鱼、淘宝头条等创新孵化业务。]]></content>
       <tags>
         <tag>中台</tag>
         <tag>业务中台</tag>
@@ -1003,8 +1003,8 @@
     <url>%2F2018%2F09%2F06%2FTrick-bash-tensorboard-%E6%9C%AA%E6%89%BE%E5%88%B0%E5%91%BD%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[原因tensorboard命令不在环境变量中 解决思路找到tensorboard脚本路径，然后运行 解决方法1python3 /home/USERNAME/.local/lib/python3.6/site-packages/tensorboard/main.py --logdir=LOGDIR NOTE： USERNAME是指用户名称 LOGDIR是指log文件存放的相对或绝对目录]]></content>
       <tags>
-        <tag>trick</tag>
         <tag>linux</tag>
+        <tag>trick</tag>
         <tag>tensorboard</tag>
       </tags>
   </entry>
@@ -1014,9 +1014,9 @@
     <content type="text"><![CDATA[构造方法：Thread(group=None, target=None, name=None, args=(), kwargs={}) group: 线程组，目前还没有实现，库引用中提示必须是None； target: 要执行的方法； name: 线程名； args/kwargs: 要传入方法的参数。 实例方法： isAlive(): 返回线程是否在运行。正在运行指启动后、终止前。 get/setName(name): 获取/设置线程名。 start(): 线程准备就绪，等待CPU调度 is/setDaemon(bool): 获取/设置是后台线程（默认前台线程（False））。（在start之前设置） 如果是后台线程，主线程执行过程中，后台线程也在进行，主线程执行完毕后，后台线程不论成功与否，主线程和后台线程均停止 如果是前台线程，主线程执行过程中，前台线程也在进行，主线程执行完毕后，等待前台线程也执行完成后，程序停止 start(): 启动线程。 join([timeout]): 阻塞当前上下文环境的线程，直到调用此方法的线程终止或到达指定的timeout（可选参数）。 示例代码123456789101112# Split items and run function through n threads# func形如func(arg_list[0], ..., arg_list[n], items),run_through_threads 可以把items分为num份分配给num个线程运行def run_through_threads(func, arg_list, items, num=4): threads = [] item_len = len(items) for i in range(num): threads.append(threading.Thread(target=func, args=(*arg_list, items[int(i*item_len/num):int((i+1)*item_len/num)]))) for t in threads: t.setDaemon(True) t.start() for t in threads: t.join()]]></content>
       <tags>
         <tag>python</tag>
-        <tag>python入门</tag>
         <tag>threading</tag>
         <tag>多线程</tag>
+        <tag>python入门</tag>
       </tags>
   </entry>
   <entry>
@@ -1045,8 +1045,8 @@
     <url>%2F2018%2F07%2F31%2FTrick-git-pull-%E5%BC%BA%E5%88%B6%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%2F</url>
     <content type="text"><![CDATA[123git fetch --all git reset --hard origin/mastergit pull note：出错的话就再试一次，说不定就可以了]]></content>
       <tags>
-        <tag>git</tag>
         <tag>trick</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -1054,8 +1054,8 @@
     <url>%2F2018%2F07%2F31%2F%E5%9C%A8linux%E4%B8%8A%E5%88%9B%E5%BB%BAroot%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7%EF%BC%88%E4%B8%8D%E4%BF%AE%E6%94%B9%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%EF%BC%89%2F</url>
     <content type="text"><![CDATA[简略过程如我们现在要创建一个名为imonce的新用户： adduser imonce 赋予root权限 usermod -g sudo imonce 万事大吉 详细过程有空再补吧(‾⌣‾)]]></content>
       <tags>
-        <tag>trick</tag>
         <tag>linux</tag>
+        <tag>trick</tag>
       </tags>
   </entry>
   <entry>
@@ -1064,14 +1064,14 @@
     <content type="text"><![CDATA[概要这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看https://docs.python.org/2/library/pickle.html pickle简介pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。 就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。 用pickle保存对象到文件1234567891011121314151617#导入pickle模块import pickle#创建一个名为data1的对象data1 = &#123;'a': '123', 'b': [1, 2, 3, 4]&#125;#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)file_to_save = open("data1.pkl", "wb")#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。#第一个参数是要保存的对象名#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。pickle.dump(data1, file_to_save, -1)#关闭文件对象file_to_save.close() 用pickle从文件中读取对象(请接着上一个脚本运行) 1234567891011121314#导入pickle模块import pickle#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)file_to_read = open('data1.pkl', 'rb')#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2data2 = pickle.load(file_to_read)#打印data2print data2#关闭文件对象file_to_read.close()]]></content>
       <tags>
         <tag>python</tag>
-        <tag>pickle</tag>
         <tag>python入门</tag>
+        <tag>pickle</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server]]></title>
-    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9A1130%20-%20Host%20'192.168.2.204'%20is%20not%20allowed%20to%20connect%20to%20this%20MySQL%20server%2F</url>
-    <content type="text"><![CDATA[问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。 解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。 具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 1234mysql -u root -p mysql&gt;use mysql; mysql&gt;update user set host = '%' where user ='root'; mysql&gt;flush privileges;]]></content>
+    <title><![CDATA[远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)]]></title>
+    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9Aerror%202003%20%EF%BC%88hy000%EF%BC%89-can't%20connect%20to%20mysql%20server%20on%20'localhost'%20(10061)%2F</url>
+    <content type="text"><![CDATA[问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项： /etc/mysql/my.cnf /etc/mysql/mysqld.cnf 在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成： #bind-address = 127.0.0.1 然后执行 service mysql restart重新启动mysql服务使配置生效即可。]]></content>
       <tags>
         <tag>trick</tag>
         <tag>mysql</tag>
@@ -1079,9 +1079,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)]]></title>
-    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9Aerror%202003%20%EF%BC%88hy000%EF%BC%89-can't%20connect%20to%20mysql%20server%20on%20'localhost'%20(10061)%2F</url>
-    <content type="text"><![CDATA[问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项： /etc/mysql/my.cnf /etc/mysql/mysqld.cnf 在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成： #bind-address = 127.0.0.1 然后执行 service mysql restart重新启动mysql服务使配置生效即可。]]></content>
+    <title><![CDATA[远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server]]></title>
+    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9A1130%20-%20Host%20'192.168.2.204'%20is%20not%20allowed%20to%20connect%20to%20this%20MySQL%20server%2F</url>
+    <content type="text"><![CDATA[问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。 解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。 具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 1234mysql -u root -p mysql&gt;use mysql; mysql&gt;update user set host = '%' where user ='root'; mysql&gt;flush privileges;]]></content>
       <tags>
         <tag>trick</tag>
         <tag>mysql</tag>
@@ -1127,8 +1127,8 @@
     <content type="text"><![CDATA[AbstractThis article propose an object detection system that relies on a multi-region deep convolutional neural network that also encodes sematic segmentation-aware features. The module aims at capturing a diverse set of discriminative appearance factors and exhibits localization sensitivity that is essential for accurate object localization. They exploit the above properties of their recognition module by intergrating it on an iterative localization mechanism that alternates between socring a box proposal and refgining its location with a deep CNN regression model. And consiquently, they detect objects with very high localization accuracy. I. IntroductionThe definition of object detection: Given an image return all the instances of one or more type of objects in form of bounding boxes that tightly enclose them. Overfeat: Using two CNN models that apply in a sliding window fashion on multiple scales of an image. The first is used to classify if a window contains an object. The second is to predict the true bounding box location of the object. And use greedy algorithm in the end to merge them. R-CNN: Using Alex Krizhevsky’s Net to extract features from box proposals provided by selective search and then it classifies them with class specific linear SVMs. How to further advance the state-of-the-art on object detection? Focusing on object representation and object localization. Object representation: Indeed features matter a lot on object detection. Instead of proposing only a network architecture that is deeper, here they also opt for an architecture of greater width. And that was accomplished at two levels: They want their object representation to capture several different aspects of an object. To achieve this, they propose a multi-component CNN model (multi-region CNN). Each component of it is steered to focus on a different region. They wish to enrich the above representation so that it also captures semantic segmentation information Object localization: They attempt to built a more powerful localization system that combines their multi-region CNN model with a CNN-model for bounding box regression, which are used within an iterative scheme that alternates between scoring candidate boxes and reﬁning their coordinates. Their Contributions: They develop a multi-region CNN recognition model that yields an enriched object representation capable of capturing a diversity of discriminative appearance factors and of exhibiting localization sensitivity that is desired for the task of accurate object localization. They furthermore extend the above model by proposing a uniﬁed neural network architecture that also learns semantic segmentation-aware CNN features for the task of object detection. They show how to significantly improve the localization capability by coupling the aforementioned CNN recognition model with a CNN model for bounding box regression. Their detection system achieves mAP of 78.2% and 73.9% on VOC2007 and VOC2012 detection challenges respectively. II. Multi-Region CNN Model Activation maps module This part of the network gets as input the entire image and outputs activation maps (feature maps) by forwarding it through a sequence of convolutional layers. Region adaptation module Given a region R on the image and the activation maps of the image, this module projects R on the activation maps, crops the activations that lay inside it, pools them with a spatially adaptive (max-)pooling layer, and then forwards them through a multi-layer network. This is the architecture of the Multi-Region CNN model: There are two aims of that: to force the network to capture various complementary aspects of the objects appearance, thus leading to a much richer and more robust object representation to also make the resulting representation more sensitive to inaccurate localization, which is also crucial for object detection The regions they deploy: Original candidate box Half boxes Central Regions Border Regions Contextual Region Why these regions helps? Discriminative feature diversification Localization-aware representation III. Semantic Segmentation-Aware CNN Model Activation maps module for semantic segmentation aware features Weakly supervised training(see Figure 4) Activation maps Region adaptation module for semantic segmentation aware features They combine the Multi-Region CNN features and the semantic segmentation aware CNN features by concatenating them. The resulting network thus jointly learns deep features of both types during training. IV. Object LocalizationThere are three main components in this section: CNN region adaptation module for bounding box regression It is applied on top of the activation maps produced from the Multi-Region CNN model and, instead of a typical one-layer ridge regression model, consists of two hidden fully connected layers and one prediction layer that outputs 4 values per category. In order to allow it to predict the location of object instances that are not in the close proximity of any of the initial candidate boxes, we Use as region a box obtained by enlarging the candidate box by a factor of 1.3. This combination offers a significant boost on the detection performance of out system by allowing it to make more accurate predictions and for more distant objects. Iterative Localization Their localization scheme starts from the selective search proposals and works by iteratively scoring them and refining their coordinates. Bounding box voting Because of the multiple regression steps, the generated boxes will be highly concentrated around the actual objects of interest. They exploit this “by-product” of the iterative localization scheme by adding a step of bounding box voting. V. Implementation Details For all the CNN models involved in their proposed system, we used the publicly available 16-layers VGG model pre-trained on ImageNet for the task of image classification. Multi-Region CNN model Its activation maps module consistes of the convolustional part of the 16-layers VGG-Net that outputs 512 feature channels. The max-pooling layer right after the last convolutional layer is omitted on this module. Each region adaptation module inherits the fully connected layers of the 16-layers VGG-Net and is fine-tuned separately from the others. Semantic segmentation-aware CNN model The activation maps module architecture consists of the 16-layers VGG-Net without the last classification layer and transformed to a Fully Convolutional Network. Classification SVMs The ground truth bounding boxes are used as positive samples and the selective search proposals that overlap with the ground truth boxes by less than 0.3, are used as negative samples. CNN region adaptation module for bounding box regression The region adaptation module for bounding box regression inherits the fully connected hidden layers of the 16-layers VGG-Net. As a loss function they use the euclidean distance between the target values and the network predictions. VI. Experimental Evaluation Results on PASCAL VOC2007 Detection error analysis Results on PASCAL VOC2012 VII. ConclusionTwo key factors: the diversification of the discriminative appearance factors that it captures by steering its focus on different regions of the object the encoding of semantic segmentation-aware features. By using it in the context of a CNN-based localization refinement scheme, they showed that it achieves excellent results that surpass the state-of-the-are by a significant margin]]></content>
       <tags>
         <tag>Reading Notes</tag>
-        <tag>object detection</tag>
         <tag>CNN</tag>
+        <tag>object detection</tag>
         <tag>multi-region</tag>
         <tag>sematic segmentation-aware</tag>
       </tags>
@@ -1145,18 +1145,13 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2016%2F12%2F10%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
-  </entry>
-  <entry>
     <title><![CDATA[[Reading Notes]Privacy-CNH: A Framework to Detect Photo Privacy with Convolutional Neural Network using Hierarchical Features]]></title>
     <url>%2F2016%2F12%2F10%2F%5BReading%20Notes%5D%20Privacy-CNH-%20A%20Framework%20to%20Detect%20Photo%20Privacy%20with%20Convolutional%20Neural%20Network%20using%20Hierarchical%20Features%2F</url>
     <content type="text"><![CDATA[MotivationMobile devices have revolutionized how people share photos with each other on social networks with a single click of a button. The content of the photos people shared to the internet are rarely analyzed by the websites before the photos are made available to view. After the photos are posted on the social network to the public to view, it is close to impossible to permanently delete the uploaded photos. Photo leakage, regretion after posting and malicious posting happens from time to time. Related WorksExisting works on photo privacy detection, which rely on low-level vision features, are non-informative to the users regarding what privacy information is leaked from their photos. Detailed Design PCNH is a combination of PCNN and PONN. Given the image features in the input layer, the object features learning pipeline processes the features using hi(x) as the activation functions and the param eters of network structure is encoded as Vi, finally obtaining the photo privacy detection result in the output layer. The convolutional features learning pipeline processes the features using j(x) as the activation function and the parameters of network structure is encoded as Ws, finally obtaining the photo privacy detection result in the output layer. hi(x), j(x) are activation functions, which map from a vector to a scalar. Evaluation]]></content>
       <tags>
         <tag>Reading Notes</tag>
-        <tag>CNN</tag>
         <tag>PCNH</tag>
+        <tag>CNN</tag>
         <tag>Privacy Detect</tag>
       </tags>
   </entry>
