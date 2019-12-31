@@ -264,7 +264,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">18</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">20</span></a>
 
   </li>
         
@@ -283,7 +283,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">102</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">103</span></a>
 
   </li>
         
@@ -374,6 +374,212 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/10/21/3小时精通lxml-etree-Python中xml的读取、解析、生成和查找/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="image" content="/images/C_Meng.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/10/21/3小时精通lxml-etree-Python中xml的读取、解析、生成和查找/" class="post-title-link" itemprop="url">3小时精通lxml.etree:Python中xml的读取、解析、生成和查找</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-10-21 17:04:41" itemprop="dateCreated datePublished" datetime="2019-10-21T17:04:41+08:00">2019-10-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-11-04 14:12:49" itemprop="dateModified" datetime="2019-11-04T14:12:49+08:00">2019-11-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Learn-X-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn X in Y minutes</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Learn-X-in-Y-minutes/Learn-lxml-etree-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn lxml.etree in Y minutes</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/10/21/3小时精通lxml-etree-Python中xml的读取、解析、生成和查找/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/10/21/3小时精通lxml-etree-Python中xml的读取、解析、生成和查找/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              本文主要参考官方文档https://lxml.de/tutorial.html整理，如有错误欢迎指出。
+from lxml import etreefrom copy import deepcopy
+
+# 添加Element默认添加为根节点root = etree.Element("root")# 通过append添加子节点root.append(etree.Element("child1"))# 通过SubElement添加子节点child2 = etree.SubElement(root, "child2")child3 = etree.SubElement(root, "child3")print(etree.tostring(root))print(etree.tostring(root, pretty_print=True))# 默认encoding是ASCIIprint(etr
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/10/21/3小时精通lxml-etree-Python中xml的读取、解析、生成和查找/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2061,196 +2267,6 @@ Taken from：http://xueshu.baidu.com/usercenter/paper/show?paperid=baa0175c22e30
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/08/08/阿里业务中台架构详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-      <meta itemprop="image" content="/images/C_Meng.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/08/阿里业务中台架构详解/" class="post-title-link" itemprop="url">[转]阿里业务中台架构详解</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-08-08 20:56:29" itemprop="dateCreated datePublished" datetime="2019-08-08T20:56:29+08:00">2019-08-08</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-12-29 16:23:22" itemprop="dateModified" datetime="2019-12-29T16:23:22+08:00">2019-12-29</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">Comments: </span>
-                <a href="/2019/08/08/阿里业务中台架构详解/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/08/阿里业务中台架构详解/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              
-reference:https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ
-
-阿里业务中台架构图
-基础设施服务，即IAAS层，提供硬件底层支持。
-基础服务层，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。
-互联网业务中台，包括各服务中心的抽象出来的各种业务能力，包括交易中心、支付中心、营销中心、结算中心、用户中心、账户中心等等。也包括非业务类服务，如日志分析中心、配置中心、序列中心、基础中心。
-业务应用，经过调取业务中台，组装形成独立业务服务能力的业务应用，如网银、手机银行。
-交易来源，就是前台用户使用的各个端，如淘宝App、PC站等。
-
-通过阿里云平台将技术中台进行部署，对集团内共享业务单元提供支撑，并最终对前台各业务线提供服务化能力输出。
-产品形态
-从这张产品形态图上边我们可以看出来，
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/08/08/阿里业务中台架构详解/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2299,7 +2315,7 @@ reference:https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">102</span>
+                    <span class="site-state-item-count">103</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2352,7 +2368,11 @@ reference:https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -3321,9 +3341,9 @@ reference:https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ
       
     
       
-        
-      
     
+      
+        
       
     
       
