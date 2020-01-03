@@ -245,7 +245,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">170</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">171</span></a>
 
   </li>
         
@@ -264,7 +264,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">22</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">23</span></a>
 
   </li>
         
@@ -283,7 +283,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">104</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">105</span></a>
 
   </li>
         
@@ -374,6 +374,205 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/11/06/启发式算法学习（一）：粒子群算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="image" content="/images/C_Meng.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/06/启发式算法学习（一）：粒子群算法/" class="post-title-link" itemprop="url">启发式算法学习（一）：粒子群算法PSO</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-06 16:47:13" itemprop="dateCreated datePublished" datetime="2019-11-06T16:47:13+08:00">2019-11-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-11-11 13:58:24" itemprop="dateModified" datetime="2019-11-11T13:58:24+08:00">2019-11-11</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/启发式算法/" itemprop="url" rel="index"><span itemprop="name">启发式算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/11/06/启发式算法学习（一）：粒子群算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/11/06/启发式算法学习（一）：粒子群算法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              算法简介粒子群算法（Particle swarm optimization，PSO）是模拟群体智能所建立起来的一种优化算法，主要用于解决最优化问题（optimization problems）。1995年由 Eberhart和Kennedy 提出，是基于对鸟群觅食行为的研究和模拟而来的。
+假设一群鸟在觅食，在觅食范围内，只在一个地方有食物，所有鸟儿都看不到食物（即不知道食物的具体位置。当然不知道了，知道了就不用觅食了），但是能闻到食物的味道（即能知道食物距离自己是远是近。鸟的嗅觉是很灵敏的）。
+假设鸟与鸟之间能共享信息（即互相知道每个鸟离食物多远。这个是人工假定，实际上鸟们肯定不会也不愿意），那么最好的策略就是结合自己离食物最近的位置和鸟群中其他鸟距离食物最近的位置这2个因素综合考虑找到最好的搜索位置。
+粒子群算法与《遗传算法》等进化算法有很多相似之处。也需要初始化种群，计算适应度值，通过
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/11/06/启发式算法学习（一）：粒子群算法/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2075,189 +2274,6 @@ Theorem（定理）A mathematical statement that is proved using rigorous mathem
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/08/21/构造类型论简介/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-      <meta itemprop="image" content="/images/C_Meng.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/21/构造类型论简介/" class="post-title-link" itemprop="url">[Reading Note]构造类型论与计算机程序设计</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-08-21 15:53:08" itemprop="dateCreated datePublished" datetime="2019-08-21T15:53:08+08:00">2019-08-21</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-10-11 20:30:05" itemprop="dateModified" datetime="2019-10-11T20:30:05+08:00">2019-10-11</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">Comments: </span>
-                <a href="/2019/08/21/构造类型论简介/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/21/构造类型论简介/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              
-Taken from：http://xueshu.baidu.com/usercenter/paper/show?paperid=baa0175c22e30823d9b1e14e01cf4141&amp;site=xueshu_se&amp;hitarticle=1
-
-背景及简介构造类型论为计算机科学家提供了一个框架, 以一种优雅和灵活的方式把逻辑和程序设计语言结合起来: 在同一形式系统中, 可以同时表达规约和(函数式语言)程序, 从证明规则可以导出正确的程序, 并验证程序具有某种性质, 从而在同一系统内完成程序的开发和验证。
-构造类型轮的理论基础及相互关系构造类型论三大理论基石
-直觉类型论和构造数学：构造类型论的直接基础是Martin-Lof的直觉类型论，它为构造数学提供直觉解释。它是一个逻辑框架，可以表达和解释其他逻辑或理论，从他的规范化证明立即得出其所表达理论的规范化。与此作用相同
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/08/21/构造类型论简介/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2306,7 +2322,7 @@ Taken from：http://xueshu.baidu.com/usercenter/paper/show?paperid=baa0175c22e30
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">104</span>
+                    <span class="site-state-item-count">105</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2367,7 +2383,9 @@ Taken from：http://xueshu.baidu.com/usercenter/paper/show?paperid=baa0175c22e30
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2724,7 +2742,9 @@ Taken from：http://xueshu.baidu.com/usercenter/paper/show?paperid=baa0175c22e30
                     
                       
                     
-                    <span class="site-state-item-count">170</span>
+                      
+                    
+                    <span class="site-state-item-count">171</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -3340,13 +3360,13 @@ Taken from：http://xueshu.baidu.com/usercenter/paper/show?paperid=baa0175c22e30
   
     
       
-    
-      
-    
-      
-    
-      
         
+      
+    
+      
+    
+      
+    
       
     
       
