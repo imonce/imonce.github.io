@@ -245,7 +245,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">171</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">172</span></a>
 
   </li>
         
@@ -264,7 +264,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">23</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">24</span></a>
 
   </li>
         
@@ -283,7 +283,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">105</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">106</span></a>
 
   </li>
         
@@ -390,6 +390,206 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/11/06/启发式算法学习（二）：模拟退火算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="image" content="/images/C_Meng.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/06/启发式算法学习（二）：模拟退火算法/" class="post-title-link" itemprop="url">启发式算法学习（二）：模拟退火算法SAA</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-06 20:11:32" itemprop="dateCreated datePublished" datetime="2019-11-06T20:11:32+08:00">2019-11-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-11-25 21:09:14" itemprop="dateModified" datetime="2019-11-25T21:09:14+08:00">2019-11-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/启发式算法/" itemprop="url" rel="index"><span itemprop="name">启发式算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/11/06/启发式算法学习（二）：模拟退火算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/11/06/启发式算法学习（二）：模拟退火算法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              算法简介模拟退火算法（Simulated annealing algorithm，SAA）的思想借鉴于固体的退火原理，当固体的温度很高的时候，内能比较大，固体的内部粒子处于快速无序运动，当温度慢慢降低的过程中，固体的内能减小，粒子的慢慢趋于有序，最终，当固体处于常温时，内能达到最小，此时，粒子最为稳定。模拟退火算法便是基于这样的原理设计而成。
+模拟退火算法从某一高温出发，在高温状态下计算初始解，然后以预设的邻域函数产生一个扰动量，从而得到新的状态，即模拟粒子的无序运动，比较新旧状态下的能量，即目标函数的解。如果新状态的能量小于旧状态，则状态发生转化；如果新状态的能量大于旧状态，则以一定的概率准则发生转化。当状态稳定后，便可以看作达到了当前状态的最优解，便可以开始降温，在下一个温度继续迭代，最终达到低温的稳定状态，便得到了模拟退火算法产生的结果。
+算法过程
+
+状态空间与邻域函数状态空间也称为
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/11/06/启发式算法学习（二）：模拟退火算法/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/11/06/启发式算法学习（一）：粒子群算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -452,7 +652,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-11-11 13:58:24" itemprop="dateModified" datetime="2019-11-11T13:58:24+08:00">2019-11-11</time>
+                <time title="Modified: 2020-01-04 16:08:04" itemprop="dateModified" datetime="2020-01-04T16:08:04+08:00">2020-01-04</time>
               
             
           </span>
@@ -831,7 +1031,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-11-04 14:12:49" itemprop="dateModified" datetime="2019-11-04T14:12:49+08:00">2019-11-04</time>
+                <time title="Modified: 2020-01-04 16:07:17" itemprop="dateModified" datetime="2020-01-04T16:07:17+08:00">2020-01-04</time>
               
             
           </span>
@@ -1037,11 +1237,29 @@ from lxml import etreefrom copy import deepcopy
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-11-07 19:54:50" itemprop="dateModified" datetime="2019-11-07T19:54:50+08:00">2019-11-07</time>
+                <time title="Modified: 2020-01-04 16:02:49" itemprop="dateModified" datetime="2020-01-04T16:02:49+08:00">2020-01-04</time>
               
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1390,12 +1608,24 @@ Lambda 演算同构为 Gentzen 的自然演绎
                 
               
 
-              <time title="Created: 2019-09-27 20:09:04 / Modified: 20:09:53" itemprop="dateCreated datePublished" datetime="2019-09-27T20:09:04+08:00">2019-09-27</time>
+              <time title="Created: 2019-09-27 20:09:04" itemprop="dateCreated datePublished" datetime="2019-09-27T20:09:04+08:00">2019-09-27</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-04 15:59:21" itemprop="dateModified" datetime="2020-01-04T15:59:21+08:00">2020-01-04</time>
               
             
           </span>
@@ -1584,12 +1814,24 @@ CVCA Step 2: Delineate pertinent parties involved with t
                 
               
 
-              <time title="Created: 2019-09-23 17:01:46 / Modified: 17:03:53" itemprop="dateCreated datePublished" datetime="2019-09-23T17:01:46+08:00">2019-09-23</time>
+              <time title="Created: 2019-09-23 17:01:46" itemprop="dateCreated datePublished" datetime="2019-09-23T17:01:46+08:00">2019-09-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-04 15:59:38" itemprop="dateModified" datetime="2020-01-04T15:59:38+08:00">2020-01-04</time>
               
             
           </span>
@@ -2084,196 +2326,6 @@ Theorem（定理）A mathematical statement that is proved using rigorous mathem
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/08/28/一个案例讲清楚所有服务盈利模式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-      <meta itemprop="image" content="/images/C_Meng.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/28/一个案例讲清楚所有服务盈利模式/" class="post-title-link" itemprop="url">一个案例讲清楚所有服务盈利模式</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-08-28 13:46:28" itemprop="dateCreated datePublished" datetime="2019-08-28T13:46:28+08:00">2019-08-28</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-11-04 14:01:38" itemprop="dateModified" datetime="2019-11-04T14:01:38+08:00">2019-11-04</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">Comments: </span>
-                <a href="/2019/08/28/一个案例讲清楚所有服务盈利模式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/28/一个案例讲清楚所有服务盈利模式/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              前言互联网发展到今天，各种各样的互联网公司、互联网服务层出不穷，盈利方式更是”千奇百怪“，免费服务更是数不胜数，已然成为一种常态。
-然而众所周知，无利不起早，是人就要吃饭。虽然我们享受着众多”免费“服务、点着各种满减外卖，但是这些提供服务的公司和平台却都活的好好的。他们的服务盈利模式都有哪些呢？
-服务盈利模式服务盈利模式总的来说分为两大类：内向盈利模式和外向盈利模式。
-
-内向盈利模式：利润来自于服务提供者或消费者，依赖于在服务过程中产生或剩余的价值的盈利模式。
-外向盈利模式：利润来自于无关自三方，依赖于服务存在的盈利模式。
-
-根据变现对象的不同，内向盈利模式和外向盈利模式又可以分为以下几种子模式：
-
-内向盈利模式
-资产盈利模式：通过资产换取价值的盈利模式，如资产销售
-服务盈利模式：依赖资产，通过提供服务换取价值的盈利模式，如收费服务、增值服务
-平台盈利模式（内向型）：通过平台换取价值的盈利
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/08/28/一个案例讲清楚所有服务盈利模式/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2322,7 +2374,7 @@ Theorem（定理）A mathematical statement that is proved using rigorous mathem
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">105</span>
+                    <span class="site-state-item-count">106</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2385,7 +2437,9 @@ Theorem（定理）A mathematical statement that is proved using rigorous mathem
                     
                       
                     
-                    <span class="site-state-item-count">23</span>
+                      
+                    
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2744,7 +2798,9 @@ Theorem（定理）A mathematical statement that is proved using rigorous mathem
                     
                       
                     
-                    <span class="site-state-item-count">171</span>
+                      
+                    
+                    <span class="site-state-item-count">172</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
