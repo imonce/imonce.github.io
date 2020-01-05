@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[How to construct an evaluation/assessment/measurement index system]]></title>
+    <url>%2F2020%2F01%2F05%2FHow-to-build-an-evaluation-assessment-measurement-framework%2F</url>
+    <content type="text"><![CDATA[An evaluation index system refers to an organic whole with an internal structure composed of multiple indicators that characterize various aspects of the evaluation object and their interconnections. Principles to be followedIn order to make the indicator system scientific and standardized, the following principles should be followed when constructing it: Systematic principle. There should be a certain logical relationship between the indicators. They should not only reflect the main characteristics and states of the ecological, economic and social subsystems from different aspects, but also reflect the internal relationship between the ecological, economic and social systems. Each subsystem is composed of a set of indicators, which are independent of each other and connected with each other to form an organic unity. The construction of the index system is hierarchical, from the top to the bottom, from the macro level to the micro level, forming an indivisible evaluation system. Principle of typicality. It is necessary to ensure that the evaluation indicators have certain typical representativeness, and reflect the comprehensive characteristics of the environment, economy and social changes in a specific region as accurately as possible. Even if the number of indicators is reduced, it is also necessary to facilitate data calculation and improve the reliability of the results. In addition, the setting of evaluation index system, the distribution of weight among indexes and the division of evaluation standard should be adapted to the natural and socio-economic conditions of a specific region. Dynamic principle. The interactive development of ecology, economy and social benefits can only be reflected through certain time scale indicators. Therefore, dynamic changes should be fully considered in the selection of indicators, and the change values of several years should be collected. Principle of conciseness and scientificity. The design of each index system and the selection of evaluation indexes must be based on the principle of scientificity, which can objectively and truly reflect the characteristics and conditions of Gaoxigou’s environmental, economic and social development, and can objectively and comprehensively reflect the real relationship between each index. Each evaluation index should be typical, not too many and too detailed, so that the index is too cumbersome and overlapping, and the index cannot be too few and too simple, so as to avoid the omission of index information, errors and untrue phenomena, and the data is easy to obtain and the calculation method is simple and easy to understand. Principle of comparability, operability and quantification. In terms of indicator selection, special attention should be paid to the consistency within the overall scope. The construction of indicator system serves for the formulation of field assessment and scientific management. The calculation measures and calculation methods of indicator selection must be consistent and unified. Each indicator should be as simple and clear as possible, micro and easy to collect. Each indicator should be highly practical, operable and comparable. In addition, when selecting indicators, it is also necessary to consider whether quantitative processing can be carried out to facilitate mathematical calculation and analysis. Comprehensive principle. At the corresponding evaluation level, the factors affecting the environment, economy and social system are comprehensively considered, and comprehensive analysis and evaluation are carried out. Features that should be possessedAnd the constructed index system should possess these features: Perform a clear guidance direction Quantitative based and qualitative supplemented Difference classification considered General construction process Building the theoretical foundation Provide empirical evidence Statistical data support Evidence from typical cases Reasonable interpretation of contradictory cases Verify operability Representative evaluation system: 3E3E theory refers to: Efficacy, which measures its own output efficiency, which reflects the utilization of resources effectiveness, which reflects the effect of the system output on its superior system 3E system represents the trend of diversified development of performance evaluation system. Through the establishment of 3E standard system, the soft environment evaluation system is more scientific and transparent, and the efficiency and operability of performance evaluation are increased, which greatly promotes the improvement and development of public policy evaluation system.]]></content>
+      <categories>
+        <category>Methodology</category>
+      </categories>
+      <tags>
+        <tag>Evaluation</tag>
+        <tag>Assessment</tag>
+        <tag>Measrement</tag>
+        <tag>Methodology</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[[Reading Notes] Quality Assessment of Business Process Models based on Thresholds]]></title>
     <url>%2F2020%2F01%2F04%2FReading-Notes-Quality-Assessment-of-Business-Process-Models-based-on-Thresholds%2F</url>
     <content type="text"><![CDATA[reference:https://www.researchgate.net/profile/Francisco_Ruiz14/publication/220831115_Quality_Assessment_of_Business_Process_Models_Based_on_Thresholds/links/5473100f0cf216f8cfae97f4.pdfauthor:Laura Sánchez-González, Félix García, Jan Mendling, Francisco RuizInstitution:Grupo Alarcos, Universidad de Castilla La ManchaHumboldt-Universität zu Berlin Background and MotivationProcess improvement is recognized as the main benefit of process modelling initiatives. Quality considerations are important when conducting a process modelling project. While the early stage of business process design might not be the most expensive ones, they tend to have the highest impact on the benefits and costs of the implemented business processes. In this context, quality assurance of the models has become a significant objective. Quality from the perspective of understandability and modifiabilityThe aim of our empirical research approach is to validate the connections between an extensive set of metrics (number of nodes, diameter, density, coefficient of connectivity, average gateway degree, maximum gateway degree, separability, sequentiality, depth, gateway mismatch, gateway heterogeneity, cyclicity and concurrency) and the ease with which business process models can be understood (understandability) and modified (modifiability). null hypothesis: There is no correlation between structural metrics and understandability and modifiabilityThe structural metrics apparently seem to be closely connected with understandability and modifiability. For understandability these include Number of Nodes, Gateway Mismatch, Depth, Coefficient of Connectivity and Sequentiality. For modifiability Gateway Mismatch, Density and Sequentiality showed the best results. ConclusionAfter analyzing which measures are most useful, it is interesting to know what values of these measures indicate poor quality in models. That means, thresholds values could be used as an alarm of detecting low-quality structures in conceptual models. The strength of the correlation of structural metrics with different quality aspects clearly shows the potential of these metrics to accurately capture aspects closely connected with actual usage.]]></content>
@@ -1148,6 +1162,16 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server]]></title>
+    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9A1130%20-%20Host%20'192.168.2.204'%20is%20not%20allowed%20to%20connect%20to%20this%20MySQL%20server%2F</url>
+    <content type="text"><![CDATA[问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。 解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。 具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 1234mysql -u root -p mysql&gt;use mysql; mysql&gt;update user set host = '%' where user ='root'; mysql&gt;flush privileges;]]></content>
+      <tags>
+        <tag>Trick</tag>
+        <tag>Mysql</tag>
+        <tag>远程连接报错</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Python入门：pickle模块简介]]></title>
     <url>%2F2017%2F04%2F24%2FPython%E5%85%A5%E9%97%A8%EF%BC%9Apickle%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B%2F</url>
     <content type="text"><![CDATA[概要这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看https://docs.python.org/2/library/pickle.html pickle简介pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。 就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。 用pickle保存对象到文件1234567891011121314151617#导入pickle模块import pickle#创建一个名为data1的对象data1 = &#123;'a': '123', 'b': [1, 2, 3, 4]&#125;#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)file_to_save = open("data1.pkl", "wb")#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。#第一个参数是要保存的对象名#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。pickle.dump(data1, file_to_save, -1)#关闭文件对象file_to_save.close() 用pickle从文件中读取对象(请接着上一个脚本运行) 1234567891011121314#导入pickle模块import pickle#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)file_to_read = open('data1.pkl', 'rb')#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2data2 = pickle.load(file_to_read)#打印data2print data2#关闭文件对象file_to_read.close()]]></content>
@@ -1158,16 +1182,6 @@
         <tag>Python</tag>
         <tag>Python入门</tag>
         <tag>Pickle</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server]]></title>
-    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9A1130%20-%20Host%20'192.168.2.204'%20is%20not%20allowed%20to%20connect%20to%20this%20MySQL%20server%2F</url>
-    <content type="text"><![CDATA[问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。 解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。 具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 1234mysql -u root -p mysql&gt;use mysql; mysql&gt;update user set host = '%' where user ='root'; mysql&gt;flush privileges;]]></content>
-      <tags>
-        <tag>Trick</tag>
-        <tag>Mysql</tag>
-        <tag>远程连接报错</tag>
       </tags>
   </entry>
   <entry>
