@@ -245,7 +245,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">176</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">178</span></a>
 
   </li>
         
@@ -264,7 +264,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">25</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">26</span></a>
 
   </li>
         
@@ -283,7 +283,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">107</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">108</span></a>
 
   </li>
         
@@ -374,6 +374,206 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/11/07/启发式算法学习（三）：遗传算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="image" content="/images/C_Meng.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/07/启发式算法学习（三）：遗传算法/" class="post-title-link" itemprop="url">启发式算法学习（三）：遗传算法GA</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-07 10:26:36" itemprop="dateCreated datePublished" datetime="2019-11-07T10:26:36+08:00">2019-11-07</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-11-11 13:57:16" itemprop="dateModified" datetime="2019-11-11T13:57:16+08:00">2019-11-11</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/启发式算法/" itemprop="url" rel="index"><span itemprop="name">启发式算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/11/07/启发式算法学习（三）：遗传算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/11/07/启发式算法学习（三）：遗传算法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              算法简介遗传算法（Genetic Alogrithm，GA）是最早由美国Holland教授提出的一种基于自然界的“适者生存，优胜劣汰”基本法则的智能搜索算法。该法则很好地诠释了生物进化的自然选择过程。遗传算法也是借鉴该基本法则，通过基于种群的思想，将问题的解通过编码的方式转化为种群中的个体，并让这些个体不断地通过选择、交叉和变异算子模拟生物的进化过程，然后利用“优胜劣汰”法则选择种群中适应性较强的个体构成子种群，然后让子种群重复类似的进化过程，直到找到问题的最优解或者到达一定的进化（运算）时间。
+重要概念个体（染色体）：自然界中一个个体（染色体）代表一个生物，在GA算法中，个体（染色体）代表了具体问题的一个解。
+基因：在GA算法中，基因代表了具体问题解的一个决策变量，问题解和染色体中基因的对应关系如下所示
+
+种群：多个个体即组成一个种群。GA算法中，一个问题的多组解即构成了问题的解的种群。
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/11/07/启发式算法学习（三）：遗传算法/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2163,204 +2363,6 @@ The service value chain framework augments the work system framework by introduc
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/09/19/BPMN2-0入门到精通，这一篇就够了/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-      <meta itemprop="image" content="/images/C_Meng.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/19/BPMN2-0入门到精通，这一篇就够了/" class="post-title-link" itemprop="url">BPMN2.0入门到掌握，这一篇就够了</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-09-19 10:54:24" itemprop="dateCreated datePublished" datetime="2019-09-19T10:54:24+08:00">2019-09-19</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-11-04 14:01:26" itemprop="dateModified" datetime="2019-11-04T14:01:26+08:00">2019-11-04</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">Comments: </span>
-                <a href="/2019/09/19/BPMN2-0入门到精通，这一篇就够了/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/19/BPMN2-0入门到精通，这一篇就够了/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              BPMN2.0入门到精通，这一篇就够了
-笔者默认看这篇文章的同学都是了解、知道什么是BPMN的，因此背景知识、历史发展什么的都直接略过，我们直切正题：BPMN中的五个基础元素类别。
-
-流对象（Flow Objects）：流对象是定义业务流程的主要图形元素，主要有三种流对象
-事件（Events）
-活动（Activities）
-网关（Gateways）
-
-
-数据（Data）：数据主要通过四种元素表示
-数据对象（Data Objects）
-数据输入（Data Inputs）
-数据输出（Data Outputs）
-数据存储（Data Stores）
-
-
-连接对象（Connecting Objects）：流对象彼此互相连接或者连接到其他信息的方法主要有四种
-顺序流（Sequence Flows）
-信息流（Message Flows）
-协同（Associations）
-数据协同（Data Associ
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/09/19/BPMN2-0入门到精通，这一篇就够了/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2409,7 +2411,7 @@ The service value chain framework augments the work system framework by introduc
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">107</span>
+                    <span class="site-state-item-count">108</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2476,7 +2478,9 @@ The service value chain framework augments the work system framework by introduc
                     
                       
                     
-                    <span class="site-state-item-count">25</span>
+                      
+                    
+                    <span class="site-state-item-count">26</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2845,7 +2849,11 @@ The service value chain framework augments the work system framework by introduc
                     
                       
                     
-                    <span class="site-state-item-count">176</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">178</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -3461,9 +3469,9 @@ The service value chain framework augments the work system framework by introduc
   
     
       
-    
-      
         
+      
+    
       
     
       

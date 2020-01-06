@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Blockchain Tutorial I: What is blockchain]]></title>
+    <url>%2F2020%2F01%2F06%2FBlockchain-Tutorial-I-What-is-blockchain%2F</url>
+    <content type="text"><![CDATA[Brief History May/2007, Nakamoto Satoshi started the Bitcoin project August/2008, Nakamoto Satoshi registered domain name bitcoin.org 31/Obtober/2008, Nakamoto Satoshi sent an email to all members of a cryptography mailing list entitled “bitcoin: peer-to-peer e-cash thesis.” 16/November/2008, Nakamoto Satoshi announced the source code of bitcoin system 3/January/2009, Nakamoto Satoshi launched Bitcoin network on the Internet 22/May/2010, Bitcoin pizza Festival, one programmer traded 10,000 bitcoins for two great John pizza coupons. For the first time, bitcoin had a fair price: 10000 bitcoins cost $25 November/2011, Nakamoto Satoshi disappeared Why Bitcoin Disintermediation: E-cash between individuals with no intervention of a trusted third-party intermediary Decentralization: This e-cash currency issuance does not need a centralized institution, but is completed by the code and community consensus Why dose Bit coin need Block ChainIn the digital world, if we want to create a disintermediated and decentralized “e-cash”, we also need to design a complete financial system. This system should be able to solve a series of problems as follows: How can this “cash” be issued fairly and impartially without being controlled by any centralized institution or individual? How to realize that just like in the physical world, one person can hand the cash directly to another person without any intermediary assistance? How to “prevent counterfeiting” this kind of e-cash? Or how can an e-cash not be spent twice? To solve the problems, Nakamoto developed Bitcoin system, which consists of 3 layers: Application layer. The top layer is bitcoin. This is the application layer of the whole system. Application protocol layer. The function of the middle layer is to issue bitcoin and handle the bitcoin transfer between users. This layer, also known as bitcoin protocol, is the application protocol layer of the whole system. Application layer. Transfer and bookkeeping functions Incentive layer. Issuance mechanism and distribution mechanism Consensus layer. POW(Proof Of Work) General protocol layer. At the bottom are bitcoin’s distributed ledgers and decentralized networks. This layer, also known as bitcoin blockchain, is the general protocol layer of the whole system. Network layer. P2P mechanism, broadcast mechanism, and verification mechanism Data layer. Block data(Hash), chain structure(Merkle Tree), and digital signature(Asymmetric encryption) In the design of bitcoin system, Nakamoto creatively combines computer computing power competition with economic incentives to form a proof of work (POW) consensus mechanism, which enables mining computer nodes to complete the function of currency issuance and accounting in the calculation competition, as well as the operation and maintenance of blockchain ledger and decentralized network. This forms a complete cycle: the mining machine mining (calculation power competition), the completion of decentralized accounting (operation system), and the economic incentive (economic reward) in the form of bitcoin. Bitcoin’s workload proof consensus mechanism is a connecting layer, connecting the upper application and the lower technology: the upper layer is the issuance, transfer and anti-counterfeiting of e-cash; the lower layer is the node to the central network to reach an agreement and update the distributed ledger. Definition of BlockchainBlockchain is the technology of “value representation” and “value transfer” in the digital world. One side of blockchain coin is the encrypted digital currency or token representing value, and the other side is the distributed ledger and decentralized network for value transfer. Blockchain is an underlying technology derived from bitcoin. In other words, bitcoin is the first successful application of blockchain technology. When people talk about Blockchain, what do they mean: Blockchain refers to the data structure of bitcoin, that is, the chain formed by the connection of data blocks, which is also known as “distributed ledger”. In the bitcoin white paper, Nakamoto mentioned block and chain respectively, but later they were combined into the new term block chain. Blockchain refers to the combination of bitcoin’s distributed ledger and decentralized network. Corresponding to bitcoin system, it refers to the whole third layer of bitcoin blockchain. Blockchain refers to the combination of the second layer (bitcoin protocol) and the third layer (bitcoin blockchain) of bitcoin system. It includes distributed ledgers, decentralized networks and bitcoin protocols. Blockchain refers to the whole bitcoin system, including all three layers, including bitcoin with value representation and the whole system behind it. From this perspective, blockchain is regarded as a complete system including both technical and economic parts. When referring to blockchain, ordinary people often refers to the fourth largest scope, namely “account book + Network + protocol + currency”. In the industry, when people refer to blockchain, they usually refer to the third scope, namely “account book + Network + Protocol”. When talking about blockchain, many software developers usually refer to the second range of “ledger + network”. reference:http://c.biancheng.net/view/1884.html]]></content>
+      <categories>
+        <category>Learn X in Y minutes</category>
+        <category>Learn blockchain in Y minutes</category>
+      </categories>
+      <tags>
+        <tag>Blockchain</tag>
+        <tag>Bitcoin</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[How to construct an evaluation/assessment/measurement index system]]></title>
     <url>%2F2020%2F01%2F05%2FHow-to-build-an-evaluation-assessment-measurement-framework%2F</url>
     <content type="text"><![CDATA[An evaluation index system refers to an organic whole with an internal structure composed of multiple indicators that characterize various aspects of the evaluation object and their interconnections. Principles to be followedIn order to make the indicator system scientific and standardized, the following principles should be followed when constructing it: Systematic principle. There should be a certain logical relationship between the indicators. They should not only reflect the main characteristics and states of the ecological, economic and social subsystems from different aspects, but also reflect the internal relationship between the ecological, economic and social systems. Each subsystem is composed of a set of indicators, which are independent of each other and connected with each other to form an organic unity. The construction of the index system is hierarchical, from the top to the bottom, from the macro level to the micro level, forming an indivisible evaluation system. Typical principle. It is necessary to ensure that the evaluation indicators have certain typical representativeness, and reflect the comprehensive characteristics of the environment, economy and social changes in a specific region as accurately as possible. Even if the number of indicators is reduced, it is also necessary to facilitate data calculation and improve the reliability of the results. In addition, the setting of evaluation index system, the distribution of weight among indexes and the division of evaluation standard should be adapted to the natural and socio-economic conditions of a specific region. Dynamic principle. The interactive development of ecology, economy and social benefits can only be reflected through certain time scale indicators. Therefore, dynamic changes should be fully considered in the selection of indicators, and the change values of several years should be collected. Concise and scientific principle. The design of each index system and the selection of evaluation indexes must be based on the principle of scientificity, which can objectively and truly reflect the characteristics and conditions of Gaoxigou’s environmental, economic and social development, and can objectively and comprehensively reflect the real relationship between each index. Each evaluation index should be typical, not too many and too detailed, so that the index is too cumbersome and overlapping, and the index cannot be too few and too simple, so as to avoid the omission of index information, errors and untrue phenomena, and the data is easy to obtain and the calculation method is simple and easy to understand. Comparable, operable and quantifiable principle. In terms of indicator selection, special attention should be paid to the consistency within the overall scope. The construction of indicator system serves for the formulation of field assessment and scientific management. The calculation measures and calculation methods of indicator selection must be consistent and unified. Each indicator should be as simple and clear as possible, micro and easy to collect. Each indicator should be highly practical, operable and comparable. In addition, when selecting indicators, it is also necessary to consider whether quantitative processing can be carried out to facilitate mathematical calculation and analysis. Comprehensive principle. At the corresponding evaluation level, the factors affecting the environment, economy and social system are comprehensively considered, and comprehensive analysis and evaluation are carried out. Features that should be possessedAnd the constructed index system should possess these features: Perform a clear guidance direction Quantitative based and qualitative supplemented Difference classification considered General construction process Building the theoretical foundation Provide empirical evidence Statistical data support Evidence from typical cases Reasonable interpretation of contradictory cases Verify operability Representative evaluation system: 3E3E theory refers to: Efficacy, which measures its own output efficiency, which reflects the utilization of resources effectiveness, which reflects the effect of the system output on its superior system 3E system represents the trend of diversified development of performance evaluation system. Through the establishment of 3E standard system, the soft environment evaluation system is more scientific and transparent, and the efficiency and operability of performance evaluation are increased, which greatly promotes the improvement and development of public policy evaluation system.]]></content>
@@ -589,8 +602,8 @@
         <category>计算机应用数学</category>
       </categories>
       <tags>
-        <tag>计算机应用数学</tag>
         <tag>学习笔记</tag>
+        <tag>计算机应用数学</tag>
       </tags>
   </entry>
   <entry>
@@ -601,8 +614,8 @@
         <category>计算机应用数学</category>
       </categories>
       <tags>
-        <tag>计算机应用数学</tag>
         <tag>学习笔记</tag>
+        <tag>计算机应用数学</tag>
       </tags>
   </entry>
   <entry>
@@ -731,10 +744,10 @@
     <url>%2F2019%2F04%2F24%2FLambda%E6%BC%94%E7%AE%97%E7%B2%BE%E7%AE%80%E6%95%99%E7%A8%8B%2F</url>
     <content type="text"><![CDATA[前言这篇文章译自：https://learnxinyminutes.com/docs/lambda-calculus/，写的精简了点，理解起来可能有些困难 建议配合让我们谈谈 $\lambda$ 演算.pdf一起食用（出自https://github.com/txyyss/Lambda-Calculus/releases）。这篇不算长，深入浅出，写的也极好。 整体介绍Lambda演算( $\lambda$ 演算)由Alonzo Church提出，是世界上最简洁的编程语言。尽管没有数字、字符串、布尔值等非函数数据类型，lambda演算还是可以表达任何图灵机。 Lambda演算由三种元素组成：变量（variables），函数（functions），以及应用（applications）。 名称 语法 例子 解释 Variable &lt;name&gt; x 一个名为“x”的变量 Function $\lambda$ &lt;parameters&gt;.&lt;body&gt; $\lambda$ x.x 一个拥有参数“x”以及函数体x的函数 Application &lt;function&gt;&lt;variable or function&gt; ( $\lambda$ x.x).a 调用函数“ $\lambda$ x.x”且参数值为“a” 最基础的函数就是恒等函数： $\lambda$ x.x（即f(x)=x）。第一个“x”代表函数的参数，第二个“x”代表函数体。 自由变量vs约束变量 在 $\lambda$ x.x函数中，x被称为约束变量，因为它同时位于函数体和参数中。 在 $\lambda$ x.y函数中，y被称为自由变量，因为它从未被事先声明过。 计算通过 $\beta$ 规约进行计算，其基本上是词法范围的替代。 在计算表达式( $\lambda$ x.x)a时，我们用“a”替换函数体中出现的所有“x”。 ( $\lambda$ x.x)a 计算结果为：a ( $\lambda$ x.y)a 计算结果为：y 也可以创建高阶函数： ( $\lambda$ x.( $\lambda$ y.x))a 计算结果为： $\lambda$ y.a 虽然lambda演算传统上只支持单参数函数，但是我们可以使用一种称为currying的技术创建多参数函数。 ( $\lambda$ x. $\lambda$ y. $\lambda$ z.xyz) 即 f(x, y, z) = ((x y) z) 有时 $\lambda$ xy.&lt;body&gt;可与 $\lambda$ x. $\lambda$ y.&lt;body&gt;交替使用。 重要的是要认识到传统的lambda演算没有数字，字符或任何非函数数据类型！ 布尔逻辑在lambda演算中没有“True”或“False”。甚至没有1或0。 取而代之的是： T表示为： $\lambda$ x. $\lambda$ y.x F表示为： $\lambda$ x. $\lambda$ y.y 首先，我们可以定义一个“if”函数 $\lambda$ btf，如果b为True则返回t，如果b为False则返回f IF 也等同于 $\lambda$ b. $\lambda$ t. $\lambda$ f.b t f 通过使用IF，我们可以定义基础的布尔逻辑运算： a AND b 等同于: $\lambda$ ab.IF a b F a OR b 等同于: $\lambda$ ab.IF a T b NOT a 等同于: $\lambda$ a.IF a F T 注意: IF a b c 本质上是: IF((a b) c) 数字尽管lambda演算中没有数字，我们可以通过邱奇数编码数字。 任意数字n都可以编码为： $n = \lambda f.f^n$ 。因此： 0 = $\lambda$ f. $\lambda$ x.x 1 = $\lambda$ f. $\lambda$ x.f x 2 = $\lambda$ f. $\lambda$ x.f(f x) 3 = $\lambda$ f. $\lambda$ x.f(f(f x)) 为了增加邱奇数，我们使用继承函数s(n)=n+1，即 S = $\lambda$ n. $\lambda$ f. $\lambda$ x.f((n f) x) 通过继承，我们可以定义add： ADD = $\lambda$ ab.(a S)b 挑战：试着定义你自己的乘法函数！ 变得更精致：SKI，SK以及IotaSKI组合子演算使S, K, I，分别为以下函数： I x = x K x y = x S x y z = x z (y z) 我们可以将lambda演算中的表达式转换为SKI组合子演算中的表达式： $\lambda$ x.x = I $\lambda$ x.c = Kc $\lambda$ x.(y z) = S ( $\lambda$ x.y) ( $\lambda$ x.z) 以邱奇数2为例子： 2 = $\lambda$ f. $\lambda$ x.f(f x) 对于内部部分 $\lambda$ x.f(f x): $$\begin{split}\lambda x.f(f x) &amp;=&amp; S ( \lambda x.f) ( \lambda x.(f x)) (case 3) \\&amp;=&amp; S (K f) (S ( \lambda x.f) ( \lambda x.x)) (case 2, 3) \\&amp;=&amp; S (K f) (S (K f) I) (case 2, 1)\end{split}$$ 因此： $$\begin{split}2&amp;=&amp; \lambda f. \lambda x.f(f x) \\&amp;=&amp; \lambda f.(S (K f) (S (K f) I)) \\&amp;=&amp; \lambda f.((S (K f)) (S (K f) I)) \\&amp;=&amp; S ( \lambda f.(S (K f))) ( \lambda f.(S (K f) I)) (case 3)\end{split}$$ 对于第一个参数 \lambda f.(S (K f))： $$\begin{split}\lambda f.(S (K f))&amp;=&amp; S ( \lambda f.S) ( \lambda f.(K f)) (case 3)\\&amp;=&amp; S (K S) (S ( \lambda f.K) ( \lambda f.f)) (case 2, 3)\\&amp;=&amp; S (K S) (S (K K) I) (case 2, 3)\end{split}$$ 对于第二个参数 \lambda f.(S (K f) I)： $$\begin{split} \lambda f.(S (K f) I)&amp;=&amp; \lambda f.((S (K f)) I)\\&amp;=&amp; S ( \lambda f.(S (K f))) ( \lambda f.I) (case 3)\\&amp;=&amp; S (S ( \lambda f.S) ( \lambda f.(K f))) (K I) (case 2, 3)\\&amp;=&amp; S (S (K S) (S ( \lambda f.K) ( \lambda f.f))) (K I) (case 1, 3)\\&amp;=&amp; S (S (K S) (S (K K) I)) (K I) (case 1, 2)\end{split}$$ 合到一起： $$\begin{split} 2&amp;=&amp; S ( \lambda f.(S (K f))) ( \lambda f.(S (K f) I))\\&amp;=&amp; S (S (K S) (S (K K) I)) (S (S (K S) (S (K K) I)) (K I))\end{split}$$ SK 组合子运算SKI组合子运算仍可进一步简化。我们可以通过注意I = SKK来移除I组合子。我们可以用SKK替换所有I。 Iota组合子SK组合子运算依然不是最简洁的。定义： $$\begin{split}ι = \lambda f.((f S) K)\end{split}$$ 我们就有： $$\begin{split}I &amp;=&amp; ιι\\K &amp;=&amp; ι(ιI) = ι(ι(ιι))\\S &amp;=&amp; ι(K) = ι(ι(ι(ιι)))\end{split}$$]]></content>
       <tags>
-        <tag>学习笔记</tag>
         <tag>Lambda</tag>
         <tag>Lambda演算</tag>
         <tag>Lambda Calculus</tag>
+        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -1141,16 +1154,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Python入门：pickle模块简介]]></title>
-    <url>%2F2017%2F04%2F24%2FPython%E5%85%A5%E9%97%A8%EF%BC%9Apickle%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B%2F</url>
-    <content type="text"><![CDATA[概要这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看https://docs.python.org/2/library/pickle.html pickle简介pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。 就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。 用pickle保存对象到文件1234567891011121314151617#导入pickle模块import pickle#创建一个名为data1的对象data1 = &#123;'a': '123', 'b': [1, 2, 3, 4]&#125;#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)file_to_save = open("data1.pkl", "wb")#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。#第一个参数是要保存的对象名#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。pickle.dump(data1, file_to_save, -1)#关闭文件对象file_to_save.close() 用pickle从文件中读取对象(请接着上一个脚本运行) 1234567891011121314#导入pickle模块import pickle#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)file_to_read = open('data1.pkl', 'rb')#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2data2 = pickle.load(file_to_read)#打印data2print data2#关闭文件对象file_to_read.close()]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
+    <title><![CDATA[mysql-python安装错误：EnvironmentError:mysql_config not found]]></title>
+    <url>%2F2017%2F04%2F24%2Fmysql-python%E5%AE%89%E8%A3%85%E9%94%99%E8%AF%AF%EF%BC%9AEnvironmentError-%20mysql_config%20not%20found%2F</url>
+    <content type="text"><![CDATA[问题描述：安装mysql-python时报错： 12345678910111213141516Collecting mysql-python Using cached MySQL-python-1.2.5.zip Complete output from command python setup.py egg_info: sh: 1: mysql_config: not found Traceback (most recent call last): File "&lt;string&gt;", line 1, in &lt;module&gt; File "/tmp/pip-build-_itbcX/mysql-python/setup.py", line 17, in &lt;module&gt; metadata, options = get_config() File "setup_posix.py", line 43, in get_config libs = mysql_config("libs_r") File "setup_posix.py", line 25, in mysql_config raise EnvironmentError("%s not found" % (mysql_config.path,)) EnvironmentError: mysql_config not found ----------------------------------------Command "python setup.py egg_info" failed with error code 1 in /tmp/pip-build-_itbcX/mysql-python/ 问题原因：没有安装libmysqlclient-dev。 解决方案：执行： sudo apt-get install libmysqlclient-dev 安装成功后，再运行pip install mysql-python即可。]]></content>
       <tags>
         <tag>Python</tag>
-        <tag>Pickle</tag>
-        <tag>Python入门</tag>
+        <tag>Trick</tag>
+        <tag>Mysql</tag>
+        <tag>mysql-python安装错误</tag>
       </tags>
   </entry>
   <entry>
@@ -1164,17 +1175,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[mysql-python安装错误：EnvironmentError:mysql_config not found]]></title>
-    <url>%2F2017%2F04%2F24%2Fmysql-python%E5%AE%89%E8%A3%85%E9%94%99%E8%AF%AF%EF%BC%9AEnvironmentError-%20mysql_config%20not%20found%2F</url>
-    <content type="text"><![CDATA[问题描述：安装mysql-python时报错： 12345678910111213141516Collecting mysql-python Using cached MySQL-python-1.2.5.zip Complete output from command python setup.py egg_info: sh: 1: mysql_config: not found Traceback (most recent call last): File "&lt;string&gt;", line 1, in &lt;module&gt; File "/tmp/pip-build-_itbcX/mysql-python/setup.py", line 17, in &lt;module&gt; metadata, options = get_config() File "setup_posix.py", line 43, in get_config libs = mysql_config("libs_r") File "setup_posix.py", line 25, in mysql_config raise EnvironmentError("%s not found" % (mysql_config.path,)) EnvironmentError: mysql_config not found ----------------------------------------Command "python setup.py egg_info" failed with error code 1 in /tmp/pip-build-_itbcX/mysql-python/ 问题原因：没有安装libmysqlclient-dev。 解决方案：执行： sudo apt-get install libmysqlclient-dev 安装成功后，再运行pip install mysql-python即可。]]></content>
-      <tags>
-        <tag>Python</tag>
-        <tag>Trick</tag>
-        <tag>Mysql</tag>
-        <tag>mysql-python安装错误</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)]]></title>
     <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9Aerror%202003%20%EF%BC%88hy000%EF%BC%89-can't%20connect%20to%20mysql%20server%20on%20'localhost'%20(10061)%2F</url>
     <content type="text"><![CDATA[问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项： /etc/mysql/my.cnf /etc/mysql/mysqld.cnf 在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成： #bind-address = 127.0.0.1 然后执行 service mysql restart重新启动mysql服务使配置生效即可。]]></content>
@@ -1182,6 +1182,19 @@
         <tag>Trick</tag>
         <tag>Mysql</tag>
         <tag>远程连接报错</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Python入门：pickle模块简介]]></title>
+    <url>%2F2017%2F04%2F24%2FPython%E5%85%A5%E9%97%A8%EF%BC%9Apickle%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B%2F</url>
+    <content type="text"><![CDATA[概要这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看https://docs.python.org/2/library/pickle.html pickle简介pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。 就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。 用pickle保存对象到文件1234567891011121314151617#导入pickle模块import pickle#创建一个名为data1的对象data1 = &#123;'a': '123', 'b': [1, 2, 3, 4]&#125;#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)file_to_save = open("data1.pkl", "wb")#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。#第一个参数是要保存的对象名#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。pickle.dump(data1, file_to_save, -1)#关闭文件对象file_to_save.close() 用pickle从文件中读取对象(请接着上一个脚本运行) 1234567891011121314#导入pickle模块import pickle#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)file_to_read = open('data1.pkl', 'rb')#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2data2 = pickle.load(file_to_read)#打印data2print data2#关闭文件对象file_to_read.close()]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Pickle</tag>
+        <tag>Python入门</tag>
       </tags>
   </entry>
   <entry>
