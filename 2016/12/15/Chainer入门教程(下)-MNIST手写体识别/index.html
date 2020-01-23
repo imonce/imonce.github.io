@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/C_Meng.png?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+  <meta name="description" content="III. 训练一个手写体识别器在这一部分中，我们将使用MNIST手写数字数据集来尝试区分一个28x28像素的手写体图像。这是一个典型的有监督的深度学习。 对于这个问题，我们将会改变我们之前的线性回归器，同时引入一些隐藏的线性神经网络层，当然，也会引入一些非线性的激活函数。这种类型的架构通常被称为Multilayer Perceptron(MLP)。接下来我们就来看一下它是如何处理眼下的这个任务的。">
+<meta name="keywords" content="Chainer,入门教程,机器学习,神经网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chainer入门教程(下)：MNIST手写体识别">
+<meta property="og:url" content="https://imonce.github.io/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="III. 训练一个手写体识别器在这一部分中，我们将使用MNIST手写数字数据集来尝试区分一个28x28像素的手写体图像。这是一个典型的有监督的深度学习。 对于这个问题，我们将会改变我们之前的线性回归器，同时引入一些隐藏的线性神经网络层，当然，也会引入一些非线性的激活函数。这种类型的架构通常被称为Multilayer Perceptron(MLP)。接下来我们就来看一下它是如何处理眼下的这个任务的。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20180809232611.png">
+<meta property="og:updated_time" content="2020-01-04T07:49:59.984Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chainer入门教程(下)：MNIST手写体识别">
+<meta name="twitter:description" content="III. 训练一个手写体识别器在这一部分中，我们将使用MNIST手写数字数据集来尝试区分一个28x28像素的手写体图像。这是一个典型的有监督的深度学习。 对于这个问题，我们将会改变我们之前的线性回归器，同时引入一些隐藏的线性神经网络层，当然，也会引入一些非线性的激活函数。这种类型的架构通常被称为Multilayer Perceptron(MLP)。接下来我们就来看一下它是如何处理眼下的这个任务的。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20180809232611.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://imonce.github.io/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Chainer入门教程(下)：MNIST手写体识别 | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">C_Meng PSNA</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">177</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">27</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">111</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ltb25jZQ==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></span>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="image" content="/images/C_Meng.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Chainer入门教程(下)：MNIST手写体识别
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-12-15 22:57:00" itemprop="dateCreated datePublished" datetime="2016-12-15T22:57:00+08:00">2016-12-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-04 15:49:59" itemprop="dateModified" datetime="2020-01-04T15:49:59+08:00">2020-01-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="III-训练一个手写体识别器"><a href="#III-训练一个手写体识别器" class="headerlink" title="III. 训练一个手写体识别器"></a>III. 训练一个手写体识别器</h2><p>在这一部分中，我们将使用MNIST手写数字数据集来尝试区分一个28x28像素的手写体图像。这是一个典型的有监督的深度学习。</p>
+<p>对于这个问题，我们将会改变我们之前的线性回归器，同时引入一些隐藏的线性神经网络层，当然，也会引入一些非线性的激活函数。这种类型的架构通常被称为Multilayer Perceptron(MLP)。接下来我们就来看一下它是如何处理眼下的这个任务的。</p>
+<p>下面的这一段代码会帮助你下载、引入并结构化MNIST数据集。然而为了完成这部分工作，你还需要下载<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ltb25jZS9pbW9uY2UuZ2l0aHViLmlvL3RyZWUvbWFzdGVyL2Fzc2V0cy9maWxlcy9kYXRhLnB5" title="https://github.com/imonce/imonce.github.io/tree/master/assets/files/data.py">data.py<i class="fa fa-external-link"></i></span>文件，并把它放在你的工作目录(你的脚本或notebook所在的目录)下以方便导入。</p>
+<a id="more"></a>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># functions for importing the MNIST dataset.</span></span><br><span class="line"><span class="keyword">import</span> data</span><br><span class="line"></span><br><span class="line"><span class="comment"># We'll first import the data as a variable mnist.</span></span><br><span class="line"><span class="comment"># (If this is the first time you've run this function</span></span><br><span class="line"><span class="comment"># it could take a minute or two)</span></span><br><span class="line"></span><br><span class="line">mnist = data.load_mnist_data()</span><br></pre></td></tr></table></figure>
+
+<p>现在我们可以先看一下这些图片的样子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">12</span>,<span class="number">5</span>))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    example = mnist[<span class="string">'data'</span>][i].reshape(<span class="number">28</span>, <span class="number">28</span>)</span><br><span class="line">    target = mnist[<span class="string">'target'</span>][i]</span><br><span class="line">    plt.subplot(<span class="number">2</span>, <span class="number">5</span>, i+<span class="number">1</span>)</span><br><span class="line">    plt.imshow(example, cmap=<span class="string">'gray'</span>)</span><br><span class="line">    plt.title(<span class="string">"Target Number: &#123;0&#125;"</span>.format(target))</span><br><span class="line">    plt.axis(<span class="string">"off"</span>)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20180809232611.png" alt></p>
+<p>现在，我们要把数据集中的图像和对应的真实数字分开，并分成训练集和测试集两部分，以便我们在最后检验我们的学习成果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Separate the two parts of the MNIST dataset</span></span><br><span class="line">features = mnist[<span class="string">'data'</span>].astype(np.float32) / <span class="number">255</span></span><br><span class="line">targets = mnist[<span class="string">'target'</span>].astype(np.int32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Make a train/test split.</span></span><br><span class="line">x_train, x_test = np.split(features, [<span class="number">60000</span>])</span><br><span class="line">y_train, y_test = np.split(targets, [<span class="number">60000</span>])</span><br></pre></td></tr></table></figure>
+
+<p>这样一来，我们就可以集中精力训练我们的MLP了。MLP包含一系列不同的layer，Chainer又有一个很不错的方法，这可以帮我们把神经网络中所有的layer都封装到一个对象中。</p>
+<h3 id="FunctionSet简介"><a href="#FunctionSet简介" class="headerlink" title="FunctionSet简介"></a>FunctionSet简介</h3><p>这个方便的对象以命名后的layer作为关键字参数，以便我们之后可以引用它们。FunctionSet工作的方式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = FunctionSet(layer1=&lt;place link here&gt;, layer2=&lt;place link here&gt;, ...etc.)</span><br></pre></td></tr></table></figure>
+
+<p>然后layer就会在类的实例中作为属性存在。这些layer都可以通过把FunctionSet实例交给optimizer的setup方法同时进行优化：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optimizer.setup(model)</span><br></pre></td></tr></table></figure>
+
+<p>理解了这个小tip之后，我们就可以继续构建我们的分类器了。我们需要把一个28x28像素的图像降维成一个10维的单形。输出的每一个维度代表一个具体的数字。</p>
+<h3 id="MLP架构"><a href="#MLP架构" class="headerlink" title="MLP架构"></a>MLP架构</h3><p>为了方便教学以及理解，我们在这里建立一个只有三层的神经网络。</p>
+<p>我们需要一个link来引入我们的28x28=784的图像，然后一步一步把它降维到10维。</p>
+<p><strong>另外，因为线性函数的组织是线性的，而深度学习又具有引入非线性变换的优点，所以当我们引入一些非线性函数时就会有非常好的重复线性层的堆叠。</strong></p>
+<!-- Additionally, since compositions of linear functions are linear and the benefit of deep learning models are their ability to approximate arbitrary nonlinear functions, it wouldn’t do us much good to stack repeated linear layers together without adding some nonlinear function to send them through-->
+
+<p>因此，在前向传播时，我们希望线性变换层和非线性的激活函数层交替出现。通过这种方法，我们的神经网络可以学习到非线性的数据模型以得到更好的预测结果。最后我们通过一个名为softmax的交叉熵损失函数来比较输出的矢量与我们的原本提取出的答案，然后基于计算出的损失来进行反向传播。</p>
+<p>最终我们的前向传播的架构应该是这样的形式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">out = linear_layer1(data)</span><br><span class="line">out = relu(out)</span><br><span class="line">out = linear_layer2(out)</span><br><span class="line">out = relu(out)</span><br><span class="line">out = linear_layer3(out)</span><br></pre></td></tr></table></figure>
+
+<p>到了训练我们的模型的时候，我们希望能够每次处理一部分的样品并在更新权重前来统计它们的损失。</p>
+<h3 id="Define-the-Model"><a href="#Define-the-Model" class="headerlink" title="Define the Model"></a>Define the Model</h3><p>首先，我们通过声明link的集以及在训练过程中要用到的optimizer来定义模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Declare the model layers together as a FunctionSet</span></span><br><span class="line">mnist_model = FunctionSet(</span><br><span class="line">    linear1=L.Linear(<span class="number">784</span>, <span class="number">300</span>),</span><br><span class="line">    linear2=L.Linear(<span class="number">300</span>, <span class="number">100</span>),</span><br><span class="line">    linear3=L.Linear(<span class="number">100</span>, <span class="number">10</span>)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="comment"># Instantiate an optimizer (you should probably use an</span></span><br><span class="line"><span class="comment"># Adam optimizer here for best performance)</span></span><br><span class="line"><span class="comment"># and then setup the optimizer on the FunctionSet.</span></span><br><span class="line">mnist_optimizer = optimizers.Adam()</span><br><span class="line">mnist_optimizer.setup(mnist_model)</span><br></pre></td></tr></table></figure>
+
+<h3 id="构造训练函数"><a href="#构造训练函数" class="headerlink" title="构造训练函数"></a>构造训练函数</h3><p>现在我们构造一个合适的函数来进行前向传播、定义训练用的数据集以及生成训练之后对MNIST手写图像进行预测的结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Construct a forward pass through the network,</span></span><br><span class="line"><span class="comment"># moving sequentially through a layer then activation function</span></span><br><span class="line"><span class="comment"># as stated above.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mnist_forward</span><span class="params">(data, model)</span>:</span></span><br><span class="line"></span><br><span class="line">    out1 = model.linear1(data)</span><br><span class="line">    out2 = F.relu(out1)</span><br><span class="line">    out3 = model.linear2(out2)</span><br><span class="line">    out4 = F.relu(out3)</span><br><span class="line">    final = model.linear3(out4)</span><br><span class="line">    <span class="keyword">return</span> final</span><br><span class="line"></span><br><span class="line"><span class="comment"># Make a training function which takes in training data and targets</span></span><br><span class="line"><span class="comment"># as an input.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mnist_train</span><span class="params">(x, y, model, batchsize=<span class="number">1000</span>, n_epochs=<span class="number">20</span>)</span>:</span></span><br><span class="line"></span><br><span class="line">    data_size = x.shape[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># loop over epochs</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(n_epochs):</span><br><span class="line">        print(<span class="string">'epoch %d'</span> % (epoch + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># randomly shuffle the indices of the training data</span></span><br><span class="line">        shuffler = np.random.permutation(data_size)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># loop over batches</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, data_size, batchsize):</span><br><span class="line">            x_var = Variable(x[shuffler[i : i + batchsize]])</span><br><span class="line">            y_var = Variable(y[shuffler[i : i + batchsize]])</span><br><span class="line"></span><br><span class="line">            output = mnist_forward(x_var, model)</span><br><span class="line">            model.zerograds()</span><br><span class="line">            loss = F.softmax_cross_entropy(output, y_var)</span><br><span class="line">            loss.backward()</span><br><span class="line">            mnist_optimizer.update()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Make a prediction function, using a softmax and argmax in order to</span></span><br><span class="line"><span class="comment"># match the target space so that we can validate.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mnist_predict</span><span class="params">(x, model)</span>:</span></span><br><span class="line">    x = Variable(x)</span><br><span class="line"></span><br><span class="line">    output = mnist_forward(x, model)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> F.softmax(output).data.argmax(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Train-the-Model"><a href="#Train-the-Model" class="headerlink" title="Train the Model"></a>Train the Model</h3><p>我们现在可以开始训练神经网络了（这里我们使用一个比较小的训练次数和一个比较大的批大小，这样可以帮我们节省一些训练时间。你也可以修改一些参数，说不定就会出现更好的结果呢~）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mnist_train(x_train, y_train, mnist_model, n_epochs=<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="进行预测"><a href="#进行预测" class="headerlink" title="进行预测"></a>进行预测</h3><p>最后一件事情就是通过测试集来验证我们的模型的精确度，看看是否出现了过拟合的情况。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Call your prediction function on the test set</span></span><br><span class="line">pred = mnist_predict(x_test, mnist_model)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Compare the prediction to the ground truth target values.</span></span><br><span class="line">accuracy = (pred==y_test).mean()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print out test accuracy</span></span><br><span class="line">print(<span class="string">"Test accuracy: %f"</span> % accuracy)</span><br></pre></td></tr></table></figure>
+
+<p>out: <code>Test accuracy: 0.965900</code></p>
+<p>可以看到，我们才训练了5次就有了一个96.59%的准确率，amazing~</p>
+<h3 id="模型复用"><a href="#模型复用" class="headerlink" title="模型复用"></a>模型复用</h3><p>如果你觉得某一次的训练结果不错，想要保存下来以后使用，你可以通过Chainer的serializers来将其保存成hdf5格式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serializers.save_hdf5(<span class="string">'test.model'</span>, mnist_model)</span><br><span class="line">serializers.save_hdf5(<span class="string">'test.state'</span>, mnist_optimizer)</span><br></pre></td></tr></table></figure>
+
+<p>要调出使用的时候也很简单：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serializers.load_hdf5(<span class="string">'my_model.model'</span>, model_name)</span><br><span class="line">serializers.load_hdf5(<span class="string">'my_optimizer.state'</span>, optimizer_name)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>通过这篇入门教程，相信大家对于机器学习以及Chainer都有了一定的概念。可以看出，Chainer是一个非常灵活且实用的框架，机器学习也并非难以理解。如果你想进一步Chaier这个框架，个人觉得去看看<span class="exturl" data-url="aHR0cDovL2RvY3MuY2hhaW5lci5vcmcvZW4vc3RhYmxlLw==" title="http://docs.chainer.org/en/stable/">Chainer的官方文档<i class="fa fa-external-link"></i></span>也是一个不错的选择~</p>
+<h3 id="Note"><a href="#Note" class="headerlink" title="Note:"></a>Note:</h3><p>本文译自：<span class="exturl" data-url="aHR0cDovL211bHRpdGhyZWFkZWQuc3RpdGNoZml4LmNvbS9ibG9nLzIwMTUvMTIvMDkvaW50cm8tdG8tY2hhaW5lci8=" title="http://multithreaded.stitchfix.com/blog/2015/12/09/intro-to-chainer/">Introduction to Chainer: Neural Networks in Python<i class="fa fa-external-link"></i></span></p>
+<h3 id="每日一句："><a href="#每日一句：" class="headerlink" title="每日一句："></a>每日一句：</h3><p>On n’est jamais content là où on est.（人们从来不会满意自己所在的地方。）</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>您的支持将鼓励我继续创作，欢迎留言私信交朋友呀~</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="C_Meng WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="C_Meng Alipay">
+        <p>Alipay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/paypal.png" alt="C_Meng paypal">
+        <p>paypal</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Chainer/" rel="tag"># Chainer</a>
+          
+            <a href="/tags/入门教程/" rel="tag"># 入门教程</a>
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/神经网络/" rel="tag"># 神经网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/14/Chainer入门教程(上)：在Chainer中做线性回归/" rel="next" title="Chainer入门教程(上)：在Chainer中做线性回归">
+                <i class="fa fa-chevron-left"></i> Chainer入门教程(上)：在Chainer中做线性回归
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" rel="prev" title="mysql-python安装错误：EnvironmentError:mysql_config not found">
+                mysql-python安装错误：EnvironmentError:mysql_config not found <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1831623022964098" data-ad-slot="5648729926" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/C_Meng.png" alt="C_Meng">
+            
+              <p class="site-author-name" itemprop="name">C_Meng</p>
+              <div class="site-description motion-element" itemprop="description">A stupid old man with a humble learning heart. And his dog.</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">111</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">177</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ltb25jZQ==" title="GitHub &rarr; https://github.com/imonce"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOmltb25jZUBvdXRsb29rLmNvbQ==" title="E-Mail &rarr; mailto:imonce@outlook.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93ZWliby5jb20vMzkxMjM5MDgyOS9wcm9maWxlP3RvcG5hdj0xJnd2cj02JmlzX2FsbD0x" title="Weibo &rarr; https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1"><i class="fa fa-fw fa-weibo"></i>Weibo</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9tb2VzY2Vl" title="Twitter &rarr; https://twitter.com/moescee"><i class="fa fa-fw fa-twitter"></i>Twitter</span>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#III-训练一个手写体识别器"><span class="nav-number">1.</span> <span class="nav-text">III. 训练一个手写体识别器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FunctionSet简介"><span class="nav-number">1.1.</span> <span class="nav-text">FunctionSet简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MLP架构"><span class="nav-number">1.2.</span> <span class="nav-text">MLP架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Define-the-Model"><span class="nav-number">1.3.</span> <span class="nav-text">Define the Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造训练函数"><span class="nav-number">1.4.</span> <span class="nav-text">构造训练函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Train-the-Model"><span class="nav-number">1.5.</span> <span class="nav-text">Train the Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进行预测"><span class="nav-number">1.6.</span> <span class="nav-text">进行预测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型复用"><span class="nav-number">1.7.</span> <span class="nav-text">模型复用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">2.</span> <span class="nav-text">Conclusion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Note"><span class="nav-number">2.1.</span> <span class="nav-text">Note:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#每日一句："><span class="nav-number">2.2.</span> <span class="nav-text">每日一句：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1831623022964098" data-ad-slot="5648729926" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+  <script src="/js/exturl.js?v=7.1.0"></script>
+
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+    appKey: 'WBQPPWjmwGWqvQcLqprPq0xs',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

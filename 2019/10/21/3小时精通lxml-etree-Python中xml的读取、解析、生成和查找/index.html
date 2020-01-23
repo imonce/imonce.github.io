@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/C_Meng.png?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+  <meta name="description" content="本文主要参考官方文档https://lxml.de/tutorial.html整理，如有错误欢迎指出。 12from lxml import etreefrom copy import deepcopy  12345678910111213# 添加Element默认添加为根节点root = etree.Element(&quot;root&quot;)# 通过append添加子节点root.append(etree.">
+<meta name="keywords" content="Python,Python3,lxml,etree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3小时精通lxml.etree:Python中xml的读取、解析、生成和查找">
+<meta property="og:url" content="https://imonce.github.io/2019/10/21/3小时精通lxml-etree-Python中xml的读取、解析、生成和查找/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="本文主要参考官方文档https://lxml.de/tutorial.html整理，如有错误欢迎指出。 12from lxml import etreefrom copy import deepcopy  12345678910111213# 添加Element默认添加为根节点root = etree.Element(&quot;root&quot;)# 通过append添加子节点root.append(etree.">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-01-04T08:07:17.509Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3小时精通lxml.etree:Python中xml的读取、解析、生成和查找">
+<meta name="twitter:description" content="本文主要参考官方文档https://lxml.de/tutorial.html整理，如有错误欢迎指出。 12from lxml import etreefrom copy import deepcopy  12345678910111213# 添加Element默认添加为根节点root = etree.Element(&quot;root&quot;)# 通过append添加子节点root.append(etree.">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://imonce.github.io/2019/10/21/3小时精通lxml-etree-Python中xml的读取、解析、生成和查找/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>3小时精通lxml.etree:Python中xml的读取、解析、生成和查找 | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">C_Meng PSNA</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">177</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">27</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">111</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ltb25jZQ==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></span>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/10/21/3小时精通lxml-etree-Python中xml的读取、解析、生成和查找/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="image" content="/images/C_Meng.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">3小时精通lxml.etree:Python中xml的读取、解析、生成和查找
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-10-21 17:04:41" itemprop="dateCreated datePublished" datetime="2019-10-21T17:04:41+08:00">2019-10-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-04 16:07:17" itemprop="dateModified" datetime="2020-01-04T16:07:17+08:00">2020-01-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Learn-X-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn X in Y minutes</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Learn-X-in-Y-minutes/Learn-lxml-etree-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn lxml.etree in Y minutes</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/10/21/3小时精通lxml-etree-Python中xml的读取、解析、生成和查找/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/10/21/3小时精通lxml-etree-Python中xml的读取、解析、生成和查找/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要参考官方文档<span class="exturl" data-url="aHR0cHM6Ly9seG1sLmRlL3R1dG9yaWFsLmh0bWw=" title="https://lxml.de/tutorial.html">https://lxml.de/tutorial.html<i class="fa fa-external-link"></i></span>整理，如有错误欢迎指出。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="keyword">from</span> copy <span class="keyword">import</span> deepcopy</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加Element默认添加为根节点</span></span><br><span class="line">root = etree.Element(<span class="string">"root"</span>)</span><br><span class="line"><span class="comment"># 通过append添加子节点</span></span><br><span class="line">root.append(etree.Element(<span class="string">"child1"</span>))</span><br><span class="line"><span class="comment"># 通过SubElement添加子节点</span></span><br><span class="line">child2 = etree.SubElement(root, <span class="string">"child2"</span>)</span><br><span class="line">child3 = etree.SubElement(root, <span class="string">"child3"</span>)</span><br><span class="line">print(etree.tostring(root))</span><br><span class="line">print(etree.tostring(root, pretty_print=<span class="keyword">True</span>))</span><br><span class="line"><span class="comment"># 默认encoding是ASCII</span></span><br><span class="line">print(etree.tostring(root, encoding=<span class="string">'iso-8859-1'</span>))</span><br><span class="line"><span class="comment"># 如果要把byte转成str输出的话，可以用下边的语句</span></span><br><span class="line">print(str(etree.tostring(root, pretty_print=<span class="keyword">True</span>),encoding=<span class="string">'utf-8'</span>))</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;root&gt;&lt;child1/&gt;&lt;child2/&gt;&lt;child3/&gt;&lt;/root&gt;&apos;
+b&apos;&lt;root&gt;\n  &lt;child1/&gt;\n  &lt;child2/&gt;\n  &lt;child3/&gt;\n&lt;/root&gt;\n&apos;
+b&quot;&lt;?xml version=&apos;1.0&apos; encoding=&apos;iso-8859-1&apos;?&gt;\n&lt;root&gt;&lt;child1/&gt;&lt;child2/&gt;&lt;child3/&gt;&lt;/root&gt;&quot;
+&lt;root&gt;
+  &lt;child1/&gt;
+  &lt;child2/&gt;
+  &lt;child3/&gt;
+&lt;/root&gt;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每个元素都是一个list</span></span><br><span class="line">child1 = root[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># .tag 可以取出元素的标签</span></span><br><span class="line">print(child1.tag, len(root))</span><br><span class="line"><span class="comment"># 大部分list方法都可以使用在element上</span></span><br><span class="line">root.insert(<span class="number">0</span>, etree.Element(<span class="string">"child0"</span>))</span><br><span class="line">print(root[<span class="number">0</span>].tag)</span><br></pre></td></tr></table></figure>
+
+<pre><code>child1 3
+child0</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以用list函数取出子元素的list</span></span><br><span class="line">children = list(root)</span><br><span class="line">print(root)</span><br><span class="line">print(children)</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;Element root at 0x107b03888&gt;
+[&lt;Element child0 at 0x107b034c8&gt;, &lt;Element child1 at 0x107b03448&gt;, &lt;Element child2 at 0x107b038c8&gt;, &lt;Element child3 at 0x107b03908&gt;]</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过长度检查element是否为叶子节点</span></span><br><span class="line"><span class="keyword">if</span> len(root):</span><br><span class="line">    print(<span class="string">'root has children'</span>)</span><br><span class="line"><span class="keyword">if</span> len(child1):</span><br><span class="line">    print(<span class="string">'child1 has children'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'child1 has no child'</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>root has children
+child1 has no child</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不同于普通list，赋值可能会造成元素移动</span></span><br><span class="line">print(etree.tostring(root))</span><br><span class="line">root[<span class="number">0</span>] = root[<span class="number">-1</span>]</span><br><span class="line">print(etree.tostring(root))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这是普通list</span></span><br><span class="line">l = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">print(l)</span><br><span class="line">l[<span class="number">0</span>] = l[<span class="number">-1</span>]</span><br><span class="line">print(l)</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;root&gt;&lt;child0/&gt;&lt;child1/&gt;&lt;child2/&gt;&lt;child3/&gt;&lt;/root&gt;&apos;
+b&apos;&lt;root&gt;&lt;child3/&gt;&lt;child1/&gt;&lt;child2/&gt;&lt;/root&gt;&apos;
+[0, 1, 2, 3]
+[3, 1, 2, 3]</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 要拷贝节点，需要调用deepcopy</span></span><br><span class="line">newroot = etree.Element(<span class="string">'newroot'</span>)</span><br><span class="line">newroot.append(deepcopy(root[<span class="number">1</span>]))</span><br><span class="line">print(etree.tostring(root))</span><br><span class="line">print(etree.tostring(newroot))</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;root&gt;&lt;child3/&gt;&lt;child1/&gt;&lt;child2/&gt;&lt;/root&gt;&apos;
+b&apos;&lt;newroot&gt;&lt;child1/&gt;&lt;/newroot&gt;&apos;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># etree元素自带方法可以找到对应的父节点、前一个节点、后一个节点</span></span><br><span class="line">print(root <span class="keyword">is</span> child1.getparent())</span><br><span class="line">print(root[<span class="number">0</span>] <span class="keyword">is</span> root[<span class="number">1</span>].getprevious())</span><br><span class="line">print(root[<span class="number">1</span>] <span class="keyword">is</span> root[<span class="number">0</span>].getnext())</span><br></pre></td></tr></table></figure>
+
+<pre><code>True
+True
+True</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 属性以字典方式存储</span></span><br><span class="line">root = etree.Element(<span class="string">"root"</span>, interesting=<span class="string">"totally"</span>)</span><br><span class="line">print(etree.tostring(root))</span><br><span class="line"><span class="comment"># 通过get方法获取属性值</span></span><br><span class="line">print(root.get(<span class="string">"interesting"</span>))</span><br><span class="line">print(root.get(<span class="string">"hello"</span>))</span><br><span class="line"><span class="comment"># 通过set方法添加属性</span></span><br><span class="line">root.set(<span class="string">"hello"</span>, <span class="string">"Huhu"</span>)</span><br><span class="line">print(etree.tostring(root))</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;root interesting=&quot;totally&quot;/&gt;&apos;
+totally
+None
+b&apos;&lt;root interesting=&quot;totally&quot; hello=&quot;Huhu&quot;/&gt;&apos;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字典的相关方法也可以直接使用</span></span><br><span class="line">print(root.items(), root.keys(), root.values())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过 attrib 可以直接取出属性进行操作</span></span><br><span class="line">attributes = root.attrib</span><br><span class="line">print(attributes.get(<span class="string">"no-such-attribute"</span>))</span><br><span class="line"><span class="keyword">None</span></span><br><span class="line">attributes[<span class="string">"hello"</span>] = <span class="string">"Guten Tag"</span></span><br><span class="line">print(attributes[<span class="string">"hello"</span>])</span><br><span class="line"><span class="comment"># root中的属性一并修改</span></span><br><span class="line">print(root.get(<span class="string">"hello"</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以转化为纯正的dict</span></span><br><span class="line">d = dict(root.attrib)</span><br><span class="line">print(d.items())</span><br></pre></td></tr></table></figure>
+
+<pre><code>[(&apos;interesting&apos;, &apos;totally&apos;), (&apos;hello&apos;, &apos;Huhu&apos;)] [&apos;interesting&apos;, &apos;hello&apos;] [&apos;totally&apos;, &apos;Huhu&apos;]
+None
+Guten Tag
+Guten Tag
+dict_items([(&apos;interesting&apos;, &apos;totally&apos;), (&apos;hello&apos;, &apos;Guten Tag&apos;)])</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 元素中包含文本</span></span><br><span class="line">root = etree.Element(<span class="string">"root"</span>)</span><br><span class="line">root.text = <span class="string">"Hello World"</span></span><br><span class="line">print(root.text)</span><br><span class="line">print(etree.tostring(root))</span><br></pre></td></tr></table></figure>
+
+<pre><code>Hello World
+b&apos;&lt;root&gt;Hello World&lt;/root&gt;&apos;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如何添加特殊元素类似于&lt;br/&gt;</span></span><br><span class="line">html = etree.Element(<span class="string">"html"</span>)</span><br><span class="line">body = etree.SubElement(html, <span class="string">"body"</span>)</span><br><span class="line">body.text = <span class="string">"TEXT"</span></span><br><span class="line"></span><br><span class="line">print(etree.tostring(html))</span><br><span class="line"></span><br><span class="line">br = etree.SubElement(body, <span class="string">"br"</span>)</span><br><span class="line">print(etree.tostring(html))</span><br><span class="line"></span><br><span class="line">br.tail = <span class="string">"TAIL"</span></span><br><span class="line">print(etree.tostring(html))</span><br><span class="line">body.text = <span class="string">"HEAD"</span></span><br><span class="line">print(etree.tostring(html))</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;html&gt;&lt;body&gt;TEXT&lt;/body&gt;&lt;/html&gt;&apos;
+b&apos;&lt;html&gt;&lt;body&gt;TEXT&lt;br/&gt;&lt;/body&gt;&lt;/html&gt;&apos;
+b&apos;&lt;html&gt;&lt;body&gt;TEXT&lt;br/&gt;TAIL&lt;/body&gt;&lt;/html&gt;&apos;
+b&apos;&lt;html&gt;&lt;body&gt;HEAD&lt;br/&gt;TAIL&lt;/body&gt;&lt;/html&gt;&apos;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tail其实属于前边元素的一部分</span></span><br><span class="line">print(etree.tostring(br))</span><br><span class="line">print(etree.tostring(br, with_tail=<span class="keyword">False</span>))</span><br><span class="line">print(etree.tostring(html, method=<span class="string">"text"</span>))</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;br/&gt;TAIL&apos;
+b&apos;&lt;br/&gt;&apos;
+b&apos;HEADTAIL&apos;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># xpath方法也可以使用</span></span><br><span class="line">print(html.xpath(<span class="string">"string()"</span>))</span><br><span class="line">print(html.xpath(<span class="string">"//text()"</span>))</span><br></pre></td></tr></table></figure>
+
+<pre><code>HEADTAIL
+[&apos;HEAD&apos;, &apos;TAIL&apos;]</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 甚至可以吧xpath的方法包装成函数</span></span><br><span class="line">build_text_list = etree.XPath(<span class="string">"//text()"</span>) <span class="comment"># lxml.etree only!</span></span><br><span class="line">print(build_text_list(html))</span><br></pre></td></tr></table></figure>
+
+<pre><code>[&apos;HEAD&apos;, &apos;TAIL&apos;]</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># text也可以找爸爸</span></span><br><span class="line">texts = build_text_list(html)</span><br><span class="line">print(texts[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">parent = texts[<span class="number">0</span>].getparent()</span><br><span class="line">print(parent.tag)</span><br><span class="line"></span><br><span class="line">print(texts[<span class="number">1</span>])</span><br><span class="line">print(texts[<span class="number">1</span>].getparent().tag)</span><br></pre></td></tr></table></figure>
+
+<pre><code>HEAD
+body
+TAIL
+br</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 判断一段文本是正常的文本还是tail</span></span><br><span class="line">print(texts[<span class="number">0</span>].is_text)</span><br><span class="line">print(texts[<span class="number">1</span>].is_text)</span><br><span class="line">print(texts[<span class="number">1</span>].is_tail)</span><br></pre></td></tr></table></figure>
+
+<pre><code>True
+False
+True</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 但是XPath下有些方法就不行了</span></span><br><span class="line">stringify = etree.XPath(<span class="string">"string()"</span>)</span><br><span class="line">print(stringify(html))</span><br><span class="line">print(stringify(html).getparent())</span><br></pre></td></tr></table></figure>
+
+<pre><code>HEADTAIL
+None</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># etree中的树是iterable的</span></span><br><span class="line">root = etree.Element(<span class="string">"root"</span>)</span><br><span class="line">etree.SubElement(root, <span class="string">"child"</span>).text = <span class="string">"Child 1"</span></span><br><span class="line">etree.SubElement(root, <span class="string">"child"</span>).text = <span class="string">"Child 2"</span></span><br><span class="line">etree.SubElement(root, <span class="string">"another"</span>).text = <span class="string">"Child 3"</span></span><br><span class="line"></span><br><span class="line">print(etree.tostring(root, pretty_print=<span class="keyword">True</span>))</span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> root.iter():</span><br><span class="line">    print(<span class="string">"%s - %s"</span> % (element.tag, element.text))</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;root&gt;\n  &lt;child&gt;Child 1&lt;/child&gt;\n  &lt;child&gt;Child 2&lt;/child&gt;\n  &lt;another&gt;Child 3&lt;/another&gt;\n&lt;/root&gt;\n&apos;
+root - None
+child - Child 1
+child - Child 2
+another - Child 3</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以通过在iter中添加参数，来过滤输出的tag</span></span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> root.iter(<span class="string">"child"</span>):</span><br><span class="line">    print(<span class="string">"%s - %s"</span> % (element.tag, element.text))</span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> root.iter(<span class="string">"another"</span>, <span class="string">"child"</span>):</span><br><span class="line">    print(<span class="string">"%s - %s"</span> % (element.tag, element.text))</span><br></pre></td></tr></table></figure>
+
+<pre><code>child - Child 1
+child - Child 2
+child - Child 1
+child - Child 2
+another - Child 3</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认情况下，所有节点都会被遍历，如Entity、Comment等，通过添加tag参数可以避免这一点</span></span><br><span class="line">root.append(etree.Entity(<span class="string">"#234"</span>))</span><br><span class="line">root.append(etree.Comment(<span class="string">"some comment"</span>))</span><br><span class="line">print(etree.tostring(root))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> root.iter():</span><br><span class="line">    <span class="keyword">if</span> isinstance(element.tag, str):</span><br><span class="line">        print(<span class="string">"%s - %s"</span> % (element.tag, element.text))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">"SPECIAL: %s - %s"</span> % (element, element.text))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> root.iter(tag=etree.Element):</span><br><span class="line">    print(<span class="string">"%s - %s"</span> % (element.tag, element.text))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> root.iter(tag=etree.Entity):</span><br><span class="line">    print(element.text)</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;root&gt;&lt;child&gt;Child 1&lt;/child&gt;&lt;child&gt;Child 2&lt;/child&gt;&lt;another&gt;Child 3&lt;/another&gt;&amp;#234;&lt;!--some comment--&gt;&lt;/root&gt;&apos;
+root - None
+child - Child 1
+child - Child 2
+another - Child 3
+SPECIAL: &amp;#234; - &amp;#234;
+SPECIAL: &lt;!--some comment--&gt; - some comment
+root - None
+child - Child 1
+child - Child 2
+another - Child 3
+&amp;#234;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过elementTreeName.write(filePath)可以把树写进文件或通过url传输</span></span><br><span class="line"><span class="comment"># 或者如果你只有elementName的话，可以这么写：</span></span><br><span class="line"><span class="comment"># etree.ElementTree(elementName).write(filePath)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 简单粗暴的直接写xml也可以</span></span><br><span class="line">root = etree.XML(</span><br><span class="line">   <span class="string">'&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hello&lt;br/&gt;World&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;'</span>)</span><br><span class="line"><span class="comment"># 通过method参数，可以序列化为不同格式，默认method = 'xml'</span></span><br><span class="line">print(etree.tostring(root))</span><br><span class="line">print(etree.tostring(root, method=<span class="string">'html'</span>))</span><br><span class="line">print(etree.tostring(root, method=<span class="string">'text'</span>))</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hello&lt;br/&gt;World&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&apos;
+b&apos;&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;Hello&lt;br&gt;World&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&apos;
+b&apos;HelloWorld&apos;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ElementTree class，是一个element的容器，提供了一些方法来对整个root node文档进行操作</span></span><br><span class="line">root = etree.XML(<span class="string">'''\</span></span><br><span class="line"><span class="string">&lt;?xml version="1.0"?&gt;</span></span><br><span class="line"><span class="string">&lt;!DOCTYPE root SYSTEM "test" [ &lt;!ENTITY tasty "parsnips"&gt; ]&gt;</span></span><br><span class="line"><span class="string">&lt;root&gt;</span></span><br><span class="line"><span class="string">  &lt;a&gt;&amp;tasty;&lt;/a&gt;</span></span><br><span class="line"><span class="string">&lt;/root&gt;</span></span><br><span class="line"><span class="string">'''</span>)</span><br><span class="line"></span><br><span class="line">tree = etree.ElementTree(root)</span><br><span class="line">print(tree.docinfo.xml_version)</span><br><span class="line">print(tree.docinfo.doctype)</span><br><span class="line"></span><br><span class="line">tree.docinfo.public_id = <span class="string">'-//W3C//DTD XHTML 1.0 Transitional//EN'</span></span><br><span class="line">tree.docinfo.system_url = <span class="string">'file://local.dtd'</span></span><br><span class="line">print(tree.docinfo.doctype)</span><br></pre></td></tr></table></figure>
+
+<pre><code>1.0
+&lt;!DOCTYPE root SYSTEM &quot;test&quot;&gt;
+&lt;!DOCTYPE root PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;file://local.dtd&quot;&gt;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(etree.tostring(tree))</span><br><span class="line">print(etree.tostring(tree.getroot()))</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;!DOCTYPE root PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;file://local.dtd&quot; [\n&lt;!ENTITY tasty &quot;parsnips&quot;&gt;\n]&gt;\n&lt;root&gt;\n  &lt;a&gt;parsnips&lt;/a&gt;\n&lt;/root&gt;&apos;
+b&apos;&lt;root&gt;\n  &lt;a&gt;parsnips&lt;/a&gt;\n&lt;/root&gt;&apos;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解析文档中以string读入的xml</span></span><br><span class="line">some_xml_data = <span class="string">"&lt;root&gt;data&lt;/root&gt;"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># .fromstring函数其实和.XML差不多</span></span><br><span class="line">root = etree.fromstring(some_xml_data)</span><br><span class="line">print(etree.tostring(root))</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;root&gt;data&lt;/root&gt;&apos;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 二进制读取解析</span></span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"></span><br><span class="line">some_file_or_file_like_object = BytesIO(<span class="string">b"&lt;root&gt;data&lt;/root&gt;"</span>)</span><br><span class="line">tree = etree.parse(some_file_or_file_like_object)</span><br><span class="line">print(etree.tostring(tree))</span><br><span class="line"><span class="comment"># 注意：parse函数返回的是ElementTree对象，不是Element，通过getroot可以转化为Element对象</span></span><br><span class="line"><span class="comment"># ElementTree和Element在某些方面相似，但是方法调用上不同，比如.tag只有Element可以使用</span></span><br><span class="line">root = tree.getroot()</span><br><span class="line">print(etree.tostring(root))</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    print(<span class="string">"tree执行:"</span>, tree.tag)</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">"root执行:"</span>, root.tag)</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;root&gt;data&lt;/root&gt;&apos;
+b&apos;&lt;root&gt;data&lt;/root&gt;&apos;
+root执行: root</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># parser对象</span></span><br><span class="line">parser = etree.XMLParser(remove_blank_text=<span class="keyword">True</span>)</span><br><span class="line">root = etree.XML(<span class="string">"&lt;root&gt;  &lt;a/&gt;   &lt;b&gt;  &lt;/b&gt;     &lt;/root&gt;"</span>, parser)</span><br><span class="line">print(etree.tostring(root))</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;root&gt;&lt;a/&gt;&lt;b&gt;  &lt;/b&gt;&lt;/root&gt;&apos;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Incremental parsing增量解析，比如在网络分步传输的场景下需要使用</span></span><br><span class="line"><span class="comment"># 方法一</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DataSource</span>:</span></span><br><span class="line">    data = [ <span class="string">b"&lt;roo"</span>, <span class="string">b"t&gt;&lt;"</span>, <span class="string">b"a/"</span>, <span class="string">b"&gt;&lt;"</span>, <span class="string">b"/root&gt;"</span> ]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">read</span><span class="params">(self, requested_size)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> self.data.pop(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">except</span> IndexError:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">b''</span></span><br><span class="line"></span><br><span class="line">        tree = etree.parse(DataSource())</span><br><span class="line">print(etree.tostring(tree))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法二</span></span><br><span class="line">parser = etree.XMLParser()</span><br><span class="line"></span><br><span class="line">parser.feed(<span class="string">"&lt;roo"</span>)</span><br><span class="line">parser.feed(<span class="string">"t&gt;&lt;"</span>)</span><br><span class="line">parser.feed(<span class="string">"a/"</span>)</span><br><span class="line">parser.feed(<span class="string">"&gt;&lt;"</span>)</span><br><span class="line">parser.feed(<span class="string">"/root&gt;"</span>)</span><br><span class="line"></span><br><span class="line">root = parser.close()</span><br><span class="line">print(etree.tostring(root))</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;root&gt;data&lt;/root&gt;&apos;
+b&apos;&lt;root&gt;&lt;a/&gt;&lt;/root&gt;&apos;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Event-driven parsing事件驱动的解析，如只需要很大的树中的一小部分时使用</span></span><br><span class="line"><span class="comment"># 方法一</span></span><br><span class="line"><span class="comment"># iterparse默认只解析end事件</span></span><br><span class="line">some_file_like = BytesIO(<span class="string">b"&lt;root&gt;&lt;a&gt;data&lt;/a&gt;&lt;/root&gt;"</span>)</span><br><span class="line"><span class="keyword">for</span> event, element <span class="keyword">in</span> etree.iterparse(some_file_like):</span><br><span class="line">    print(<span class="string">"%s, %4s, %s"</span> % (event, element.tag, element.text))</span><br><span class="line">    </span><br><span class="line">print()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以修改events参数解析所有事件</span></span><br><span class="line">some_file_like = BytesIO(<span class="string">b"&lt;root&gt;&lt;a&gt;data&lt;/a&gt;&lt;/root&gt;"</span>)</span><br><span class="line"><span class="keyword">for</span> event, element <span class="keyword">in</span> etree.iterparse(some_file_like,</span><br><span class="line">                                      events=(<span class="string">"start"</span>, <span class="string">"end"</span>)):</span><br><span class="line">    print(<span class="string">"%5s, %4s, %s"</span> % (event, element.tag, element.text))</span><br></pre></td></tr></table></figure>
+
+<pre><code>end,    a, data
+end, root, None
+
+start, root, None
+start,    a, data
+  end,    a, data
+  end, root, None</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方法二</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ParserTarget</span>:</span></span><br><span class="line">    events = []</span><br><span class="line">    close_count = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start</span><span class="params">(self, tag, attrib)</span>:</span></span><br><span class="line">        self.events.append((<span class="string">"start"</span>, tag, attrib))</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close</span><span class="params">(self)</span>:</span></span><br><span class="line">        events, self.events = self.events, []</span><br><span class="line">        self.close_count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> events</span><br><span class="line"></span><br><span class="line">parser_target = ParserTarget()</span><br><span class="line"></span><br><span class="line">parser = etree.XMLParser(target=parser_target)</span><br><span class="line">events = etree.fromstring(<span class="string">'&lt;root test="true"/&gt;'</span>, parser)</span><br><span class="line"></span><br><span class="line">print(parser_target.close_count)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> event <span class="keyword">in</span> events:</span><br><span class="line">    print(<span class="string">'event: %s - tag: %s'</span> % (event[<span class="number">0</span>], event[<span class="number">1</span>]))</span><br><span class="line">    <span class="keyword">for</span> attr, value <span class="keyword">in</span> event[<span class="number">2</span>].items():</span><br><span class="line">        print(<span class="string">' * %s = %s'</span> % (attr, value))</span><br></pre></td></tr></table></figure>
+
+<pre><code>1
+event: start - tag: root
+ * test = true
+
+
+/Users/imonce/anaconda/lib/python3.6/site-packages/ipykernel_launcher.py:15: DeprecationWarning: inspect.getargspec() is deprecated, use inspect.signature() or inspect.getfullargspec()
+  from ipykernel import kernelapp as app</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">events = etree.fromstring(<span class="string">'&lt;root test="true"/&gt;'</span>, parser)</span><br><span class="line">print(parser_target.close_count)</span><br><span class="line">events = etree.fromstring(<span class="string">'&lt;root test="true"/&gt;'</span>, parser)</span><br><span class="line">print(parser_target.close_count)</span><br></pre></td></tr></table></figure>
+
+<pre><code>2
+3</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> event <span class="keyword">in</span> events:</span><br><span class="line">    print(<span class="string">'event: %s - tag: %s'</span> % (event[<span class="number">0</span>], event[<span class="number">1</span>]))</span><br><span class="line">    <span class="keyword">for</span> attr, value <span class="keyword">in</span> event[<span class="number">2</span>].items():</span><br><span class="line">        print(<span class="string">' * %s = %s'</span> % (attr, value))</span><br></pre></td></tr></table></figure>
+
+<pre><code>event: start - tag: root
+ * test = true</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># namespace命名空间，格式为：&#123;namespace_name&#125;tag_name</span></span><br><span class="line"><span class="comment"># 一般是链接，空链接的话会 ns+编号 给一个代号</span></span><br><span class="line"><span class="comment"># a:b的tag名会直接报错</span></span><br><span class="line">xhtml = etree.Element(<span class="string">"&#123;http://www.w3.org/1999/test&#125;testhtml"</span>)</span><br><span class="line">body = etree.SubElement(xhtml, <span class="string">"&#123;http://www.w3.org/1999/test&#125;tbody"</span>)</span><br><span class="line">body.text = <span class="string">"Hello World"</span></span><br><span class="line"></span><br><span class="line">print(etree.tostring(xhtml))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 高贵的html</span></span><br><span class="line">xhtml = etree.Element(<span class="string">"&#123;http://www.w3.org/1999/xhtml&#125;html"</span>)</span><br><span class="line">body = etree.SubElement(xhtml, <span class="string">"&#123;http://www.w3.org/1999/xhtml&#125;body"</span>)</span><br><span class="line">body.text = <span class="string">"Hello World"</span></span><br><span class="line"></span><br><span class="line">print(etree.tostring(xhtml))</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;ns0:testhtml xmlns:ns0=&quot;http://www.w3.org/1999/test&quot;&gt;&lt;ns0:tbody&gt;Hello World&lt;/ns0:tbody&gt;&lt;/ns0:testhtml&gt;&apos;
+b&apos;&lt;html:html xmlns:html=&quot;http://www.w3.org/1999/xhtml&quot;&gt;&lt;html:body&gt;Hello World&lt;/html:body&gt;&lt;/html:html&gt;&apos;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置默认命名空间</span></span><br><span class="line">XHTML_NAMESPACE = <span class="string">"http://www.w3.org/1999/xhtml"</span></span><br><span class="line">XHTML = <span class="string">"&#123;%s&#125;"</span> % XHTML_NAMESPACE</span><br><span class="line"></span><br><span class="line">NSMAP = &#123;<span class="keyword">None</span> : XHTML_NAMESPACE&#125; <span class="comment"># the default namespace (no prefix)</span></span><br><span class="line">xhtml = etree.Element(XHTML + <span class="string">"html"</span>, nsmap=NSMAP) <span class="comment"># lxml only!</span></span><br><span class="line">body = etree.SubElement(xhtml, XHTML + <span class="string">"body"</span>)</span><br><span class="line">body.text = <span class="string">"Hello World"</span></span><br><span class="line">print(etree.tostring(xhtml))</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;&lt;body&gt;Hello World&lt;/body&gt;&lt;/html&gt;&apos;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># QName方法，快速合成或提取namespace</span></span><br><span class="line">tag = etree.QName(<span class="string">'http://www.w3.org/1999/xhtml'</span>, <span class="string">'html'</span>)</span><br><span class="line">print(tag.localname)</span><br><span class="line">print(tag.namespace)</span><br><span class="line">print(tag.text)</span><br><span class="line"></span><br><span class="line">root = etree.Element(<span class="string">'&#123;http://www.w3.org/1999/xhtml&#125;html'</span>)</span><br><span class="line">tag = etree.QName(root)</span><br><span class="line">print(tag.localname)</span><br></pre></td></tr></table></figure>
+
+<pre><code>html
+http://www.w3.org/1999/xhtml
+{http://www.w3.org/1999/xhtml}html
+html</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nsmap方法，直接提取命名空间字典</span></span><br><span class="line">print(xhtml.nsmap)</span><br></pre></td></tr></table></figure>
+
+<pre><code>{None: &apos;http://www.w3.org/1999/xhtml&apos;}</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 子元素继承父元素命名空间</span></span><br><span class="line">root = etree.Element(<span class="string">'root'</span>, nsmap=&#123;<span class="string">'a'</span>: <span class="string">'http://a.b/c'</span>&#125;)</span><br><span class="line">child = etree.SubElement(root, <span class="string">'child'</span>,</span><br><span class="line">                         nsmap=&#123;<span class="string">'b'</span>: <span class="string">'http://b.c/d'</span>&#125;)</span><br><span class="line">print(root.nsmap)</span><br><span class="line">print(child.nsmap)</span><br></pre></td></tr></table></figure>
+
+<pre><code>{&apos;a&apos;: &apos;http://a.b/c&apos;}
+{&apos;b&apos;: &apos;http://b.c/d&apos;, &apos;a&apos;: &apos;http://a.b/c&apos;}</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加带命名空间的属性，格式为：set(&#123;namespace_name&#125;attr_name, attr_value)</span></span><br><span class="line">body.set(XHTML + <span class="string">"bgcolor"</span>, <span class="string">"#CCFFAA"</span>)</span><br><span class="line">print(etree.tostring(xhtml))</span><br><span class="line"><span class="comment"># 注意：get的时候也要带命名空间</span></span><br><span class="line">print(body.get(<span class="string">"bgcolor"</span>))</span><br><span class="line">print(body.get(XHTML+<span class="string">"bgcolor"</span>))</span><br></pre></td></tr></table></figure>
+
+<pre><code>b&apos;&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;&lt;body xmlns:html=&quot;http://www.w3.org/1999/xhtml&quot; html:bgcolor=&quot;#CCFFAA&quot;&gt;Hello World&lt;/body&gt;&lt;/html&gt;&apos;
+None
+#CCFFAA</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以用XPath</span></span><br><span class="line">find_xhtml_body = etree.ETXPath(      <span class="comment"># lxml only !</span></span><br><span class="line">    <span class="string">"//&#123;%s&#125;body"</span> % XHTML_NAMESPACE)</span><br><span class="line">results = find_xhtml_body(xhtml)</span><br><span class="line"></span><br><span class="line">print(results[<span class="number">0</span>].tag)</span><br></pre></td></tr></table></figure>
+
+<pre><code>{http://www.w3.org/1999/xhtml}body</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># iter的话也要考虑namespace</span></span><br><span class="line"><span class="keyword">for</span> el <span class="keyword">in</span> xhtml.iter(<span class="string">'&#123;*&#125;body'</span>): print(el.tag)</span><br></pre></td></tr></table></figure>
+
+<pre><code>{http://www.w3.org/1999/xhtml}body</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># E-factory：提供一种简单紧凑的语法来生成XML和HTML</span></span><br><span class="line"><span class="keyword">from</span> lxml.builder <span class="keyword">import</span> E</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CLASS</span><span class="params">(*args)</span>:</span> <span class="comment"># class 是python中的保留字，无法直接当做属性名</span></span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">"class"</span>:<span class="string">' '</span>.join(args)&#125;</span><br><span class="line"></span><br><span class="line">html = page = (</span><br><span class="line">  E.html(       <span class="comment"># create an Element called "html"</span></span><br><span class="line">    E.head(</span><br><span class="line">      E.title(<span class="string">"This is a sample document"</span>)</span><br><span class="line">    ),</span><br><span class="line">    E.body(</span><br><span class="line">      E.h1(<span class="string">"Hello!"</span>, CLASS(<span class="string">"title"</span>)),</span><br><span class="line">      E.p(<span class="string">"This is a paragraph with "</span>, E.b(<span class="string">"bold"</span>), <span class="string">" text in it!"</span>),</span><br><span class="line">      E.p(<span class="string">"This is another paragraph, with a"</span>, <span class="string">"\n      "</span>,</span><br><span class="line">        E.a(<span class="string">"link"</span>, href=<span class="string">"http://www.python.org"</span>), <span class="string">"."</span>),</span><br><span class="line">      E.p(<span class="string">"Here are some reserved characters: &lt;spam&amp;egg&gt;."</span>),</span><br><span class="line">      etree.XML(<span class="string">"&lt;p&gt;And finally an embedded XHTML fragment.&lt;/p&gt;"</span>),</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">print(str(etree.tostring(page, pretty_print=<span class="keyword">True</span>),encoding=<span class="string">'utf-8'</span>))</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;This is a sample document&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1 class=&quot;title&quot;&gt;Hello!&lt;/h1&gt;
+    &lt;p&gt;This is a paragraph with &lt;b&gt;bold&lt;/b&gt; text in it!&lt;/p&gt;
+    &lt;p&gt;This is another paragraph, with a
+      &lt;a href=&quot;http://www.python.org&quot;&gt;link&lt;/a&gt;.&lt;/p&gt;
+    &lt;p&gt;Here are some reserved characters: &amp;lt;spam&amp;amp;egg&amp;gt;.&lt;/p&gt;
+    &lt;p&gt;And finally an embedded XHTML fragment.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此外还有一种基于属性的方法</span></span><br><span class="line"><span class="keyword">from</span> lxml.builder <span class="keyword">import</span> ElementMaker <span class="comment"># lxml only !</span></span><br><span class="line"></span><br><span class="line">E = ElementMaker(namespace=<span class="string">"http://my.de/fault/namespace"</span>,</span><br><span class="line">                 nsmap=&#123;<span class="string">'p'</span> : <span class="string">"http://my.de/fault/namespace"</span>&#125;)</span><br><span class="line"></span><br><span class="line">DOC = E.doc</span><br><span class="line">TITLE = E.title</span><br><span class="line">SECTION = E.section</span><br><span class="line">PAR = E.par</span><br><span class="line"></span><br><span class="line">my_doc = DOC(</span><br><span class="line">  TITLE(<span class="string">"The dog and the hog"</span>),</span><br><span class="line">  SECTION(</span><br><span class="line">    TITLE(<span class="string">"The dog"</span>, tType=<span class="string">'title'</span>),</span><br><span class="line">    PAR(<span class="string">"Once upon a time, ..."</span>),</span><br><span class="line">    PAR(<span class="string">"And then ..."</span>)</span><br><span class="line">  ),</span><br><span class="line">  SECTION(</span><br><span class="line">    TITLE(<span class="string">"The hog"</span>),</span><br><span class="line">    PAR(<span class="string">"Sooner or later ..."</span>)</span><br><span class="line">  )</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">print(str(etree.tostring(my_doc, pretty_print=<span class="keyword">True</span>),encoding=<span class="string">'utf-8'</span>))</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;p:doc xmlns:p=&quot;http://my.de/fault/namespace&quot;&gt;
+  &lt;p:title&gt;The dog and the hog&lt;/p:title&gt;
+  &lt;p:section&gt;
+    &lt;p:title tType=&quot;title&quot;&gt;The dog&lt;/p:title&gt;
+    &lt;p:par&gt;Once upon a time, ...&lt;/p:par&gt;
+    &lt;p:par&gt;And then ...&lt;/p:par&gt;
+  &lt;/p:section&gt;
+  &lt;p:section&gt;
+    &lt;p:title&gt;The hog&lt;/p:title&gt;
+    &lt;p:par&gt;Sooner or later ...&lt;/p:par&gt;
+  &lt;/p:section&gt;
+&lt;/p:doc&gt;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># XPath的一些例子</span></span><br><span class="line">root = etree.XML(<span class="string">"&lt;root&gt;&lt;a x='123'&gt;aText&lt;b/&gt;&lt;c/&gt;&lt;b/&gt;&lt;/a&gt;&lt;/root&gt;"</span>)</span><br><span class="line"><span class="comment"># 找儿子（单层子节点）</span></span><br><span class="line">print(root.find(<span class="string">"b"</span>))</span><br><span class="line">print(root.find(<span class="string">"a"</span>).tag)</span><br></pre></td></tr></table></figure>
+
+<pre><code>None
+a</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 找孩子（所有子节点）</span></span><br><span class="line">print(root.find(<span class="string">".//b"</span>).tag)</span><br></pre></td></tr></table></figure>
+
+<pre><code>b</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 带属性找孩子</span></span><br><span class="line">print(root.findall(<span class="string">".//a[@x]"</span>)[<span class="number">0</span>].tag)</span><br></pre></td></tr></table></figure>
+
+<pre><code>a</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过ElementTree找路径</span></span><br><span class="line">tree = etree.ElementTree(root)</span><br><span class="line">a = root[<span class="number">0</span>]</span><br><span class="line">print(tree.getelementpath(a[<span class="number">0</span>]))</span><br><span class="line">print(tree.getelementpath(a[<span class="number">1</span>]))</span><br><span class="line">print(tree.getelementpath(a[<span class="number">2</span>]))</span><br></pre></td></tr></table></figure>
+
+<pre><code>a/b[1]
+a/c
+a/b[2]</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>您的支持将鼓励我继续创作，欢迎留言私信交朋友呀~</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="C_Meng WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="C_Meng Alipay">
+        <p>Alipay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/paypal.png" alt="C_Meng paypal">
+        <p>paypal</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/Python3/" rel="tag"># Python3</a>
+          
+            <a href="/tags/lxml/" rel="tag"># lxml</a>
+          
+            <a href="/tags/etree/" rel="tag"># etree</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/21/通过TensorFlow实现word-embedding/" rel="next" title="通过TensorFlow实现word embedding">
+                <i class="fa fa-chevron-left"></i> 通过TensorFlow实现word embedding
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/04/常见QoS指标一览/" rel="prev" title="常见QoS指标一览">
+                常见QoS指标一览 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1831623022964098" data-ad-slot="5648729926" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/C_Meng.png" alt="C_Meng">
+            
+              <p class="site-author-name" itemprop="name">C_Meng</p>
+              <div class="site-description motion-element" itemprop="description">A stupid old man with a humble learning heart. And his dog.</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">111</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">177</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ltb25jZQ==" title="GitHub &rarr; https://github.com/imonce"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOmltb25jZUBvdXRsb29rLmNvbQ==" title="E-Mail &rarr; mailto:imonce@outlook.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93ZWliby5jb20vMzkxMjM5MDgyOS9wcm9maWxlP3RvcG5hdj0xJnd2cj02JmlzX2FsbD0x" title="Weibo &rarr; https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1"><i class="fa fa-fw fa-weibo"></i>Weibo</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9tb2VzY2Vl" title="Twitter &rarr; https://twitter.com/moescee"><i class="fa fa-fw fa-twitter"></i>Twitter</span>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+        </div>
+      </div>
+
+      
+
+      
+
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1831623022964098" data-ad-slot="5648729926" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+  <script src="/js/exturl.js?v=7.1.0"></script>
+
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+    appKey: 'WBQPPWjmwGWqvQcLqprPq0xs',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
