@@ -107,7 +107,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190822150526.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190822151629.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190822154358.png">
-<meta property="og:updated_time" content="2019-10-11T12:30:05.987Z">
+<meta property="og:updated_time" content="2020-02-23T07:02:39.167Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Reading Note]构造类型论与计算机程序设计">
 <meta name="twitter:description" content="Taken from：http://xueshu.baidu.com/usercenter/paper/show?paperid=baa0175c22e30823d9b1e14e01cf4141&amp;amp;site=xueshu_se&amp;amp;hitarticle=1  背景及简介构造类型论为计算机科学家提供了一个框架, 以一种优雅和灵活的方式把逻辑和程序设计语言结合起来: 在同一形式系统中, 可">
@@ -455,7 +455,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-11 20:30:05" itemprop="dateModified" datetime="2019-10-11T20:30:05+08:00">2019-10-11</time>
+                <time title="Modified: 2020-02-23 15:02:39" itemprop="dateModified" datetime="2020-02-23T15:02:39+08:00">2020-02-23</time>
               
             
           </span>
@@ -519,7 +519,7 @@
 <li>证明论和Curry-Howard同态。证明轮中直觉注意逻辑的Gentzen自然演绎、一些自动演绎技术及定理证明技术是构造类型轮实现系统主要使用的技术。</li>
 </ul>
 <h3 id="相互关系"><a href="#相互关系" class="headerlink" title="相互关系"></a>相互关系</h3><p>Curry-Howard同态是Martin-Lof直觉类型轮的基础：把命题解释称类型（propositions-a-types），或命题作为集合（propositions=as=sets）。利用命题与集合之间的等价，推导的规范化与计算机表示该推导的证明项的值对应。</p>
-<p>直觉主义（构造）逻辑和有类型lambda盐酸在Curry-Howard同态下可以相互转化：直觉逻辑自然演绎的证明可用某种有类型lambda项表示，并且自然演绎的证明规范化与lambda盐酸的beta变换对应。</p>
+<p>直觉主义（构造）逻辑和有类型lambda演算在Curry-Howard同态下可以相互转化：直觉逻辑自然演绎的证明可用某种有类型lambda项表示，并且自然演绎的证明规范化与lambda演算的beta变换对应。</p>
 <p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190822150526.png" alt></p>
 <h2 id="构造类型轮与程序设计的对应关系"><a href="#构造类型轮与程序设计的对应关系" class="headerlink" title="构造类型轮与程序设计的对应关系"></a>构造类型轮与程序设计的对应关系</h2><p>构造数学和计算机科学有一些基本概念是共同的。Bishop认为构造数学可以作为计算机科学的灵感的重要来源。</p>
 <h3 id="构造性证明与计算机程序概念的关系"><a href="#构造性证明与计算机程序概念的关系" class="headerlink" title="构造性证明与计算机程序概念的关系"></a>构造性证明与计算机程序概念的关系</h3><p>构造性的证明与计算机程序概念有密切关系：为构造地证明命题 $(\forall x \in A)(\exists y \in B)P(x,y)$ ，必须要给出函数f，使f应用于A中元素a时，产生B中元素b，使P(a,b)满足。如果P(a,b)描述了一个规约，则证明该命题的函数f就是满足该规约的一个程序。所以，可以吧构造证明本身看成是一个计算机程序，程序的计算过程与证明的规范化对应。正因为构造性证明的这一计算内容，可把类型轮用作一种程序设计语言，而且，由于程序是从他的说明的证明中得到的，类型轮还可以用作程序设计逻辑。</p>
@@ -539,7 +539,7 @@
 <p>两者的主要不同在于语义基础不同。经典逻辑的基础是真值函数的语义：每个命题都为真或者假，这是Tarski语义的本质。而在直觉主义（构造）逻辑中，命题的定义就是把该命题的证明写下来，只有当存在一个与该命题对应的证明对象时，命题才为真，这是Brouwer-Heyting-Kolmogorov基于证明论语义的本质。因此从构造逻辑的角度来说，命题的真等价于命题的可证明性。其余区别见表：</p>
 <p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190822154358.png" alt></p>
 <h1 id="Curry-Howard同态"><a href="#Curry-Howard同态" class="headerlink" title="Curry-Howard同态"></a>Curry-Howard同态</h1><p>Curry-Howard同态在有类型的lambda演算和直觉命题逻辑之间建立了密切的关系。</p>
-<p>用 $t:\sigma$ 表示项t具有类型 $\sigma$ 。在有类型lambda盐酸中项的构造有三种：变量（用x，y，z等表示）；抽象（用 $\lambda x.t$ 表示）；应用（用tu表示）。构造项的规则用自然演绎的方式描述如下：</p>
+<p>用 $t:\sigma$ 表示项t具有类型 $\sigma$ 。在有类型lambda演算中项的构造有三种：变量（用x，y，z等表示）；抽象（用 $\lambda x.t$ 表示）；应用（用tu表示）。构造项的规则用自然演绎的方式描述如下：</p>
 <p>变量形成规则： $\frac{}{x:\sigma \to x:\sigma}$ </p>
 <p>抽象形成规则： $\frac{\Gamma,x:\sigma \to t:r}{\Gamma \mapsto (\lambda x.t):\sigma \to r}$ </p>
 <p>变量形成规则： $\frac{\Gamma \mapsto t:\sigma \to r \Delta \mapsto u:\sigma}{\Gamma,\Delta \mapsto (tu):\sigma}$ </p>
