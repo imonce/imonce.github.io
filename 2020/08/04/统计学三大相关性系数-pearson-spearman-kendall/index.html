@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="Pearson要理解Pearson相关系数，首先要理解协方差（Covariance），协方差是一个反映两个随机变量相关程度的指标，如果一个变量跟随着另一个变量同时变大或者变小，那么这两个变量的协方差就是正值，反之相反，公式如下：  $$\operatorname{cov}(x, y)=\frac{\sum_{i=1}^{n}\left(x_{i}-x_{\mu}\right)\left(y_{i}">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-08-04T02:59:00.127Z">
+<meta property="og:updated_time" content="2020-08-04T04:03:21.288Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="统计学三大相关性系数:Pearson,Spearman,Kendall">
 <meta name="twitter:description" content="Pearson要理解Pearson相关系数，首先要理解协方差（Covariance），协方差是一个反映两个随机变量相关程度的指标，如果一个变量跟随着另一个变量同时变大或者变小，那么这两个变量的协方差就是正值，反之相反，公式如下：  $$\operatorname{cov}(x, y)=\frac{\sum_{i=1}^{n}\left(x_{i}-x_{\mu}\right)\left(y_{i}">
@@ -434,7 +434,7 @@
                 
               
 
-              <time title="Created: 2020-08-04 10:25:52 / Modified: 10:59:00" itemprop="dateCreated datePublished" datetime="2020-08-04T10:25:52+08:00">2020-08-04</time>
+              <time title="Created: 2020-08-04 10:25:52 / Modified: 12:03:21" itemprop="dateCreated datePublished" datetime="2020-08-04T10:25:52+08:00">2020-08-04</time>
             
 
             
@@ -523,7 +523,9 @@
 <p>计算过程就是：<br>对两个变量（X，Y）的数据进行排序（统一用升序或降序），每个变量在排序之后的位置即为其秩次（X’, Y’），原始位置相同的X，Y的秩次X’, Y’的差值即为 $d_i$ 。n是变量的个数（或者对数）。</p>
 <h1 id="Kendall"><a href="#Kendall" class="headerlink" title="Kendall"></a>Kendall</h1><p>Kendall相关系数是对于定类变量的统计，之前讲pearson是对定距变量的统计，而spearman是对定序变量的统计。</p>
 <p>Kendall相关系数的计算公式：</p>
-<p>$$<br>\begin{array}{l}<br>\text { 公式 } 1=\frac{C-D}{\frac{1}{2} N(N-1)} \<br>\text { 公式 } 2=\frac{\mathrm{C}-\mathrm{D}}{\sqrt{\left(\mathrm{N}<em>{3}-\mathrm{N}</em>{1}\right)\left(\mathrm{N}<em>{3}-\mathrm{N}</em>{2}\right)}}<br>\end{array}<br>$$</p>
+<p>$$<br>Kendall1=\frac{C-D}{\frac{1}{2} N\left(N-1\right)}<br>$$</p>
+<p>另一个计算公式：</p>
+<p>$$<br>Kendall2=\frac{C-D}{\sqrt{\left(N_{3}-N_{1}\right)\left(N_{3}-N_{2}\right)}}<br>$$</p>
 <p>第一个和第二个公式的区别在于，当两变量任何一个中都不存在相同元素时用公式1，两变量中任何一个中存在相同元素用2。</p>
 <p>其中N为样本数量。再说N3，N2，N1。</p>
 <p>$$<br>\mathrm{N} 3=\frac{1}{2} N(N-1)<br>$$</p>

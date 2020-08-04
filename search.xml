@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[统计学三大相关性系数:Pearson,Spearman,Kendall]]></title>
     <url>%2F2020%2F08%2F04%2F%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B8%89%E5%A4%A7%E7%9B%B8%E5%85%B3%E6%80%A7%E7%B3%BB%E6%95%B0-pearson-spearman-kendall%2F</url>
-    <content type="text"><![CDATA[Pearson要理解Pearson相关系数，首先要理解协方差（Covariance），协方差是一个反映两个随机变量相关程度的指标，如果一个变量跟随着另一个变量同时变大或者变小，那么这两个变量的协方差就是正值，反之相反，公式如下： $$\operatorname{cov}(x, y)=\frac{\sum_{i=1}^{n}\left(x_{i}-x_{\mu}\right)\left(y_{i}-y_{\mu}\right)}{n-1}$$ 虽然协方差能反映两个随机变量的相关程度（协方差大于0的时候表示两者正相关，小于0的时候表示两者负相关），但是协方差值的大小并不能很好地度量两个随机变量的关联程度。 为了更好的度量两个随机变量的相关程度，引入了Pearson相关系数，其在协方差的基础上除以了两个随机变量的标准： $$\delta^{2}=\frac{\sum_{i=1}^{n}\left(x_{i}-x_{\mu}\right)}{n}$$ 容易得出，pearson是一个介于-1和1之间的值，当两个变量的线性关系增强时，相关系数趋于1或-1；当一个变量增大，另一个变量也增大时，表明它们之间是正相关的，相关系数大于0；如果一个变量增大，另一个变量却减小，表明它们之间是负相关的，相关系数小于0；如果相关系数等于0，表明它们之间不存在线性相关关系。 $$p_{x, y}=\operatorname{cor}(x, y)=\frac{\operatorname{cov}(x, y)}{\delta x \delta y}=\frac{E\left[\left(x-x_{\mu}\right)\left(y-y_{\mu}\right)\right]}{\delta x \delta y}$$ Spearman斯皮尔曼相关性系数，通常也叫斯皮尔曼秩相关系数。“秩”，可以理解成就是一种顺序或者排序，那么它就是根据原始数据的排序位置进行求解，这种表征形式就没有了求皮尔森相关性系数时那些限制。下面来看一下它的计算公式： $$\rho_{s}=1-\frac{6 \sum d_{i}^{2}}{n\left(n^{2}-1\right)}$$ 计算过程就是：对两个变量（X，Y）的数据进行排序（统一用升序或降序），每个变量在排序之后的位置即为其秩次（X’, Y’），原始位置相同的X，Y的秩次X’, Y’的差值即为 $d_i$ 。n是变量的个数（或者对数）。 KendallKendall相关系数是对于定类变量的统计，之前讲pearson是对定距变量的统计，而spearman是对定序变量的统计。 Kendall相关系数的计算公式： $$\begin{array}{l}\text { 公式 } 1=\frac{C-D}{\frac{1}{2} N(N-1)} \\text { 公式 } 2=\frac{\mathrm{C}-\mathrm{D}}{\sqrt{\left(\mathrm{N}{3}-\mathrm{N}{1}\right)\left(\mathrm{N}{3}-\mathrm{N}{2}\right)}}\end{array}$$ 第一个和第二个公式的区别在于，当两变量任何一个中都不存在相同元素时用公式1，两变量中任何一个中存在相同元素用2。 其中N为样本数量。再说N3，N2，N1。 $$\mathrm{N} 3=\frac{1}{2} N(N-1)$$ N2、N1就比较复杂，它们各指向一个变量，但是计算方法一致： $$\mathrm{N} 2=\sum_{i=1}^{s} \frac{1}{2} v_{i}\left(v_{j}-1\right)$$ s是指该变量中拥有相同元素的小集合的个数，v就是每个集合中元素的个数。 Reference:https://blog.csdn.net/ichuzhen/article/details/79535226https://blog.csdn.net/zmqsdu9001/article/details/82840332?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weighthttps://www.jianshu.com/p/93fd5ab408ae]]></content>
+    <content type="text"><![CDATA[Pearson要理解Pearson相关系数，首先要理解协方差（Covariance），协方差是一个反映两个随机变量相关程度的指标，如果一个变量跟随着另一个变量同时变大或者变小，那么这两个变量的协方差就是正值，反之相反，公式如下： $$\operatorname{cov}(x, y)=\frac{\sum_{i=1}^{n}\left(x_{i}-x_{\mu}\right)\left(y_{i}-y_{\mu}\right)}{n-1}$$ 虽然协方差能反映两个随机变量的相关程度（协方差大于0的时候表示两者正相关，小于0的时候表示两者负相关），但是协方差值的大小并不能很好地度量两个随机变量的关联程度。 为了更好的度量两个随机变量的相关程度，引入了Pearson相关系数，其在协方差的基础上除以了两个随机变量的标准： $$\delta^{2}=\frac{\sum_{i=1}^{n}\left(x_{i}-x_{\mu}\right)}{n}$$ 容易得出，pearson是一个介于-1和1之间的值，当两个变量的线性关系增强时，相关系数趋于1或-1；当一个变量增大，另一个变量也增大时，表明它们之间是正相关的，相关系数大于0；如果一个变量增大，另一个变量却减小，表明它们之间是负相关的，相关系数小于0；如果相关系数等于0，表明它们之间不存在线性相关关系。 $$p_{x, y}=\operatorname{cor}(x, y)=\frac{\operatorname{cov}(x, y)}{\delta x \delta y}=\frac{E\left[\left(x-x_{\mu}\right)\left(y-y_{\mu}\right)\right]}{\delta x \delta y}$$ Spearman斯皮尔曼相关性系数，通常也叫斯皮尔曼秩相关系数。“秩”，可以理解成就是一种顺序或者排序，那么它就是根据原始数据的排序位置进行求解，这种表征形式就没有了求皮尔森相关性系数时那些限制。下面来看一下它的计算公式： $$\rho_{s}=1-\frac{6 \sum d_{i}^{2}}{n\left(n^{2}-1\right)}$$ 计算过程就是：对两个变量（X，Y）的数据进行排序（统一用升序或降序），每个变量在排序之后的位置即为其秩次（X’, Y’），原始位置相同的X，Y的秩次X’, Y’的差值即为 $d_i$ 。n是变量的个数（或者对数）。 KendallKendall相关系数是对于定类变量的统计，之前讲pearson是对定距变量的统计，而spearman是对定序变量的统计。 Kendall相关系数的计算公式： $$Kendall1=\frac{C-D}{\frac{1}{2} N\left(N-1\right)}$$ 另一个计算公式： $$Kendall2=\frac{C-D}{\sqrt{\left(N_{3}-N_{1}\right)\left(N_{3}-N_{2}\right)}}$$ 第一个和第二个公式的区别在于，当两变量任何一个中都不存在相同元素时用公式1，两变量中任何一个中存在相同元素用2。 其中N为样本数量。再说N3，N2，N1。 $$\mathrm{N} 3=\frac{1}{2} N(N-1)$$ N2、N1就比较复杂，它们各指向一个变量，但是计算方法一致： $$\mathrm{N} 2=\sum_{i=1}^{s} \frac{1}{2} v_{i}\left(v_{j}-1\right)$$ s是指该变量中拥有相同元素的小集合的个数，v就是每个集合中元素的个数。 Reference:https://blog.csdn.net/ichuzhen/article/details/79535226https://blog.csdn.net/zmqsdu9001/article/details/82840332?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weighthttps://www.jianshu.com/p/93fd5ab408ae]]></content>
       <categories>
         <category>统计学</category>
       </categories>
@@ -669,8 +669,8 @@
         <category>计算机应用数学</category>
       </categories>
       <tags>
-        <tag>学习笔记</tag>
         <tag>计算机应用数学</tag>
+        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -681,8 +681,8 @@
         <category>计算机应用数学</category>
       </categories>
       <tags>
-        <tag>学习笔记</tag>
         <tag>计算机应用数学</tag>
+        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -811,10 +811,10 @@
     <url>%2F2019%2F04%2F24%2FLambda%E6%BC%94%E7%AE%97%E7%B2%BE%E7%AE%80%E6%95%99%E7%A8%8B%2F</url>
     <content type="text"><![CDATA[前言这篇文章译自：https://learnxinyminutes.com/docs/lambda-calculus/，写的精简了点，理解起来可能有些困难 建议配合让我们谈谈 $\lambda$ 演算.pdf一起食用（出自https://github.com/txyyss/Lambda-Calculus/releases）。这篇不算长，深入浅出，写的也极好。 整体介绍Lambda演算( $\lambda$ 演算)由Alonzo Church提出，是世界上最简洁的编程语言。尽管没有数字、字符串、布尔值等非函数数据类型，lambda演算还是可以表达任何图灵机。 Lambda演算由三种元素组成：变量（variables），函数（functions），以及应用（applications）。 名称 语法 例子 解释 Variable &lt;name&gt; x 一个名为“x”的变量 Function $\lambda$ &lt;parameters&gt;.&lt;body&gt; $\lambda$ x.x 一个拥有参数“x”以及函数体x的函数 Application &lt;function&gt;&lt;variable or function&gt; ( $\lambda$ x.x).a 调用函数“ $\lambda$ x.x”且参数值为“a” 最基础的函数就是恒等函数： $\lambda$ x.x（即f(x)=x）。第一个“x”代表函数的参数，第二个“x”代表函数体。 自由变量vs约束变量 在 $\lambda$ x.x函数中，x被称为约束变量，因为它同时位于函数体和参数中。 在 $\lambda$ x.y函数中，y被称为自由变量，因为它从未被事先声明过。 计算通过 $\beta$ 规约进行计算，其基本上是词法范围的替代。 在计算表达式( $\lambda$ x.x)a时，我们用“a”替换函数体中出现的所有“x”。 ( $\lambda$ x.x)a 计算结果为：a ( $\lambda$ x.y)a 计算结果为：y 也可以创建高阶函数： ( $\lambda$ x.( $\lambda$ y.x))a 计算结果为： $\lambda$ y.a 虽然lambda演算传统上只支持单参数函数，但是我们可以使用一种称为currying的技术创建多参数函数。 ( $\lambda$ x. $\lambda$ y. $\lambda$ z.xyz) 即 f(x, y, z) = ((x y) z) 有时 $\lambda$ xy.&lt;body&gt;可与 $\lambda$ x. $\lambda$ y.&lt;body&gt;交替使用。 重要的是要认识到传统的lambda演算没有数字，字符或任何非函数数据类型！ 布尔逻辑在lambda演算中没有“True”或“False”。甚至没有1或0。 取而代之的是： T表示为： $\lambda$ x. $\lambda$ y.x F表示为： $\lambda$ x. $\lambda$ y.y 首先，我们可以定义一个“if”函数 $\lambda$ btf，如果b为True则返回t，如果b为False则返回f IF 也等同于 $\lambda$ b. $\lambda$ t. $\lambda$ f.b t f 通过使用IF，我们可以定义基础的布尔逻辑运算： a AND b 等同于: $\lambda$ ab.IF a b F a OR b 等同于: $\lambda$ ab.IF a T b NOT a 等同于: $\lambda$ a.IF a F T 注意: IF a b c 本质上是: IF((a b) c) 数字尽管lambda演算中没有数字，我们可以通过邱奇数编码数字。 任意数字n都可以编码为： $n = \lambda f.f^n$ 。因此： 0 = $\lambda$ f. $\lambda$ x.x 1 = $\lambda$ f. $\lambda$ x.f x 2 = $\lambda$ f. $\lambda$ x.f(f x) 3 = $\lambda$ f. $\lambda$ x.f(f(f x)) 为了增加邱奇数，我们使用继承函数s(n)=n+1，即 S = $\lambda$ n. $\lambda$ f. $\lambda$ x.f((n f) x) 通过继承，我们可以定义add： ADD = $\lambda$ ab.(a S)b 挑战：试着定义你自己的乘法函数！ 变得更精致：SKI，SK以及IotaSKI组合子演算使S, K, I，分别为以下函数： I x = x K x y = x S x y z = x z (y z) 我们可以将lambda演算中的表达式转换为SKI组合子演算中的表达式： $\lambda$ x.x = I $\lambda$ x.c = Kc $\lambda$ x.(y z) = S ( $\lambda$ x.y) ( $\lambda$ x.z) 以邱奇数2为例子： 2 = $\lambda$ f. $\lambda$ x.f(f x) 对于内部部分 $\lambda$ x.f(f x): $$\begin{split}\lambda x.f(f x) &amp;=&amp; S ( \lambda x.f) ( \lambda x.(f x)) (case 3) \\&amp;=&amp; S (K f) (S ( \lambda x.f) ( \lambda x.x)) (case 2, 3) \\&amp;=&amp; S (K f) (S (K f) I) (case 2, 1)\end{split}$$ 因此： $$\begin{split}2&amp;=&amp; \lambda f. \lambda x.f(f x) \\&amp;=&amp; \lambda f.(S (K f) (S (K f) I)) \\&amp;=&amp; \lambda f.((S (K f)) (S (K f) I)) \\&amp;=&amp; S ( \lambda f.(S (K f))) ( \lambda f.(S (K f) I)) (case 3)\end{split}$$ 对于第一个参数 \lambda f.(S (K f))： $$\begin{split}\lambda f.(S (K f))&amp;=&amp; S ( \lambda f.S) ( \lambda f.(K f)) (case 3)\\&amp;=&amp; S (K S) (S ( \lambda f.K) ( \lambda f.f)) (case 2, 3)\\&amp;=&amp; S (K S) (S (K K) I) (case 2, 3)\end{split}$$ 对于第二个参数 \lambda f.(S (K f) I)： $$\begin{split} \lambda f.(S (K f) I)&amp;=&amp; \lambda f.((S (K f)) I)\\&amp;=&amp; S ( \lambda f.(S (K f))) ( \lambda f.I) (case 3)\\&amp;=&amp; S (S ( \lambda f.S) ( \lambda f.(K f))) (K I) (case 2, 3)\\&amp;=&amp; S (S (K S) (S ( \lambda f.K) ( \lambda f.f))) (K I) (case 1, 3)\\&amp;=&amp; S (S (K S) (S (K K) I)) (K I) (case 1, 2)\end{split}$$ 合到一起： $$\begin{split} 2&amp;=&amp; S ( \lambda f.(S (K f))) ( \lambda f.(S (K f) I))\\&amp;=&amp; S (S (K S) (S (K K) I)) (S (S (K S) (S (K K) I)) (K I))\end{split}$$ SK 组合子运算SKI组合子运算仍可进一步简化。我们可以通过注意I = SKK来移除I组合子。我们可以用SKK替换所有I。 Iota组合子SK组合子运算依然不是最简洁的。定义： $$\begin{split}ι = \lambda f.((f S) K)\end{split}$$ 我们就有： $$\begin{split}I &amp;=&amp; ιι\\K &amp;=&amp; ι(ιI) = ι(ι(ιι))\\S &amp;=&amp; ι(K) = ι(ι(ι(ιι)))\end{split}$$]]></content>
       <tags>
+        <tag>学习笔记</tag>
         <tag>Lambda</tag>
         <tag>Lambda演算</tag>
         <tag>Lambda Calculus</tag>
-        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -1175,9 +1175,9 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Python入门</tag>
         <tag>Threading</tag>
         <tag>多线程</tag>
+        <tag>Python入门</tag>
       </tags>
   </entry>
   <entry>
@@ -1186,9 +1186,9 @@
     <content type="text"><![CDATA[代码12345678910#定义字典dict = &#123;'a':1, 'b':2, 'c':3, 'd':4, 'e':5&#125;#根据key进行排序dict_sorted_by_key = sorted(dict.items(), key=lambda d: d[0])#根据key进行反向排序dict_sorted_by_key_reverse = sorted(dict.items(), key=lambda d: d[0], reverse=True)#根据value进行排序dict_sorted_by_value = sorted(dict.items(), key=lambda d: d[1])#根据value进行反向排序dict_sorted_by_value_reverse = sorted(dict.items(), key=lambda d: d[1], reverse=True) 示例]]></content>
       <tags>
         <tag>Python</tag>
+        <tag>Python入门</tag>
         <tag>Dict</tag>
         <tag>字典</tag>
-        <tag>Python入门</tag>
       </tags>
   </entry>
   <entry>
@@ -1223,6 +1223,16 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server]]></title>
+    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9A1130%20-%20Host%20'192.168.2.204'%20is%20not%20allowed%20to%20connect%20to%20this%20MySQL%20server%2F</url>
+    <content type="text"><![CDATA[问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。 解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。 具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 1234mysql -u root -p mysql&gt;use mysql; mysql&gt;update user set host = '%' where user ='root'; mysql&gt;flush privileges;]]></content>
+      <tags>
+        <tag>Trick</tag>
+        <tag>Mysql</tag>
+        <tag>远程连接报错</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[远程连接mysql报错：error 2003 （hy000）:can't connect to mysql server on 'localhost' (10061)]]></title>
     <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9Aerror%202003%20%EF%BC%88hy000%EF%BC%89-can't%20connect%20to%20mysql%20server%20on%20'localhost'%20(10061)%2F</url>
     <content type="text"><![CDATA[问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项： /etc/mysql/my.cnf /etc/mysql/mysqld.cnf 在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成： #bind-address = 127.0.0.1 然后执行 service mysql restart重新启动mysql服务使配置生效即可。]]></content>
@@ -1254,16 +1264,6 @@
         <tag>Trick</tag>
         <tag>Mysql</tag>
         <tag>mysql-python安装错误</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server]]></title>
-    <url>%2F2017%2F04%2F24%2F%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99%EF%BC%9A1130%20-%20Host%20'192.168.2.204'%20is%20not%20allowed%20to%20connect%20to%20this%20MySQL%20server%2F</url>
-    <content type="text"><![CDATA[问题原因MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。 解决思路将User=root对应行的Host一栏的值修改为%，允许任意ip登录root。 具体解决方案在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 1234mysql -u root -p mysql&gt;use mysql; mysql&gt;update user set host = '%' where user ='root'; mysql&gt;flush privileges;]]></content>
-      <tags>
-        <tag>Trick</tag>
-        <tag>Mysql</tag>
-        <tag>远程连接报错</tag>
       </tags>
   </entry>
   <entry>
