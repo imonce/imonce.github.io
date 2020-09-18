@@ -131,7 +131,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">114</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -191,6 +191,102 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/11/04/常见QoS指标一览/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/04/常见QoS指标一览/" class="post-title-link" itemprop="url">常见QoS指标一览</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-04 16:22:15" itemprop="dateCreated datePublished" datetime="2019-11-04T16:22:15+08:00">2019-11-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-12 17:33:44" itemprop="dateModified" datetime="2019-11-12T17:33:44+08:00">2019-11-12</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/11/04/常见QoS指标一览/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/04/常见QoS指标一览/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>英文： Quality of Service<br>中文： 服务质量<br>介绍： 指一个网络能够利用各种基础技术，为指定的网络通信提供更好的服务能力，是网络的一种安全机制，<strong>是用来解决网络延迟和阻塞等问题的一种技术</strong>。 通过配置QoS，对企业的网络流量进行调控，避免并管理网络拥塞，减少报文的丢失率，同时也可以为企业用户提供专用带宽或者为不同的业务（语音、视频、数据等）提供差分服务。</p>
+<p>在正常情况下，如果网络只用于特定的无时间限制的应用系统，并不需要QoS，比如Web应用，或E-mail设置等。但是对关键应用和多媒体应用就十分必要。当网络过载或拥塞时，==QoS能确保重要业务量不受延迟或丢弃==，同时保证网络的高效运行。在RFC 3644上有对QoS的说明。</p>
+<h1 id="可用性-Usability"><a href="#可用性-Usability" class="headerlink" title="可用性(Usability)"></a>可用性(Usability)</h1><p>是当用户需要时网络即能工作的时间百分比。可用性主要是设备可靠性和网络存活性相结合的结果。对它起作用的还有一些其他因素，包括软件稳定性以及网络演进或升级时不中断服务的能力。 在连续5min内，如果一个IP网络所提供的丢包率&lt;=75%，则认为该时间段是可用的，否则是不可用的。</p>
+<h1 id="吞吐量-网络带宽-Throughput"><a href="#吞吐量-网络带宽-Throughput" class="headerlink" title="吞吐量(网络带宽)(Throughput)"></a>吞吐量(网络带宽)(Throughput)</h1><p>网络带宽是指在单位时间（一般指的是1秒钟）内能传输的数据量。对IP网而言可以从帧中继网借用一些概念。根据应用和服务类型，服务水平协议(SLA)可以规定承诺信息速率(CIR)、突发信息速率(BIR)和最大突发信号长度。承诺信息速率是应该予以严格保证的，对突发信息速率可以有所限定，以在容纳预定长度突发信号的同时容纳从话音到视像以及一般数据的各种服务。一般讲，吞吐量越大越好。</p>
+<h1 id="时延-Latency-Packet-delay"><a href="#时延-Latency-Packet-delay" class="headerlink" title="时延(Latency)(Packet delay)"></a>时延(Latency)(Packet delay)</h1><p>指一项服务从网络入口到出口的平均经过时间。许多服务，特别是话音和视像等实时服务都是高度不能容忍时延的。当时延超过200-250毫秒时，交互式会话是非常麻烦的。为了提供高质量话音和会议电视，网络设备必须能保证低的时延。<br>产生时延的因素很多，包括分组时延、排队时延、交换时延和传播时延。传播时延是信息通过铜线、光纤或无线链路所需的时间，它是光速的函数。在任何系统中，包括同步数字系列(SDH)、异步传输模式（ATM）和弹性分组环路(RPR)，传播时延总是存在的。</p>
+<h1 id="时延变化-抖动-Packet-delay-variation"><a href="#时延变化-抖动-Packet-delay-variation" class="headerlink" title="时延变化(抖动)(Packet delay variation)"></a>时延变化(抖动)(Packet delay variation)</h1><p>是指同一业务流中不同分组所呈现的时延不同。高频率的时延变化称作抖动，而低频率的时延变化称作漂移。抖动主要是由于业务流中相继分组的排队等候时间不同引起的，是对服务质量影响最大的一个问题。</p>
+<p>​某些业务类型（特别是语音和视频等实时业务）是极其不能容忍抖动的。报文到达时间的差异将在语音或视频中造成断续；另外，抖动也会影响一些网络协议的处理，有些协议是按固定的时间间隔发送交互性报文，抖动过大就会导致协议震荡，而实际上所有传输系统都有抖动，但只要抖动在规定容差之内就不会影响服务质量，另外，可利用缓存来克服过量的抖动，但这将会增加时延。</p>
+<p>漂移是任何同步传输系统都有的一个问题。在SDH系统中是通过严格的全网分级定时来克服漂移的。在异步系统中，漂移一般不是问题。漂移会造成基群失帧，使服务质量的要求不能满足。</p>
+<h1 id="丢包-Packet-loss"><a href="#丢包-Packet-loss" class="headerlink" title="丢包(Packet loss)"></a>丢包(Packet loss)</h1><p>不管是比特丢失还是分组丢失，对分组数据业务的影响比对实时业务的影响都大。在通话期间，丢失一个比特或一个分组的信息往往用户注意不到。在视像广播期间，这在屏幕上可能造成瞬间的波形干扰，然后视像很快恢复如初。即便是用传输控制协议(TCP)传送数据也能处理丢失，因为传输控制协议允许丢失的信息重发。事实上，一种叫做随机早丢(RED)的拥塞控制机制在故意丢失分组，其目的是在流量达到设定门限时抑制TCP传输速率，减少拥塞，同时还使TCP流失去同步，以防止因速率窗口的闭合引起吞吐量摆动。但分组丢失多了，会影响传输质量。所以，要保持统计数字，当超过预定门限时就向网络管理人员告警。</p>
+<p>丢包（packetloss）可能在所有环节中发生，例如：</p>
+<ul>
+<li>处理过程：路由器在收到报文的时候可能由于CPU繁忙，无法处理报文而导致丢包；</li>
+<li>排队过程：在把报文调度到队列的时候可能由于队列被装满而导致丢包；</li>
+<li>传输过程：报文在链路上传输的过程中，可能由于种种原因（如链路故障等）导致的丢包。</li>
+</ul>
+<blockquote>
+<p>References:<br><a href="https://blog.csdn.net/qq_25077833/article/details/53428655" target="_blank" rel="noopener">https://blog.csdn.net/qq_25077833/article/details/53428655</a><br><a href="https://blog.csdn.net/kakingka/article/details/45698709" target="_blank" rel="noopener">https://blog.csdn.net/kakingka/article/details/45698709</a><br><a href="https://blog.csdn.net/qq_38265137/article/details/80466737" target="_blank" rel="noopener">https://blog.csdn.net/qq_38265137/article/details/80466737</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1720,105 +1816,6 @@ Nearest to used: opposition, hero, private, illinois, legislative, regime, break
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/08/08/如何构建高绩效团队/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/08/如何构建高绩效团队/" class="post-title-link" itemprop="url">如何构建高绩效团队</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-08-08 21:35:20" itemprop="dateCreated datePublished" datetime="2019-08-08T21:35:20+08:00">2019-08-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-04 14:01:46" itemprop="dateModified" datetime="2019-11-04T14:01:46+08:00">2019-11-04</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/08/08/如何构建高绩效团队/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/08/如何构建高绩效团队/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="剔除害群之马"><a href="#剔除害群之马" class="headerlink" title="剔除害群之马"></a>剔除害群之马</h1><p>如果一个人没有良好的品质，任何领导者没有魔力能够把品质注入到他身上。</p>
-<p>作为团队的领导，可以对每一个成员进行培养、测试他的品质，给年轻人机会让他展示自己的品质，但如果这种品质在他身上根本就不存在，就不能注入。这一点，每一个团队领导都要十分清楚。所以说，选择可靠的人的能力非常重要，有匹害群之马，大多数的组织都会功亏一篑。</p>
-<h1 id="团队的发展过程中，要坚持四个尊重"><a href="#团队的发展过程中，要坚持四个尊重" class="headerlink" title="团队的发展过程中，要坚持四个尊重"></a>团队的发展过程中，要坚持四个尊重</h1><ul>
-<li>尊重别人</li>
-<li>尊重诚实的品质</li>
-<li>尊重忠诚的品质</li>
-<li>尊重时间</li>
-</ul>
-<h1 id="高绩效团队拥有哪些元素"><a href="#高绩效团队拥有哪些元素" class="headerlink" title="高绩效团队拥有哪些元素"></a>高绩效团队拥有哪些元素</h1><ol>
-<li>清晰的目的和愿景：人们想知道他们在做什么，想要达到什么样的目标，想要一些他们可以承诺的事情。这是很多团队领导者忽略的东西，或者他们知道自己的愿景是什么，但是，他们忘记了与团队成员分享，他们忽略了经常重复的好处。</li>
-<li>清晰的目标：这包括两部分，为整个团队和每个团队成员制定明确的目标，这样，他们就知道团队对他们的期望，以及他们将如何为整体绩效做贡献。</li>
-<li>高的工作标准：高效的团队为自己的绩效、工作方式和他们工作的水平感到自豪。拥有清晰的绩效标准或关键绩效指标（KPI）会得到强有力的承诺—-如果团队成员参与了这些标准的设定，承诺就会更多。</li>
-<li>系统和程序：建立清晰的工作、报告和执行过程的清晰方法可以提高工作效率和效果。当团队成员变得更习惯于在一起工作时，这些系统和程序会变得更高质量。</li>
-<li>清晰、开放的沟通：包括正式的非正式的沟通。在一个团队里，信息分享、说出你想要的和问出你想要的是非常重要的，更为关键的是团队成员之间可以相互倾听对方的观点并尊重对方的贡献，这样做的部分原因是，你可以轻松地表达不同意见、处理分歧。</li>
-<li>信任和承诺：这是一种无形的元素，虽然人际关系很好，但这在团队中并不重要，更重要的是能够尊重同事，与他们一起工作，感觉他们会履行自己的承诺，可靠和值得信任远比彼此喜欢更为重要。</li>
-<li>领导力：随着团队的发展，领导风格和方法需要与时俱进。</li>
-<li>定义的角色和职责：大多数人都想知道他们应该做什么，以及他们将如何被评估。</li>
-<li>归属感：团队成员有归属感吗？把目标感与愿景结合起来。</li>
-</ol>
-<h1 id="重点是分享和互相依赖"><a href="#重点是分享和互相依赖" class="headerlink" title="重点是分享和互相依赖"></a>重点是分享和互相依赖</h1><p>高效的团队合作不是一个人们抛弃“自我”，仅是依附于团队获得支持和认同的依赖过程，在这个过程中，它也不是一个“我”是第一位的独立过程，高绩效团队是一个相互依赖的过程。</p>
-<p>在高绩效协团队中，我们不会看到“指责”，或声称“这不是我的工作”。相互依赖的思维意味着从“这对我有什么好处？”到“这对我们有什么好处？”</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1890,7 +1887,7 @@ Nearest to used: opposition, hero, private, illinois, legislative, regime, break
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

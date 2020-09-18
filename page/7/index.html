@@ -131,7 +131,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">114</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -191,6 +191,154 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/06/07/边缘计算：愿景和挑战/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/07/边缘计算：愿景和挑战/" class="post-title-link" itemprop="url">边缘计算：愿景和挑战</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-07 00:11:29" itemprop="dateCreated datePublished" datetime="2019-06-07T00:11:29+08:00">2019-06-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-06-09 14:41:35" itemprop="dateModified" datetime="2019-06-09T14:41:35+08:00">2019-06-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Reading-Notes/" itemprop="url" rel="index"><span itemprop="name">Reading Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Reading-Notes/Service-Computing/" itemprop="url" rel="index"><span itemprop="name">Service Computing</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/06/07/边缘计算：愿景和挑战/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/06/07/边缘计算：愿景和挑战/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <pre><code>边缘计算有可能解决响应时间要求、电池寿命限制、带宽成本节约以及数据安全和隐私等问题。本文首先介绍了边缘计算的定义，然后介绍了从云卸载到智能家居和城市，以及协同边缘到实现边缘计算概念的几个案例研究。最后，我们提出了边缘计算领域的一些挑战和机遇，希望本文能引起社会的关注，并对这一方向的研究有所启发。</code></pre>
+<h1 id="为什么要研究边缘计算"><a href="#为什么要研究边缘计算" class="headerlink" title="为什么要研究边缘计算"></a>为什么要研究边缘计算</h1><p>到2019年，由人、机器和事物产生的数据将达到500 zettabytes，正如思科全球云指数所估计的那样，但是到那时全球数据中心IP流量将仅达到10.4 zettabytes。到2019年，45%的物联网创建数据将存储、处理、分析，并在网络附近或边缘采取行动。思科互联网业务解决方案集团（Cisco Internet Business Solutions Group）预测，到2020年，将有500亿台设备连接到互联网上。有些物联网应用可能需要很短的响应时间，有些可能涉及到私有数据，有些可能产生大量的数据，这对网络来说可能是一个沉重的负担。云计算的效率不足以支持这些应用程序。</p>
+<h1 id="什么是边缘计算"><a href="#什么是边缘计算" class="headerlink" title="什么是边缘计算"></a>什么是边缘计算</h1><p>数据在网络边缘的生成越来越多，因此，在网络边缘处理数据也会更有效。以前的工作，如微型数据中心、Cloudlet和雾计算，已经引入到社区，因为当数据在网络边缘生成时，云计算并不总是有效的数据处理。在这一部分中，我们列出了一些原因，为什么对于某些计算服务，边缘计算比云计算更有效，然后我们给出了我们对边缘计算的定义和理解。</p>
+<h2 id="为什么需要边缘计算"><a href="#为什么需要边缘计算" class="headerlink" title="为什么需要边缘计算"></a>为什么需要边缘计算</h2><h3 id="来自云计算的推动"><a href="#来自云计算的推动" class="headerlink" title="来自云计算的推动"></a>来自云计算的推动</h3><p>随着边缘数据生成量的不断增加，数据传输速度正成为云计算范式的瓶颈。例如，波音787每秒将生成大约5千兆字节的数据，但飞机与地面卫星或基站之间的带宽不足以传输数据。</p>
+<h3 id="来自物联网的拉动"><a href="#来自物联网的拉动" class="headerlink" title="来自物联网的拉动"></a>来自物联网的拉动</h3><p>可以肯定的是，网络边缘的事物数量在几年内将发展到数十亿以上。因此，它们产生的原始数据将是巨大的，使得传统的云计算效率不足以处理所有这些数据。这意味着物联网产生的大部分数据将永远不会传输到云，而是将在网络边缘消耗。</p>
+<h3 id="从数据消费者到生产者的改变"><a href="#从数据消费者到生产者的改变" class="headerlink" title="从数据消费者到生产者的改变"></a>从数据消费者到生产者的改变</h3><p>从数据消费者到数据生产者/消费者的变化需要在边缘放置更多的函数。例如，今天人们拍照或录像，然后通过云服务（如YouTube、Facebook、Twitter或Instagram）共享数据，这是很正常的。</p>
+<p>此外，每一分钟内，YouTube用户上传72小时的新视频内容；Facebook用户分享近250万条内容；Twitter用户推特推特推特推特推特推特近30万次；Instagram用户发布近22万张新照片。</p>
+<h2 id="边缘计算是什么"><a href="#边缘计算是什么" class="headerlink" title="边缘计算是什么"></a>边缘计算是什么</h2><p>边缘计算是指允许在网络边缘、代表云服务的下游数据和代表物联网服务的上游数据进行计算的启用技术。在这里，我们将“边缘”定义为数据源和云数据中心之间的任何计算和网络资源。</p>
+<p>边缘计算可以与雾计算互换，但是边缘计算更多地集中在事物方面，而雾计算更多地集中在基础设施方面。</p>
+<h2 id="边缘计算的优势"><a href="#边缘计算的优势" class="headerlink" title="边缘计算的优势"></a>边缘计算的优势</h2><p>在边缘计算中，我们希望将计算放在数据源附近。与传统的基于云的计算模式相比，这有几个好处。在这里，我们使用社区的一些早期结果来展示潜在的好处。研究人员建立了一个概念验证平台，用于运行人脸识别应用程序，通过将计算从云端移动到边缘，将响应时间从900 ms缩短到169ms。Ha等人使用Cloudlet卸载可穿戴认知辅助的计算任务，结果表明，响应时间在80-200ms之间，而且Cloudlet卸载还可以减少30%-40%的能耗。clonecloud在移动与云的结合分区、迁移与合并、按需实例化分区等方面，其原型可以为测试应用减少20倍的运行时间和能源。</p>
+<h1 id="案例研究"><a href="#案例研究" class="headerlink" title="案例研究"></a>案例研究</h1><h2 id="云卸载"><a href="#云卸载" class="headerlink" title="云卸载"></a>云卸载</h2><p>在传统的内容交付网络中，只有数据缓存在边缘服务器上。这是基于内容提供商在互联网上提供数据的事实，这在过去几十年中是正确的。在物联网中，数据在边缘产生和消耗。因此，在边缘计算范式中，不仅应该在边缘缓存数据，还应该缓存应用于数据上的操作。</p>
+<p>应用：</p>
+<ul>
+<li>导航应用程序可以将导航或搜索服务移动到局部区域的边缘，在这种情况下，只涉及几个地图块。</li>
+<li>可以在边缘节点上进行内容过滤/聚合，以减少要传输的数据量。</li>
+<li>视觉辅助娱乐游戏、增强现实、互联健康等实时应用可以通过边缘节点快速响应。</li>
+</ul>
+<h2 id="视频分析"><a href="#视频分析" class="headerlink" title="视频分析"></a>视频分析</h2><p>由于数据传输延迟和隐私问题，云计算不再适用于需要视频分析的应用程序。</p>
+<p>与单独的云计算相比，可以在每台边缘设备上利用数据和计算能力，并更快地获得结果。</p>
+<h2 id="智能家居"><a href="#智能家居" class="headerlink" title="智能家居"></a>智能家居</h2><p>下图显示了智能家居环境中Edgeos的一个变体的结构。Edgeos需要通过Wi-Fi、蓝牙、ZigBee或蜂窝网络等多种通信方式从移动设备和各种事物收集数据。来自不同来源的数据需要在数据抽象层中进行融合和按摩。</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190606235255.png"></p>
+<h2 id="智慧城市"><a href="#智慧城市" class="headerlink" title="智慧城市"></a>智慧城市</h2><ul>
+<li>大数据分析：到2019年，拥有100万人口的城市每天将产生180 PB的数据。</li>
+<li>低延迟</li>
+<li>位置感知</li>
+</ul>
+<h2 id="边缘协作"><a href="#边缘协作" class="headerlink" title="边缘协作"></a>边缘协作</h2><p>协作边缘将地理上分布的多个利益相关者的边缘连接起来，尽管这些利益相关者的物理位置和网络结构不同。这些特殊的连接边缘为利益相关者提供了共享和合作数据的机会。</p>
+<p>例如医院会总结并分享某次流感爆发的信息，如平均成本、症状和人口等。理论上，患者会按照处方从药房获得药片。一种可能是病人没有接受治疗。然后医院必须承担再入院的责任，因为它不能得到病人没有服用药物的证据。现在，通过协作边缘，药房可以向医院提供患者的购买记录，这大大简化了医疗保健责任。</p>
+<h1 id="挑战和机遇"><a href="#挑战和机遇" class="headerlink" title="挑战和机遇"></a>挑战和机遇</h1><h2 id="可编程性"><a href="#可编程性" class="headerlink" title="可编程性"></a>可编程性</h2><p>通常，程序是用一种编程语言编写的，并为特定的目标平台编译，因为程序只在云中运行。然而，在边缘计算中，计算是从云上卸载的，边缘节点很可能是异构平台。在这种情况下，这些节点的运行时是不同的，程序员编写一个可能部署在边缘计算范式中的应用程序面临着巨大的困难。</p>
+<h2 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h2><p>在边缘计算中，一个重要的假设是事物的数量是巨大的。在边缘节点的顶部，有许多应用程序在运行，每个应用程序都有其自己的结构，说明如何提供服务。与所有计算机系统一样，边缘计算中的命名方案对于编程、寻址、事物识别和数据通信都非常重要。然而，边缘计算范式的有效命名机制尚未建立和标准化。边缘从业者通常需要学习各种通信和网络协议，以便与系统中的异构事物进行通信。边缘计算的命名方案需要处理事物的移动性、高度动态的网络拓扑、隐私和安全保护，以及针对大量不可靠事物的可扩展性。</p>
+<h2 id="数据抽象"><a href="#数据抽象" class="headerlink" title="数据抽象"></a>数据抽象</h2><p>通过服务管理层的空气位置指示器，各种应用程序可以运行在消耗数据或提供服务的EDGEOS上。在无线传感器网络和云计算范式中，数据抽象已经得到了很好的讨论和研究。然而，在边缘计算中，这个问题变得更具挑战性。有了物联网，网络中会有大量的数据生成器，这里我们以一个智能家庭环境为例。在智能家居中，几乎所有的东西都会向Edgeos报告数据，更不用说在家里部署了大量的东西。然而，网络边缘的大多数东西，只定期向网关报告感应到的数据。</p>
+<ul>
+<li>来自不同事物的报告数据具有不同的格式</li>
+<li>有时很难确定数据抽象的程度</li>
+<li>数据抽象的另一个问题是对事物的适用操作</li>
+</ul>
+<h2 id="服务管理"><a href="#服务管理" class="headerlink" title="服务管理"></a>服务管理</h2><ul>
+<li>差异化：随着物联网部署的快速增长，我们预计将在网络边缘部署多种服务，如智能家居。</li>
+<li>可扩展性：可扩展性在网络边缘可能是一个巨大的挑战，与移动系统不同，物联网中的东西可能是非常动态的。</li>
+<li>隔离：隔离是网络边缘的另一个问题。</li>
+<li>可靠性：最后但不是最不重要的，可靠性也是网络边缘的一个关键挑战。我们可以从服务、系统和数据的不同角度来识别可靠性方面的挑战。</li>
+</ul>
+<h2 id="隐私和安全"><a href="#隐私和安全" class="headerlink" title="隐私和安全"></a>隐私和安全</h2><ul>
+<li>社区的隐私和安全意识。</li>
+<li>从Edge上收集的数据的所有权。</li>
+<li>缺少有效的工具来保护网络边缘的数据隐私和安全。</li>
+</ul>
+<h2 id="优化指标"><a href="#优化指标" class="headerlink" title="优化指标"></a>优化指标</h2><ul>
+<li>延迟：延迟是评估性能的最重要指标之一，特别是在交互应用程序/服务中。</li>
+<li>带宽：从延迟的角度来看，高带宽可以减少传输时间，特别是对于大数据（如视频等）。</li>
+<li>能源：能源是网络边缘最宝贵的资源。</li>
+<li>成本：从服务提供商的角度，如YouTube、Amazon等，边缘计算为他们提供了更少的延迟和能源消耗，潜在的增加投入和改进的用户体验。</li>
+</ul>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>现在，越来越多的服务被从云推到网络的边缘，因为在边缘处理数据可以确保更短的响应时间和更好的可靠性。此外，如果可以在边缘处理更大的数据部分，而不是上传到云端，那么也可以节省带宽。物联网和通用移动设备的迅速发展改变了EDGE在计算范式中的角色，从数据消费者转变为数据生产者/消费者。在网络边缘处理或按摩数据会更有效。</p>
+<blockquote>
+<p>论文原文：<a href="http://www.cs.wayne.edu/~weisong/papers/shi15-edge_computing.pdf" target="_blank" rel="noopener">Edge Computing: Vision and Challenges</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1627,231 +1775,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/04/19/6小时精通python-六-完结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/19/6小时精通python-六-完结/" class="post-title-link" itemprop="url">Python快速入门：6小时精通Python(六-完结)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-04-19 17:35:34" itemprop="dateCreated datePublished" datetime="2019-04-19T17:35:34+08:00">2019-04-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-23 21:29:08" itemprop="dateModified" datetime="2020-01-23T21:29:08+08:00">2020-01-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learn-X-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn X in Y minutes</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learn-X-in-Y-minutes/Learn-Python-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn Python in Y minutes</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/04/19/6小时精通python-六-完结/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/04/19/6小时精通python-六-完结/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>译自：<a href="https://learnxinyminutes.com/docs/python3/" target="_blank" rel="noopener">https://learnxinyminutes.com/docs/python3/</a></p>
-<p>阅前须知：</p>
-<ul>
-<li>“#”后边的是注释</li>
-<li>带行号的是python代码</li>
-<li>不带行号的是代码的输出</li>
-<li>把下边的语句对着敲一边自然就会了，博主用的是jupyter notebook</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">####################################################</span></span><br><span class="line"><span class="comment">## 6. Classes</span></span><br><span class="line"><span class="comment">####################################################</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过class声明，来创建一个类</span></span><br><span class="line"><span class="comment"># 类内方法中，self为一个保留字，代表类实例化后instance自身</span></span><br><span class="line"><span class="comment"># 类内方法中，cls也是一个保留字，代表类class自身</span></span><br><span class="line"><span class="comment"># 通过self.***可以给类内属性赋值，或调用类内方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Human</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 直接定义的变量，是这个类的共享属性，所有实例都可以访问</span></span><br><span class="line">    species = <span class="string">"H. sapiens"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># __init__是一个保留方法，用于类的实例化（生成实例时自动调用）</span></span><br><span class="line">    <span class="comment"># 注意：名称前后有双下划线__，代表这个对象或者属性是python调用、用户定义的</span></span><br><span class="line">    <span class="comment"># 这类方法（对象、属性）包括: __init__, __str__, __repr__ etc.</span></span><br><span class="line">    <span class="comment"># 这类特殊方法，也被称作（dunder method）</span></span><br><span class="line">    <span class="comment"># 不要自己创造这类方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        <span class="comment"># 将参数分配给实例的name属性</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 初始化私有属性，前方带下划线_的属性无法在外部直接访问</span></span><br><span class="line">        self._age = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 这是类的一个内建方法，所有内建的方法都需要把self作为其第一个形式参数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">say</span><span class="params">(self, msg)</span>:</span></span><br><span class="line">        print(<span class="string">"&#123;name&#125;: &#123;message&#125;"</span>.format(name=self.name, message=msg))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 另一个方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sing</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'yo... yo... microphone check... one two... one two...'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># @classmethod是一个声明，声明接下来定义的方法是该类所有实例的共享方法</span></span><br><span class="line">    <span class="comment"># 这种方法被调用时，必须有cls作为第一个参数</span></span><br><span class="line">    <span class="comment"># 类方法的特点在于，可以被类自身调用，如Human.get_species()</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_species</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.species</span><br><span class="line"></span><br><span class="line">    <span class="comment"># @staticmethod声明接下来定义的是一个静态方法</span></span><br><span class="line">    <span class="comment"># 静态方法可以被类单独调用</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">grunt</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"*grunt*"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># @property就是一个getter，声明该方法用于访问内部属性</span></span><br><span class="line">    <span class="comment"># @property这个声明，将age()方法转换为同名的只读属性。 </span></span><br><span class="line">    <span class="comment"># 但是，不需要在Python中编写琐碎的getter和setter。</span></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">age</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._age</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果还想要让该属性可更改，可以这么写</span></span><br><span class="line"><span class="meta">    @age.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">age</span><span class="params">(self, age)</span>:</span></span><br><span class="line">        self._age = age</span><br><span class="line"></span><br><span class="line">    <span class="comment"># deleter可以让该属性可删除</span></span><br><span class="line"><span class="meta">    @age.deleter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">age</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">del</span> self._age</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># __name__代表的是运行进程的名称</span></span><br><span class="line"><span class="comment"># __name__ == '__main__'，判断用户是否是将该python文件当作主要脚本运行</span></span><br><span class="line"><span class="comment"># 简单来说，if __name__ == '__main__':代码块中的内容</span></span><br><span class="line"><span class="comment"># 只有在运行该python文件时才会生效，如果该python文件是以import形式被调用，则不会运行</span></span><br><span class="line"><span class="comment"># 而写在if __name__ == '__main__':代码块外的内容，被import时，也会运行</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 生成Human类的实例</span></span><br><span class="line">    <span class="comment"># 类名加括号，直接调用__init__方法</span></span><br><span class="line">    i = Human(name=<span class="string">"Ian"</span>)</span><br><span class="line">    i.say(<span class="string">"hi"</span>)                     <span class="comment"># "Ian: hi"</span></span><br><span class="line">    j = Human(<span class="string">"Joel"</span>)</span><br><span class="line">    j.say(<span class="string">"hello"</span>)                  <span class="comment"># "Joel: hello"</span></span><br><span class="line">    <span class="comment"># i and j 是Human类的两个实例</span></span><br><span class="line">    <span class="comment"># 调用类方法</span></span><br><span class="line">    i.say(Human.get_species())          <span class="comment"># "Ian: H. sapiens"</span></span><br><span class="line">    <span class="comment"># 共享属性改了之后，大家都改了</span></span><br><span class="line">    Human.species = <span class="string">"H. neanderthalensis"</span></span><br><span class="line">    i.say(i.get_species())          <span class="comment"># =&gt; "Ian: H. neanderthalensis"</span></span><br><span class="line">    j.say(j.get_species())          <span class="comment"># =&gt; "Joel: H. neanderthalensis"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 类可以调用静态函数</span></span><br><span class="line">    print(Human.grunt())            <span class="comment"># =&gt; "*grunt*"</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 有些版本中实例是不能调用静态函数的</span></span><br><span class="line">    print(i.grunt())</span><br><span class="line">                                    </span><br><span class="line">    <span class="comment"># 更新实例的属性</span></span><br><span class="line">    i.age = <span class="number">42</span></span><br><span class="line">    <span class="comment"># 获取property</span></span><br><span class="line">    i.say(i.age)                    <span class="comment"># =&gt; "Ian: 42"</span></span><br><span class="line">    j.say(j.age)                    <span class="comment"># =&gt; "Joel: 0"</span></span><br><span class="line">    <span class="comment"># 删除i的age属性</span></span><br><span class="line">    <span class="keyword">del</span> i.age</span><br></pre></td></tr></table></figure>
-
-<pre><code>Ian: hi
-Joel: hello
-Ian: H. sapiens
-Ian: H. neanderthalensis
-Joel: H. neanderthalensis
-*grunt*
-*grunt*
-Ian: 42
-Joel: 0</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 再访问i的年龄就会报错</span></span><br><span class="line">i.age</span><br></pre></td></tr></table></figure>
-
-<pre><code>---------------------------------------------------------------------------
-
-AttributeError                            Traceback (most recent call last)
-
-&lt;ipython-input-207-993258cc61d3&gt; in &lt;module&gt;()
-      1 # 再访问i的年龄就会报错
-----&gt; 2 i.age
-
-
-&lt;ipython-input-186-b3205f030117&gt; in age(self)
-     44     @property
-     45     def age(self):
----&gt; 46         return self._age
-     47 
-     48     # 如果还想要让该属性可更改，可以这么写
-
-
-AttributeError: &#39;Human&#39; object has no attribute &#39;_age&#39;</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不仅仅是age()没了，_age这个属性是真的没了</span></span><br><span class="line">i._age</span><br></pre></td></tr></table></figure>
-
-<pre><code>---------------------------------------------------------------------------
-
-AttributeError                            Traceback (most recent call last)
-
-&lt;ipython-input-208-4ea879b64970&gt; in &lt;module&gt;()
-      1 # 不仅仅是age()没了，_age这个属性是真的没了
-----&gt; 2 i._age
-
-
-AttributeError: &#39;Human&#39; object has no attribute &#39;_age&#39;</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">####################################################</span></span><br><span class="line"><span class="comment">## 6.1 继承</span></span><br><span class="line"><span class="comment">####################################################</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 继承允许定义新的子类，这些子类从父类继承方法和变量</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用上面定义的Human类作为基类或父类，我们可以定义一个子类Superhero</span></span><br><span class="line"><span class="comment"># 它继承了类的变量如“species”，“name”和“age”，</span></span><br><span class="line"><span class="comment"># 以及“sing”和“grunt”等方法</span></span><br><span class="line"><span class="comment"># 但superhero也可以拥有自己的属性</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果要将文件模块化，您可以将上面的类放在自己的文件中，命名为human.py</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 要从其他文件导入功能，请使用以下格式</span></span><br><span class="line"><span class="comment"># from “filename（不加扩展名.py）” import “函数名或类名”</span></span><br><span class="line"><span class="keyword">from</span> human <span class="keyword">import</span> Human</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将父类当作参数写进子类定义作为声明</span></span><br><span class="line"><span class="comment"># 如：class child(parent):</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Superhero</span><span class="params">(Human)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果您想让子类继承父类的所有定义且没有任何修改</span></span><br><span class="line">    <span class="comment"># 您可以只使用“pass”关键字（而不使用其他关键字）</span></span><br><span class="line">    <span class="comment"># 如</span></span><br><span class="line">    <span class="comment">#     class Human2(Human):</span></span><br><span class="line">    <span class="comment">#         pass</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 子类可以重写其父类的属性</span></span><br><span class="line">    species = <span class="string">'Superhuman'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 子类自动继承其父类的构造函数（__init__），包括它的参数</span></span><br><span class="line">    <span class="comment"># 但也可以定义其他参数或定义并重写其方法</span></span><br><span class="line">    <span class="comment"># 此构造函数从“human”类继承“name”参数</span></span><br><span class="line">    <span class="comment"># 并且添加“superpower”和“movie”参数：</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, movie=False,</span></span></span><br><span class="line"><span class="function"><span class="params">                 superpowers=[<span class="string">"super strength"</span>, <span class="string">"bulletproofing"</span>])</span>:</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 增加新的属性</span></span><br><span class="line">        self.fictional = <span class="keyword">True</span></span><br><span class="line">        self.movie = movie</span><br><span class="line">        <span class="comment"># 注意可变的默认值，因为默认值是共享的</span></span><br><span class="line">        self.superpowers = superpowers</span><br><span class="line"></span><br><span class="line">        <span class="comment"># “super”是一个保留函数，该函数允许您访问父类的方法</span></span><br><span class="line">        <span class="comment"># 下面的语句将调用父类构造函数：</span></span><br><span class="line">        super().__init__(name)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 覆盖sing方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sing</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Dun, dun, DUN!'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 增加实例方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">boast</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> power <span class="keyword">in</span> self.superpowers:</span><br><span class="line">            print(<span class="string">"I wield the power of &#123;pwr&#125;!"</span>.format(pwr=power))</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    sup = Superhero(name=<span class="string">"Tick"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过isinstance方法，可以判断，实例和类的关系</span></span><br><span class="line">    <span class="keyword">if</span> isinstance(sup, Human):</span><br><span class="line">        print(<span class="string">'I am human'</span>)</span><br><span class="line">    <span class="comment"># 通过type(instance)可以得到实例的class对象</span></span><br><span class="line">    <span class="keyword">if</span> type(sup) <span class="keyword">is</span> Superhero:</span><br><span class="line">        print(<span class="string">'I am a superhero'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过__mro__方法，可以获取类的继承链（super方法或者getattr方法）</span></span><br><span class="line">    print(Superhero.__mro__)    <span class="comment"># =&gt; (&lt;class '__main__.Superhero'&gt;, &lt;class '__main__.Human'&gt;, &lt;class 'object'&gt;)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用父类方法，访问子类属性</span></span><br><span class="line">    print(sup.get_species())    <span class="comment"># =&gt; Superhuman</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用覆盖了的方法</span></span><br><span class="line">    print(sup.sing())           <span class="comment"># =&gt; Dun, dun, DUN!</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用父类的方法</span></span><br><span class="line">    sup.say(<span class="string">'Spoon'</span>)            <span class="comment"># =&gt; Tick: Spoon</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用子类独有的方法</span></span><br><span class="line">    sup.boast()                 <span class="comment"># =&gt; I wield the power of super strength!</span></span><br><span class="line">                                <span class="comment"># =&gt; I wield the power of bulletproofing!</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 继承了的类属性</span></span><br><span class="line">    sup.age = <span class="number">31</span></span><br><span class="line">    print(sup.age)              <span class="comment"># =&gt; 31</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 子类独有的属性</span></span><br><span class="line">    print(<span class="string">'Am I Oscar eligible? '</span> + str(sup.movie))</span><br></pre></td></tr></table></figure>
-
-<pre><code>I am human
-I am a superhero
-(&lt;class &#39;__main__.Superhero&#39;&gt;, &lt;class &#39;__main__.Human&#39;&gt;, &lt;class &#39;object&#39;&gt;)
-Superhuman
-Dun, dun, DUN!
-Tick: Spoon
-I wield the power of super strength!
-I wield the power of bulletproofing!
-31
-Am I Oscar eligible? False</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">####################################################</span></span><br><span class="line"><span class="comment">## 6.2 多重继承</span></span><br><span class="line"><span class="comment">####################################################</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义一个蝙蝠类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bat</span>:</span></span><br><span class="line"></span><br><span class="line">    species = <span class="string">'Baty'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, can_fly=True)</span>:</span></span><br><span class="line">        self.fly = can_fly</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 这个类页游say的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">say</span><span class="params">(self, msg)</span>:</span></span><br><span class="line">        msg = <span class="string">'... ... ...'</span></span><br><span class="line">        <span class="keyword">return</span> msg</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 还有独有的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sonar</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'))) ... ((('</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    b = Bat()</span><br><span class="line">    print(b.say(<span class="string">'hello'</span>))</span><br><span class="line">    print(b.fly)</span><br></pre></td></tr></table></figure>
-
-<pre><code>... ... ...
-True</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果您写了多个文件，就需要导入一下</span></span><br><span class="line"><span class="keyword">from</span> superhero <span class="keyword">import</span> Superhero</span><br><span class="line"><span class="keyword">from</span> bat <span class="keyword">import</span> Bat</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义蝙蝠侠，继承自超级英雄和蝙蝠两个类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Batman</span><span class="params">(Superhero, Bat)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="comment"># 通常，要继承属性，必须调用super</span></span><br><span class="line">        <span class="comment"># 然而，我们在这里处理多个继承</span></span><br><span class="line">        <span class="comment"># 而super（）只适用于MRO列表中的下一个基类。</span></span><br><span class="line">        <span class="comment"># 因此，我们明确地为所有祖先(父类)调用__init__</span></span><br><span class="line">        <span class="comment"># 使用“*args”和“*kwargs”可以以一种干净的方式传递参数</span></span><br><span class="line">        <span class="comment"># 每个父类“剥一层洋葱皮”</span></span><br><span class="line">        Superhero.__init__(self, <span class="string">'anonymous'</span>, movie=<span class="keyword">True</span>, </span><br><span class="line">                           superpowers=[<span class="string">'Wealthy'</span>], *args, **kwargs)</span><br><span class="line">        Bat.__init__(self, *args, can_fly=<span class="keyword">False</span>, **kwargs)</span><br><span class="line">        <span class="comment"># override the value for the name attribute</span></span><br><span class="line">        self.name = <span class="string">'Sad Affleck'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sing</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'nan nan nan nan nan batman!'</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    sup = Batman()</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 通过__mro__方法，可以获取类的继承链（super方法或者getattr方法）</span></span><br><span class="line">    print(Batman.__mro__)       <span class="comment"># =&gt; (&lt;class '__main__.Batman'&gt;, </span></span><br><span class="line">                                <span class="comment"># =&gt; &lt;class 'superhero.Superhero'&gt;, </span></span><br><span class="line">                                <span class="comment"># =&gt; &lt;class 'human.Human'&gt;, </span></span><br><span class="line">                                <span class="comment"># =&gt; &lt;class 'bat.Bat'&gt;, &lt;class 'object'&gt;)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用父类方法获取子类属性</span></span><br><span class="line">    print(sup.get_species())    <span class="comment"># =&gt; Superhuman</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用覆盖后的方法</span></span><br><span class="line">    print(sup.sing())           <span class="comment"># =&gt; nan nan nan nan nan batman!</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 两个父类有重名方法时，顺序在前的优先级更高</span></span><br><span class="line">    sup.say(<span class="string">'I agree'</span>)          <span class="comment"># =&gt; Sad Affleck: I agree</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用第二父类方法</span></span><br><span class="line">    print(sup.sonar())          <span class="comment"># =&gt; ))) ... (((</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 继承类属性</span></span><br><span class="line">    sup.age = <span class="number">100</span></span><br><span class="line">    print(sup.age)              <span class="comment"># =&gt; 100</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 输出从第二父类继承的属性，该属性已被覆盖</span></span><br><span class="line">    print(<span class="string">'Can I fly? '</span> + str(sup.fly)) <span class="comment"># =&gt; Can I fly? False</span></span><br></pre></td></tr></table></figure>
-
-<pre><code>(&lt;class &#39;__main__.Batman&#39;&gt;, &lt;class &#39;__main__.Superhero&#39;&gt;, &lt;class &#39;__main__.Human&#39;&gt;, &lt;class &#39;__main__.Bat&#39;&gt;, &lt;class &#39;object&#39;&gt;)
-Superhuman
-nan nan nan nan nan batman!
-Sad Affleck: I agree
-))) ... (((
-100
-Can I fly? False</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">####################################################</span></span><br><span class="line"><span class="comment">## 7. Advanced</span></span><br><span class="line"><span class="comment">####################################################</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成器可以帮你偷很多懒</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">double_numbers</span><span class="params">(iterable)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> iterable:</span><br><span class="line">        <span class="keyword">yield</span> i + i</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成器可以节省很多内存</span></span><br><span class="line"><span class="comment"># 因为它们只加载所需处理iterable中的下一个值的数据(边生成边处理)</span></span><br><span class="line"><span class="comment"># 普通方法需要 先生成后处理</span></span><br><span class="line"><span class="comment"># 这使其可以进行大范围的数据操作（其他方法可能不行）</span></span><br><span class="line"><span class="comment"># 注意：python 3中，“range”替换了“xrange”</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> double_numbers(range(<span class="number">1</span>, <span class="number">900000000</span>)):  <span class="comment"># `range` is a generator.</span></span><br><span class="line">    print(i)</span><br><span class="line">    <span class="keyword">if</span> i &gt;= <span class="number">30</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
-
-<pre><code>2
-4
-6
-8
-10
-12
-14
-16
-18
-20
-22
-24
-26
-28
-30</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 正如可以创建列表理解一样，也可以创建生成器理解</span></span><br><span class="line"><span class="comment"># 这里，圆括号是关键，你以为是tuples，实际上是生成器</span></span><br><span class="line">values = (-x <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">print(values)</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> values:</span><br><span class="line">    print(x)  <span class="comment"># prints -1 -2 -3 -4 -5 to console/terminal</span></span><br></pre></td></tr></table></figure>
-
-<pre><code>&lt;generator object &lt;genexpr&gt; at 0x102e9c990&gt;
--1
--2
--3
--4
--5</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以直接把一个生成器理解投射到list上</span></span><br><span class="line">values = (-x <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">gen_to_list = list(values)</span><br><span class="line">print(gen_to_list)  <span class="comment"># =&gt; [-1, -2, -3, -4, -5]</span></span><br></pre></td></tr></table></figure>
-
-<pre><code>[-1, -2, -3, -4, -5]</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修饰器</span></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">beg</span><span class="params">(target_function)</span>:</span></span><br><span class="line">    </span><br><span class="line"><span class="meta">    @wraps(target_function)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        msg, say_please = target_function(*args, **kwargs)</span><br><span class="line">        <span class="keyword">if</span> say_please:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"&#123;&#125; &#123;&#125;"</span>.format(msg, <span class="string">"Please! I am poor :("</span>)</span><br><span class="line">        <span class="keyword">return</span> msg</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里通过beg修饰say</span></span><br><span class="line"><span class="comment"># 可以改变say的输出</span></span><br><span class="line"><span class="meta">@beg</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">say</span><span class="params">(say_please=False)</span>:</span></span><br><span class="line">    msg = <span class="string">"Can you buy me a beer?"</span></span><br><span class="line">    <span class="keyword">return</span> msg, say_please</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(say())                 <span class="comment"># Can you buy me a beer?</span></span><br><span class="line">print(say(say_please=<span class="keyword">True</span>))  <span class="comment"># Can you buy me a beer? Please! I am poor :(</span></span><br></pre></td></tr></table></figure>
-
-<pre><code>Can you buy me a beer?
-Can you buy me a beer? Please! I am poor :(</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1923,7 +1846,7 @@ Can you buy me a beer? Please! I am poor :(</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

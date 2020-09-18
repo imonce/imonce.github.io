@@ -131,7 +131,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">114</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -191,6 +191,156 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2020/01/03/Reading-Notes-How-Should-I-Slice-My-Network-A-Multi-Service-Empirical-Evaluation-of-Resource-Sharing-Efficiency/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/03/Reading-Notes-How-Should-I-Slice-My-Network-A-Multi-Service-Empirical-Evaluation-of-Resource-Sharing-Efficiency/" class="post-title-link" itemprop="url">[Reading Notes] How Should I Slice My Network? A Multi-Service Empirical Evaluation of Resource Sharing Efficiency</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-03 16:56:40" itemprop="dateCreated datePublished" datetime="2020-01-03T16:56:40+08:00">2020-01-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-04 16:23:02" itemprop="dateModified" datetime="2020-01-04T16:23:02+08:00">2020-01-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Reading-Notes/" itemprop="url" rel="index"><span itemprop="name">Reading Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Reading-Notes/Edge-Computing/" itemprop="url" rel="index"><span itemprop="name">Edge Computing</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/01/03/Reading-Notes-How-Should-I-Slice-My-Network-A-Multi-Service-Empirical-Evaluation-of-Resource-Sharing-Efficiency/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/03/Reading-Notes-How-Should-I-Slice-My-Network-A-Multi-Service-Empirical-Evaluation-of-Resource-Sharing-Efficiency/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><strong>reference:</strong><br><a href="https://e-archivo.uc3m.es/bitstream/handle/10016/27943/how_MOBICOM_2018_ps.pdf?sequence=1" target="_blank" rel="noopener">https://e-archivo.uc3m.es/bitstream/handle/10016/27943/how_MOBICOM_2018_ps.pdf?sequence=1</a><br><strong>author:</strong><br>Cristina Marquez, Marco Gramaglia, Marco Fiore, Alert Banchs, Xavier Costa-Perez<br><strong>Institution:</strong><br>Universidad Carlos III Madrid<br>CNR-IEIIT (Institute of Electronics, Computer and Telecommunication Engineering, the National Research Council of Italy)<br>NEC Laboratories Europe</p>
+</blockquote>
+<h1 id="FOR-A-QUICK-GLANCE"><a href="#FOR-A-QUICK-GLANCE" class="headerlink" title="FOR A QUICK GLANCE"></a>FOR A QUICK GLANCE</h1><h2 id="What-is-network-slicing-or-background"><a href="#What-is-network-slicing-or-background" class="headerlink" title="What is network slicing or background"></a>What is network slicing or background</h2><p>Network slicing has profound implications on resource management, as it entails an inherent trade-off between: </p>
+<p>(i) the need for fully dedicated resources to support service customization, and </p>
+<p>(ii) the dynamic resource sharing among services to increase resource efficiency and cost-effectiveness of the system.</p>
+<h2 id="Why-study-it-or-what-is-the-problem"><a href="#Why-study-it-or-what-is-the-problem" class="headerlink" title="Why study it or what is the problem"></a>Why study it or what is the problem</h2><p>While the technology needed to support this paradigm is well understood from a system standpoint, its implications in terms of efficiency are still unclear. </p>
+<h2 id="How-to-do"><a href="#How-to-do" class="headerlink" title="How to do"></a>How to do</h2><p>In this paper, we fill such a gap via an empirical study of resource management efficiency in network slicing.</p>
+<p>Building on substantial measurement data collected in an operational mobile network </p>
+<p>(i) we quantify the efficiency gap introduced by non-reconfigurable allocation strategies of different kinds of resources, from radio access to the core of the network, and </p>
+<p>(ii) we quantify the advantages of their dynamic orchestration at different timescales.</p>
+<h2 id="As-a-result"><a href="#As-a-result" class="headerlink" title="As a result"></a>As a result</h2><p>Our results provide insights on the achievable efficiency of network slicing architectures, their dimensioning, and their interplay with resource management algorithms.</p>
+<h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>Current trends in mobile networks point towards a strong diversification of services, which are characterized by increasingly heterogeneous Key Performance Indicator (KPI) and Quality of Service (QoS) requirements.</p>
+<p>current mobile network architectures lack the necessary flexibility to meet the ex- treme requirements imposed by such services.</p>
+<h2 id="Network-virtualization-and-slicing"><a href="#Network-virtualization-and-slicing" class="headerlink" title="Network virtualization and slicing"></a>Network virtualization and slicing</h2><p>The agenda for 5G networks is to achieve this mainly via network virtualization, which evolves the traditional hardbox paradigm into a cloudified architecture where the once hardware-based network functions are implemented as software Virtual Network Functions (VNFs) running on a general-purpose telco-cloud. Network virtualization enables the deployment of multiple virtual instances of the complete network, named network slices.</p>
+<p>Network slicing strategies. Deeper slices (A to E) reserve resources to services across a wider portion of the end-to-end network architecture, but reduce the space for unconstrained resource sharing.</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20191231112013.png"></p>
+<h2 id="Network-slicing-and-resource-management"><a href="#Network-slicing-and-resource-management" class="headerlink" title="Network slicing and resource management"></a>Network slicing and resource management</h2><p>When instantiating a slice, an operator needs to allocate sufficient computational and communication resources to its VNFs. In some cases, these resources may be dedicated, be- coming inaccessible to other slices. Alternatively,</p>
+<h2 id="Inherent-trade-off"><a href="#Inherent-trade-off" class="headerlink" title="Inherent trade-off"></a>Inherent trade-off</h2><p>(i) service customization, which favours the deployment of specialized slices with tailored functions for each service and, possibly, dedicated and guaranteed resources; </p>
+<p>(ii) resource management efficiency, which increases by dynamically shar- ing the resources of the common infrastructure among the different services and slices; and, </p>
+<p>(iii) system complexity, resulting from deploying more dynamic resource allocation mechanisms that provide higher efficiency at the cost of em- ploying elaborate operation and maintenance functions.</p>
+<h2 id="Contribution-of-this-paper"><a href="#Contribution-of-this-paper" class="headerlink" title="Contribution of this paper"></a>Contribution of this paper</h2><p>From a system standpoint, the technology needed to support the different types of slices is well understood or even already available. </p>
+<p>Our aim is to shed light on the trade-offs between customization, efficiency, and complexity in network slicing, by evaluating the impact of resource allocation dynamics at different network points. Based on our analysis, it is thus possible to determine in which cases the gains in efficiency are worth the sacrifice in customization/isolation and/or the extra complexity. Since resource management efficiency in network slicing highly depends on the traffic patterns of different services supported by the various slices, we build on substantial service-level measurement data collected by a major operator in a production mobile network, and: </p>
+<p>(i) quantify the price paid in efficiency when suitable algorithms for dynamic resource allocation are not available, and the operator has to resort to physical network duplication; </p>
+<p>(ii) evaluate the impact of sharing resources at different<br>locations of the network, including the cloudified core, the virtualized radio access, or the individual antennas; </p>
+<p>(iii) outline the benefit of dynamic resource allocation<br>at different timescales, i.e., allowing to reallocate resources across slices with different reconfiguration intervals</p>
+<h1 id="NETWORK-SCENARIO-AND-METRICS"><a href="#NETWORK-SCENARIO-AND-METRICS" class="headerlink" title="NETWORK SCENARIO AND METRICS"></a>NETWORK SCENARIO AND METRICS</h1><h2 id="Network-slicing-scenario"><a href="#Network-slicing-scenario" class="headerlink" title="Network slicing scenario"></a>Network slicing scenario</h2><p>The operator owning the infrastructure implements slices $s \in S$ , each dedicated to a different subset of services. Every network level $\ell$ is composed by a set $C_{\ell}$ of network nodes.</p>
+<p>model the mobile network architecture as a hierarchy composed by a fixed number of levels ( $\ell=1, \ldots, L$ ) ordered from the most distributed ( $\ell=1$ )  to the most centralized ( $\ell=L$ ) </p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20200103163047.png"></p>
+<h2 id="Slice-specifications"><a href="#Slice-specifications" class="headerlink" title="Slice specifications"></a>Slice specifications</h2><p>Denote a slice specification as:</p>
+<p>$$<br>\mathbb{Z}=(f, w)<br>$$</p>
+<p>involves:</p>
+<p>(i) Guaranteed time fraction $f$ : the operator engages to guarantee that the traffic demand of the slice is fully serviced during at least a fraction $f \in[0,1]$ of time.</p>
+<p>(ii) Averaging window length w: the operator commitment on fraction f above is intended on discrete-time demands of granularity w, with traffic averaged over the disjoint time windows of duration w.</p>
+<p>average load over window k covering a time interval of the same name with duration w:</p>
+<p>$$<br>\bar{o} _ {c,s} (k)=\frac{1}{w}\int_{k}o_{c, s}(t)\mathrm{d}t<br>$$</p>
+<p>the amount of resources allocated to slice s at node c during window k:</p>
+<p>$$<br>r_{c, s}^{\mathbb{Z}}(k)<br>$$</p>
+<h2 id="Resource-allocation-to-slices"><a href="#Resource-allocation-to-slices" class="headerlink" title="Resource allocation to slices"></a>Resource allocation to slices</h2><p>Let $F _ {s, c, n} ^ {w}$ be the Cumulative Distribution Function (CDF)<br>of the demand for slice s at node c during reconfiguration period k, averaged over windows of length w: then, the minimum $\hat{r} _ {c, s} ^ {\mathbb{Z}} (n)$<br>that satisfies Equation (1) can be computed as $\hat{r} _ {c, s} ^ {\mathbb{Z}} (n)=\left(F_{s, c, n}^{w}\right)^{-1}(f)$ .</p>
+<p>$$<br>\mathbb{R} _ {\ell, \tau} ^ {\mathbb{Z}} = \sum _ {s \in \mathcal{S}} \sum _ {\mathcal{C} \in C _ {\ell}} \sum_{n \in \mathcal{T}} \tau \cdot \hat{r} _ {c, s} ^ {\mathbb{Z}} (n)<br>$$</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20200103164643.png"></p>
+<p>The above equation represents the total amount of resources needed to meet slice specifications, under the possibility of dynamically re-configuring the allocation with periodicity $\tau$ .</p>
+<h2 id="Multiplexing-efficiency"><a href="#Multiplexing-efficiency" class="headerlink" title="Multiplexing efficiency"></a>Multiplexing efficiency</h2><p>In perfect sharing, the allocated resources correspond to those required when there is no isolation among different services, hence traffic multiplexing is maximum. Formally,</p>
+<p>$$<br>\mathbb{P} _ {\ell, \tau} ^ {\mathbb{Z}} = \sum _ {c \in C_{\ell}} \sum _ {n \in \mathcal{T}} \tau \cdot \hat{r} _ {c} ^ {\mathbb{Z}} (n)<br>$$</p>
+<p>Multiplexing efficiency as the ratio between the resources required with network slicing and those needed under perfect sharing:</p>
+<p>$$<br>\mathbb{B} _ {\ell, \tau} ^ {\mathbb{Z}} = \mathbb{R} _ {\ell, \tau} ^ {\mathbb{Z}} / \mathbb{P} _ {\ell, \tau} ^ {\mathbb{Z}}<br>$$</p>
+<h1 id="CASE-STUDIES"><a href="#CASE-STUDIES" class="headerlink" title="CASE STUDIES"></a>CASE STUDIES</h1><p>Our two reference urban regions are a large metropolis of<br>several millions of inhabitants, and a typical medium-sized city with a population of around 500,000, both situated in Europe. Service-level measurement data was collected in the target areas by a major operator with a national market share of around 30%. We leverage these real-world traffic demands to define network slices. Details are in Section 3.1. </p>
+<p>On top of this, we model the hierarchical network infrastructures in the target regions by assuming that the operator deploys level- $\ell$ nodes so as to balance the offered load among them. This is discussed in Section 3.2.</p>
+<h1 id="DATA-DRIVEN-EVALUATION"><a href="#DATA-DRIVEN-EVALUATION" class="headerlink" title="DATA-DRIVEN EVALUATION"></a>DATA-DRIVEN EVALUATION</h1><p>We organise our evaluation as follows. First, we investigate worst-case settings where very stringent slice specifications are enforced, and no dynamic reconfiguration of resources is possible (Section 4.1). We then relax these constraints, and assess efficiency as slice specifications are softened (Section 4.2), or in presence of periodic resource orchestration (Section 4.3). Finally, we evaluate the impact of varied slice configurations (Section 4.4), and of a resource assignment accounting for instantaneous traffic demands (Section 4.5).</p>
+<h1 id="TAKEAWAYS-AND-PERSPECTIVES"><a href="#TAKEAWAYS-AND-PERSPECTIVES" class="headerlink" title="TAKEAWAYS AND PERSPECTIVES"></a>TAKEAWAYS AND PERSPECTIVES</h1><ol>
+<li>Multi-service requires more resources</li>
+<li>Traffic direction is a factor</li>
+<li>Loose service level agreements may not help</li>
+<li>Dynamic resource assignment must also be rapid</li>
+<li>Aggregating services is beneficial</li>
+<li>Deployment is slightly more efficient than operation</li>
+<li>Urban topography has limited impact</li>
+<li>There is room for improvement</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1287,102 +1437,6 @@ cond(no)->op2</textarea><textarea id="flowchart-0-options" style="display: none"
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/11/04/常见QoS指标一览/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/04/常见QoS指标一览/" class="post-title-link" itemprop="url">常见QoS指标一览</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-11-04 16:22:15" itemprop="dateCreated datePublished" datetime="2019-11-04T16:22:15+08:00">2019-11-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-12 17:33:44" itemprop="dateModified" datetime="2019-11-12T17:33:44+08:00">2019-11-12</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/11/04/常见QoS指标一览/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/04/常见QoS指标一览/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>英文： Quality of Service<br>中文： 服务质量<br>介绍： 指一个网络能够利用各种基础技术，为指定的网络通信提供更好的服务能力，是网络的一种安全机制，<strong>是用来解决网络延迟和阻塞等问题的一种技术</strong>。 通过配置QoS，对企业的网络流量进行调控，避免并管理网络拥塞，减少报文的丢失率，同时也可以为企业用户提供专用带宽或者为不同的业务（语音、视频、数据等）提供差分服务。</p>
-<p>在正常情况下，如果网络只用于特定的无时间限制的应用系统，并不需要QoS，比如Web应用，或E-mail设置等。但是对关键应用和多媒体应用就十分必要。当网络过载或拥塞时，==QoS能确保重要业务量不受延迟或丢弃==，同时保证网络的高效运行。在RFC 3644上有对QoS的说明。</p>
-<h1 id="可用性-Usability"><a href="#可用性-Usability" class="headerlink" title="可用性(Usability)"></a>可用性(Usability)</h1><p>是当用户需要时网络即能工作的时间百分比。可用性主要是设备可靠性和网络存活性相结合的结果。对它起作用的还有一些其他因素，包括软件稳定性以及网络演进或升级时不中断服务的能力。 在连续5min内，如果一个IP网络所提供的丢包率&lt;=75%，则认为该时间段是可用的，否则是不可用的。</p>
-<h1 id="吞吐量-网络带宽-Throughput"><a href="#吞吐量-网络带宽-Throughput" class="headerlink" title="吞吐量(网络带宽)(Throughput)"></a>吞吐量(网络带宽)(Throughput)</h1><p>网络带宽是指在单位时间（一般指的是1秒钟）内能传输的数据量。对IP网而言可以从帧中继网借用一些概念。根据应用和服务类型，服务水平协议(SLA)可以规定承诺信息速率(CIR)、突发信息速率(BIR)和最大突发信号长度。承诺信息速率是应该予以严格保证的，对突发信息速率可以有所限定，以在容纳预定长度突发信号的同时容纳从话音到视像以及一般数据的各种服务。一般讲，吞吐量越大越好。</p>
-<h1 id="时延-Latency-Packet-delay"><a href="#时延-Latency-Packet-delay" class="headerlink" title="时延(Latency)(Packet delay)"></a>时延(Latency)(Packet delay)</h1><p>指一项服务从网络入口到出口的平均经过时间。许多服务，特别是话音和视像等实时服务都是高度不能容忍时延的。当时延超过200-250毫秒时，交互式会话是非常麻烦的。为了提供高质量话音和会议电视，网络设备必须能保证低的时延。<br>产生时延的因素很多，包括分组时延、排队时延、交换时延和传播时延。传播时延是信息通过铜线、光纤或无线链路所需的时间，它是光速的函数。在任何系统中，包括同步数字系列(SDH)、异步传输模式（ATM）和弹性分组环路(RPR)，传播时延总是存在的。</p>
-<h1 id="时延变化-抖动-Packet-delay-variation"><a href="#时延变化-抖动-Packet-delay-variation" class="headerlink" title="时延变化(抖动)(Packet delay variation)"></a>时延变化(抖动)(Packet delay variation)</h1><p>是指同一业务流中不同分组所呈现的时延不同。高频率的时延变化称作抖动，而低频率的时延变化称作漂移。抖动主要是由于业务流中相继分组的排队等候时间不同引起的，是对服务质量影响最大的一个问题。</p>
-<p>​某些业务类型（特别是语音和视频等实时业务）是极其不能容忍抖动的。报文到达时间的差异将在语音或视频中造成断续；另外，抖动也会影响一些网络协议的处理，有些协议是按固定的时间间隔发送交互性报文，抖动过大就会导致协议震荡，而实际上所有传输系统都有抖动，但只要抖动在规定容差之内就不会影响服务质量，另外，可利用缓存来克服过量的抖动，但这将会增加时延。</p>
-<p>漂移是任何同步传输系统都有的一个问题。在SDH系统中是通过严格的全网分级定时来克服漂移的。在异步系统中，漂移一般不是问题。漂移会造成基群失帧，使服务质量的要求不能满足。</p>
-<h1 id="丢包-Packet-loss"><a href="#丢包-Packet-loss" class="headerlink" title="丢包(Packet loss)"></a>丢包(Packet loss)</h1><p>不管是比特丢失还是分组丢失，对分组数据业务的影响比对实时业务的影响都大。在通话期间，丢失一个比特或一个分组的信息往往用户注意不到。在视像广播期间，这在屏幕上可能造成瞬间的波形干扰，然后视像很快恢复如初。即便是用传输控制协议(TCP)传送数据也能处理丢失，因为传输控制协议允许丢失的信息重发。事实上，一种叫做随机早丢(RED)的拥塞控制机制在故意丢失分组，其目的是在流量达到设定门限时抑制TCP传输速率，减少拥塞，同时还使TCP流失去同步，以防止因速率窗口的闭合引起吞吐量摆动。但分组丢失多了，会影响传输质量。所以，要保持统计数字，当超过预定门限时就向网络管理人员告警。</p>
-<p>丢包（packetloss）可能在所有环节中发生，例如：</p>
-<ul>
-<li>处理过程：路由器在收到报文的时候可能由于CPU繁忙，无法处理报文而导致丢包；</li>
-<li>排队过程：在把报文调度到队列的时候可能由于队列被装满而导致丢包；</li>
-<li>传输过程：报文在链路上传输的过程中，可能由于种种原因（如链路故障等）导致的丢包。</li>
-</ul>
-<blockquote>
-<p>References:<br><a href="https://blog.csdn.net/qq_25077833/article/details/53428655" target="_blank" rel="noopener">https://blog.csdn.net/qq_25077833/article/details/53428655</a><br><a href="https://blog.csdn.net/kakingka/article/details/45698709" target="_blank" rel="noopener">https://blog.csdn.net/kakingka/article/details/45698709</a><br><a href="https://blog.csdn.net/qq_38265137/article/details/80466737" target="_blank" rel="noopener">https://blog.csdn.net/qq_38265137/article/details/80466737</a></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1454,7 +1508,7 @@ cond(no)->op2</textarea><textarea id="flowchart-0-options" style="display: none"
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-count">114</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
