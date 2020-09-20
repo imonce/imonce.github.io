@@ -131,7 +131,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">114</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">115</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -191,6 +191,222 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/08/21/构造类型论简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/21/构造类型论简介/" class="post-title-link" itemprop="url">[Reading Note]构造类型论与计算机程序设计</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-21 15:53:08" itemprop="dateCreated datePublished" datetime="2019-08-21T15:53:08+08:00">2019-08-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-23 15:02:39" itemprop="dateModified" datetime="2020-02-23T15:02:39+08:00">2020-02-23</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/08/21/构造类型论简介/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/21/构造类型论简介/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Taken from：<br><a href="http://xueshu.baidu.com/usercenter/paper/show?paperid=baa0175c22e30823d9b1e14e01cf4141&amp;site=xueshu_se&amp;hitarticle=1" target="_blank" rel="noopener">http://xueshu.baidu.com/usercenter/paper/show?paperid=baa0175c22e30823d9b1e14e01cf4141&amp;site=xueshu_se&amp;hitarticle=1</a></p>
+</blockquote>
+<h1 id="背景及简介"><a href="#背景及简介" class="headerlink" title="背景及简介"></a>背景及简介</h1><p>构造类型论为计算机科学家提供了一个框架, 以一种优雅和灵活的方式把逻辑和程序设计语言结合起来: 在同一形式系统中, 可以同时表达规约和(函数式语言)程序, 从证明规则可以导出正确的程序, 并验证程序具有某种性质, 从而在同一系统内完成程序的开发和验证。</p>
+<h2 id="构造类型轮的理论基础及相互关系"><a href="#构造类型轮的理论基础及相互关系" class="headerlink" title="构造类型轮的理论基础及相互关系"></a>构造类型轮的理论基础及相互关系</h2><h3 id="构造类型论三大理论基石"><a href="#构造类型论三大理论基石" class="headerlink" title="构造类型论三大理论基石"></a>构造类型论三大理论基石</h3><ul>
+<li>直觉类型论和构造数学：构造类型论的直接基础是Martin-Lof的直觉类型论，它为构造数学提供直觉解释。它是一个逻辑框架，可以表达和解释其他逻辑或理论，从他的规范化证明立即得出其所表达理论的规范化。与此作用相同的还有T.Coquand和Giared的构造演算。</li>
+<li>lambda演算和函数式语言程序设计与实现。lambda演算是函数式语言理论的基础，是函数式程序设计语言的纯理论部分的范式(canonical form)，是由函数抽象和函数应用组成的系统，而这两个特点也是程序设计语言所具有的的共同之处。</li>
+<li>证明论和Curry-Howard同态。证明轮中直觉注意逻辑的Gentzen自然演绎、一些自动演绎技术及定理证明技术是构造类型轮实现系统主要使用的技术。</li>
+</ul>
+<h3 id="相互关系"><a href="#相互关系" class="headerlink" title="相互关系"></a>相互关系</h3><p>Curry-Howard同态是Martin-Lof直觉类型轮的基础：把命题解释称类型（propositions-a-types），或命题作为集合（propositions=as=sets）。利用命题与集合之间的等价，推导的规范化与计算机表示该推导的证明项的值对应。</p>
+<p>直觉主义（构造）逻辑和有类型lambda演算在Curry-Howard同态下可以相互转化：直觉逻辑自然演绎的证明可用某种有类型lambda项表示，并且自然演绎的证明规范化与lambda演算的beta变换对应。</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190822150526.png"></p>
+<h2 id="构造类型轮与程序设计的对应关系"><a href="#构造类型轮与程序设计的对应关系" class="headerlink" title="构造类型轮与程序设计的对应关系"></a>构造类型轮与程序设计的对应关系</h2><p>构造数学和计算机科学有一些基本概念是共同的。Bishop认为构造数学可以作为计算机科学的灵感的重要来源。</p>
+<h3 id="构造性证明与计算机程序概念的关系"><a href="#构造性证明与计算机程序概念的关系" class="headerlink" title="构造性证明与计算机程序概念的关系"></a>构造性证明与计算机程序概念的关系</h3><p>构造性的证明与计算机程序概念有密切关系：为构造地证明命题 $(\forall x \in A)(\exists y \in B)P(x,y)$ ，必须要给出函数f，使f应用于A中元素a时，产生B中元素b，使P(a,b)满足。如果P(a,b)描述了一个规约，则证明该命题的函数f就是满足该规约的一个程序。所以，可以吧构造证明本身看成是一个计算机程序，程序的计算过程与证明的规范化对应。正因为构造性证明的这一计算内容，可把类型轮用作一种程序设计语言，而且，由于程序是从他的说明的证明中得到的，类型轮还可以用作程序设计逻辑。</p>
+<h3 id="Martin-Lof直觉类型论和计算机程序概念的关系"><a href="#Martin-Lof直觉类型论和计算机程序概念的关系" class="headerlink" title="Martin-Lof直觉类型论和计算机程序概念的关系"></a>Martin-Lof直觉类型论和计算机程序概念的关系</h3><p>类型轮不是基于谓词逻辑，它不再使用Tarski的真值语义，而是利用命题和集合之间的Curry-Howard同态——“命题作为集合”的直觉主义语义来解释逻辑常数。这里，命题被解释称一个集合，若他的元素则被解释称命题的一个证明。根据Kolmogorov对直觉命题的解释，还可以吧集合看成是问题的描述，尤其是把集合看成是程序要解决问题的规约时，集合的元素就是满足该规约的程序。</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190822151629.png"></p>
+<p>用类型轮进行程序构造的好处是，可以在同一形式系统中表达规约和程序。同时，因为可以从证明规则到处正确的程序，并验证程序具有的性质，所以程序开发的验证也是在同一系统用中完成的。</p>
+<h2 id="构造类型轮的一些实现"><a href="#构造类型轮的一些实现" class="headerlink" title="构造类型轮的一些实现"></a>构造类型轮的一些实现</h2><p>类型论的一个主要应用是作为变成逻辑，在其中能够从规约推导出程序。近年来，有几种类型轮的实现：</p>
+<ol>
+<li>Conell大学的Nurpl</li>
+<li>Edinburgh大学的LCF</li>
+<li>INRIA的Coq</li>
+<li>Edinburgh大学的LEGO</li>
+<li>Goteborg的ALF</li>
+</ol>
+<p>其中，Coq和LEGO是基于构造演算CoC，与Martin-Lof直觉类型论的作用类似，也是提供了一种逻辑框架，利用了把命题解释成集合的思想。两者的区别是：Martin-Lof是直谓的（predicative），而CoC是非直谓的（impredicative）。所谓非直谓的，就是指可以对所有命题的类型Prop进行全称量化来构造类型。因此Martin-Lof直觉类型论只能够结实谓词逻辑，不能解释二姐逻辑，而CoC则能够解释高阶逻辑。</p>
+<h1 id="直觉主义（构造）逻辑和经典逻辑"><a href="#直觉主义（构造）逻辑和经典逻辑" class="headerlink" title="直觉主义（构造）逻辑和经典逻辑"></a>直觉主义（构造）逻辑和经典逻辑</h1><p>直觉注意逻辑更多的从证明论和模型论的角度展现逻辑：也就是说，它是一个构造的逻辑（constructive logic）。所谓构造性（constructivity）是指：与经典逻辑只关心公式的真值不同，构造逻辑关注的是实际的证明对象本身。“构造”可以指一个过程以及执行该过程的结果。</p>
+<p>两者的主要不同在于语义基础不同。经典逻辑的基础是真值函数的语义：每个命题都为真或者假，这是Tarski语义的本质。而在直觉主义（构造）逻辑中，命题的定义就是把该命题的证明写下来，只有当存在一个与该命题对应的证明对象时，命题才为真，这是Brouwer-Heyting-Kolmogorov基于证明论语义的本质。因此从构造逻辑的角度来说，命题的真等价于命题的可证明性。其余区别见表：</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190822154358.png"></p>
+<h1 id="Curry-Howard同态"><a href="#Curry-Howard同态" class="headerlink" title="Curry-Howard同态"></a>Curry-Howard同态</h1><p>Curry-Howard同态在有类型的lambda演算和直觉命题逻辑之间建立了密切的关系。</p>
+<p>用 $t:\sigma$ 表示项t具有类型 $\sigma$ 。在有类型lambda演算中项的构造有三种：变量（用x，y，z等表示）；抽象（用 $\lambda x.t$ 表示）；应用（用tu表示）。构造项的规则用自然演绎的方式描述如下：</p>
+<p>变量形成规则： $\frac{}{x:\sigma \to x:\sigma}$ </p>
+<p>抽象形成规则： $\frac{\Gamma,x:\sigma \to t:r}{\Gamma \mapsto (\lambda x.t):\sigma \to r}$ </p>
+<p>变量形成规则： $\frac{\Gamma \mapsto t:\sigma \to r \Delta \mapsto u:\sigma}{\Gamma,\Delta \mapsto (tu):\sigma}$ </p>
+<p>对上边的规则形式进行改造：</p>
+<ol>
+<li>把其中的项都去掉</li>
+<li>用蕴含符号 $\Rightarrow$ 取代函数符号 $\to$ </li>
+<li>用逻辑共识取代项</li>
+</ol>
+<p>则可以得到直觉逻辑的自然演绎表示</p>
+<p>公理： $\frac{}{A\mapsto A}$ </p>
+<p>引入规则： $\frac{\Gamma, A \mapsto B}{\Gamma \mapsto A\Rightarrow B}(\Rightarrow I)$ </p>
+<p>消除规则： $\frac{\Gamma \mapsto A\Rightarrow B\Delta \mapsto A}{\Gamma,\Delta \mapsto B}(\Rightarrow E)$ </p>
+<p>这三条规则分别是直觉逻辑的自然演绎系统的定理、蕴含引入和蕴含消除规则。这就是Curry=Howard同态。</p>
+<p>总结：</p>
+<ol>
+<li>lambda演算的项（或函数式语言程序）的类型与直觉逻辑的公式之间的对应：公式作为类型（formula-as-types）</li>
+<li>lambda演算的项与逻辑的证明对应：变量与公理对应，抽象与 $\Rightarrow$ 引入规则对应，应用与 $\Rightarrow$ 消除规则对应。而lambda演算的项就是函数式语言的程序，这就是：证明作为程序（proofs-as-programs）</li>
+<li>lambda演算与beta规约的过程与逻辑中的规范化过程对应，这就是计算作为规范化（computation-as-normalization）</li>
+</ol>
+<h1 id="Martin-Lof直觉类型论概述"><a href="#Martin-Lof直觉类型论概述" class="headerlink" title="Martin-Lof直觉类型论概述"></a>Martin-Lof直觉类型论概述</h1><h2 id="对命题的直觉解释：命题作为集合"><a href="#对命题的直觉解释：命题作为集合" class="headerlink" title="对命题的直觉解释：命题作为集合"></a>对命题的直觉解释：命题作为集合</h2><p>类型论不是基于谓词演算，它的逻辑常熟市通过命题和集合之间的Curry-Howard同态解释的：命题被解释称集合，集合的元素代表了该命题的证明。</p>
+<p>1）逻辑蕴含： $A \supset B$ </p>
+<ul>
+<li>$A \supset B$ 的证明是一个函数（方法，证明）。对A的每一证明，给出B的一个证明。</li>
+<li>$A \supset B$ 等价于 $A \to B$ ，是从A到B的函数的集合。</li>
+<li>集合 $A \to B$ 中元素都是函数，形式为 $\lambda x.b$ ，其中 $b\in B$ ，并且b可能依赖于 $x \in A$ 。</li>
+</ul>
+<p>2）逻辑合取： $A \wedge B$ </p>
+<ul>
+<li>$A \wedge B$ 的证明是一个有序组，其中第一分量是A的每一证明，第二分量是B的一个证明。</li>
+<li>$A \wedge B$ 等价于 $A \times B$ ，是A与B的笛卡尔积。</li>
+<li>集合 $A \times B$ 中元素的形式为(a,b)，其中 $a\in A, b \in B$ 。</li>
+</ul>
+<p>3）逻辑析取： $A \vee B$ </p>
+<ul>
+<li>一个析取是构造地真，当且仅当我们能够证明析取式之一。所以， $A \vee B$ 的证明包括：A或者B的一个证明，加上有关到底是A还是B的证明的信息。</li>
+<li>$A\vee B$ 等价于 A + B，是A与B的不想交并。</li>
+<li>集合A+B中的元素的形式为inl(a)或inr(b)，其中 $a\in A, b \in B$ .</li>
+</ul>
+<p>4）逻辑非： $\not A$ </p>
+<ul>
+<li>命题A的反可以定义为： $\not A \equiv A \supset \perp$ 。其中 $\perp$ 代表荒谬（absurdity）。即一个没有证明的命题。如果用 $\Phi$ 代表空集，则利用逻辑蕴含的解释，有 </li>
+<li>$\not A$ 等价于 $A \to \Phi$ 。</li>
+</ul>
+<p>为了对用两次定义的命题进行解释，我们来定义在集合族上的操作，即集合B依赖于集合A中的元素x。用 $B[x\leftarrow a]$ 表示把B中所有自由出现的x都用a替换后得到的表达式。</p>
+<p>5）存在量词： $(\exists x \in A)B$ </p>
+<ul>
+<li>$(\exists x \in A)B$ 的证明包括：集合A的一个元素的构造，以及 $B[x\leftarrow a]$ 的一个证明。因此， $(\exists x \in A)B$ 的证明是一有序对，其第一分量是集合A的一个元素，第二分量是  $B[x\leftarrow a]$ 的一个证明。</li>
+<li>$(\exists x \in A)B$ 等价于 $(\Sigma x\in A)B$ ， $(\Sigma x\in A)B$ 是一集合族的不相交并（disjoint union）。</li>
+<li>集合中 $(\Sigma x\in A)B$ 中元素的形式为序偶  &lt;a,b&gt; ，其中 $a\in A, b \in B[x \leftarrow a]$。</li>
+</ul>
+<p>6）全称量词： $(\forall x\in A)B$ </p>
+<ul>
+<li>$(\forall x \in A)B$ 的证明是一个函数（方法，程序），对于集合A中的每一个元素a给出 $B[x\leftarrow a]$ 的一个证明。因此，</li>
+<li>$(\forall x \in A)B$ 等价于 $(\prod x\in A)B$ ， $(\prod x\in A)B$ 是一集合族的笛卡尔积。</li>
+<li>集合中 $(\prod x\in A)B$ 中元素都是函数，当应用与集合A中元素a时，给出集合 $B[x\leftarrow a]$ 中的一个元素。该集合中的元素形式为 $\lambda x.b$ ，其中 $b\in B$ ，并且b和B都可能依赖于 $x\in A$ 。</li>
+</ul>
+<h2 id="类型的概念"><a href="#类型的概念" class="headerlink" title="类型的概念"></a>类型的概念</h2><p>类型轮中最基本的概念是类型的概念。对类型的直觉解释需要两方面的内容：</p>
+<ol>
+<li>说明类型的对象是什么</li>
+<li>说明该类型的两个对象相等的意义</li>
+</ol>
+<p>类型论中有四种断言形式，对他们的直觉解释如下：</p>
+<ol>
+<li>A type，A是一个类型。</li>
+<li>A=B，A和B是相等的类型。</li>
+<li>$a\in A$ ，a是类型A中的一个对象。</li>
+<li>$a=b\in A$ ，a和b是类型A中的相等对象</li>
+</ol>
+<h2 id="假言断言"><a href="#假言断言" class="headerlink" title="假言断言"></a>假言断言</h2><p>前边的四种断言不依赖于任何假设，假言断言（hypothetical judgement）通常都有一个上下文（context）.</p>
+<p>下面我们只对当上下文的长度为1分别对前面4中断言的假言形式进行解释，其他可以通过归纳解释得到：上下文长度为0时，就是上一节的情况。以下使C是任意不依赖于任何假设的类型。</p>
+<ol>
+<li>A type $[x\in C]$ ，当 $[x\in C]$ 时，A是一类型</li>
+<li>A = B $[x\in C]$ ，A和B是类型C上相等的类型族</li>
+<li>$a\in A[x\in C]$ ，a是依赖于 $[x\in C]$ 的类型A中的一个对象</li>
+<li>$a=b\in A[x\in C]$ ，a和b是依赖于 $[x\in C]$ 的类型A中的相等对象</li>
+</ol>
+<h2 id="类型组成"><a href="#类型组成" class="headerlink" title="类型组成"></a>类型组成</h2><ul>
+<li>产生基本类型的方式<ul>
+<li>类型Set</li>
+<li>如果 $A\in Set$ ，A中元素的类型： $\frac{A\in Set}{El(A)type}$ </li>
+</ul>
+</li>
+<li>引入其他类型的方式<ul>
+<li>函数类型： $\frac{AtypeBtype[x\in A]}{(x\in A)Btype}$ ，相等函数类型 $\frac{A=A’B=B’[x\in A]}{(x\in A)B=(x\in A’)B’}$ <ul>
+<li>把函数应用于对象： $\frac{c\in (x\in A)Ba\in A}{c(a)\in B[x\leftarrow a]}$ ， $\frac{c\in (x\in A)Ba=b\in A}{c(a)=c(b)\in B[x\leftarrow a]}$   </li>
+<li>引入函数的基本方法是对表达式共的一个变量进行抽象。： $\frac{b\in B[x\in A]}{[x]b\in (x\in A)B}$ </li>
+</ul>
+</li>
+<li>归纳定义的集合</li>
+</ul>
+</li>
+</ul>
+<h2 id="常数的引入"><a href="#常数的引入" class="headerlink" title="常数的引入"></a>常数的引入</h2><p>新的常数：</p>
+<ul>
+<li>定义常数（defined constant）：用其他对象来定义的<ul>
+<li>显示定义常数：给出明确定义，实际上是某个类型中对象的简写</li>
+<li>隐式定义常数：用于说明当把它应用于它的参数后，得到什么定义者</li>
+</ul>
+</li>
+<li>原始常数（primitive constant），值就是常数本身，只有一个类型，没有定义，也成为构造子（constructor），如自然数集合的定义就是通过声明以下常数：<ul>
+<li>$N\in Set$ </li>
+<li>$succ\in (N)N$ </li>
+<li>$0\in N$ </li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1489,124 +1705,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/07/03/意大利语学习（十二）：租房子（上）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/03/意大利语学习（十二）：租房子（上）/" class="post-title-link" itemprop="url">意大利语学习（十二）：租房子（上）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-07-03 15:38:27 / Modified: 17:05:52" itemprop="dateCreated datePublished" datetime="2019-07-03T15:38:27+08:00">2019-07-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/意大利语学习/" itemprop="url" rel="index"><span itemprop="name">意大利语学习</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/07/03/意大利语学习（十二）：租房子（上）/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/03/意大利语学习（十二）：租房子（上）/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="课文"><a href="#课文" class="headerlink" title="课文"></a>课文</h1><h2 id="对话1"><a href="#对话1" class="headerlink" title="对话1"></a>对话1</h2><p>Marta：Buongiorno, mi chiamo Marta, telefono per l’annuncio della camera in affitto 您好，我的名字是Marta，电话是看到了租房间的公告</p>
-<p>Giulio：Buongiorno! 你好！</p>
-<p>Giulio：Sì, la camera è ancora libera. Sei di Siena? 是的，房间仍然是空的。你是在锡耶纳吗？</p>
-<p>Marta：No, di Pescare. Sono appena arrivata a Siena 不，我在Pescare。我刚刚抵达锡耶纳</p>
-<p>Giulio：Lavori o studi? 工作还是学习？</p>
-<p>Marta：Lavoro, faccio l’infermiera… 我工作，我是一名护士……</p>
-<p>Giulio：Vuoi vedere la camera? 想看房间吗？</p>
-<p>Marta：Sì certo, la vedo volentieri! È una camera singola, vero? 是的，当然，我心甘情愿地看到它！这是单人间，不是吗？</p>
-<p>Marta：Prima vorrei sapere quanto costa 我首先想知道一个月租金多少</p>
-<p>Marta：sto facendo un tirocinio in ospedale e non posso spendere molto 我在医院实习，而且我不能花太多钱</p>
-<p>Giulio：250 euro. Per una singola non è molto! 250欧元。对于一个单间的它并不多！</p>
-<p>Giulio：Sai che in città gli affitti sono abbastanza cari… 你知道在城市租金很贵……</p>
-<p>Marta：Le spese sono incluse? 是否包括（全部其他）费用？</p>
-<p>Giulio：Tutto incluso eccetto il telefono che è a parte 全包，但电话除外</p>
-<p>Marta：Il prezzo va bene 价格还可以</p>
-<p>Marta：L’annuncio dice che l’appartamento è vicino all’ospedale 公告称该公寓靠近医院</p>
-<p>Marta：Puoi darmi altre informazioni? 你能给我更多信息吗？</p>
-<p>Giulio：L’appartamento è vicino a Piazza Libertà a due minuti dall’ospedale 公寓靠近PiazzaLibertà，距医院仅2分钟路程</p>
-<p>Giulio：È luminoso, carino 它很明亮，很舒适</p>
-<p>Giulio：C’è anche la lavatrice 还配有一台洗衣机</p>
-<p>Giulio：In casa ci abito io e una ragazza 我和一个女孩住在房子里</p>
-<p>Giulio：che fa la cameriera in un hotel in centro 她是市中心酒店的女服务员</p>
-<p>Giulio：È simpatica 她很好（人很好）</p>
-<p>Marta：Bene, sembra tutto perfetto… ma cose negative? 好吧，一切看起来都很完美……但是缺点呢？</p>
-<p>Giulio：Forse l’unico problema è il rumore del bar di fronte alle nostre finestre 也许唯一的问题是我们窗户前酒吧的噪音</p>
-<p>Giulio：Alcune sere, in particolare d’estate 有些晚上，特别是在夏天</p>
-<p>Giulio：ci sono ragazzi che parlano forte e a volte cantano fino a tardi… 有些人大声说话，有时候唱到很晚……</p>
-<p>Marta：Comunque vorrei vedere l’appartamento 不过我想看看公寓</p>
-<p>Marta：perché devo trovare presto una camera 因为我必须尽快找到一个房间</p>
-<p>Marta：Ora sono ospite di una collega ma non posso restare a lungo 现在我是同事的客人（在我同事家住），但我不能待久</p>
-<p>Marta：perché ci sono già troppe persone in quell’appartamento 因为那间公寓里的人已经太多了</p>
-<p>Giulio：Io domani mattina sono a casa dalle 10 in poi. Tu quando sei libera? 明天早上我从上午10点开始回家。你什么时候有空？</p>
-<p>Marta：Alle undici e mezza va bene? 十一点半可以吗？</p>
-<p>Giulio：Allora ti aspetto in via Dante 37, interno 3 然后我在Dante 37号，3里面等</p>
-<p>Marta：Okay, grazie mille, ci vediamo domani! Ma come ti chiami? 好的，非常感谢，明天见！但是你的名字是什么？</p>
-<p>Giulio：Oh, scusa non mi sono presentato. Sono Giulio, Giulio Conti 哦对不起，我没有出现。我是Giulio，Giulio Conti</p>
-<p>Marta：Ciao Giulio! A domani 好的Giulio！明天见</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1678,7 +1776,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">114</span>
+          <span class="site-state-item-count">115</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1838,6 +1936,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
