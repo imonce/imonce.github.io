@@ -886,20 +886,6 @@
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/Blockchain/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Bitcoin/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://imonce.github.io/tags/BPMN/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
@@ -908,6 +894,20 @@
   
   <url>
     <loc>https://imonce.github.io/tags/BPMN2-0/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Blockchain/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Bitcoin/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -942,62 +942,6 @@
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/Lambda/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Lambda%E6%BC%94%E7%AE%97/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Lambda-Calculus/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%94%E7%94%A8%E6%95%B0%E5%AD%A6/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/MECE/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E5%88%86%E7%B1%BB%E6%96%B9%E6%B3%95/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E5%88%86%E6%9E%90%E6%B3%95/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://imonce.github.io/tags/Evaluation/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
@@ -1026,6 +970,41 @@
   </url>
   
   <url>
+    <loc>https://imonce.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%94%E7%94%A8%E6%95%B0%E5%AD%A6/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Lambda/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Lambda%E6%BC%94%E7%AE%97/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Lambda-Calculus/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://imonce.github.io/tags/MAC/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
@@ -1047,6 +1026,27 @@
   </url>
   
   <url>
+    <loc>https://imonce.github.io/tags/MECE/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E5%88%86%E7%B1%BB%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E5%88%86%E6%9E%90%E6%B3%95/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://imonce.github.io/tags/%E5%BB%BA%E6%A8%A1/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
@@ -1055,20 +1055,6 @@
   
   <url>
     <loc>https://imonce.github.io/tags/Modeling/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Pickle/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Python%E5%85%A5%E9%97%A8/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1089,6 +1075,13 @@
   </url>
   
   <url>
+    <loc>https://imonce.github.io/tags/Python%E5%85%A5%E9%97%A8/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://imonce.github.io/tags/Dict/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
@@ -1097,6 +1090,41 @@
   
   <url>
     <loc>https://imonce.github.io/tags/%E5%AD%97%E5%85%B8/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Pickle/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Reading-Notes/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/BPM/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Survey/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Business-Process-Management/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1139,34 +1167,6 @@
   
   <url>
     <loc>https://imonce.github.io/tags/SQL/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Reading-Notes/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/BPM/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Survey/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Business-Process-Management/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1222,7 +1222,7 @@
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/PCNH/</loc>
+    <loc>https://imonce.github.io/tags/Object-Detection/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1230,20 +1230,6 @@
   
   <url>
     <loc>https://imonce.github.io/tags/CNN/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Privacy-Detect/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Object-Detection/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1264,6 +1250,20 @@
   </url>
   
   <url>
+    <loc>https://imonce.github.io/tags/PCNH/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Privacy-Detect/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://imonce.github.io/tags/Web-Crawler/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
@@ -1272,6 +1272,41 @@
   
   <url>
     <loc>https://imonce.github.io/tags/Unicrawl/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Latex/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Long-Table/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E8%A1%A8%E6%A0%BC%E8%B7%A8%E9%A1%B5/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Latex-Bib/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Latex-Bst/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1299,41 +1334,6 @@
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/Latex/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Latex-Bib/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Latex-Bst/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Long-Table/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E8%A1%A8%E6%A0%BC%E8%B7%A8%E9%A1%B5/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://imonce.github.io/tags/Caption/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
@@ -1341,14 +1341,14 @@
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/Mysql/</loc>
+    <loc>https://imonce.github.io/tags/latex/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/mysql-python%E5%AE%89%E8%A3%85%E9%94%99%E8%AF%AF/</loc>
+    <loc>https://imonce.github.io/tags/%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1376,14 +1376,21 @@
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/latex/</loc>
+    <loc>https://imonce.github.io/tags/Mysql/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7/</loc>
+    <loc>https://imonce.github.io/tags/mysql-python%E5%AE%89%E8%A3%85%E9%94%99%E8%AF%AF/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/OS/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1405,13 +1412,6 @@
   
   <url>
     <loc>https://imonce.github.io/tags/%E6%9C%8D%E5%8A%A1%E8%AE%A1%E7%AE%97/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/OS/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1509,6 +1509,13 @@
   </url>
   
   <url>
+    <loc>https://imonce.github.io/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://imonce.github.io/tags/%E5%95%86%E4%B8%9A%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
@@ -1544,7 +1551,7 @@
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95/</loc>
+    <loc>https://imonce.github.io/tags/%E5%95%86%E4%B8%9A%E6%A8%A1%E5%BC%8F%E8%AE%BE%E8%AE%A1/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1558,7 +1565,7 @@
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/%E5%95%86%E4%B8%9A%E6%A8%A1%E5%BC%8F%E8%AE%BE%E8%AE%A1/</loc>
+    <loc>https://imonce.github.io/tags/Paper/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1573,13 +1580,6 @@
   
   <url>
     <loc>https://imonce.github.io/tags/%E5%9B%A2%E9%98%9F%E7%AE%A1%E7%90%86/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Paper/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1642,13 +1642,6 @@
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://imonce.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
@@ -1657,6 +1650,13 @@
   
   <url>
     <loc>https://imonce.github.io/tags/%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -2113,13 +2113,6 @@
   </url>
   
   <url>
-    <loc>https://imonce.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%94%E7%94%A8%E6%95%B0%E5%AD%A6/</loc>
-    <lastmod>2020-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://imonce.github.io/categories/Methodology/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
@@ -2127,7 +2120,7 @@
   </url>
   
   <url>
-    <loc>https://imonce.github.io/categories/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</loc>
+    <loc>https://imonce.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%94%E7%94%A8%E6%95%B0%E5%AD%A6/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -2142,6 +2135,13 @@
   
   <url>
     <loc>https://imonce.github.io/categories/Python/</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/categories/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -2176,14 +2176,14 @@
   </url>
   
   <url>
-    <loc>https://imonce.github.io/categories/Trick/</loc>
+    <loc>https://imonce.github.io/categories/Paper/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/categories/Paper/</loc>
+    <loc>https://imonce.github.io/categories/Trick/</loc>
     <lastmod>2020-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
