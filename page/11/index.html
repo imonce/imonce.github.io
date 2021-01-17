@@ -122,17 +122,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">187</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">188</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">29</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">30</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">118</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">119</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,91 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2018/09/28/Mac如何卸载pandoc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/28/Mac如何卸载pandoc/" class="post-title-link" itemprop="url">Mac如何卸载pandoc</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-09-28 09:44:34" itemprop="dateCreated datePublished" datetime="2018-09-28T09:44:34+08:00">2018-09-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-04 15:58:49" itemprop="dateModified" datetime="2020-01-04T15:58:49+08:00">2020-01-04</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/09/28/Mac如何卸载pandoc/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/09/28/Mac如何卸载pandoc/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="将以下脚本保存到本地，命名为uninstall-pandoc-pl"><a href="#将以下脚本保存到本地，命名为uninstall-pandoc-pl" class="headerlink" title="将以下脚本保存到本地，命名为uninstall-pandoc.pl"></a>将以下脚本保存到本地，命名为<strong>uninstall-pandoc.pl</strong></h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/perl</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Script to remove all files installed by the macOS pandoc installer</span></span><br><span class="line"><span class="comment"># and unregister the package.  Modified from a script contributed</span></span><br><span class="line"><span class="comment"># by Daniel T. Staal.</span></span><br><span class="line"></span><br><span class="line">use warnings;</span><br><span class="line">use strict;</span><br><span class="line"></span><br><span class="line">use File::Spec;</span><br><span class="line"></span><br><span class="line"><span class="comment"># The main info: this is the list of files to remove and the pkg_id.</span></span><br><span class="line">my <span class="variable">$pkg_id</span>    = <span class="string">'net.johnmacfarlane.pandoc'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Find which, if any, volume Pandoc is installed on.</span></span><br><span class="line">my <span class="variable">$volume</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># First check /, then other volumes on the box.</span></span><br><span class="line">my <span class="variable">$cur_test</span> = `pkgutil --pkgs=<span class="variable">$pkg_id</span>`;</span><br><span class="line"><span class="keyword">if</span> ( <span class="variable">$cur_test</span> =~ m/<span class="variable">$pkg_id</span>/ ) &#123;</span><br><span class="line">    <span class="variable">$volume</span> = <span class="string">'/'</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    opendir( my <span class="variable">$dh</span>, <span class="string">'/Volumes'</span> ) or die <span class="string">"Can't list Volumes: $!\n"</span>;</span><br><span class="line">    foreach my <span class="variable">$dir</span> ( readdir(<span class="variable">$dh</span>) ) &#123;</span><br><span class="line">      next <span class="keyword">if</span> <span class="variable">$dir</span> =~ m/^\./;    <span class="comment"># Skip dotfiles.</span></span><br><span class="line"></span><br><span class="line">      my <span class="variable">$path</span> = File::Spec-&gt;rel2abs( <span class="variable">$dir</span>, <span class="string">'/Volumes'</span> );</span><br><span class="line">      next <span class="keyword">if</span> !( -d <span class="variable">$path</span> );     <span class="comment"># Skip anything that isn't a directory.</span></span><br><span class="line"></span><br><span class="line">      my <span class="variable">$cur_test</span> = `pkgutil --pkgs=<span class="variable">$pkg_id</span> --volume <span class="string">'$path'</span>`;</span><br><span class="line">      <span class="keyword">if</span> ( <span class="variable">$cur_test</span> =~ m/<span class="variable">$pkg_id</span>/ ) &#123;</span><br><span class="line">          <span class="variable">$volume</span> = <span class="variable">$path</span>;</span><br><span class="line">          last;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">die <span class="string">"Pandoc not installed.\n"</span> <span class="keyword">if</span> !( defined(<span class="variable">$volume</span>) );</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get the list of files to remove.</span></span><br><span class="line">my @pkg_files = `pkgutil --volume <span class="string">'$volume'</span> --only-files --files <span class="string">'$pkg_id'</span>`;</span><br><span class="line">@pkg_files = map &#123; chomp; File::Spec-&gt;rel2abs(<span class="variable">$_</span>, <span class="variable">$volume</span>) &#125; @pkg_files;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Confirm uninistall with the user.</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">"The following files will be deleted:\n\n"</span>;</span><br><span class="line"><span class="built_in">print</span> join(<span class="string">"\n"</span>, @pkg_files);</span><br><span class="line"><span class="built_in">print</span> <span class="string">"\n\n"</span>;</span><br><span class="line"><span class="built_in">print</span> <span class="string">"Do you want to proceed and uninstall pandoc (Y/N)?"</span>;</span><br><span class="line">my <span class="variable">$input</span> = &lt;STDIN&gt;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$input</span> =~ m/^[Yy]/) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Actually remove the files.</span></span><br><span class="line">    foreach my <span class="variable">$file</span> (@pkg_files) &#123;</span><br><span class="line">        <span class="keyword">if</span> ( -e <span class="variable">$file</span> ) &#123;</span><br><span class="line">            <span class="keyword">if</span> ( system( <span class="string">'sudo'</span>, <span class="string">'rm'</span>, <span class="variable">$file</span> ) == 0 ) &#123;</span><br><span class="line">                warn <span class="string">"Deleted <span class="variable">$file</span>\n"</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                warn <span class="string">"Unable to delete <span class="variable">$file</span>: $?\n"</span>;</span><br><span class="line">                die <span class="string">"Aborting Uninstall.\n"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;  <span class="keyword">else</span> &#123;</span><br><span class="line">            warn <span class="string">"File <span class="variable">$file</span> does not exist.  Skipping.\n"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Clean up the install.</span></span><br><span class="line">    <span class="keyword">if</span> (system(<span class="string">'sudo'</span>, <span class="string">'pkgutil'</span>, <span class="string">'--forget'</span>, <span class="variable">$pkg_id</span>, <span class="string">'--volume'</span>, <span class="variable">$volume</span>) != 0) &#123;</span><br><span class="line">        die <span class="string">"Unable to clean up install: $?\n"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">   <span class="built_in">print</span> <span class="string">"OK, aborting uninstall.\n"</span>;</span><br><span class="line">   <span class="built_in">exit</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">"Pandoc has been successfully uninstalled.\n"</span>;</span><br><span class="line"><span class="built_in">exit</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="在uninstall-pandoc-pl目录下运行"><a href="#在uninstall-pandoc-pl目录下运行" class="headerlink" title="在uninstall-pandoc.pl目录下运行"></a>在uninstall-pandoc.pl目录下运行</h1><blockquote>
+<p>perl uninstall-pandoc.pl</p>
+</blockquote>
+<h1 id="附：官方链接和截图"><a href="#附：官方链接和截图" class="headerlink" title="附：官方链接和截图"></a>附：官方链接和截图</h1><p>官方链接：<a href="http://pandoc.org/installing.html#macos" target="_blank" rel="noopener">http://pandoc.org/installing.html#macos</a></p>
+<p>截图：<br><img src="https://raw.githubusercontent.com/imonce/imgs/master/20180928095031.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -915,7 +1000,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2017/04/24/Python入门：pickle模块简介/">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
@@ -929,7 +1014,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/04/24/Python入门：pickle模块简介/" class="post-title-link" itemprop="url">Python入门：pickle模块简介</a>
+            <a href="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" class="post-title-link" itemprop="url">远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
         </h2>
 
         <div class="post-meta">
@@ -946,17 +1031,8 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-04 16:06:42" itemprop="dateModified" datetime="2020-01-04T16:06:42+08:00">2020-01-04</time>
+                <time title="Modified: 2020-01-04 15:55:31" itemprop="dateModified" datetime="2020-01-04T15:55:31+08:00">2020-01-04</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
 
           
   
@@ -967,8 +1043,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2017/04/24/Python入门：pickle模块简介/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/04/24/Python入门：pickle模块简介/" itemprop="commentCount"></span>
+    <a title="valine" href="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -983,100 +1059,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看<a href="https://docs.python.org/2/library/pickle.html" target="_blank" rel="noopener">https://docs.python.org/2/library/pickle.html</a></p>
-<h2 id="pickle简介"><a href="#pickle简介" class="headerlink" title="pickle简介"></a>pickle简介</h2><p>pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。</p>
-<p>就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。</p>
-<h2 id="用pickle保存对象到文件"><a href="#用pickle保存对象到文件" class="headerlink" title="用pickle保存对象到文件"></a>用pickle保存对象到文件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入pickle模块</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建一个名为data1的对象</span></span><br><span class="line">data1 = &#123;<span class="string">'a'</span>: <span class="string">'123'</span>, <span class="string">'b'</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)</span></span><br><span class="line">file_to_save = open(<span class="string">"data1.pkl"</span>, <span class="string">"wb"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。</span></span><br><span class="line"><span class="comment">#第一个参数是要保存的对象名</span></span><br><span class="line"><span class="comment">#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。</span></span><br><span class="line"><span class="comment">#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。</span></span><br><span class="line">pickle.dump(data1, file_to_save, <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭文件对象</span></span><br><span class="line">file_to_save.close()</span><br></pre></td></tr></table></figure>
-
-<h2 id="用pickle从文件中读取对象"><a href="#用pickle从文件中读取对象" class="headerlink" title="用pickle从文件中读取对象"></a>用pickle从文件中读取对象</h2><p>(请接着上一个脚本运行)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入pickle模块</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)</span></span><br><span class="line">file_to_read = open(<span class="string">'data1.pkl'</span>, <span class="string">'rb'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2</span></span><br><span class="line">data2 = pickle.load(file_to_read)</span><br><span class="line"></span><br><span class="line"><span class="comment">#打印data2</span></span><br><span class="line"><span class="keyword">print</span> data2</span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭文件对象</span></span><br><span class="line">file_to_read.close()</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" class="post-title-link" itemprop="url">mysql-python安装错误：EnvironmentError:mysql_config not found</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-04-24 02:45:19" itemprop="dateCreated datePublished" datetime="2017-04-24T02:45:19+08:00">2017-04-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-04 15:55:52" itemprop="dateModified" datetime="2020-01-04T15:55:52+08:00">2020-01-04</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><p>安装mysql-python时报错：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Collecting mysql-python</span><br><span class="line">  Using cached MySQL-python-1.2.5.zip</span><br><span class="line">    Complete output from <span class="built_in">command</span> python setup.py egg_info:</span><br><span class="line">    sh: 1: mysql_config: not found</span><br><span class="line">    Traceback (most recent call last):</span><br><span class="line">      File <span class="string">"&lt;string&gt;"</span>, line 1, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">      File <span class="string">"/tmp/pip-build-_itbcX/mysql-python/setup.py"</span>, line 17, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">        metadata, options = get_config()</span><br><span class="line">      File <span class="string">"setup_posix.py"</span>, line 43, <span class="keyword">in</span> get_config</span><br><span class="line">        libs = mysql_config(<span class="string">"libs_r"</span>)</span><br><span class="line">      File <span class="string">"setup_posix.py"</span>, line 25, <span class="keyword">in</span> mysql_config</span><br><span class="line">        raise EnvironmentError(<span class="string">"%s not found"</span> % (mysql_config.path,))</span><br><span class="line">    EnvironmentError: mysql_config not found</span><br><span class="line"></span><br><span class="line">    ----------------------------------------</span><br><span class="line">Command <span class="string">"python setup.py egg_info"</span> failed with error code 1 <span class="keyword">in</span> /tmp/pip-build-_itbcX/mysql-python/</span><br></pre></td></tr></table></figure>
-
-<h2 id="问题原因："><a href="#问题原因：" class="headerlink" title="问题原因："></a>问题原因：</h2><p>没有安装libmysqlclient-dev。</p>
-<h2 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h2><p>执行：</p>
-<p><code>sudo apt-get install libmysqlclient-dev</code></p>
-<p>安装成功后，再运行<code>pip install mysql-python</code>即可。</p>
-
+          <h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。</p>
+<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>将User=root对应行的Host一栏的值修改为<code>%</code>，允许任意ip登录root。</p>
+<h2 id="具体解决方案"><a href="#具体解决方案" class="headerlink" title="具体解决方案"></a>具体解决方案</h2><p>在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p  </span><br><span class="line">mysql&gt;use mysql;  </span><br><span class="line">mysql&gt;update user set host = '%' where user ='root';  </span><br><span class="line">mysql&gt;flush privileges;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -1162,20 +1148,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-count">119</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">187</span>
+        <span class="site-state-item-count">188</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
