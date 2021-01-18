@@ -122,17 +122,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">188</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">191</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">30</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">119</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">120</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,318 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/04/19/6小时精通python-二/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/19/6小时精通python-二/" class="post-title-link" itemprop="url">Python快速入门：6小时精通Python(二)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-04-19 17:35:05" itemprop="dateCreated datePublished" datetime="2019-04-19T17:35:05+08:00">2019-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-23 21:28:35" itemprop="dateModified" datetime="2020-01-23T21:28:35+08:00">2020-01-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learn-X-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn X in Y minutes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learn-X-in-Y-minutes/Learn-Python-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn Python in Y minutes</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/04/19/6小时精通python-二/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/04/19/6小时精通python-二/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>译自：<a href="https://learnxinyminutes.com/docs/python3/" target="_blank" rel="noopener">https://learnxinyminutes.com/docs/python3/</a></p>
+<p>阅前须知：</p>
+<ul>
+<li>“#”后边的是注释</li>
+<li>带行号的是python代码</li>
+<li>不带行号的是代码的输出</li>
+<li>把下边的语句对着敲一边自然就会了，博主用的是jupyter notebook</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">####################################################</span></span><br><span class="line"><span class="comment">## 2. 变量和集合</span></span><br><span class="line"><span class="comment">####################################################</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出用print()</span></span><br><span class="line">print(<span class="string">"I'm Python. Nice to meet you!"</span>)</span><br><span class="line">print(<span class="string">"I'm Python. Nice to meet you!"</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>I&#39;m Python. Nice to meet you!
+I&#39;m Python. Nice to meet you!</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># print函数默认在结束时插入换行符</span></span><br><span class="line"><span class="comment"># 可以通过end参数改变</span></span><br><span class="line">print(<span class="string">"Hello, World"</span>, end=<span class="string">"!"</span>)</span><br><span class="line">print(<span class="string">"Hello, World"</span>, end=<span class="string">"!"</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Hello, World!Hello, World!</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在console命令行中获得输入，可以使用input，参数会作为提示进行输出</span></span><br><span class="line"><span class="comment"># Note: 在python早期版本中，input函数名称为raw_input</span></span><br><span class="line">input_string_var = input(<span class="string">"Enter some data: "</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Enter some data: 123</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">input_string_var</span><br></pre></td></tr></table></figure>
+
+<pre><code>&#39;123&#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python中没有变量声明，只有赋值</span></span><br><span class="line"><span class="comment"># 变量的命名惯例为小写字母，多个单词通过_连接： lower_case_with_underscores</span></span><br><span class="line">some_var = <span class="number">5</span></span><br><span class="line">some_var  <span class="comment"># =&gt; 5</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>5</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 访问一个没有赋值过的变量名，会抛出异常</span></span><br><span class="line"><span class="comment"># 直接看console中的输出来了解异常原因</span></span><br><span class="line">some_unknown_var</span><br></pre></td></tr></table></figure>
+
+<pre><code>---------------------------------------------------------------------------
+
+NameError                                 Traceback (most recent call last)
+
+&lt;ipython-input-48-17aa7cb5f29d&gt; in &lt;module&gt;()
+      1 # 访问一个没有赋值过的变量名，会抛出异常
+      2 # 直接看console中的输出来了解异常原因
+----&gt; 3 some_unknown_var
+
+
+NameError: name &#39;some_unknown_var&#39; is not defined</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># if 可以用来作为一种表达式 </span></span><br><span class="line"><span class="comment"># a if b else c 意为 b为True取a，b为False取c</span></span><br><span class="line">hoo = <span class="string">"yahoo!"</span> <span class="keyword">if</span> <span class="number">3</span> &gt; <span class="number">2</span> <span class="keyword">else</span> <span class="number">2</span>  <span class="comment"># =&gt; "yahoo!"</span></span><br><span class="line">hoo</span><br></pre></td></tr></table></figure>
+
+<pre><code>&#39;yahoo!&#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成一个空的list</span></span><br><span class="line">li = []</span><br><span class="line"><span class="comment"># 也可以跳过声明直接赋值</span></span><br><span class="line">other_li = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list有append函数，可以在末尾添加item</span></span><br><span class="line">li.append(<span class="number">1</span>)    <span class="comment"># li is now [1]</span></span><br><span class="line">li.append(<span class="number">2</span>)    <span class="comment"># li is now [1, 2]</span></span><br><span class="line">li.append(<span class="number">4</span>)    <span class="comment"># li is now [1, 2, 4]</span></span><br><span class="line">li.append(<span class="number">3</span>)    <span class="comment"># li is now [1, 2, 4, 3]</span></span><br><span class="line"><span class="comment"># pop函数可以删除list中的最后一个元素</span></span><br><span class="line">li.pop()        <span class="comment"># =&gt; 3 and li is now [1, 2, 4]</span></span><br><span class="line"><span class="comment"># 还是把3放回去吧</span></span><br><span class="line">li.append(<span class="number">3</span>)    <span class="comment"># li is now [1, 2, 4, 3] again.</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过item的index可以访问对应位置item的值</span></span><br><span class="line">li[<span class="number">0</span>]   <span class="comment"># =&gt; 1</span></span><br><span class="line"><span class="comment"># 可以通过负数来倒着数，-1代表最后一个</span></span><br><span class="line">li[<span class="number">-1</span>]  <span class="comment"># =&gt; 3</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>3</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果index访问的item超出list长度，会抛出异常</span></span><br><span class="line">li[<span class="number">4</span>]  <span class="comment"># IndexError</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>---------------------------------------------------------------------------
+
+IndexError                                Traceback (most recent call last)
+
+&lt;ipython-input-53-9bf3eba2f737&gt; in &lt;module&gt;()
+      1 # 如果index访问的item超出list长度，会抛出异常
+----&gt; 2 li[4]  # Raises an IndexError
+
+
+IndexError: list index out of range</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># li[start:end:step]，你可以通过分片来对list进行部分访问</span></span><br><span class="line"><span class="comment"># li[a:b]，意为取出li中index为a的item至index为b-1的item（含头不含尾）</span></span><br><span class="line">li[<span class="number">1</span>:<span class="number">3</span>]   <span class="comment"># =&gt; [2, 4]</span></span><br><span class="line"><span class="comment"># 省略头/尾的参数，则代表 从头开始/到尾结束</span></span><br><span class="line">li[:<span class="number">3</span>]    <span class="comment"># =&gt; [1, 2, 4]</span></span><br><span class="line">li[<span class="number">2</span>:]    <span class="comment"># =&gt; [4, 3]</span></span><br><span class="line"><span class="comment"># li[a:b:c]意为从li中index为a开始，index每次+c取item，直至所取item的index&gt;=b</span></span><br><span class="line">li[::<span class="number">2</span>]   <span class="comment"># =&gt;[1, 4]</span></span><br><span class="line"><span class="comment"># li[a:b:c]c为负值的时候则倒着取</span></span><br><span class="line">li[::<span class="number">-1</span>]  <span class="comment"># =&gt; [3, 4, 2, 1]</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>[3, 4, 2, 1]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果要对list进行deep copy（复制object所有内容但不是同一对象）</span></span><br><span class="line"><span class="comment"># 使用如下语句</span></span><br><span class="line">li2 = li[:]</span><br><span class="line">li2 == li <span class="comment"># =&gt; True</span></span><br><span class="line">li2 <span class="keyword">is</span> li <span class="comment"># =&gt; False</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>False</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># del[index]方法可以删除list中index位置的元素</span></span><br><span class="line"><span class="keyword">del</span> li[<span class="number">2</span>]  <span class="comment"># li is now [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># remove(value)方法会删除list中第一个值等于value的item</span></span><br><span class="line">li.remove(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># remove方法调用时，如果没有对应value的item，则会报错</span></span><br><span class="line">li.remove(<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>---------------------------------------------------------------------------
+
+ValueError                                Traceback (most recent call last)
+
+&lt;ipython-input-58-0f5f01941ba3&gt; in &lt;module&gt;()
+      1 # remove方法调用时，如果没有对应value的item，则会报错
+----&gt; 2 li.remove(100)
+
+
+ValueError: list.remove(x): x not in list</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># insert(index, value)可以在list中的index处插入值为value的item</span></span><br><span class="line">li.insert(<span class="number">1</span>, <span class="number">2</span>)  <span class="comment"># li is now [1, 2, 3] again</span></span><br><span class="line">li</span><br></pre></td></tr></table></figure>
+
+<pre><code>[1, 2, 3]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># index(value)方法可以在list中进行查询,返回值为value的item的index</span></span><br><span class="line">li.index(<span class="number">2</span>)  <span class="comment"># =&gt; 1</span></span><br><span class="line"><span class="comment"># 没有的话就报错</span></span><br><span class="line">li.index(<span class="number">4</span>)  <span class="comment"># Raises a ValueError as 4 is not in the list</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>---------------------------------------------------------------------------
+
+ValueError                                Traceback (most recent call last)
+
+&lt;ipython-input-60-4520a794cb71&gt; in &lt;module&gt;()
+      2 li.index(2)  # =&gt; 1
+      3 # 没有的话就报错
+----&gt; 4 li.index(4)  # Raises a ValueError as 4 is not in the list
+
+
+ValueError: 4 is not in list</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以用+直接连接两个list</span></span><br><span class="line"><span class="comment"># 这里没有进行赋值，所以li和other_li都没变</span></span><br><span class="line">li + other_li  <span class="comment"># =&gt; [1, 2, 3, 4, 5, 6]</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>[1, 2, 3, 4, 5, 6]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果调用list内部方法，extend进行连接，则调用方法的list会默认被赋值</span></span><br><span class="line">li.extend(other_li)</span><br><span class="line">li</span><br></pre></td></tr></table></figure>
+
+<pre><code>[1, 2, 3, 4, 5, 6]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过in关键字，判断value是否存在在list中</span></span><br><span class="line"><span class="number">1</span> <span class="keyword">in</span> li  <span class="comment"># =&gt; True</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>True</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># len方法可以返回list长度</span></span><br><span class="line">len(li)  <span class="comment"># =&gt; 6</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>6</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Tuple和list相似，但是不可变</span></span><br><span class="line">tup = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">tup[<span class="number">0</span>]      <span class="comment"># =&gt; 1</span></span><br><span class="line">tup[<span class="number">0</span>] = <span class="number">3</span>  <span class="comment"># 赋值就报错</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-65-4b7af0c6f896&gt; in &lt;module&gt;()
+      2 tup = (1, 2, 3)
+      3 tup[0]      # =&gt; 1
+----&gt; 4 tup[0] = 3  # 赋值就报错
+
+
+TypeError: &#39;tuple&#39; object does not support item assignment</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果长度为1的tuple，需要在唯一的item后添加逗号','来声明自己是tuple</span></span><br><span class="line"><span class="comment"># 否则python会把它的类型解析成唯一item的类型</span></span><br><span class="line">type((<span class="number">1</span>))   <span class="comment"># =&gt; &lt;class 'int'&gt;</span></span><br><span class="line">type((<span class="number">1</span>,))  <span class="comment"># =&gt; &lt;class 'tuple'&gt;</span></span><br><span class="line">type(())    <span class="comment"># =&gt; &lt;class 'tuple'&gt;</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>tuple</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 大部分list操作都可以应用到tuple上</span></span><br><span class="line">len(tup)         <span class="comment"># =&gt; 3</span></span><br><span class="line">tup + (<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)  <span class="comment"># =&gt; (1, 2, 3, 4, 5, 6)</span></span><br><span class="line">tup[:<span class="number">2</span>]          <span class="comment"># =&gt; (1, 2)</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">in</span> tup         <span class="comment"># =&gt; True</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>True</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以对tuple进行解压，分别赋值给变量</span></span><br><span class="line">a, b, c = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)  <span class="comment"># a = 1, b = 2 and c = 3</span></span><br><span class="line"><span class="comment"># 还可以进行扩展拆包</span></span><br><span class="line">a, *b, c = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)  <span class="comment"># a = 1, b = [2, 3] and c = 4</span></span><br><span class="line"><span class="comment"># 如果你不写括号，tuple也会自动生成</span></span><br><span class="line">d, e, f = <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span></span><br><span class="line"><span class="comment"># 交换两个变量的值</span></span><br><span class="line">e, d = d, e  <span class="comment"># d is now 5 and e is now 4</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Dictionary存储的是key到value的映射</span></span><br><span class="line"><span class="comment"># 生成空的dict</span></span><br><span class="line">empty_dict = &#123;&#125;</span><br><span class="line"><span class="comment"># 也可以直接赋值</span></span><br><span class="line">filled_dict = &#123;<span class="string">"one"</span>: <span class="number">1</span>, <span class="string">"two"</span>: <span class="number">2</span>, <span class="string">"three"</span>: <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以通过方括号dict[key] = value 查询对应key的值</span></span><br><span class="line">filled_dict[<span class="string">'one'</span>]</span><br></pre></td></tr></table></figure>
+
+<pre><code>1</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dictionary中的key必须是不可变类型量（immutable type）</span></span><br><span class="line"><span class="comment"># Immutable types 包括 ints, floats, strings, tuples.</span></span><br><span class="line"><span class="comment"># value是啥都行</span></span><br><span class="line">invalid_dict = &#123;[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]: <span class="string">"123"</span>&#125;  <span class="comment"># =&gt; TypeError: unhashable type: 'list'</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-71-b260036dbc7a&gt; in &lt;module&gt;()
+      2 # Immutable types 包括 ints, floats, strings, tuples.
+      3 # value是啥都行
+----&gt; 4 invalid_dict = {[1,2,3]: &quot;123&quot;}  # =&gt; TypeError: unhashable type: &#39;list&#39;
+
+
+TypeError: unhashable type: &#39;list&#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过dictionary中的keys()方法，可以迭代取出字典中的key</span></span><br><span class="line"><span class="comment"># 通过list()可以将该方法的结果转化为list</span></span><br><span class="line"><span class="comment"># python3.7之前的版本，不保证key的取出顺序</span></span><br><span class="line"><span class="comment"># python3.7之后，key会按照在字典中的顺序取出</span></span><br><span class="line">list(filled_dict.keys())  <span class="comment"># =&gt; ["three", "two", "one"] in Python &lt;3.7</span></span><br><span class="line">list(filled_dict.keys())  <span class="comment"># =&gt; ["one", "two", "three"] in Python 3.7+</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>[&#39;one&#39;, &#39;two&#39;, &#39;three&#39;]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同理，通过values方法可以取出values</span></span><br><span class="line">list(filled_dict.values())  <span class="comment"># =&gt; [3, 2, 1]  in Python &lt;3.7</span></span><br><span class="line">list(filled_dict.values())  <span class="comment"># =&gt; [1, 2, 3] in Python 3.7+</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>[1, 2, 3, 5]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过in保留字，来检查dictionary中是否包含该key（而非value）</span></span><br><span class="line"><span class="string">"one"</span> <span class="keyword">in</span> filled_dict  <span class="comment"># =&gt; True</span></span><br><span class="line"><span class="number">1</span> <span class="keyword">in</span> filled_dict      <span class="comment"># =&gt; False</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>False</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 取一个字典中不存在的key的value会报错</span></span><br><span class="line">filled_dict[<span class="string">"four"</span>]  <span class="comment"># KeyError</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>---------------------------------------------------------------------------
+
+KeyError                                  Traceback (most recent call last)
+
+&lt;ipython-input-75-6e19dabe2a92&gt; in &lt;module&gt;()
+      1 # 取一个字典中不存在的key的value会报错
+----&gt; 2 filled_dict[&quot;four&quot;]  # KeyError
+
+
+KeyError: &#39;four&#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过get方法，可以避免报错，如果没有，返回None</span></span><br><span class="line">filled_dict.get(<span class="string">"one"</span>)      <span class="comment"># =&gt; 1</span></span><br><span class="line">filled_dict.get(<span class="string">"four"</span>)     <span class="comment"># =&gt; None</span></span><br><span class="line"><span class="comment"># 也可以在get方法中增加第二个参数，来代替查询不到时，默认返回的None</span></span><br><span class="line">filled_dict.get(<span class="string">"one"</span>, <span class="number">4</span>)   <span class="comment"># =&gt; 1</span></span><br><span class="line">filled_dict.get(<span class="string">"four"</span>, <span class="number">4</span>)  <span class="comment"># =&gt; 4</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>4</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># setdefault方法可以给不存在的key赋值</span></span><br><span class="line"><span class="comment"># 如果该键值对（key:value）已存在，则不生效</span></span><br><span class="line">filled_dict.setdefault(<span class="string">"five"</span>, <span class="number">5</span>)  <span class="comment"># filled_dict["five"] is set to 5</span></span><br><span class="line">filled_dict.setdefault(<span class="string">"five"</span>, <span class="number">6</span>)  <span class="comment"># filled_dict["five"] is still 5</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>5</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在dictionary中增加键值对，可以使用update方法</span></span><br><span class="line">filled_dict.update(&#123;<span class="string">"four"</span>:<span class="number">4</span>&#125;)  <span class="comment"># =&gt; &#123;"one": 1, "two": 2, "three": 3, "four": 4&#125;</span></span><br><span class="line"><span class="comment"># 直接对不存在的key 进行赋值，也可以实现键值对的增加</span></span><br><span class="line">filled_dict[<span class="string">"four"</span>] = <span class="number">4</span>         <span class="comment"># another way to add to dict</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过del方法可以删除对应key的键值对</span></span><br><span class="line"><span class="keyword">del</span> filled_dict[<span class="string">"one"</span>]  <span class="comment"># Removes the key "one" from filled dict</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在python3.5之后，也可以通过**&#123;&#125;来完成补充扩展操作</span></span><br><span class="line">&#123;<span class="string">'a'</span>: <span class="number">1</span>, **&#123;<span class="string">'b'</span>: <span class="number">2</span>&#125;&#125;  <span class="comment"># =&gt; &#123;'a': 1, 'b': 2&#125;</span></span><br><span class="line">&#123;<span class="string">'a'</span>: <span class="number">1</span>, **&#123;<span class="string">'a'</span>: <span class="number">2</span>&#125;&#125;  <span class="comment"># =&gt; &#123;'a': 2&#125;</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>{&#39;a&#39;: 2}</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># set也是通过&#123;&#125;进行包装的，定义空set时，需要调用set方法</span></span><br><span class="line">empty_set = set()</span><br><span class="line"><span class="comment"># set中的值不能重复（重复值会自动合并）</span></span><br><span class="line">some_set = &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;  <span class="comment"># some_set is now &#123;1, 2, 3, 4&#125;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 和dictionary中的key相似，set的item必须是不可变类型量（也就是list不行）</span></span><br><span class="line"><span class="comment"># set可以看作是一个只有key的dictionary</span></span><br><span class="line">invalid_set = &#123;[<span class="number">1</span>], <span class="number">1</span>&#125;  <span class="comment"># =&gt; Raises a TypeError: unhashable type: 'list'</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-85-c6f31d84eee9&gt; in &lt;module&gt;()
+      1 # 和dictionary中的key相似，set的item必须是不可变类型量（也就是list不行）
+      2 # set可以看作是一个只有key的dictionary
+----&gt; 3 invalid_set = {[1], 1}  # =&gt; Raises a TypeError: unhashable type: &#39;list&#39;
+      4 # tuple就可以
+      5 valid_set = {(1,), 1}
+
+
+TypeError: unhashable type: &#39;list&#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过add方法向set中添加item</span></span><br><span class="line">filled_set = some_set</span><br><span class="line">filled_set.add(<span class="number">5</span>)  <span class="comment"># filled_set is now &#123;1, 2, 3, 4, 5&#125;</span></span><br><span class="line"><span class="comment"># 重复添加无效</span></span><br><span class="line">filled_set.add(<span class="number">5</span>)  <span class="comment"># it remains as before &#123;1, 2, 3, 4, 5&#125;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以通过&amp;运算，来取交集</span></span><br><span class="line">other_set = &#123;<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;</span><br><span class="line">filled_set &amp; other_set  <span class="comment"># =&gt; &#123;3, 4, 5&#125;</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>{3, 4, 5}</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以通过|取并集</span></span><br><span class="line">filled_set | other_set  <span class="comment"># =&gt; &#123;1, 2, 3, 4, 5, 6&#125;</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>{1, 2, 3, 4, 5, 6}</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以通过-做集合减法（第一个有第二个没有的）</span></span><br><span class="line">&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125; - &#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>&#125;  <span class="comment"># =&gt; &#123;1, 4&#125;</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>{1, 4}</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以通过^做对称减法（相当于并集减交集）</span></span><br><span class="line">&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125; ^ &#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>&#125;  <span class="comment"># =&gt; &#123;1, 4, 5&#125;</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>{1, 4, 5}</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过大于小于号检查包含关系</span></span><br><span class="line">&#123;<span class="number">1</span>, <span class="number">2</span>&#125; &gt;= &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125; <span class="comment"># =&gt; False</span></span><br><span class="line">&#123;<span class="number">1</span>, <span class="number">2</span>&#125; &lt;= &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125; <span class="comment"># =&gt; True</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>True</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过in检查set中是否存在该item</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">in</span> filled_set   <span class="comment"># =&gt; True</span></span><br><span class="line"><span class="number">10</span> <span class="keyword">in</span> filled_set  <span class="comment"># =&gt; False</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>False</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -3137,233 +3449,6 @@ KeyError: &#39;tz&#39;</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/03/18/owl本体语言学习笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/18/owl本体语言学习笔记/" class="post-title-link" itemprop="url">OWL本体语言学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-03-18 20:49:42" itemprop="dateCreated datePublished" datetime="2019-03-18T20:49:42+08:00">2019-03-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-04 16:23:49" itemprop="dateModified" datetime="2020-01-04T16:23:49+08:00">2020-01-04</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/03/18/owl本体语言学习笔记/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/03/18/owl本体语言学习笔记/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="OWL简介"><a href="#OWL简介" class="headerlink" title="OWL简介"></a>OWL简介</h1><p>OWL(Web Ontology Language)是W3C开发的一种网络本体语言，用于对本体进行语义描述。OWL是针对各方面的需求在DAML+OIL的基础上进行改进而开发的，它一方面保持了对DAML+oIL／RDFs的兼容性，另一方面又保证了更加强大的语义表达能力，同时还要保证描述逻辑(DL，Description Logic)的可判定推理。W3C的设计人员针对各类特征的需求制定了三种相应的OWL的子语言，即OWL Lite、OWL DL和OWL Full，三种子语言的表达能力递增。</p>
-<ol>
-<li>OWL Lite是表达能力最弱的子语言。它是傩乙DL的一个子集，但是通过降低OWL DL中的公理约束，保证了迅速高效的推理。它支持基数约束，但基数值只能为O或l。因为0WL Lite表达能力较弱，为其开发支持工具要比其他两个子语言容易一些。OWL Lite用于提供给那些仅需要一个分类层次和简单约束的用户。</li>
-<li>OWL DL(Description Logic，描述逻辑)将可判定推理能力和较强表达能力作为首要目标，而忽略了对RDFS的兼容性。0WL DL包括了OWL语言的所有语言成分，但使用时必须符合一定的约束，受到一定的限制。OWL DL提供了描述逻辑的推理功能，描述逻辑是OWL的形式化基础。</li>
-<li>OWL Full包含OWL的全部语言成分并取消了OWL DL中的限制，它将RDFS扩展为一个完备的本体语言，支持那些不需要可计算性保证(no computational guarantees)但需要最强表达能力和完全自由的RDFS用户。在OWL Full中，一个类可以看成是个体的集合，也可以看成是一个个体。由于OWL Full取消了基数限制中对可传递性质的约束，因此不能保证可判定推理。</li>
-</ol>
-<h1 id="OWL本体的组成"><a href="#OWL本体的组成" class="headerlink" title="OWL本体的组成"></a>OWL本体的组成</h1><h2 id="个体（individual）"><a href="#个体（individual）" class="headerlink" title="个体（individual）"></a>个体（individual）</h2><p>个体代表领域中我们感兴趣的对象，OWL不使用唯一命名假设，即两个不同的名称可以对应一个个体（例如：“伊丽莎白女王”和“伊丽莎白温莎”是指同一个人）。在OWL中，必须明确表示个体之间是否相同，否则它们的关系是不明确的。</p>
-<p>个体（individual）有时也被称作实例（Instance）。</p>
-<h2 id="属性（Property）"><a href="#属性（Property）" class="headerlink" title="属性（Property）"></a>属性（Property）</h2><p>属性是个体之间的二元关系。在描述逻辑中，它们就是角色（Role）的概念。</p>
-<p>按照属性的表意及性质可以分为以下四类属性：</p>
-<ul>
-<li>函数属性(Functional Property)——通过这个属性只能连接一个个体，如hasBirthMother</li>
-<li>反函数属性(Inverse Functional Property)——即这个属性的反属性是函数属性，也就是对于一个给定的个体，只有最多一个个体能通过该属性连接那个个体，如isBirthMotherOf</li>
-<li>传递属性(Transitive Property)——这个属性是可以传递的，如你的祖先的祖先也是你的祖先，hasAncestor</li>
-<li>对称属性(Symmetric Property)——即这个属性是对称的，一个属性是对称的那么它就不能是函数属性。如你是你的兄弟的兄弟，hasSibling</li>
-</ul>
-<p>按照属性的链接对象不同可以分为以下三类：</p>
-<ul>
-<li>对象属性(Object Property)——连接两个个体。</li>
-<li>数据类型属性(Datatype Property)——连接个体和XML Schema数据类型值或rdf literal,该属性不能为传递的，对称的，反函数的。</li>
-<li>标注属性 (Annotation Property)——用来对类，属性，个体和本体添加信息(元数据)。OWL-DL对标注属性作出了如下限制：(1)标注属性的filler只能为,literal或URI或个体。(2)标注属性没有子属性，也不能为其它属性的子属性，而且不能使用domain和range。</li>
-</ul>
-<h2 id="类（class）"><a href="#类（class）" class="headerlink" title="类（class）"></a>类（class）</h2><p>表示一些个体的集合，它使用数学的方法描述出该类中成员必须具有的条件。概念（concept）这个词有时被用来代替类，实际上，类是概念的一个具体表现。</p>
-<h1 id="OWL中本体的结构"><a href="#OWL中本体的结构" class="headerlink" title="OWL中本体的结构"></a>OWL中本体的结构</h1><h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><p>在使用一组术语之前，需要精确地指出哪些具体的词汇表将会用到。一个典型的OWL本体以命名空间声明开始，这些命名空间写到<a href="rdf:RDF\" target="_blank" rel="noopener">rdf:RDF\</a>标签中。</p>
-<p>属性值是不具有命名空间的，在OWL里可以写出它们的完整URI。完整的URI中可以利用实体定义来简略。<br>如：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE rdf:RDF [</span></span><br><span class="line"><span class="meta">     &lt;!ENTITY vin  "http://www.w3.org/TR/2004/REC-owl-guide-20040210/wine#" &gt;</span></span><br><span class="line"><span class="meta">     &lt;!ENTITY food "http://www.w3.org/TR/2004/REC-owl-guide-20040210/food#" &gt; ]&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>在声明这些实体后，我们可以将“&vin;merlot”作为<code>http://www.w3.org/TR/2004/REC -owl-guide-20040210/wine#merlot</code>的简写。</p>
-<h2 id="本体头部"><a href="#本体头部" class="headerlink" title="本体头部"></a>本体头部</h2><p>在owl：Ontology标签中给出本体的声明。这些标签支持一些重要的常务工作比如注释、版本控制以及其他本体的嵌入等。</p>
-<p>owl:Ontology元素是用来收集关于当前文档的OWL元数据的。</p>
-<p>rdf:about属性为本体提供一个名称或引用。</p>
-<p>rdfs:comment提供了显然必须的为本体添加注解的能力。</p>
-<p>owl:priorVersion是一个为用于本体的版本控制系统提供相关信息（hook）的标准标签。本体的版本控制将在后面作进一步讨论。</p>
-<p>owl:imports提供了一种嵌入机制。owl:imports接受一个用rdf:resource属性标识的参数。</p>
-<h2 id="数据集成与隐私"><a href="#数据集成与隐私" class="headerlink" title="数据集成与隐私"></a>数据集成与隐私</h2><p>不同的个体成员可能表示同一个体，owl：sameAs表达等价的能力。</p>
-<h1 id="基本元素"><a href="#基本元素" class="headerlink" title="基本元素"></a>基本元素</h1><h2 id="简单的个体和类"><a href="#简单的个体和类" class="headerlink" title="简单的个体和类"></a>简单的个体和类</h2><p>外延：我们称由属于某个类的个体所构成的集合为该类的外延（extension）。</p>
-<p>本体：为了进行相关个体的推理。</p>
-<h3 id="简单的具名类"><a href="#简单的具名类" class="headerlink" title="简单的具名类"></a>简单的具名类</h3><p>一个领域中最基本的概念对应各个分类层次树的根。</p>
-<p>。。。。国际化资源标识符（IRI）。。。。。统一资源标识符（URI）。。。。</p>
-<p>rdf:ID=”Region” 被用于引入一个名称（作为定义的一部分）<br>在这一文档中，我们现在可以用#Region来引用Region类，例如 rdf:resource=”#Region”</p>
-<p>rdfs:subClassOf是用于类的基本分类构造符，次关系是可传递的<br>一个类的定义由两部分组成：引入或引用一个名称，以及一个限制表。</p>
-<h3 id="个体"><a href="#个体" class="headerlink" title="个体"></a>个体</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">owl:Thing</span> <span class="attr">rdf:ID</span>=<span class="string">"CentralCoastRegion"</span> /&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">owl:Thing</span> <span class="attr">rdf:about</span>=<span class="string">"#CentralCoastRegion"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">rdf:type</span> <span class="attr">rdf:resource</span>=<span class="string">"#Region"</span>/&gt;</span> </span><br><span class="line">/*表示个体，type是一个rdf属性，用于关联一个个体和它所属的类*/</span><br><span class="line">  	</span><br><span class="line"><span class="tag">&lt;/<span class="name">owl:Thing</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>或者使用<code>&lt;Region rdf:ID=&quot;CentralCoastRegion&quot; /&gt;</code> 语句来表示个体</p>
-<p>Web本体被设计成为分布式的，我们可以通过导入和补充已有的本体来创建衍生的本体。</p>
-<h3 id="使用方面的考虑"><a href="#使用方面的考虑" class="headerlink" title="使用方面的考虑"></a>使用方面的考虑</h3><p>一个类仅是一个名称和一些描述某集合内个体的属性；而个体是该集合的成员。因此，类应自然地对应于与某论域中的事物的出现集合，而个体应对应于可被归入这些类的实际的实体。</p>
-<p>子类：类的子集合</p>
-<p>实例：表示一个单一的个体</p>
-<p>一个本体的开发应坚定地由它的预定用途所驱动。这些问题也存在于OWL Full和OWL DL之间的一个重要区别。OWL Full允许将类（class）用作实例（instance），而OWL DL不允许。</p>
-<h2 id="简单属性"><a href="#简单属性" class="headerlink" title="简单属性"></a>简单属性</h2><p>一个属性是一个二元关系，有两种类型的属性：</p>
-<p>数据类型属性（datatype properties）：类实例与RDF文字或XML Schema数据类型间的关系。</p>
-<p>对象属性（object properties）：两个类的实例间的关系。</p>
-<h3 id="定义属性"><a href="#定义属性" class="headerlink" title="定义属性"></a>定义属性</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">owl:ObjectProperty</span> <span class="attr">rdf:ID</span>=<span class="string">"madeFromGrape"</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">rdfs:domain</span> <span class="attr">rdf:resource</span>=<span class="string">"#Wine"</span>/&gt;</span> /*表示定义域*/</span><br><span class="line">    <span class="tag">&lt;<span class="name">rdfs:range</span> <span class="attr">rdf:resource</span>=<span class="string">"#WineGrape"</span>/&gt;</span> /*表示值域*/</span><br><span class="line"><span class="tag">&lt;/<span class="name">owl:ObjectProperty</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>在OWL中，一个值域可被用来推断一个类型</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">owl:Thing</span> <span class="attr">rdf:ID</span>=<span class="string">"LindemansBin65Chardonnay"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">madeFromGrape</span> <span class="attr">rdf:resource</span>=<span class="string">"#ChardonnayGrape"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">owl:Thing</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>可以推断出，LindemansBin65Chardonnay为一种葡萄酒，因为其定义域为wine</p>
-<p>可以定义子属性，属性是传递的，例如X为Y的子属性，如果具有属性X，则必然同时具有属性Y。</p>
-<h3 id="属性和数据类型"><a href="#属性和数据类型" class="headerlink" title="属性和数据类型"></a>属性和数据类型</h3><p>数据类型属性：将个体关联到数据（值域为：RDF文字或XML Schema数据类型）</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">owl:Class</span> <span class="attr">rdf:ID</span>=<span class="string">"VintageYear"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">owl:DatatypeProperty</span> <span class="attr">rdf:ID</span>=<span class="string">"yearValue"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">rdfs:domain</span> <span class="attr">rdf:resource</span>=<span class="string">"#VintageYear"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rdfs:range</span>  <span class="attr">rdf:resource</span>=<span class="string">"&amp;xsd;positiveInteger"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">owl:DatatypeProperty</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>yearValue属性将VintageYears与一个整数值相关联。</p>
-<h3 id="个体的属性"><a href="#个体的属性" class="headerlink" title="个体的属性"></a>个体的属性</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Region</span> <span class="attr">rdf:ID</span>=<span class="string">"SantaCruzMountainsRegion"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">locatedIn</span> <span class="attr">rdf:resource</span>=<span class="string">"#CaliforniaRegion"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Region</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Winery</span> <span class="attr">rdf:ID</span>=<span class="string">"SantaCruzMountainVineyard"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">CabernetSauvignon</span>   <span class="attr">rdf:ID</span>=<span class="string">"SantaCruzMountainVineyardCabernetSauvignon"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">locatedIn</span>   <span class="attr">rdf:resource</span>=<span class="string">"#SantaCruzMountainsRegion"</span>/&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">hasMaker</span>    <span class="attr">rdf:resource</span>=<span class="string">"#SantaCruzMountainVineyard"</span> /&gt;</span>   </span><br><span class="line"><span class="tag">&lt;/<span class="name">CabernetSauvignon</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="属性的特性"><a href="#属性的特性" class="headerlink" title="属性的特性"></a>属性的特性</h2><ul>
-<li>传递属性： P(x，y)，P(y，z)  P(x，z)</li>
-<li>对称属性： p(x，y)当且仅当P(y, x)【注意是同一个关系】</li>
-<li>函数属性： P(x,y) 与P(x,z) 蕴含 y = z，即对应值的唯一性</li>
-<li>逆属性 （inverseOf）：P1(x,y) 当且仅当P2(y,x)【注意是不同关系】</li>
-<li>反函数属性 （InverseFunctional）：P(y,x) 与 P(z,x) 蕴含 y = z；</li>
-</ul>
-<p>InverseFunctional意味着属性的值域中的元素为定义域中的每个元素提供了一个唯一的标识。</p>
-<h2 id="属性限制"><a href="#属性限制" class="headerlink" title="属性限制"></a>属性限制</h2><h3 id="两个属性限制机制"><a href="#两个属性限制机制" class="headerlink" title="两个属性限制机制"></a>两个属性限制机制</h3><ul>
-<li>allValuesFrom</li>
-<li>someValuesFrom</li>
-</ul>
-<p>它们都是是局部的（local），仅仅在包含它们的类的定义中起作用。</p>
-<p>owl:allValuesFrom属性限制要求：对于每一个有指定属性实例的类实例，该属性的值必须是由owl:allValuesFrom从句指定的类的成员。</p>
-<p>owl:someValuesFrom限制与之相似。</p>
-<p><strong>例子：</strong>Wine的制造商必须是Winery。allValuesFrom限制仅仅应用在Wine的hasMaker 属性上。Cheese的制造商并不受这一局部限制的约束。（代码如下）</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190318202408.png"></p>
-<table>
-<thead>
-<tr>
-<th align="left">关系</th>
-<th align="left">含意</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">allValuesFrom</td>
-<td align="left">对于所有的葡萄酒，如果它们有制造商，那么所有的制造商都是酿酒厂</td>
-</tr>
-<tr>
-<td align="left">someValuesFrom</td>
-<td align="left">对于所有的葡萄酒，它们中至少有一个的制造商是酿酒厂</td>
-</tr>
-</tbody></table>
-<h3 id="基数限制"><a href="#基数限制" class="headerlink" title="基数限制"></a>基数限制</h3><p>owl:cardinality：这一约束允许对一个关系中的元素数目作出精确的限制。</p>
-<p>例如，我们可以将Vintage标识为恰好含有一个VintageYear的类。</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190318202608.png"></p>
-<p>值域限制在0和1的基数表达式(Cardinality expressions)是OWL Lite的一部分。这使得用户能够表示“至少一个”，“不超过一个”，和“恰好一个”这几种意思。OWL DL中还允许使用除0与1以外的正整数值。owl:maxCardinality能够用来指定一个上界。owl:minCardinality能够用来指定一个下界。使用二者的组合就能够将一个属性的基数限制为一个数值区间。</p>
-<h3 id="hasValue"><a href="#hasValue" class="headerlink" title="hasValue"></a>hasValue</h3><p>hasValue 使得我们能够根据“特定的”属性值的存在来标识类。因此，一个个体只要至少有“一个”属性值等于hasValue的资源，这一个体就是该类的成员。</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190318202659.png"></p>
-<p>如果是Burgundy酒，那就都是干(dry)的酒。也即，它们的hasSugar属性必须至少有一个是值等于Dry（干的）。<br>【我的理解是，每个Burgundy都要有一个干的（Dry）属性，以此来标识该酒是干酒】</p>
-<h1 id="本体映射"><a href="#本体映射" class="headerlink" title="本体映射"></a>本体映射</h1><p>用于实现本体的共享。</p>
-<h2 id="类和属性之间的等价关系（equivalentClass，equivalentProperty）"><a href="#类和属性之间的等价关系（equivalentClass，equivalentProperty）" class="headerlink" title="类和属性之间的等价关系（equivalentClass，equivalentProperty）"></a>类和属性之间的等价关系（equivalentClass，equivalentProperty）</h2><p>属性owl:equivalentClass被用来表示两个类有着完全相同的实例。但我们要注意，在OWL DL中，类仅仅代表着个体的集合而不是个体本身。然而在OWL FULL中，我们能够使用owl:sameAs来表示两个类在各方面均完全一致。</p>
-<p>类似的，我们可以通过使用owl:equivalentProperty属性声明表达属性的等同。</p>
-<h2 id="个体间的同一性"><a href="#个体间的同一性" class="headerlink" title="个体间的同一性"></a>个体间的同一性</h2><p>SameAs：描述个体之间相同的机制与描述类之间的相同机制类似，仅仅只要两个个体的声明形成一致的就可以了。</p>
-<p>假如hasMaker是一个函数型属性，那么下面的例子就不一定会产生冲突。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">owl:Thing</span> <span class="attr">rdf:about</span>=<span class="string">"#BancroftChardonnay"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hasMaker</span> <span class="attr">rdf:resource</span>=<span class="string">"#Bancroft"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hasMaker</span> <span class="attr">rdf:resource</span>=<span class="string">"#Beringer"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">owl:Thing</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>除非和我们本体中的其他信息发生冲突，不然的话这样的描述是没有冲突的，他说明Bancroft和Beringer是相同的个体。</p>
-<p>要清楚，修饰（或引用）两个类用sameAs还是用equivalentClass效果是不同的。用sameAs的时候，把一个类解释为一个个体，就像在OWL Full中一样，这有利于对本体进行分类。在OWL Full中，sameAs可以用来引用两个东西，如一个类和一个个体、一个类和一个属性等等，无论什么情况，都将被解释为个体。</p>
-<h2 id="不同的个体"><a href="#不同的个体" class="headerlink" title="不同的个体"></a>不同的个体</h2><p>这一机制提供了与sameAs相反的效果。</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190318203431.png"></p>
-<p>说明了三个值互不相同。如果我们没有用 differentFrom元素来申明既干又甜的葡萄酒，这意味着“干葡萄酒”和“甜葡萄酒”是相同的。但是我们从上面申明的元素来推断，这又是矛盾的。还有一种更便利的定义相互不同个体的机制，如下</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190318203844.png"></p>
-<p>要注意，owl:distinctMembers属性声明只能和owl:AllDifferent属性声明一起结合使用。</p>
-<h1 id="复杂类"><a href="#复杂类" class="headerlink" title="复杂类"></a>复杂类</h1><p>用于创建类的表达式。OWL支持基本的集合操作，即并，交和补运算。它们分别被命名为owl:unionOf,owl:intersectionOf,和owl:complementOf.此外，类还可以是枚举的。类的外延可以使用oneOf构造子来显示的声明。同时，我们也可以声明类的外延必须是互不相交的。</p>
-<p>注意：OWL类外延是由个体组成的集合，二这些个体都是类的成员。</p>
-<h2 id="集合运算符"><a href="#集合运算符" class="headerlink" title="集合运算符"></a>集合运算符</h2><h3 id="交运算"><a href="#交运算" class="headerlink" title="交运算"></a>交运算</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">owl:Class</span> <span class="attr">rdf:ID</span>=<span class="string">"WhiteWine"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">owl:intersectionOf</span> <span class="attr">rdf:parseType</span>=<span class="string">"Collection"</span>&gt;</span> /*这是必须的，因为必须对集合操作*/</span><br><span class="line">     <span class="tag">&lt;<span class="name">owl:Class</span> <span class="attr">rdf:about</span>=<span class="string">"#Wine"</span> /&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">owl:Restriction</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">owl:onProperty</span> <span class="attr">rdf:resource</span>=<span class="string">"#hasColor"</span> /&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">owl:hasValue</span> <span class="attr">rdf:resource</span>=<span class="string">"#White"</span> /&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">owl:Restriction</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">owl:intersectionOf</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">owl:Class</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>这个例子表示，白葡萄酒就是葡萄酒和白色物体的相交的集合。如果不这么表示，计算机只知道，白葡萄酒有白色的属性；却不知道，所有白色的葡萄酒是白葡萄酒</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190318203750.png"></p>
-<p>WhiteBurgundy类恰好是白葡萄酒和Burgundies的交集。依次，Burgundies生产在法国一个叫做Bourgogne的地方并且它是干葡萄酒（dry wine）。因此，所有满足这些标准的葡萄酒个体都是WhiteBurgundy类的外延的一部分。</p>
-<h3 id="并运算"><a href="#并运算" class="headerlink" title="并运算"></a>并运算</h3><p>表示两个集合的∪。使用方法同上，将intersectionOf改成unionOf。</p>
-<h3 id="补运算"><a href="#补运算" class="headerlink" title="补运算"></a>补运算</h3><p>就是表示差集，complementOf典型的用法是与其它集合运算符联合使用，如下</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190318204251.png"></p>
-<p>上面的例子定义了一个NonFrenchWine类，它是Wine类与所有不位于法国的事物的集合的交集。</p>
-<h2 id="枚举类（one-of）"><a href="#枚举类（one-of）" class="headerlink" title="枚举类（one of）"></a>枚举类（one of）</h2><p>以直接枚举的方式描述类的成员。特别的，这个定义完整的描述了类的外延（类的范围？），因此任何其他个体都不能声明为属于这个类。如下：</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190318204336.png"></p>
-<p>这段代码说明，WineColor只包含三种，white rose和red，任何其他的颜色都不是winecolor类的实例</p>
-<p>oneOf结构的每一个元素都必须是一个有效声明的个体。一个个体必须属于某个类。在上面的例子中，每一个个体都是通过名字来引用的。我们使用owl:Thing简单地进行引用，尽管这有点多余（因为每个个体都属于owl:Thing）。另外，我们也可以根据具体类型WineColor来引用集合中的元素：</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190318204408.png"></p>
-<p>另外，较复杂的个体描述同样也可以是oneOf结构的有效元素，例如:</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190318204538.png"></p>
-<h2 id="不相交类（disjointWith）"><a href="#不相交类（disjointWith）" class="headerlink" title="不相交类（disjointWith）"></a>不相交类（disjointWith）</h2><p>使用owl:disjointWith构造子可以表达一组类是不相交的。它保证了属于某一个类的个体不能同时又是另一个指定类的实例。</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190318204613.png"></p>
-<p>Pasta例子声明了多个不相交类。注意它只声明了Pasta与其它所有类是不相交的。例如，它并没有保证Meat和Fruit是不相交的。为了声明一组类是互不相交的，我们必须对每两个类都使用owl:disjointWith来声明。</p>
-<p>在下面的例子中，我们定义了Fruit是SweetFruit和NonSweetFruit的并集。而且我们知道这些子类恰好将Fruit划分成了连个截然不同的子类，因为它们是互不相交的。随着互不相交的类的增加，不相交的声明的数目也会相应的增加到n的2次方。然而，在我们已知的用例中，n通常比较小。</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190318204656.png"></p>
-<h1 id="本体版本控制"><a href="#本体版本控制" class="headerlink" title="本体版本控制"></a>本体版本控制</h1><p>本体和软件一样需要维护，因此它们将随着时间的推移而改变。在一个owl:Ontology元素（如上面讨论的<code>http://www.w3.org/TR/2004/REC-owl-guide-20040210/#OntologyHeaders</code>） 内，链接到一个以前定义的本体版本是可能的。属性owl:priorVersion被用来提供这种链接，并能用它跟踪一个本体的版本历史。</p>
-<p>本体版本可能彼此互不兼容，例如，一个本体以前的版本可能包含与现在版本中的陈述相矛盾的陈述。在一个owl:Ontology元素中，我们使用owl:backwardCompatibleWith和owl:incompatibleWith这些属性来指出本体版本是兼容还是不兼容以前的版本。如果没有进行owl:backwardCompatibleWith声明，那么我们假定就不存在兼容性。除了上面讲到的两个属性，还有一个属性owl:versionInfo适用与版本控制系统，它提供了一些相关信息（hook）。和前面三个属性相反的是，owl:versionInfo的客体是一个文字值（literal），这一属性除了可以用来注释本体之外还可以用来注释类和属性。</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ol>
-<li><a href="https://blog.csdn.net/qq_38842357/article/details/80706872" target="_blank" rel="noopener">OWL本体语言中OWL Lite、OWL DL、OWL Full理解</a></li>
-<li><a href="https://sophieling.iteye.com/blog/836545" target="_blank" rel="noopener">owl本体语言学习笔记（一）</a></li>
-<li><a href="https://sophieling.iteye.com/blog/836548" target="_blank" rel="noopener">owl本体语言学习笔记（二）</a></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3435,20 +3520,20 @@ KeyError: &#39;tz&#39;</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">188</span>
+        <span class="site-state-item-count">191</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

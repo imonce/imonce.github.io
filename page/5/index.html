@@ -122,17 +122,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">188</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">191</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">30</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">119</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">120</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,140 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/08/07/什么是一体化架构-Monolithic-Architecure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/07/什么是一体化架构-Monolithic-Architecure/" class="post-title-link" itemprop="url">什么是一体化架构(Monolithic Architecture)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-07 22:27:44" itemprop="dateCreated datePublished" datetime="2019-08-07T22:27:44+08:00">2019-08-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-04 15:55:04" itemprop="dateModified" datetime="2020-01-04T15:55:04+08:00">2020-01-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件架构和服务架构/" itemprop="url" rel="index"><span itemprop="name">软件架构和服务架构</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/08/07/什么是一体化架构-Monolithic-Architecure/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/07/什么是一体化架构-Monolithic-Architecure/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>假设你在开发一个服务端应用。该应用必须支持各种各样的客户端，包括桌面浏览器、手机浏览器和本地手机应用。应用可能也需要公开部分API供第三方使用，还可能与其他应用通过web service或消息代理(message broker)相集成。应用执行业务逻辑来处理请求(HTTP请求或者消息)；访问数据库；与其他系统交换消息；并返回HTML/JSON/XML类型的响应。</p>
+<p>应用或是多层架构或是六角架构，并且包含多种类型的组件：</p>
+<ul>
+<li>表示组件(Presentation components) - 响应处理HTTP请求，并返回HTML或JSON/XML(对于web service API)</li>
+<li>业务逻辑(Business logic) - 应用的业务逻辑</li>
+<li>数据库访问逻辑(Database access logic) - 数据访问对象用于访问数据库</li>
+<li>应用集成逻辑(Application integration logic) - 消息层，如基于Spring的集成</li>
+</ul>
+<p>这些逻辑组件分别响应应用中不同的功能模块。</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>应用的部署架构是什么？</p>
+<h1 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h1><ul>
+<li>该应用由一个开发者团队在维护</li>
+<li>团队新成员必须快速上手</li>
+<li>应用应该易于理解和修改</li>
+<li>你想对应用进行持续集成</li>
+<li>你必须在多台机器上部署多份应用的拷贝，以满足可伸缩性和可用性的要求</li>
+<li>你想使用新技术(框架、编程语言等)</li>
+</ul>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>使用一体化架构构建应用。如：</p>
+<ul>
+<li>单个Java WAR文件</li>
+<li>单个Rails或NodeJS目录结构</li>
+</ul>
+<h1 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h1><p>我们假设你在构建一个电子商务应用，应用从客户接收订单，验证库存和可用额度，并派送订单。应用包含多个组件，包括StoreFrontUI，用来实现用户接口，以及一些后台服务，用于检测信用额度、维护库存和派送订单。</p>
+<p>应用作为一体应用部署。例如，一个Java web应用运行在Tomcat之类web容器上，仅包含单个WAR文件；一个Rails应用使用Phusion Passenger部署在Apache/Nginx上，或者使用JRuby部署在Tomcat上，它们都仅包含单个目录结构。为了伸缩和提高可用性，你可以在一个负载均衡器下面运行该应用的多份实例。</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190807222502.png"></p>
+<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p>这个方案有一些好处：</p>
+<ul>
+<li>易于开发 - 当前开发工具和IDE的目标就是支持这种一体应用的开发</li>
+<li>易于部署 - 你只需要将WAR文件或目录结构放到合适的运行环境下</li>
+<li>易于伸缩 - 你只需要在负载均衡器下面运行应用的多份拷贝就可以伸缩</li>
+</ul>
+<p>但是，一旦应用变大、团队增长，这种方法的缺点就愈加明显：</p>
+<ul>
+<li>巨大的一体代码库可能会吓到开发者，尤其是团队的新人。应用难于理解和修改。因此，开发速度通常会减缓。另外，由于没有模块硬边界，模块化也随时间而破坏。还有，因为难于理解如何实现变更，代码质量也随时间下降。这是个恶性循环！</li>
+<li>超载的IDE - 代码库越大，IDE越慢，开发者效率越低。</li>
+<li>超载的web容器 - 应用越大，容器启动时间越长。因此开发者大量的时间被浪费在等待容器启动上。这也会影响到部署。</li>
+<li>难于持续部署 - 对于频繁部署，巨大的一体应用也是个问题。为了更新一个组件，你必须重新部署整个应用。这还会中断后台任务(如Java应用的Quartz作业)，不管变更是否影响到这些任务，此外还可能引发问题。未被更新的组件也可能因而不能正常启动。因此，鉴于重新部署的相关风险会增加，不鼓励频繁更新。这尤其对用户界面的开发者来说是个问题，因为他们通常需要快速迭代，频繁重新部署。</li>
+<li>难于伸缩应用 - 一体架构只能在一个维度伸缩。一方面，它可以通过运行多个拷贝来伸缩满足业务量的增加。某些云服务甚至可以动态地根据负载调整应用实例的数量。但是另一方面，该架构不能伸缩满足数据量的增加。每个应用实例都要访问全部数据，这使缓存低效，并且提升了内存占用和I/O流量。而且，不同的组件所需资源不同 - 有些可能是CPU密集型的，另一些可能是内存密集型的。一体架构下，我们不能独立伸缩各个组件。</li>
+<li>难于调整开发规模 - 一体应用对调整开发规模也是个障碍。一旦应用达到一定规模，将工程组织分成专注于特定功能模块的团队通常更有效。比如，我们可能需要UI团队，会计团队，库存团队等。一体应用的问题是它阻碍组织团队相互独立地工作。团队之间必须在开发进度和重新部署上进行协调。对团队来说也很难改变和更新产品。</li>
+<li>需要对一个技术栈长期投入 - 一体架构迫使你娶下开发初选择的技术栈(某些情况下，是那项技术的某个版本)。一体架构下，很难递增式地采用更新的技术。比如，想象下你选了JVM。除了Java你还可以选择其他使用JVM的语言，它们比如Groovy和Scala也可以与Java很好地进行互操作。但是一体架构下，非JVM语言写的组件就不行。而且，如果应用使用了后期过时的平台框架，将应用迁移到更新更好的框架上就很有挑战性。还有可能，为了采用新的平台框架，你要重写整个应用，这就太冒险了。</li>
+</ul>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><p>微服务架构是解决一体化架构缺点的替代模式。</p>
+<h1 id="已知案例"><a href="#已知案例" class="headerlink" title="已知案例"></a>已知案例</h1><p>著名的互联网服务，如Netflix, Amazon.com和eBay开始都使用一体架构。作者开发的大部分web应用也是一体架构的。</p>
+<blockquote>
+<p>译自：<br><a href="https://microservices.io/patterns/monolithic.html" target="_blank" rel="noopener">https://microservices.io/patterns/monolithic.html</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -2425,119 +2559,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/07/02/意大利语学习（八）：你住在哪里/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/02/意大利语学习（八）：你住在哪里/" class="post-title-link" itemprop="url">意大利语学习（八）：你住在哪里</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-07-02 22:00:54 / Modified: 22:46:03" itemprop="dateCreated datePublished" datetime="2019-07-02T22:00:54+08:00">2019-07-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/意大利语学习/" itemprop="url" rel="index"><span itemprop="name">意大利语学习</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/07/02/意大利语学习（八）：你住在哪里/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/02/意大利语学习（八）：你住在哪里/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="课文"><a href="#课文" class="headerlink" title="课文"></a>课文</h1><h2 id="对话1"><a href="#对话1" class="headerlink" title="对话1"></a>对话1</h2><p>Mario：Come sei bella oggi! 你今天真漂亮！</p>
-<p>Anna：Perché? Solo oggi sono bella, e il resto della settimana, sono brutta? 为什么呢？ 只有今天我才漂亮，本周余下的时间，我是丑陋的吗？</p>
-<p>Mario：Ma intendo che oggi sei particolarmente bella, ti sei tagliata i capelli, vero? 但我的意思是，今天你特别漂亮，你剪了头发，不是吗？</p>
-<p>Anna：Scherzavo… 只是在开玩笑…</p>
-<p>Anna：Perché ho un appuntamento con il mio fidanzato 因为我跟男朋友约会了</p>
-<p>Anna：È un’occasione speciale 这是一个特殊的场合</p>
-<p>Mario：Ah, quel bell’uomo, con i suoi belli occhi azzurri? 啊，那个英俊的男人，有着美丽的蓝眼睛？</p>
-<p>Mario：Beato lui! Ma da tempo non lo vedo. Come si chiama, a proposito? 祝福他！ 但是我很久没有见过他了。 他叫什么名字？</p>
-<p>Anna：Luigi, si chiama Luigi Carruti 路易吉，他的名字是路易吉卡鲁蒂</p>
-<p>Mario：Che ne pensi di venire da me questo weekend con lui?  你觉得这个周末和他一起来找我怎么样？</p>
-<p>Anna：Ci fa molto piacere passare un po’ di tempo nella tua splendida villa 我们很高兴能在您美丽的别墅中度过一段美好时光</p>
-<p>Mario：Grazie del complimento! Ma dai, anche il tuo appartamento è carino 谢谢你的赞美！ 不过，你的公寓也很好</p>
-<p>Anna：Magari, però in quel condominio 也许，但在那栋楼里</p>
-<p>Anna：il mio appartamentino sembra una vera prigione 我的小公寓看起来像一个真正的监狱</p>
-<p>Anna：per non parlare che è anche in affitto! 更不用说它也是出租！</p>
-<p>Mario：Ma non esagerare per carità! Allora siamo d’accordo, a che ora venite? 但是不要为了慈善而过火！（你这么讲就太夸张了！） 所以我们同意（说好了），你什么时候来？</p>
-<p>Anna：Vengo alle tre, se ti va 我三点去吧，如果你方便的话</p>
-<p>Mario：Va benissimo! 当然！</p>
-<p>Mario：C’è la partita della Juventus! Non vedo l’ora di parlare di sport con Luigi! 是尤文图斯的比赛！（那会儿有尤文图斯的比赛！） 我迫不及待地想和Luigi一起谈运动！</p>
-<p>Anna：L’uomo… Per me, è proprio un mistero, anche il calcio! 男人……对我来说真是个谜，还有足球！</p>
-<p>Anna：Altro che passione, è una vera e propria pazzia! Mamma mia! 除了激情，这是一个真正的疯狂！ 妈妈咪！</p>
-<h2 id="段落1"><a href="#段落1" class="headerlink" title="段落1"></a>段落1</h2><p>Ciao. Io sono Francesca e questa è la mia casa 你好。 我是弗朗西斯卡，这是我的家</p>
-<p>Io abito fuori città in una villetta in campagna con  mio marito e miei due bambini 我和我的丈夫和两个孩子一起住在乡下的小屋里</p>
-<p>Abbiamo una piccola casa a due piani, molto comoda e tranquilla 我们有一个两层楼的小房子，非常舒适安静</p>
-<p>Davanti alla casa c’è un piccolo prato verde 房子前面有一个小绿草坪</p>
-<p>Dietro alla casa c’è un giardino con i fiori 房子后面有一个种满鲜花的花园</p>
-<p>Al pianterreno c’è la cucina, il salotto, la sala da pranzo il mio studio e un bagno 一楼设有厨房，起居室，餐厅，书房和浴室</p>
-<p>Ci sono anche le scale che portano al secondo piano 还有通往二楼的楼梯</p>
-<p>Il secondo piano è composto da tre camere da letto 二楼包括三间卧室</p>
-<p>e un grande balcone dal quale posso ammirare un bel panorama 还有一个大阳台，我可以欣赏到美丽的全景</p>
-<p>Abbiamo anche la soffitta nella quale mettiamo le cose vecchie 我们还有阁楼，我们把旧东西放在那里</p>
-<p>Uscire! Non ci penso proprio, voglio passare più tempo a casa mia  滚出去！（出门！） 我不这么认为，我想在家里多呆一会儿</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2609,20 +2630,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">188</span>
+        <span class="site-state-item-count">191</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
