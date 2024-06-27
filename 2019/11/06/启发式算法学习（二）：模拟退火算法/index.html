@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="算法简介模拟退火算法（Simulated annealing algorithm，SAA）的思想借鉴于固体的退火原理，当固体的温度很高的时候，内能比较大，固体的内部粒子处于快速无序运动，当温度慢慢降低的过程中，固体的内能减小，粒子的慢慢趋于有序，最终，当固体处于常温时，内能达到最小，此时，粒子最为稳定。模拟退火算法便是基于这样的原理设计而成。 模拟退火算法从某一高温出发，在高温状态下计算初始解，然">
+<meta name="keywords" content="启发式算法,模拟退火算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="启发式算法学习（二）：模拟退火算法SAA">
+<meta property="og:url" content="https://imonce.github.io/2019/11/06/启发式算法学习（二）：模拟退火算法/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="算法简介模拟退火算法（Simulated annealing algorithm，SAA）的思想借鉴于固体的退火原理，当固体的温度很高的时候，内能比较大，固体的内部粒子处于快速无序运动，当温度慢慢降低的过程中，固体的内能减小，粒子的慢慢趋于有序，最终，当固体处于常温时，内能达到最小，此时，粒子最为稳定。模拟退火算法便是基于这样的原理设计而成。 模拟退火算法从某一高温出发，在高温状态下计算初始解，然">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2022-12-26T14:14:20.320Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="启发式算法学习（二）：模拟退火算法SAA">
+<meta name="twitter:description" content="算法简介模拟退火算法（Simulated annealing algorithm，SAA）的思想借鉴于固体的退火原理，当固体的温度很高的时候，内能比较大，固体的内部粒子处于快速无序运动，当温度慢慢降低的过程中，固体的内能减小，粒子的慢慢趋于有序，最终，当固体处于常温时，内能达到最小，此时，粒子最为稳定。模拟退火算法便是基于这样的原理设计而成。 模拟退火算法从某一高温出发，在高温状态下计算初始解，然">
+
+<link rel="canonical" href="https://imonce.github.io/2019/11/06/启发式算法学习（二）：模拟退火算法/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>启发式算法学习（二）：模拟退火算法SAA | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">205</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">131</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/11/06/启发式算法学习（二）：模拟退火算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          启发式算法学习（二）：模拟退火算法SAA
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-06 20:11:32" itemprop="dateCreated datePublished" datetime="2019-11-06T20:11:32+08:00">2019-11-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-26 22:14:20" itemprop="dateModified" datetime="2022-12-26T22:14:20+08:00">2022-12-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/启发式算法/" itemprop="url" rel="index"><span itemprop="name">启发式算法</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/11/06/启发式算法学习（二）：模拟退火算法/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/06/启发式算法学习（二）：模拟退火算法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="算法简介"><a href="#算法简介" class="headerlink" title="算法简介"></a>算法简介</h1><p>模拟退火算法（Simulated annealing algorithm，SAA）的思想借鉴于固体的退火原理，当固体的温度很高的时候，内能比较大，固体的内部粒子处于快速无序运动，当温度慢慢降低的过程中，固体的内能减小，粒子的慢慢趋于有序，最终，当固体处于常温时，内能达到最小，此时，粒子最为稳定。模拟退火算法便是基于这样的原理设计而成。</p>
+<p>模拟退火算法从某一高温出发，在高温状态下计算初始解，然后以预设的邻域函数产生一个扰动量，从而得到新的状态，即模拟粒子的无序运动，比较新旧状态下的能量，即目标函数的解。如果新状态的能量小于旧状态，则状态发生转化；如果新状态的能量大于旧状态，则以一定的概率准则发生转化。当状态稳定后，便可以看作达到了当前状态的最优解，便可以开始降温，在下一个温度继续迭代，最终达到低温的稳定状态，便得到了模拟退火算法产生的结果。</p>
+<h1 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a>算法过程</h1><div id="flowchart-0" class="flow-chart"></div>
+
+<h1 id="状态空间与邻域函数"><a href="#状态空间与邻域函数" class="headerlink" title="状态空间与邻域函数"></a>状态空间与邻域函数</h1><p>状态空间也称为搜索空间，它由经过编码的可行解的集合所组成。而邻域函数应尽可能满足产生的候选解遍布全部状态空间。其通常由产生候选解的方式和候选解产生的概率分布组成。候选解一般按照某一概率密度函数对解空间进行随机采样获得，而概率分布可以为均匀分布、正态分布、指数分布等。</p>
+<h1 id="状态概率分布（Metropolis准则）"><a href="#状态概率分布（Metropolis准则）" class="headerlink" title="状态概率分布（Metropolis准则）"></a>状态概率分布（Metropolis准则）</h1><p>状态转移概率是指从一个状态转换成另一个状态的概率，模拟退火算法中一般采用Metropolis准则，具体如下：</p>
+<p>$$f(x)=\left\lbrace\begin{array}{cll}<br>1 &amp; , &amp; E(x_{new}) &lt; E(x_{old}) \\<br>exp(-\frac{E(x_{new})-E(x_{old})}{T}) &amp; , &amp; E(x_{new}) \ge E(x_{old})<br>\end{array}\right.$$</p>
+<p>其与当前温度参数T有关，随温度的下降而减小。</p>
+<h1 id="冷却进度表"><a href="#冷却进度表" class="headerlink" title="冷却进度表"></a>冷却进度表</h1><p>冷却进度表是指从某一高温状态T向低温状态冷却时的降温函数,设时刻的温度为T(t)，则经典模拟退火算法的降温方式为：</p>
+<p>$$T(t)=\frac{T_{0}}{lg(1+t)}$$</p>
+<p>而快速模拟退火算法的降温方式为：</p>
+<p>$$T(t)=\frac{T_{0}}{1+t}$$</p>
+<p>其他方法不再赘述。</p>
+<h1 id="初始温度"><a href="#初始温度" class="headerlink" title="初始温度"></a>初始温度</h1><p>一般来说，初始温度越大，获得高质量解的几率越大，但是花费的时间也会随之增加，因此，初温的确定应该同时考虑计算效率与优化质量，常用的方法包括：</p>
+<p>1.均匀抽样一组状态，以各状态目标值的方差为初温。</p>
+<p>2.随机产生一组状态，确定两两状态间的最大目标值差，然后根据差值，利用一定的函数确定初温，如： $T_{0}=-\frac{\Delta_{max}}{Pr}$ ,其中Pr为初始接受概率。</p>
+<p>3.根据经验公式给出。</p>
+<h1 id="循环终止准则"><a href="#循环终止准则" class="headerlink" title="循环终止准则"></a>循环终止准则</h1><p>内循环（求解循环）终止准则：</p>
+<ol>
+<li>检验目标函数的均值是否稳定</li>
+<li>连续若干步的目标值变化较小</li>
+<li>按一定的步数进行抽样</li>
+</ol>
+<p>外循环（降温循环）终止准则：</p>
+<ol>
+<li>设置终止温度</li>
+<li>设置外循环迭代次数</li>
+<li>算法搜索到的最优值连续若干步保持不变</li>
+<li>检验系统熵是否稳定</li>
+</ol>
+<h1 id="Python实现"><a href="#Python实现" class="headerlink" title="Python实现"></a>Python实现</h1><p>实例函数： $f(x)=(x^{2}-5x)sin(x^2)$ </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SA</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, interval, tab=<span class="string">'min'</span>, T_max=<span class="number">10000</span>, T_min=<span class="number">1</span>, iterMax=<span class="number">1000</span>, rate=<span class="number">0.95</span>)</span>:</span></span><br><span class="line">        self.interval = interval <span class="comment"># 给定状态空间 - 即待求解空间</span></span><br><span class="line">        self.T_max = T_max <span class="comment"># 初始退火温度 - 温度上限</span></span><br><span class="line">        self.T_min = T_min <span class="comment"># 截止退火温度 - 温度下限</span></span><br><span class="line">        self.iterMax = iterMax <span class="comment"># 定温内部迭代次数</span></span><br><span class="line">        self.rate = rate <span class="comment"># 退火降温速度</span></span><br><span class="line">        </span><br><span class="line">        self.x_seed = random.uniform(interval[<span class="number">0</span>], interval[<span class="number">1</span>]) <span class="comment"># 解空间内的种子</span></span><br><span class="line">        self.tab = tab.strip() <span class="comment"># 求解最大值还是最小值的标签: 'min' - 最小值；'max' - 最大值</span></span><br><span class="line"></span><br><span class="line">        self.solve() <span class="comment"># 完成主体的求解过程</span></span><br><span class="line">        self.display() <span class="comment"># 数据可视化展示</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">solve</span><span class="params">(self)</span>:</span></span><br><span class="line">        temp = <span class="string">'deal_'</span> + self.tab <span class="comment"># 采用反射方法提取对应的函数</span></span><br><span class="line">        <span class="keyword">if</span> hasattr(self, temp):</span><br><span class="line">            deal = getattr(self, temp)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            exit(<span class="string">'&gt;&gt;&gt;tab标签传参有误："min"|"max"&lt;&lt;&lt;'</span>)  </span><br><span class="line">        x1 = self.x_seed</span><br><span class="line">        T = self.T_max</span><br><span class="line">        <span class="keyword">while</span> T &gt;= self.T_min:</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(self.iterMax):</span><br><span class="line">                f1 = self.func(x1)</span><br><span class="line">                delta_x = random.random() * <span class="number">2</span> - <span class="number">1</span> <span class="comment"># [-1,1)之间的随机值</span></span><br><span class="line">                <span class="keyword">if</span> x1 + delta_x &gt;= self.interval[<span class="number">0</span>] <span class="keyword">and</span> x1 + delta_x &lt;= self.interval[<span class="number">1</span>]:   <span class="comment"># 将随机解束缚在给定状态空间内</span></span><br><span class="line">                    x2 = x1 + delta_x</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    x2 = x1 - delta_x</span><br><span class="line">                f2 = self.func(x2)</span><br><span class="line">                delta_f = f2 - f1</span><br><span class="line">                x1 = deal(x1, x2, delta_f, T)</span><br><span class="line">            T *= self.rate</span><br><span class="line">        self.x_solu = x1 <span class="comment"># 提取最终退火解       </span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(self, x)</span>:</span> <span class="comment"># 状态产生函数 - 即待求解函数</span></span><br><span class="line">        value = np.sin(x**<span class="number">2</span>) * (x**<span class="number">2</span> - <span class="number">5</span>*x)</span><br><span class="line">        <span class="keyword">return</span> value</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">p_min</span><span class="params">(self, delta, T)</span>:</span> <span class="comment"># 计算最小值时，容忍解的状态迁移概率</span></span><br><span class="line">        probability = np.exp(-delta/T)</span><br><span class="line">        <span class="keyword">return</span> probability</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">p_max</span><span class="params">(self, delta, T)</span>:</span></span><br><span class="line">        probability = np.exp(delta/T) <span class="comment"># 计算最大值时，容忍解的状态迁移概率</span></span><br><span class="line">        <span class="keyword">return</span> probability</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">deal_min</span><span class="params">(self, x1, x2, delta, T)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> delta &lt; <span class="number">0</span>: <span class="comment"># 更优解</span></span><br><span class="line">            <span class="keyword">return</span> x2</span><br><span class="line">        <span class="keyword">else</span>: <span class="comment"># 容忍解</span></span><br><span class="line">            P = self.p_min(delta, T)</span><br><span class="line">            <span class="keyword">if</span> P &gt; random.random(): <span class="keyword">return</span> x2</span><br><span class="line">            <span class="keyword">else</span>: <span class="keyword">return</span> x1</span><br><span class="line">            </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">deal_max</span><span class="params">(self, x1, x2, delta, T)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> delta &gt; <span class="number">0</span>: <span class="comment"># 更优解</span></span><br><span class="line">            <span class="keyword">return</span> x2</span><br><span class="line">        <span class="keyword">else</span>: <span class="comment"># 容忍解</span></span><br><span class="line">            P = self.p_max(delta, T)</span><br><span class="line">            <span class="keyword">if</span> P &gt; random.random(): <span class="keyword">return</span> x2</span><br><span class="line">            <span class="keyword">else</span>: <span class="keyword">return</span> x1</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">display</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'seed: &#123;&#125;\nsolution: &#123;&#125;'</span>.format(self.x_seed, self.x_solu))</span><br><span class="line">        plt.figure(figsize=(<span class="number">6</span>, <span class="number">4</span>))</span><br><span class="line">        x = np.linspace(self.interval[<span class="number">0</span>], self.interval[<span class="number">1</span>], <span class="number">300</span>)</span><br><span class="line">        y = self.func(x)</span><br><span class="line">        plt.plot(x, y, <span class="string">'g-'</span>, label=<span class="string">'function'</span>)</span><br><span class="line">        plt.plot(self.x_seed, self.func(self.x_seed), <span class="string">'bo'</span>, label=<span class="string">'seed'</span>)</span><br><span class="line">        plt.plot(self.x_solu, self.func(self.x_solu), <span class="string">'r*'</span>, label=<span class="string">'solution'</span>)</span><br><span class="line">        plt.title(<span class="string">'solution = &#123;&#125;'</span>.format(self.x_solu))</span><br><span class="line">        plt.xlabel(<span class="string">'x'</span>)</span><br><span class="line">        plt.ylabel(<span class="string">'y'</span>)</span><br><span class="line">        plt.legend()</span><br><span class="line">        plt.savefig(<span class="string">'SA.png'</span>, dpi=<span class="number">500</span>)</span><br><span class="line">        plt.show()</span><br><span class="line">        plt.close()</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    SA([<span class="number">-5</span>, <span class="number">5</span>], <span class="string">'max'</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Reference<br><a href="https://www.imooc.com/article/30160" target="_blank" rel="noopener">https://www.imooc.com/article/30160</a><br><a href="https://baike.baidu.com/item/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95/355508?fr=aladdin" target="_blank" rel="noopener">https://baike.baidu.com/item/模拟退火算法/355508?fr=aladdin</a><br><a href="https://blog.csdn.net/google19890102/article/details/45395257" target="_blank" rel="noopener">https://blog.csdn.net/google19890102/article/details/45395257</a><br><a href="https://www.cnblogs.com/xxhbdk/p/9192750.html" target="_blank" rel="noopener">https://www.cnblogs.com/xxhbdk/p/9192750.html</a><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: Start
+op1=>operation: 随机生成初始解w，计算目标函数f(w)
+op2=>operation: 扰动产生新解w'，计算目标函数f(w')
+op3=>operation: 接受新解，w=w'，f(w)=f(w')
+op4=>operation: 按照Metropolis准则接受新解
+op5=>operation: 缓慢降低温度，重置迭代次数
+op6=>operation: 运算结束，返回最优解
+cond1=>condition: f(w')更接近优化目标？
+cond2=>condition: 是否达到迭代次数?
+cond3=>condition: 满足终止条件?
+ed=>end: End
+st->op1->op2->cond1(yes)->op3->cond2(no)->cond3(yes)->op6->ed
+cond1(no)->op4->cond2
+cond2(yes)->op6->ed
+cond3(no)->op5(top)->op2</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>点击这个按钮，会有好事发生哦~(>w<)~</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="C_Meng WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="C_Meng Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/paypal.png" alt="C_Meng PayPal">
+        <p>PayPal</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/启发式算法/" rel="tag"># 启发式算法</a>
+              <a href="/tags/模拟退火算法/" rel="tag"># 模拟退火算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/06/启发式算法学习（一）：粒子群算法/" rel="prev" title="启发式算法学习（一）：粒子群算法PSO">
+      <i class="fa fa-chevron-left"></i> 启发式算法学习（一）：粒子群算法PSO
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/06/SQL语句命令执行顺序/" rel="next" title="SQL语句命令执行顺序">
+      SQL语句命令执行顺序 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#算法简介"><span class="nav-number">1.</span> <span class="nav-text">算法简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法过程"><span class="nav-number">2.</span> <span class="nav-text">算法过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#状态空间与邻域函数"><span class="nav-number">3.</span> <span class="nav-text">状态空间与邻域函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#状态概率分布（Metropolis准则）"><span class="nav-number">4.</span> <span class="nav-text">状态概率分布（Metropolis准则）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#冷却进度表"><span class="nav-number">5.</span> <span class="nav-text">冷却进度表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初始温度"><span class="nav-number">6.</span> <span class="nav-text">初始温度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#循环终止准则"><span class="nav-number">7.</span> <span class="nav-text">循环终止准则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python实现"><span class="nav-number">8.</span> <span class="nav-text">Python实现</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">A stupid old man with a humble learning heart. And his dog.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">205</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

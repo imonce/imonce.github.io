@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Counting time zones with pandas1234# %matplotlib主要是在使用jupyter notebook 或者 jupyter qtconsole的时候才会用到# 具体作用是当你调用matplotlib.pyplot的绘图函数plot()进行绘图的时候，可以直接在你的python console里面生成图像# 默认是弹出一个绘图窗口%matplotlib inl">
+<meta name="keywords" content="Python,数据分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过Python进行数据分析(二)">
+<meta property="og:url" content="https://imonce.github.io/2019/04/15/通过python进行数据分析-二/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="Counting time zones with pandas1234# %matplotlib主要是在使用jupyter notebook 或者 jupyter qtconsole的时候才会用到# 具体作用是当你调用matplotlib.pyplot的绘图函数plot()进行绘图的时候，可以直接在你的python console里面生成图像# 默认是弹出一个绘图窗口%matplotlib inl">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190415212511.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190416211434.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190416211504.png">
+<meta property="og:updated_time" content="2020-01-23T13:30:50.260Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通过Python进行数据分析(二)">
+<meta name="twitter:description" content="Counting time zones with pandas1234# %matplotlib主要是在使用jupyter notebook 或者 jupyter qtconsole的时候才会用到# 具体作用是当你调用matplotlib.pyplot的绘图函数plot()进行绘图的时候，可以直接在你的python console里面生成图像# 默认是弹出一个绘图窗口%matplotlib inl">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190415212511.png">
+
+<link rel="canonical" href="https://imonce.github.io/2019/04/15/通过python进行数据分析-二/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>通过Python进行数据分析(二) | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">205</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">131</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/04/15/通过python进行数据分析-二/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          通过Python进行数据分析(二)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-04-15 21:25:56" itemprop="dateCreated datePublished" datetime="2019-04-15T21:25:56+08:00">2019-04-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-23 21:30:50" itemprop="dateModified" datetime="2020-01-23T21:30:50+08:00">2020-01-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/04/15/通过python进行数据分析-二/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/04/15/通过python进行数据分析-二/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Counting-time-zones-with-pandas"><a href="#Counting-time-zones-with-pandas" class="headerlink" title="Counting time zones with pandas"></a>Counting time zones with pandas</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># %matplotlib主要是在使用jupyter notebook 或者 jupyter qtconsole的时候才会用到</span></span><br><span class="line"><span class="comment"># 具体作用是当你调用matplotlib.pyplot的绘图函数plot()进行绘图的时候，可以直接在你的python console里面生成图像</span></span><br><span class="line"><span class="comment"># 默认是弹出一个绘图窗口</span></span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python有多个版本，Python 2.7到Python 3.x，Python提供了__future__模块，把3.x新版本的特性导入到当前版本</span></span><br><span class="line"><span class="comment"># 这一句的意思是除法按照python3来：</span></span><br><span class="line"><span class="comment"># 区别就是python2里边10/3=3，python3里边10/3=3.3333333333333335</span></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> division</span><br><span class="line"><span class="comment"># 导入numpy中的随机函数randn</span></span><br><span class="line"><span class="keyword">from</span> numpy.random <span class="keyword">import</span> randn</span><br><span class="line"><span class="comment"># 到处numpy包，并命名为np</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment"># 导入os包</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="comment"># 导入matplotlib.pyplot，并命名为plt，主要用于绘图</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="comment"># 导入pandas包，并命名为pd</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="comment"># 利用rc方法，plt.rc('figure',figsize=(10,6))全局默认图像大小为10X6</span></span><br><span class="line">plt.rc(<span class="string">'figure'</span>, figsize=(<span class="number">10</span>, <span class="number">6</span>))</span><br><span class="line"><span class="comment"># numpy set print options 小数点后4位</span></span><br><span class="line">np.set_printoptions(precision=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入json包</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="comment"># 赋值</span></span><br><span class="line">path = <span class="string">'ch02/usagov_bitly_data2012-03-16-1331923249.txt'</span></span><br><span class="line"><span class="comment"># 逐行遍历path文件中的数据，通过按照json格式读取，然后每一行的作为一个item组成list</span></span><br><span class="line">lines = open(path).readlines()</span><br><span class="line">records = [json.loads(line) <span class="keyword">for</span> line <span class="keyword">in</span> lines]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入pandas的两个方法</span></span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> DataFrame, Series</span><br><span class="line"><span class="comment"># 导入pandas包，并命名为pd</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="comment"># 建立DataFrame对象，把key作为列名，value作为值填到一张表中，没有的键值对会用NaN（空值）填充</span></span><br><span class="line"><span class="comment"># 并自动生成索引，就是左边的0 1 2 3...</span></span><br><span class="line">frame = DataFrame(records)</span><br><span class="line"><span class="comment"># 打印出来看一下（这是一个pandas对象）</span></span><br><span class="line">print(frame)</span><br></pre></td></tr></table></figure>
+
+<pre><code>       _heartbeat_                                                  a  \
+0              NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+1              NaN                             GoogleMaps/RochesterNY   
+2              NaN  Mozilla/4.0 (compatible; MSIE 8.0; Windows NT ...   
+3              NaN  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8)...   
+4              NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+5              NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+6              NaN  Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.1...   
+7              NaN  Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/2...   
+8              NaN  Opera/9.80 (X11; Linux zbov; U; en) Presto/2.1...   
+9              NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+10             NaN  Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2)...   
+11             NaN  Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4...   
+12             NaN  Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2)...   
+13    1.331923e+09                                                NaN   
+14             NaN  Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US...   
+15             NaN  Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.1...   
+16             NaN  Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.1...   
+17             NaN  Mozilla/5.0 (Macintosh; Intel Mac OS X 10.5; r...   
+18             NaN                             GoogleMaps/RochesterNY   
+19             NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+20             NaN  Mozilla/5.0 (compatible; MSIE 9.0; Windows NT ...   
+21             NaN  Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6...   
+22             NaN  Mozilla/4.0 (compatible; MSIE 8.0; Windows NT ...   
+23             NaN  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3)...   
+24             NaN  Mozilla/5.0 (Windows; U; Windows NT 5.1; es-ES...   
+25             NaN  Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.1...   
+26             NaN  Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.1...   
+27             NaN  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8)...   
+28             NaN  Mozilla/5.0 (iPad; CPU OS 5_0_1 like Mac OS X)...   
+29             NaN  Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X...   
+...            ...                                                ...   
+3530           NaN  Mozilla/5.0 (Windows NT 6.0) AppleWebKit/535.1...   
+3531           NaN  Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6...   
+3532           NaN  Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2)...   
+3533           NaN  Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) A...   
+3534           NaN  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8)...   
+3535           NaN  Mozilla/5.0 (Windows NT 5.1; rv:10.0.2) Gecko/...   
+3536           NaN  Mozilla/5.0 (BlackBerry; U; BlackBerry 9800; e...   
+3537           NaN  Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2)...   
+3538           NaN  Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Ma...   
+3539           NaN    Mozilla/5.0 (compatible; Fedora Core 3) FC3 KDE   
+3540           NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+3541           NaN  Mozilla/5.0 (X11; U; OpenVMS AlphaServer_ES40;...   
+3542           NaN  Mozilla/5.0 (compatible; MSIE 9.0; Windows NT ...   
+3543  1.331927e+09                                                NaN   
+3544           NaN  Mozilla/5.0 (Windows NT 6.1; WOW64; rv:5.0.1) ...   
+3545           NaN  Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2)...   
+3546           NaN  Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Ma...   
+3547           NaN  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8)...   
+3548           NaN  Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Ma...   
+3549           NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+3550           NaN  Mozilla/4.0 (compatible; MSIE 8.0; Windows NT ...   
+3551           NaN  Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKi...   
+3552           NaN  Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US...   
+3553           NaN  Mozilla/4.0 (compatible; MSIE 7.0; Windows NT ...   
+3554           NaN  Mozilla/4.0 (compatible; MSIE 7.0; Windows NT ...   
+3555           NaN  Mozilla/4.0 (compatible; MSIE 9.0; Windows NT ...   
+3556           NaN  Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.1...   
+3557           NaN                             GoogleMaps/RochesterNY   
+3558           NaN                                     GoogleProducer   
+3559           NaN  Mozilla/4.0 (compatible; MSIE 8.0; Windows NT ...   
+
+                                          al     c                cy       g  \
+0                             en-US,en;q=0.8    US           Danvers  A6qOVH   
+1                                        NaN    US             Provo  mwszkS   
+2                                      en-US    US        Washington  xxr3Qb   
+3                                      pt-br    BR              Braz  zCaLwp   
+4                             en-US,en;q=0.8    US        Shrewsbury  9b6kNl   
+5                             en-US,en;q=0.8    US        Shrewsbury  axNK8c   
+6        pl-PL,pl;q=0.8,en-US;q=0.6,en;q=0.4    PL             Luban  wcndER   
+7                    bg,en-us;q=0.7,en;q=0.3  None               NaN  wcndER   
+8                                  en-US, en  None               NaN  wcndER   
+9        pt-BR,pt;q=0.8,en-US;q=0.6,en;q=0.4  None               NaN  zCaLwp   
+10                            en-us,en;q=0.5    US           Seattle  vNJS4H   
+11                            en-us,en;q=0.5    US        Washington  wG7OIH   
+12                            en-us,en;q=0.5    US        Alexandria  vNJS4H   
+13                                       NaN   NaN               NaN     NaN   
+14                            en-us,en;q=0.5    US          Marietta  2rOUYc   
+15       zh-TW,zh;q=0.8,en-US;q=0.6,en;q=0.4    HK  Central District  nQvgJp   
+16       zh-TW,zh;q=0.8,en-US;q=0.6,en;q=0.4    HK  Central District   XdUNr   
+17                            en-us,en;q=0.5    US         Buckfield  zH1BFf   
+18                                       NaN    US             Provo  mwszkS   
+19       it-IT,it;q=0.8,en-US;q=0.6,en;q=0.4    IT            Venice  wcndER   
+20                                     es-ES    ES             Alcal  zQ95Hi   
+21                            en-us,en;q=0.5    US     Davidsonville  wcndER   
+22                                     en-us    US         Hockessin  y3ZImz   
+23                                     en-us    US            Lititz  wWiOiD   
+24       es-es,es;q=0.8,en-us;q=0.5,en;q=0.3    ES            Bilbao  wcndER   
+25    en-GB,en;q=0.8,en-US;q=0.6,en-AU;q=0.4    MY      Kuala Lumpur  wcndER   
+26       ro-RO,ro;q=0.8,en-US;q=0.6,en;q=0.4    CY           Nicosia  wcndER   
+27                            en-US,en;q=0.8    BR            SPaulo  zCaLwp   
+28                                     en-us  None               NaN  vNJS4H   
+29                                     en-us  None               NaN  FPX0IM   
+...                                      ...   ...               ...     ...   
+3530                          en-US,en;q=0.8    US     San Francisco  xVZg4P   
+3531                                   en-US  None               NaN  wcndER   
+3532                          en-us,en;q=0.5    US        Washington  Au3aUS   
+3533                                   en-us    US      Jacksonville  b2UtUJ   
+3534                                   en-us    US            Frisco  vNJS4H   
+3535                                   en-us    US           Houston  zIgLx8   
+3536                          en-US,en;q=0.5  None               NaN  xIcyim   
+3537     es-es,es;q=0.8,en-us;q=0.5,en;q=0.3    HN       Tegucigalpa  zCaLwp   
+3538                                   en-us    US       Los Angeles  qMac9k   
+3539                                     NaN    US          Bellevue  zu2M5o   
+3540                          en-US,en;q=0.8    US            Payson  wcndER   
+3541                                     NaN    US          Bellevue  zu2M5o   
+3542                                   en-us    US         Pittsburg  y3reI1   
+3543                                     NaN   NaN               NaN     NaN   
+3544                          en-us,en;q=0.5    US        Wentzville  vNJS4H   
+3545                          en-us,en;q=0.5    US     Saint Charles  vNJS4H   
+3546                                   en-us    US       Los Angeles  qMac9k   
+3547                                   en-us    US     Silver Spring  y0jYkg   
+3548                                   en-us    US           Mcgehee  y5rMac   
+3549     sv-SE,sv;q=0.8,en-US;q=0.6,en;q=0.4    SE          Sollefte   eH8wu   
+3550                                   en-us    US      Conshohocken  A00b72   
+3551                          en-US,en;q=0.8  None               NaN  wcndER   
+3552                                     NaN    US           Decatur  rqgJuE   
+3553                                   en-us    US        Shrewsbury  9b6kNl   
+3554                                   en-us    US        Shrewsbury  axNK8c   
+3555                                      en    US           Paramus  e5SvKE   
+3556                          en-US,en;q=0.8    US     Oklahoma City  jQLtP4   
+3557                                     NaN    US             Provo  mwszkS   
+3558                                     NaN    US     Mountain View  zjtI4X   
+3559                                   en-US    US           Mc Lean  qxKrTK   
+
+       gr       h            hc           hh   kw              l  \
+0      MA  wfLQtf  1.331823e+09    1.usa.gov  NaN        orofrog   
+1      UT  mwszkS  1.308262e+09         j.mp  NaN          bitly   
+2      DC  xxr3Qb  1.331920e+09    1.usa.gov  NaN          bitly   
+3      27  zUtuOu  1.331923e+09    1.usa.gov  NaN       alelex88   
+4      MA  9b6kNl  1.273672e+09       bit.ly  NaN          bitly   
+5      MA  axNK8c  1.273673e+09       bit.ly  NaN          bitly   
+6      77  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+7     NaN  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+8     NaN  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+9     NaN  zUtuOu  1.331923e+09    1.usa.gov  NaN       alelex88   
+10     WA  u0uD9q  1.319564e+09    1.usa.gov  NaN   o_4us71ccioa   
+11     DC  A0nRz4  1.331816e+09    1.usa.gov  NaN    darrellissa   
+12     VA  u0uD9q  1.319564e+09    1.usa.gov  NaN   o_4us71ccioa   
+13    NaN     NaN           NaN          NaN  NaN            NaN   
+14     GA  2rOUYc  1.255770e+09    1.usa.gov  NaN          bitly   
+15     00  rtrrth  1.317318e+09         j.mp  NaN     walkeryuen   
+16     00  qWkgbq  1.317318e+09         j.mp  NaN     walkeryuen   
+17     ME  x3jOIv  1.331840e+09    1.usa.gov  NaN  andyzieminski   
+18     UT  mwszkS  1.308262e+09    1.usa.gov  NaN          bitly   
+19     20  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+20     51  ytZYWR  1.331671e+09    bitly.com  NaN        jplnews   
+21     MD  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+22     DE  y3ZImz  1.331064e+09    1.usa.gov  NaN          bitly   
+23     PA  wWiOiD  1.330218e+09    1.usa.gov  NaN          bitly   
+24     59  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+25     14  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+26     04  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+27     27  zUtuOu  1.331923e+09    1.usa.gov  NaN       alelex88   
+28    NaN  u0uD9q  1.319564e+09    1.usa.gov  NaN   o_4us71ccioa   
+29    NaN  FPX0IL  1.331923e+09    1.usa.gov  NaN   twittershare   
+...   ...     ...           ...          ...  ...            ...   
+3530   CA  wqUkTo  1.331908e+09  go.nasa.gov  NaN    nasatwitter   
+3531  NaN  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+3532   DC  A9ct6C  1.331926e+09    1.usa.gov  NaN          ncsha   
+3533   FL  ieCdgH  1.301393e+09  go.nasa.gov  NaN    nasatwitter   
+3534   TX  u0uD9q  1.319564e+09    1.usa.gov  NaN   o_4us71ccioa   
+3535   TX  yrPaLt  1.331903e+09      aash.to  NaN         aashto   
+3536  NaN  yG1TTf  1.331728e+09  go.nasa.gov  NaN    nasatwitter   
+3537   08  w63FZW  1.331547e+09    1.usa.gov  NaN      bufferapp   
+3538   CA  qds1Ge  1.310474e+09    1.usa.gov  NaN  healthypeople   
+3539   WA  zDhdro  1.331586e+09       bit.ly  NaN       glimtwin   
+3540   UT  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+3541   WA  zDhdro  1.331586e+09    1.usa.gov  NaN       glimtwin   
+3542   CA  y3reI1  1.331926e+09    1.usa.gov  NaN          bitly   
+3543  NaN     NaN           NaN          NaN  NaN            NaN   
+3544   MO  u0uD9q  1.319564e+09    1.usa.gov  NaN   o_4us71ccioa   
+3545   IL  u0uD9q  1.319564e+09    1.usa.gov  NaN   o_4us71ccioa   
+3546   CA  qds1Ge  1.310474e+09    1.usa.gov  NaN  healthypeople   
+3547   MD  y0jYkg  1.331852e+09    1.usa.gov  NaN          bitly   
+3548   AR  xANY6O  1.331916e+09    1.usa.gov  NaN    twitterfeed   
+3549   24  7dtjei  1.260316e+09    1.usa.gov  NaN   tweetdeckapi   
+3550   PA  yGSwzn  1.331918e+09    1.usa.gov  NaN        addthis   
+3551  NaN  zkpJBR  1.331923e+09    1.usa.gov  NaN       bnjacobs   
+3552   AL  xcz8vt  1.331227e+09    1.usa.gov  NaN      bootsnall   
+3553   MA  9b6kNl  1.273672e+09       bit.ly  NaN          bitly   
+3554   MA  axNK8c  1.273673e+09       bit.ly  NaN          bitly   
+3555   NJ  fqPSr9  1.301298e+09    1.usa.gov  NaN   tweetdeckapi   
+3556   OK  jQLtP4  1.307530e+09    1.usa.gov  NaN          bitly   
+3557   UT  mwszkS  1.308262e+09         j.mp  NaN          bitly   
+3558   CA  zjtI4X  1.327529e+09    1.usa.gov  NaN          bitly   
+3559   VA  qxKrTK  1.312898e+09    1.usa.gov  NaN          bitly   
+
+                            ll   nk  \
+0      [42.576698, -70.954903]  1.0   
+1     [40.218102, -111.613297]  0.0   
+2        [38.9007, -77.043098]  1.0   
+3     [-23.549999, -46.616699]  0.0   
+4      [42.286499, -71.714699]  0.0   
+5      [42.286499, -71.714699]  0.0   
+6         [51.116699, 15.2833]  0.0   
+7                          NaN  0.0   
+8                          NaN  0.0   
+9                          NaN  0.0   
+10      [47.5951, -122.332603]  1.0   
+11     [38.937599, -77.092796]  0.0   
+12     [38.790901, -77.094704]  1.0   
+13                         NaN  NaN   
+14       [33.953201, -84.5177]  1.0   
+15       [22.2833, 114.150002]  1.0   
+16       [22.2833, 114.150002]  1.0   
+17     [44.299702, -70.369797]  0.0   
+18    [40.218102, -111.613297]  0.0   
+19        [45.438599, 12.3267]  0.0   
+20        [37.516701, -5.9833]  0.0   
+21     [38.939201, -76.635002]  0.0   
+22        [39.785, -75.682297]  0.0   
+23       [40.174999, -76.3078]  0.0   
+24            [43.25, -2.9667]  0.0   
+25        [3.1667, 101.699997]  0.0   
+26      [35.166698, 33.366699]  0.0   
+27      [-23.5333, -46.616699]  0.0   
+28                         NaN  0.0   
+29                         NaN  1.0   
+...                        ...  ...   
+3530    [37.7645, -122.429398]  0.0   
+3531                       NaN  0.0   
+3532   [38.904202, -77.031998]  1.0   
+3533   [30.279301, -81.585098]  1.0   
+3534   [33.149899, -96.855499]  1.0   
+3535   [29.775499, -95.415199]  1.0   
+3536                       NaN  0.0   
+3537        [14.1, -87.216698]  0.0   
+3538  [34.041599, -118.298798]  0.0   
+3539  [47.615398, -122.210297]  0.0   
+3540  [40.014198, -111.738899]  0.0   
+3541  [47.615398, -122.210297]  0.0   
+3542    [38.0051, -121.838699]  0.0   
+3543                       NaN  NaN   
+3544   [38.790001, -90.854897]  1.0   
+3545     [41.9352, -88.290901]  1.0   
+3546  [34.041599, -118.298798]  1.0   
+3547   [39.052101, -77.014999]  1.0   
+3548   [33.628399, -91.356903]  1.0   
+3549    [63.166698, 17.266701]  1.0   
+3550       [40.0798, -75.2855]  0.0   
+3551                       NaN  0.0   
+3552   [34.572701, -86.940598]  0.0   
+3553   [42.286499, -71.714699]  0.0   
+3554   [42.286499, -71.714699]  0.0   
+3555         [40.9445, -74.07]  1.0   
+3556     [35.4715, -97.518997]  0.0   
+3557  [40.218102, -111.613297]  0.0   
+3558  [37.419201, -122.057404]  0.0   
+3559   [38.935799, -77.162102]  0.0   
+
+                                                      r             t  \
+0     http://www.facebook.com/l/7AQEFzjSi/1.usa.gov/...  1.331923e+09   
+1                              http://www.AwareMap.com/  1.331923e+09   
+2                                  http://t.co/03elZC4Q  1.331923e+09   
+3                                                direct  1.331923e+09   
+4                   http://www.shrewsbury-ma.gov/selco/  1.331923e+09   
+5                   http://www.shrewsbury-ma.gov/selco/  1.331923e+09   
+6     http://plus.url.google.com/url?sa=z&amp;n=13319232...  1.331923e+09   
+7                              http://www.facebook.com/  1.331923e+09   
+8     http://www.facebook.com/l.php?u=http%3A%2F%2F1...  1.331923e+09   
+9                                  http://t.co/o1Pd0WeV  1.331923e+09   
+10                                               direct  1.331923e+09   
+11                                 http://t.co/ND7SoPyo  1.331923e+09   
+12                                               direct  1.331923e+09   
+13                                                  NaN           NaN   
+14                                               direct  1.331923e+09   
+15    http://forum2.hkgolden.com/view.aspx?type=BW&amp;m...  1.331923e+09   
+16    http://forum2.hkgolden.com/view.aspx?type=BW&amp;m...  1.331923e+09   
+17                                 http://t.co/6Cx4ROLs  1.331923e+09   
+18                             http://www.AwareMap.com/  1.331923e+09   
+19                             http://www.facebook.com/  1.331923e+09   
+20                             http://www.facebook.com/  1.331923e+09   
+21                             http://www.facebook.com/  1.331923e+09   
+22                                               direct  1.331923e+09   
+23    http://www.facebook.com/l.php?u=http%3A%2F%2F1...  1.331923e+09   
+24                             http://www.facebook.com/  1.331923e+09   
+25                             http://www.facebook.com/  1.331923e+09   
+26                 http://www.facebook.com/?ref=tn_tnmn  1.331923e+09   
+27                                               direct  1.331923e+09   
+28                                               direct  1.331923e+09   
+29                                 http://t.co/5xlp0B34  1.331923e+09   
+...                                                 ...           ...   
+3530  http://www.facebook.com/l.php?u=http%3A%2F%2Fg...  1.331927e+09   
+3531                                             direct  1.331927e+09   
+3532                              http://www.ncsha.org/  1.331927e+09   
+3533                                             direct  1.331927e+09   
+3534                                             direct  1.331927e+09   
+3535                                             direct  1.331927e+09   
+3536                               http://t.co/g1VKE8zS  1.331927e+09   
+3537                               http://t.co/A8TJyibE  1.331927e+09   
+3538                                             direct  1.331927e+09   
+3539                                             direct  1.331927e+09   
+3540  http://www.facebook.com/l.php?u=http%3A%2F%2F1...  1.331927e+09   
+3541                                             direct  1.331927e+09   
+3542  http://www.facebook.com/l.php?u=http%3A%2F%2F1...  1.331927e+09   
+3543                                                NaN           NaN   
+3544                                             direct  1.331927e+09   
+3545                                             direct  1.331927e+09   
+3546                                             direct  1.331927e+09   
+3547                                             direct  1.331927e+09   
+3548  https://twitter.com/fdarecalls/status/18069759...  1.331927e+09   
+3549                                             direct  1.331927e+09   
+3550   http://www.linkedin.com/home?trk=hb_tab_home_top  1.331927e+09   
+3551  http://plus.url.google.com/url?sa=z&amp;n=13319268...  1.331927e+09   
+3552                                             direct  1.331927e+09   
+3553                http://www.shrewsbury-ma.gov/selco/  1.331927e+09   
+3554                http://www.shrewsbury-ma.gov/selco/  1.331927e+09   
+3555                                             direct  1.331927e+09   
+3556  http://www.facebook.com/l.php?u=http%3A%2F%2F1...  1.331927e+09   
+3557                           http://www.AwareMap.com/  1.331927e+09   
+3558                                             direct  1.331927e+09   
+3559                               http://t.co/OEEEvwjU  1.331927e+09   
+
+                       tz                                                  u  
+0        America/New_York        http://www.ncbi.nlm.nih.gov/pubmed/22415991  
+1          America/Denver        http://www.monroecounty.gov/etc/911/rss.php  
+2        America/New_York  http://boxer.senate.gov/en/press/releases/0316...  
+3       America/Sao_Paulo            http://apod.nasa.gov/apod/ap120312.html  
+4        America/New_York  http://www.shrewsbury-ma.gov/egov/gallery/1341...  
+5        America/New_York  http://www.shrewsbury-ma.gov/egov/gallery/1341...  
+6           Europe/Warsaw  http://www.nasa.gov/mission_pages/nustar/main/...  
+7                          http://www.nasa.gov/mission_pages/nustar/main/...  
+8                          http://www.nasa.gov/mission_pages/nustar/main/...  
+9                                    http://apod.nasa.gov/apod/ap120312.html  
+10    America/Los_Angeles  https://www.nysdot.gov/rexdesign/design/commun...  
+11       America/New_York  http://oversight.house.gov/wp-content/uploads/...  
+12       America/New_York  https://www.nysdot.gov/rexdesign/design/commun...  
+13                    NaN                                                NaN  
+14       America/New_York               http://toxtown.nlm.nih.gov/index.php  
+15         Asia/Hong_Kong  http://www.ssd.noaa.gov/PS/TROP/TCFP/data/curr...  
+16         Asia/Hong_Kong  http://www.usno.navy.mil/NOOC/nmfc-ph/RSS/jtwc...  
+17       America/New_York  http://www.usda.gov/wps/portal/usda/usdahome?c...  
+18         America/Denver        http://www.monroecounty.gov/etc/911/rss.php  
+19            Europe/Rome  http://www.nasa.gov/mission_pages/nustar/main/...  
+20           Africa/Ceuta  http://voyager.jpl.nasa.gov/imagesvideo/uranus...  
+21       America/New_York  http://www.nasa.gov/mission_pages/nustar/main/...  
+22       America/New_York  http://portal.hud.gov/hudportal/documents/hudd...  
+23       America/New_York  http://www.tricare.mil/mybenefit/ProfileFilter...  
+24          Europe/Madrid  http://www.nasa.gov/mission_pages/nustar/main/...  
+25      Asia/Kuala_Lumpur  http://www.nasa.gov/mission_pages/nustar/main/...  
+26           Asia/Nicosia  http://www.nasa.gov/mission_pages/nustar/main/...  
+27      America/Sao_Paulo            http://apod.nasa.gov/apod/ap120312.html  
+28                         https://www.nysdot.gov/rexdesign/design/commun...  
+29                         http://www.ed.gov/news/media-advisories/us-dep...  
+...                   ...                                                ...  
+3530  America/Los_Angeles  http://www.nasa.gov/multimedia/imagegallery/im...  
+3531                       http://www.nasa.gov/mission_pages/nustar/main/...  
+3532     America/New_York  http://portal.hud.gov/hudportal/HUD?src=/press...  
+3533     America/New_York                         http://apod.nasa.gov/apod/  
+3534      America/Chicago  https://www.nysdot.gov/rexdesign/design/commun...  
+3535      America/Chicago  http://ntl.bts.gov/lib/44000/44300/44374/FHWA-...  
+3536                       http://www.nasa.gov/mission_pages/hurricanes/a...  
+3537  America/Tegucigalpa            http://apod.nasa.gov/apod/ap120312.html  
+3538  America/Los_Angeles  http://healthypeople.gov/2020/connect/webinars...  
+3539  America/Los_Angeles  http://www.federalreserve.gov/newsevents/press...  
+3540       America/Denver  http://www.nasa.gov/mission_pages/nustar/main/...  
+3541  America/Los_Angeles  http://www.federalreserve.gov/newsevents/press...  
+3542  America/Los_Angeles  http://www.sba.gov/community/blogs/community-b...  
+3543                  NaN                                                NaN  
+3544      America/Chicago  https://www.nysdot.gov/rexdesign/design/commun...  
+3545      America/Chicago  https://www.nysdot.gov/rexdesign/design/commun...  
+3546  America/Los_Angeles  http://healthypeople.gov/2020/connect/webinars...  
+3547     America/New_York  http://www.epa.gov/otaq/regs/fuels/additive/e1...  
+3548      America/Chicago    http://www.fda.gov/Safety/Recalls/ucm296326.htm  
+3549     Europe/Stockholm  http://www.nasa.gov/mission_pages/WISE/main/in...  
+3550     America/New_York  http://www.nlm.nih.gov/medlineplus/news/fullst...  
+3551                       http://www.nasa.gov/mission_pages/nustar/main/...  
+3552      America/Chicago  http://travel.state.gov/passport/passport_5535...  
+3553     America/New_York  http://www.shrewsbury-ma.gov/egov/gallery/1341...  
+3554     America/New_York  http://www.shrewsbury-ma.gov/egov/gallery/1341...  
+3555     America/New_York  http://www.fda.gov/AdvisoryCommittees/Committe...  
+3556      America/Chicago  http://www.okc.gov/PublicNotificationSystem/Fo...  
+3557       America/Denver        http://www.monroecounty.gov/etc/911/rss.php  
+3558  America/Los_Angeles                http://www.ahrq.gov/qual/qitoolkit/  
+3559     America/New_York  http://herndon-va.gov/Content/public_safety/Pu...  
+
+[3560 rows x 18 columns]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打印frame这个表中的‘tz’列的前10行</span></span><br><span class="line"><span class="comment"># 注意，这还是一个pandas对象，出了索引，还有Name：tz，dtype（数据类型）：object</span></span><br><span class="line">print(frame[<span class="string">'tz'</span>][:<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+
+<pre><code>0     America/New_York
+1       America/Denver
+2     America/New_York
+3    America/Sao_Paulo
+4     America/New_York
+5     America/New_York
+6        Europe/Warsaw
+7                     
+8                     
+9                     
+Name: tz, dtype: object</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 统计frame表格中‘tz’列的值的出现次数</span></span><br><span class="line">tz_counts = frame[<span class="string">'tz'</span>].value_counts()</span><br><span class="line"><span class="comment"># 输出前10个看看</span></span><br><span class="line"><span class="comment"># 空值出现了521次</span></span><br><span class="line">print(tz_counts[:<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+
+<pre><code>America/New_York       1251
+                        521
+America/Chicago         400
+America/Los_Angeles     382
+America/Denver          191
+Europe/London            74
+Asia/Tokyo               37
+Pacific/Honolulu         36
+Europe/Madrid            35
+America/Sao_Paulo        33
+Name: tz, dtype: int64</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 空值处理起来会比较麻烦（直接进行操作容易报错）</span></span><br><span class="line"><span class="comment"># fillna（str）方法可以直接用str替代所有的空值</span></span><br><span class="line">clean_tz = frame[<span class="string">'tz'</span>].fillna(<span class="string">'Missing'</span>)</span><br><span class="line"><span class="comment"># 上边替代的不存在key的空值，但是还有另一种空值，key是存在的，但是value是空的（可以看作长度是0的字符串）</span></span><br><span class="line"><span class="comment"># 这里把所有value是‘’的替代成'Unknown'</span></span><br><span class="line">clean_tz[clean_tz == <span class="string">''</span>] = <span class="string">'Unknown'</span></span><br><span class="line"><span class="comment"># 我们再重新统计一遍看看</span></span><br><span class="line">tz_counts = clean_tz.value_counts()</span><br><span class="line">print(tz_counts[:<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+
+<pre><code>America/New_York       1251
+Unknown                 521
+America/Chicago         400
+America/Los_Angeles     382
+America/Denver          191
+Missing                 120
+Europe/London            74
+Asia/Tokyo               37
+Pacific/Honolulu         36
+Europe/Madrid            35
+Name: tz, dtype: int64</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义画布尺寸为10*4 单位是英寸</span></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;matplotlib.figure.Figure at 0x10d7ae940&gt;
+
+
+
+
+&lt;matplotlib.figure.Figure at 0x10d7ae940&gt;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把tz_counts的统计结果绘制成图，类型为柱状图bar，横向h（horizontal）</span></span><br><span class="line"><span class="comment"># kind : str</span></span><br><span class="line"><span class="comment"># ‘line’ : line plot (default)</span></span><br><span class="line"><span class="comment"># ‘bar’ : vertical bar plot</span></span><br><span class="line"><span class="comment"># ‘barh’ : horizontal bar plot</span></span><br><span class="line"><span class="comment"># ‘hist’ : histogram</span></span><br><span class="line"><span class="comment"># ‘box’ : boxplot</span></span><br><span class="line"><span class="comment"># ‘kde’ : Kernel Density Estimation plot</span></span><br><span class="line"><span class="comment"># ‘density’ : same as ‘kde’</span></span><br><span class="line"><span class="comment"># ‘area’ : area plot</span></span><br><span class="line"><span class="comment"># ‘pie’ : pie plot</span></span><br><span class="line"><span class="comment"># ‘scatter’ : scatter plot</span></span><br><span class="line"><span class="comment"># ‘hexbin’ : hexbin plot</span></span><br><span class="line"><span class="comment"># rot : int, default None. Rotation for ticks (xticks for vertical, yticks for horizontal plots)</span></span><br><span class="line">tz_counts[:<span class="number">10</span>].plot(kind=<span class="string">'barh'</span>, rot=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x10d784eb8&gt;</code></pre>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190415212511.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 看看frame这个表格里‘a’列的第二行（index是1）是什么</span></span><br><span class="line">print(frame[<span class="string">'a'</span>][<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+<pre><code>GoogleMaps/RochesterNY</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在jupyter里边直接写变量名会自动print出来，是一种不标准的简化写法</span></span><br><span class="line">frame[<span class="string">'a'</span>][<span class="number">50</span>]</span><br></pre></td></tr></table></figure>
+
+<pre><code>&#39;Mozilla/5.0 (Windows NT 5.1; rv:10.0.2) Gecko/20100101 Firefox/10.0.2&#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在jupyter里边直接写变量名会自动print出来，是一种不标准的简化写法</span></span><br><span class="line">frame[<span class="string">'a'</span>][<span class="number">51</span>]</span><br></pre></td></tr></table></figure>
+
+<pre><code>&#39;Mozilla/5.0 (Linux; U; Android 2.2.2; en-us; LG-P925/V10e Build/FRG83G) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1&#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dropna()函数可以去掉包含有NaN值得item</span></span><br><span class="line"><span class="comment"># frame.a.drapna()就是提取frame表格里列表为a的那一列，去除掉NA值得那些行的值</span></span><br><span class="line"><span class="comment"># x.split(str) 通过指定分隔符str对字符串x进行切片，默认分隔符为空格，x.split(str)[0]意在取切完片的第一个值</span></span><br><span class="line"><span class="comment"># [x.split()[0] for x in frame.a.dropna()]就是提取frame表格里列表为a的那一列，去除掉NA值得那些行的值，并用split进行分割，并且最后保存分割后的第一个值，构成一个list</span></span><br><span class="line"><span class="comment"># Series是Pandas包中的方法，构建Series对象，添加索引</span></span><br><span class="line">results = Series([x.split()[<span class="number">0</span>] <span class="keyword">for</span> x <span class="keyword">in</span> frame.a.dropna()])</span><br><span class="line"><span class="comment"># 打印出来看看，后边的乱七八糟的信息已经没有了</span></span><br><span class="line">results[:<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+
+<pre><code>0               Mozilla/5.0
+1    GoogleMaps/RochesterNY
+2               Mozilla/4.0
+3               Mozilla/5.0
+4               Mozilla/5.0
+dtype: object</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Pandas对象又可以直接通过value_counts方法做统计了，取出前8个看看</span></span><br><span class="line">results.value_counts()[:<span class="number">8</span>]</span><br></pre></td></tr></table></figure>
+
+<pre><code>Mozilla/5.0                 2594
+Mozilla/4.0                  601
+GoogleMaps/RochesterNY       121
+Opera/9.80                    34
+TEST_INTERNET_AGENT           24
+GoogleProducer                21
+Mozilla/6.0                    5
+BlackBerry8520/5.0.0.681       4
+dtype: int64</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># frame.a.notnull()：frame表格的a列中，不是NaN就是true，是NaN就是False</span></span><br><span class="line"><span class="comment"># frame[frame.a.notnull()]：取出frame这个表格中所有a列不为NaN的行</span></span><br><span class="line">cframe = frame[frame.a.notnull()]</span><br><span class="line"><span class="comment"># 随便打几行看看，a列没有NaN（其他列暂时不管）</span></span><br><span class="line">cframe[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+
+<pre><code>（表格太大了，略）</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cframe['a'].str 意思是将cframe表格中的‘a’列取出来，转化为padas 中string方法组成的列表，可以调用string相关的方法</span></span><br><span class="line"><span class="comment"># .contains('Windows') string中包含Windows返回True，不包含返回False</span></span><br><span class="line"><span class="comment"># 顺便输出前10行看看</span></span><br><span class="line">cframe[<span class="string">'a'</span>].str.contains(<span class="string">'Windows'</span>)[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+
+<pre><code>0     True
+1    False
+2     True
+3    False
+4     True
+5     True
+6     True
+7     True
+8    False
+9     True
+Name: a, dtype: bool</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 要理解np.where()这个函数，先看下边几行</span></span><br><span class="line"><span class="comment"># &gt;&gt;&gt; a</span></span><br><span class="line"><span class="comment"># array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</span></span><br><span class="line"><span class="comment"># &gt;&gt;&gt; np.where(a &lt; 5, 0, 1)</span></span><br><span class="line"><span class="comment"># array([ 0,  0,  0,  0,  0, 1, 1, 1, 1, 1])</span></span><br><span class="line"><span class="comment"># 也就是说，对于array a，满足&lt;5的项，用0代替，不满足&lt;5的项用1代替</span></span><br><span class="line"><span class="comment"># np.where(cframe['a'].str.contains('Windows'), 'Windows', 'Not Windows')，返回True的用Windows替代，返回False的用Not Windows替代</span></span><br><span class="line">operating_system = np.where(cframe[<span class="string">'a'</span>].str.contains(<span class="string">'Windows'</span>),</span><br><span class="line">                            <span class="string">'Windows'</span>, <span class="string">'Not Windows'</span>)</span><br><span class="line"><span class="comment"># 打印前五行，因通过numpy方法得到的结果，所以是一个numpy array</span></span><br><span class="line">operating_system[:<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+
+<pre><code>array([&#39;Windows&#39;, &#39;Not Windows&#39;, &#39;Windows&#39;, &#39;Not Windows&#39;, &#39;Windows&#39;],
+      dtype=&#39;&lt;U11&#39;)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cframe.groupby([key1, key2, ...])为将cframe表格中的数据按照key进行分组</span></span><br><span class="line"><span class="comment"># key可以是2种：1. cframe表格中的列名，2.长度和cframe表格相同的数组</span></span><br><span class="line"><span class="comment"># cframe.groupby(['tz', operating_system])的意思就是：</span></span><br><span class="line"><span class="comment"># 第一个分组维度为‘tz’列，改列值相同的为一组</span></span><br><span class="line"><span class="comment"># 第二个分组维度为operating_system数组，也就是Windows的一组，Not Windows的一组</span></span><br><span class="line"><span class="comment"># .size()为统计每个小组的数据量</span></span><br><span class="line"><span class="comment"># .unstack()为把堆叠的分组表格展开（把这个函数去掉试一下就知道区别了）</span></span><br><span class="line"><span class="comment"># .fillna(0)之前说了，把不存在值的格子填充上0</span></span><br><span class="line">agg_counts = cframe.groupby([<span class="string">'tz'</span>, operating_system]).size().unstack().fillna(<span class="number">0</span>)</span><br><span class="line"><span class="comment"># 打出前10行看看</span></span><br><span class="line"><span class="comment"># 第一行不是总数，tz的值为空字符串‘’而已</span></span><br><span class="line">agg_counts[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+
+<div><style>    .dataframe thead tr:only-child th {        text-align: right;    }    .dataframe thead th {        text-align: left;    }    .dataframe tbody tr th {        vertical-align: top;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>Not Windows</th><th>Windows</th></tr><tr><th>tz</th><th></th><th></th></tr></thead><tbody><tr><th></th><td>245.0</td><td>276.0</td></tr><tr><th>Africa/Cairo</th><td>0.0</td><td>3.0</td></tr><tr><th>Africa/Casablanca</th><td>0.0</td><td>1.0</td></tr><tr><th>Africa/Ceuta</th><td>0.0</td><td>2.0</td></tr><tr><th>Africa/Johannesburg</th><td>0.0</td><td>1.0</td></tr><tr><th>Africa/Lusaka</th><td>0.0</td><td>1.0</td></tr><tr><th>America/Anchorage</th><td>4.0</td><td>1.0</td></tr><tr><th>America/Argentina/Buenos_Aires</th><td>1.0</td><td>0.0</td></tr><tr><th>America/Argentina/Cordoba</th><td>0.0</td><td>1.0</td></tr><tr><th>America/Argentina/Mendoza</th><td>0.0</td><td>1.0</td></tr></tbody></table></div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># agg_counts.sum(1) 意思是按照第二维方向相加，也就是把Windows和Not Windows加到一起</span></span><br><span class="line"><span class="comment"># 这里打印10行</span></span><br><span class="line">agg_counts_sum = agg_counts.sum(<span class="number">1</span>)</span><br><span class="line">agg_counts_sum[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+
+<pre><code>tz
+                                  521.0
+Africa/Cairo                        3.0
+Africa/Casablanca                   1.0
+Africa/Ceuta                        2.0
+Africa/Johannesburg                 1.0
+Africa/Lusaka                       1.0
+America/Anchorage                   5.0
+America/Argentina/Buenos_Aires      1.0
+America/Argentina/Cordoba           1.0
+America/Argentina/Mendoza           1.0
+dtype: float64</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .argsort()：按照从小到大的顺序排列，返回排列后item在原数组中对应的index</span></span><br><span class="line">indexer = agg_counts_sum.argsort()</span><br><span class="line"><span class="comment"># 打出前10个，这个时候左边的tz和右边的数字已经没有对应关系了</span></span><br><span class="line"><span class="comment"># 第一个24表示，按照从小到大排序，排在第一位的应该是原本数组中排在第25个（index为24）的那个item</span></span><br><span class="line"><span class="comment"># 第二个20表示，按照从小到大排序，排在第二位的应该是原本数组中排在第21个（index为20）的那个item</span></span><br><span class="line"><span class="comment"># 以此类推</span></span><br><span class="line">indexer[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+
+<pre><code>tz
+                                  24
+Africa/Cairo                      20
+Africa/Casablanca                 21
+Africa/Ceuta                      92
+Africa/Johannesburg               87
+Africa/Lusaka                     53
+America/Anchorage                 54
+America/Argentina/Buenos_Aires    57
+America/Argentina/Cordoba         26
+America/Argentina/Mendoza         55
+dtype: int64</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 让原本的数字按照这个排好的indexer输出，我们就可以得到排序后的数据了</span></span><br><span class="line">agg_counts_sum[indexer]</span><br></pre></td></tr></table></figure>
+
+<pre><code>tz
+America/Mazatlan                     1.0
+America/La_Paz                       1.0
+America/Lima                         1.0
+Europe/Volgograd                     1.0
+Europe/Sofia                         1.0
+Asia/Manila                          1.0
+Asia/Nicosia                         1.0
+Asia/Riyadh                          1.0
+America/Monterrey                    1.0
+Asia/Novosibirsk                     1.0
+Australia/Queensland                 1.0
+America/Santo_Domingo                1.0
+Asia/Yekaterinburg                   1.0
+America/St_Kitts                     1.0
+America/Tegucigalpa                  1.0
+America/Montevideo                   1.0
+Europe/Ljubljana                     1.0
+Asia/Pontianak                       1.0
+Europe/Uzhgorod                      1.0
+Africa/Casablanca                    1.0
+Africa/Johannesburg                  1.0
+Africa/Lusaka                        1.0
+America/Argentina/Buenos_Aires       1.0
+America/Argentina/Cordoba            1.0
+America/Argentina/Mendoza            1.0
+Europe/Skopje                        1.0
+America/Caracas                      1.0
+America/Costa_Rica                   1.0
+Asia/Kuching                         1.0
+Europe/Riga                          2.0
+                                   ...  
+America/Montreal                     9.0
+Asia/Calcutta                        9.0
+America/Puerto_Rico                 10.0
+Asia/Hong_Kong                      10.0
+Europe/Helsinki                     10.0
+Europe/Prague                       10.0
+Europe/Oslo                         10.0
+Europe/Moscow                       10.0
+Pacific/Auckland                    11.0
+America/Vancouver                   12.0
+Europe/Stockholm                    14.0
+Europe/Paris                        14.0
+America/Mexico_City                 15.0
+Europe/Warsaw                       16.0
+America/Phoenix                     20.0
+America/Indianapolis                20.0
+Europe/Amsterdam                    22.0
+America/Rainy_River                 25.0
+Europe/Rome                         27.0
+Europe/Berlin                       28.0
+America/Sao_Paulo                   33.0
+Europe/Madrid                       35.0
+Pacific/Honolulu                    36.0
+Asia/Tokyo                          37.0
+Europe/London                       74.0
+America/Denver                     191.0
+America/Los_Angeles                382.0
+America/Chicago                    400.0
+                                   521.0
+America/New_York                  1251.0
+Length: 97, dtype: float64</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># agg_counts.take([index1, index2, ...], axis=0)：在axis维度（0为行，1为列）上，按照index顺序取出数据</span></span><br><span class="line"><span class="comment"># 这里没有输入axis的值，默认为0，按行取</span></span><br><span class="line"><span class="comment"># 顺序为按照indexer</span></span><br><span class="line"><span class="comment"># [-10:]：把最后10个取出来</span></span><br><span class="line">count_subset = agg_counts.take(indexer)[<span class="number">-10</span>:]</span><br><span class="line">count_subset</span><br></pre></td></tr></table></figure>
+
+<div><style>    .dataframe thead tr:only-child th {        text-align: right;    }    .dataframe thead th {        text-align: left;    }    .dataframe tbody tr th {        vertical-align: top;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>Not Windows</th><th>Windows</th></tr><tr><th>tz</th><th></th><th></th></tr></thead><tbody><tr><th>America/Sao_Paulo</th><td>13.0</td><td>20.0</td></tr><tr><th>Europe/Madrid</th><td>16.0</td><td>19.0</td></tr><tr><th>Pacific/Honolulu</th><td>0.0</td><td>36.0</td></tr><tr><th>Asia/Tokyo</th><td>2.0</td><td>35.0</td></tr><tr><th>Europe/London</th><td>43.0</td><td>31.0</td></tr><tr><th>America/Denver</th><td>132.0</td><td>59.0</td></tr><tr><th>America/Los_Angeles</th><td>130.0</td><td>252.0</td></tr><tr><th>America/Chicago</th><td>115.0</td><td>285.0</td></tr><tr><th></th><td>245.0</td><td>276.0</td></tr><tr><th>America/New_York</th><td>339.0</td><td>912.0</td></tr></tbody></table></div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置一块自定义大小的画布，生成画布对象（这里没写残书就是默认）</span></span><br><span class="line">plt.figure()</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;matplotlib.figure.Figure at 0x112f87e10&gt;
+
+
+
+
+&lt;matplotlib.figure.Figure at 0x112f87e10&gt;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把count_subset这个表格中的数据绘制成图，类型为柱状图bar，横向h（horizontal）</span></span><br><span class="line"><span class="comment"># stacked=True表示多个维度的数据堆叠显示（不明白的话改成False看看就知道了）</span></span><br><span class="line">count_subset.plot(kind=<span class="string">'barh'</span>, stacked=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1134d2630&gt;</code></pre>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190416211434.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置一块自定义大小的画布，生成画布对象（这里没写残书就是默认）</span></span><br><span class="line">plt.figure()</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;matplotlib.figure.Figure at 0x1136fd2e8&gt;
+
+
+
+
+&lt;matplotlib.figure.Figure at 0x1136fd2e8&gt;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># count_subset.sum(1)：把count_subset按照第一维的方向相加</span></span><br><span class="line"><span class="comment"># count_subset.div(count_subset.sum(1),axis=0)：按行除以相加的结果</span></span><br><span class="line"><span class="comment"># 相当于把每一行所有数值变成了在当前行占的百分比</span></span><br><span class="line">normed_subset = count_subset.div(count_subset.sum(<span class="number">1</span>), axis=<span class="number">0</span>)</span><br><span class="line"><span class="comment"># stacked=True表示多个维度的数据堆叠显示（不明白的话改成False看看就知道了）</span></span><br><span class="line">normed_subset.plot(kind=<span class="string">'barh'</span>, stacked=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1138b6fd0&gt;</code></pre>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190416211504.png"></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>点击这个按钮，会有好事发生哦~(>w<)~</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="C_Meng WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="C_Meng Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/paypal.png" alt="C_Meng PayPal">
+        <p>PayPal</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/数据分析/" rel="tag"># 数据分析</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/14/通过python进行数据分析-一/" rel="prev" title="通过Python进行数据分析(一)">
+      <i class="fa fa-chevron-left"></i> 通过Python进行数据分析(一)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/19/6小时精通python-一/" rel="next" title="Python快速入门：6小时精通Python(一)">
+      Python快速入门：6小时精通Python(一) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Counting-time-zones-with-pandas"><span class="nav-number">1.</span> <span class="nav-text">Counting time zones with pandas</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">A stupid old man with a humble learning heart. And his dog.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">205</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
