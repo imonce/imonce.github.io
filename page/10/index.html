@@ -122,7 +122,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">205</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">206</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">131</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">132</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,200 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/04/19/6小时精通python-四/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/19/6小时精通python-四/" class="post-title-link" itemprop="url">Python快速入门：6小时精通Python(四)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-04-19 17:35:12" itemprop="dateCreated datePublished" datetime="2019-04-19T17:35:12+08:00">2019-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-23 21:29:49" itemprop="dateModified" datetime="2020-01-23T21:29:49+08:00">2020-01-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learn-X-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn X in Y minutes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learn-X-in-Y-minutes/Learn-Python-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn Python in Y minutes</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/04/19/6小时精通python-四/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/04/19/6小时精通python-四/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>译自：<a href="https://learnxinyminutes.com/docs/python3/" target="_blank" rel="noopener">https://learnxinyminutes.com/docs/python3/</a></p>
+<p>阅前须知：</p>
+<ul>
+<li>“#”后边的是注释</li>
+<li>带行号的是python代码</li>
+<li>不带行号的是代码的输出</li>
+<li>把下边的语句对着敲一边自然就会了，博主用的是jupyter notebook</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">####################################################</span></span><br><span class="line"><span class="comment">## 4. Functions</span></span><br><span class="line"><span class="comment">####################################################</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过def保留字来定义函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    print(<span class="string">"x is &#123;&#125; and y is &#123;&#125;"</span>.format(x, y))</span><br><span class="line">    <span class="comment"># return语句用来返回处理结果</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义之后可以带参调用</span></span><br><span class="line">c = add(<span class="number">5</span>, <span class="number">6</span>)</span><br><span class="line">print(c)</span><br></pre></td></tr></table></figure>
+
+<pre><code>x is 5 and y is 6
+11</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果不按照顺序输入参数，需要添加形式参数名称</span></span><br><span class="line">c = add(y=<span class="number">6</span>, x=<span class="number">5</span>)</span><br><span class="line">print(c)</span><br></pre></td></tr></table></figure>
+
+<pre><code>x is 5 and y is 6
+11</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以传入参数列表（positional arguments）</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">varargs</span><span class="params">(*args)</span>:</span></span><br><span class="line">    print(type(args))</span><br><span class="line">    <span class="keyword">return</span> args</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c = varargs(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">print(c)</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;class &#39;tuple&#39;&gt;
+(1, 2, 3)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以通过keyword arguments来传入多个变量</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">keyword_args</span><span class="params">(**kwargs)</span>:</span></span><br><span class="line">    print(type(kwargs))</span><br><span class="line">    <span class="keyword">return</span> kwargs</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c = keyword_args(one=<span class="string">'1'</span>, two=<span class="string">'2'</span>)</span><br><span class="line">print(c)</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;class &#39;dict&#39;&gt;
+{&#39;one&#39;: &#39;1&#39;, &#39;two&#39;: &#39;2&#39;}</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以混合使用</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">all_the_args</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">    print(args)</span><br><span class="line">    print(kwargs)</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">all_the_args(1, 2, a=3, b=4) prints:</span></span><br><span class="line"><span class="string">    (1, 2)</span></span><br><span class="line"><span class="string">    &#123;"a": 3, "b": 4&#125;</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 调用函数的时候，*和**也可以反过来使用</span></span><br><span class="line">args_call = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">kwargs_call = &#123;<span class="string">"a"</span>: <span class="number">3</span>, <span class="string">"b"</span>: <span class="number">4</span>&#125;</span><br><span class="line">all_the_args(*args_call)            <span class="comment"># equivalent to all_the_args(1, 2, 3, 4)</span></span><br><span class="line">all_the_args(**kwargs_call)         <span class="comment"># equivalent to all_the_args(a=3, b=4)</span></span><br><span class="line">all_the_args(*args_call, **kwargs_call)  <span class="comment"># equivalent to all_the_args(1, 2, 3, 4, a=3, b=4)</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>(1, 2, 3, 4)
+{}
+()
+{&#39;a&#39;: 3, &#39;b&#39;: 4}
+(1, 2, 3, 4)
+{&#39;a&#39;: 3, &#39;b&#39;: 4}</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个函数可以同时返回多个值</span></span><br><span class="line"><span class="comment"># 多个值是以不带括号的tuple的形式返回的</span></span><br><span class="line"><span class="comment"># 但是加了括号也没关系</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">swap</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> y, x</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">1</span></span><br><span class="line">y = <span class="number">2</span></span><br><span class="line">x, y = swap(x, y)     <span class="comment"># =&gt; x = 2, y = 1</span></span><br><span class="line">(x, y) = swap(x, y)   <span class="comment"># 这一句和上一句一样</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 函数范围 </span></span><br><span class="line"><span class="comment"># 这里x是一个全局变量（global）</span></span><br><span class="line">x = <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_x</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="comment"># 函数内部可以访问外部全局变量</span></span><br><span class="line">    print(num)</span><br><span class="line">    print(x)   <span class="comment"># =&gt; 5</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_x</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="comment"># 但是不能在函数内部改变全局变量</span></span><br><span class="line">    <span class="comment"># 这里的x是一个新生成的，只在函数内生效的局部变量</span></span><br><span class="line">    x = num    <span class="comment"># =&gt; 43</span></span><br><span class="line">    print(x)   <span class="comment"># =&gt; 43</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_global_x</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="comment"># 如果想要在函数内部改变全局变量，需要通过global声明</span></span><br><span class="line">    <span class="keyword">global</span> x</span><br><span class="line">    print(x)   <span class="comment"># =&gt; 5</span></span><br><span class="line">    x = num    <span class="comment"># global var x is now set to num</span></span><br><span class="line">    print(x)   <span class="comment"># =&gt; num</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get_x(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>6
+5</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set_x(<span class="number">6</span>)</span><br><span class="line">print(x)</span><br></pre></td></tr></table></figure>
+
+<pre><code>6
+5</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set_global_x(<span class="number">6</span>)</span><br><span class="line">print(x)</span><br></pre></td></tr></table></figure>
+
+<pre><code>5
+6
+6</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python支持头等函数</span></span><br><span class="line"><span class="comment"># 简单来讲，return的函数就是上层函数的头等函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_adder</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="comment"># suber就是简单的嵌套定义了一个函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">suber</span><span class="params">(z)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> x - z</span><br><span class="line">    n = suber(<span class="number">5</span>)</span><br><span class="line">    <span class="comment"># adder参与返回值，是头等函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">adder</span><span class="params">(y)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> n + y</span><br><span class="line">    <span class="keyword">return</span> adder</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_10_minus_5 = create_adder(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_10_minus_5(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>8</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python也支持匿名函数</span></span><br><span class="line"><span class="comment"># (lambda &lt;形式参数（列表）&gt;: &lt;return语句&gt;)(&lt;实参&gt;)</span></span><br><span class="line">(<span class="keyword">lambda</span> x: x &gt; <span class="number">2</span>)(<span class="number">3</span>)                  <span class="comment"># =&gt; True</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>True</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">lambda</span> x, y: x ** <span class="number">2</span> + y ** <span class="number">2</span>)(<span class="number">2</span>, <span class="number">1</span>)  <span class="comment"># =&gt; 5</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>5</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 匿名函数，实际上也是可以命名的</span></span><br><span class="line">check_greater_than_2 = <span class="keyword">lambda</span> x: x &gt; <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">check_greater_than_2(<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>True</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 还有内建的高阶函数</span></span><br><span class="line"><span class="comment"># 通过map将[1, 2, 3]分别装入add_10_minus_5进行运算</span></span><br><span class="line"><span class="comment"># 返回结果包装成list</span></span><br><span class="line">list(map(add_10_minus_5, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]))</span><br></pre></td></tr></table></figure>
+
+<pre><code>[6, 7, 8]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># max是python的内建方法，求参数中的最大值</span></span><br><span class="line">max(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>3</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面的写法就是就是对位结合，进行计算</span></span><br><span class="line"><span class="comment"># 相当于list(max(1,4), max(2,2), max(3,1))</span></span><br><span class="line">list(map(max, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+
+<pre><code>[4, 2, 3]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># filter 可以把返回值为true的参数，返回出来</span></span><br><span class="line">list(filter(<span class="keyword">lambda</span> x: x &gt; <span class="number">5</span>, [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]))  <span class="comment"># =&gt; [6, 7]</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>[6, 7]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以根据对列表的理解，写出漂亮的map和filter</span></span><br><span class="line">[add_10_minus_5(i) <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]]</span><br></pre></td></tr></table></figure>
+
+<pre><code>[6, 7, 8]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[x <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>] <span class="keyword">if</span> x &gt; <span class="number">5</span>]  <span class="comment"># =&gt; [6, 7]</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>[6, 7]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以写出漂亮的字典或者集合</span></span><br><span class="line">&#123;x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="string">'abcddeef'</span> <span class="keyword">if</span> x <span class="keyword">not</span> <span class="keyword">in</span> <span class="string">'abc'</span>&#125;  <span class="comment"># =&gt; &#123;'d', 'e', 'f'&#125;</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>{&#39;d&#39;, &#39;e&#39;, &#39;f&#39;}</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;x: x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">5</span>)&#125;  <span class="comment"># =&gt; &#123;0: 0, 1: 1, 2: 4, 3: 9, 4: 16&#125;</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>{0: 0, 1: 1, 2: 4, 3: 9, 4: 16}</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -3074,260 +3268,6 @@ KeyError: &#39;tz&#39;</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/03/22/WS-BPEL-2-0-xml-schema-详解-二/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/22/WS-BPEL-2-0-xml-schema-详解-二/" class="post-title-link" itemprop="url">WS-BPEL 2.0 xml schema 详解(二)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-03-22 16:24:10" itemprop="dateCreated datePublished" datetime="2019-03-22T16:24:10+08:00">2019-03-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-04 15:57:10" itemprop="dateModified" datetime="2020-01-04T15:57:10+08:00">2020-01-04</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/03/22/WS-BPEL-2-0-xml-schema-详解-二/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/03/22/WS-BPEL-2-0-xml-schema-详解-二/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="element：eventHandlers"><a href="#element：eventHandlers" class="headerlink" title="element：eventHandlers"></a>element：eventHandlers</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"eventHandlers"</span> <span class="attr">type</span>=<span class="string">"tEventHandlers"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tEventHandlers"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:annotation</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:documentation</span>&gt;</span></span><br><span class="line">XSD Authors: The child element onAlarm needs to be a Local Element Declaration, because there is another onAlarm element defined for the pick activity.</span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:documentation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:annotation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tExtensibleElements"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"onEvent"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span> <span class="attr">maxOccurs</span>=<span class="string">"unbounded"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"onAlarm"</span> <span class="attr">type</span>=<span class="string">"tOnAlarmEvent"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span> <span class="attr">maxOccurs</span>=<span class="string">"unbounded"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:extension</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>eventHandlers基于tExtensibleElements扩展，由2种元素的sequence组成：</p>
-<ul>
-<li>onEvent：见element：onEvent</li>
-<li>onAlarm：见complexType：tOnAlarmEvent</li>
-</ul>
-<h1 id="element：onEvent"><a href="#element：onEvent" class="headerlink" title="element：onEvent"></a>element：onEvent</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"onEvent"</span> <span class="attr">type</span>=<span class="string">"tOnEvent"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tOnEvent"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tOnMsgCommon"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"scope"</span> <span class="attr">minOccurs</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"messageType"</span> <span class="attr">type</span>=<span class="string">"xsd:QName"</span> <span class="attr">use</span>=<span class="string">"optional"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"element"</span> <span class="attr">type</span>=<span class="string">"xsd:QName"</span> <span class="attr">use</span>=<span class="string">"optional"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:extension</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>onEvent元素基于tOnMsgCommon进行扩展，包含一个element sequence：</p>
-<ul>
-<li>scope：用于表明作用范围</li>
-</ul>
-<p>2个attribute：</p>
-<ul>
-<li>messageType</li>
-<li>element</li>
-</ul>
-<h1 id="complexType：tOnMsgCommon"><a href="#complexType：tOnMsgCommon" class="headerlink" title="complexType：tOnMsgCommon"></a>complexType：tOnMsgCommon</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tOnMsgCommon"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:annotation</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:documentation</span>&gt;</span></span><br><span class="line">XSD Authors: The child element correlations needs to be a Local Element Declaration, because there is another correlations element defined for the invoke activity.</span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:documentation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:annotation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tExtensibleElements"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"correlations"</span> <span class="attr">type</span>=<span class="string">"tCorrelations"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"fromParts"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"partnerLink"</span> <span class="attr">type</span>=<span class="string">"xsd:NCName"</span> <span class="attr">use</span>=<span class="string">"required"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"portType"</span> <span class="attr">type</span>=<span class="string">"xsd:QName"</span> <span class="attr">use</span>=<span class="string">"optional"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"operation"</span> <span class="attr">type</span>=<span class="string">"xsd:NCName"</span> <span class="attr">use</span>=<span class="string">"required"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"messageExchange"</span> <span class="attr">type</span>=<span class="string">"xsd:NCName"</span> <span class="attr">use</span>=<span class="string">"optional"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"variable"</span> <span class="attr">type</span>=<span class="string">"BPELVariableName"</span> <span class="attr">use</span>=<span class="string">"optional"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:extension</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>tOnMsgCommon这个complexType同样支持tExtensibleElements扩展，包含由两类element组成的sequence：</p>
-<ul>
-<li>correlations：type为tCorrelations</li>
-<li>fromParts</li>
-</ul>
-<p>同时还引入了5种属性：</p>
-<ul>
-<li>partnerLink：必填的链接名</li>
-<li>portType：选填的端口类型</li>
-<li>operation：必填的操作</li>
-<li>messageExchange：选填的操作信息</li>
-<li>variable：选填的变量</li>
-</ul>
-<h1 id="complexType：tCorrelations"><a href="#complexType：tCorrelations" class="headerlink" title="complexType：tCorrelations"></a>complexType：tCorrelations</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tCorrelations"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:annotation</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:documentation</span>&gt;</span></span><br><span class="line">XSD Authors: The child element correlation needs to be a Local Element Declaration, because there is another correlation element defined for the invoke activity.</span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:documentation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:annotation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tExtensibleElements"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"correlation"</span> <span class="attr">type</span>=<span class="string">"tCorrelation"</span> <span class="attr">minOccurs</span>=<span class="string">"1"</span> <span class="attr">maxOccurs</span>=<span class="string">"unbounded"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:extension</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tCorrelation"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tExtensibleElements"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"set"</span> <span class="attr">type</span>=<span class="string">"xsd:NCName"</span> <span class="attr">use</span>=<span class="string">"required"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"initiate"</span> <span class="attr">type</span>=<span class="string">"tInitiate"</span> <span class="attr">default</span>=<span class="string">"no"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:extension</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:simpleType</span> <span class="attr">name</span>=<span class="string">"tInitiate"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:restriction</span> <span class="attr">base</span>=<span class="string">"xsd:string"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:enumeration</span> <span class="attr">value</span>=<span class="string">"yes"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:enumeration</span> <span class="attr">value</span>=<span class="string">"join"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:enumeration</span> <span class="attr">value</span>=<span class="string">"no"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:simpleType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>tCorrelations基于tExtensibleElements扩展，由1至多个correlation的sequence组成。</p>
-<p>tCorrelation同样基于tExtensibleElements扩展，在此之上还定义了两个属性：</p>
-<ul>
-<li>set</li>
-<li>initiate：yes | join | no</li>
-</ul>
-<h1 id="complexType：tOnAlarmEvent"><a href="#complexType：tOnAlarmEvent" class="headerlink" title="complexType：tOnAlarmEvent"></a>complexType：tOnAlarmEvent</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tOnAlarmEvent"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tExtensibleElements"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:choice</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">xsd:group</span> <span class="attr">ref</span>=<span class="string">"forOrUntilGroup"</span> <span class="attr">minOccurs</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"repeatEvery"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"repeatEvery"</span> <span class="attr">minOccurs</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">xsd:choice</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"scope"</span> <span class="attr">minOccurs</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:extension</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>tOnAlarmEvent基于tExtensibleElements扩展，由1个group：forOrUntilGroup 和 0或1个element：repeatEvery组成的sequence，或者1个element：repeatEvery，再加上一个scope组成的sequence组成。</p>
-<p>三个元素都通过ref引用，可以继续往后看定义。</p>
-<h1 id="group：forOrUntilGroup"><a href="#group：forOrUntilGroup" class="headerlink" title="group：forOrUntilGroup"></a>group：forOrUntilGroup</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:group</span> <span class="attr">name</span>=<span class="string">"forOrUntilGroup"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:choice</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"for"</span> <span class="attr">minOccurs</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"until"</span> <span class="attr">minOccurs</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:choice</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:group</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"for"</span> <span class="attr">type</span>=<span class="string">"tDuration-expr"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"until"</span> <span class="attr">type</span>=<span class="string">"tDeadline-expr"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"repeatEvery"</span> <span class="attr">type</span>=<span class="string">"tDuration-expr"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>可以看到，forOrUntilGroup还真就是for或者until两个元素中选一个。这两个东西又分别通过tDuration-expr，tDeadline-expr来定义。</p>
-<p>刚好element：repeatEvery也在这后边，一起讲了吧，同样通过tDuration-expr来定义。</p>
-<h1 id="complexType：tActivity"><a href="#complexType：tActivity" class="headerlink" title="complexType：tActivity"></a>complexType：tActivity</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tActivity"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tExtensibleElements"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"targets"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"sources"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">type</span>=<span class="string">"xsd:NCName"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"suppressJoinFailure"</span> <span class="attr">type</span>=<span class="string">"tBoolean"</span> <span class="attr">use</span>=<span class="string">"optional"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:extension</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>一看是activity的type，感觉应该出现过，其实并没有，大概是后边会用到吧。</p>
-<p>同样基于tExtensibleElements扩展（啥都要tExtensibleElements扩展一下，这兼容性也太强了吧），包含两个元素组成的sequence</p>
-<ul>
-<li>targets：出现0或1次</li>
-<li>sources：出现0或1次</li>
-</ul>
-<p>另外还有俩属性：</p>
-<ul>
-<li>name</li>
-<li>suppressJoinFailure：有一种故障叫joinFailure，在连接条件求值为 false 时抛出。通过将流程或活动属性 suppressJoinFailure 设置为 yes，可以禁止此故障。</li>
-</ul>
-<h1 id="element：targets"><a href="#element：targets" class="headerlink" title="element：targets"></a>element：targets</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"targets"</span> <span class="attr">type</span>=<span class="string">"tTargets"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tTargets"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tExtensibleElements"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"joinCondition"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"target"</span> <span class="attr">minOccurs</span>=<span class="string">"1"</span> <span class="attr">maxOccurs</span>=<span class="string">"unbounded"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:extension</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>targets基于tExtensibleElements进行扩展，包含两个元素组成的sequence：</p>
-<ul>
-<li>joinCondition：0或1个</li>
-<li>target：1到多个</li>
-</ul>
-<h1 id="element：joinCondition"><a href="#element：joinCondition" class="headerlink" title="element：joinCondition"></a>element：joinCondition</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"joinCondition"</span> <span class="attr">type</span>=<span class="string">"tCondition"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>这玩意儿的定义在tCondition里边，其实装的就是几乎啥都可以写的混合内容。</p>
-<h1 id="element：target"><a href="#element：target" class="headerlink" title="element：target"></a>element：target</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"target"</span> <span class="attr">type</span>=<span class="string">"tTarget"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tTarget"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tExtensibleElements"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"linkName"</span> <span class="attr">type</span>=<span class="string">"xsd:NCName"</span> <span class="attr">use</span>=<span class="string">"required"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:extension</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>tTarget这个东西是一个机遇tExtensibleElements扩展的元素，就增加了一个元素</p>
-<ul>
-<li>linkName：NCName，必填，写上你的目标</li>
-</ul>
-<h1 id="element：sources"><a href="#element：sources" class="headerlink" title="element：sources"></a>element：sources</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"sources"</span> <span class="attr">type</span>=<span class="string">"tSources"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tSources"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tExtensibleElements"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"source"</span> <span class="attr">minOccurs</span>=<span class="string">"1"</span> <span class="attr">maxOccurs</span>=<span class="string">"unbounded"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:extension</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"source"</span> <span class="attr">type</span>=<span class="string">"tSource"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tSource"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tExtensibleElements"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"transitionCondition"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"linkName"</span> <span class="attr">type</span>=<span class="string">"xsd:NCName"</span> <span class="attr">use</span>=<span class="string">"required"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:extension</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"transitionCondition"</span> <span class="attr">type</span>=<span class="string">"tCondition"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>sources：tExtensibleElements，以及1到多个source</p>
-<p>source：tExtensibleElements扩展，还有一个元素的sequence</p>
-<ul>
-<li>transitionCondition：转移条件，可以不出现，也可以出现一次</li>
-</ul>
-<p>还有一个属性</p>
-<ul>
-<li>linkName：NCName，必填，写上你的来源</li>
-</ul>
-<h1 id="element：assign"><a href="#element：assign" class="headerlink" title="element：assign"></a>element：assign</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"assign"</span> <span class="attr">type</span>=<span class="string">"tAssign"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tAssign"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tActivity"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:choice</span> <span class="attr">maxOccurs</span>=<span class="string">"unbounded"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"copy"</span> <span class="attr">minOccurs</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"extensionAssignOperation"</span> <span class="attr">minOccurs</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">xsd:choice</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"validate"</span> <span class="attr">type</span>=<span class="string">"tBoolean"</span> <span class="attr">use</span>=<span class="string">"optional"</span> <span class="attr">default</span>=<span class="string">"no"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:extension</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>Assign，基于tActivity扩展，增加了两个属性，二选一只猴构成sequence</p>
-<ul>
-<li>copy：出现1至多次</li>
-<li>extensionAssignOperation：出现1至多次</li>
-</ul>
-<p>还增加了一个属性</p>
-<ul>
-<li>validate：bool值，默认是no，可选</li>
-</ul>
-<h1 id="element：copy"><a href="#element：copy" class="headerlink" title="element：copy"></a>element：copy</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"copy"</span> <span class="attr">type</span>=<span class="string">"tCopy"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tCopy"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tExtensibleElements"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"from"</span> <span class="attr">minOccurs</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"to"</span> <span class="attr">minOccurs</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"keepSrcElementName"</span> <span class="attr">type</span>=<span class="string">"tBoolean"</span> <span class="attr">use</span>=<span class="string">"optional"</span> <span class="attr">default</span>=<span class="string">"no"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"ignoreMissingFromData"</span> <span class="attr">type</span>=<span class="string">"tBoolean"</span> <span class="attr">use</span>=<span class="string">"optional"</span> <span class="attr">default</span>=<span class="string">"no"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:extension</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>copy，基于tExtensibleElements扩展，两个元素比较好理解</p>
-<ul>
-<li>from：从哪里copy</li>
-<li>to：copy到哪里</li>
-</ul>
-<p>还有两个属性：</p>
-<ul>
-<li>keepSrcElementName：bool值，可选，默认no，是否保存源元素的属性名</li>
-<li>ignoreMissingFromData：bool值，可选，默认no，是否忽略数据中的遗失部分</li>
-</ul>
-<h1 id="element：from"><a href="#element：from" class="headerlink" title="element：from"></a>element：from</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"from"</span> <span class="attr">type</span>=<span class="string">"tFrom"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tFrom"</span> <span class="attr">mixed</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"documentation"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span> <span class="attr">maxOccurs</span>=<span class="string">"unbounded"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:any</span> <span class="attr">namespace</span>=<span class="string">"##other"</span> <span class="attr">processContents</span>=<span class="string">"lax"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span> <span class="attr">maxOccurs</span>=<span class="string">"unbounded"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:choice</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"literal"</span> <span class="attr">minOccurs</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"query"</span> <span class="attr">minOccurs</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:choice</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"expressionLanguage"</span> <span class="attr">type</span>=<span class="string">"xsd:anyURI"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"variable"</span> <span class="attr">type</span>=<span class="string">"BPELVariableName"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"part"</span> <span class="attr">type</span>=<span class="string">"xsd:NCName"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"property"</span> <span class="attr">type</span>=<span class="string">"xsd:QName"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"partnerLink"</span> <span class="attr">type</span>=<span class="string">"xsd:NCName"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"endpointReference"</span> <span class="attr">type</span>=<span class="string">"tRoles"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:anyAttribute</span> <span class="attr">namespace</span>=<span class="string">"##other"</span> <span class="attr">processContents</span>=<span class="string">"lax"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>然而这个from并不简单，我们先看看这个sequence里边装了什么</p>
-<ul>
-<li>documentation：element，0至多个，前边定义过了，基本上就是一个mixed的啥都可以写的东西，属性里边指明source和language就可以了</li>
-<li>any：0至多个来自其他命名空间的任意元素</li>
-<li>literal/query：这俩二选一，具体是啥看后边定义</li>
-</ul>
-<p>还有几个属性</p>
-<ul>
-<li>expressionLanguage：表达语言</li>
-<li>variable：BPELVariableName</li>
-<li>part：来自哪一部分</li>
-<li>property：属性是什么</li>
-<li>partnerLink</li>
-<li>endpointReference：通过tRoles定义</li>
-<li>anyAttribute：还可以随便加其他属性</li>
-</ul>
-<h1 id="element：literal"><a href="#element：literal" class="headerlink" title="element：literal"></a>element：literal</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"literal"</span> <span class="attr">type</span>=<span class="string">"tLiteral"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tLiteral"</span> <span class="attr">mixed</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:any</span> <span class="attr">namespace</span>=<span class="string">"##any"</span> <span class="attr">processContents</span>=<span class="string">"lax"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span> <span class="attr">maxOccurs</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>literal就是一个mixed描述段落，里边可以有一个任意元素。</p>
-<h1 id="element：query"><a href="#element：query" class="headerlink" title="element：query"></a>element：query</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"query"</span> <span class="attr">type</span>=<span class="string">"tQuery"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tQuery"</span> <span class="attr">mixed</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:any</span> <span class="attr">processContents</span>=<span class="string">"lax"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span> <span class="attr">maxOccurs</span>=<span class="string">"unbounded"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"queryLanguage"</span> <span class="attr">type</span>=<span class="string">"xsd:anyURI"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:anyAttribute</span> <span class="attr">namespace</span>=<span class="string">"##other"</span> <span class="attr">processContents</span>=<span class="string">"lax"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>Query和literal相似，是一个mixed描述段落，里边可以有任意个任意元素。同时它还有属性</p>
-<ul>
-<li>queryLanguage：表明查询语言</li>
-<li>anyAttribute：看似随便加属性，实际上根据查询语言不通增加其他属性</li>
-</ul>
-<h1 id="simpleType：tRoles"><a href="#simpleType：tRoles" class="headerlink" title="simpleType：tRoles"></a>simpleType：tRoles</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:simpleType</span> <span class="attr">name</span>=<span class="string">"tRoles"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:restriction</span> <span class="attr">base</span>=<span class="string">"xsd:string"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:enumeration</span> <span class="attr">value</span>=<span class="string">"myRole"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:enumeration</span> <span class="attr">value</span>=<span class="string">"partnerRole"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:simpleType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>myRole和partnerRole两个值二选一</p>
-<h1 id="element：to"><a href="#element：to" class="headerlink" title="element：to"></a>element：to</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"to"</span> <span class="attr">type</span>=<span class="string">"tTo"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tTo"</span> <span class="attr">mixed</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"documentation"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span> <span class="attr">maxOccurs</span>=<span class="string">"unbounded"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:any</span> <span class="attr">namespace</span>=<span class="string">"##other"</span> <span class="attr">processContents</span>=<span class="string">"lax"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span> <span class="attr">maxOccurs</span>=<span class="string">"unbounded"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">ref</span>=<span class="string">"query"</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"expressionLanguage"</span> <span class="attr">type</span>=<span class="string">"xsd:anyURI"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"variable"</span> <span class="attr">type</span>=<span class="string">"BPELVariableName"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"part"</span> <span class="attr">type</span>=<span class="string">"xsd:NCName"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"property"</span> <span class="attr">type</span>=<span class="string">"xsd:QName"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"partnerLink"</span> <span class="attr">type</span>=<span class="string">"xsd:NCName"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:anyAttribute</span> <span class="attr">namespace</span>=<span class="string">"##other"</span> <span class="attr">processContents</span>=<span class="string">"lax"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>这个to也不简单，我们看看这个sequence里边装了什么</p>
-<ul>
-<li>documentation：element，0至多个，前边定义过了，基本上就是一个mixed的啥都可以写的东西，属性里边指明source和language就可以了</li>
-<li>any：0至多个来自其他命名空间的任意元素</li>
-<li>query：查询到对应写入的部分</li>
-</ul>
-<p>还有几个属性</p>
-<ul>
-<li>expressionLanguage：表达语言</li>
-<li>variable：BPELVariableName</li>
-<li>part：去哪一部分</li>
-<li>property：属性是什么</li>
-<li>partnerLink</li>
-<li>anyAttribute：还可以根据表达语言随便加其他属性</li>
-</ul>
-<h1 id="element：extensionAssignOperation"><a href="#element：extensionAssignOperation" class="headerlink" title="element：extensionAssignOperation"></a>element：extensionAssignOperation</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"extensionAssignOperation"</span> <span class="attr">type</span>=<span class="string">"tExtensionAssignOperation"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tExtensionAssignOperation"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tExtensibleElements"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>这个东西是assign中的一个element，怪不得assign没有基于tExtensibleElements扩展，放在里边了。</p>
-<h1 id="element：compensate"><a href="#element：compensate" class="headerlink" title="element：compensate"></a>element：compensate</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"compensate"</span> <span class="attr">type</span>=<span class="string">"tCompensate"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tCompensate"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tActivity"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>就是tActivity的一个元素化，可以看作是一个最原始，最纯粹的activity。</p>
-<h1 id="element：compensateScope"><a href="#element：compensateScope" class="headerlink" title="element：compensateScope"></a>element：compensateScope</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"compensateScope"</span> <span class="attr">type</span>=<span class="string">"tCompensateScope"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tCompensateScope"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tActivity"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"target"</span> <span class="attr">type</span>=<span class="string">"xsd:NCName"</span> <span class="attr">use</span>=<span class="string">"required"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:extension</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>在compensate之上增加了一个属性：</p>
-<ul>
-<li>target：相当于给补偿增加了一个范围</li>
-</ul>
-<h1 id="element：empty"><a href="#element：empty" class="headerlink" title="element：empty"></a>element：empty</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"empty"</span> <span class="attr">type</span>=<span class="string">"tEmpty"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tEmpty"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tActivity"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>就是tActivity的一个元素化，可以看作是一个最原始，最纯粹的activity。</p>
-<p>和compensate是一样的，在语义上和用法上不一样。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3399,7 +3339,7 @@ KeyError: &#39;tz&#39;</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -3412,7 +3352,7 @@ KeyError: &#39;tz&#39;</code></pre>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">205</span>
+        <span class="site-state-item-count">206</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
