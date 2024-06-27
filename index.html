@@ -122,7 +122,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">206</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">207</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">132</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">133</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,85 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/06/27/多模态大模型训练常用公开数据集/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/27/多模态大模型训练常用公开数据集/" class="post-title-link" itemprop="url">多模态大模型训练常用公开数据集</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-06-27 20:33:54 / Modified: 20:36:36" itemprop="dateCreated datePublished" datetime="2024-06-27T20:33:54+08:00">2024-06-27</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2024/06/27/多模态大模型训练常用公开数据集/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/06/27/多模态大模型训练常用公开数据集/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202406272034200.png"></p>
+<p>stage1：预训练。为了拥有广泛的视觉-语言知识，我们的模型在弱标注和细粒度数据集的混合上进行训练。我们在第一阶段给予弱标注数据集较高的采样比例，以获得更多样化的知识。</p>
+<p>stage2：多任务训练。为了提高MiniGPT-v2在每项任务上的表现，我们在这个阶段只专注于使用细粒度数据集来训练我们的模型。我们排除了像GRIT-20M和LAION这样的弱监督数据集，并根据每项任务的频率更新数据采样比例。这种策略使我们的模型能够优先考虑高质量的对齐图像-文本数据，以在各种任务上实现卓越的性能。</p>
+<p>stage3：多模态指令调整。随后，我们专注于使用更多的多模态指令数据集来调整我们的模型，并增强其作为聊天机器人的对话能力。我们继续使用第二阶段的数据集，并添加指令数据集，包括LLaVA（刘等人，2023b）、Flickr30k数据集（Plummer等人，2015）、我们构建的混合多任务数据集，以及语言数据集，Unnatural Instruction（Honovich等人，2022）。我们为第二阶段的细粒度数据集给出较低的数据采样比例，而为新的指令数据集给出较高的数据采样比例。</p>
+<blockquote>
+<p>Ref:<br><a href="https://arxiv.org/pdf/2310.09478v2" target="_blank" rel="noopener">https://arxiv.org/pdf/2310.09478v2</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1319,131 +1398,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2021/10/11/量子计算学习笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/11/量子计算学习笔记/" class="post-title-link" itemprop="url">量子计算学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-10-11 18:04:50 / Modified: 18:42:39" itemprop="dateCreated datePublished" datetime="2021-10-11T18:04:50+08:00">2021-10-11</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Quantum-Computing/" itemprop="url" rel="index"><span itemprop="name">Quantum Computing</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2021/10/11/量子计算学习笔记/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/11/量子计算学习笔记/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="向量表示"><a href="#向量表示" class="headerlink" title="向量表示"></a>向量表示</h1><p>量子计算的基本单位是量子比特，量子比特用向量 $|\psi\rangle$ (狄拉克Dirac符号)来描述。</p>
-<p>基态: $|g\rangle=|1\rangle=\left[ \begin{matrix} 0 \\ 1 \end{matrix} \right]$</p>
-<p>激发态: $∣e\rangle=|0\rangle=\left[ \begin{matrix} 1 \\ 0 \end{matrix} \right]$ </p>
-<p>在量子理论中，描述量子态的向量称为态矢，态矢分为左矢和右矢。相同描述对象的左矢和右矢互为转置共轭。</p>
-<blockquote>
-<p>pyqpanda中，dagger()函数可用于对逻辑门进行转置共轭操作</p>
-</blockquote>
-<p>右失（ket）： $|\psi\rangle=\left[ \begin{matrix} c_1 &amp; c_2 &amp; \cdots &amp; c_n \end{matrix} \right]^T=\left[ \begin{matrix} c_1 \\ c_2 \\ \vdots \\ c_n \end{matrix} \right]$ </p>
-<p>左失（bra）： $\langle\psi|=\left[ \begin{matrix} c_1^* &amp; c_2^* &amp; \cdots &amp; c_n^* \end{matrix} \right]$ </p>
-<p>并不是任意的二维向量都能用来描述一个qubit的状态，描述量子态的向量的模长必须为1，所谓向量的模长定义如下：</p>
-<p>​ $M(\alpha) = \sqrt{|a_{1}|^{2} + |a_{2}|^{2} + … + |a_{n}|^{2}}$ </p>
-<p>量子比特各维度的平方为量子处于该状态的概率。</p>
-<h1 id="向量计算"><a href="#向量计算" class="headerlink" title="向量计算"></a>向量计算</h1><h2 id="基"><a href="#基" class="headerlink" title="基"></a>基</h2><p>对于一组向量 $|u_1\rangle, |u_2\rangle, \cdots, |u_n\rangle$ 张成（spanning）的 $n$ 维空间 $C^n$ ，空间中的任意向量可以表示为： $|v\rangle=\sum_i x_i u_i$ ,这个集合 ${|u_1\rangle, |u_2\rangle, \cdots, |u_n\rangle}$ 就称为 $C^n$ 的基（basis）。</p>
-<h2 id="内积"><a href="#内积" class="headerlink" title="内积"></a>内积</h2><p>在 $C^n$ 上的内积表示为（注意 $a_i^*$ 为 $a_i$ 的共轭！）：</p>
-<p> $\langle \alpha | \beta \rangle = (|\alpha\rangle, |\beta\rangle) = ((a_1, \cdots ,a_n),(b_1, \cdots, b_n)) = \sum_{i=1}^{n}a_i^*b_i$ </p>
-<p>可以看做 $\langle \alpha|$ 共轭转置后得到的 $1 \times n$ 的矩阵与 $| \beta \rangle$ 构成的 $n \times 1$ 的矩阵的积,内积的结果是一个值。</p>
-<h2 id="外积"><a href="#外积" class="headerlink" title="外积"></a>外积</h2><p>外积 $| \alpha \rangle \langle \beta |$ 可以看做 $\langle \alpha|$ 的 $n \times 1$ 的矩阵与 $| \beta \rangle$ 共轭转置后构成的 $1 \times n$ 的矩阵的积,外积的结果是一个矩阵！</p>
-<h2 id="张量积"><a href="#张量积" class="headerlink" title="张量积"></a>张量积</h2><p>向量 $|\alpha\rangle$ 、 $|\beta\rangle$ 在 $C^n$ 、 $C^m$ 中的张量积为 $C^{n\times m}$ 中的向量： $|\alpha\rangle\otimes|\beta\rangle=|\alpha\rangle|\beta\rangle=|\alpha\beta\rangle$ ，计算方法为：</p>
-<p> $\left[ \begin{matrix} a_1 \\ a_2 \end{matrix} \right]\times\left[ \begin{matrix} b_1 \\ b_2 \end{matrix} \right] = \left[ \begin{matrix} a_1 b_1 \\ a_1 b_2 \\ a_2 b_1 \\ a_2 b_2 \end{matrix} \right]$  </p>
-<h1 id="常用算子（常见量子逻辑门）矩阵形式"><a href="#常用算子（常见量子逻辑门）矩阵形式" class="headerlink" title="常用算子（常见量子逻辑门）矩阵形式"></a>常用算子（常见量子逻辑门）矩阵形式</h1><h2 id="单比特量子逻辑门"><a href="#单比特量子逻辑门" class="headerlink" title="单比特量子逻辑门"></a>单比特量子逻辑门</h2><p>当单比特量子逻辑门作用于量子比特时，为门在前比特在后进行矩阵相乘，进而改变比特状态。</p>
-<p>其中: </p>
-<ul>
-<li>$I$ 门不改变比特状态</li>
-<li>$Hadamard$ 门可以使量子比特进入混沌态，即激发与否的概率均为一半</li>
-<li>$Pauli-X$ 会使量子状态翻转</li>
-<li>量子的状态改变通常通过旋转实现</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20211009103200.png"></p>
-<h2 id="多比特量子逻辑门"><a href="#多比特量子逻辑门" class="headerlink" title="多比特量子逻辑门"></a>多比特量子逻辑门</h2><p>当多比特量子逻辑门作用于多个量子比特时，为门在前，多个量子比特的张量积在后，进行矩阵相乘。</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20211009103250.png"></p>
-<h1 id="量子线路图"><a href="#量子线路图" class="headerlink" title="量子线路图"></a>量子线路图</h1><h2 id="基本约定"><a href="#基本约定" class="headerlink" title="基本约定"></a>基本约定</h2><p>在关系图中，每条实线都描述一个量子比特，更常见地是描述一个量子比特寄存器。按照约定，最上面那根线是量子比特寄存器0，其余的按顺序标记。根据描述，上面的示例线路作用于两个量子比特（或等效为作用于两个寄存器，每个寄存器由一个量子比特组成）。作用于一个或多个量子比特寄存器的门用一个框表示。例如，符号</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20211009105059.png"></p>
-<p>量子门按时间顺序排列，最左侧的门是应用于量子比特的第一个门。 也就是说，如果你将线描述为包含量子态，那么这些线将按图中从左到右的顺序带着量子态通过每个门。 也就是说</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20211009105131.png"></p>
-<p>是酉矩阵 $CBA$ 。矩阵乘法遵守相反的约定，即最先应用最右侧的矩阵。不过，在量子线路图中，最先应用的是最左侧的门。这种差异有时可能会导致混淆，因此有必要记下线性代数表示法和量子关系图之间的这一明显差异。</p>
-<h2 id="受控门"><a href="#受控门" class="headerlink" title="受控门"></a>受控门</h2><p>多量子比特量子线路图中内置的另一个构造是控制。量子单个受控门表示为 $\Lambda(G)$ ，其中单个量子比特的值控制 $G$ 的应用。要理解该受控门的操作，可查看下面的示例，它是一个乘积态输入 $\Lambda(G)(\alpha|0\rangle+\beta|1\rangle)|\psi\rangle=\alpha|0\rangle|\psi\rangle+\alpha|1\rangle G|\psi\rangle$ 。也就是说，当且仅当控制量子比特采用值时，该受控门才对包含 $\phi$ 的寄存器应用 $G$ 。通常，我们在线路图中将这种受控操作描述为</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20211009105733.png"></p>
-<p>在这里，黑色圆圈表示门受控的量子位，垂直线表示当控制量子比特采用值1时应用的酉操作。对于 $G=X$ 和 $G=Z$ 的特殊情况，我们引入了以下表示法来描述门的受控版本（请注意，受控 $X$ 门是 $CNOT$ 门）：</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20211009105856.png"></p>
-<h2 id="测量运算符"><a href="#测量运算符" class="headerlink" title="测量运算符"></a>测量运算符</h2><p>在线路图中直观呈现的剩余操作是测量。测量采用量子比特寄存器、对其进行测量，然后以经典信息的形式输出结果。测量操作由计量符号表示，它始终将输入看做是一个量子比特寄存器（表示为实线），将输出看做是经典信息（表示为双线）。具体来说，这种子线路如下所示：</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20211009110009.png"></p>
-<blockquote>
-<p>References:<br><a href="https://blog.csdn.net/si_ying/article/details/108303988" target="_blank" rel="noopener">https://blog.csdn.net/si_ying/article/details/108303988</a><br><a href="https://pyqpanda-toturial.readthedocs.io/" target="_blank" rel="noopener">https://pyqpanda-toturial.readthedocs.io/</a><br><a href="https://docs.microsoft.com/zh-cn/azure/quantum/concepts-circuits" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/azure/quantum/concepts-circuits</a><br><a href="https://www.cxyzjd.com/article/qq_43391414/118766778" target="_blank" rel="noopener">https://www.cxyzjd.com/article/qq_43391414/118766778</a><br><a href="https://swardsman.github.io/learning-q-sharp/" target="_blank" rel="noopener">https://swardsman.github.io/learning-q-sharp/</a></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1515,7 +1469,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1528,7 +1482,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">206</span>
+        <span class="site-state-item-count">207</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
