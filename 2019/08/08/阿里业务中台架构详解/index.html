@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="reference:https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ  阿里业务中台架构图 基础设施服务，即IAAS层，提供硬件底层支持。 基础服务层，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。 互联网业务中台，包括各服务中心的抽象出来的各种业务能力，包括交易中心、支付中心、营销中心、结">
+<meta name="keywords" content="中台,业务中台,架构,业务架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[转]阿里业务中台架构详解">
+<meta property="og:url" content="https://imonce.github.io/2019/08/08/阿里业务中台架构详解/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="reference:https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ  阿里业务中台架构图 基础设施服务，即IAAS层，提供硬件底层支持。 基础服务层，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。 互联网业务中台，包括各服务中心的抽象出来的各种业务能力，包括交易中心、支付中心、营销中心、结">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808205642.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808211326.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808210032.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808210801.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808211103.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808211626.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808211932.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808212101.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808212213.png">
+<meta property="og:updated_time" content="2019-12-29T08:23:22.220Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[转]阿里业务中台架构详解">
+<meta name="twitter:description" content="reference:https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ  阿里业务中台架构图 基础设施服务，即IAAS层，提供硬件底层支持。 基础服务层，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。 互联网业务中台，包括各服务中心的抽象出来的各种业务能力，包括交易中心、支付中心、营销中心、结">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808205642.png">
+
+<link rel="canonical" href="https://imonce.github.io/2019/08/08/阿里业务中台架构详解/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>[转]阿里业务中台架构详解 | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">208</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/08/08/阿里业务中台架构详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [转]阿里业务中台架构详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-08 20:56:29" itemprop="dateCreated datePublished" datetime="2019-08-08T20:56:29+08:00">2019-08-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-29 16:23:22" itemprop="dateModified" datetime="2019-12-29T16:23:22+08:00">2019-12-29</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/08/08/阿里业务中台架构详解/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/08/阿里业务中台架构详解/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>reference:<br><a href="https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ</a></p>
+</blockquote>
+<h1 id="阿里业务中台架构图"><a href="#阿里业务中台架构图" class="headerlink" title="阿里业务中台架构图"></a>阿里业务中台架构图</h1><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190808205642.png"></p>
+<p>基础设施服务，即IAAS层，提供硬件底层支持。</p>
+<p>基础服务层，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。</p>
+<p>互联网业务中台，包括各服务中心的抽象出来的各种业务能力，包括交易中心、支付中心、营销中心、结算中心、用户中心、账户中心等等。也包括非业务类服务，如日志分析中心、配置中心、序列中心、基础中心。</p>
+<p>业务应用，经过调取业务中台，组装形成独立业务服务能力的业务应用，如网银、手机银行。</p>
+<p>交易来源，就是前台用户使用的各个端，如淘宝App、PC站等。</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190808211326.png"></p>
+<p>通过阿里云平台将技术中台进行部署，对集团内共享业务单元提供支撑，并最终对前台各业务线提供服务化能力输出。</p>
+<h1 id="产品形态"><a href="#产品形态" class="headerlink" title="产品形态"></a>产品形态</h1><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190808210032.png"></p>
+<p>从这张产品形态图上边我们可以看出来，阿里巴巴的开发者主要开发的是能力，然后构建内部的能力地图，这里的能力可以看作是一个原子服务。在接收新的需求后，将需求进行结构化，通过已有能力配置产生新的业务，组成业务列表和业务全景。最后给这个业务一个身份标识，进行业务度量。</p>
+<h1 id="全剧架构"><a href="#全剧架构" class="headerlink" title="全剧架构"></a>全剧架构</h1><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190808210801.png"></p>
+<h1 id="业务开发生命周期、业务创新和智能化"><a href="#业务开发生命周期、业务创新和智能化" class="headerlink" title="业务开发生命周期、业务创新和智能化"></a>业务开发生命周期、业务创新和智能化</h1><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190808211103.png"></p>
+<p>能力地图下放到需求域，商业能力可沉淀。根据已有数据进行分析，持续进化。</p>
+<h1 id="数据中台架构"><a href="#数据中台架构" class="headerlink" title="数据中台架构"></a>数据中台架构</h1><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190808211626.png"></p>
+<p>数据中台本质上是在原有的<strong>计算存储平台</strong>与<strong>应用服务</strong>之间增加了一层<strong>统一数据服务中间件（OneService）</strong>。</p>
+<p>形成了统一全域数据体系，实现了计算存储累计过亿的成本降低、响应业务效率多倍提升、为业务快速创新提供坚实保障。</p>
+<p>全域数据采集与引入：以需求为驱动，以数据多样性的全域思想为指导，采集与引入全业务、多终端、多形态的数据；</p>
+<p>标准规范数据架构与研发：统一基础层、公共中间层、百花齐放应用层的数据分层架构模式，通过数据指标结构化规范化的方式实现指标口径统一；</p>
+<p>连接与深度萃取数据价值：形成以业务核心对象为中心的连接和标签体系，深度萃取数据价值；</p>
+<p>统一数据资产管理：构建元数据中心，通过资产分析、应用、优化、运营四方面对看清数据资产、降低数据管理成本、追踪数据价值。</p>
+<p>统一主题式服务：通过构建服务元数据中心和数据服务查询引擎，面向业务统一数据出口与数据查询逻辑，屏蔽多数据源与多物理表；</p>
+<p>极大的丰富和完善了阿里巴巴大数据中心，OneData、OneID、OneService渐趋成熟并成为上至CEO、下至一线员工共识的方法论体系。</p>
+<h1 id="阿里技术全栈全景图"><a href="#阿里技术全栈全景图" class="headerlink" title="阿里技术全栈全景图"></a>阿里技术全栈全景图</h1><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190808211932.png"></p>
+<p>阿里技术全栈包含：移动中台、业务中台、数据中台、基本中间件、基础设施、前台业务、后台业务。</p>
+<p>移动中台，包括移动网关、开发套件&amp;框架、消息推送、移动IM等等，提供了限流、负载、鉴权、消息推送、开发框架等等，使得移动端应用开发效率更高。</p>
+<p>业务中台和数据中台，将业务、数据抽象和沉淀形成服务能力，对前台提供调用。</p>
+<h1 id="阿里技术平台底座"><a href="#阿里技术平台底座" class="headerlink" title="阿里技术平台底座"></a>阿里技术平台底座</h1><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190808212101.png"></p>
+<p>几百个业务应用，共享一个技术平台底座。</p>
+<h1 id="大中台、小前台"><a href="#大中台、小前台" class="headerlink" title="大中台、小前台"></a>大中台、小前台</h1><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190808212213.png"></p>
+<p>阿里巴巴集团在近期的组织结构调整中，组成由“小前台，大中台”互为协同的创新管理模式。<br>原阿里巴巴中国零售事业群总裁张建锋将担负起“中台”的重要工作，负责共享、数据、搜索，以及闲鱼、淘宝头条等创新孵化业务。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>点击这个按钮，会有好事发生哦~(>w<)~</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="C_Meng WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="C_Meng Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/paypal.png" alt="C_Meng PayPal">
+        <p>PayPal</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/中台/" rel="tag"># 中台</a>
+              <a href="/tags/业务中台/" rel="tag"># 业务中台</a>
+              <a href="/tags/架构/" rel="tag"># 架构</a>
+              <a href="/tags/业务架构/" rel="tag"># 业务架构</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/08/08/转-知识图谱应用需要了解的16个知识/" rel="prev" title="[转]知识图谱应用需要了解的16个知识">
+      <i class="fa fa-chevron-left"></i> [转]知识图谱应用需要了解的16个知识
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/08/08/如何构建高绩效团队/" rel="next" title="如何构建高绩效团队">
+      如何构建高绩效团队 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#阿里业务中台架构图"><span class="nav-number">1.</span> <span class="nav-text">阿里业务中台架构图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#产品形态"><span class="nav-number">2.</span> <span class="nav-text">产品形态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全剧架构"><span class="nav-number">3.</span> <span class="nav-text">全剧架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#业务开发生命周期、业务创新和智能化"><span class="nav-number">4.</span> <span class="nav-text">业务开发生命周期、业务创新和智能化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据中台架构"><span class="nav-number">5.</span> <span class="nav-text">数据中台架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#阿里技术全栈全景图"><span class="nav-number">6.</span> <span class="nav-text">阿里技术全栈全景图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#阿里技术平台底座"><span class="nav-number">7.</span> <span class="nav-text">阿里技术平台底座</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大中台、小前台"><span class="nav-number">8.</span> <span class="nav-text">大中台、小前台</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">A stupid old man with a humble learning heart. And his dog.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">208</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

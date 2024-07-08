@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="BLEUBLEU （Bilingual Evaluation Understudy）是一种基于n-gram精度的评估指标，它通过计算机器翻译结果和参考翻译之间的n-gram匹配度来评估机器翻译的质量。 BLEU（Bilingual Evaluation Understudy）是一种评估机器翻译质量的方法，特别是它如何接近人类翻译的程度。BLEU分数是基于机器翻译输出与一组参考翻译之间的重叠程度来计">
+<meta name="keywords" content="metrics">
+<meta property="og:type" content="article">
+<meta property="og:title" content="科研常用评估指标">
+<meta property="og:url" content="https://imonce.github.io/2024/06/27/科研常用评估指标/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="BLEUBLEU （Bilingual Evaluation Understudy）是一种基于n-gram精度的评估指标，它通过计算机器翻译结果和参考翻译之间的n-gram匹配度来评估机器翻译的质量。 BLEU（Bilingual Evaluation Understudy）是一种评估机器翻译质量的方法，特别是它如何接近人类翻译的程度。BLEU分数是基于机器翻译输出与一组参考翻译之间的重叠程度来计">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202406272019503.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202406272019329.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202406272019877.png">
+<meta property="og:updated_time" content="2024-06-27T12:23:54.420Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="科研常用评估指标">
+<meta name="twitter:description" content="BLEUBLEU （Bilingual Evaluation Understudy）是一种基于n-gram精度的评估指标，它通过计算机器翻译结果和参考翻译之间的n-gram匹配度来评估机器翻译的质量。 BLEU（Bilingual Evaluation Understudy）是一种评估机器翻译质量的方法，特别是它如何接近人类翻译的程度。BLEU分数是基于机器翻译输出与一组参考翻译之间的重叠程度来计">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202406272019503.png">
+
+<link rel="canonical" href="https://imonce.github.io/2024/06/27/科研常用评估指标/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>科研常用评估指标 | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">208</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/06/27/科研常用评估指标/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          科研常用评估指标
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-06-27 20:00:04 / Modified: 20:23:54" itemprop="dateCreated datePublished" datetime="2024-06-27T20:00:04+08:00">2024-06-27</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2024/06/27/科研常用评估指标/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/06/27/科研常用评估指标/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="BLEU"><a href="#BLEU" class="headerlink" title="BLEU"></a>BLEU</h1><p>BLEU （Bilingual Evaluation Understudy）是一种基于n-gram精度的评估指标，它通过计算机器翻译结果和参考翻译之间的n-gram匹配度来评估机器翻译的质量。</p>
+<p>BLEU（Bilingual Evaluation Understudy）是一种评估机器翻译质量的方法，特别是它如何接近人类翻译的程度。BLEU分数是基于机器翻译输出与一组参考翻译之间的重叠程度来计算的。以下是BLEU分数的计算步骤：</p>
+<ol>
+<li><p><strong>选择N-gram</strong>：</p>
+<ul>
+<li>确定你想要使用的N-gram大小。常见的选择是1-gram（单个词），2-gram（两个连续词），3-gram，以此类推，直到n-gram。</li>
+</ul>
+</li>
+<li><p><strong>计算N-gram精确度</strong>：</p>
+<ul>
+<li>对于每个N-gram大小，计算机器翻译输出中的N-gram与参考翻译中N-gram的精确度。精确度是指机器翻译输出中正确的N-gram数量除以机器翻译输出中N-gram的总数。</li>
+</ul>
+</li>
+<li><p><strong>应用Brevity Penalty（BP）</strong>：</p>
+<ul>
+<li>如果机器翻译输出比任何参考翻译都短，那么它可能会得到较低的BLEU分数，因为短的输出可能更容易与参考翻译匹配。BP用于惩罚这种短输出：<br>$$<br>\text{BP} =<br>\begin{cases}<br>1 &amp; \text{if } c &gt; \text{ref} \<br>\exp(1 - \frac{\text{ref}}{c}) &amp; \text{if } c \leq \text{ref}<br>\end{cases}<br>$$</li>
+<li>其中，$c$是机器翻译输出中的词数，$ref$是最短参考翻译中的词数。</li>
+</ul>
+</li>
+<li><p><strong>计算加权和</strong>：</p>
+<ul>
+<li>对于每个N-gram大小，计算其精确度与权重的乘积。权重通常按N-gram大小递减，例如，对于1-gram到4-gram，权重可能是(0.25, 0.25, 0.25, 0.25)。</li>
+</ul>
+</li>
+<li><p><strong>计算几何平均值</strong>：</p>
+<ul>
+<li>对所有N-gram的加权精确度进行几何平均，以得到最终的BLEU分数：<br>$$<br>\text{BLEU} = BP \times \exp\left(\sum_{n=1}^{N} \frac{w_n \cdot p_n}{\sum_{n=1}^{N} w_n}\right)<br>$$</li>
+<li>其中，$(w_n)$是第n个N-gram大小的权重，$p_n$是第n个N-gram大小的精确度。</li>
+</ul>
+</li>
+<li><p><strong>输出结果</strong>：</p>
+<ul>
+<li>最终的BLEU分数范围从0到1，分数越高表示机器翻译的质量越接近人类翻译。</li>
+</ul>
+</li>
+</ol>
+<p>BLEU分数是一个快速且广泛接受的评估机器翻译质量的方法，但它也有局限性，例如它不能很好地评估语义的准确性和流畅性。因此，BLEU分数通常与其他评估方法一起使用，以获得更全面的翻译质量评估。</p>
+<h1 id="ROUGE"><a href="#ROUGE" class="headerlink" title="ROUGE"></a>ROUGE</h1><p>ROUGE（Recall-Oriented Understudy for Gisting Evaluation）是一种主要用于评估自动文摘和机器翻译的评估指标，它通过计算机器生成的摘要或翻译结果和参考摘要或翻译之间的n-gram重叠度来评估生成结果的质量。ROUGE指标主要关注评估生成的摘要或翻译与一组参考摘要或翻译之间的重叠程度。以下是几种常见的ROUGE指标的计算方法：</p>
+<h2 id="ROUGE-N-N-gram-Recall"><a href="#ROUGE-N-N-gram-Recall" class="headerlink" title="ROUGE-N (N-gram Recall)"></a>ROUGE-N (N-gram Recall)</h2><ol>
+<li><p><strong>计算N-gram</strong>：</p>
+<ul>
+<li>对于每个参考摘要和生成的摘要，分别计算N-gram（连续的N个词）。</li>
+</ul>
+</li>
+<li><p><strong>确定匹配的N-gram</strong>：</p>
+<ul>
+<li>找出生成的摘要中的N-gram与参考摘要中的N-gram相匹配的数量。</li>
+</ul>
+</li>
+<li><p><strong>计算召回率</strong>：</p>
+<ul>
+<li>召回率（Recall）是生成的摘要中匹配的N-gram数量与参考摘要中N-gram总数的比例：<br>$$<br>\text{ROUGE-N Recall} = \frac{\text{匹配的N-gram数量}}{\text{参考摘要中的N-gram总数}}<br>$$</li>
+</ul>
+</li>
+</ol>
+<h2 id="ROUGE-L-Longest-Common-Subsequence"><a href="#ROUGE-L-Longest-Common-Subsequence" class="headerlink" title="ROUGE-L (Longest Common Subsequence)"></a>ROUGE-L (Longest Common Subsequence)</h2><ol>
+<li><p><strong>计算最长公共子序列（LCS）</strong>：</p>
+<ul>
+<li>确定生成的摘要和参考摘要之间的最长公共子序列。</li>
+</ul>
+</li>
+<li><p><strong>计算长度比</strong>：</p>
+<ul>
+<li>将LCS的长度与参考摘要和生成的摘要的长度进行比较。</li>
+</ul>
+</li>
+<li><p><strong>计算F-measure</strong>：</p>
+<ul>
+<li>F-measure是精确度和召回率的调和平均数，用于评估ROUGE-L：<br>$$<br>\text{ROUGE-L F-measure} = \frac{(1 + \beta^2) \cdot \text{ROUGE-L Recall} \cdot \text{ROUGE-L Precision}}{\beta^2 \cdot \text{ROUGE-L Recall} + \text{ROUGE-L Precision}}<br>$$</li>
+<li>其中，$\beta$是一个权重因子，通常取1，使得精确度和召回率的权重相等。</li>
+</ul>
+</li>
+</ol>
+<h2 id="ROUGE-S-Skip-Bigram-Co-occurrence"><a href="#ROUGE-S-Skip-Bigram-Co-occurrence" class="headerlink" title="ROUGE-S (Skip-Bigram Co-occurrence)"></a>ROUGE-S (Skip-Bigram Co-occurrence)</h2><p>比如：”他每天都会去公园散步。”<br>在这个例子中，如果我们考虑bigram（两个连续词），句子中的”每天”和”散步”是连续的，而在生成句子中它们不是连续的。但是，如果我们考虑skip-bigram，我们可以看到”散步”和”公园”在两个句子中都是成对出现的，尽管它们在原文中不相邻。这表明生成的句子在语义上与参考句子保持了一定的连贯性。</p>
+<ol>
+<li><p><strong>计算skip-bigram</strong>：</p>
+<ul>
+<li>Skip-bigram是指在文本中不连续出现的两个词，但它们在另一个文本中是连续的。</li>
+</ul>
+</li>
+<li><p><strong>确定匹配的skip-bigram</strong>：</p>
+<ul>
+<li>找出生成的摘要中的skip-bigram与参考摘要中的skip-bigram相匹配的数量。</li>
+</ul>
+</li>
+<li><p><strong>计算召回率</strong>：</p>
+<ul>
+<li>召回率是生成的摘要中匹配的skip-bigram数量与参考摘要中skip-bigram总数的比例。</li>
+</ul>
+</li>
+</ol>
+<h1 id="METEOR"><a href="#METEOR" class="headerlink" title="METEOR"></a>METEOR</h1><p>METEOR （Metric for Evaluation of Translation with Explicit ORdering）是一种综合考虑精度、召回率和语法流畅度的评估指标，它通过比较机器翻译结果和参考翻译在单词级别的匹配度来评估机器翻译的质量。METEOR考虑了词汇的匹配、句子结构、词形变化以及同义词。METEOR与BLEU分数不同，它不仅关注词的重叠，还关注词的顺序和意义。以下是METEOR分数的基本计算步骤：</p>
+<ol>
+<li>语义相似度计算：使用语义相似度算法比较摘要中的每个单词与原文中相应单词的语义相似度。常用的语义相似度算法包括基于词向量、知识图谱和深度学习的方法。</li>
+<li>文本对齐度计算：评估摘要中的句子与原文中的句子之间的文本对齐度。常用的文本对齐度算法包括基于编辑距离、余弦相似度和句法结构的方法。</li>
+<li>平均精度计算：根据语义相似度和文本对齐度的结果，计算每个单词的平均精度。平均精度的计算方式是将语义相似度和文本对齐度的结果相加，并除以总的相关单词数。</li>
+<li>最终得分计算：将平均精度扩展到整个摘要，计算METEOR得分。可以通过将每个单词的平均精度相加，并除以摘要中的总单词数，得到最终的METEOR得分。</li>
+</ol>
+<p>METEOR分数的计算公式大致如下：</p>
+<p>该算法首先计算 unigram 情况下的准确率P和召回率R（计算方式与BLEU、ROUGE类似），得到调和均值F值：</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202406272019503.png"></p>
+<p>Meteor的特别之处在于，它不希望生成很“碎”的译文：比如参考译文是“A B C D”，模型给出的译文是“B A D C”，虽然每个unigram都对应上了，但是会受到很严重的惩罚。惩罚因子的计算方式为： </p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202406272019329.png"></p>
+<p>在评价句子流畅性的时候，用了 chunk 的概念（候选译文和参考译文能够对齐的、空间排列上连续的单词形成一个 chunk，这个对齐算法是一个有点复杂的启发式 beam search），chunk 的数目越少意味着每个 chunk 的平均长度越长，也就是说候选译文和参考译文的语序越一致。 unigrams_matched表示匹配上的unigram个数。</p>
+<p>最后，METEOR计算为对应最佳候选译文和参考译文之间的准确率和召回率的调和平均：</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202406272019877.png"></p>
+<p>用于机器翻译评测时，通常取 $\alpha$ =3，$\gamma$=0.5，$\theta$=3。</p>
+<blockquote>
+<p>Refs：<br><a href="https://blog.csdn.net/m0_62554628/article/details/136645353" target="_blank" rel="noopener">https://blog.csdn.net/m0_62554628/article/details/136645353</a><br><a href="https://developer.baidu.com/article/details/3121202" target="_blank" rel="noopener">https://developer.baidu.com/article/details/3121202</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>点击这个按钮，会有好事发生哦~(>w<)~</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="C_Meng WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="C_Meng Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/paypal.png" alt="C_Meng PayPal">
+        <p>PayPal</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/metrics/" rel="tag"># metrics</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/06/27/关联规则挖掘算法综述/" rel="prev" title="关联规则挖掘算法综述">
+      <i class="fa fa-chevron-left"></i> 关联规则挖掘算法综述
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/06/27/多模态大模型训练常用公开数据集/" rel="next" title="多模态大模型训练常用公开数据集">
+      多模态大模型训练常用公开数据集 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BLEU"><span class="nav-number">1.</span> <span class="nav-text">BLEU</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ROUGE"><span class="nav-number">2.</span> <span class="nav-text">ROUGE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ROUGE-N-N-gram-Recall"><span class="nav-number">2.1.</span> <span class="nav-text">ROUGE-N (N-gram Recall)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROUGE-L-Longest-Common-Subsequence"><span class="nav-number">2.2.</span> <span class="nav-text">ROUGE-L (Longest Common Subsequence)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROUGE-S-Skip-Bigram-Co-occurrence"><span class="nav-number">2.3.</span> <span class="nav-text">ROUGE-S (Skip-Bigram Co-occurrence)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#METEOR"><span class="nav-number">3.</span> <span class="nav-text">METEOR</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">A stupid old man with a humble learning heart. And his dog.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">208</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
