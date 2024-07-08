@@ -768,95 +768,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" class="post-title-link" itemprop="url">远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-04-24 02:45:19" itemprop="dateCreated datePublished" datetime="2017-04-24T02:45:19+08:00">2017-04-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-04 15:55:31" itemprop="dateModified" datetime="2020-01-04T15:55:31+08:00">2020-01-04</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。</p>
-<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>将User=root对应行的Host一栏的值修改为<code>%</code>，允许任意ip登录root。</p>
-<h2 id="具体解决方案"><a href="#具体解决方案" class="headerlink" title="具体解决方案"></a>具体解决方案</h2><p>在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p  </span><br><span class="line">mysql&gt;use mysql;  </span><br><span class="line">mysql&gt;update user set host = '%' where user ='root';  </span><br><span class="line">mysql&gt;flush privileges;</span><br></pre></td></tr></table></figure>
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
     <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -933,6 +844,95 @@
 <p><code>#bind-address = 127.0.0.1</code></p>
 <p>然后执行 <code>service mysql restart</code>重新启动mysql服务使配置生效即可。</p>
 
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" class="post-title-link" itemprop="url">远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-04-24 02:45:19" itemprop="dateCreated datePublished" datetime="2017-04-24T02:45:19+08:00">2017-04-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-04 15:55:31" itemprop="dateModified" datetime="2020-01-04T15:55:31+08:00">2020-01-04</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。</p>
+<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>将User=root对应行的Host一栏的值修改为<code>%</code>，允许任意ip登录root。</p>
+<h2 id="具体解决方案"><a href="#具体解决方案" class="headerlink" title="具体解决方案"></a>具体解决方案</h2><p>在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p  </span><br><span class="line">mysql&gt;use mysql;  </span><br><span class="line">mysql&gt;update user set host = '%' where user ='root';  </span><br><span class="line">mysql&gt;flush privileges;</span><br></pre></td></tr></table></figure>
           
           
           
