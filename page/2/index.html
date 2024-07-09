@@ -22,16 +22,16 @@
     var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="A stupid old man with a humble learning heart. And his dog.">
+  <meta name="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人">
 <meta property="og:type" content="website">
 <meta property="og:title" content="C_Meng PSNA">
 <meta property="og:url" content="https://imonce.github.io/page/2/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
-<meta property="og:description" content="A stupid old man with a humble learning heart. And his dog.">
+<meta property="og:description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C_Meng PSNA">
-<meta name="twitter:description" content="A stupid old man with a humble learning heart. And his dog.">
+<meta name="twitter:description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人">
 
 <link rel="canonical" href="https://imonce.github.io/page/2/">
 
@@ -122,7 +122,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">208</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">214</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">134</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">137</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,12 +196,270 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2022/12/26/常用的激活函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/26/常用的激活函数/" class="post-title-link" itemprop="url">常用的激活函数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-12-26 21:50:08 / Modified: 22:30:41" itemprop="dateCreated datePublished" datetime="2022-12-26T21:50:08+08:00">2022-12-26</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2022/12/26/常用的激活函数/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/26/常用的激活函数/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <blockquote>
+<p>references:<br><a href="https://www.v7labs.com/blog/neural-networks-activation-functions#:~:text=An%20Activation%20Function%20decides%20whether,prediction%20using%20simpler%20mathematical%20operations" target="_blank" rel="noopener">https://www.v7labs.com/blog/neural-networks-activation-functions#:~:text=An%20Activation%20Function%20decides%20whether,prediction%20using%20simpler%20mathematical%20operations</a>.<br><a href="https://blog.csdn.net/weixin_45134475/article/details/123672283" target="_blank" rel="noopener">https://blog.csdn.net/weixin_45134475/article/details/123672283</a><br><a href="https://zhuanlan.zhihu.com/p/92412922" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/92412922</a></p>
+</blockquote>
+<h1 id="Sigmoid"><a href="#Sigmoid" class="headerlink" title="Sigmoid"></a>Sigmoid</h1><p>$\sigma(x) = \frac{1}{1+e^{-x}}$</p>
+<h1 id="Tanh"><a href="#Tanh" class="headerlink" title="Tanh"></a>Tanh</h1><p>$tanh(x) = \frac{1-e^{-2x}}{1+e^{-2x}}$</p>
+<h1 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h1><p>$ReLU(x)=\left\lbrace\begin{array}{cll}<br>x &amp; , &amp; x \ge 0 \\<br>0 &amp; , &amp; x &lt; 0<br>\end{array}\right.$</p>
+<p>或</p>
+<p>$ReLU(x) = \max(0, x)$</p>
+<h1 id="Leaky-ReLU"><a href="#Leaky-ReLU" class="headerlink" title="Leaky ReLU"></a>Leaky ReLU</h1><p>$ReLU(x)=\left\lbrace\begin{array}{cll}<br>x &amp; , &amp; x \ge 0 \\<br>0.1x &amp; , &amp; x &lt; 0<br>\end{array}\right.$</p>
+<p>或</p>
+<p>$ReLU(x) = \max(0.1x, x)$</p>
+<h1 id="ELU"><a href="#ELU" class="headerlink" title="ELU"></a>ELU</h1><p>$ELU(x)=\left\lbrace\begin{array}{cll}<br>x &amp; , &amp; x \ge 0 \\<br>\alpha(e^x-1) &amp; , &amp; x &lt; 0<br>\end{array}\right.$</p>
+<h1 id="Swish"><a href="#Swish" class="headerlink" title="Swish"></a>Swish</h1><p>$swish(x) = x*sigmoid(x) =\frac{x}{1+e^{-x}}$</p>
+<h1 id="Maxout"><a href="#Maxout" class="headerlink" title="Maxout"></a>Maxout</h1><p>$max(z_1, z_2, …)$</p>
+<h1 id="Softmax"><a href="#Softmax" class="headerlink" title="Softmax"></a>Softmax</h1><p>$softmax(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}$</p>
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2022/08/22/修改mac分配的虚拟磁盘的空间/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/22/修改mac分配的虚拟磁盘的空间/" class="post-title-link" itemprop="url">修改mac分配的虚拟磁盘的空间</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-08-22 10:20:01 / Modified: 10:22:02" itemprop="dateCreated datePublished" datetime="2022-08-22T10:20:01+08:00">2022-08-22</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2022/08/22/修改mac分配的虚拟磁盘的空间/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/08/22/修改mac分配的虚拟磁盘的空间/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <p>通过mac自带的磁盘工具调整虚拟磁盘大小会报错，但是可以通过命令行调整。</p>
+<p>如将Hello.dmg调整为7GB：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdiutil resize -size 7g Hello.dmg</span><br></pre></td></tr></table></figure>
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2022/08/22/快速修复mac自带日历无法同步问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/22/快速修复mac自带日历无法同步问题/" class="post-title-link" itemprop="url">快速修复mac自带日历无法同步问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-08-22 10:16:54 / Modified: 10:19:05" itemprop="dateCreated datePublished" datetime="2022-08-22T10:16:54+08:00">2022-08-22</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2022/08/22/快速修复mac自带日历无法同步问题/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/08/22/快速修复mac自带日历无法同步问题/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <p>打开terminal运行以下指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">launchctl stop com.apple.CalendarAgent</span><br><span class="line">launchctl start com.apple.CalendarAgent</span><br></pre></td></tr></table></figure>
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
     <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2021/11/21/如何把jupyter-notebook自动转换为python脚本/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
       <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -288,7 +546,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
       <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -421,7 +679,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
       <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -550,7 +808,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
       <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -639,7 +897,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
       <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -754,7 +1012,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
       <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -863,7 +1121,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
       <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -969,339 +1227,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2020/10/13/React教程-一张图就够了/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/13/React教程-一张图就够了/" class="post-title-link" itemprop="url">React教程:一张图就够了</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-10-13 20:23:52 / Modified: 20:30:59" itemprop="dateCreated datePublished" datetime="2020-10-13T20:23:52+08:00">2020-10-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learn-X-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn X in Y minutes</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/10/13/React教程-一张图就够了/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/13/React教程-一张图就够了/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <blockquote>
-<p>reference:<br><a href="https://www.runoob.com/react/react-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/react/react-tutorial.html</a></p>
-</blockquote>
-<p><a href="/assets/files/React.xmind">下载React.xmind</a></p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/React.png" alt="React.xmind"></p>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2020/10/13/Node-js教程-一张图就够了/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/13/Node-js教程-一张图就够了/" class="post-title-link" itemprop="url">Node.js教程:一张图就够了</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-10-13 20:15:09 / Modified: 20:31:55" itemprop="dateCreated datePublished" datetime="2020-10-13T20:15:09+08:00">2020-10-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learn-X-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn X in Y minutes</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/10/13/Node-js教程-一张图就够了/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/13/Node-js教程-一张图就够了/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <blockquote>
-<p>reference:<br><a href="https://www.runoob.com/nodejs/nodejs-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/nodejs/nodejs-tutorial.html</a></p>
-</blockquote>
-<p><a href="/assets/files/Node.js.xmind">下载Node.js.xmind</a></p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/Node.js.png" alt="Node.js.xmind"></p>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2020/09/20/《金字塔原理》读书笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/20/《金字塔原理》读书笔记/" class="post-title-link" itemprop="url">《金字塔原理》读书笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-09-20 17:05:48 / Modified: 17:33:57" itemprop="dateCreated datePublished" datetime="2020-09-20T17:05:48+08:00">2020-09-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Reading-Notes/" itemprop="url" rel="index"><span itemprop="name">Reading Notes</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/09/20/《金字塔原理》读书笔记/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/20/《金字塔原理》读书笔记/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <h1 id="金字塔原理："><a href="#金字塔原理：" class="headerlink" title="金字塔原理："></a>金字塔原理：</h1><p>自下而上的思考，自上而下的表达。</p>
-<ol>
-<li>文章结构中任一层次上的思想必须是其下一层次思想的概括</li>
-<li>每一层次的思想要归属于同一范畴</li>
-<li>每一层次的思想要按逻辑顺序组织</li>
-</ol>
-<h1 id="表达的逻辑"><a href="#表达的逻辑" class="headerlink" title="表达的逻辑"></a>表达的逻辑</h1><h2 id="框架的构架"><a href="#框架的构架" class="headerlink" title="框架的构架"></a>框架的构架</h2><p>在较高层次的主题之间尽量用归纳法进行论述，在低层次用演绎方式论述。 </p>
-<ul>
-<li>演绎推理：背景(情境)—冲突—问题—解决方案</li>
-<li>归纳推理：找到一组具体共同思想的名词，识别并剔除该组思想中与其他思想不相称的观点</li>
-</ul>
-<h2 id="深入的过程"><a href="#深入的过程" class="headerlink" title="深入的过程"></a>深入的过程</h2><p>通过纵向的思想引出主题和子主题之前的纵向关系。</p>
-<p>“思想”定义：向读者发出新信息并引发读者疑问的语句。</p>
-<p>纵向的思想实质是“疑问/回答”形式，这样更能吸引读者注意力。</p>
-<h2 id="序言的结构"><a href="#序言的结构" class="headerlink" title="序言的结构"></a>序言的结构</h2><p>以“情境、冲突、疑问、回答”方式来开篇，情境和冲突是读者熟知的事实。通过明确读者最初关心的问题，让后续的内容能吸引读者注意力。</p>
-<ul>
-<li>标准式： 情境—冲突—解决方案</li>
-<li>开门见山： 解决方案—情境—冲突</li>
-<li>突出忧虑： 冲突—情境—解决方案</li>
-<li>突出信心： 疑问—情境—冲突—解决方案</li>
-</ul>
-<h1 id="思考的逻辑（内容的填充）"><a href="#思考的逻辑（内容的填充）" class="headerlink" title="思考的逻辑（内容的填充）"></a>思考的逻辑（内容的填充）</h1><ol>
-<li>应用时间顺序、结构顺序、重要程度顺序来构建思考逻辑树</li>
-<li>总结句避免使用“缺乏思想”的句子，要说明行动产生的结果或目标</li>
-<li>找出各结论之间的共性，得出金字塔尖的结论</li>
-</ol>
-<p>四种主要的逻辑顺序：</p>
-<ul>
-<li>演绎顺序：大前提、小前提、结论—按照演绎推理组织的思想</li>
-<li>时间顺序：第一、第二、第三—按因果关系组织的思想</li>
-<li>结构顺序：将整体分割为部分进行评论，划分后的各部分需要符合以下要求：MECE<ul>
-<li>各部分之间相互独立（mutually exclusive）</li>
-<li>所有部分完全穷尽（collectively exhaustive）</li>
-</ul>
-</li>
-<li>重要性顺序：最重要、次重要，等等—按类别组织思想</li>
-</ul>
-<h1 id="解决问题的逻辑"><a href="#解决问题的逻辑" class="headerlink" title="解决问题的逻辑"></a>解决问题的逻辑</h1><p>界定问题：</p>
-<ul>
-<li>界定问题的框架</li>
-<li>展开问题的各要素</li>
-<li>发掘读者的疑问</li>
-<li>回答疑问</li>
-</ul>
-<p>结构化分析问题：</p>
-<ul>
-<li>设计诊断框架</li>
-<li>收集信息</li>
-<li>建立逻辑树（回答是否问题）</li>
-<li>寻找解决方案</li>
-</ul>
-<p>经典:建立诊断框架和逻辑树的指导来分析和引导思维，不仅能提高解决问题的效率，而且还简化了把结果构建成金字塔的工作。无目的的收集资料，会造成60%的无用功！！！</p>
-<p>设计诊断框架的方法：其本身呈现有行结构/根据因果关系分解构建/归类分组</p>
-<blockquote>
-<p>Reference:<br><a href="https://www.jianshu.com/p/bdbf71572911" target="_blank" rel="noopener">https://www.jianshu.com/p/bdbf71572911</a><br><a href="https://book.douban.com/review/7121761/" target="_blank" rel="noopener">https://book.douban.com/review/7121761/</a><br><a href="https://zhuanlan.zhihu.com/p/78548168" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/78548168</a></p>
-</blockquote>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1366,14 +1291,14 @@
     <img class="site-author-image" itemprop="image" alt="C_Meng"
       src="/images/C_Meng.png">
   <p class="site-author-name" itemprop="name">C_Meng</p>
-  <div class="site-description" itemprop="description">A stupid old man with a humble learning heart. And his dog.</div>
+  <div class="site-description" itemprop="description">This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">137</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1386,7 +1311,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">208</span>
+        <span class="site-state-item-count">214</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

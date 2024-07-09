@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Pre时空知识库 这一概念使用较少，更多的是 时空数据库 ，本文认为时空知识库是在时空数据库的基础上的知识扩展。下文叙述中不再严格区分两个概念，主要以知识数据库为主。 时空数据库概念时空数据库是一种特殊类型的数据库，它能够存储和管理与时间和空间相关的数据。随着科技的发展和数据的爆炸性增长，时空数据库的重要性也日益凸显。它不仅可以用于地理信息系统（GIS）、气象预测、交通管理等领域，还可以应用于智能">
+<meta name="keywords" content="knowledge base,spatio-temporal knowledge base,spatio-temporal database">
+<meta property="og:type" content="article">
+<meta property="og:title" content="时空知识库概述">
+<meta property="og:url" content="https://imonce.github.io/2024/07/08/时空知识库概述/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="Pre时空知识库 这一概念使用较少，更多的是 时空数据库 ，本文认为时空知识库是在时空数据库的基础上的知识扩展。下文叙述中不再严格区分两个概念，主要以知识数据库为主。 时空数据库概念时空数据库是一种特殊类型的数据库，它能够存储和管理与时间和空间相关的数据。随着科技的发展和数据的爆炸性增长，时空数据库的重要性也日益凸显。它不仅可以用于地理信息系统（GIS）、气象预测、交通管理等领域，还可以应用于智能">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202407092043852.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202407092030683.png">
+<meta property="og:updated_time" content="2024-07-09T13:59:05.782Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="时空知识库概述">
+<meta name="twitter:description" content="Pre时空知识库 这一概念使用较少，更多的是 时空数据库 ，本文认为时空知识库是在时空数据库的基础上的知识扩展。下文叙述中不再严格区分两个概念，主要以知识数据库为主。 时空数据库概念时空数据库是一种特殊类型的数据库，它能够存储和管理与时间和空间相关的数据。随着科技的发展和数据的爆炸性增长，时空数据库的重要性也日益凸显。它不仅可以用于地理信息系统（GIS）、气象预测、交通管理等领域，还可以应用于智能">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202407092043852.png">
+
+<link rel="canonical" href="https://imonce.github.io/2024/07/08/时空知识库概述/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>时空知识库概述 | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">214</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">137</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/07/08/时空知识库概述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          时空知识库概述
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-07-08 16:56:36" itemprop="dateCreated datePublished" datetime="2024-07-08T16:56:36+08:00">2024-07-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-07-09 21:59:05" itemprop="dateModified" datetime="2024-07-09T21:59:05+08:00">2024-07-09</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2024/07/08/时空知识库概述/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/07/08/时空知识库概述/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Pre"><a href="#Pre" class="headerlink" title="Pre"></a>Pre</h1><p><em>时空知识库</em> 这一概念使用较少，更多的是 <em>时空数据库</em> ，本文认为时空知识库是在时空数据库的基础上的知识扩展。下文叙述中不再严格区分两个概念，主要以知识数据库为主。</p>
+<h1 id="时空数据库概念"><a href="#时空数据库概念" class="headerlink" title="时空数据库概念"></a>时空数据库概念</h1><p>时空数据库是一种特殊类型的数据库，它能够存储和管理与时间和空间相关的数据。随着科技的发展和数据的爆炸性增长，时空数据库的重要性也日益凸显。它不仅可以用于地理信息系统（GIS）、气象预测、交通管理等领域，还可以应用于智能城市、物联网、人工智能等新兴技术的发展。</p>
+<p>时空数据库的概念源于对现实世界的模拟和分析需求。传统的数据库主要关注数据的存储和查询，而时空数据库则更加注重数据的时序和空间特征。它能够有效地处理和分析大量的时空数据，提供更加准确和全面的信息。</p>
+<h1 id="时空数据库特征"><a href="#时空数据库特征" class="headerlink" title="时空数据库特征"></a>时空数据库特征</h1><p><strong>时空数据库的特点之一是支持时间和空间的索引。</strong> 时间索引可以帮助用户快速定位到某个时间点或时间段的数据，而空间索引则可以帮助用户快速定位到某个地理位置的数据。这种索引的设计和优化是时空数据库的关键技术之一。</p>
+<p><strong>时空数据库还具有多维数据模型。</strong> 传统的数据库主要采用关系模型，而时空数据库则采用多维数据模型。它可以将数据按照时间、空间和属性等多个维度进行组织和管理，提供更加灵活和高效的数据操作。</p>
+<p><strong>时空数据库还具有时空数据类型。</strong> 传统的数据库主要支持数值、字符和日期等基本数据类型，而时空数据库则支持点、线、面、体等时空数据类型。这些数据类型可以更好地表示和处理与时间和空间相关的数据。</p>
+<p><strong>时空数据库还具有时空数据操作。</strong> 传统的数据库主要支持数据的插入、更新和删除等基本操作，而时空数据库则支持时空数据的查询、分析和可视化等高级操作。这些操作可以帮助用户更好地理解和利用时空数据。</p>
+<p><strong>时空数据库还具有时空数据分析。</strong> 传统的数据库主要关注数据的存储和查询，而时空数据库则更加注重数据的分析和挖掘。它可以通过时空数据的聚类、分类、预测和优化等方法，提取出有价值的信息和知识。</p>
+<h1 id="关于时空数据库构建"><a href="#关于时空数据库构建" class="headerlink" title="关于时空数据库构建"></a>关于时空数据库构建</h1><h2 id="相比于传统数据库的主要升级"><a href="#相比于传统数据库的主要升级" class="headerlink" title="相比于传统数据库的主要升级"></a>相比于传统数据库的主要升级</h2><ol>
+<li><p>实体对象模型升级。将面向存储和制图的点、线、面要素模型升级为面向分析和应用的实体对象模型，并借助语义化技术， <strong>实现地物空间信息、属性信息、时态信息的实体化存储</strong> ，同时提供不同粒度地理实体动态组合、聚合、专题信息实时挂接等功能，从而实现复合实体转换重组以及多源数据有机融合，更好为时空分析与业务应用提供数据支撑。</p>
+</li>
+<li><p>三维立体模型升级。将二维平面模型升级为三维立体模型，以二维地理实体为基础，通过三维时空动态匹配与自动挂接，自动提取传统三维地形数据（DEM、DSM）的高程信息，并有机融合基于激光扫描、倾斜摄影、三维重建等构建的真三维模型数据， <strong>实现二维模型的三维化拓展</strong> ，以更符合现实世界认知习惯的方式为用户提供全空间场景化时空信息产品。</p>
+</li>
+<li><p>动态时序模型升级。将静态版本模型升级为动态时序模型，以地理实体为载体，以基元版本数据为基础， <strong>依照时序记录几何、属性、相互关系等信息的增加、删除或修改变化及相应时态信息</strong> ，并以增量形式存储于基元版本数据中，实现对地理现象的产生、演变、消亡等动态时序变化信息的全周期存储、管理与表达。</p>
+</li>
+</ol>
+<h2 id="构建过程"><a href="#构建过程" class="headerlink" title="构建过程"></a>构建过程</h2><p>以下是 <a href="#references">ref2</a> 中的构建系统逻辑。</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407092043852.png"></p>
+<p>从这张图可以看出，首先数据流通过适当的采样程序被分割（离散化）成一系列数据块（句子），如上所述。这些数据块的大小（数据的数量M），以及采样周期Ts，在本文中没有讨论，因为它们是依赖于问题参数的，我们想要解释的是主要思想。</p>
+<p>一般来说，数据块的大小M对应于代表监控环境中一个典型情况或机器典型工作条件（模式）的合理数量的数据。它可以在不同的物理系统中变化。例如，在从图形信息（图像序列）中获取知识时，一个数据块实际上就是一张图片中包含的所有RGB像素信息。</p>
+<p>至于数据块之间的采样周期Ts，它们不必相等，因为下一个数据块可能在更远（不同）的时间瞬间可用（测量）。换句话说，所提出的进化知识库系统更像是一个在线系统，或者更准确地说，是一个准实时系统，从某种意义上说，新的数据块在它们可用的地方被处理（而不一定是在固定的采样时间内）。这种假设从计算的角度来看更宽松，也更接近现实世界中学习和知识构建的过程。</p>
+<p>每个获得的单个数据块都将进一步处理，以提取最显著（重要）的知识项，这些将被称为近期知识项（近期KI）。这是通过一个特殊的新引入的序列聚类算法完成的，该算法将在下一节III中详细解释。这个算法的目标是从数据块中提取数据组（聚类）的中心（原型），以递减的顺序，从最大的聚类开始，继续到最小的聚类。这个序列过程的结束是由预先给定的阈值决定的，如图2.1所示。</p>
+<p>一旦通过序列聚类提取出近期知识项（KI），它们就进一步用作图2.1所示的进化知识库（KB）更新算法的输入。在这里，根据知识库中已经存在（旧的）知识项，可以区分出三种不同的更新模式。它们被编号为0、1和2，并在下一个图2.2中展示。</p>
+<h1 id="关于时空数据库操作"><a href="#关于时空数据库操作" class="headerlink" title="关于时空数据库操作"></a>关于时空数据库操作</h1><p>初上文提到时空数据的“增删改查”基础操作，以及“查询分析可视化”等高级操作外，还应存在以下操作：</p>
+<ul>
+<li>记忆（learn）：增加新的时空数据，并与更新现有数据的时空关联关系。</li>
+<li>遗忘（forget）：删除原有时空数据，并删除相关关联关系以及其他数据表中的相关知识痕迹，如删除某一误判风险事件，同时应删除事件处置、原因溯源等一切相关时空数据。</li>
+<li>学习（relearn）：更新已有时空数据，并更新时空相关数据，如更新某一风险判断政策或条件，应同时更新所有风险判断及处置相关数据。</li>
+</ul>
+<p>以下是 <a href="#references">ref2</a> 中的关于三种操作对应的情况：</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407092030683.png"></p>
+<p>模式0表示知识库中现有的（旧的）知识项（Knowledge Item，KI）尚未被序列聚类中的任何近期KI“访问”。这意味着所有近期KI都位于这个现有KI的预定 <em>resolution</em> 参数之外。 <em>resolution</em> 参数是一个用来在知识库（KB）中将“接近的知识项”与“远离的知识项”分开的距离，如图2.2所示。从这个例子中可以看到，知识库中有两个模式为0的KI。这些被视为将在某种程度上逐渐淡出（遗忘步骤）的旧知识项。</p>
+<p>模式1表示知识库中完全新的知识项（新KI）。这意味着近期KI与知识库中的所有现有KI都相距甚远。在这种情况下，这个新知识应该接受一个全新的（首次）学习步骤。在图2.2的例子中，有两种情况是模式1。</p>
+<p>模式2表示近期KI位于知识库中现有KI的附近，即在由 <em>resolution</em> 参数定义的圆形区域内。这样的情况表明，知识库中的旧现有KI将升级为需要以某种方式重新学习刷新的知识项，同时考虑到近期KI所携带的知识量。在图2.2的例子中，有两种情况是模式2。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>时空数据库相比传统数据库的升级体现在以下方面：</p>
+<h2 id="数据结构方面"><a href="#数据结构方面" class="headerlink" title="数据结构方面"></a>数据结构方面</h2><p>在进行数据ER图设计时，时间、空间特征应被单独构建为数据实体。</p>
+<h2 id="数据操作方面"><a href="#数据操作方面" class="headerlink" title="数据操作方面"></a>数据操作方面</h2><p>简单的增删改查应升级成时空相关的“记忆”、“遗忘”、“学习”、“分析”等。</p>
+<h2 id="数据维护方面"><a href="#数据维护方面" class="headerlink" title="数据维护方面"></a>数据维护方面</h2><p>应在动态性方面大幅强化，包括时空关系的自动挖掘，知识更新、失效的自动化判断，insight（如风险预警）的自动生成等。</p>
+<h2 id="整体构建过程"><a href="#整体构建过程" class="headerlink" title="整体构建过程"></a>整体构建过程</h2><p>依然与传统数据库类似：</p>
+<p>构建时空数据库是一个复杂的过程，需要考虑数据的收集、处理、存储和管理系统等多个方面。以下是构建时空数据库的具体步骤：</p>
+<ol>
+<li><p><strong>需求分析</strong>：</p>
+<ul>
+<li>确定数据库的目标和用途。</li>
+<li>了解用户需求和期望的功能。</li>
+</ul>
+</li>
+<li><p><strong>数据收集</strong>：</p>
+<ul>
+<li>收集时空数据，可能包括地理信息、时间序列数据、遥感数据等。</li>
+<li>确定数据来源和收集方法。</li>
+</ul>
+</li>
+<li><p><strong>数据预处理</strong>：</p>
+<ul>
+<li>清洗数据，去除错误和不一致的数据。</li>
+<li>标准化数据格式，确保数据的一致性。</li>
+</ul>
+</li>
+<li><p><strong>数据建模</strong>：</p>
+<ul>
+<li>确定数据的空间和时间维度，并进行对应实体设计。</li>
+<li>设计时空数据模型与ER图，包括实体、关系和属性的定义。</li>
+</ul>
+</li>
+<li><p><strong>选择技术平台</strong>（可视情况提前）：</p>
+<ul>
+<li>选择适合时空数据存储和查询的数据库管理系统（如PostGIS、MongoDB等）。</li>
+</ul>
+</li>
+<li><p><strong>数据集成</strong>：</p>
+<ul>
+<li>将清洗和标准化后的数据导入数据库。</li>
+<li>进行数据整合，确保数据逻辑一致性。</li>
+</ul>
+</li>
+<li><p><strong>建立索引和优化</strong>：</p>
+<ul>
+<li>为提高查询效率，建立空间和时间索引。</li>
+<li>优化数据库性能，调整参数以适应大规模数据操作。</li>
+</ul>
+</li>
+<li><p><strong>开发数据库管理系统</strong>：</p>
+<ul>
+<li>开发或配置数据库管理系统，实现数据的增删改查等操作。</li>
+<li>实现数据可视化和分析工具。</li>
+</ul>
+</li>
+<li><p><strong>数据更新策略</strong>：</p>
+<ul>
+<li>制定数据更新和维护的策略。</li>
+<li>确定数据更新频率和方法。</li>
+</ul>
+</li>
+<li><p><strong>安全性和隐私保护</strong>：</p>
+<ul>
+<li>实施数据安全措施，保护数据不被未授权访问。</li>
+<li>确保符合数据保护法规。</li>
+</ul>
+</li>
+<li><p><strong>测试和验证</strong>：</p>
+<ul>
+<li>对数据库进行测试，确保功能正确性和性能满足要求。</li>
+<li>验证数据的准确性和完整性。</li>
+</ul>
+</li>
+<li><p><strong>用户培训和文档编写</strong>：</p>
+<ul>
+<li>为用户提供培训，确保他们能够有效使用数据库。</li>
+<li>编写用户手册和系统文档。</li>
+</ul>
+</li>
+<li><p><strong>部署和上线</strong>：</p>
+<ul>
+<li>将数据库部署到生产环境。</li>
+<li>正式上线提供服务。</li>
+</ul>
+</li>
+<li><p><strong>监控和维护</strong>：</p>
+<ul>
+<li>监控数据库性能和健康状况。</li>
+<li>定期维护和升级系统。</li>
+</ul>
+</li>
+</ol>
+<p>构建时空数据库是一个迭代和持续的过程，需要不断地根据用户反馈和技术发展进行优化和升级。</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
+<li><a href="https://wenku.baidu.com/view/2bd7de9f9a8fcc22bcd126fff705cc1754275f3b.html?_wkts_=1720526169067&amp;bdQuery=%E6%97%B6%E7%A9%BA%E7%9F%A5%E8%AF%86%E5%BA%93" target="_blank" rel="noopener">https://wenku.baidu.com/view/2bd7de9f9a8fcc22bcd126fff705cc1754275f3b.html?_wkts_=1720526169067&amp;bdQuery=%E6%97%B6%E7%A9%BA%E7%9F%A5%E8%AF%86%E5%BA%93</a></li>
+<li><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=5584860" target="_blank" rel="noopener">https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=5584860</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/knowledge-base/" rel="tag"># knowledge base</a>
+              <a href="/tags/spatio-temporal-knowledge-base/" rel="tag"># spatio-temporal knowledge base</a>
+              <a href="/tags/spatio-temporal-database/" rel="tag"># spatio-temporal database</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/07/08/MacOS-如何在启动App时运行脚本/" rel="prev" title="MacOS:如何在启动App时运行脚本">
+      <i class="fa fa-chevron-left"></i> MacOS:如何在启动App时运行脚本
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/07/09/时空知识图谱概述/" rel="next" title="时空知识图谱概述">
+      时空知识图谱概述 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pre"><span class="nav-number">1.</span> <span class="nav-text">Pre</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时空数据库概念"><span class="nav-number">2.</span> <span class="nav-text">时空数据库概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时空数据库特征"><span class="nav-number">3.</span> <span class="nav-text">时空数据库特征</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于时空数据库构建"><span class="nav-number">4.</span> <span class="nav-text">关于时空数据库构建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#相比于传统数据库的主要升级"><span class="nav-number">4.1.</span> <span class="nav-text">相比于传统数据库的主要升级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建过程"><span class="nav-number">4.2.</span> <span class="nav-text">构建过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于时空数据库操作"><span class="nav-number">5.</span> <span class="nav-text">关于时空数据库操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构方面"><span class="nav-number">6.1.</span> <span class="nav-text">数据结构方面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据操作方面"><span class="nav-number">6.2.</span> <span class="nav-text">数据操作方面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据维护方面"><span class="nav-number">6.3.</span> <span class="nav-text">数据维护方面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整体构建过程"><span class="nav-number">6.4.</span> <span class="nav-text">整体构建过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#References"><span class="nav-number">7.</span> <span class="nav-text">References</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">137</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">214</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

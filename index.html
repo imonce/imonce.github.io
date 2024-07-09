@@ -22,16 +22,16 @@
     var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="A stupid old man with a humble learning heart. And his dog.">
+  <meta name="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人">
 <meta property="og:type" content="website">
 <meta property="og:title" content="C_Meng PSNA">
 <meta property="og:url" content="https://imonce.github.io/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
-<meta property="og:description" content="A stupid old man with a humble learning heart. And his dog.">
+<meta property="og:description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C_Meng PSNA">
-<meta name="twitter:description" content="A stupid old man with a humble learning heart. And his dog.">
+<meta name="twitter:description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人">
 
 <link rel="canonical" href="https://imonce.github.io/">
 
@@ -122,7 +122,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">208</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">214</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">134</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">137</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,12 +196,372 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/07/09/时空知识图谱概述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/07/09/时空知识图谱概述/" class="post-title-link" itemprop="url">时空知识图谱概述</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-07-09 19:59:16 / Modified: 22:02:08" itemprop="dateCreated datePublished" datetime="2024-07-09T19:59:16+08:00">2024-07-09</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2024/07/09/时空知识图谱概述/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/07/09/时空知识图谱概述/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <h1 id="什么是时空知识图谱"><a href="#什么是时空知识图谱" class="headerlink" title="什么是时空知识图谱"></a>什么是时空知识图谱</h1><p>时空知识图谱，顾名思义，是具有地理时空分布或位置隐喻的知识构成的有向图，即以时空分布特征为核心的知识图谱（Spatial-temporal Knowledge Graph，或Geo-related Knowledge Graph，以下简称STKG）。STKG旨在通过计算机规范化表达与存储与地理时空分布相关的知识集合，进而支持地理时空分布或位置相关知识检索与知识推理。其中的图（谱）指地理时空分布或位置要素（概念、人类群体/个体、地理实体、事件、现象等）之间的语义联系形成的网状拓扑结构。</p>
+<p>其中，时空知识可以更广泛地定义为一切具有时空位置和动态变化特征的相关知识。时空知识是人类对地理空间上人、物、事件、现象分布、演变过程和相互作用规律的认知结果。除了传统的地理/地学应用外，时空知识也是消费领域基于位置的服务（Location-based Services，LBS）、新型基础设施建设和智慧城市管理的核心支撑。时空知识也可以参考地理知识或地学知识分类方法，分为：</p>
+<ol>
+<li>事实型知识</li>
+<li>规则及控制型知识</li>
+<li>决策型知识</li>
+</ol>
+<p>3种类型，或者分为</p>
+<ol>
+<li>数据性知识</li>
+<li>概念性知识</li>
+<li>规律性知识</li>
+</ol>
+<p>3个层次。</p>
+<h1 id="时空知识图谱研究框架"><a href="#时空知识图谱研究框架" class="headerlink" title="时空知识图谱研究框架"></a>时空知识图谱研究框架</h1><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407091946744.png"></p>
+<h1 id="时空知识图谱的构建与应用ref4"><a href="#时空知识图谱的构建与应用ref4" class="headerlink" title="时空知识图谱的构建与应用ref4"></a>时空知识图谱的构建与应用<a href="#references">ref4</a></h1><p>作者提出了一种时空知识图谱本体模型，通过在实体种加入时空属性信息，来实现对特点目标领域的时空数据的管理与查询。作者设计了一个时空知识图谱问答系统，能够较为准确的查询出某时刻和时间段内的实体关系情况，并且可以在一定程度上计算空间距离。</p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>知识图谱是一种通过“节点-边-节点”的知识管理架构，实现对目标领域的实体关系数据的有效管理。但在一些特定领域，实体和关系会在时空上动态变化，因此如何设计领域时空知识图谱模型来解决这种变化的存储和管理是极其重要的。</p>
+<p>针对以上问题，作者对实体和关系种类和数量在时空上动态变换的特征，通过在实体关系中加入坐标和时间属性信息构建了本体模型，并且利用NER和基于规则的时间信息提取技术、问句图结构生产以及模式库匹配技术来实现算法辅助查询。</p>
+<h2 id="时空知识图谱本体模型"><a href="#时空知识图谱本体模型" class="headerlink" title="时空知识图谱本体模型"></a>时空知识图谱本体模型</h2><p>作者将领域内的实体进行归纳为4类：单位（机关、组织）、人物、装备和地点。这里由于单位之间的隶属关系、所在地、人物任职关系、装备的配备关系是动态变化的，所以作者在实体和关系中加入了时间空间信息=&gt;使得KG能够完整记录实体和关系的变化历程，并且能够在任意时刻和范围内查询到实体关系情况。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-a187aa7646ce3ea7f865a27baf6325ef_1440w.webp"></p>
+<p>这里圆形代表四类实体，矩形代表实体属性信息，圆角矩形代表关系的属性信息。</p>
+<h3 id="本体模型的实体设置"><a href="#本体模型的实体设置" class="headerlink" title="本体模型的实体设置"></a>本体模型的实体设置</h3><p>地点类实体设置：对于地点类实体，文章在实体属性中增加了该实体的经纬度来记录实体的地理位置<br>单位类设置：由于其自身存在更改名称、改编单位、撤编重建等情况，因此作者用不同的实体表示不同阶段的同一单位，但在实体的属性中加入了起始时间和结束时间以记录时间信息<br>人物类实体设置：属性加入出身地、出身日期、毕业院校等信息<br>装备类：装备的具体特征</p>
+<h3 id="本体模型的关系设置"><a href="#本体模型的关系设置" class="headerlink" title="本体模型的关系设置"></a>本体模型的关系设置</h3><p>同一单位的不同阶段实体的关系设置：采用change的关系（包括改名、改变、整合等等）<br>不同实体：如隶属于、位于、任职于、装备于等关系。也加上时间段属性表示在xx期间有yy关系。</p>
+<h3 id="时空知识图谱构建"><a href="#时空知识图谱构建" class="headerlink" title="时空知识图谱构建"></a>时空知识图谱构建</h3><p>这篇文章将时空知识图谱定义为能够存储时空动态数据、查询任何时刻和时间段的实体关系的知识图谱。作者利用OrientDB图数据库工具，构建目标领域时空知识图谱。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-5675c300769a8eebeb062537faf3f9b7_1440w.webp"></p>
+<h2 id="基于时空知识图谱本体模型应用"><a href="#基于时空知识图谱本体模型应用" class="headerlink" title="基于时空知识图谱本体模型应用"></a>基于时空知识图谱本体模型应用</h2><p>作者设定了一种目标领域时空知识图谱设计的查询系统：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-b442f6a0ff3e95aefeaa08ab790319a1_1440w.webp"></p>
+<p>剩下的就是一些成果展示。</p>
+<h1 id="基于时空知识图谱的空间分析方法研究ref5"><a href="#基于时空知识图谱的空间分析方法研究ref5" class="headerlink" title="基于时空知识图谱的空间分析方法研究ref5"></a>基于时空知识图谱的空间分析方法研究<a href="#references">ref5</a></h1><p>随着大数据时代的到来，地理信息正由单一静态向多源动态、精确结构化向模糊异构化转变。知识图谱本质上是一种以图Graph作为数据结构的语义网络，用边连接由节点代表实体或概念，用有向图的方式来表达语义关系。</p>
+<p>使用方式是：提取不同类型的地理实体，以RDF三元组（实体-关系-实体）格式存储通用的地理知识图谱。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-a3869ccf4119e8bf500ff332a93fedf3_1440w.webp"></p>
+<p>本位借助地理网格，将地理实体在知识图谱的框架中进行表达以提高空间分析的效率，同时将地理空间数据的时间属性也作为知识图谱中的实体以便进行时间维度的空间分析。</p>
+<h2 id="时空知识图谱构建-1"><a href="#时空知识图谱构建-1" class="headerlink" title="时空知识图谱构建"></a>时空知识图谱构建</h2><p><img src="https://pic1.zhimg.com/80/v2-c5bf57e86b6268b2ac0feae6d67da480_1440w.webp"></p>
+<p>作者基于Jena构建地理信息空间分析的知识图谱图数据库，并且在节点上引入了时间属性，如上图所示。（相当于把某一年作为一个节点，嵌入知识图谱中）</p>
+<h1 id="Question-Answering-Over-Spatio-Temporal-Knowledge-Graph-ref2"><a href="#Question-Answering-Over-Spatio-Temporal-Knowledge-Graph-ref2" class="headerlink" title="Question Answering Over Spatio-Temporal Knowledge Graph ref2"></a>Question Answering Over Spatio-Temporal Knowledge Graph <a href="#references">ref2</a></h1><p>时空知识图谱（STKGs）通过整合时间和地点信息扩展了知识图谱（KGs）的概念。尽管研究社区专注于知识图谱问答（KGQA），但基于STKGs结合时空信息回答问题的领域在很大程度上还未被探索。此外，缺乏综合的数据集也阻碍了这一领域的进展。为了解决这个问题，我们提出了STQAD，一个包含10,000个自然语言问题的数据集，用于时空知识图谱问答（STKGQA）。不幸的是，各种最先进的KGQA方法在我们的数据集上的表现远远达不到令人满意的水平。作为回应，我们提出了STCQA，这是一种新的时空KGQA方法，它采用了一种名为STComplEx的新颖STKG嵌入方法。通过从问题中提取时间和空间信息，我们的问答模型能更好地理解问题，并从STKG中检索准确的答案。通过广泛的实验，我们展示了我们数据集的质量以及我们STKGQA方法的有效性。</p>
+<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407092139976.png"></p>
+<p>如图1所示，问答系统需要从问题中提取潜在的时间和地理信息，并搜索正确的答案。从时空知识图谱（STKG）中，我们可以获得与”慕尼黑”相关的地理信息和与”第一次世界大战”相关的时间信息。然后，我们需要考虑时空约束，搜索与中心实体”阿尔伯特·爱因斯坦”相关的所有答案。不幸的是，如表1所示，目前还没有对这个具体问题进行进一步的讨论。此外，目前缺乏用于评估STKG上问答任务的大规模数据集。</p>
+<h2 id="问题生成"><a href="#问题生成" class="headerlink" title="问题生成"></a>问题生成</h2><p>要使用时空知识图谱（STKG）回答自然语言问题，我们必须从问题中心实体开始，并利用时空约束在知识图谱（KG）上定位答案。因此，问题生成可以被视为问题回答的反向过程，其中答案被用来推导出问题的所有约束和线索。此外，问题中实体和时空约束之间应该有更强的相关性，这将使问题更贴近现实世界的场景。</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407092143828.png"></p>
+<p>生成问题约束的过程如图2所示。我们使用事实（Albert_Einstein, worksAt, Humboldt_University_of_Berlin, occursSince, 1914, occursUntil, 1917, occursIn, 52.52, 13.39）作为一个答案事实，其中Albert_Einstein是中心实体，Humboldt_University_of_Berlin是答案。</p>
+<p>为了便于生成时空约束，我们搜索与Albert_Einstein相关的同时包含时间和地点信息的事实。这类事实的示例包括（Albert_Einstein, wasBornIn, Ulm, occursSince, 1879, occursIn, 48.43, 10.01）和（Albert_Einstein, graduatedFrom, University_of_Zurich, occursSince, 1905, occursIn, 47.38, 8.55）。我们把这些事实视为与中心实体高度相关的候选事实。一些知识图谱关系，如”influence”（影响）和”linksTo”（链接到），含义模糊且转换为约束具有挑战性，因此我们将其过滤掉。结果，我们获得了一组与中心实体相关的高质量候选事实。</p>
+<p>然而，这种严格的方法可能导致候选事实的数量不足。为了解决这个问题，我们进行了涉及与中心实体”Albert_Einstein”相关的实体、时间和地点的知识图谱搜索，从而获得额外的事实来补充我们的事实集。</p>
+<p>我们的事实集被分为两个子集：候选时间线索集和候选地点线索集。我们从这两个线索集中随机选择一个线索来生成问题的约束。通过将时空线索与答案事实进行比较，我们推导出如图2所示的约束，如时间约束“在结束之前”和地点约束“东北方向”。</p>
+<h2 id="STKGQA框架"><a href="#STKGQA框架" class="headerlink" title="STKGQA框架"></a>STKGQA框架</h2><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407092144612.png"></p>
+<p>我们的框架包含三个模块：约束片段生成、实体类型注释和问题嵌入生成。</p>
+<ol>
+<li>约束片段生成：在问题中识别时空约束并编码相关线索。</li>
+<li>实体类型注释：识别从问题中的时空约束推断出的实体类型。</li>
+<li>问题嵌入生成模块：将实体表示和STKG中的时空嵌入整合到问题向量q中。</li>
+</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>时空知识图谱相比传统知识图谱的升级体现在以下方面：</p>
+<h2 id="数据结构方面"><a href="#数据结构方面" class="headerlink" title="数据结构方面"></a>数据结构方面</h2><p>在schema层设计时需要将时间地点作为entity进行设计并与其他实体进行关联。</p>
+<h2 id="数据操作方面"><a href="#数据操作方面" class="headerlink" title="数据操作方面"></a>数据操作方面</h2><p>与时空知识库类似，简单的增删改查应升级成时空相关的“记忆”、“遗忘”、“学习”、“分析”等。</p>
+<p>同时，应支持时空关联分析、溯源等深度分析操作。</p>
+<h2 id="数据维护方面"><a href="#数据维护方面" class="headerlink" title="数据维护方面"></a>数据维护方面</h2><p>与时空知识库相同，应在动态性方面大幅强化，包括时空关系的自动挖掘，知识更新、失效的自动化判断，insight（如风险预警）的自动生成等。</p>
+<p>同时所有这些操作都应增加时间和空间的约束，以及时间和空间维度的线索。</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
+<li><a href="https://www.dqxxkx.cn/CN/10.12082/dqxxkx.2023.230154" target="_blank" rel="noopener">https://www.dqxxkx.cn/CN/10.12082/dqxxkx.2023.230154</a></li>
+<li><a href="https://arxiv.org/pdf/2402.11542" target="_blank" rel="noopener">https://arxiv.org/pdf/2402.11542</a></li>
+<li><a href="https://content.iospress.com/articles/semantic-web/sw222918" target="_blank" rel="noopener">https://content.iospress.com/articles/semantic-web/sw222918</a></li>
+<li><a href="https://www.nstl.gov.cn/paper_detail.html?id=68b554aa38cb12b64607e671b1bdc0b9" target="_blank" rel="noopener">https://www.nstl.gov.cn/paper_detail.html?id=68b554aa38cb12b64607e671b1bdc0b9</a></li>
+<li><a href="https://www.nstl.gov.cn/paper_detail.html?id=97fa94ab37db2cb98ae242f513c390fb" target="_blank" rel="noopener">https://www.nstl.gov.cn/paper_detail.html?id=97fa94ab37db2cb98ae242f513c390fb</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/594405152" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/594405152</a></li>
+</ol>
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/07/08/时空知识库概述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/07/08/时空知识库概述/" class="post-title-link" itemprop="url">时空知识库概述</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-07-08 16:56:36" itemprop="dateCreated datePublished" datetime="2024-07-08T16:56:36+08:00">2024-07-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-07-09 21:59:05" itemprop="dateModified" datetime="2024-07-09T21:59:05+08:00">2024-07-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2024/07/08/时空知识库概述/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/07/08/时空知识库概述/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <h1 id="Pre"><a href="#Pre" class="headerlink" title="Pre"></a>Pre</h1><p><em>时空知识库</em> 这一概念使用较少，更多的是 <em>时空数据库</em> ，本文认为时空知识库是在时空数据库的基础上的知识扩展。下文叙述中不再严格区分两个概念，主要以知识数据库为主。</p>
+<h1 id="时空数据库概念"><a href="#时空数据库概念" class="headerlink" title="时空数据库概念"></a>时空数据库概念</h1><p>时空数据库是一种特殊类型的数据库，它能够存储和管理与时间和空间相关的数据。随着科技的发展和数据的爆炸性增长，时空数据库的重要性也日益凸显。它不仅可以用于地理信息系统（GIS）、气象预测、交通管理等领域，还可以应用于智能城市、物联网、人工智能等新兴技术的发展。</p>
+<p>时空数据库的概念源于对现实世界的模拟和分析需求。传统的数据库主要关注数据的存储和查询，而时空数据库则更加注重数据的时序和空间特征。它能够有效地处理和分析大量的时空数据，提供更加准确和全面的信息。</p>
+<h1 id="时空数据库特征"><a href="#时空数据库特征" class="headerlink" title="时空数据库特征"></a>时空数据库特征</h1><p><strong>时空数据库的特点之一是支持时间和空间的索引。</strong> 时间索引可以帮助用户快速定位到某个时间点或时间段的数据，而空间索引则可以帮助用户快速定位到某个地理位置的数据。这种索引的设计和优化是时空数据库的关键技术之一。</p>
+<p><strong>时空数据库还具有多维数据模型。</strong> 传统的数据库主要采用关系模型，而时空数据库则采用多维数据模型。它可以将数据按照时间、空间和属性等多个维度进行组织和管理，提供更加灵活和高效的数据操作。</p>
+<p><strong>时空数据库还具有时空数据类型。</strong> 传统的数据库主要支持数值、字符和日期等基本数据类型，而时空数据库则支持点、线、面、体等时空数据类型。这些数据类型可以更好地表示和处理与时间和空间相关的数据。</p>
+<p><strong>时空数据库还具有时空数据操作。</strong> 传统的数据库主要支持数据的插入、更新和删除等基本操作，而时空数据库则支持时空数据的查询、分析和可视化等高级操作。这些操作可以帮助用户更好地理解和利用时空数据。</p>
+<p><strong>时空数据库还具有时空数据分析。</strong> 传统的数据库主要关注数据的存储和查询，而时空数据库则更加注重数据的分析和挖掘。它可以通过时空数据的聚类、分类、预测和优化等方法，提取出有价值的信息和知识。</p>
+<h1 id="关于时空数据库构建"><a href="#关于时空数据库构建" class="headerlink" title="关于时空数据库构建"></a>关于时空数据库构建</h1><h2 id="相比于传统数据库的主要升级"><a href="#相比于传统数据库的主要升级" class="headerlink" title="相比于传统数据库的主要升级"></a>相比于传统数据库的主要升级</h2><ol>
+<li><p>实体对象模型升级。将面向存储和制图的点、线、面要素模型升级为面向分析和应用的实体对象模型，并借助语义化技术， <strong>实现地物空间信息、属性信息、时态信息的实体化存储</strong> ，同时提供不同粒度地理实体动态组合、聚合、专题信息实时挂接等功能，从而实现复合实体转换重组以及多源数据有机融合，更好为时空分析与业务应用提供数据支撑。</p>
+</li>
+<li><p>三维立体模型升级。将二维平面模型升级为三维立体模型，以二维地理实体为基础，通过三维时空动态匹配与自动挂接，自动提取传统三维地形数据（DEM、DSM）的高程信息，并有机融合基于激光扫描、倾斜摄影、三维重建等构建的真三维模型数据， <strong>实现二维模型的三维化拓展</strong> ，以更符合现实世界认知习惯的方式为用户提供全空间场景化时空信息产品。</p>
+</li>
+<li><p>动态时序模型升级。将静态版本模型升级为动态时序模型，以地理实体为载体，以基元版本数据为基础， <strong>依照时序记录几何、属性、相互关系等信息的增加、删除或修改变化及相应时态信息</strong> ，并以增量形式存储于基元版本数据中，实现对地理现象的产生、演变、消亡等动态时序变化信息的全周期存储、管理与表达。</p>
+</li>
+</ol>
+<h2 id="构建过程"><a href="#构建过程" class="headerlink" title="构建过程"></a>构建过程</h2><p>以下是 <a href="#references">ref2</a> 中的构建系统逻辑。</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407092043852.png"></p>
+<p>从这张图可以看出，首先数据流通过适当的采样程序被分割（离散化）成一系列数据块（句子），如上所述。这些数据块的大小（数据的数量M），以及采样周期Ts，在本文中没有讨论，因为它们是依赖于问题参数的，我们想要解释的是主要思想。</p>
+<p>一般来说，数据块的大小M对应于代表监控环境中一个典型情况或机器典型工作条件（模式）的合理数量的数据。它可以在不同的物理系统中变化。例如，在从图形信息（图像序列）中获取知识时，一个数据块实际上就是一张图片中包含的所有RGB像素信息。</p>
+<p>至于数据块之间的采样周期Ts，它们不必相等，因为下一个数据块可能在更远（不同）的时间瞬间可用（测量）。换句话说，所提出的进化知识库系统更像是一个在线系统，或者更准确地说，是一个准实时系统，从某种意义上说，新的数据块在它们可用的地方被处理（而不一定是在固定的采样时间内）。这种假设从计算的角度来看更宽松，也更接近现实世界中学习和知识构建的过程。</p>
+<p>每个获得的单个数据块都将进一步处理，以提取最显著（重要）的知识项，这些将被称为近期知识项（近期KI）。这是通过一个特殊的新引入的序列聚类算法完成的，该算法将在下一节III中详细解释。这个算法的目标是从数据块中提取数据组（聚类）的中心（原型），以递减的顺序，从最大的聚类开始，继续到最小的聚类。这个序列过程的结束是由预先给定的阈值决定的，如图2.1所示。</p>
+<p>一旦通过序列聚类提取出近期知识项（KI），它们就进一步用作图2.1所示的进化知识库（KB）更新算法的输入。在这里，根据知识库中已经存在（旧的）知识项，可以区分出三种不同的更新模式。它们被编号为0、1和2，并在下一个图2.2中展示。</p>
+<h1 id="关于时空数据库操作"><a href="#关于时空数据库操作" class="headerlink" title="关于时空数据库操作"></a>关于时空数据库操作</h1><p>初上文提到时空数据的“增删改查”基础操作，以及“查询分析可视化”等高级操作外，还应存在以下操作：</p>
+<ul>
+<li>记忆（learn）：增加新的时空数据，并与更新现有数据的时空关联关系。</li>
+<li>遗忘（forget）：删除原有时空数据，并删除相关关联关系以及其他数据表中的相关知识痕迹，如删除某一误判风险事件，同时应删除事件处置、原因溯源等一切相关时空数据。</li>
+<li>学习（relearn）：更新已有时空数据，并更新时空相关数据，如更新某一风险判断政策或条件，应同时更新所有风险判断及处置相关数据。</li>
+</ul>
+<p>以下是 <a href="#references">ref2</a> 中的关于三种操作对应的情况：</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407092030683.png"></p>
+<p>模式0表示知识库中现有的（旧的）知识项（Knowledge Item，KI）尚未被序列聚类中的任何近期KI“访问”。这意味着所有近期KI都位于这个现有KI的预定 <em>resolution</em> 参数之外。 <em>resolution</em> 参数是一个用来在知识库（KB）中将“接近的知识项”与“远离的知识项”分开的距离，如图2.2所示。从这个例子中可以看到，知识库中有两个模式为0的KI。这些被视为将在某种程度上逐渐淡出（遗忘步骤）的旧知识项。</p>
+<p>模式1表示知识库中完全新的知识项（新KI）。这意味着近期KI与知识库中的所有现有KI都相距甚远。在这种情况下，这个新知识应该接受一个全新的（首次）学习步骤。在图2.2的例子中，有两种情况是模式1。</p>
+<p>模式2表示近期KI位于知识库中现有KI的附近，即在由 <em>resolution</em> 参数定义的圆形区域内。这样的情况表明，知识库中的旧现有KI将升级为需要以某种方式重新学习刷新的知识项，同时考虑到近期KI所携带的知识量。在图2.2的例子中，有两种情况是模式2。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>时空数据库相比传统数据库的升级体现在以下方面：</p>
+<h2 id="数据结构方面"><a href="#数据结构方面" class="headerlink" title="数据结构方面"></a>数据结构方面</h2><p>在进行数据ER图设计时，时间、空间特征应被单独构建为数据实体。</p>
+<h2 id="数据操作方面"><a href="#数据操作方面" class="headerlink" title="数据操作方面"></a>数据操作方面</h2><p>简单的增删改查应升级成时空相关的“记忆”、“遗忘”、“学习”、“分析”等。</p>
+<h2 id="数据维护方面"><a href="#数据维护方面" class="headerlink" title="数据维护方面"></a>数据维护方面</h2><p>应在动态性方面大幅强化，包括时空关系的自动挖掘，知识更新、失效的自动化判断，insight（如风险预警）的自动生成等。</p>
+<h2 id="整体构建过程"><a href="#整体构建过程" class="headerlink" title="整体构建过程"></a>整体构建过程</h2><p>依然与传统数据库类似：</p>
+<p>构建时空数据库是一个复杂的过程，需要考虑数据的收集、处理、存储和管理系统等多个方面。以下是构建时空数据库的具体步骤：</p>
+<ol>
+<li><p><strong>需求分析</strong>：</p>
+<ul>
+<li>确定数据库的目标和用途。</li>
+<li>了解用户需求和期望的功能。</li>
+</ul>
+</li>
+<li><p><strong>数据收集</strong>：</p>
+<ul>
+<li>收集时空数据，可能包括地理信息、时间序列数据、遥感数据等。</li>
+<li>确定数据来源和收集方法。</li>
+</ul>
+</li>
+<li><p><strong>数据预处理</strong>：</p>
+<ul>
+<li>清洗数据，去除错误和不一致的数据。</li>
+<li>标准化数据格式，确保数据的一致性。</li>
+</ul>
+</li>
+<li><p><strong>数据建模</strong>：</p>
+<ul>
+<li>确定数据的空间和时间维度，并进行对应实体设计。</li>
+<li>设计时空数据模型与ER图，包括实体、关系和属性的定义。</li>
+</ul>
+</li>
+<li><p><strong>选择技术平台</strong>（可视情况提前）：</p>
+<ul>
+<li>选择适合时空数据存储和查询的数据库管理系统（如PostGIS、MongoDB等）。</li>
+</ul>
+</li>
+<li><p><strong>数据集成</strong>：</p>
+<ul>
+<li>将清洗和标准化后的数据导入数据库。</li>
+<li>进行数据整合，确保数据逻辑一致性。</li>
+</ul>
+</li>
+<li><p><strong>建立索引和优化</strong>：</p>
+<ul>
+<li>为提高查询效率，建立空间和时间索引。</li>
+<li>优化数据库性能，调整参数以适应大规模数据操作。</li>
+</ul>
+</li>
+<li><p><strong>开发数据库管理系统</strong>：</p>
+<ul>
+<li>开发或配置数据库管理系统，实现数据的增删改查等操作。</li>
+<li>实现数据可视化和分析工具。</li>
+</ul>
+</li>
+<li><p><strong>数据更新策略</strong>：</p>
+<ul>
+<li>制定数据更新和维护的策略。</li>
+<li>确定数据更新频率和方法。</li>
+</ul>
+</li>
+<li><p><strong>安全性和隐私保护</strong>：</p>
+<ul>
+<li>实施数据安全措施，保护数据不被未授权访问。</li>
+<li>确保符合数据保护法规。</li>
+</ul>
+</li>
+<li><p><strong>测试和验证</strong>：</p>
+<ul>
+<li>对数据库进行测试，确保功能正确性和性能满足要求。</li>
+<li>验证数据的准确性和完整性。</li>
+</ul>
+</li>
+<li><p><strong>用户培训和文档编写</strong>：</p>
+<ul>
+<li>为用户提供培训，确保他们能够有效使用数据库。</li>
+<li>编写用户手册和系统文档。</li>
+</ul>
+</li>
+<li><p><strong>部署和上线</strong>：</p>
+<ul>
+<li>将数据库部署到生产环境。</li>
+<li>正式上线提供服务。</li>
+</ul>
+</li>
+<li><p><strong>监控和维护</strong>：</p>
+<ul>
+<li>监控数据库性能和健康状况。</li>
+<li>定期维护和升级系统。</li>
+</ul>
+</li>
+</ol>
+<p>构建时空数据库是一个迭代和持续的过程，需要不断地根据用户反馈和技术发展进行优化和升级。</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
+<li><a href="https://wenku.baidu.com/view/2bd7de9f9a8fcc22bcd126fff705cc1754275f3b.html?_wkts_=1720526169067&amp;bdQuery=%E6%97%B6%E7%A9%BA%E7%9F%A5%E8%AF%86%E5%BA%93" target="_blank" rel="noopener">https://wenku.baidu.com/view/2bd7de9f9a8fcc22bcd126fff705cc1754275f3b.html?_wkts_=1720526169067&amp;bdQuery=%E6%97%B6%E7%A9%BA%E7%9F%A5%E8%AF%86%E5%BA%93</a></li>
+<li><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=5584860" target="_blank" rel="noopener">https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=5584860</a></li>
+</ol>
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
     <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/07/08/MacOS-如何在启动App时运行脚本/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
       <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -281,12 +641,110 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/06/30/时空关联关系挖掘方法概述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/30/时空关联关系挖掘方法概述/" class="post-title-link" itemprop="url">时空关联关系挖掘方法概述</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-30 18:20:55" itemprop="dateCreated datePublished" datetime="2024-06-30T18:20:55+08:00">2024-06-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-07-09 21:33:47" itemprop="dateModified" datetime="2024-07-09T21:33:47+08:00">2024-07-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2024/06/30/时空关联关系挖掘方法概述/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/06/30/时空关联关系挖掘方法概述/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <ol>
+<li>K-means聚类：K-means是一种广泛使用的无监督学习算法，用于将数据点划分为具有相似特征的集群。在时空数据中，它可以用于发现模式和趋势。例如，通过将具有相似交通模式的日子聚类在一起，我们可以找出影响交通流量和交通拥堵的关键因素。</li>
+<li>关联规则挖掘：关联规则挖掘是用于发现数据集中变量之间的有趣关系的一种方法。在时空数据中，它可以用于发现时间和空间上的关联规则。例如，我们可能发现某种商品在某个特定时间段的销售量与另一商品在同一时间段的销售量之间存在强烈的关联。</li>
+<li>主成分分析（PCA）：PCA是一种用于降低数据维度的机器学习算法。在时空数据中，PCA可以帮助我们减少数据的复杂性，并找出影响结果的主要因素。例如，在气候变化数据中，PCA可以帮助我们找出影响气候变化的主要因素，从而更好地预测和管理气候变化。</li>
+<li>决策树和随机森林：决策树和随机森林是监督学习算法，用于根据输入变量预测一个或多个输出变量。在时空数据中，它们可以用于预测时间和空间上的事件。例如，我们可能使用这些算法来预测交通事故的发生，</li>
+<li>神经网络：神经网络是一种模拟人脑工作机制的非线性算法，具有强大的模式识别和预测能力。在时空数据中，神经网络可以用于识别和预测时空模式。例如，我们可以训练神经网络来识别交通流量的时空模式，从而更准确地预测交通拥堵。</li>
+</ol>
+<p>以上所述的算法各有其优点和局限性。K-means聚类对于发现集群很有用，但可能无法处理复杂的时空关系；关联规则挖掘可以发现有趣的关系，但可能无法处理复杂的时空维度；主成分分析可以帮助我们降低数据的复杂性，但可能无法处理复杂的时空关系；决策树和随机森林可以用于预测事件，但可能无法处理复杂的时空关系；神经网络可以处理复杂的时空关系，但可能需要对数据进行大量的预处理和后处理。</p>
+<p>在实际应用中，我们通常需要结合具体的问题和应用场景，选择合适的算法进行处理。同时，也需要根据实际的数据质量和数据量，对算法进行适当的调整和优化。此外，由于大数据的处理需要大量的计算资源和存储资源，因此也需要考虑算法的效率和可扩展性。</p>
+<blockquote>
+<p>references:<br><a href="https://aiqicha.baidu.com/qifuknowledge/detail?id=10075551025" target="_blank" rel="noopener">https://aiqicha.baidu.com/qifuknowledge/detail?id=10075551025</a></p>
+</blockquote>
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
     <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/06/27/多模态大模型训练常用公开数据集/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
       <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -373,7 +831,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
       <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -563,7 +1021,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
       <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -698,7 +1156,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
       <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1010,7 +1468,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
       <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1124,7 +1582,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
       <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1219,264 +1677,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2022/12/26/常用的激活函数/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/26/常用的激活函数/" class="post-title-link" itemprop="url">常用的激活函数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-12-26 21:50:08 / Modified: 22:30:41" itemprop="dateCreated datePublished" datetime="2022-12-26T21:50:08+08:00">2022-12-26</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2022/12/26/常用的激活函数/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/26/常用的激活函数/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <blockquote>
-<p>references:<br><a href="https://www.v7labs.com/blog/neural-networks-activation-functions#:~:text=An%20Activation%20Function%20decides%20whether,prediction%20using%20simpler%20mathematical%20operations" target="_blank" rel="noopener">https://www.v7labs.com/blog/neural-networks-activation-functions#:~:text=An%20Activation%20Function%20decides%20whether,prediction%20using%20simpler%20mathematical%20operations</a>.<br><a href="https://blog.csdn.net/weixin_45134475/article/details/123672283" target="_blank" rel="noopener">https://blog.csdn.net/weixin_45134475/article/details/123672283</a><br><a href="https://zhuanlan.zhihu.com/p/92412922" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/92412922</a></p>
-</blockquote>
-<h1 id="Sigmoid"><a href="#Sigmoid" class="headerlink" title="Sigmoid"></a>Sigmoid</h1><p>$\sigma(x) = \frac{1}{1+e^{-x}}$</p>
-<h1 id="Tanh"><a href="#Tanh" class="headerlink" title="Tanh"></a>Tanh</h1><p>$tanh(x) = \frac{1-e^{-2x}}{1+e^{-2x}}$</p>
-<h1 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h1><p>$ReLU(x)=\left\lbrace\begin{array}{cll}<br>x &amp; , &amp; x \ge 0 \\<br>0 &amp; , &amp; x &lt; 0<br>\end{array}\right.$</p>
-<p>或</p>
-<p>$ReLU(x) = \max(0, x)$</p>
-<h1 id="Leaky-ReLU"><a href="#Leaky-ReLU" class="headerlink" title="Leaky ReLU"></a>Leaky ReLU</h1><p>$ReLU(x)=\left\lbrace\begin{array}{cll}<br>x &amp; , &amp; x \ge 0 \\<br>0.1x &amp; , &amp; x &lt; 0<br>\end{array}\right.$</p>
-<p>或</p>
-<p>$ReLU(x) = \max(0.1x, x)$</p>
-<h1 id="ELU"><a href="#ELU" class="headerlink" title="ELU"></a>ELU</h1><p>$ELU(x)=\left\lbrace\begin{array}{cll}<br>x &amp; , &amp; x \ge 0 \\<br>\alpha(e^x-1) &amp; , &amp; x &lt; 0<br>\end{array}\right.$</p>
-<h1 id="Swish"><a href="#Swish" class="headerlink" title="Swish"></a>Swish</h1><p>$swish(x) = x*sigmoid(x) =\frac{x}{1+e^{-x}}$</p>
-<h1 id="Maxout"><a href="#Maxout" class="headerlink" title="Maxout"></a>Maxout</h1><p>$max(z_1, z_2, …)$</p>
-<h1 id="Softmax"><a href="#Softmax" class="headerlink" title="Softmax"></a>Softmax</h1><p>$softmax(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}$</p>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2022/08/22/修改mac分配的虚拟磁盘的空间/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/08/22/修改mac分配的虚拟磁盘的空间/" class="post-title-link" itemprop="url">修改mac分配的虚拟磁盘的空间</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-08-22 10:20:01 / Modified: 10:22:02" itemprop="dateCreated datePublished" datetime="2022-08-22T10:20:01+08:00">2022-08-22</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2022/08/22/修改mac分配的虚拟磁盘的空间/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/08/22/修改mac分配的虚拟磁盘的空间/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <p>通过mac自带的磁盘工具调整虚拟磁盘大小会报错，但是可以通过命令行调整。</p>
-<p>如将Hello.dmg调整为7GB：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdiutil resize -size 7g Hello.dmg</span><br></pre></td></tr></table></figure>
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2022/08/22/快速修复mac自带日历无法同步问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="A stupid old man with a humble learning heart. And his dog.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/08/22/快速修复mac自带日历无法同步问题/" class="post-title-link" itemprop="url">快速修复mac自带日历无法同步问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-08-22 10:16:54 / Modified: 10:19:05" itemprop="dateCreated datePublished" datetime="2022-08-22T10:16:54+08:00">2022-08-22</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2022/08/22/快速修复mac自带日历无法同步问题/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/08/22/快速修复mac自带日历无法同步问题/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <p>打开terminal运行以下指令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">launchctl stop com.apple.CalendarAgent</span><br><span class="line">launchctl start com.apple.CalendarAgent</span><br></pre></td></tr></table></figure>
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1541,14 +1741,14 @@
     <img class="site-author-image" itemprop="image" alt="C_Meng"
       src="/images/C_Meng.png">
   <p class="site-author-name" itemprop="name">C_Meng</p>
-  <div class="site-description" itemprop="description">A stupid old man with a humble learning heart. And his dog.</div>
+  <div class="site-description" itemprop="description">This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">137</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1561,7 +1761,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">208</span>
+        <span class="site-state-item-count">214</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

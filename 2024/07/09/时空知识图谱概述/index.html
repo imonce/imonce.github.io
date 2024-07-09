@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="什么是时空知识图谱时空知识图谱，顾名思义，是具有地理时空分布或位置隐喻的知识构成的有向图，即以时空分布特征为核心的知识图谱（Spatial-temporal Knowledge Graph，或Geo-related Knowledge Graph，以下简称STKG）。STKG旨在通过计算机规范化表达与存储与地理时空分布相关的知识集合，进而支持地理时空分布或位置相关知识检索与知识推理。其中的图（谱）">
+<meta name="keywords" content="knowledge graph,spatio-temporal knowledge graph">
+<meta property="og:type" content="article">
+<meta property="og:title" content="时空知识图谱概述">
+<meta property="og:url" content="https://imonce.github.io/2024/07/09/时空知识图谱概述/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="什么是时空知识图谱时空知识图谱，顾名思义，是具有地理时空分布或位置隐喻的知识构成的有向图，即以时空分布特征为核心的知识图谱（Spatial-temporal Knowledge Graph，或Geo-related Knowledge Graph，以下简称STKG）。STKG旨在通过计算机规范化表达与存储与地理时空分布相关的知识集合，进而支持地理时空分布或位置相关知识检索与知识推理。其中的图（谱）">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202407091946744.png">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-a187aa7646ce3ea7f865a27baf6325ef_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-5675c300769a8eebeb062537faf3f9b7_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-b442f6a0ff3e95aefeaa08ab790319a1_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-a3869ccf4119e8bf500ff332a93fedf3_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-c5bf57e86b6268b2ac0feae6d67da480_1440w.webp">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202407092139976.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202407092143828.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202407092144612.png">
+<meta property="og:updated_time" content="2024-07-09T14:02:08.192Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="时空知识图谱概述">
+<meta name="twitter:description" content="什么是时空知识图谱时空知识图谱，顾名思义，是具有地理时空分布或位置隐喻的知识构成的有向图，即以时空分布特征为核心的知识图谱（Spatial-temporal Knowledge Graph，或Geo-related Knowledge Graph，以下简称STKG）。STKG旨在通过计算机规范化表达与存储与地理时空分布相关的知识集合，进而支持地理时空分布或位置相关知识检索与知识推理。其中的图（谱）">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202407091946744.png">
+
+<link rel="canonical" href="https://imonce.github.io/2024/07/09/时空知识图谱概述/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>时空知识图谱概述 | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">214</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">137</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/07/09/时空知识图谱概述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          时空知识图谱概述
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-07-09 19:59:16 / Modified: 22:02:08" itemprop="dateCreated datePublished" datetime="2024-07-09T19:59:16+08:00">2024-07-09</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2024/07/09/时空知识图谱概述/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/07/09/时空知识图谱概述/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="什么是时空知识图谱"><a href="#什么是时空知识图谱" class="headerlink" title="什么是时空知识图谱"></a>什么是时空知识图谱</h1><p>时空知识图谱，顾名思义，是具有地理时空分布或位置隐喻的知识构成的有向图，即以时空分布特征为核心的知识图谱（Spatial-temporal Knowledge Graph，或Geo-related Knowledge Graph，以下简称STKG）。STKG旨在通过计算机规范化表达与存储与地理时空分布相关的知识集合，进而支持地理时空分布或位置相关知识检索与知识推理。其中的图（谱）指地理时空分布或位置要素（概念、人类群体/个体、地理实体、事件、现象等）之间的语义联系形成的网状拓扑结构。</p>
+<p>其中，时空知识可以更广泛地定义为一切具有时空位置和动态变化特征的相关知识。时空知识是人类对地理空间上人、物、事件、现象分布、演变过程和相互作用规律的认知结果。除了传统的地理/地学应用外，时空知识也是消费领域基于位置的服务（Location-based Services，LBS）、新型基础设施建设和智慧城市管理的核心支撑。时空知识也可以参考地理知识或地学知识分类方法，分为：</p>
+<ol>
+<li>事实型知识</li>
+<li>规则及控制型知识</li>
+<li>决策型知识</li>
+</ol>
+<p>3种类型，或者分为</p>
+<ol>
+<li>数据性知识</li>
+<li>概念性知识</li>
+<li>规律性知识</li>
+</ol>
+<p>3个层次。</p>
+<h1 id="时空知识图谱研究框架"><a href="#时空知识图谱研究框架" class="headerlink" title="时空知识图谱研究框架"></a>时空知识图谱研究框架</h1><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407091946744.png"></p>
+<h1 id="时空知识图谱的构建与应用ref4"><a href="#时空知识图谱的构建与应用ref4" class="headerlink" title="时空知识图谱的构建与应用ref4"></a>时空知识图谱的构建与应用<a href="#references">ref4</a></h1><p>作者提出了一种时空知识图谱本体模型，通过在实体种加入时空属性信息，来实现对特点目标领域的时空数据的管理与查询。作者设计了一个时空知识图谱问答系统，能够较为准确的查询出某时刻和时间段内的实体关系情况，并且可以在一定程度上计算空间距离。</p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>知识图谱是一种通过“节点-边-节点”的知识管理架构，实现对目标领域的实体关系数据的有效管理。但在一些特定领域，实体和关系会在时空上动态变化，因此如何设计领域时空知识图谱模型来解决这种变化的存储和管理是极其重要的。</p>
+<p>针对以上问题，作者对实体和关系种类和数量在时空上动态变换的特征，通过在实体关系中加入坐标和时间属性信息构建了本体模型，并且利用NER和基于规则的时间信息提取技术、问句图结构生产以及模式库匹配技术来实现算法辅助查询。</p>
+<h2 id="时空知识图谱本体模型"><a href="#时空知识图谱本体模型" class="headerlink" title="时空知识图谱本体模型"></a>时空知识图谱本体模型</h2><p>作者将领域内的实体进行归纳为4类：单位（机关、组织）、人物、装备和地点。这里由于单位之间的隶属关系、所在地、人物任职关系、装备的配备关系是动态变化的，所以作者在实体和关系中加入了时间空间信息=&gt;使得KG能够完整记录实体和关系的变化历程，并且能够在任意时刻和范围内查询到实体关系情况。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-a187aa7646ce3ea7f865a27baf6325ef_1440w.webp"></p>
+<p>这里圆形代表四类实体，矩形代表实体属性信息，圆角矩形代表关系的属性信息。</p>
+<h3 id="本体模型的实体设置"><a href="#本体模型的实体设置" class="headerlink" title="本体模型的实体设置"></a>本体模型的实体设置</h3><p>地点类实体设置：对于地点类实体，文章在实体属性中增加了该实体的经纬度来记录实体的地理位置<br>单位类设置：由于其自身存在更改名称、改编单位、撤编重建等情况，因此作者用不同的实体表示不同阶段的同一单位，但在实体的属性中加入了起始时间和结束时间以记录时间信息<br>人物类实体设置：属性加入出身地、出身日期、毕业院校等信息<br>装备类：装备的具体特征</p>
+<h3 id="本体模型的关系设置"><a href="#本体模型的关系设置" class="headerlink" title="本体模型的关系设置"></a>本体模型的关系设置</h3><p>同一单位的不同阶段实体的关系设置：采用change的关系（包括改名、改变、整合等等）<br>不同实体：如隶属于、位于、任职于、装备于等关系。也加上时间段属性表示在xx期间有yy关系。</p>
+<h3 id="时空知识图谱构建"><a href="#时空知识图谱构建" class="headerlink" title="时空知识图谱构建"></a>时空知识图谱构建</h3><p>这篇文章将时空知识图谱定义为能够存储时空动态数据、查询任何时刻和时间段的实体关系的知识图谱。作者利用OrientDB图数据库工具，构建目标领域时空知识图谱。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-5675c300769a8eebeb062537faf3f9b7_1440w.webp"></p>
+<h2 id="基于时空知识图谱本体模型应用"><a href="#基于时空知识图谱本体模型应用" class="headerlink" title="基于时空知识图谱本体模型应用"></a>基于时空知识图谱本体模型应用</h2><p>作者设定了一种目标领域时空知识图谱设计的查询系统：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-b442f6a0ff3e95aefeaa08ab790319a1_1440w.webp"></p>
+<p>剩下的就是一些成果展示。</p>
+<h1 id="基于时空知识图谱的空间分析方法研究ref5"><a href="#基于时空知识图谱的空间分析方法研究ref5" class="headerlink" title="基于时空知识图谱的空间分析方法研究ref5"></a>基于时空知识图谱的空间分析方法研究<a href="#references">ref5</a></h1><p>随着大数据时代的到来，地理信息正由单一静态向多源动态、精确结构化向模糊异构化转变。知识图谱本质上是一种以图Graph作为数据结构的语义网络，用边连接由节点代表实体或概念，用有向图的方式来表达语义关系。</p>
+<p>使用方式是：提取不同类型的地理实体，以RDF三元组（实体-关系-实体）格式存储通用的地理知识图谱。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-a3869ccf4119e8bf500ff332a93fedf3_1440w.webp"></p>
+<p>本位借助地理网格，将地理实体在知识图谱的框架中进行表达以提高空间分析的效率，同时将地理空间数据的时间属性也作为知识图谱中的实体以便进行时间维度的空间分析。</p>
+<h2 id="时空知识图谱构建-1"><a href="#时空知识图谱构建-1" class="headerlink" title="时空知识图谱构建"></a>时空知识图谱构建</h2><p><img src="https://pic1.zhimg.com/80/v2-c5bf57e86b6268b2ac0feae6d67da480_1440w.webp"></p>
+<p>作者基于Jena构建地理信息空间分析的知识图谱图数据库，并且在节点上引入了时间属性，如上图所示。（相当于把某一年作为一个节点，嵌入知识图谱中）</p>
+<h1 id="Question-Answering-Over-Spatio-Temporal-Knowledge-Graph-ref2"><a href="#Question-Answering-Over-Spatio-Temporal-Knowledge-Graph-ref2" class="headerlink" title="Question Answering Over Spatio-Temporal Knowledge Graph ref2"></a>Question Answering Over Spatio-Temporal Knowledge Graph <a href="#references">ref2</a></h1><p>时空知识图谱（STKGs）通过整合时间和地点信息扩展了知识图谱（KGs）的概念。尽管研究社区专注于知识图谱问答（KGQA），但基于STKGs结合时空信息回答问题的领域在很大程度上还未被探索。此外，缺乏综合的数据集也阻碍了这一领域的进展。为了解决这个问题，我们提出了STQAD，一个包含10,000个自然语言问题的数据集，用于时空知识图谱问答（STKGQA）。不幸的是，各种最先进的KGQA方法在我们的数据集上的表现远远达不到令人满意的水平。作为回应，我们提出了STCQA，这是一种新的时空KGQA方法，它采用了一种名为STComplEx的新颖STKG嵌入方法。通过从问题中提取时间和空间信息，我们的问答模型能更好地理解问题，并从STKG中检索准确的答案。通过广泛的实验，我们展示了我们数据集的质量以及我们STKGQA方法的有效性。</p>
+<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407092139976.png"></p>
+<p>如图1所示，问答系统需要从问题中提取潜在的时间和地理信息，并搜索正确的答案。从时空知识图谱（STKG）中，我们可以获得与”慕尼黑”相关的地理信息和与”第一次世界大战”相关的时间信息。然后，我们需要考虑时空约束，搜索与中心实体”阿尔伯特·爱因斯坦”相关的所有答案。不幸的是，如表1所示，目前还没有对这个具体问题进行进一步的讨论。此外，目前缺乏用于评估STKG上问答任务的大规模数据集。</p>
+<h2 id="问题生成"><a href="#问题生成" class="headerlink" title="问题生成"></a>问题生成</h2><p>要使用时空知识图谱（STKG）回答自然语言问题，我们必须从问题中心实体开始，并利用时空约束在知识图谱（KG）上定位答案。因此，问题生成可以被视为问题回答的反向过程，其中答案被用来推导出问题的所有约束和线索。此外，问题中实体和时空约束之间应该有更强的相关性，这将使问题更贴近现实世界的场景。</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407092143828.png"></p>
+<p>生成问题约束的过程如图2所示。我们使用事实（Albert_Einstein, worksAt, Humboldt_University_of_Berlin, occursSince, 1914, occursUntil, 1917, occursIn, 52.52, 13.39）作为一个答案事实，其中Albert_Einstein是中心实体，Humboldt_University_of_Berlin是答案。</p>
+<p>为了便于生成时空约束，我们搜索与Albert_Einstein相关的同时包含时间和地点信息的事实。这类事实的示例包括（Albert_Einstein, wasBornIn, Ulm, occursSince, 1879, occursIn, 48.43, 10.01）和（Albert_Einstein, graduatedFrom, University_of_Zurich, occursSince, 1905, occursIn, 47.38, 8.55）。我们把这些事实视为与中心实体高度相关的候选事实。一些知识图谱关系，如”influence”（影响）和”linksTo”（链接到），含义模糊且转换为约束具有挑战性，因此我们将其过滤掉。结果，我们获得了一组与中心实体相关的高质量候选事实。</p>
+<p>然而，这种严格的方法可能导致候选事实的数量不足。为了解决这个问题，我们进行了涉及与中心实体”Albert_Einstein”相关的实体、时间和地点的知识图谱搜索，从而获得额外的事实来补充我们的事实集。</p>
+<p>我们的事实集被分为两个子集：候选时间线索集和候选地点线索集。我们从这两个线索集中随机选择一个线索来生成问题的约束。通过将时空线索与答案事实进行比较，我们推导出如图2所示的约束，如时间约束“在结束之前”和地点约束“东北方向”。</p>
+<h2 id="STKGQA框架"><a href="#STKGQA框架" class="headerlink" title="STKGQA框架"></a>STKGQA框架</h2><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407092144612.png"></p>
+<p>我们的框架包含三个模块：约束片段生成、实体类型注释和问题嵌入生成。</p>
+<ol>
+<li>约束片段生成：在问题中识别时空约束并编码相关线索。</li>
+<li>实体类型注释：识别从问题中的时空约束推断出的实体类型。</li>
+<li>问题嵌入生成模块：将实体表示和STKG中的时空嵌入整合到问题向量q中。</li>
+</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>时空知识图谱相比传统知识图谱的升级体现在以下方面：</p>
+<h2 id="数据结构方面"><a href="#数据结构方面" class="headerlink" title="数据结构方面"></a>数据结构方面</h2><p>在schema层设计时需要将时间地点作为entity进行设计并与其他实体进行关联。</p>
+<h2 id="数据操作方面"><a href="#数据操作方面" class="headerlink" title="数据操作方面"></a>数据操作方面</h2><p>与时空知识库类似，简单的增删改查应升级成时空相关的“记忆”、“遗忘”、“学习”、“分析”等。</p>
+<p>同时，应支持时空关联分析、溯源等深度分析操作。</p>
+<h2 id="数据维护方面"><a href="#数据维护方面" class="headerlink" title="数据维护方面"></a>数据维护方面</h2><p>与时空知识库相同，应在动态性方面大幅强化，包括时空关系的自动挖掘，知识更新、失效的自动化判断，insight（如风险预警）的自动生成等。</p>
+<p>同时所有这些操作都应增加时间和空间的约束，以及时间和空间维度的线索。</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
+<li><a href="https://www.dqxxkx.cn/CN/10.12082/dqxxkx.2023.230154" target="_blank" rel="noopener">https://www.dqxxkx.cn/CN/10.12082/dqxxkx.2023.230154</a></li>
+<li><a href="https://arxiv.org/pdf/2402.11542" target="_blank" rel="noopener">https://arxiv.org/pdf/2402.11542</a></li>
+<li><a href="https://content.iospress.com/articles/semantic-web/sw222918" target="_blank" rel="noopener">https://content.iospress.com/articles/semantic-web/sw222918</a></li>
+<li><a href="https://www.nstl.gov.cn/paper_detail.html?id=68b554aa38cb12b64607e671b1bdc0b9" target="_blank" rel="noopener">https://www.nstl.gov.cn/paper_detail.html?id=68b554aa38cb12b64607e671b1bdc0b9</a></li>
+<li><a href="https://www.nstl.gov.cn/paper_detail.html?id=97fa94ab37db2cb98ae242f513c390fb" target="_blank" rel="noopener">https://www.nstl.gov.cn/paper_detail.html?id=97fa94ab37db2cb98ae242f513c390fb</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/594405152" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/594405152</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/knowledge-graph/" rel="tag"># knowledge graph</a>
+              <a href="/tags/spatio-temporal-knowledge-graph/" rel="tag"># spatio-temporal knowledge graph</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/07/08/时空知识库概述/" rel="prev" title="时空知识库概述">
+      <i class="fa fa-chevron-left"></i> 时空知识库概述
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是时空知识图谱"><span class="nav-number">1.</span> <span class="nav-text">什么是时空知识图谱</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时空知识图谱研究框架"><span class="nav-number">2.</span> <span class="nav-text">时空知识图谱研究框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时空知识图谱的构建与应用ref4"><span class="nav-number">3.</span> <span class="nav-text">时空知识图谱的构建与应用ref4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">3.1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时空知识图谱本体模型"><span class="nav-number">3.2.</span> <span class="nav-text">时空知识图谱本体模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本体模型的实体设置"><span class="nav-number">3.2.1.</span> <span class="nav-text">本体模型的实体设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本体模型的关系设置"><span class="nav-number">3.2.2.</span> <span class="nav-text">本体模型的关系设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时空知识图谱构建"><span class="nav-number">3.2.3.</span> <span class="nav-text">时空知识图谱构建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于时空知识图谱本体模型应用"><span class="nav-number">3.3.</span> <span class="nav-text">基于时空知识图谱本体模型应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于时空知识图谱的空间分析方法研究ref5"><span class="nav-number">4.</span> <span class="nav-text">基于时空知识图谱的空间分析方法研究ref5</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#时空知识图谱构建-1"><span class="nav-number">4.1.</span> <span class="nav-text">时空知识图谱构建</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Question-Answering-Over-Spatio-Temporal-Knowledge-Graph-ref2"><span class="nav-number">5.</span> <span class="nav-text">Question Answering Over Spatio-Temporal Knowledge Graph ref2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Motivation"><span class="nav-number">5.1.</span> <span class="nav-text">Motivation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题生成"><span class="nav-number">5.2.</span> <span class="nav-text">问题生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STKGQA框架"><span class="nav-number">5.3.</span> <span class="nav-text">STKGQA框架</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构方面"><span class="nav-number">6.1.</span> <span class="nav-text">数据结构方面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据操作方面"><span class="nav-number">6.2.</span> <span class="nav-text">数据操作方面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据维护方面"><span class="nav-number">6.3.</span> <span class="nav-text">数据维护方面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#References"><span class="nav-number">7.</span> <span class="nav-text">References</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">137</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">214</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

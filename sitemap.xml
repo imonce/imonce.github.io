@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://imonce.github.io/2024/07/09/%E6%97%B6%E7%A9%BA%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%A6%82%E8%BF%B0/</loc>
+    
+    <lastmod>2024-07-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/2024/07/08/%E6%97%B6%E7%A9%BA%E7%9F%A5%E8%AF%86%E5%BA%93%E6%A6%82%E8%BF%B0/</loc>
+    
+    <lastmod>2024-07-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/2024/06/30/%E6%97%B6%E7%A9%BA%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB%E6%8C%96%E6%8E%98%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0/</loc>
+    
+    <lastmod>2024-07-09</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://imonce.github.io/2024/07/08/MacOS-%E5%A6%82%E4%BD%95%E5%9C%A8%E5%90%AF%E5%8A%A8App%E6%97%B6%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</loc>
     
     <lastmod>2024-07-08</lastmod>
@@ -963,7 +984,7 @@
 
   <url>
     <loc>https://imonce.github.io/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -971,1456 +992,1498 @@
   
   <url>
     <loc>https://imonce.github.io/tags/%E7%A7%91%E6%8A%80%E8%B6%8B%E5%8A%BF/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Gartner/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E6%88%98%E7%95%A5%E7%A0%94%E7%A9%B6/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E9%9B%B6%E5%94%AE/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E9%9B%B6%E5%94%AE%E4%B8%9A/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Physchology/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/Python/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/%E9%9B%B6%E5%94%AE/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/Python3/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/%E9%9B%B6%E5%94%AE%E4%B8%9A/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/lxml/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/etree/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Java/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Java%E5%85%A5%E9%97%A8/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Python/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Python3/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/lxml/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/etree/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/6%E5%B0%8F%E6%97%B6%E7%B2%BE%E9%80%9APython/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Python%E7%B2%BE%E9%80%9A/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/BPMN/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/BPMN2-0/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Blockchain/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Bitcoin/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Chainer/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Lambda/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Lambda%E6%BC%94%E7%AE%97/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Lambda-Calculus/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Evaluation/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Assessment/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Measrement/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Methodology/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%94%E7%94%A8%E6%95%B0%E5%AD%A6/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/MECE/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E5%88%86%E7%B1%BB%E6%96%B9%E6%B3%95/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E5%88%86%E6%9E%90%E6%B3%95/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/macos/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%94%E7%94%A8%E6%95%B0%E5%AD%A6/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Lambda/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Lambda%E6%BC%94%E7%AE%97/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Lambda-Calculus/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/MAC/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E5%8D%B8%E8%BD%BD/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Pandoc/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E5%BB%BA%E6%A8%A1/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Modeling/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Node-js/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/MECE/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E5%88%86%E7%B1%BB%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E5%88%86%E6%9E%90%E6%B3%95/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Threading/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Python%E5%85%A5%E9%97%A8/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Dict/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E5%AD%97%E5%85%B8/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Pickle/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/React/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Service-Computing/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Reading-Notes/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/BPM/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Survey/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Business-Process-Management/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Service-System/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Value-Chain/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Internet-of-Things/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/cloud/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/edge-computing/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/service-optimization/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/energy-efficiency/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/smart-cities/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Network-Slicing/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Resource-Management/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Network-Efficiency/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Edge-Computing/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Quality-Assessment/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Business-Process-Model/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Service-Computing/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Reading-Notes/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/BPM/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Survey/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Business-Process-Management/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Network-Slicing/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Resource-Management/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Network-Efficiency/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Edge-Computing/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/SAT/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/P/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/NP/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/NP-complete/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/NP-hard/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/SQL/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/linux/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/trick/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/tensorboard/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/UML/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E7%B1%BB%E5%9B%BE/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/BPEL/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/WSBPEL/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/ws-bpel/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/BPEL2-0/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Schema/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/XSD/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/git/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Trick/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/XML-Schema/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/UML/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/XML/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/%E7%B1%BB%E5%9B%BE/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/PCNH/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/BPEL/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/CNN/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/WSBPEL/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/Privacy-Detect/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/ws-bpel/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/BPEL2-0/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Schema/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/XSD/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Object-Detection/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/CNN/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/multi-region/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Sematic-segmentation-aware/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/Web-Crawler/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/PCNH/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/Unicrawl/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/Privacy-Detect/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/XML-Schema/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/XML/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Jupyter-Notebook/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/ipython/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Latex/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Latex-Bib/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Latex-Bst/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Caption/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/latex/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E7%A3%81%E7%9B%98/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E7%A9%BA%E9%97%B4/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Mysql/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/mysql-python%E5%AE%89%E8%A3%85%E9%94%99%E8%AF%AF/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Mac/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/OWL/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E6%9C%AC%E4%BD%93/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/OS/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/One-Piece/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E6%B5%B7%E8%B4%BC%E7%8E%8B/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%9B%88%E5%88%A9%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E6%9C%8D%E5%8A%A1%E8%AE%A1%E7%AE%97/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Curry-Howard-Isomorphism/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Type-Theory/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E4%BA%92%E8%81%94%E7%BD%91%E5%8C%BB%E7%96%97/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E6%9C%8D%E5%8A%A1/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Healthcare-Service/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E6%98%A8%E5%A4%A9%E3%80%81%E4%BB%8A%E5%A4%A9%E3%80%81%E6%98%8E%E5%A4%A9/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E4%B8%80%E4%BD%93%E5%8C%96%E6%9E%B6%E6%9E%84/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Software-Architecture/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Service-Architecture/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Monolithic-Architecture/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Microservice-Architecture/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Long-Table/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E8%A1%A8%E6%A0%BC%E8%B7%A8%E9%A1%B5/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/Service/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/Latex-Bib/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/Service-Industry/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/Latex-Bst/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/%E6%9C%8D%E5%8A%A1%E4%B8%9A/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/Caption/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/%E7%8E%B0%E4%BB%A3%E6%9C%8D%E5%8A%A1%E4%B8%9A/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/latex/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Mac/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E7%A3%81%E7%9B%98/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E7%A9%BA%E9%97%B4/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Web-Crawler/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Unicrawl/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Mysql/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/mysql-python%E5%AE%89%E8%A3%85%E9%94%99%E8%AF%AF/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/OS/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Curry-Howard-Isomorphism/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Type-Theory/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/One-Piece/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E6%B5%B7%E8%B4%BC%E7%8E%8B/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%9B%88%E5%88%A9%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E6%9C%8D%E5%8A%A1%E8%AE%A1%E7%AE%97/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/OWL/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E6%9C%AC%E4%BD%93/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E4%BA%92%E8%81%94%E7%BD%91%E5%8C%BB%E7%96%97/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Healthcare-Service/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E6%98%A8%E5%A4%A9%E3%80%81%E4%BB%8A%E5%A4%A9%E3%80%81%E6%98%8E%E5%A4%A9/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E4%B8%80%E4%BD%93%E5%8C%96%E6%9E%B6%E6%9E%84/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Software-Architecture/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Service-Architecture/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Monolithic-Architecture/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Microservice-Architecture/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/zabbix/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/LAMP/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Machine-Learning/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/LLM/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/mac/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/association-rule-mining/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/mac/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Service/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Service-Industry/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E6%9C%8D%E5%8A%A1%E4%B8%9A/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E7%8E%B0%E4%BB%A3%E6%9C%8D%E5%8A%A1%E4%B8%9A/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/PSO/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E7%B2%92%E5%AD%90%E7%BE%A4%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/GA/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Genetic-Alogrithm/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E5%95%86%E4%B8%9A%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E5%95%86%E4%B8%9A/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E5%95%86%E4%B8%9A%E7%94%BB%E5%B8%83/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E5%95%86%E4%B8%9A%E6%A8%A1%E5%BC%8F%E5%BC%8F%E6%A0%B7/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Ant-Colony-Optimization/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/ACO/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E5%95%86%E4%B8%9A%E6%A8%A1%E5%BC%8F%E8%AE%BE%E8%AE%A1/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Ant-Colony-Optimization/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/ACO/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/data-set/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E5%A4%9A%E7%9B%AE%E6%A0%87%E4%BC%98%E5%8C%96/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Multi-Objective-Optimization/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/MOO/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Paper/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/research/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/%E5%9B%A2%E9%98%9F%E5%BB%BA%E8%AE%BE/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/%E5%A4%9A%E7%9B%AE%E6%A0%87%E4%BC%98%E5%8C%96/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/%E5%9B%A2%E9%98%9F%E7%AE%A1%E7%90%86/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/Multi-Objective-Optimization/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92%E3%80%81%E4%B8%AA%E4%BA%BA%E6%8F%90%E5%8D%87/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/MOO/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Paper/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Activation-Function/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E6%80%9D%E8%80%83/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E5%9B%A2%E9%98%9F%E5%BB%BA%E8%AE%BE/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E5%9B%A2%E9%98%9F%E7%AE%A1%E7%90%86/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92%E3%80%81%E4%B8%AA%E4%BA%BA%E6%8F%90%E5%8D%87/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/QoS/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E6%84%8F%E5%A4%A7%E5%88%A9%E8%AF%AD/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/spatial-temporal-association-mining/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/knowledge-graph/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/spatio-temporal-knowledge-graph/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Optimization/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/%E7%B1%BB%E5%9E%8B%E8%AE%BA/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/knowledge-base/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/spatio-temporal-knowledge-base/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/spatio-temporal-database/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E6%B3%A1%E5%88%A9%E7%AE%97%E7%AC%A6/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/pyqpanda/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E6%B5%99%E5%A4%A7%E9%82%AE%E7%AE%B1/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E7%B1%B3%E5%85%B0/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E6%94%BB%E7%95%A5/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%9E%90/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E7%B1%BB%E5%9E%8B%E8%AE%BA/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/metrics/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Knowledge-Graph/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E6%9E%B6%E6%9E%84%E9%A3%8E%E6%A0%BC/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Architecture-Style/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/tensorflow/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/%E6%9E%B6%E6%9E%84%E9%A3%8E%E6%A0%BC/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/word2vec/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/Architecture-Style/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/n-gram/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://imonce.github.io/tags/skip-gram/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/Embedding/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <loc>https://imonce.github.io/tags/Knowledge-Graph/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Image-Inpainting/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Sparse-Representation/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E7%A8%80%E7%96%8F%E8%A1%A8%E7%A4%BA/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E5%9B%BE%E5%83%8F%E4%BF%AE%E5%A4%8D/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/Quantum-Computing/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/tensorflow/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/word2vec/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/n-gram/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/skip-gram/</loc>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/Embedding/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E4%B8%AD%E5%8F%B0/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E4%B8%9A%E5%8A%A1%E4%B8%AD%E5%8F%B0/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E6%9E%B6%E6%9E%84/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/tags/%E4%B8%9A%E5%8A%A1%E6%9E%B6%E6%9E%84/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -2429,224 +2492,224 @@
   
   <url>
     <loc>https://imonce.github.io/categories/Gartner/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/categories/%E9%9B%B6%E5%94%AE%E4%B8%9A%E5%89%96%E6%9E%90/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Reading-Notes/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/categories/%E9%9B%B6%E5%94%AE%E4%B8%9A%E5%89%96%E6%9E%90/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Learn-X-in-Y-minutes/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Methodology/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%94%E7%94%A8%E6%95%B0%E5%AD%A6/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Modeling/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Python/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Mathematics/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/SQL/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/%E6%98%A8%E5%A4%A9%E3%80%81%E4%BB%8A%E5%A4%A9%E3%80%81%E6%98%8E%E5%A4%A9/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%92%8C%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Paper/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/categories/%E4%B8%AA%E4%BA%BA%E6%8F%90%E5%8D%87%E7%B3%BB%E5%88%97/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Trick/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/categories/%E4%B8%AA%E4%BA%BA%E6%8F%90%E5%8D%87%E7%B3%BB%E5%88%97/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/%E6%84%8F%E5%A4%A7%E5%88%A9%E8%AF%AD%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/%E6%B8%B8%E8%AE%B0/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Quantum-Computing/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Gartner/%E8%B6%8B%E5%8A%BF/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Reading-Notes/Physchology/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://imonce.github.io/categories/Learn-X-in-Y-minutes/Learn-lxml-etree-in-Y-minutes/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Learn-X-in-Y-minutes/Learn-Java-in-Y-minutes/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://imonce.github.io/categories/Learn-X-in-Y-minutes/Learn-lxml-etree-in-Y-minutes/</loc>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Learn-X-in-Y-minutes/Learn-Python-in-Y-minutes/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Learn-X-in-Y-minutes/Learn-blockchain-in-Y-minutes/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/Python%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Reading-Notes/Service-Computing/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://imonce.github.io/categories/Reading-Notes/Edge-Computing/</loc>
-    <lastmod>2024-07-08</lastmod>
+    <lastmod>2024-07-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
