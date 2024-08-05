@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">137</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">138</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,142 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/11/07/启发式算法学习（三）：遗传算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/07/启发式算法学习（三）：遗传算法/" class="post-title-link" itemprop="url">启发式算法学习（三）：遗传算法GA</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-07 10:26:36" itemprop="dateCreated datePublished" datetime="2019-11-07T10:26:36+08:00">2019-11-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-24 11:20:28" itemprop="dateModified" datetime="2022-06-24T11:20:28+08:00">2022-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/启发式算法/" itemprop="url" rel="index"><span itemprop="name">启发式算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/11/07/启发式算法学习（三）：遗传算法/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/07/启发式算法学习（三）：遗传算法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <h1 id="算法简介"><a href="#算法简介" class="headerlink" title="算法简介"></a>算法简介</h1><p>遗传算法（Genetic Alogrithm，GA）是最早由美国Holland教授提出的一种基于自然界的“适者生存，优胜劣汰”基本法则的智能搜索算法。该法则很好地诠释了生物进化的自然选择过程。遗传算法也是借鉴该基本法则，通过基于种群的思想，将问题的解通过编码的方式转化为种群中的个体，并让这些个体不断地通过选择、交叉和变异算子模拟生物的进化过程，然后利用“优胜劣汰”法则选择种群中适应性较强的个体构成子种群，然后让子种群重复类似的进化过程，直到找到问题的最优解或者到达一定的进化（运算）时间。</p>
+<h1 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h1><p>个体（染色体）：自然界中一个个体（染色体）代表一个生物，在GA算法中，个体（染色体）代表了具体问题的一个解。</p>
+<p>基因：在GA算法中，基因代表了具体问题解的一个决策变量，问题解和染色体中基因的对应关系如下所示</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20191107142629.png"></p>
+<p>种群：多个个体即组成一个种群。GA算法中，一个问题的多组解即构成了问题的解的种群。</p>
+<h1 id="主要步骤"><a href="#主要步骤" class="headerlink" title="主要步骤"></a>主要步骤</h1><div id="flowchart-0" class="flow-chart"></div>
+
+<h1 id="主要操作介绍"><a href="#主要操作介绍" class="headerlink" title="主要操作介绍"></a>主要操作介绍</h1><h2 id="种群的初始化"><a href="#种群的初始化" class="headerlink" title="种群的初始化"></a>种群的初始化</h2><p>选择一种编码方案，然后在解空间内通过随机生成的方式初始化一定数量的个体构成GA的种群<br>种群的初始化和具体问题相关，一般来说可以采取某种分布（如高斯分布）在一定求解范围内随机获取</p>
+<h2 id="种群评价"><a href="#种群评价" class="headerlink" title="种群评价"></a>种群评价</h2><p>种群的评价即计算种群中个体的适应度值。假设种群population有popsize个个体。依次计算每个个体的适应度值及评价种群。或者利用启发式算法对种群中的个体（矩形件的排入顺序）生成排样图并依此计算个体的适应函数值（利用率），然后保存当前种群中的最优个体作为搜索到的最优解。</p>
+<h2 id="选择操作"><a href="#选择操作" class="headerlink" title="选择操作"></a>选择操作</h2><p>常见的选择操作有轮盘赌的方式：根据个体的适应度计算被选中的概率，公式如下：</p>
+<p>$$P(x_j)=\frac{fit(x_j)}{\sum_{i=1}^n fit(x_i)}, j\in{1,2,…,n}$$</p>
+<h2 id="交叉操作"><a href="#交叉操作" class="headerlink" title="交叉操作"></a>交叉操作</h2><p>一般以概率阀值Pc控制是否进行单点交叉、多点交叉或者其他交叉方式生成新的交叉个体。</p>
+<p>交叉操作也有许多种：单点交叉，两点交叉等。此处仅讲解一下两点交叉。首先利用选择操作从种群中选择两个父辈个体parent1和parent2,然后随机产生两个位置pos1和pos2，将这两个位置中间的基因位信息进行交换，便得到下图所示的off1和off2两个个体，但是这两个个体中一般会存在基因位信息冲突的现象（整数编码时），此时需要对off1和off2个体进行调整：off1中的冲突基因根据parent1中的基因调整为parent2中的相同位置处的基因。如off1中的“1”出现了两次，则第二处的“1”需要调整为parent1中“1”对应的parent2中的“4”，依次类推处理off1中的相冲突的基因。需要注意的是，调整off2，则需要参考parent2。</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20191107151135.png"></p>
+<h2 id="变异操作"><a href="#变异操作" class="headerlink" title="变异操作"></a>变异操作</h2><p>一般以概率阀值Pm控制是否对个体的部分基因执行单点变异或多点变异。</p>
+<p>变异操作的话，根据不同的编码方式有不同的变异操作。</p>
+<p>如果是浮点数编码，则变异可以就染色体中间的某一个基因位的信息进行变异（重新生成或者其他调整方案）。</p>
+<p>如果是采用整数编码方案，则一般有多种变异方法：位置变异（调换同一个体的多个基因）和符号变异（正数变负数）。</p>
+<h1 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h1><p>求 $f(x,y)=21.5+x\times\sin(4\times\pi\times x) + y \times\sin(20\times\pi\times y)$ 的最大值</p>
+<p>代码来自：<br><a href="https://blog.csdn.net/qq_30666517/article/details/78637255" target="_blank" rel="noopener">https://blog.csdn.net/qq_30666517/article/details/78637255</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*- </span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy.optimize <span class="keyword">import</span> fsolve, basinhopping</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> timeit</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 根据解的精度确定染色体(chromosome)的长度</span></span><br><span class="line"><span class="comment"># 需要根据决策变量的上下边界来确定</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getEncodedLength</span><span class="params">(delta=<span class="number">0.0001</span>, boundarylist=[])</span>:</span></span><br><span class="line">	<span class="comment"># 每个变量的编码长度</span></span><br><span class="line">	lengths = []</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> boundarylist:</span><br><span class="line">		lower = i[<span class="number">0</span>]</span><br><span class="line">		upper = i[<span class="number">1</span>]</span><br><span class="line">		<span class="comment"># lamnda 代表匿名函数f(x)=0,50代表搜索的初始解</span></span><br><span class="line">		res = fsolve(<span class="keyword">lambda</span> x: ((upper - lower) * <span class="number">1</span> / delta) - <span class="number">2</span> ** x - <span class="number">1</span>, <span class="number">50</span>)</span><br><span class="line">		length = int(np.floor(res[<span class="number">0</span>]))</span><br><span class="line">		lengths.append(length)</span><br><span class="line">	<span class="keyword">return</span> lengths</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 随机生成初始编码种群</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getIntialPopulation</span><span class="params">(encodelength, populationSize)</span>:</span></span><br><span class="line">	<span class="comment"># 随机化初始种群为0</span></span><br><span class="line">	chromosomes = np.zeros((populationSize, sum(encodelength)), dtype=np.uint8)</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(populationSize):</span><br><span class="line">		chromosomes[i, :] = np.random.randint(<span class="number">0</span>, <span class="number">2</span>, sum(encodelength))</span><br><span class="line">	<span class="comment"># print('chromosomes shape:', chromosomes.shape)</span></span><br><span class="line">	<span class="keyword">return</span> chromosomes</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 染色体解码得到表现型的解</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decodedChromosome</span><span class="params">(encodelength, chromosomes, boundarylist, delta=<span class="number">0.0001</span>)</span>:</span></span><br><span class="line">	populations = chromosomes.shape[<span class="number">0</span>]</span><br><span class="line">	variables = len(encodelength)</span><br><span class="line">	decodedvalues = np.zeros((populations, variables))</span><br><span class="line">	<span class="keyword">for</span> k, chromosome <span class="keyword">in</span> enumerate(chromosomes):</span><br><span class="line">		chromosome = chromosome.tolist()</span><br><span class="line">		start = <span class="number">0</span></span><br><span class="line">		<span class="keyword">for</span> index, length <span class="keyword">in</span> enumerate(encodelength):</span><br><span class="line">			<span class="comment"># 将一个染色体进行拆分，得到染色体片段</span></span><br><span class="line">			power = length - <span class="number">1</span></span><br><span class="line">			<span class="comment"># 解码得到的10进制数字</span></span><br><span class="line">			demical = <span class="number">0</span></span><br><span class="line">			<span class="keyword">for</span> i <span class="keyword">in</span> range(start, length + start):</span><br><span class="line">				demical += chromosome[i] * (<span class="number">2</span> ** power)</span><br><span class="line">				power -= <span class="number">1</span></span><br><span class="line">			lower = boundarylist[index][<span class="number">0</span>]</span><br><span class="line">			upper = boundarylist[index][<span class="number">1</span>]</span><br><span class="line">			decodedvalue = lower + demical * (upper - lower) / (<span class="number">2</span> ** length - <span class="number">1</span>)</span><br><span class="line">			decodedvalues[k, index] = decodedvalue</span><br><span class="line">			<span class="comment"># 开始去下一段染色体的编码</span></span><br><span class="line">			start = length</span><br><span class="line">	<span class="keyword">return</span> decodedvalues</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 得到个体的适应度值及每个个体被选择的累积概率</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getFitnessValue</span><span class="params">(func, chromosomesdecoded)</span>:</span></span><br><span class="line">	<span class="comment"># 得到种群规模和决策变量的个数</span></span><br><span class="line">	population, nums = chromosomesdecoded.shape</span><br><span class="line">	<span class="comment"># 初始化种群的适应度值为0</span></span><br><span class="line">	fitnessvalues = np.zeros((population, <span class="number">1</span>))</span><br><span class="line">	<span class="comment"># 计算适应度值</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(population):</span><br><span class="line">		fitnessvalues[i, <span class="number">0</span>] = func(chromosomesdecoded[i, :])</span><br><span class="line">	<span class="comment"># 计算每个染色体被选择的概率</span></span><br><span class="line">	probability = fitnessvalues / np.sum(fitnessvalues)</span><br><span class="line">	<span class="comment"># 得到每个染色体被选中的累积概率</span></span><br><span class="line">	cum_probability = np.cumsum(probability)</span><br><span class="line">	<span class="keyword">return</span> fitnessvalues, cum_probability</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 新种群选择</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectNewPopulation</span><span class="params">(chromosomes, cum_probability)</span>:</span></span><br><span class="line">	m, n = chromosomes.shape</span><br><span class="line">	newpopulation = np.zeros((m, n), dtype=np.uint8)</span><br><span class="line">	<span class="comment"># 随机产生M个概率值</span></span><br><span class="line">	randoms = np.random.rand(m)</span><br><span class="line">	<span class="keyword">for</span> i, randoma <span class="keyword">in</span> enumerate(randoms):</span><br><span class="line">		logical = cum_probability &gt;= randoma</span><br><span class="line">		index = np.where(logical == <span class="number">1</span>)</span><br><span class="line">		<span class="comment"># index是tuple,tuple中元素是ndarray</span></span><br><span class="line">		newpopulation[i, :] = chromosomes[index[<span class="number">0</span>][<span class="number">0</span>], :]</span><br><span class="line">	<span class="keyword">return</span> newpopulation</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 新种群交叉</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">crossover</span><span class="params">(population, Pc=<span class="number">0.8</span>)</span>:</span></span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	:param population: 新种群</span></span><br><span class="line"><span class="string">	:param Pc: 交叉概率默认是0.8</span></span><br><span class="line"><span class="string">	:return: 交叉后得到的新种群</span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line">	<span class="comment"># 根据交叉概率计算需要进行交叉的个体个数</span></span><br><span class="line">	m, n = population.shape</span><br><span class="line">	numbers = np.uint8(m * Pc)</span><br><span class="line">	<span class="comment"># 确保进行交叉的染色体个数是偶数个</span></span><br><span class="line">	<span class="keyword">if</span> numbers % <span class="number">2</span> != <span class="number">0</span>:</span><br><span class="line">		numbers += <span class="number">1</span></span><br><span class="line">	<span class="comment"># 交叉后得到的新种群</span></span><br><span class="line">	updatepopulation = np.zeros((m, n), dtype=np.uint8)</span><br><span class="line">	<span class="comment"># 产生随机索引</span></span><br><span class="line">	index = random.sample(range(m), numbers)</span><br><span class="line">	<span class="comment"># 不进行交叉的染色体进行复制</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">		<span class="keyword">if</span> <span class="keyword">not</span> index.__contains__(i):</span><br><span class="line">			updatepopulation[i, :] = population[i, :]</span><br><span class="line">	<span class="comment"># crossover</span></span><br><span class="line">	<span class="keyword">while</span> len(index) &gt; <span class="number">0</span>:</span><br><span class="line">		a = index.pop()</span><br><span class="line">		b = index.pop()</span><br><span class="line">		<span class="comment"># 随机产生一个交叉点</span></span><br><span class="line">		crossoverPoint = random.sample(range(<span class="number">1</span>, n), <span class="number">1</span>)</span><br><span class="line">		crossoverPoint = crossoverPoint[<span class="number">0</span>]</span><br><span class="line">		<span class="comment"># one-single-point crossover</span></span><br><span class="line">		updatepopulation[a, <span class="number">0</span>:crossoverPoint] = population[a, <span class="number">0</span>:crossoverPoint]</span><br><span class="line">		updatepopulation[a, crossoverPoint:] = population[b, crossoverPoint:]</span><br><span class="line">		updatepopulation[b, <span class="number">0</span>:crossoverPoint] = population[b, <span class="number">0</span>:crossoverPoint]</span><br><span class="line">		updatepopulation[b, crossoverPoint:] = population[a, crossoverPoint:]</span><br><span class="line">	<span class="keyword">return</span> updatepopulation</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 染色体变异</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mutation</span><span class="params">(population, Pm=<span class="number">0.01</span>)</span>:</span></span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	:param population: 经交叉后得到的种群</span></span><br><span class="line"><span class="string">	:param Pm: 变异概率默认是0.01</span></span><br><span class="line"><span class="string">	:return: 经变异操作后的新种群</span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line">	updatepopulation = np.copy(population)</span><br><span class="line">	m, n = population.shape</span><br><span class="line">	<span class="comment"># 计算需要变异的基因个数</span></span><br><span class="line">	gene_num = np.uint8(m * n * Pm)</span><br><span class="line">	<span class="comment"># 将所有的基因按照序号进行10进制编码，则共有m*n个基因</span></span><br><span class="line">	<span class="comment"># 随机抽取gene_num个基因进行基本位变异</span></span><br><span class="line">	mutationGeneIndex = random.sample(range(<span class="number">0</span>, m * n), gene_num)</span><br><span class="line">	<span class="comment"># 确定每个将要变异的基因在整个染色体中的基因座(即基因的具体位置)</span></span><br><span class="line">	<span class="keyword">for</span> gene <span class="keyword">in</span> mutationGeneIndex:</span><br><span class="line">		<span class="comment"># 确定变异基因位于第几个染色体</span></span><br><span class="line">		chromosomeIndex = gene // n</span><br><span class="line">		<span class="comment"># 确定变异基因位于当前染色体的第几个基因位</span></span><br><span class="line">		geneIndex = gene % n</span><br><span class="line">		<span class="comment"># mutation</span></span><br><span class="line">		<span class="keyword">if</span> updatepopulation[chromosomeIndex, geneIndex] == <span class="number">0</span>:</span><br><span class="line">			updatepopulation[chromosomeIndex, geneIndex] = <span class="number">1</span></span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			updatepopulation[chromosomeIndex, geneIndex] = <span class="number">0</span></span><br><span class="line">	<span class="keyword">return</span> updatepopulation</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 定义适应度函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fitnessFunction</span><span class="params">()</span>:</span></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">lambda</span> x: <span class="number">21.5</span> + x[<span class="number">0</span>] * np.sin(<span class="number">4</span> * np.pi * x[<span class="number">0</span>]) + x[<span class="number">1</span>] * np.sin(<span class="number">20</span> * np.pi * x[<span class="number">1</span>])</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(max_iter=<span class="number">500</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 每次迭代得到的最优解</span></span><br><span class="line">    optimalSolutions = []</span><br><span class="line">    optimalValues = []</span><br><span class="line">    <span class="comment"># 决策变量的取值范围</span></span><br><span class="line">    decisionVariables = [[<span class="number">-3.0</span>, <span class="number">12.1</span>], [<span class="number">4.1</span>, <span class="number">5.8</span>]]</span><br><span class="line">    <span class="comment"># 得到染色体编码长度</span></span><br><span class="line">    lengthEncode = getEncodedLength(boundarylist=decisionVariables)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 得到初始种群编码</span></span><br><span class="line">    chromosomesEncoded = getIntialPopulation(lengthEncode, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> iteration <span class="keyword">in</span> range(max_iter):</span><br><span class="line">        <span class="comment"># 种群解码</span></span><br><span class="line">        decoded = decodedChromosome(lengthEncode, chromosomesEncoded, decisionVariables)</span><br><span class="line">        <span class="comment"># 得到个体适应度值和个体的累积概率</span></span><br><span class="line">        evalvalues, cum_proba = getFitnessValue(fitnessFunction(), decoded)</span><br><span class="line">        <span class="comment"># 选择新的种群</span></span><br><span class="line">        newpopulations = selectNewPopulation(chromosomesEncoded, cum_proba)</span><br><span class="line">        <span class="comment"># 进行交叉操作</span></span><br><span class="line">        crossoverpopulation = crossover(newpopulations)</span><br><span class="line">        <span class="comment"># mutation</span></span><br><span class="line">        mutationpopulation = mutation(crossoverpopulation)</span><br><span class="line">        <span class="comment"># 将变异后的种群解码，得到每轮迭代最终的种群</span></span><br><span class="line">        final_decoded = decodedChromosome(lengthEncode, mutationpopulation, decisionVariables)</span><br><span class="line">        <span class="comment"># 适应度评价</span></span><br><span class="line">        fitnessvalues, cum_individual_proba = getFitnessValue(fitnessFunction(), final_decoded)</span><br><span class="line">        <span class="comment"># 搜索每次迭代的最优解，以及最优解对应的目标函数的取值</span></span><br><span class="line">        optimalValues.append(np.max(list(fitnessvalues)))</span><br><span class="line">        index = np.where(fitnessvalues == max(list(fitnessvalues)))</span><br><span class="line">        optimalSolutions.append(final_decoded[index[<span class="number">0</span>][<span class="number">0</span>], :])</span><br><span class="line">        chromosomesEncoded = mutationpopulation</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 搜索最优解</span></span><br><span class="line">    optimalValue = np.max(optimalValues)</span><br><span class="line">    optimalIndex = np.where(optimalValues == optimalValue)</span><br><span class="line">    optimalSolution = optimalSolutions[optimalIndex[<span class="number">0</span>][<span class="number">0</span>]]</span><br><span class="line">    <span class="keyword">return</span> optimalSolution, optimalValue</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">solution, value = main()</span><br><span class="line">print(<span class="string">'最优解: x1, x2'</span>)</span><br><span class="line">print(solution[<span class="number">0</span>], solution[<span class="number">1</span>])</span><br><span class="line">print(<span class="string">'最优目标函数值:'</span>, value)</span><br><span class="line"><span class="comment"># 测量运行时间</span></span><br><span class="line">elapsedtime = timeit.timeit(stmt=main, number=<span class="number">1</span>)</span><br><span class="line">print(<span class="string">'Searching Time Elapsed:(S)'</span>, elapsedtime)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Reference:<br><a href="https://blog.csdn.net/bible_reader/article/details/72782675" target="_blank" rel="noopener">https://blog.csdn.net/bible_reader/article/details/72782675</a><br><a href="https://blog.csdn.net/qq_30666517/article/details/78637255" target="_blank" rel="noopener">https://blog.csdn.net/qq_30666517/article/details/78637255</a><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: Start
+op1=>operation: 种群初始化
+op2=>operation: 评估种群
+op3=>operation: 选择操作
+op4=>operation: 直接将选中的个体作为临时个体
+op5=>operation: 对选中的个体进行交叉操作，产生交叉个体
+op6=>operation: 直接将所有临时个体放入下一代种群中
+op7=>operation: 对临时个体进行变异操作，再投入到下一代种群中
+op8=>operation: 输出最优结果
+cond1=>condition: 是否进行交叉操作
+cond2=>condition: 是否进行变异操作
+cond3=>condition: 满足终止条件?
+ed=>end: End
+st->op1->op2->op3->cond1(no)->op4->cond2(no)->op6->cond3(yes)->op8->ed
+cond1(yes)->op5->cond2
+cond2(yes)->op7->cond3
+cond3(no)->op2</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script></p>
+</blockquote>
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1594,268 +1730,6 @@ Nearest to used: opposition, hero, private, illinois, legislative, regime, break
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/09/19/BPMN2-0入门到精通，这一篇就够了/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/09/19/BPMN2-0入门到精通，这一篇就够了/" class="post-title-link" itemprop="url">BPMN2.0入门到掌握，这一篇就够了</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-09-19 10:54:24" itemprop="dateCreated datePublished" datetime="2019-09-19T10:54:24+08:00">2019-09-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-04 14:01:26" itemprop="dateModified" datetime="2019-11-04T14:01:26+08:00">2019-11-04</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/09/19/BPMN2-0入门到精通，这一篇就够了/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/19/BPMN2-0入门到精通，这一篇就够了/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <p>BPMN2.0入门到精通，这一篇就够了</p>
-<p>笔者默认看这篇文章的同学都是了解、知道什么是BPMN的，因此背景知识、历史发展什么的都直接略过，我们直切正题：BPMN中的五个基础元素类别。</p>
-<ol>
-<li>流对象（Flow Objects）：流对象是定义业务流程的主要图形元素，主要有三种流对象<ol>
-<li>事件（Events）</li>
-<li>活动（Activities）</li>
-<li>网关（Gateways）</li>
-</ol>
-</li>
-<li>数据（Data）：数据主要通过四种元素表示<ol>
-<li>数据对象（Data Objects）</li>
-<li>数据输入（Data Inputs）</li>
-<li>数据输出（Data Outputs）</li>
-<li>数据存储（Data Stores）</li>
-</ol>
-</li>
-<li>连接对象（Connecting Objects）：流对象彼此互相连接或者连接到其他信息的方法主要有四种<ol>
-<li>顺序流（Sequence Flows）</li>
-<li>信息流（Message Flows）</li>
-<li>协同（Associations）</li>
-<li>数据协同（Data Associations）</li>
-</ol>
-</li>
-<li>泳道（Swimlanes）：有两种方式通过泳道对主要的建模元素进行分组<ol>
-<li>泳池：Pools</li>
-<li>泳道：Lanes</li>
-</ol>
-</li>
-<li>Artifacts：主要用来提供关于流程的额外信息。BPMN2.0定义两种标准Artifacts，但是建模者或者建模工具可以增加任意多Artifacts。（Artifacts，有的地方翻译成“工件”，但是感觉不管翻译成什么都不够传神，所以本文中就不翻译这个词了。）<ol>
-<li>组：Group</li>
-<li>文本注释：Text Annotation</li>
-</ol>
-</li>
-</ol>
-<h1 id="流对象（Flow-Objects）"><a href="#流对象（Flow-Objects）" class="headerlink" title="流对象（Flow Objects）"></a>流对象（Flow Objects）</h1><h2 id="事件（Event）"><a href="#事件（Event）" class="headerlink" title="事件（Event）"></a>事件（Event）</h2><table>
-<thead>
-<tr>
-<th align="left">元素 Element</th>
-<th align="left">描述 Description</th>
-<th align="left">符号 Notation</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">开始事件 Start</td>
-<td align="left">表示一个流程(Process)或一个编排(choreography)的开始</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918171605.png"></td>
-</tr>
-<tr>
-<td align="left">中间事件 Intermediate</td>
-<td align="left">发生在开始和结束事件之间，影响处理流程</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918171742.png"></td>
-</tr>
-<tr>
-<td align="left">结束事件 End</td>
-<td align="left">表示一个流程(Process)或一个编排(choreography)的结束</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918205755.png"></td>
-</tr>
-<tr>
-<td align="left">其他</td>
-<td align="left">开始事件和一些中间事件具有定义事件原因的“触发器”。结束事件可以定义作为序列流路径结束的“结果”。开始事件只能对触发器（“catch”）做出反应。结束事件只能创建（“抛出”）结果。中间事件可以捕获或抛出触发器。对于捕获的事件、触发器，标记未填充；对于抛出的触发器和结果，标记已填充。另外，在bpmn 1.1中用来中断活动的一些事件现在可以在不中断的模式下使用。这些事件的边界是虚线（见右图）。</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918210944.png"></td>
-</tr>
-</tbody></table>
-<h2 id="活动（Activity）"><a href="#活动（Activity）" class="headerlink" title="活动（Activity）"></a>活动（Activity）</h2><table>
-<thead>
-<tr>
-<th align="left">元素 Element</th>
-<th align="left">描述 Description</th>
-<th align="left">符号 Notation</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">活动 Activity</td>
-<td align="left">活动是公司在流程中执行的工作的通用术语。活动可以是原子的或非原子的（聚合物）。作为流程模型一部分的活动类型有：子流程和任务，它们都是圆角矩形。活动用于标准流程Process和编排Choreography。</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918212024.png"></td>
-</tr>
-<tr>
-<td align="left">任务（原子） Task（atomic）</td>
-<td align="left">任务是包含在流程中的原子活动。任务是当流程中的工作无法分解为更精细的流程细节级别时使用。</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918212345.png"></td>
-</tr>
-<tr>
-<td align="left">编排任务 Choreography Task</td>
-<td align="left">表示一个或多个消息交换的集合。每个编排任务涉及两个参与者。</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918213005.png"></td>
-</tr>
-<tr>
-<td align="left">子流程 Sub-Process</td>
-<td align="left">子流程是包含在流程或编排中的复合活动。它是复合的，因为它可以通过一组子活动分解为更细粒度级别的流程或编排。子流程活动主要有以下四类</td>
-<td align="left">Collapsed Sub-Process<img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918213352.png">Expanded Sub-Process<img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918213453.png">Collapsed Sub- Choreography<img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918213530.png">Expanded Sub-Choreography<img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918213637.png"></td>
-</tr>
-</tbody></table>
-<h2 id="网关（Gateway）"><a href="#网关（Gateway）" class="headerlink" title="网关（Gateway）"></a>网关（Gateway）</h2><table>
-<thead>
-<tr>
-<th align="left">元素 Element</th>
-<th align="left">描述 Description</th>
-<th align="left">符号 Notation</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">网关 Gateway</td>
-<td align="left">网关用于顺序流程和编排中序列流的发散和收敛。因此，它将决定路径的分支、分叉、合并和连接。内部标记将指示行为控制的类型（见下边一行）。</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918214000.png"></td>
-</tr>
-<tr>
-<td align="left">网关控制类型 Gateway Control Type</td>
-<td align="left">网关菱形内的图标将指示流控制行为的类型。控制类型包括：•排他型exclusive决策和合并。排他型exclusive和基于事件event-based的网关都执行排他决策，合并排他可以使用或不使用“x”标记来显示。•基于事件event-based和基于并行事件parallel event-based的网关可以启动流程的新实例。•包容型inclusive网关决策和合并。•复杂型complex网关——复杂的条件和情况。•并行parallel网关分叉和连接。每种类型的控件都会影响传入和传出流。</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918214411.png"></td>
-</tr>
-</tbody></table>
-<h1 id="数据（Data）"><a href="#数据（Data）" class="headerlink" title="数据（Data）"></a>数据（Data）</h1><p>数据对象提供有关需要执行的活动和/或它们产生的内容的信息，数据对象可以表示单个数据对象或数据对象集合。数据输入和数据输出为流程提供相同的信息。</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919100053.png"></p>
-<h1 id="连接对象（Connecting-Objects）"><a href="#连接对象（Connecting-Objects）" class="headerlink" title="连接对象（Connecting Objects）"></a>连接对象（Connecting Objects）</h1><table>
-<thead>
-<tr>
-<th align="left">元素 Element</th>
-<th align="left">描述 Description</th>
-<th align="left">符号 Notation</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">顺序流 Sequence Flow</td>
-<td align="left">表示活动的执行顺序</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919100734.png"></td>
-</tr>
-<tr>
-<td align="left">信息流 Message Flow</td>
-<td align="left">表示两个参与者之间准备发送和接收的信息流</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919100958.png"></td>
-</tr>
-<tr>
-<td align="left">协同 Association</td>
-<td align="left">协同用于将信息和artifact与图形元素链接。如果有箭头，则表示流向（如数据）。</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919101435.png"></td>
-</tr>
-</tbody></table>
-<h1 id="泳道（Swimlanes）"><a href="#泳道（Swimlanes）" class="headerlink" title="泳道（Swimlanes）"></a>泳道（Swimlanes）</h1><table>
-<thead>
-<tr>
-<th align="left">元素 Element</th>
-<th align="left">描述 Description</th>
-<th align="left">符号 Notation</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">泳池 Pool</td>
-<td align="left">泳池是协作中参与者的图形表示。它还充当一个“泳道”和一个图形容器，用于从其他池中分割一组活动，通常是在B2B环境中。泳池可以具有内部详细信息，以将要执行的进程的形式显示。或者一个泳池可能没有内部细节，也就是说，它可以是一个“黑匣子”。</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919102300.png"></td>
-</tr>
-<tr>
-<td align="left">泳道 Lane</td>
-<td align="left">lane是进程中的一个子分区，有时在泳池中，它将垂直或水平地扩展进程的整个长度。泳道用于组织和分类活动。</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919102427.png"></td>
-</tr>
-</tbody></table>
-<h1 id="Artifacts"><a href="#Artifacts" class="headerlink" title="Artifacts"></a>Artifacts</h1><table>
-<thead>
-<tr>
-<th align="left">元素 Element</th>
-<th align="left">描述 Description</th>
-<th align="left">符号 Notation</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">组 Group</td>
-<td align="left">组是同一类别内的图形元素的组。这种类型的分组不影响组内的序列流。类别名称在关系图上显示为组标签。类别可用于文档或分析目的。组是可以在图表上直观显示对象类别的一种方式。</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919102731.png"></td>
-</tr>
-<tr>
-<td align="left">文本注释 Text Annotation</td>
-<td align="left">是一个帮助建模者给图形元素增加额外文本说明的机制。</td>
-<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919102837.png"></td>
-</tr>
-</tbody></table>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>至此，你已经通过 <strong>20%</strong> 的时间了解了BPMN2.0 接近 <strong>80%</strong> 的内容。虽然BPMN底层语法以及结构还没有学习，但是这并不影响你已经可以通过BPMN2.0对你所在的业务进行详尽的描述！</p>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1927,7 +1801,7 @@ Nearest to used: opposition, hero, private, illinois, legislative, regime, break
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">137</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

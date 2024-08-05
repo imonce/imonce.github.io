@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">137</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">138</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,121 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2021/01/17/SAT问题，P，NP，NP-complete，NP-Hard/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/17/SAT问题，P，NP，NP-complete，NP-Hard/" class="post-title-link" itemprop="url">SAT问题，P，NP，NP-complete(NPC)，NP-hard</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-17 22:22:16 / Modified: 22:49:07" itemprop="dateCreated datePublished" datetime="2021-01-17T22:22:16+08:00">2021-01-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mathematics/" itemprop="url" rel="index"><span itemprop="name">Mathematics</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/01/17/SAT问题，P，NP，NP-complete，NP-Hard/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/17/SAT问题，P，NP，NP-complete，NP-Hard/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <h1 id="问题简介"><a href="#问题简介" class="headerlink" title="问题简介"></a>问题简介</h1><p>SAT问题（Boolean Satisfiability Problem）是判断一个以合取范式形式给出的逻辑命题公式是否存在一个真值指派，使得公式为真。<br>SAT 可满足问题是第一个被证明的NP问题（就是能在多项式时间验证答案正确与否的问题）</p>
+<p>解决方法：</p>
+<ol>
+<li>完备方法：枚举法、贪婪算法、局部搜索法等</li>
+<li>不完备方法：各类启发式算法，如演化算法、退火算法、蚁群算法等</li>
+</ol>
+<p>P问题：在多项式时间内能够求解，是一类可以通过确定性图灵机在多项式时间(Polynomial time)内解决的问题集合。</p>
+<p>NP问题：在多项式时间里能够验证是否有解，可以通过非确定性图灵机(Non-deterministic Turing Machine)在多项式时间(Polynomial time)内解决的决策问题集合。</p>
+<blockquote>
+<p>NOTE：P是NP的子集，也就是说任何可以被图灵机在多项式时间内解决的问题都可以被非确定性的图灵机解决。</p>
+</blockquote>
+<p>如果一个决策问题 L 是 NP-complete的，那么L具备以下两个性质：</p>
+<ol>
+<li>L  是 NP（给定一个解决NP-complete的方案(solution，感兴趣的读者可以思考一下solution 和 answer的区别)，可以很快验证是否可行，但不存在已知高效的方案 。）</li>
+<li>NP里的任何问题可以在多项式时间内转为 L。</li>
+</ol>
+<p>而NP-hard只需要具备NP-complete的第二个性质，因此NP-complete是NP-hard的子集。</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20210117221738.png"></p>
+<h1 id="求解方法"><a href="#求解方法" class="headerlink" title="求解方法"></a>求解方法</h1><p>研究中遇到的大部分问题都是NPC问题，选择的方法可以视问题的输入规模而定：</p>
+<ol>
+<li>规模小：搜索法，利用搜索策略在指数时间内求解问题</li>
+<li>规模大：随机算法，在多项式时间内“高概率”地精确求解问题；近似算法，也可以考虑在多项式时间内求得问题的一个近似解</li>
+</ol>
+<blockquote>
+<p>reference:<br><a href="https://www.cnblogs.com/sancyun/p/4250360.html" target="_blank" rel="noopener">https://www.cnblogs.com/sancyun/p/4250360.html</a><br><a href="https://baike.baidu.com/item/%E5%B8%83%E5%B0%94%E5%8F%AF%E6%BB%A1%E8%B6%B3%E6%80%A7%E9%97%AE%E9%A2%98/4715567?fr=aladdin" target="_blank" rel="noopener">https://baike.baidu.com/item/布尔可满足性问题/4715567?fr=aladdin</a><br><a href="https://blog.csdn.net/zhushiq1234/article/details/79484280" target="_blank" rel="noopener">https://blog.csdn.net/zhushiq1234/article/details/79484280</a><br><a href="https://en.wikipedia.org/wiki/NP_(complexity)" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/NP_(complexity)</a></p>
+</blockquote>
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1459,159 +1574,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2020/01/06/Blockchain-Tutorial-I-What-is-blockchain/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/06/Blockchain-Tutorial-I-What-is-blockchain/" class="post-title-link" itemprop="url">Blockchain Tutorial I: What is blockchain</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-01-06 21:47:36" itemprop="dateCreated datePublished" datetime="2020-01-06T21:47:36+08:00">2020-01-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-07 20:01:14" itemprop="dateModified" datetime="2020-01-07T20:01:14+08:00">2020-01-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learn-X-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn X in Y minutes</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learn-X-in-Y-minutes/Learn-blockchain-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn blockchain in Y minutes</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/01/06/Blockchain-Tutorial-I-What-is-blockchain/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/06/Blockchain-Tutorial-I-What-is-blockchain/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <h1 id="Brief-History"><a href="#Brief-History" class="headerlink" title="Brief History"></a>Brief History</h1><ul>
-<li>1983, David Chaum first proposed to use encryption technology in digital cash</li>
-<li>1998, Wei Dai’s B coin first introduced the idea of creating currency by solving calculation problems and decentralized consensus, but the proposal did not give a specific method to achieve decentralized consensus.</li>
-<li>2005, Hal Finney introduced the concept of “reusable proof of work” (RPOW), which uses the idea of b-coin and the hash cash problem proposed by Adam Baker to create cryptology currency. However, this concept is once again lost in idealization because it relies on trusted computing as the back end.</li>
-<li>May/2007, Nakamoto Satoshi started the Bitcoin project</li>
-<li>August/2008, Nakamoto Satoshi registered domain name bitcoin.org</li>
-<li>31/Obtober/2008, Nakamoto Satoshi sent an email to all members of a cryptography mailing list entitled “bitcoin: peer-to-peer e-cash thesis.”</li>
-<li>16/November/2008, Nakamoto Satoshi announced the source code of bitcoin system</li>
-<li>3/January/2009, Nakamoto Satoshi launched Bitcoin network on the Internet</li>
-<li>22/May/2010, Bitcoin pizza Festival, one programmer traded 10,000 bitcoins for two great John pizza coupons. For the first time, bitcoin had a fair price: 10000 bitcoins cost $25</li>
-<li>November/2011, Nakamoto Satoshi disappeared</li>
-</ul>
-<h1 id="Why-Bitcoin"><a href="#Why-Bitcoin" class="headerlink" title="Why Bitcoin"></a>Why Bitcoin</h1><ol>
-<li>Disintermediation: E-cash between individuals with no intervention of a trusted third-party intermediary</li>
-<li>Decentralization: This e-cash currency issuance does not need a centralized institution, but is completed by the code and community consensus</li>
-</ol>
-<h1 id="Why-dose-Bit-coin-need-Block-Chain"><a href="#Why-dose-Bit-coin-need-Block-Chain" class="headerlink" title="Why dose Bit coin need Block Chain"></a>Why dose Bit coin need Block Chain</h1><p>In the digital world, if we want to create a disintermediated and decentralized “e-cash”, we also need to design a complete financial system. </p>
-<p>This system should be able to solve a series of problems as follows:</p>
-<ul>
-<li>How can this “cash” be issued fairly and impartially without being controlled by any centralized institution or individual?</li>
-<li>How to realize that just like in the physical world, one person can hand the cash directly to another person without any intermediary assistance?</li>
-<li>How to “prevent counterfeiting” this kind of e-cash? Or how can an e-cash not be spent twice?</li>
-</ul>
-<p>To solve the problems, Nakamoto developed Bitcoin system, which consists of 3 layers:</p>
-<ol>
-<li>Application layer. The top layer is bitcoin. This is the application layer of the whole system.</li>
-<li>Application protocol layer. The function of the middle layer is to issue bitcoin and handle the bitcoin transfer between users. This layer, also known as bitcoin protocol, is the application protocol layer of the whole system.<ol>
-<li>Application layer. Transfer and bookkeeping functions</li>
-<li>Incentive layer. Issuance mechanism and distribution mechanism</li>
-<li>Consensus layer. POW(Proof Of Work)</li>
-</ol>
-</li>
-<li>General protocol layer. At the bottom are bitcoin’s distributed ledgers and decentralized networks. This layer, also known as bitcoin blockchain, is the general protocol layer of the whole system.<ol>
-<li>Network layer. P2P mechanism, broadcast mechanism, and verification mechanism</li>
-<li>Data layer. Block data(Hash), chain structure(Merkle Tree), and digital signature(Asymmetric encryption)</li>
-</ol>
-</li>
-</ol>
-<p>In the design of bitcoin system, Nakamoto creatively combines computer computing power competition with economic incentives to form a proof of work (POW) consensus mechanism, which enables mining computer nodes to complete the function of currency issuance and accounting in the calculation competition, as well as the operation and maintenance of blockchain ledger and decentralized network. </p>
-<p>This forms a complete cycle: the mining machine mining (calculation power competition), the completion of decentralized accounting (operation system), and the economic incentive (economic reward) in the form of bitcoin.</p>
-<p>Bitcoin’s workload proof consensus mechanism is a connecting layer, connecting the upper application and the lower technology: the upper layer is the issuance, transfer and anti-counterfeiting of e-cash; the lower layer is the node to the central network to reach an agreement and update the distributed ledger.</p>
-<h1 id="Definition-of-Blockchain"><a href="#Definition-of-Blockchain" class="headerlink" title="Definition of Blockchain"></a>Definition of Blockchain</h1><p>Blockchain is the technology of “value representation” and “value transfer” in the digital world. One side of blockchain coin is the encrypted digital currency or token representing value, and the other side is the distributed ledger and decentralized network for value transfer.</p>
-<p>Blockchain is an underlying technology derived from bitcoin. In other words, bitcoin is the first successful application of blockchain technology.</p>
-<p>When people talk about Blockchain, what do they mean:</p>
-<ol>
-<li>Blockchain refers to the data structure of bitcoin, that is, the chain formed by the connection of data blocks, which is also known as “distributed ledger”. In the bitcoin white paper, Nakamoto mentioned block and chain respectively, but later they were combined into the new term block chain.</li>
-<li>Blockchain refers to the combination of bitcoin’s distributed ledger and decentralized network. Corresponding to bitcoin system, it refers to the whole third layer of bitcoin blockchain.</li>
-<li>Blockchain refers to the combination of the second layer (bitcoin protocol) and the third layer (bitcoin blockchain) of bitcoin system. It includes distributed ledgers, decentralized networks and bitcoin protocols.</li>
-<li>Blockchain refers to the whole bitcoin system, including all three layers, including bitcoin with value representation and the whole system behind it. From this perspective, blockchain is regarded as a complete system including both technical and economic parts.</li>
-</ol>
-<p>When referring to blockchain, ordinary people often refers to the fourth largest scope, namely “account book + Network + protocol + currency”. In the industry, when people refer to blockchain, they usually refer to the third scope, namely “account book + Network + Protocol”. When talking about blockchain, many software developers usually refer to the second range of “ledger + network”.</p>
-<blockquote>
-<p>reference:<br><a href="http://c.biancheng.net/view/1884.html" target="_blank" rel="noopener">http://c.biancheng.net/view/1884.html</a></p>
-</blockquote>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1683,7 +1645,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">137</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

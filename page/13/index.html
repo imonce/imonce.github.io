@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">137</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">138</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,115 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2018/09/19/jupyter配置远程访问/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/19/jupyter配置远程访问/" class="post-title-link" itemprop="url">Jupyter Notebook 配置远程访问</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-09-19 11:10:45" itemprop="dateCreated datePublished" datetime="2018-09-19T11:10:45+08:00">2018-09-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-04 16:04:48" itemprop="dateModified" datetime="2020-01-04T16:04:48+08:00">2020-01-04</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/09/19/jupyter配置远程访问/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/09/19/jupyter配置远程访问/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <h1 id="安装jupyter"><a href="#安装jupyter" class="headerlink" title="安装jupyter"></a>安装jupyter</h1><blockquote>
+<p>pip install ipython<br>pip install jupyter</p>
+</blockquote>
+<h1 id="生成jupyter配置文件"><a href="#生成jupyter配置文件" class="headerlink" title="生成jupyter配置文件"></a>生成jupyter配置文件</h1><blockquote>
+<p>jupyter notebook –generate-config</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#: jupyter notebook --generate-config</span></span><br><span class="line">Writing default config to: /home/xm/.jupyter/jupyter_notebook_config.py</span><br></pre></td></tr></table></figure>
+
+<h1 id="自动生成密码"><a href="#自动生成密码" class="headerlink" title="自动生成密码"></a>自动生成密码</h1><blockquote>
+<p>jupyter notebook password</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#: jupyter notebook password</span></span><br><span class="line">Enter password: <span class="comment"># 这里输入密码不会显示字符的</span></span><br><span class="line">Verify password: </span><br><span class="line">[NotebookPasswordApp] Wrote hashed password to /home/xm/.jupyter/jupyter_notebook_config.json</span><br><span class="line"><span class="comment"># 密码已经被加密记录到这个文件中了</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="获取密码"><a href="#获取密码" class="headerlink" title="获取密码"></a>获取密码</h1><blockquote>
+<p>cat /home/xm/.jupyter/jupyter_notebook_config.json</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#: cat /home/xm/.jupyter/jupyter_notebook_config.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"NotebookApp"</span>: &#123;</span><br><span class="line">    <span class="string">"password"</span>: <span class="string">"这是你的密码，一整段都复制 下来"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h1><blockquote>
+<p>vim /home/xm/.jupyter/jupyter_notebook_config.py</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#懒得找对应配置项的朋友，直接把这四项配置写到文件开头就可以了</span></span><br><span class="line">c.NotebookApp.ip = <span class="string">'*'</span></span><br><span class="line">c.NotebookApp.password = <span class="string">'sha:ce...刚才复制的那个密文'</span></span><br><span class="line">c.NotebookApp.open_browser = False</span><br><span class="line">c.NotebookApp.port = 8888 <span class="comment">#可自行指定一个端口，访问时使用该端口</span></span><br></pre></td></tr></table></figure>
+
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1064,95 +1173,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" class="post-title-link" itemprop="url">远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-04-24 02:45:19" itemprop="dateCreated datePublished" datetime="2017-04-24T02:45:19+08:00">2017-04-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-04 15:55:31" itemprop="dateModified" datetime="2020-01-04T15:55:31+08:00">2020-01-04</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>MySQL自带配置数据库mysql中的表user中，User=root一栏，Host的值为localhost，导致root用户只能通过本地登录。</p>
-<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>将User=root对应行的Host一栏的值修改为<code>%</code>，允许任意ip登录root。</p>
-<h2 id="具体解决方案"><a href="#具体解决方案" class="headerlink" title="具体解决方案"></a>具体解决方案</h2><p>在本机登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称’%’即可 </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p  </span><br><span class="line">mysql&gt;use mysql;  </span><br><span class="line">mysql&gt;update user set host = '%' where user ='root';  </span><br><span class="line">mysql&gt;flush privileges;</span><br></pre></td></tr></table></figure>
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1224,7 +1244,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">137</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

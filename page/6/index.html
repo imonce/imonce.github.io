@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">137</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">138</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,268 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/09/19/BPMN2-0入门到精通，这一篇就够了/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/19/BPMN2-0入门到精通，这一篇就够了/" class="post-title-link" itemprop="url">BPMN2.0入门到掌握，这一篇就够了</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-09-19 10:54:24" itemprop="dateCreated datePublished" datetime="2019-09-19T10:54:24+08:00">2019-09-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-04 14:01:26" itemprop="dateModified" datetime="2019-11-04T14:01:26+08:00">2019-11-04</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/09/19/BPMN2-0入门到精通，这一篇就够了/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/19/BPMN2-0入门到精通，这一篇就够了/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <p>BPMN2.0入门到精通，这一篇就够了</p>
+<p>笔者默认看这篇文章的同学都是了解、知道什么是BPMN的，因此背景知识、历史发展什么的都直接略过，我们直切正题：BPMN中的五个基础元素类别。</p>
+<ol>
+<li>流对象（Flow Objects）：流对象是定义业务流程的主要图形元素，主要有三种流对象<ol>
+<li>事件（Events）</li>
+<li>活动（Activities）</li>
+<li>网关（Gateways）</li>
+</ol>
+</li>
+<li>数据（Data）：数据主要通过四种元素表示<ol>
+<li>数据对象（Data Objects）</li>
+<li>数据输入（Data Inputs）</li>
+<li>数据输出（Data Outputs）</li>
+<li>数据存储（Data Stores）</li>
+</ol>
+</li>
+<li>连接对象（Connecting Objects）：流对象彼此互相连接或者连接到其他信息的方法主要有四种<ol>
+<li>顺序流（Sequence Flows）</li>
+<li>信息流（Message Flows）</li>
+<li>协同（Associations）</li>
+<li>数据协同（Data Associations）</li>
+</ol>
+</li>
+<li>泳道（Swimlanes）：有两种方式通过泳道对主要的建模元素进行分组<ol>
+<li>泳池：Pools</li>
+<li>泳道：Lanes</li>
+</ol>
+</li>
+<li>Artifacts：主要用来提供关于流程的额外信息。BPMN2.0定义两种标准Artifacts，但是建模者或者建模工具可以增加任意多Artifacts。（Artifacts，有的地方翻译成“工件”，但是感觉不管翻译成什么都不够传神，所以本文中就不翻译这个词了。）<ol>
+<li>组：Group</li>
+<li>文本注释：Text Annotation</li>
+</ol>
+</li>
+</ol>
+<h1 id="流对象（Flow-Objects）"><a href="#流对象（Flow-Objects）" class="headerlink" title="流对象（Flow Objects）"></a>流对象（Flow Objects）</h1><h2 id="事件（Event）"><a href="#事件（Event）" class="headerlink" title="事件（Event）"></a>事件（Event）</h2><table>
+<thead>
+<tr>
+<th align="left">元素 Element</th>
+<th align="left">描述 Description</th>
+<th align="left">符号 Notation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">开始事件 Start</td>
+<td align="left">表示一个流程(Process)或一个编排(choreography)的开始</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918171605.png"></td>
+</tr>
+<tr>
+<td align="left">中间事件 Intermediate</td>
+<td align="left">发生在开始和结束事件之间，影响处理流程</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918171742.png"></td>
+</tr>
+<tr>
+<td align="left">结束事件 End</td>
+<td align="left">表示一个流程(Process)或一个编排(choreography)的结束</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918205755.png"></td>
+</tr>
+<tr>
+<td align="left">其他</td>
+<td align="left">开始事件和一些中间事件具有定义事件原因的“触发器”。结束事件可以定义作为序列流路径结束的“结果”。开始事件只能对触发器（“catch”）做出反应。结束事件只能创建（“抛出”）结果。中间事件可以捕获或抛出触发器。对于捕获的事件、触发器，标记未填充；对于抛出的触发器和结果，标记已填充。另外，在bpmn 1.1中用来中断活动的一些事件现在可以在不中断的模式下使用。这些事件的边界是虚线（见右图）。</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918210944.png"></td>
+</tr>
+</tbody></table>
+<h2 id="活动（Activity）"><a href="#活动（Activity）" class="headerlink" title="活动（Activity）"></a>活动（Activity）</h2><table>
+<thead>
+<tr>
+<th align="left">元素 Element</th>
+<th align="left">描述 Description</th>
+<th align="left">符号 Notation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">活动 Activity</td>
+<td align="left">活动是公司在流程中执行的工作的通用术语。活动可以是原子的或非原子的（聚合物）。作为流程模型一部分的活动类型有：子流程和任务，它们都是圆角矩形。活动用于标准流程Process和编排Choreography。</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918212024.png"></td>
+</tr>
+<tr>
+<td align="left">任务（原子） Task（atomic）</td>
+<td align="left">任务是包含在流程中的原子活动。任务是当流程中的工作无法分解为更精细的流程细节级别时使用。</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918212345.png"></td>
+</tr>
+<tr>
+<td align="left">编排任务 Choreography Task</td>
+<td align="left">表示一个或多个消息交换的集合。每个编排任务涉及两个参与者。</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918213005.png"></td>
+</tr>
+<tr>
+<td align="left">子流程 Sub-Process</td>
+<td align="left">子流程是包含在流程或编排中的复合活动。它是复合的，因为它可以通过一组子活动分解为更细粒度级别的流程或编排。子流程活动主要有以下四类</td>
+<td align="left">Collapsed Sub-Process<img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918213352.png">Expanded Sub-Process<img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918213453.png">Collapsed Sub- Choreography<img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918213530.png">Expanded Sub-Choreography<img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918213637.png"></td>
+</tr>
+</tbody></table>
+<h2 id="网关（Gateway）"><a href="#网关（Gateway）" class="headerlink" title="网关（Gateway）"></a>网关（Gateway）</h2><table>
+<thead>
+<tr>
+<th align="left">元素 Element</th>
+<th align="left">描述 Description</th>
+<th align="left">符号 Notation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">网关 Gateway</td>
+<td align="left">网关用于顺序流程和编排中序列流的发散和收敛。因此，它将决定路径的分支、分叉、合并和连接。内部标记将指示行为控制的类型（见下边一行）。</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918214000.png"></td>
+</tr>
+<tr>
+<td align="left">网关控制类型 Gateway Control Type</td>
+<td align="left">网关菱形内的图标将指示流控制行为的类型。控制类型包括：•排他型exclusive决策和合并。排他型exclusive和基于事件event-based的网关都执行排他决策，合并排他可以使用或不使用“x”标记来显示。•基于事件event-based和基于并行事件parallel event-based的网关可以启动流程的新实例。•包容型inclusive网关决策和合并。•复杂型complex网关——复杂的条件和情况。•并行parallel网关分叉和连接。每种类型的控件都会影响传入和传出流。</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190918214411.png"></td>
+</tr>
+</tbody></table>
+<h1 id="数据（Data）"><a href="#数据（Data）" class="headerlink" title="数据（Data）"></a>数据（Data）</h1><p>数据对象提供有关需要执行的活动和/或它们产生的内容的信息，数据对象可以表示单个数据对象或数据对象集合。数据输入和数据输出为流程提供相同的信息。</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919100053.png"></p>
+<h1 id="连接对象（Connecting-Objects）"><a href="#连接对象（Connecting-Objects）" class="headerlink" title="连接对象（Connecting Objects）"></a>连接对象（Connecting Objects）</h1><table>
+<thead>
+<tr>
+<th align="left">元素 Element</th>
+<th align="left">描述 Description</th>
+<th align="left">符号 Notation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">顺序流 Sequence Flow</td>
+<td align="left">表示活动的执行顺序</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919100734.png"></td>
+</tr>
+<tr>
+<td align="left">信息流 Message Flow</td>
+<td align="left">表示两个参与者之间准备发送和接收的信息流</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919100958.png"></td>
+</tr>
+<tr>
+<td align="left">协同 Association</td>
+<td align="left">协同用于将信息和artifact与图形元素链接。如果有箭头，则表示流向（如数据）。</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919101435.png"></td>
+</tr>
+</tbody></table>
+<h1 id="泳道（Swimlanes）"><a href="#泳道（Swimlanes）" class="headerlink" title="泳道（Swimlanes）"></a>泳道（Swimlanes）</h1><table>
+<thead>
+<tr>
+<th align="left">元素 Element</th>
+<th align="left">描述 Description</th>
+<th align="left">符号 Notation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">泳池 Pool</td>
+<td align="left">泳池是协作中参与者的图形表示。它还充当一个“泳道”和一个图形容器，用于从其他池中分割一组活动，通常是在B2B环境中。泳池可以具有内部详细信息，以将要执行的进程的形式显示。或者一个泳池可能没有内部细节，也就是说，它可以是一个“黑匣子”。</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919102300.png"></td>
+</tr>
+<tr>
+<td align="left">泳道 Lane</td>
+<td align="left">lane是进程中的一个子分区，有时在泳池中，它将垂直或水平地扩展进程的整个长度。泳道用于组织和分类活动。</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919102427.png"></td>
+</tr>
+</tbody></table>
+<h1 id="Artifacts"><a href="#Artifacts" class="headerlink" title="Artifacts"></a>Artifacts</h1><table>
+<thead>
+<tr>
+<th align="left">元素 Element</th>
+<th align="left">描述 Description</th>
+<th align="left">符号 Notation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">组 Group</td>
+<td align="left">组是同一类别内的图形元素的组。这种类型的分组不影响组内的序列流。类别名称在关系图上显示为组标签。类别可用于文档或分析目的。组是可以在图表上直观显示对象类别的一种方式。</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919102731.png"></td>
+</tr>
+<tr>
+<td align="left">文本注释 Text Annotation</td>
+<td align="left">是一个帮助建模者给图形元素增加额外文本说明的机制。</td>
+<td align="left"><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190919102837.png"></td>
+</tr>
+</tbody></table>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>至此，你已经通过 <strong>20%</strong> 的时间了解了BPMN2.0 接近 <strong>80%</strong> 的内容。虽然BPMN底层语法以及结构还没有学习，但是这并不影响你已经可以通过BPMN2.0对你所在的业务进行详尽的描述！</p>
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1478,277 +1740,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/08/06/如何走出职场焦虑、避免中年危机/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/06/如何走出职场焦虑、避免中年危机/" class="post-title-link" itemprop="url">如何走出职场焦虑、避免中年危机</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-08-06 23:31:54" itemprop="dateCreated datePublished" datetime="2019-08-06T23:31:54+08:00">2019-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-04 14:02:15" itemprop="dateModified" datetime="2019-11-04T14:02:15+08:00">2019-11-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/个人提升系列/" itemprop="url" rel="index"><span itemprop="name">个人提升系列</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/08/06/如何走出职场焦虑、避免中年危机/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/06/如何走出职场焦虑、避免中年危机/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <h1 id="自我认识"><a href="#自我认识" class="headerlink" title="自我认识"></a>自我认识</h1><p>有人对自己工作进行抱怨时，经常会用到<strong>“不会做，不好做，不想做”</strong>这样的词语。然而“不会做”，“不好做”，“不想做”表达的是同样的含义么？这些表述背后又透露了什么信息呢？</p>
-<p>为了帮助大家分析自己，美国著名心理学家麦克利兰提出了一个“冰山模型”，把一个人的素质要素分成了三类：</p>
-<ol>
-<li>知识、技能</li>
-<li>能力</li>
-<li>价值观、性格特质、动机</li>
-</ol>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190805171618.png"></p>
-<table>
-<thead>
-<tr>
-<th align="left"></th>
-<th align="left">知识、技能</th>
-<th align="left">能力</th>
-<th align="left">价值观、性格特质、动机</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">解释</td>
-<td align="left">通过学习和实践获得的可以使用在特定领域的认知、经验、技术，如学过的数学知识、写作修辞手法、office套件的使用方法等</td>
-<td align="left">可以在不同领域使用的通用能力，如学习能力、人际交往能力</td>
-<td align="left">判断事物的是非标准、行为偏好、成就动机、权利动机、亲和动机</td>
-</tr>
-<tr>
-<td align="left">和工作不匹配的表现</td>
-<td align="left">不会做，慌乱焦虑、无所适从</td>
-<td align="left">不好做，低效、无奈</td>
-<td align="left">不想做，矛盾纠结、没热情、心累</td>
-</tr>
-</tbody></table>
-<h1 id="职业匹配"><a href="#职业匹配" class="headerlink" title="职业匹配"></a>职业匹配</h1><p>职业，本质上是关键业务的集合。看一个人和他的职业匹不匹配，就是看他是否需要、擅长、喜欢自己负责的业务。</p>
-<p>可以通过下表来对自己和职业的匹配进行评估，只需要根据冰山模型填上自己的个人素质、自己目前需要什么（钱、社区、人脉等），再根据和每个业务的匹配关系给出1-5的评分即可。</p>
-<table>
-<tr>
-    <td></td>
-    <td></td>
-    <td>个人素质</td>
-    <td>业务1的匹配分数</td>
-    <td>业务2的匹配分数</td>
-    <td>...</td>
-</tr>
-<tr>
-    <td rowspan="3"> 喜欢 </td>
-    <td>价值观</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-</tr>
-<tr>
-    <td>性格特质</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-</tr>
-<tr>
-    <td>动机</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-</tr>
-<tr>
-    <td rowspan="3"> 擅长 </td>
-    <td>知识</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-</tr>
-<tr>
-    <td>技能</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-</tr>
-<tr>
-    <td>能力</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-</tr>
-<tr>
-    <td>需要</td>
-    <td>需要</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-</tr>
-</table>
-
-<h1 id="职业调整"><a href="#职业调整" class="headerlink" title="职业调整"></a>职业调整</h1><p>当我们对自己进行职业匹配之后，发现自己不喜欢、不擅长、不需要某一份工作的时候应该怎么办呢？</p>
-<h2 id="不喜欢"><a href="#不喜欢" class="headerlink" title="不喜欢"></a>不喜欢</h2><p>不喜欢是和一个人的根本挂钩的，很难靠改变自己来喜欢上某个工作或者业务，最好是对工作进行调整：</p>
-<ol>
-<li>调整业务内容和目标（业务内调整）</li>
-<li>更换负责的业务（岗位内调整）</li>
-<li>请求更换岗位（公司内调整）</li>
-<li>跳槽</li>
-</ol>
-<h2 id="不擅长"><a href="#不擅长" class="headerlink" title="不擅长"></a>不擅长</h2><p>不擅长说白了是自己的知识储备不够、技术水平不过关、能力不足导致的。需要不是外界的调整，而是自我的提升。</p>
-<h2 id="不需要"><a href="#不需要" class="headerlink" title="不需要"></a>不需要</h2><p>不需要，本质上是这份工作不能满足你的某些需求。那么只需要分析其中的原因即可：</p>
-<ol>
-<li>业务原因。这个业务不被重视，没有前景，可能会被砍掉</li>
-<li>行业原因。行业普遍工资低/加班等</li>
-<li>职业原因。某类岗位就是重复性机械劳动，难以接触新的事物</li>
-<li>公司原因。这公司药丸</li>
-</ol>
-<p>分析清楚了原因，就知道从哪里下手了。</p>
-<h1 id="内在提升"><a href="#内在提升" class="headerlink" title="内在提升"></a>内在提升</h1><p>时间要投入到自我提升上，才会有工资的提升。自我提升有以下几种：</p>
-<h2 id="知识提升"><a href="#知识提升" class="headerlink" title="知识提升"></a>知识提升</h2><p>提升自己的知识储备，不必每次都去搜索学习。</p>
-<p>但是要注意，学了知识之后，如果可以灵活运营，则满腹经纶指点江山，否则就是读死书，浪费时间。</p>
-<p>因此，要注意：</p>
-<ol>
-<li>要学会提取知识的核心，掌握20%的核心知识。比如做ppt漂亮的核心就是饱和度、边框、行间距</li>
-<li>知识和问题关联起来，学习知识的时候就要联系到它能解决什么问题</li>
-<li>系统化训练，刻意使用刚刚学到的知识，不要快速遗忘</li>
-</ol>
-<h2 id="技能提升"><a href="#技能提升" class="headerlink" title="技能提升"></a>技能提升</h2><p>技能的定价和天花板取决于其稀缺性。</p>
-<p>某一技能可能在稀缺时期很值钱，但是随着供求关系发生变化，其市场价值依然会产生波动。</p>
-<h2 id="能力提升"><a href="#能力提升" class="headerlink" title="能力提升"></a>能力提升</h2><p>技能熟练，只是一个好兵，能力强大，才能得到提升，成为将才。</p>
-<p>能力提升可以跨行业跨职业，一旦积累到一定高度，换个公司、行业、职业一样可以吃的开，挣到钱。</p>
-<h2 id="提升自我、认识自我"><a href="#提升自我、认识自我" class="headerlink" title="提升自我、认识自我"></a>提升自我、认识自我</h2><p>提升自我：对事物有更加深刻的看法，有更加成熟的三观，锻炼自己的某种特质</p>
-<p>认识自我：有自知之明，找到更加适合自己的环境和土壤</p>
-<h1 id="外在提升"><a href="#外在提升" class="headerlink" title="外在提升"></a>外在提升</h1><p>外在提升主要就是提升自己周围的环境，物理环境和社会环境。</p>
-<p>物理环境的提升可以通过搬家、打扫卫生等完成。</p>
-<p>社会环境，主要由自己的人脉构成，扩展、优化自己的人脉，就是提升自己的社会环境的过程。</p>
-<p>提升过程中需要注意以下几个误区：</p>
-<ol>
-<li>皇冠综合症：只顾低头做事，等待伯乐发现自己，给自己戴上皇冠，这是不对的。要学会主动争取，树立个人品牌，展现自己的价值</li>
-<li>名片囤积：人脉的构建不是基于名片的互换，而是基于价值的互换</li>
-</ol>
-<p>人脉关系中存在以下几种角色，可以帮助你迅速定位自己：</p>
-<ol>
-<li>节点：把大家连接在一起的人</li>
-<li>专家：掌握信息、知识甚至是资源的人</li>
-<li>明星：有强烈个人魅力的人</li>
-<li>助理：在圈子里提供服务的人</li>
-</ol>
-<h1 id="持续成长"><a href="#持续成长" class="headerlink" title="持续成长"></a>持续成长</h1><ol>
-<li>长远规划，给自己定好发展方向</li>
-<li>提升能力，成为可迁移人才</li>
-<li>提升认知高度，成为纵向深度人才，多思考：<ul>
-<li>这个行业中的关键成功要素是什么</li>
-<li>行业的社会价值是什么</li>
-<li>部门、岗位、公司的核心价值是什么</li>
-</ul>
-</li>
-</ol>
-<p>在成长的几个阶段，需要注意：</p>
-<ol>
-<li>起步期：靠自己<ul>
-<li>思维方面，形成独立见解</li>
-<li>效率方面，学会多任务，能够高效处理工作，管理时间</li>
-<li>沟通方面，理解他人需求，条理清楚</li>
-<li>交际方面，懂得人际拓展方法</li>
-</ul>
-</li>
-<li>发展期：靠别人<ul>
-<li>思维方面，掌握解决复杂问题、拆分工作的方法</li>
-<li>效率方面，懂得如何辅导和激励下属工作，不让自己累死</li>
-<li>沟通方面，掌握说服他人的技巧，懂得公开表达</li>
-<li>交际方面，能够处理团队内部或跨部门的冲突，进行高难度沟通</li>
-</ul>
-</li>
-<li>成熟期：靠影响力<ul>
-<li>思维方面，要更加有高度，掌握战略思维、经济学思维等</li>
-<li>效率方面，掌握运营和财务的知识，更好的配置资源</li>
-<li>沟通方面，了解公司，知道如何向用户推销自己，营销思维</li>
-<li>交际方面，全面进阶的领导力</li>
-</ul>
-</li>
-</ol>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1820,7 +1811,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">137</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
