@@ -122,7 +122,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">214</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">215</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">138</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">139</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,151 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/08/07/软件架构及常用的架构风格/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/07/软件架构及常用的架构风格/" class="post-title-link" itemprop="url">软件架构及常用的架构风格</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-07 22:19:25" itemprop="dateCreated datePublished" datetime="2019-08-07T22:19:25+08:00">2019-08-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-04 16:24:12" itemprop="dateModified" datetime="2020-01-04T16:24:12+08:00">2020-01-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件架构和服务架构/" itemprop="url" rel="index"><span itemprop="name">软件架构和服务架构</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/08/07/软件架构及常用的架构风格/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/07/软件架构及常用的架构风格/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <p>前言：本来只想做一个“什么是微服务架构”，后来发现有许多基础的知识如果不做会很难看懂，因此把软件架构和常用的架构风格也一并讲了。大佬们的请直接移步第三部分。</p>
+<h1 id="软件架构"><a href="#软件架构" class="headerlink" title="软件架构"></a>软件架构</h1><h2 id="软件架构的定义"><a href="#软件架构的定义" class="headerlink" title="软件架构的定义"></a>软件架构的定义</h2><p>要理解微服务架构，首先要理解什么是软件架构。</p>
+<blockquote>
+<p>计算机系统的软件架构是构建这个系统所需要的一组结构，包括软件元素、它们之间的关系以及两者的属性。————卡耐基梅隆大学 Len Bass</p>
+</blockquote>
+<p>这句话，本质上就是在讲：应用程序的架构是将软件分解为元素（element），这些元素之间的关系（relation），以及这些元素自有的属性（property）。</p>
+<h2 id="软件架构的意义"><a href="#软件架构的意义" class="headerlink" title="软件架构的意义"></a>软件架构的意义</h2><p>应用程序有两个层面的需求。第一类是功能性需求，这些需求决定一个应用程序做什么。这些通常都包含在用例（use case）或者用户故事（user story）中。应用的架构其实跟这些功能性需求没什么关系。功能性需求可以通过任意的架构来实现，甚至是非常糟糕的大泥球架构。</p>
+<p>架构的重要性在于，它帮助应用程序满足了第二类需求：非功能性需求。我们把这类需求也称之为质量属性需求，或者简称为“能力”。这些非功能性需求决定一个应用程序在运行时的质量，比如可扩展性和可靠性。它们也决定了开发阶段的质量，包括可维护性、可测试性、可扩展性和可部署性。为应用程序所选择的架构将决定这些质量属性。</p>
+<p>也可以从以下几点来讲软件架构的意义：</p>
+<ul>
+<li>它促进了劳动和知识的分工。它使具有特定专业知识的人们（或多个团队）能够就应用程序高效地协同工作。</li>
+<li>它定义了软件元素的交互方式。</li>
+<li>将软件分解成元素以及定义这些元素之间的关系，决定了软件的能力。</li>
+</ul>
+<h2 id="软件架构的4-1视图模型"><a href="#软件架构的4-1视图模型" class="headerlink" title="软件架构的4+1视图模型"></a>软件架构的4+1视图模型</h2><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190807212744.png"></p>
+<p>每个视图的目的如下：</p>
+<p>逻辑视图：开发人员创建的软件元素。在面向对象的语言中，这些元素是类和包。它们之间的关系是类和包之间的关系，包括继承、关联和依赖。</p>
+<p>实现视图：构建编译系统的输出。此视图由表示打包代码的模块和组件组成，组件是由一个或多个模块组成的可执行或可部署单元。在Java中，模块是JAR文件，组件通常是WAR文件或可执行JAR文件。它们之间的关系包括模块之间的依赖关系以及组件和模块之间的组合关系。</p>
+<p>进程视图：运行时的组件。每个元素都是一个进程，进程之间的关系代表进程间通信。</p>
+<p>部署视图：进程如何映射到机器。此视图中的元素由（物理或虚拟）计算机和进程组成。机器之间的关系代表网络。该视图还描述了进程和机器之间的关系。</p>
+<p>除了这四个视图以外，4+1中的+1是指场景，它负责把视图串联在一起。每个场景负责描述在一个视图中的多个架构元素如何协作，以完成一个请求。例如，在逻辑视图中的场景，展现了类是如何协作的。同样，在进程视图中的场景，展现了进程是如何协作的。</p>
+<h1 id="常用的架构风格"><a href="#常用的架构风格" class="headerlink" title="常用的架构风格"></a>常用的架构风格</h1><p>架构风格的定义如下：</p>
+<blockquote>
+<p>架构风格根据结构组织模式定义了一系列此类系统。更具体地说，架构风格确定可以在该风格的实例中使用的组件和连接器的词汇表，以及关于如何组合它们的一组约束。————David Garlan and Mary Shaw</p>
+</blockquote>
+<p>特定的架构风格提供了有限的元素（组件）和关系（连接器），你可以从中定义应用程序架构的视图。应用程序通常使用多种架构风格的组合。例如，单体架构可以通过不同的风格通的实现视图构造为单个（可执行与可部署）组件的架构样式。微服务架构将应用程序构造为一组松散耦合的服务，也可以通过不同的风格进行表示。</p>
+<h2 id="分层式架构风格"><a href="#分层式架构风格" class="headerlink" title="分层式架构风格"></a>分层式架构风格</h2><p>架构的典型例子是分层架构。分层架构将软件元素按“层”的方式组织。每个层都有明确定义的职责。分层架构还限制了层之间的依赖关系。每一层只能依赖于紧邻其下方的层（如果严格分层）或其下面的任何层。</p>
+<p>可以将分层架构应用于前面讨论的四个视图中的任何一个。流行的三层架构是应用于逻辑视图的分层架构。它将应用程序的类组织到以下层中：</p>
+<ul>
+<li>表现层：包含实现用户界面或外部API的代码。</li>
+<li>业务逻辑层：包含业务逻辑。</li>
+<li>数据持久化层：实现与数据库交互的逻辑。</li>
+</ul>
+<p>分层架构是架构风格的一个很好的例子，但它确实有一些明显的弊端：</p>
+<ul>
+<li>单个表现层：它无法展现应用程序可能不仅仅由单个系统调用的事实。</li>
+<li>单一数据持久化层：它无法展现应用程序可能与多个数据库进行交互的事实。</li>
+<li>将业务逻辑层定义为依赖于数据持久化层：理论上，这样的依赖性会妨碍你在没有数据库的情况下测试业务逻辑。</li>
+</ul>
+<p>此外，分层架构错误地表示了精心设计的应用程序中的依赖关系。业务逻辑通常定义数据访问方法的接口或接口库。数据持久化层则定义了实现存储库接口的DAO类。换句话说，依赖关系与分层架构所描述的相反。</p>
+<h2 id="六边形架构风格"><a href="#六边形架构风格" class="headerlink" title="六边形架构风格"></a>六边形架构风格</h2><p>六边形架构是分层架构风格的替代品。如图所示，六边形架构风格选择以业务逻辑为中心的方式组织逻辑视图。应用程序具有一个或多个入站适配器，而不是表示层，它通过调用业务逻辑来处理来自外部的请求。同样，应用程序具有一个或多个出站适配器，而不是数据持久化层，这些出站适配器由业务逻辑调用并调用外部应用程序。此架构的一个关键特性和优点是业务逻辑不依赖于适配器。相反，各种适配器都依赖业务逻辑。</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190807215342.png"></p>
+<p>业务逻辑具有一个或多个端口（port）。端口定义了一组操作，关于业务逻辑如何与外部交互。例如，在Java中，端口通常是Java接口。有两种端口：入站和出站端口。入站端口是业务逻辑公开的API，它使外部应用程序可以调用它。入站端口的一个实例是服务接口，它定义服务的公共方法。出站端口是业务逻辑调用外部系统的方式。出站端口的一个实例是存储库接口，它定义数据访问操作的集合。</p>
+<p>业务逻辑的周围是适配器。与端口一样，有两种类型的适配器：入站和出站。入站适配器通过调用入站端口来处理来自外部世界的请求。入站适配器的一个实例是Spring MVC Controller，它实现一组REST接口（endpoint）或一组Web页面。另一个实例是订阅消息的消息代理客户端。多个入站适配器可以调用相同的入站端口。</p>
+<p>出站适配器实现出站端口，并通过调用外部应用程序或服务处理来自业务逻辑的请求。出站适配器的一个实例是实现访问数据库的操作的数据访问对象（DAO）类。另一个实例是调用远程服务的代理类。出站适配器也可以发布事件。</p>
+<p>六边形架构风格的一个重要好处是它将业务逻辑与适配器中包含的表示层和数据访问层的逻辑分离开来。业务逻辑不依赖于表示层逻辑或数据访问层逻辑。</p>
+<p>由于这种分离，单独测试业务逻辑要容易得多。另一个好处是它更准确地反映了现代应用程序的架构。可以通过多个适配器调用业务逻辑，每个适配器实现特定的API或用户界面。业务逻辑还可以调用多个适配器，每个适配器调用不同的外部系统。六边形架构是描述微服务架构中每个服务的架构的好方法。</p>
+<blockquote>
+<p>reference:<br><a href="https://mp.weixin.qq.com/s/r9eKHhEKWo5TovFN87HtPw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/r9eKHhEKWo5TovFN87HtPw</a></p>
+</blockquote>
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -2473,139 +2618,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/07/02/意大利语学习（七）：我的家（下）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/02/意大利语学习（七）：我的家（下）/" class="post-title-link" itemprop="url">意大利语学习（七）：我的家（下）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-07-02 21:30:04 / Modified: 22:45:55" itemprop="dateCreated datePublished" datetime="2019-07-02T21:30:04+08:00">2019-07-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/意大利语学习/" itemprop="url" rel="index"><span itemprop="name">意大利语学习</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/07/02/意大利语学习（七）：我的家（下）/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/02/意大利语学习（七）：我的家（下）/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <h1 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h1><h2 id="段落1"><a href="#段落1" class="headerlink" title="段落1"></a>段落1</h2><p>Mi chiamo Alberto Sorrentino 我叫Alberto Sorrentino</p>
-<p>Sono di Napoli, ma lavoro a Roma da molti anni 我来自那不勒斯，但我在罗马工作多年</p>
-<p>Sono avvocato 我是个律师</p>
-<p>Mia moglie, Luisa, insegna all’Università di Roma 我的妻子路易莎在罗马大学任教</p>
-<p>Abbiamo due belle bambine, Giulia e Patrizia 我们有两个漂亮的女孩（女儿），Giulia和Patrizia</p>
-<p>Patrizia ha cinque anni e ancora non va a scuola Patrizia已经五岁了，仍然没有上学</p>
-<p>ma sa già leggere e scrivere 但他已经知道如何阅读和写作</p>
-<p>Giulia invece fa la terza elementare 朱莉娅改为（升年纪）三年级</p>
-<p>I miei genitori vivono a Napoli 我的父母住在那不勒斯</p>
-<p>Mio padre ha 70 anni ed è in pensione 我父亲今年70岁，现已退休</p>
-<p>Mia madre è casalinga 我的妈妈是家庭主妇</p>
-<p>I miei nonni paterni sono morti 我的祖父母已经死了</p>
-<p>la mia nonna materna, invece, vive con i miei genitori 另一方面，我的外婆与我的父母住在一起</p>
-<p>Ho anche due sorelle e un fratello 我还有两个姐妹和一个兄弟</p>
-<p>La mia sorella più grande, Marisa, è medico 我的姐姐玛丽莎是一名医生</p>
-<p>È sposata e ha un figlio di sette anni 她已婚，有一个七岁的儿子</p>
-<p>Anche suo marito è avvocato, come me 她的丈夫也像我一样是律师</p>
-<p>Io e mio cognato andiamo molto d’accordo 我的姐夫和我相处得很好</p>
-<p>Ci conosciamo da quando eravamo bambini 自从我们还是孩子以来，我们彼此认识</p>
-<p>Fra tutti i miei parenti, lui è il più simpatico 在我所有的亲戚中，他是最好的</p>
-<p>Giovanna, la mia seconda sorella, è divorziata 我的第二个姐姐Giovanna离婚了</p>
-<p>È ingegnere e lavora sempre tanto 她是一名工程师，总是努力工作</p>
-<p>Io somiglio molto a lei 我看起来很像她</p>
-<p>Abbiamo lo stesso carattere e spesso litighiamo 我们有相同的性格，我们经常争吵</p>
-<p>Mio fratello Carlo è più piccolo di me 我兄弟卡罗比我小</p>
-<p>È un tipo disinvolto, energico e allegro 他是一个休闲，充满活力和快乐的人</p>
-<p>Studia lingue e letterature straniere all’Università di Napoli 他在那不勒斯大学学习外语和文学</p>
-<p>Studia anche l’inglese, ma non lo sa parlare molto bene 他也学习英语，但不知道如何说得很好</p>
-<p>Non ci vediamo molto spesso perché abitiamo lontano 我们不经常看到对方因为我们住得很远</p>
-<p>ma siamo una famiglia molto unita 但我们是一个非常亲密的家庭</p>
-<p>Ci telefoniamo spesso e ci aiutiamo a vicenda 我们经常互相打电话，互相帮助</p>
-<h2 id="段落2"><a href="#段落2" class="headerlink" title="段落2"></a>段落2</h2><p>Oggi in Italia le famiglie numerose sono molto rare 今天在意大利，大家庭非常罕见</p>
-<p>Infatti in Italia la crescita demografica è quasi zero 事实上，在意大利，人口增长几乎为零</p>
-<p>Molte coppie oggi decidono di non avere figli o di avere un figlio unico 今天许多夫妇决定不生孩子或独生子女</p>
-<p>per ragioni economiche e di lavoro 出于经济和工作原因</p>
-<p>anche perché le donne italiane lavorano sempre più spesso fuori casa 也是因为意大利女性越来越多地在家外工作</p>
-<p>Ancora, però, come in passato, i figli sposati spesso vivono vicino ai genitori 然而，与过去一样，已婚子女往往与父母亲近</p>
-<p>e i nonni passano molto tempo con i nipoti 祖父母和孙子孙女一起度过了很多时光</p>
-<p>particolarmente quando i genitori lavorano 特别是父母的工作（忙的时候）</p>
-<p>I figli adulti assistono i genitori quando sono vecchi o non stanno bene 成年子女在年老或不适时帮助父母</p>
-<p>Spesso i genitori anziani vanno a vivere con i figli  年长的父母通常会和孩子一起生活</p>
-<p>Oggi molte cose stanno cambiando anche nella struttura familiare italiana 今天，即使在意大利家庭结构中，许多事情也在变化</p>
-<p>da molti anni c’è il divorzio e nuovi nuclei familiari si formano più facilmente che in passato 已经有很多年了，离婚、新家庭比过去更容易形成</p>
-<p>la famiglia però occupa sempre un posto importante nella società italiana 然而，这个家庭在意大利社会中一直占有重要地位</p>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2677,7 +2689,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-count">139</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -2690,7 +2702,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">214</span>
+        <span class="site-state-item-count">215</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

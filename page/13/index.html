@@ -122,7 +122,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">214</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">215</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">138</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">139</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,99 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2018/09/28/Mac如何卸载pandoc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/28/Mac如何卸载pandoc/" class="post-title-link" itemprop="url">Mac如何卸载pandoc</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-09-28 09:44:34" itemprop="dateCreated datePublished" datetime="2018-09-28T09:44:34+08:00">2018-09-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-04 15:58:49" itemprop="dateModified" datetime="2020-01-04T15:58:49+08:00">2020-01-04</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/09/28/Mac如何卸载pandoc/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/09/28/Mac如何卸载pandoc/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <h1 id="将以下脚本保存到本地，命名为uninstall-pandoc-pl"><a href="#将以下脚本保存到本地，命名为uninstall-pandoc-pl" class="headerlink" title="将以下脚本保存到本地，命名为uninstall-pandoc.pl"></a>将以下脚本保存到本地，命名为<strong>uninstall-pandoc.pl</strong></h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/perl</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Script to remove all files installed by the macOS pandoc installer</span></span><br><span class="line"><span class="comment"># and unregister the package.  Modified from a script contributed</span></span><br><span class="line"><span class="comment"># by Daniel T. Staal.</span></span><br><span class="line"></span><br><span class="line">use warnings;</span><br><span class="line">use strict;</span><br><span class="line"></span><br><span class="line">use File::Spec;</span><br><span class="line"></span><br><span class="line"><span class="comment"># The main info: this is the list of files to remove and the pkg_id.</span></span><br><span class="line">my <span class="variable">$pkg_id</span>    = <span class="string">'net.johnmacfarlane.pandoc'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Find which, if any, volume Pandoc is installed on.</span></span><br><span class="line">my <span class="variable">$volume</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># First check /, then other volumes on the box.</span></span><br><span class="line">my <span class="variable">$cur_test</span> = `pkgutil --pkgs=<span class="variable">$pkg_id</span>`;</span><br><span class="line"><span class="keyword">if</span> ( <span class="variable">$cur_test</span> =~ m/<span class="variable">$pkg_id</span>/ ) &#123;</span><br><span class="line">    <span class="variable">$volume</span> = <span class="string">'/'</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    opendir( my <span class="variable">$dh</span>, <span class="string">'/Volumes'</span> ) or die <span class="string">"Can't list Volumes: $!\n"</span>;</span><br><span class="line">    foreach my <span class="variable">$dir</span> ( readdir(<span class="variable">$dh</span>) ) &#123;</span><br><span class="line">      next <span class="keyword">if</span> <span class="variable">$dir</span> =~ m/^\./;    <span class="comment"># Skip dotfiles.</span></span><br><span class="line"></span><br><span class="line">      my <span class="variable">$path</span> = File::Spec-&gt;rel2abs( <span class="variable">$dir</span>, <span class="string">'/Volumes'</span> );</span><br><span class="line">      next <span class="keyword">if</span> !( -d <span class="variable">$path</span> );     <span class="comment"># Skip anything that isn't a directory.</span></span><br><span class="line"></span><br><span class="line">      my <span class="variable">$cur_test</span> = `pkgutil --pkgs=<span class="variable">$pkg_id</span> --volume <span class="string">'$path'</span>`;</span><br><span class="line">      <span class="keyword">if</span> ( <span class="variable">$cur_test</span> =~ m/<span class="variable">$pkg_id</span>/ ) &#123;</span><br><span class="line">          <span class="variable">$volume</span> = <span class="variable">$path</span>;</span><br><span class="line">          last;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">die <span class="string">"Pandoc not installed.\n"</span> <span class="keyword">if</span> !( defined(<span class="variable">$volume</span>) );</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get the list of files to remove.</span></span><br><span class="line">my @pkg_files = `pkgutil --volume <span class="string">'$volume'</span> --only-files --files <span class="string">'$pkg_id'</span>`;</span><br><span class="line">@pkg_files = map &#123; chomp; File::Spec-&gt;rel2abs(<span class="variable">$_</span>, <span class="variable">$volume</span>) &#125; @pkg_files;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Confirm uninistall with the user.</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">"The following files will be deleted:\n\n"</span>;</span><br><span class="line"><span class="built_in">print</span> join(<span class="string">"\n"</span>, @pkg_files);</span><br><span class="line"><span class="built_in">print</span> <span class="string">"\n\n"</span>;</span><br><span class="line"><span class="built_in">print</span> <span class="string">"Do you want to proceed and uninstall pandoc (Y/N)?"</span>;</span><br><span class="line">my <span class="variable">$input</span> = &lt;STDIN&gt;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$input</span> =~ m/^[Yy]/) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Actually remove the files.</span></span><br><span class="line">    foreach my <span class="variable">$file</span> (@pkg_files) &#123;</span><br><span class="line">        <span class="keyword">if</span> ( -e <span class="variable">$file</span> ) &#123;</span><br><span class="line">            <span class="keyword">if</span> ( system( <span class="string">'sudo'</span>, <span class="string">'rm'</span>, <span class="variable">$file</span> ) == 0 ) &#123;</span><br><span class="line">                warn <span class="string">"Deleted <span class="variable">$file</span>\n"</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                warn <span class="string">"Unable to delete <span class="variable">$file</span>: $?\n"</span>;</span><br><span class="line">                die <span class="string">"Aborting Uninstall.\n"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;  <span class="keyword">else</span> &#123;</span><br><span class="line">            warn <span class="string">"File <span class="variable">$file</span> does not exist.  Skipping.\n"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Clean up the install.</span></span><br><span class="line">    <span class="keyword">if</span> (system(<span class="string">'sudo'</span>, <span class="string">'pkgutil'</span>, <span class="string">'--forget'</span>, <span class="variable">$pkg_id</span>, <span class="string">'--volume'</span>, <span class="variable">$volume</span>) != 0) &#123;</span><br><span class="line">        die <span class="string">"Unable to clean up install: $?\n"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">   <span class="built_in">print</span> <span class="string">"OK, aborting uninstall.\n"</span>;</span><br><span class="line">   <span class="built_in">exit</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">"Pandoc has been successfully uninstalled.\n"</span>;</span><br><span class="line"><span class="built_in">exit</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="在uninstall-pandoc-pl目录下运行"><a href="#在uninstall-pandoc-pl目录下运行" class="headerlink" title="在uninstall-pandoc.pl目录下运行"></a>在uninstall-pandoc.pl目录下运行</h1><blockquote>
+<p>perl uninstall-pandoc.pl</p>
+</blockquote>
+<h1 id="附：官方链接和截图"><a href="#附：官方链接和截图" class="headerlink" title="附：官方链接和截图"></a>附：官方链接和截图</h1><p>官方链接：<a href="http://pandoc.org/installing.html#macos" target="_blank" rel="noopener">http://pandoc.org/installing.html#macos</a></p>
+<p>截图：<br><img src="https://raw.githubusercontent.com/imonce/imgs/master/20180928095031.png"></p>
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1080,99 +1173,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" class="post-title-link" itemprop="url">mysql-python安装错误：EnvironmentError:mysql_config not found</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-04-24 02:45:19" itemprop="dateCreated datePublished" datetime="2017-04-24T02:45:19+08:00">2017-04-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-04 15:55:52" itemprop="dateModified" datetime="2020-01-04T15:55:52+08:00">2020-01-04</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><p>安装mysql-python时报错：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Collecting mysql-python</span><br><span class="line">  Using cached MySQL-python-1.2.5.zip</span><br><span class="line">    Complete output from <span class="built_in">command</span> python setup.py egg_info:</span><br><span class="line">    sh: 1: mysql_config: not found</span><br><span class="line">    Traceback (most recent call last):</span><br><span class="line">      File <span class="string">"&lt;string&gt;"</span>, line 1, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">      File <span class="string">"/tmp/pip-build-_itbcX/mysql-python/setup.py"</span>, line 17, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">        metadata, options = get_config()</span><br><span class="line">      File <span class="string">"setup_posix.py"</span>, line 43, <span class="keyword">in</span> get_config</span><br><span class="line">        libs = mysql_config(<span class="string">"libs_r"</span>)</span><br><span class="line">      File <span class="string">"setup_posix.py"</span>, line 25, <span class="keyword">in</span> mysql_config</span><br><span class="line">        raise EnvironmentError(<span class="string">"%s not found"</span> % (mysql_config.path,))</span><br><span class="line">    EnvironmentError: mysql_config not found</span><br><span class="line"></span><br><span class="line">    ----------------------------------------</span><br><span class="line">Command <span class="string">"python setup.py egg_info"</span> failed with error code 1 <span class="keyword">in</span> /tmp/pip-build-_itbcX/mysql-python/</span><br></pre></td></tr></table></figure>
-
-<h2 id="问题原因："><a href="#问题原因：" class="headerlink" title="问题原因："></a>问题原因：</h2><p>没有安装libmysqlclient-dev。</p>
-<h2 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h2><p>执行：</p>
-<p><code>sudo apt-get install libmysqlclient-dev</code></p>
-<p>安装成功后，再运行<code>pip install mysql-python</code>即可。</p>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1244,7 +1244,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-count">139</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1257,7 +1257,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">214</span>
+        <span class="site-state-item-count">215</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
