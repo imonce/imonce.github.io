@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">139</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">140</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,208 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2018/11/29/XMLSchema入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/29/XMLSchema入门/" class="post-title-link" itemprop="url">XML Schema (XSD) 入门</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-11-29 16:11:14 / Modified: 16:48:23" itemprop="dateCreated datePublished" datetime="2018-11-29T16:11:14+08:00">2018-11-29</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/11/29/XMLSchema入门/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/29/XMLSchema入门/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <p>这是一篇<a href="http://www.w3school.com.cn/schema/index.asp" target="_blank" rel="noopener">W3school Schema 教程</a>学习笔记。</p>
+<h1 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h1><p>XML Schema 是基于 XML 的 DTD 替代者。XML Schema 描述 XML 文档的结构。XML Schema 语言也称作 XML Schema 定义（XML Schema Definition，XSD）。</p>
+<h1 id="简单类型"><a href="#简单类型" class="headerlink" title="简单类型"></a>简单类型</h1><h2 id="定义简易元素的语法："><a href="#定义简易元素的语法：" class="headerlink" title="定义简易元素的语法："></a>定义简易元素的语法：</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"xxx"</span> <span class="attr">type</span>=<span class="string">"yyy"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="定义简易属性的语法："><a href="#定义简易属性的语法：" class="headerlink" title="定义简易属性的语法："></a>定义简易属性的语法：</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:attribute</span> <span class="attr">name</span>=<span class="string">"xxx"</span> <span class="attr">type</span>=<span class="string">"yyy"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="数据类型的限定"><a href="#数据类型的限定" class="headerlink" title="数据类型的限定"></a>数据类型的限定</h2><table>
+<thead>
+<tr>
+<th align="left">限定</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">enumeration</td>
+<td align="left">定义可接受值的一个列表</td>
+</tr>
+<tr>
+<td align="left">fractionDigits</td>
+<td align="left">定义所允许的最大的小数位数。必须大于等于0。</td>
+</tr>
+<tr>
+<td align="left">length</td>
+<td align="left">定义所允许的字符或者列表项目的精确数目。必须大于或等于0。</td>
+</tr>
+<tr>
+<td align="left">maxExclusive</td>
+<td align="left">定义数值的上限。所允许的值必须小于此值。</td>
+</tr>
+<tr>
+<td align="left">maxInclusive</td>
+<td align="left">定义数值的上限。所允许的值必须小于或等于此值。</td>
+</tr>
+<tr>
+<td align="left">maxLength</td>
+<td align="left">定义所允许的字符或者列表项目的最大数目。必须大于或等于0。</td>
+</tr>
+<tr>
+<td align="left">minExclusive</td>
+<td align="left">定义数值的下限。所允许的值必需大于此值。</td>
+</tr>
+<tr>
+<td align="left">minInclusive</td>
+<td align="left">定义数值的下限。所允许的值必需大于或等于此值。</td>
+</tr>
+<tr>
+<td align="left">minLength</td>
+<td align="left">定义所允许的字符或者列表项目的最小数目。必须大于或等于0。</td>
+</tr>
+<tr>
+<td align="left">pattern</td>
+<td align="left">定义可接受的字符的精确序列。</td>
+</tr>
+<tr>
+<td align="left">totalDigits</td>
+<td align="left">定义所允许的阿拉伯数字的精确位数。必须大于0。</td>
+</tr>
+<tr>
+<td align="left">whiteSpace</td>
+<td align="left">定义空白字符（换行、回车、空格以及制表符）的处理方式。</td>
+</tr>
+</tbody></table>
+<h2 id="限定的例子"><a href="#限定的例子" class="headerlink" title="限定的例子"></a>限定的例子</h2><h3 id="对值的限定"><a href="#对值的限定" class="headerlink" title="对值的限定"></a>对值的限定</h3><p>下面的例子定义了带有一个限定且名为 “age” 的元素。age 的值不能低于 0 或者高于 120：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"age"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:integer"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:minInclusive</span> <span class="attr">value</span>=<span class="string">"0"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:maxInclusive</span> <span class="attr">value</span>=<span class="string">"120"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="对一组值的限定"><a href="#对一组值的限定" class="headerlink" title="对一组值的限定"></a>对一组值的限定</h3><p>如需把 XML 元素的内容限制为一组可接受的值，我们要使用枚举约束（enumeration constraint）。<br>下面的例子定义了带有一个限定的名为 “car” 的元素。可接受的值只有：Audi, Golf, BMW：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"car"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:string"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:enumeration</span> <span class="attr">value</span>=<span class="string">"Audi"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:enumeration</span> <span class="attr">value</span>=<span class="string">"Golf"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:enumeration</span> <span class="attr">value</span>=<span class="string">"BMW"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="对一系列值的限定"><a href="#对一系列值的限定" class="headerlink" title="对一系列值的限定"></a>对一系列值的限定</h3><p>如需把 XML 元素的内容限制定义为一系列可使用的数字或字母，我们要使用模式约束（pattern constraint）。<br>下面的例子定义了带有一个限定的名为 “letter” 的元素。可接受的值只有小写字母 a - z 其中的一个：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"letter"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:string"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:pattern</span> <span class="attr">value</span>=<span class="string">"[a-z]"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>下一个例子定义了带有一个限定的名为 “initials” 的元素。可接受的值是大写字母 A - Z 其中的三个：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"initials"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:string"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:pattern</span> <span class="attr">value</span>=<span class="string">"[A-Z][A-Z][A-Z]"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>下一个例子也定义了带有一个限定的名为 “initials” 的元素。可接受的值是大写或小写字母 a - z 其中的三个：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"initials"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:string"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:pattern</span> <span class="attr">value</span>=<span class="string">"[a-zA-Z][a-zA-Z][a-zA-Z]"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>下一个例子定义了带有一个限定的名为 “choice 的元素。可接受的值是字母 x, y 或 z 中的一个：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"choice"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:string"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:pattern</span> <span class="attr">value</span>=<span class="string">"[xyz]"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>下一个例子定义了带有一个限定的名为 “prodid” 的元素。可接受的值是五个阿拉伯数字的一个序列，且每个数字的范围是 0-9：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"prodid"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:integer"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:pattern</span> <span class="attr">value</span>=<span class="string">"[0-9][0-9][0-9][0-9][0-9]"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="对一系列值的其他限定"><a href="#对一系列值的其他限定" class="headerlink" title="对一系列值的其他限定"></a>对一系列值的其他限定</h3><p>下面的例子定义了带有一个限定的名为 “letter” 的元素。可接受的值是 a - z 中零个或多个字母：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"letter"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:string"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:pattern</span> <span class="attr">value</span>=<span class="string">"([a-z])*"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>下面的例子定义了带有一个限定的名为 “letter” 的元素。可接受的值是一对或多对字母，每对字母由一个小写字母后跟一个大写字母组成。举个例子，”sToP”将会通过这种模式的验证，但是 “Stop”、”STOP” 或者 “stop” 无法通过验证：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"letter"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:string"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:pattern</span> <span class="attr">value</span>=<span class="string">"([a-z][A-Z])+"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>下面的例子定义了带有一个限定的名为 “gender” 的元素。可接受的值是 male 或者 female：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"gender"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:string"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:pattern</span> <span class="attr">value</span>=<span class="string">"male|female"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>下面的例子定义了带有一个限定的名为 “password” 的元素。可接受的值是由 8 个字符组成的一行字符，这些字符必须是大写或小写字母 a - z 亦或数字 0 - 9：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:string"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:pattern</span> <span class="attr">value</span>=<span class="string">"[a-zA-Z0-9]&#123;8&#125;"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="对空白字符的限定"><a href="#对空白字符的限定" class="headerlink" title="对空白字符的限定"></a>对空白字符的限定</h3><p>如需规定对空白字符（whitespace characters）的处理方式，我们需要使用 whiteSpace 限定。<br>下面的例子定义了带有一个限定的名为 “address” 的元素。这个 whiteSpace 限定被设置为 “preserve”，这意味着 XML 处理器不会移除任何空白字符：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"address"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:string"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:whiteSpace</span> <span class="attr">value</span>=<span class="string">"preserve"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个例子也定义了带有一个限定的名为 “address” 的元素。这个 whiteSpace 限定被设置为 “replace”，这意味着 XML 处理器将移除所有空白字符（换行、回车、空格以及制表符）：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"address"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:string"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:whiteSpace</span> <span class="attr">value</span>=<span class="string">"replace"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个例子也定义了带有一个限定的名为 “address” 的元素。这个 whiteSpace 限定被设置为 “collapse”，这意味着 XML 处理器将移除所有空白字符（换行、回车、空格以及制表符会被替换为空格，开头和结尾的空格会被移除，而多个连续的空格会被缩减为一个单一的空格）：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"address"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:string"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:whiteSpace</span> <span class="attr">value</span>=<span class="string">"collapse"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="对长度的限定"><a href="#对长度的限定" class="headerlink" title="对长度的限定"></a>对长度的限定</h3><p>如需限制元素中值的长度，我们需要使用 length、maxLength 以及 minLength 限定。<br>本例定义了带有一个限定且名为 “password” 的元素。其值必须精确到 8 个字符：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:string"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:length</span> <span class="attr">value</span>=<span class="string">"8"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个例子也定义了带有一个限定的名为 “password” 的元素。其值最小为 5 个字符，最大为 8 个字符：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">xs:restriction</span> <span class="attr">base</span>=<span class="string">"xs:string"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:minLength</span> <span class="attr">value</span>=<span class="string">"5"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xs:maxLength</span> <span class="attr">value</span>=<span class="string">"8"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">xs:restriction</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:simpleType</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="最常用的类型是："><a href="#最常用的类型是：" class="headerlink" title="最常用的类型是："></a>最常用的类型是：</h2><ul>
+<li>xs:string</li>
+<li>xs:decimal</li>
+<li>xs:integer</li>
+<li>xs:boolean</li>
+<li>xs:date</li>
+<li>xs:time</li>
+</ul>
+<h2 id="属性的默认值和固定值"><a href="#属性的默认值和固定值" class="headerlink" title="属性的默认值和固定值"></a>属性的默认值和固定值</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:attribute</span> <span class="attr">name</span>=<span class="string">"lang"</span> <span class="attr">type</span>=<span class="string">"xs:string"</span> <span class="attr">default</span>=<span class="string">"EN"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:attribute</span> <span class="attr">name</span>=<span class="string">"lang"</span> <span class="attr">type</span>=<span class="string">"xs:string"</span> <span class="attr">fixed</span>=<span class="string">"EN"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="可选和必选"><a href="#可选和必选" class="headerlink" title="可选和必选"></a>可选和必选</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xs:attribute</span> <span class="attr">name</span>=<span class="string">"lang"</span> <span class="attr">type</span>=<span class="string">"xs:string"</span> <span class="attr">use</span>=<span class="string">"required"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1070,109 +1272,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2017/04/24/Python入门：pickle模块简介/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/04/24/Python入门：pickle模块简介/" class="post-title-link" itemprop="url">Python入门：pickle模块简介</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-04-24 02:45:19" itemprop="dateCreated datePublished" datetime="2017-04-24T02:45:19+08:00">2017-04-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-04 16:06:42" itemprop="dateModified" datetime="2020-01-04T16:06:42+08:00">2020-01-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2017/04/24/Python入门：pickle模块简介/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/04/24/Python入门：pickle模块简介/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>这篇文章介绍了何为pickle以及pickle模块的简单使用方法，即如何使用pickle进行存储存储以及数据的提取，关于pickle模块的其他更加详细的介绍可以参看<a href="https://docs.python.org/2/library/pickle.html" target="_blank" rel="noopener">https://docs.python.org/2/library/pickle.html</a></p>
-<h2 id="pickle简介"><a href="#pickle简介" class="headerlink" title="pickle简介"></a>pickle简介</h2><p>pickle模块是python中用来持久化对象的一个模块。所谓对对象进行持久化，即将对象的数据类型、存储结构、存储内容等所有信息作为文件保存下来以便下次使用。</p>
-<p>就比如说你通过pickle将一个数组保存成了文件，那么当你下次通过pickle将这个文件读取出来的时候，你读取到的依然是一个数组，而不是一个看起来长得像数组的字符串。</p>
-<h2 id="用pickle保存对象到文件"><a href="#用pickle保存对象到文件" class="headerlink" title="用pickle保存对象到文件"></a>用pickle保存对象到文件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入pickle模块</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建一个名为data1的对象</span></span><br><span class="line">data1 = &#123;<span class="string">'a'</span>: <span class="string">'123'</span>, <span class="string">'b'</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开(或创建)一个名为data1.pkl的文件，打开方式为二进制写入(参数‘wb’)</span></span><br><span class="line">file_to_save = open(<span class="string">"data1.pkl"</span>, <span class="string">"wb"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#通过pickle模块中的dump函数将data1保存到data1.pkl文件中。</span></span><br><span class="line"><span class="comment">#第一个参数是要保存的对象名</span></span><br><span class="line"><span class="comment">#第二个参数是写入到的类文件对象file。file必须有write()接口， file可以是一个以'w'方式打开的文件或者一个StringIO对象或者其他任何实现write()接口的对象。如果protocol&gt;=1，文件对象需要是二进制模式打开的。</span></span><br><span class="line"><span class="comment">#第三个参数为序列化使用的协议版本，0：ASCII协议，所序列化的对象使用可打印的ASCII码表示；1：老式的二进制协议；2：2.3版本引入的新二进制协议，较以前的更高效；-1：使用当前版本支持的最高协议。其中协议0和1兼容老版本的python。protocol默认值为0。</span></span><br><span class="line">pickle.dump(data1, file_to_save, <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭文件对象</span></span><br><span class="line">file_to_save.close()</span><br></pre></td></tr></table></figure>
-
-<h2 id="用pickle从文件中读取对象"><a href="#用pickle从文件中读取对象" class="headerlink" title="用pickle从文件中读取对象"></a>用pickle从文件中读取对象</h2><p>(请接着上一个脚本运行)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入pickle模块</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开一个名为data1.pkl的文件，打开方式为二进制读取(参数‘rb’)</span></span><br><span class="line">file_to_read = open(<span class="string">'data1.pkl'</span>, <span class="string">'rb'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#通过pickle的load函数读取data1.pkl中的对象，并赋值给data2</span></span><br><span class="line">data2 = pickle.load(file_to_read)</span><br><span class="line"></span><br><span class="line"><span class="comment">#打印data2</span></span><br><span class="line"><span class="keyword">print</span> data2</span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭文件对象</span></span><br><span class="line">file_to_read.close()</span><br></pre></td></tr></table></figure>
-
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1244,7 +1343,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-count">140</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

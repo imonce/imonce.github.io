@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">139</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">140</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,121 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2021/01/18/泡利算符类与pyqpanda操作简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/18/泡利算符类与pyqpanda操作简介/" class="post-title-link" itemprop="url">泡利算符类与pyqpanda操作简介</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-18 22:26:22 / Modified: 22:38:09" itemprop="dateCreated datePublished" datetime="2021-01-18T22:26:22+08:00">2021-01-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/量子计算/" itemprop="url" rel="index"><span itemprop="name">量子计算</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/01/18/泡利算符类与pyqpanda操作简介/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/18/泡利算符类与pyqpanda操作简介/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <h1 id="泡利算符类"><a href="#泡利算符类" class="headerlink" title="泡利算符类"></a>泡利算符类</h1><p>泡利算符是一组三个2×2的幺正厄米复矩阵，又称酉矩阵。我们一般都以希腊字母 $\sigma$ 来表示。 在 QPanda 中我们称它们为X门，Y门，Z门。它们对应的矩阵形式如下。</p>
+<p>X:<br>$\sigma_x = \left[\begin{matrix}<br>    0 &amp; 1 \\<br>    1 &amp; 0<br>\end{matrix}\right]$</p>
+<p>Y:<br>$\sigma_y = \left[\begin{matrix}<br>    0 &amp; -i \\<br>    i &amp; 0<br>\end{matrix}\right]$</p>
+<p>Z:<br>$\sigma_z = \left[\begin{matrix}<br>    1 &amp; 0 \\<br>    0 &amp; -1<br>\end{matrix}\right]$</p>
+<p>每个抛离矩阵有两个特征值，+1和-1，其对应的归一化特征向量为：</p>
+<p>$\psi_{x+}=\frac{1}{\sqrt{2}}\left[\begin{matrix}<br>    1 \\<br>    1<br>\end{matrix}\right]$</p>
+<p>$\psi_{x-}=\frac{1}{\sqrt{2}}\left[\begin{matrix}<br>    1 \\<br>    -1<br>\end{matrix}\right]$</p>
+<p>$\psi_{y+}=\frac{1}{\sqrt{2}}\left[\begin{matrix}<br>    1 \\<br>    i<br>\end{matrix}\right]$</p>
+<p>$\psi_{y-}=\frac{1}{\sqrt{2}}\left[\begin{matrix}<br>    1 \\<br>    -i<br>\end{matrix}\right]$</p>
+<p>$\psi_{z+}=\left[\begin{matrix}<br>    1 \\<br>    0<br>\end{matrix}\right]$</p>
+<p>$\psi_{z-}=\left[\begin{matrix}<br>    0 \\<br>    1<br>\end{matrix}\right]$</p>
+<h1 id="泡利算符的运算规则"><a href="#泡利算符的运算规则" class="headerlink" title="泡利算符的运算规则"></a>泡利算符的运算规则</h1><ol>
+<li>泡利算符与自身相乘得到是单位矩阵</li>
+<li>泡利算符与单位矩阵相乘，无论是左乘还是右乘，其值不变</li>
+<li>顺序相乘的两个泡利算符跟未参与计算的泡利算符是i倍的关系</li>
+<li>逆序相乘的两个泡利算符跟未参与计算的泡利算符是−i倍的关系</li>
+</ol>
+<h1 id="接口介绍"><a href="#接口介绍" class="headerlink" title="接口介绍"></a>接口介绍</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyqpanda <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># 构造一个空的泡利算符类</span></span><br><span class="line">    p1 = PauliOperator()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2倍的"泡利Z0"张乘"泡利Z1"</span></span><br><span class="line">    p2 = PauliOperator(<span class="string">"Z0 Z1"</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2倍的"泡利Z0"张乘"泡利Z1" + 3倍的"泡利X1"张乘"泡利Y2"</span></span><br><span class="line">    p3 = PauliOperator(&#123;<span class="string">"Z0 Z1"</span>: <span class="number">2</span>, <span class="string">"X1 Y2"</span>: <span class="number">3</span>&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 构造一个单位矩阵，其系数为2，等价于p4 = PauliOperator("", 2)</span></span><br><span class="line">    p4 = PauliOperator(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>其中PauliOperator p2(“Z0 Z1”, 2)表示的是 $2\sigma_{0}^{z} \otimes \sigma_{1}^{z}$ ,这里的 $\otimes$ 表示<a href="https://zh.wikipedia.org/wiki/%E5%85%8B%E7%BD%97%E5%86%85%E5%85%8B%E7%A7%AF" target="_blank" rel="noopener">克罗内克积（Kronecker product）</a>，也称作张量积、张乘。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyqpanda <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line"></span><br><span class="line">    a = PauliOperator(<span class="string">"Z0 Z1"</span>, <span class="number">2</span>)</span><br><span class="line">    b = PauliOperator(<span class="string">"X5 Y6"</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">    plus = a + b</span><br><span class="line">    minus = a - b</span><br><span class="line">    muliply = a * b</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"a + b = "</span>, plus)</span><br><span class="line">    print(<span class="string">"a - b = "</span>, minus)</span><br><span class="line">    print(<span class="string">"a * b = "</span>, muliply)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"Index : "</span>, muliply.getMaxIndex())</span><br><span class="line"></span><br><span class="line">    index_map = &#123;&#125;</span><br><span class="line">    remap_pauli = muliply.remapQubitIndex(index_map)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"remap_pauli : "</span>, remap_pauli)</span><br><span class="line">    print(<span class="string">"Index : "</span>, remap_pauli.getMaxIndex())</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20210118215817.png"></p>
+<blockquote>
+<p>reference:<br><a href="https://pyqpanda-toturial.readthedocs.io/zh/latest/PauliOperator.html" target="_blank" rel="noopener">https://pyqpanda-toturial.readthedocs.io/zh/latest/PauliOperator.html</a><br><a href="https://www.bilibili.com/video/BV124411b7bd?p=3" target="_blank" rel="noopener">https://www.bilibili.com/video/BV124411b7bd?p=3</a></p>
+</blockquote>
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1368,128 +1483,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2020/01/10/Blockchain-Tutorial-III-How-bitcoins-are-transferred/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/10/Blockchain-Tutorial-III-How-bitcoins-are-transferred/" class="post-title-link" itemprop="url">Blockchain Tutorial III: How bitcoins are transferred</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-01-10 22:16:06 / Modified: 22:16:22" itemprop="dateCreated datePublished" datetime="2020-01-10T22:16:06+08:00">2020-01-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learn-X-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn X in Y minutes</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learn-X-in-Y-minutes/Learn-blockchain-in-Y-minutes/" itemprop="url" rel="index"><span itemprop="name">Learn blockchain in Y minutes</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/01/10/Blockchain-Tutorial-III-How-bitcoins-are-transferred/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/10/Blockchain-Tutorial-III-How-bitcoins-are-transferred/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <h1 id="The-Process-of-a-Bitcoin-Transaction"><a href="#The-Process-of-a-Bitcoin-Transaction" class="headerlink" title="The Process of a Bitcoin Transaction"></a>The Process of a Bitcoin Transaction</h1><p>Suppose that Alice is transferring 8 bitcoins to Bob, the process goes like this:</p>
-<ol>
-<li>To initiate a Bitcoin transaction, Alice needs to have: address, private key, wallet</li>
-<li>Alice signs her bitcoins in the wallet using the private key, transfers to Bob to initiate a transaction</li>
-<li>Through the Internet, the transaction information start to broadcast to nodes on bitcoin-net</li>
-<li>A node packs the transaction into the candidate block and starts hash calculation, which is called mining, to win the bookkeeping right</li>
-<li>A node successfully mines, broadcasts to the whole network, generates new blocks and adds them to the end of the chain</li>
-<li>Each node acknowledges that it will continue to add blocks after former ones. Mining nodes receive bitcoin rewards. Generally, the transaction is permanently retained after 6 blocks are added</li>
-<li>Bob gets transferred bitcoins (expressed as UTXO of the transaction)</li>
-</ol>
-<h1 id="Five-Key-Technologies"><a href="#Five-Key-Technologies" class="headerlink" title="Five Key Technologies"></a>Five Key Technologies</h1><p>In order to achieve a successful bitcoin transaction, the following five key technologies are needed:</p>
-<ul>
-<li>Distributed ledger and decentralized network</li>
-<li>Unused transaction output (UTXO)</li>
-<li>The data structure of bitcoin blockchain</li>
-<li>Proof of workload consensus mechanism</li>
-<li>Bitcoin mining mechanism and generation mechanism</li>
-</ul>
-<h2 id="Distributed-ledger-and-decentralized-network"><a href="#Distributed-ledger-and-decentralized-network" class="headerlink" title="Distributed ledger and decentralized network"></a>Distributed ledger and decentralized network</h2><p>Bitcoin network does not have a central server. It is composed of many full nodes and light nodes. Among them:</p>
-<ul>
-<li><strong>Full nodes</strong> contain block data of all bitcoin blockchains;</li>
-<li><strong>Light nodes</strong> only include data related to them.</li>
-</ul>
-<p>Compared to traditional centralized transaction system, the Bitcoin uses a distributed ledger in which users open “accounts,” strictly speaking, addresses. Everyone can set up an “account” on the bitcoin blockchain and get a pair of a public key and a private key. The address is the hash value of the public key. We interact with the address through the private key.</p>
-<p>Each of us has a wallet, which stores a private key. When two people transfer bitcoin to each other, they can do it directly through their wallet software.</p>
-<p>Here, the decentralization of bitcoin is reflected in the fact that there is no longer a centralized organization for centralized management of ledgers. The account books are stored in the decentralized network composed of many nodes; there is no longer a centralized organization to help us manage accounts and deal with transactions. Everyone manages their own wallets, and the transactions are recorded by the distributed account books.</p>
-<p>Some people will ask whether the bitcoin in our address is recorded in the account book or whether there seems to be a “centre” to store our assets. In fact, this ledger is stored in the decentralized network in a distributed way, so from this perspective, it can be seen as decentralized.</p>
-<p>In contrast, for centralized online payment systems, centralized servers usually manage centralized ledgers. For the bitcoin system, the system behind it is a decentralized network, and network nodes jointly maintain a distributed ledger.</p>
-<p>(to be continued)</p>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1561,7 +1554,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-count">140</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
