@@ -122,7 +122,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">216</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">218</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">140</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">141</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,125 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/10/10/一文读懂Curry-Howard同构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/10/10/一文读懂Curry-Howard同构/" class="post-title-link" itemprop="url">一文读懂Curry-Howard同构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-10-10 10:42:29" itemprop="dateCreated datePublished" datetime="2019-10-10T10:42:29+08:00">2019-10-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-04 14:01:07" itemprop="dateModified" datetime="2019-11-04T14:01:07+08:00">2019-11-04</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/10/10/一文读懂Curry-Howard同构/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/10/一文读懂Curry-Howard同构/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>柯里-霍华德同构，Curry-Howard Isomorphism，又称柯里-霍华德对应（Curry-Howard correspondence）是在计算机程序和数学证明之间的紧密联系；这种对应也叫做公式为类型对应或命题为类型对应。这是对形式逻辑系统和公式计算（computational calculus）之间符号的相似性的推广。命名来自它的两位发现者：美国数学家哈斯凯尔·<strong>柯里</strong>和逻辑学家威廉·阿尔文·<strong>霍瓦德</strong>。</p>
+<h1 id="同构对应"><a href="#同构对应" class="headerlink" title="同构对应"></a>同构对应</h1><p>Curry-Howard 同构显示了推理系统和程序语言之间的相似性，在此框架下：</p>
+<ul>
+<li>程序语言的语言构造同构为推理系统的推理规则</li>
+<li>程序的类型同构为逻辑命题</li>
+<li>闭合程序（不依赖环境的程序）可以同构为一条定理的证明过程，其类型就是一条定理</li>
+<li>逻辑上下文同构为自由变量类型指派</li>
+<li>Lambda 演算同构为 Gentzen 的自然演绎<ul>
+<li>函数调用就是蕴含消除</li>
+<li>函数抽象就是蕴含介入</li>
+<li>参数多态就是全称量化</li>
+<li>模板类型就是谓词</li>
+<li>结构类型就是合取</li>
+<li>联合类型就是析取</li>
+<li>收参数但不返回就是否定</li>
+<li>call/cc 就是双重否定消除</li>
+</ul>
+</li>
+<li>SK 组合子演算同构为直觉 Hilbert 推理系统<ul>
+<li>S 和 K 就是演算系统的两条公理</li>
+</ul>
+</li>
+</ul>
+<h1 id="Curry-Howard-同构与-Martin-Lof-类型论系统"><a href="#Curry-Howard-同构与-Martin-Lof-类型论系统" class="headerlink" title="Curry-Howard 同构与 Martin-Löf 类型论系统"></a>Curry-Howard 同构与 Martin-Löf 类型论系统</h1><p>这个框架里灵活性最高的是 Martin-Löf 的系统，两个高度抽象的算子—— $\prod$ 和 $\sum$ 进一步泛化了函数调用与合取，这使得它有极其恐怖的抽象能力。这个系统的推理规则是一下几条：</p>
+<h2 id="Introduction-rule-for-prod"><a href="#Introduction-rule-for-prod" class="headerlink" title="Introduction rule for $\prod$"></a>Introduction rule for $\prod$</h2><p>$$\frac{\Gamma,x:A\vdash b:B}{\Gamma\vdash\lambda x.b:(\prod x:A)B}(\prod I)$$</p>
+<h2 id="Elimination-rule-for-prod"><a href="#Elimination-rule-for-prod" class="headerlink" title="Elimination rule for $\prod$"></a>Elimination rule for $\prod$</h2><p>$$\frac{\Gamma\vdash f:(\prod x:A)B\quad\Gamma\vdash a:A}{\Gamma\vdash apply(f,a):B[a/x]}(\prod E)$$</p>
+<p>Suppose $f = \lambda x.x$, then $apply(f,a)=(\lambda x.x)a$ </p>
+<h2 id="Introduction-rule-for-sum"><a href="#Introduction-rule-for-sum" class="headerlink" title="Introduction rule for $\sum$"></a>Introduction rule for $\sum$</h2><p>$$\frac{\Gamma\vdash a:A\quad\Gamma\vdash b:B[a/x]}{\Gamma\vdash\lt a,b\gt:(\sum x:A)B}(\sum I)$$</p>
+<h2 id="Elimination-rule-for-sum"><a href="#Elimination-rule-for-sum" class="headerlink" title="Elimination rule for $\sum$"></a>Elimination rule for $\sum$</h2><p>$$\frac{\Gamma\vdash c:(\sum x:A)B\quad\Gamma,x:A,y:B\vdash d:C[\lt x,y\gt/z]}{\Gamma\vdash split(c,\lambda x.\lambda y.d):C[c/z]}(\sum E)$$</p>
+<p>where: $split(\lt a,b\gt,\lambda x.\lambda y.d)=(\lambda x.\lambda y.d)(a)(b)$ </p>
+<blockquote>
+<p>reference<br><a href="https://www.zhihu.com/question/22959608/answer/24770830" target="_blank" rel="noopener">https://www.zhihu.com/question/22959608/answer/24770830</a><br><a href="https://zh.wikipedia.org/zh-hans/%E6%9F%AF%E9%87%8C-%E9%9C%8D%E5%8D%8E%E5%BE%B7%E5%90%8C%E6%9E%84" target="_blank" rel="noopener">https://zh.wikipedia.org/zh-hans/柯里-霍华德同构</a><br><a href="http://www2.math.uu.se/~palmgren/tillog/klogik04-01eng.pdf" target="_blank" rel="noopener">http://www2.math.uu.se/~palmgren/tillog/klogik04-01eng.pdf</a></p>
+</blockquote>
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1472,210 +1591,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/08/07/什么是微服务架构（Microservice-Architecture）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/07/什么是微服务架构（Microservice-Architecture）/" class="post-title-link" itemprop="url">什么是微服务架构（Microservice Architecture）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-08-07 22:42:39" itemprop="dateCreated datePublished" datetime="2019-08-07T22:42:39+08:00">2019-08-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-04 15:54:31" itemprop="dateModified" datetime="2020-01-04T15:54:31+08:00">2020-01-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件架构和服务架构/" itemprop="url" rel="index"><span itemprop="name">软件架构和服务架构</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/08/07/什么是微服务架构（Microservice-Architecture）/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/07/什么是微服务架构（Microservice-Architecture）/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>假设你在开发一个服务端应用。该应用必须支持各种各样的客户端，包括桌面浏览器、手机浏览器和本地手机应用。应用可能也需要公开部分API供第三方使用，还可能与其他应用通过web service或消息代理(message broker)相集成。应用执行业务逻辑来处理请求(HTTP请求或者消息)；访问数据库；与其他系统交换消息；并返回HTML/JSON/XML类型的响应。</p>
-<p>应用或是多层架构或是六角架构，并且包含多种类型的组件：</p>
-<ul>
-<li>表示组件(Presentation components) - 响应处理HTTP请求，并返回HTML或JSON/XML(对于web service API)</li>
-<li>业务逻辑(Business logic) - 应用的业务逻辑</li>
-<li>数据库访问逻辑(Database access logic) - 数据访问对象用于访问数据库</li>
-<li>应用集成逻辑(Application integration logic) - 消息层，如基于Spring的集成</li>
-</ul>
-<p>这些逻辑组件分别响应应用中不同的功能模块。</p>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>应用的部署架构是什么？</p>
-<h1 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h1><ul>
-<li>该应用由一个开发者团队在维护</li>
-<li>团队新成员必须快速上手</li>
-<li>应用应该易于理解和修改</li>
-<li>你想对应用进行持续集成</li>
-<li>你必须在多台机器上部署多份应用的拷贝，以满足可伸缩性和可用性的要求</li>
-<li>你想使用新技术(框架、编程语言等)</li>
-</ul>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>通过采用伸缩立方(Scale Cube)(特别是y轴方向上的伸缩)来架构应用，将应用按功能分解为一组相互协作的服务的集合。每个服务实现一组有限并相关的功能。比如，一个应用可能包含订单管理服务，客户管理服务等。</p>
-<p>服务间通过HTTP/REST等同步协议或AMQP等异步协议进行通讯。</p>
-<p>服务独立开发和部署。</p>
-<p>每个服务为了与其他服务解耦，都有自己的数据库。必要时，数据库间的一致性通过数据库复制机制或应用级事件来维护。</p>
-<h1 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h1><p>我们假设你在构建一个电子商务应用，应用从客户接收订单，验证库存和可用额度，并派送订单。应用包含多个组件，包括StoreFrontUI，用来实现用户接口，以及一些后台服务，用于检测信用额度、维护库存和派送订单。</p>
-<p>应用作为一组服务部署。</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190807223130.png"></p>
-<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p>这个方案有一些好处：</p>
-<ul>
-<li>每个微服务都相对较小<ul>
-<li>易于开发者理解</li>
-<li>IDE反应更快，开发者更高效</li>
-<li>web容器启动更快，开发者更高效，并提升了部署速度</li>
-</ul>
-</li>
-<li>每个服务都可以独立部署 - 易于频繁部署新版本的服务</li>
-<li>易于伸缩开发组织结构。你可以对多个团队的开发工作进行组织。每个(双披萨[1])团队负责单个服务。每个团队可以独立于其他团队开发、部署和伸缩服务。</li>
-<li>提升故障隔离(fault isolation)。比如，如果一个服务存在内存泄露，那么只有该服务受影响，其他服务仍然可以处理请求。相比之下，一体架构的一个出错组件可以拖垮整个系统。</li>
-<li>每个服务可以单独开发和部署</li>
-<li>消除了任何对技术栈(technologh stack)的长期投入(long-term commitments)</li>
-</ul>
-<p>这个方案也有一些缺点：</p>
-<ul>
-<li>开发者要处理分布式系统的额外复杂度。<ul>
-<li>开发者工具/IDE是面向构建一体应用的，并没有显示提供对开发分布式应用的支持</li>
-<li>测试更加困难</li>
-<li>开发者需要实现服务间通信机制</li>
-<li>不使用分布式事务实现跨服务的用例更加困难</li>
-<li>实现跨服务的用例需要团队间的细致协作</li>
-</ul>
-</li>
-<li>生产环境的部署复杂度。对于包含多种不同服务类型的系统，部署和管理的操作复杂度仍然存在。</li>
-<li>内存消耗增加。微服务架构使用NxM个服务实例来替代N个一体应用实例。如果每个服务运行在自己独立的JVM(或类似)上，通常有必要对实例进行隔离，对这么多运行的JVN，就有M倍的开销。另外，如果每个服务运行在独立的VM(如EC2实例)，如Netflix，开销会更高。</li>
-</ul>
-<h1 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h1><h2 id="什么时候使用微服务架构"><a href="#什么时候使用微服务架构" class="headerlink" title="什么时候使用微服务架构"></a>什么时候使用微服务架构</h2><p>使用该方法的一个挑战就是决定何时使用才合理。在开发应用的初期，你通常不会遇到这种方法试图解决的问题。而且，使用这个精细、分布式的架构将会拖慢开发进度。对初创公司，这是个严重问题，因为它们的最大挑战通常是如何快速发展业务模型及相关应用。使用Y轴切分使快速迭代更加困难。但是之后，当挑战变成如何伸缩，你需要使用功能分解将一体应用切分为一组服务时，混乱的依赖关系可能使之变得困难。</p>
-<h1 id="如何拆分应用到服务"><a href="#如何拆分应用到服务" class="headerlink" title="如何拆分应用到服务"></a>如何拆分应用到服务</h1><p>另一个挑战是如何将系统分隔为微服务。这是个技术活，但有些策略可能有帮助。</p>
-<ul>
-<li>按业务能力分解，定义与业务能力对应的服务。</li>
-<li>按领域驱动设计的子域分解。</li>
-<li>按动词或用例分解并定义负责特定操作的服务。例如，负责装运完整订单的运输服务。</li>
-<li>通过定义负责对给定类型的实体/资源执行所有操作的服务，按名词或资源进行分解。例如，负责管理用户帐户的帐户服务。</li>
-</ul>
-<p>理论上，每个服务应该只承担很小的职责。Bob Martin(大叔)讲过使用单一职责原则(SRP)来设计类。SRP定义类的职责作为变化的原因，而且类应该只有一个变化的原因。使用SRP来设计服务也是合理的。</p>
-<p>另一个有助于服务设计的类比是Unix实用工具的设计方法。Unix提供大量的实用工具如grep、cat和find。每个工具只做一件事，通常做得非常好，并且可以跟其他工具使用shell脚本组合来执行复杂任务。</p>
-<h2 id="如何保持数据一致性"><a href="#如何保持数据一致性" class="headerlink" title="如何保持数据一致性"></a>如何保持数据一致性</h2><p>为了确保松耦合，每个服务都有自己的数据库。维护服务之间的数据一致性是一个挑战，因为对于许多应用程序来说，两阶段提交/分布式事务不是一个选项。应用程序必须使用SAGA模式。服务在其数据更改时发布事件。其他服务使用该事件并更新其数据。有几种可靠更新数据和发布事件的方法，包括事件源和事务日志跟踪。</p>
-<h2 id="如何实现查询"><a href="#如何实现查询" class="headerlink" title="如何实现查询"></a>如何实现查询</h2><p>另一个挑战是实现需要检索多个服务拥有的数据的查询。</p>
-<p>API组合和命令查询责任分离（CQR）模式。</p>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><p>有许多与微服务模式相关的模式。单片架构是微服务架构的替代方案。其他模式解决了应用微服务体系结构时会遇到的问题。如API网关模式定义了客户端如何访问服务。</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190807224059.png"></p>
-<ul>
-<li>分解模式<ul>
-<li>按业务能力分解</li>
-<li>按子域分解</li>
-</ul>
-</li>
-<li>每个服务模式的数据库描述了每个服务如何拥有自己的数据库，以确保松耦合。</li>
-<li>API网关模式定义了客户机如何访问微服务体系结构中的服务。</li>
-<li>客户端发现和服务器端发现模式用于将客户端请求路由到微服务体系结构中的可用服务实例。</li>
-<li>消息传递和远程过程调用模式是两种不同的服务通信方式。</li>
-<li>每个主机的单个服务和每个主机的多个服务模式是两种不同的部署策略。</li>
-<li>交叉关注模式：微服务机箱模式和外部化配置</li>
-<li>测试模式：服务组件测试和服务集成契约测试</li>
-<li>断路器</li>
-<li>访问令牌</li>
-<li>可观测性模式：<ul>
-<li>日志聚合</li>
-<li>应用程序度量</li>
-<li>审核日志记录</li>
-<li>分布式跟踪</li>
-<li>异常跟踪</li>
-<li>健康检查API</li>
-<li>记录部署和更改</li>
-</ul>
-</li>
-<li>用户界面模式：<ul>
-<li>服务器端页面片段组合</li>
-<li>客户端UI组成</li>
-</ul>
-</li>
-</ul>
-<h1 id="著名案例"><a href="#著名案例" class="headerlink" title="著名案例"></a>著名案例</h1><p>大多数大规模的web站点，如 Netflix, Amazon和eBay都从一体架构转变为微服务架构。</p>
-<p>Netflix是个非常受欢迎的视频流服务提供商，占有多达30%的互联网流量，它有着大规模、基于服务的架构。他们每天处理800+不同类型设备超过10亿次视频流API的请求。每个API可以展开成平均6次对后端服务的调用。</p>
-<p>Amazon.com原有个两层架构。为了伸缩，他们迁移到一个包含上百个后端服务的基于服务的架构。调用这些服务的应用中包括实现Amazon.com网站和web service API的应用。Amazon.com网站应用调用100-150个服务来获取数据用于构建网页。</p>
-<p>拍卖网站ebay.com也从一体架构发展成基于服务的架构。应用层包含多个独立的应用。每个应用实现特定功能模块(如购买或销售)的业务逻辑。每个应用使用X轴的分隔，有些应用如搜索，使用Z轴分隔。Ebay.com也对数据库层采用X,Y,Z的组合伸缩方式。</p>
-<blockquote>
-<p>译自：<br><a href="https://microservices.io/patterns/microservices.html" target="_blank" rel="noopener">https://microservices.io/patterns/microservices.html</a></p>
-</blockquote>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1743,7 +1662,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-count">141</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1756,7 +1675,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">216</span>
+        <span class="site-state-item-count">218</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
