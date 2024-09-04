@@ -122,7 +122,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">218</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">219</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">141</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">142</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,196 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/06/27/科研常用评估指标/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/27/科研常用评估指标/" class="post-title-link" itemprop="url">科研常用评估指标</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-06-27 20:00:04 / Modified: 20:23:54" itemprop="dateCreated datePublished" datetime="2024-06-27T20:00:04+08:00">2024-06-27</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2024/06/27/科研常用评估指标/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/06/27/科研常用评估指标/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <h1 id="BLEU"><a href="#BLEU" class="headerlink" title="BLEU"></a>BLEU</h1><p>BLEU （Bilingual Evaluation Understudy）是一种基于n-gram精度的评估指标，它通过计算机器翻译结果和参考翻译之间的n-gram匹配度来评估机器翻译的质量。</p>
+<p>BLEU（Bilingual Evaluation Understudy）是一种评估机器翻译质量的方法，特别是它如何接近人类翻译的程度。BLEU分数是基于机器翻译输出与一组参考翻译之间的重叠程度来计算的。以下是BLEU分数的计算步骤：</p>
+<ol>
+<li><p><strong>选择N-gram</strong>：</p>
+<ul>
+<li>确定你想要使用的N-gram大小。常见的选择是1-gram（单个词），2-gram（两个连续词），3-gram，以此类推，直到n-gram。</li>
+</ul>
+</li>
+<li><p><strong>计算N-gram精确度</strong>：</p>
+<ul>
+<li>对于每个N-gram大小，计算机器翻译输出中的N-gram与参考翻译中N-gram的精确度。精确度是指机器翻译输出中正确的N-gram数量除以机器翻译输出中N-gram的总数。</li>
+</ul>
+</li>
+<li><p><strong>应用Brevity Penalty（BP）</strong>：</p>
+<ul>
+<li>如果机器翻译输出比任何参考翻译都短，那么它可能会得到较低的BLEU分数，因为短的输出可能更容易与参考翻译匹配。BP用于惩罚这种短输出：<br>$$<br>\text{BP} =<br>\begin{cases}<br>1 &amp; \text{if } c &gt; \text{ref} \<br>\exp(1 - \frac{\text{ref}}{c}) &amp; \text{if } c \leq \text{ref}<br>\end{cases}<br>$$</li>
+<li>其中，$c$是机器翻译输出中的词数，$ref$是最短参考翻译中的词数。</li>
+</ul>
+</li>
+<li><p><strong>计算加权和</strong>：</p>
+<ul>
+<li>对于每个N-gram大小，计算其精确度与权重的乘积。权重通常按N-gram大小递减，例如，对于1-gram到4-gram，权重可能是(0.25, 0.25, 0.25, 0.25)。</li>
+</ul>
+</li>
+<li><p><strong>计算几何平均值</strong>：</p>
+<ul>
+<li>对所有N-gram的加权精确度进行几何平均，以得到最终的BLEU分数：<br>$$<br>\text{BLEU} = BP \times \exp\left(\sum_{n=1}^{N} \frac{w_n \cdot p_n}{\sum_{n=1}^{N} w_n}\right)<br>$$</li>
+<li>其中，$(w_n)$是第n个N-gram大小的权重，$p_n$是第n个N-gram大小的精确度。</li>
+</ul>
+</li>
+<li><p><strong>输出结果</strong>：</p>
+<ul>
+<li>最终的BLEU分数范围从0到1，分数越高表示机器翻译的质量越接近人类翻译。</li>
+</ul>
+</li>
+</ol>
+<p>BLEU分数是一个快速且广泛接受的评估机器翻译质量的方法，但它也有局限性，例如它不能很好地评估语义的准确性和流畅性。因此，BLEU分数通常与其他评估方法一起使用，以获得更全面的翻译质量评估。</p>
+<h1 id="ROUGE"><a href="#ROUGE" class="headerlink" title="ROUGE"></a>ROUGE</h1><p>ROUGE（Recall-Oriented Understudy for Gisting Evaluation）是一种主要用于评估自动文摘和机器翻译的评估指标，它通过计算机器生成的摘要或翻译结果和参考摘要或翻译之间的n-gram重叠度来评估生成结果的质量。ROUGE指标主要关注评估生成的摘要或翻译与一组参考摘要或翻译之间的重叠程度。以下是几种常见的ROUGE指标的计算方法：</p>
+<h2 id="ROUGE-N-N-gram-Recall"><a href="#ROUGE-N-N-gram-Recall" class="headerlink" title="ROUGE-N (N-gram Recall)"></a>ROUGE-N (N-gram Recall)</h2><ol>
+<li><p><strong>计算N-gram</strong>：</p>
+<ul>
+<li>对于每个参考摘要和生成的摘要，分别计算N-gram（连续的N个词）。</li>
+</ul>
+</li>
+<li><p><strong>确定匹配的N-gram</strong>：</p>
+<ul>
+<li>找出生成的摘要中的N-gram与参考摘要中的N-gram相匹配的数量。</li>
+</ul>
+</li>
+<li><p><strong>计算召回率</strong>：</p>
+<ul>
+<li>召回率（Recall）是生成的摘要中匹配的N-gram数量与参考摘要中N-gram总数的比例：<br>$$<br>\text{ROUGE-N Recall} = \frac{\text{匹配的N-gram数量}}{\text{参考摘要中的N-gram总数}}<br>$$</li>
+</ul>
+</li>
+</ol>
+<h2 id="ROUGE-L-Longest-Common-Subsequence"><a href="#ROUGE-L-Longest-Common-Subsequence" class="headerlink" title="ROUGE-L (Longest Common Subsequence)"></a>ROUGE-L (Longest Common Subsequence)</h2><ol>
+<li><p><strong>计算最长公共子序列（LCS）</strong>：</p>
+<ul>
+<li>确定生成的摘要和参考摘要之间的最长公共子序列。</li>
+</ul>
+</li>
+<li><p><strong>计算长度比</strong>：</p>
+<ul>
+<li>将LCS的长度与参考摘要和生成的摘要的长度进行比较。</li>
+</ul>
+</li>
+<li><p><strong>计算F-measure</strong>：</p>
+<ul>
+<li>F-measure是精确度和召回率的调和平均数，用于评估ROUGE-L：<br>$$<br>\text{ROUGE-L F-measure} = \frac{(1 + \beta^2) \cdot \text{ROUGE-L Recall} \cdot \text{ROUGE-L Precision}}{\beta^2 \cdot \text{ROUGE-L Recall} + \text{ROUGE-L Precision}}<br>$$</li>
+<li>其中，$\beta$是一个权重因子，通常取1，使得精确度和召回率的权重相等。</li>
+</ul>
+</li>
+</ol>
+<h2 id="ROUGE-S-Skip-Bigram-Co-occurrence"><a href="#ROUGE-S-Skip-Bigram-Co-occurrence" class="headerlink" title="ROUGE-S (Skip-Bigram Co-occurrence)"></a>ROUGE-S (Skip-Bigram Co-occurrence)</h2><p>比如：”他每天都会去公园散步。”<br>在这个例子中，如果我们考虑bigram（两个连续词），句子中的”每天”和”散步”是连续的，而在生成句子中它们不是连续的。但是，如果我们考虑skip-bigram，我们可以看到”散步”和”公园”在两个句子中都是成对出现的，尽管它们在原文中不相邻。这表明生成的句子在语义上与参考句子保持了一定的连贯性。</p>
+<ol>
+<li><p><strong>计算skip-bigram</strong>：</p>
+<ul>
+<li>Skip-bigram是指在文本中不连续出现的两个词，但它们在另一个文本中是连续的。</li>
+</ul>
+</li>
+<li><p><strong>确定匹配的skip-bigram</strong>：</p>
+<ul>
+<li>找出生成的摘要中的skip-bigram与参考摘要中的skip-bigram相匹配的数量。</li>
+</ul>
+</li>
+<li><p><strong>计算召回率</strong>：</p>
+<ul>
+<li>召回率是生成的摘要中匹配的skip-bigram数量与参考摘要中skip-bigram总数的比例。</li>
+</ul>
+</li>
+</ol>
+<h1 id="METEOR"><a href="#METEOR" class="headerlink" title="METEOR"></a>METEOR</h1><p>METEOR （Metric for Evaluation of Translation with Explicit ORdering）是一种综合考虑精度、召回率和语法流畅度的评估指标，它通过比较机器翻译结果和参考翻译在单词级别的匹配度来评估机器翻译的质量。METEOR考虑了词汇的匹配、句子结构、词形变化以及同义词。METEOR与BLEU分数不同，它不仅关注词的重叠，还关注词的顺序和意义。以下是METEOR分数的基本计算步骤：</p>
+<ol>
+<li>语义相似度计算：使用语义相似度算法比较摘要中的每个单词与原文中相应单词的语义相似度。常用的语义相似度算法包括基于词向量、知识图谱和深度学习的方法。</li>
+<li>文本对齐度计算：评估摘要中的句子与原文中的句子之间的文本对齐度。常用的文本对齐度算法包括基于编辑距离、余弦相似度和句法结构的方法。</li>
+<li>平均精度计算：根据语义相似度和文本对齐度的结果，计算每个单词的平均精度。平均精度的计算方式是将语义相似度和文本对齐度的结果相加，并除以总的相关单词数。</li>
+<li>最终得分计算：将平均精度扩展到整个摘要，计算METEOR得分。可以通过将每个单词的平均精度相加，并除以摘要中的总单词数，得到最终的METEOR得分。</li>
+</ol>
+<p>METEOR分数的计算公式大致如下：</p>
+<p>该算法首先计算 unigram 情况下的准确率P和召回率R（计算方式与BLEU、ROUGE类似），得到调和均值F值：</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202406272019503.png"></p>
+<p>Meteor的特别之处在于，它不希望生成很“碎”的译文：比如参考译文是“A B C D”，模型给出的译文是“B A D C”，虽然每个unigram都对应上了，但是会受到很严重的惩罚。惩罚因子的计算方式为： </p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202406272019329.png"></p>
+<p>在评价句子流畅性的时候，用了 chunk 的概念（候选译文和参考译文能够对齐的、空间排列上连续的单词形成一个 chunk，这个对齐算法是一个有点复杂的启发式 beam search），chunk 的数目越少意味着每个 chunk 的平均长度越长，也就是说候选译文和参考译文的语序越一致。 unigrams_matched表示匹配上的unigram个数。</p>
+<p>最后，METEOR计算为对应最佳候选译文和参考译文之间的准确率和召回率的调和平均：</p>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202406272019877.png"></p>
+<p>用于机器翻译评测时，通常取 $\alpha$ =3，$\gamma$=0.5，$\theta$=3。</p>
+<blockquote>
+<p>Refs：<br><a href="https://blog.csdn.net/m0_62554628/article/details/136645353" target="_blank" rel="noopener">https://blog.csdn.net/m0_62554628/article/details/136645353</a><br><a href="https://developer.baidu.com/article/details/3121202" target="_blank" rel="noopener">https://developer.baidu.com/article/details/3121202</a></p>
+</blockquote>
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1335,135 +1525,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2021/09/01/冠词使用方法概要/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/01/冠词使用方法概要/" class="post-title-link" itemprop="url">冠词使用方法概要</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-09-01 22:28:22 / Modified: 22:29:30" itemprop="dateCreated datePublished" datetime="2021-09-01T22:28:22+08:00">2021-09-01</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2021/09/01/冠词使用方法概要/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/09/01/冠词使用方法概要/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <blockquote>
-<p>本文提炼自：<a href="https://zhuanlan.zhihu.com/p/35642367" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/35642367</a></p>
-</blockquote>
-<p>冠词是置于名词前并限定名词的意义的虚词，分为定冠词和不定冠词，实际使用中，还会出现零冠词，共三种情况。</p>
-<h1 id="定冠词：THE"><a href="#定冠词：THE" class="headerlink" title="定冠词：THE"></a>定冠词：THE</h1><p>用于表示特指。</p>
-<h2 id="一般用法："><a href="#一般用法：" class="headerlink" title="一般用法："></a>一般用法：</h2><ol>
-<li>表示特指：特指某(些)人或某(些)物(包括用于上文提到过的人或物之前，以及说话双方都知道的人或物)。如：We have a cat and two dogs. The cat is black and the dogs are white. 我们养了一只猫和两只狗，猫是黑的，狗是白的。</li>
-<li>表示独一无二：用在世界上“独一无二”的事物的名词前。如：The earth goes round the sun. 地球绕着太阳转。</li>
-<li>用于最高级前：即用于形容词或副词的最高级前。如：Who picked the most apples? 谁摘的苹果最多?</li>
-<li>用于序数词或方位词之前。如：He was the first man to think of it. 他是第一个想到这一点的人。</li>
-<li>用于乐器名词前：表示相应乐器的演奏。如：Besides the violin, he plays the piano and the flute. 除了拉提琴，他还能弹钢琴和吹笛子。</li>
-<li>表示人体部位：用于某些介词短语中指身体的某个部位。如：He patted me on the back. 他拍了拍我的背。</li>
-<li>用于表示一家人：用于在姓氏的复数形式之前表示一家人或夫妇二人。如：The Smiths live in the apartment above ours. 史密斯一家住在我们楼上的一套住房里。</li>
-<li>用于江河湖海等前：用于江河湖海、山脉群岛、海湾海峡等地理名词前。如：The Yellow River flows into the Yellow Sea. 黄河流人黄海。</li>
-<li>用于某些含有普通名词的专有名词前：用于某些国名、组织机构、建筑物、报纸杂志、会议条约等含有普通名词与其他词构成的专有名词。如：We visited the Great Wall yesterday. 我们昨天去参观了长城。</li>
-</ol>
-<h2 id="其他用法："><a href="#其他用法：" class="headerlink" title="其他用法："></a>其他用法：</h2><ol>
-<li>用于整十的复数数词前：表示几十年代。如：This happened in the seventies. 这发生在七十年代。</li>
-<li>用于比较级前：用于“the+比较级，the+比较级”结构中表示“越……就越……”。如：The sooner we operate now the safer. 越早动手术越安全。</li>
-<li>用于表示类别：用于“the+某些形容词或过去分词”中表示一类人。如：Do you think the rich should pay more taxes to help the poor? 你认为富人是否应当多交点税来帮助穷人?</li>
-<li>用于国籍名词前表总称：用于“the+某些国籍的形容词”中表示某国人的总称。如：The French are famous for their food. 法国人因法国菜而出名。</li>
-<li>用于集合名词前表总称：用于“the + police / public等集合名词”中表示这类人的总称。如：The police are looking for the murderer. 警察正在寻找那个凶手。</li>
-<li>用于修饰same, only, very等形容词：即用于“the same / only / very +名词”结构中。如：That’s the only reason. 那是唯一的理由。</li>
-<li>用于单位名词前表标标准：即用于“单位词”（hour, day, month, year, dozen, gallon, ton, yard等）前表示标准，相当于汉语的“按”“论”“每”等。如：They let out cars by the day. 他们按天出租汽车。</li>
-</ol>
-<p>但是，by weight（按重量）习惯上不用冠词。如：Bananas are usually sold by weight. 香蕉通常按重量卖。</p>
-<h1 id="不定冠词：A、AN"><a href="#不定冠词：A、AN" class="headerlink" title="不定冠词：A、AN"></a>不定冠词：A、AN</h1><p>用于表示泛指。</p>
-<h2 id="一般用法"><a href="#一般用法" class="headerlink" title="一般用法"></a>一般用法</h2><ol>
-<li>表类别：即指人或事物的类别。如：A teacher is a person who teaches. 教师就是教书的人。</li>
-<li>表数量：即表示数量“一”。如：I’ll be able to finish it in a day or two. 在一两天内我会完成此事。</li>
-<li>表同一性：即表示“同一”，说明事物的同一性质、特征、大小或程度等。如：This hat and that one are of a shape. 这顶帽子和那顶一样大。</li>
-<li>表程度：用于most前表示“非常”“十分”。如：It’s a most boring book. 这是一本非常枯燥乏味的书。</li>
-</ol>
-<h2 id="其他用法"><a href="#其他用法" class="headerlink" title="其他用法"></a>其他用法</h2><ol>
-<li>用于序数词前：用在序数词前表示“再一”“又一”。如：She thanked him a second time. 她再次向他道谢。</li>
-<li>用于由动词转化来的名词前：表示一次、一番等义(通常与 have, take, make, give 等动词连用)。如：We’ve already had a try at it. 我们已经试过一下。</li>
-<li>用于专有名词前：相当于a certain，意为“一个”“某个”。如：The house next door has been bought by a Mr Jones. 隔壁的 房子被一个叫琼斯的先生的人买下了。</li>
-<li>用于抽象名词前：使之具体化，表示与该之相关的具体的人或事。如：He was a success in business. 他事业成功。</li>
-</ol>
-<h1 id="零冠词"><a href="#零冠词" class="headerlink" title="零冠词"></a>零冠词</h1><p>用于表示泛指。</p>
-<ol>
-<li>表泛指的不可数名词或复数名词前。如：Snow was failing. 正在下雪。</li>
-<li>倒装的让步状语从句中：在as(虽然)引导让步状语从句前面的单数可数名词前不用冠词。如：Child as he was, he knew how to help others. 他虽是个孩子，但已知识如何帮助别人。</li>
-<li>某些特殊词前：例如在man(人，人类), word(消息)的前面不用冠词。如：Man is a rational animal. 人是理性的动物。</li>
-<li>又如动词 turn(变成)，go(变成)后作表语的名词前通常用不用冠词。如：He was a teacher before he turned writer. 他在成为作家之前是教师。</li>
-<li>独立主格结构中：在表示伴随或补充说明用用的独立主格结构中，名词前不用冠词。如：The teacher came in, book in hand. 老师走进教室，手里拿着书。</li>
-<li>“(a) kind [sort] of＋名词”结构的“名词”前：该结构中的“名词”不管是单数还是复数，其前都通常用零冠词。如：This kind of book is very interesting. 这种书很有趣。</li>
-<li>表抽象意义的单数名词前：当单数可数名词含义抽象化具有形容词意味时，通常用零冠词。如：I was fool enough to accept his offer. 我接受他的提议真是太傻了。</li>
-</ol>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1535,7 +1596,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">141</span>
+          <span class="site-state-item-count">142</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1548,7 +1609,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">218</span>
+        <span class="site-state-item-count">219</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -122,7 +122,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">218</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">219</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">141</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">142</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,214 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/10/21/通过TensorFlow实现word-embedding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/10/21/通过TensorFlow实现word-embedding/" class="post-title-link" itemprop="url">通过TensorFlow实现word embedding</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-10-21 10:16:01" itemprop="dateCreated datePublished" datetime="2019-10-21T10:16:01+08:00">2019-10-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-04 16:02:49" itemprop="dateModified" datetime="2020-01-04T16:02:49+08:00">2020-01-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/10/21/通过TensorFlow实现word-embedding/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/21/通过TensorFlow实现word-embedding/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <p>word2vec的方法主要分为CBOW（Continuous Bag Of Words）和skip-gram（n-gram）两大类。</p>
+<p>两种方法互为镜像。简单来说，CBOW是通过上下文预测中间值来进行训练的，skip-gram是通过中间值预测上下文来进行训练的。</p>
+<p>这里，我们使用skip-gram的方法。</p>
+<h1 id="python脚本"><a href="#python脚本" class="headerlink" title="python脚本"></a>python脚本</h1><p>IDE: jupyter notebook</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> absolute_import</span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> division</span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.manifold <span class="keyword">import</span> TSNE</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> zipfile</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> six.moves <span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">from</span> six.moves <span class="keyword">import</span> xrange</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BasicPatternEmbedding</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.url = <span class="string">'http://mattmahoney.net/dc/'</span></span><br><span class="line">        self.data_index = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        self.vocabulary_size = <span class="number">5000</span></span><br><span class="line">        </span><br><span class="line">        self.batch_size = <span class="number">128</span></span><br><span class="line">        self.embedding_size = <span class="number">128</span>  <span class="comment"># Dimension of the embedding vector.</span></span><br><span class="line">        self.skip_window = <span class="number">1</span>       <span class="comment"># How many words to consider left and right.</span></span><br><span class="line">        self.num_skips = <span class="number">2</span>         <span class="comment"># How many times to reuse an input to generate a label.</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># We pick a random validation set to sample nearest neighbors. Here we limit the</span></span><br><span class="line">        <span class="comment"># validation samples to the words that have a low numeric ID, which by</span></span><br><span class="line">        <span class="comment"># construction are also the most frequent.</span></span><br><span class="line">        self.valid_size = <span class="number">16</span>     <span class="comment"># Random set of words to evaluate similarity on.</span></span><br><span class="line">        self.valid_window = <span class="number">100</span>  <span class="comment"># Only pick dev samples in the head of the distribution.</span></span><br><span class="line">        <span class="comment"># choose 16 numbers from 0 to 99 randomly</span></span><br><span class="line">        self.valid_examples = np.random.choice(self.valid_window, self.valid_size, replace=<span class="keyword">False</span>)</span><br><span class="line">        self.num_sampled = <span class="number">64</span>    <span class="comment"># Number of negative examples to sample.</span></span><br><span class="line">        self.num_steps = <span class="number">10001</span></span><br><span class="line">        </span><br><span class="line">        self.final_embedding = <span class="keyword">None</span></span><br><span class="line">        </span><br><span class="line">        self.graph = tf.Graph()</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># download and verify the dataset file</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maybe_download</span><span class="params">(self, filename, expected_bytes)</span>:</span></span><br><span class="line">        <span class="comment"># If the dataset file is not under the current path, download it directly</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(filename):</span><br><span class="line">            filename, _ = urllib.request.urlretrieve(self.url + filename, filename)</span><br><span class="line">        <span class="comment"># get dataset file infomationn</span></span><br><span class="line">        statinfo = os.stat(filename)</span><br><span class="line">        <span class="comment"># verify file size</span></span><br><span class="line">        <span class="keyword">if</span> statinfo.st_size == expected_bytes:</span><br><span class="line">            print(<span class="string">'Found and verified'</span>, filename)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(statinfo.st_size)</span><br><span class="line">            <span class="keyword">raise</span> Exception(</span><br><span class="line">                <span class="string">'Failed to verify '</span> + filename + <span class="string">'. Can you get to it with a browser?'</span>)</span><br><span class="line">        <span class="keyword">return</span> filename</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># read the data from zip into a list of strings</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">read_data</span><span class="params">(self, filename)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> zipfile.ZipFile(filename) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="comment"># separate by default separators, that is, all null characters, including spaces, newlines (\n), tabs (\t), etc.</span></span><br><span class="line">            data = tf.compat.as_str(f.read(f.namelist()[<span class="number">0</span>])).split()</span><br><span class="line">        <span class="keyword">return</span> data</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># process raw inputs into a dataset</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">build_dataset</span><span class="params">(self, words)</span>:</span></span><br><span class="line">        <span class="comment"># add unknown words into count list</span></span><br><span class="line">        count = [[<span class="string">'UNK'</span>, <span class="number">-1</span>]]</span><br><span class="line">        <span class="comment"># count the words list and add the pairs (word_name, number) into count list</span></span><br><span class="line">        count.extend(collections.Counter(words).most_common(self.vocabulary_size - <span class="number">1</span>))</span><br><span class="line">        dictionary = dict()</span><br><span class="line">        <span class="comment"># create a dictionary of the words with serial number</span></span><br><span class="line">        <span class="keyword">for</span> word, _ <span class="keyword">in</span> count:</span><br><span class="line">            dictionary[word] = len(dictionary)</span><br><span class="line">        data = list()</span><br><span class="line">        unk_count = <span class="number">0</span></span><br><span class="line">        <span class="comment"># convert the word list into a number list, 0 for unknown words</span></span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> words:</span><br><span class="line">            <span class="keyword">if</span> word <span class="keyword">in</span> dictionary:</span><br><span class="line">                index = dictionary[word]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                index = <span class="number">0</span></span><br><span class="line">                unk_count += <span class="number">1</span></span><br><span class="line">            data.append(index)</span><br><span class="line">        <span class="comment"># update the number of UNK</span></span><br><span class="line">        count[<span class="number">0</span>][<span class="number">1</span>] = unk_count</span><br><span class="line">        <span class="comment"># generate a new dictionary by exchanging key and value</span></span><br><span class="line">        reversed_dictionary = dict(zip(dictionary.values(), dictionary.keys()))</span><br><span class="line">        <span class="keyword">return</span> data, count, dictionary, reversed_dictionary</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># function to generate a training batch for the skip-gram model</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">generate_batch</span><span class="params">(self, data)</span>:</span></span><br><span class="line">        <span class="comment"># make sure the data length is OK</span></span><br><span class="line">        <span class="keyword">assert</span> self.batch_size % self.num_skips == <span class="number">0</span></span><br><span class="line">        <span class="keyword">assert</span> self.num_skips &lt;= <span class="number">2</span> * self.skip_window</span><br><span class="line"></span><br><span class="line">        batch = np.ndarray(shape=(self.batch_size), dtype=np.int32)</span><br><span class="line">        labels = np.ndarray(shape=(self.batch_size, <span class="number">1</span>), dtype=np.int32)</span><br><span class="line">        span = <span class="number">2</span> * self.skip_window + <span class="number">1</span>  <span class="comment"># [ skip_window target skip_window ]</span></span><br><span class="line">        <span class="comment"># create a new double-ended queue to store the buffer</span></span><br><span class="line">        buffer = collections.deque(maxlen=span)</span><br><span class="line">        <span class="comment"># data_index indicates the end point of the current window</span></span><br><span class="line">        <span class="keyword">if</span> self.data_index + span &gt; len(data):</span><br><span class="line">            data_index = <span class="number">0</span></span><br><span class="line">        buffer.extend(data[self.data_index:self.data_index + span])</span><br><span class="line">        self.data_index += span</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(self.batch_size // self.num_skips):</span><br><span class="line">            target = self.skip_window  <span class="comment"># target label at the center of the buffer</span></span><br><span class="line">            targets_to_avoid = [self.skip_window]</span><br><span class="line">            <span class="comment"># sample num_skips batches and labels, optimizable</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(self.num_skips):</span><br><span class="line">                <span class="keyword">while</span> target <span class="keyword">in</span> targets_to_avoid:</span><br><span class="line">                    target = random.randint(<span class="number">0</span>, span - <span class="number">1</span>)</span><br><span class="line">                <span class="comment"># avoid sampling to the same target</span></span><br><span class="line">                targets_to_avoid.append(target)</span><br><span class="line">                <span class="comment"># each batch item stands for input</span></span><br><span class="line">                batch[i * self.num_skips + j] = buffer[self.skip_window]</span><br><span class="line">                <span class="comment"># each label item stands for ground truth</span></span><br><span class="line">                labels[i * self.num_skips + j, <span class="number">0</span>] = buffer[target]</span><br><span class="line">            <span class="keyword">if</span> self.data_index == len(data):</span><br><span class="line">                buffer[:] = data[:span]</span><br><span class="line">                self.data_index = span</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                buffer.append(data[self.data_index])</span><br><span class="line">                self.data_index += <span class="number">1</span></span><br><span class="line">        <span class="comment"># Backtrack a little bit to avoid skipping words in the end of a batch</span></span><br><span class="line">        self.data_index = self.data_index - span</span><br><span class="line">        <span class="keyword">return</span> batch, labels</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(self, data, reverse_dictionary)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> self.graph.as_default():</span><br><span class="line">            train_inputs = tf.placeholder(tf.int32, shape=[self.batch_size])</span><br><span class="line">            train_labels = tf.placeholder(tf.int32, shape=[self.batch_size, <span class="number">1</span>])</span><br><span class="line">            valid_dataset = tf.constant(self.valid_examples, dtype=tf.int32)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># Ops and variables pinned to the CPU</span></span><br><span class="line">            <span class="keyword">with</span> tf.device(<span class="string">'/cpu:0'</span>):</span><br><span class="line">                <span class="comment"># Look up embeddings for inputs.</span></span><br><span class="line">                embeddings = tf.Variable(tf.random_uniform([self.vocabulary_size, self.embedding_size], <span class="number">-1.0</span>, <span class="number">1.0</span>))</span><br><span class="line">                <span class="comment"># according to embeddings, the 128-dimensional vector corresponding to the input word(train inputs) was extracted</span></span><br><span class="line">                embed = tf.nn.embedding_lookup(embeddings, train_inputs)</span><br><span class="line"></span><br><span class="line">                <span class="comment"># Construct the variables for the NCE loss</span></span><br><span class="line">                nce_weights = tf.Variable(tf.truncated_normal([self.vocabulary_size, self.embedding_size], stddev=<span class="number">1.0</span> / math.sqrt(self.embedding_size)))</span><br><span class="line">                nce_biases = tf.Variable(tf.zeros([self.vocabulary_size]))</span><br><span class="line">            <span class="comment"># Compute the average NCE loss for the batch.</span></span><br><span class="line">            <span class="comment"># tf.nce_loss automatically draws a new sample of the negative labels each</span></span><br><span class="line">            <span class="comment"># time we evaluate the loss.</span></span><br><span class="line">            loss = tf.reduce_mean(</span><br><span class="line">                tf.nn.nce_loss(weights=nce_weights,</span><br><span class="line">                             biases=nce_biases,</span><br><span class="line">                             labels=train_labels,</span><br><span class="line">                             inputs=embed,</span><br><span class="line">                             num_sampled=self.num_sampled,</span><br><span class="line">                             num_classes=self.vocabulary_size))</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># Construct the SGD optimizer using a learning rate of 1.0.</span></span><br><span class="line">            optimizer = tf.train.GradientDescentOptimizer(<span class="number">1.0</span>).minimize(loss)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># Compute the cosine similarity between minibatch examples and all embeddings.</span></span><br><span class="line">            norm = tf.sqrt(tf.reduce_sum(tf.square(embeddings), <span class="number">1</span>, keep_dims=<span class="keyword">True</span>))</span><br><span class="line">            normalized_embeddings = embeddings / norm</span><br><span class="line">            valid_embeddings = tf.nn.embedding_lookup(normalized_embeddings, valid_dataset)</span><br><span class="line">            similarity = tf.matmul(valid_embeddings, normalized_embeddings, transpose_b=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># Add variable initializer.</span></span><br><span class="line">            init = tf.global_variables_initializer()</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">with</span> tf.Session(graph = self.graph) <span class="keyword">as</span> session:</span><br><span class="line">            init.run()</span><br><span class="line">            average_loss = <span class="number">0</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span> step <span class="keyword">in</span> xrange(self.num_steps):</span><br><span class="line">                batch_inputs, batch_labels = self.generate_batch(data)</span><br><span class="line">                feed_dict = &#123;train_inputs: batch_inputs, train_labels: batch_labels&#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment"># we perform one update step by evaluating the optimizer op (including it</span></span><br><span class="line">                <span class="comment"># in the list of returned values for session.run()</span></span><br><span class="line">                _, loss_val = session.run([optimizer, loss], feed_dict=feed_dict)</span><br><span class="line">                average_loss += loss_val</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> step % <span class="number">2000</span> == <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">if</span> step &gt; <span class="number">0</span>:</span><br><span class="line">                        average_loss /= <span class="number">2000</span></span><br><span class="line">                    <span class="comment"># the average loss is an estimate of the loss over the last 2000 batches.</span></span><br><span class="line">                    print(<span class="string">'Average loss at step '</span>, step, <span class="string">': '</span>, average_loss)</span><br><span class="line">                    average_loss = <span class="number">0</span></span><br><span class="line">                </span><br><span class="line">                <span class="comment"># output the most similar eight words to the screen</span></span><br><span class="line">                <span class="keyword">if</span> step % <span class="number">10000</span> == <span class="number">0</span>:</span><br><span class="line">                    sim = similarity.eval()</span><br><span class="line">                    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(self.valid_size):</span><br><span class="line">                        valid_word = reverse_dictionary[self.valid_examples[i]]</span><br><span class="line">                        top_k = <span class="number">8</span>  <span class="comment"># number of nearest neighbors</span></span><br><span class="line">                        nearest = (-sim[i, :]).argsort()[<span class="number">1</span>:top_k + <span class="number">1</span>]</span><br><span class="line">                        log_str = <span class="string">'Nearest to %s:'</span> % valid_word</span><br><span class="line">                        <span class="keyword">for</span> k <span class="keyword">in</span> xrange(top_k):</span><br><span class="line">                            close_word = reverse_dictionary[nearest[k]]</span><br><span class="line">                            log_str = <span class="string">'%s %s,'</span> % (log_str, close_word)</span><br><span class="line">                        print(log_str)</span><br><span class="line">                        </span><br><span class="line">            self.final_embeddings = normalized_embeddings.eval()</span><br><span class="line">            </span><br><span class="line">    <span class="comment"># visualize the embeddings</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">plot_with_labels</span><span class="params">(self, low_dim_embs, labels, filename=<span class="string">'tsne.png'</span>)</span>:</span></span><br><span class="line">        <span class="keyword">assert</span> low_dim_embs.shape[<span class="number">0</span>] &gt;= len(labels), <span class="string">'More labels than embeddings'</span></span><br><span class="line">        plt.figure(figsize=(<span class="number">18</span>, <span class="number">18</span>))  <span class="comment"># in inches</span></span><br><span class="line">        <span class="keyword">for</span> i, label <span class="keyword">in</span> enumerate(labels):</span><br><span class="line">            x, y = low_dim_embs[i, :]</span><br><span class="line">            plt.scatter(x, y)</span><br><span class="line">            plt.annotate(label,</span><br><span class="line">                            xy=(x, y),</span><br><span class="line">                            xytext=(<span class="number">5</span>, <span class="number">2</span>),</span><br><span class="line">                            textcoords=<span class="string">'offset points'</span>,</span><br><span class="line">                            ha=<span class="string">'right'</span>,</span><br><span class="line">                            va=<span class="string">'bottom'</span>)</span><br><span class="line">        plt.show()</span><br><span class="line">        <span class="comment">#plt.savefig(filename)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        bpe = BasicPatternEmbedding()</span><br><span class="line">        filename = bpe.maybe_download(<span class="string">'text8.zip'</span>,<span class="number">31344016</span>)</span><br><span class="line">        vocabulary = bpe.read_data(filename)</span><br><span class="line">        print(<span class="string">'Data size'</span>, len(vocabulary))</span><br><span class="line">        <span class="keyword">print</span> (<span class="string">'vocabulary:'</span>, vocabulary[:<span class="number">10</span>])</span><br><span class="line">        </span><br><span class="line">        data, count, dictionary, reverse_dictionary = bpe.build_dataset(vocabulary)</span><br><span class="line">        <span class="keyword">del</span> vocabulary  <span class="comment"># Hint to reduce memory.</span></span><br><span class="line">        print(<span class="string">'Most common words (+UNK)'</span>, count[:<span class="number">5</span>])</span><br><span class="line">        print(<span class="string">'Sample data'</span>, data[:<span class="number">10</span>], [reverse_dictionary[i] <span class="keyword">for</span> i <span class="keyword">in</span> data[:<span class="number">10</span>]])</span><br><span class="line">        </span><br><span class="line">        batch, labels = bpe.generate_batch(data)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">8</span>):</span><br><span class="line">            print(batch[i], reverse_dictionary[batch[i]], <span class="string">'-&gt;'</span>, labels[i, <span class="number">0</span>], reverse_dictionary[labels[i, <span class="number">0</span>]])</span><br><span class="line">        <span class="keyword">print</span> (dictionary[<span class="string">'a'</span>], dictionary[<span class="string">'as'</span>], dictionary[<span class="string">'term'</span>])</span><br><span class="line">        </span><br><span class="line">        bpe.train(data, reverse_dictionary)</span><br><span class="line">        </span><br><span class="line">        tsne = TSNE(perplexity=<span class="number">30</span>, n_components=<span class="number">2</span>, init=<span class="string">'pca'</span>, n_iter=<span class="number">5000</span>, method=<span class="string">'exact'</span>)</span><br><span class="line">        plot_only = <span class="number">300</span></span><br><span class="line">        low_dim_embs = tsne.fit_transform(bpe.final_embeddings[:plot_only, :])</span><br><span class="line"></span><br><span class="line">        labels = [reverse_dictionary[i] <span class="keyword">for</span> i <span class="keyword">in</span> xrange(plot_only)]</span><br><span class="line">        bpe.plot_with_labels(low_dim_embs, labels)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> ImportError:</span><br><span class="line">        print(<span class="string">'Please install sklearn, matplotlib, and scipy to show embeddings.'</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Found and verified text8.zip
+Data size 17005207
+vocabulary: [&#39;anarchism&#39;, &#39;originated&#39;, &#39;as&#39;, &#39;a&#39;, &#39;term&#39;, &#39;of&#39;, &#39;abuse&#39;, &#39;first&#39;, &#39;used&#39;, &#39;against&#39;]
+Most common words (+UNK) [[&#39;UNK&#39;, 2735459], (&#39;the&#39;, 1061396), (&#39;of&#39;, 593677), (&#39;and&#39;, 416629), (&#39;one&#39;, 411764)]
+Sample data [0, 3081, 12, 6, 195, 2, 3134, 46, 59, 156] [&#39;UNK&#39;, &#39;originated&#39;, &#39;as&#39;, &#39;a&#39;, &#39;term&#39;, &#39;of&#39;, &#39;abuse&#39;, &#39;first&#39;, &#39;used&#39;, &#39;against&#39;]
+3081 originated -&gt; 12 as
+3081 originated -&gt; 0 UNK
+12 as -&gt; 6 a
+12 as -&gt; 3081 originated
+6 a -&gt; 195 term
+6 a -&gt; 12 as
+195 term -&gt; 2 of
+195 term -&gt; 6 a
+6 12 195
+Average loss at step  0 :  185.77481079101562
+Nearest to it: confidence, doesn, theatre, came, gulf, cultural, sites, corps,
+Nearest to use: buried, grave, observation, dust, batman, security, hungarian, opens,
+Nearest to at: warrior, total, rivers, yards, reaction, extinction, exclusively, eu,
+Nearest to if: emergency, present, developing, dates, life, for, pennsylvania, genesis,
+Nearest to between: grant, execution, generally, power, official, interpreted, hiv, binary,
+Nearest to people: unlikely, mainly, prussian, dedicated, shot, spending, dangerous, pick,
+Nearest to states: forward, racing, begins, printed, follow, vacuum, study, mythology,
+Nearest to by: rulers, protestant, marvel, republic, zero, letters, researchers, amiga,
+Nearest to american: hit, stores, managed, practiced, intermediate, retrieved, moreover, unique,
+Nearest to world: leadership, decay, culture, false, vii, et, dialogue, gave,
+Nearest to but: denominations, passing, according, germans, medical, emperors, working, grant,
+Nearest to an: removed, marxist, experts, ac, eugene, bones, tree, ne,
+Nearest to were: coat, facing, grammar, storage, teach, covering, solomon, circuit,
+Nearest to to: plant, supporting, pay, pp, shell, problem, acids, post,
+Nearest to be: judah, photo, films, both, senate, woman, villages, eating,
+Nearest to used: legislative, hero, private, organ, spaces, vice, top, trivia,
+Average loss at step  2000 :  22.257665908694268
+Average loss at step  4000 :  5.249317247629166
+Average loss at step  6000 :  4.652066127896309
+Average loss at step  8000 :  4.529780765414238
+Average loss at step  10000 :  4.432040006399155
+Nearest to it: he, came, votes, matters, doesn, whole, confidence, continues,
+Nearest to use: alien, buried, security, hungarian, grave, dust, batman, amount,
+Nearest to at: in, killed, appearance, extinction, mathbf, rivers, eu, pronunciation,
+Nearest to if: life, molecules, emergency, dates, present, pennsylvania, for, rates,
+Nearest to between: eight, execution, vs, of, hiv, grant, official, documentary,
+Nearest to people: UNK, mainly, dedicated, selection, unlikely, shot, fact, dangerous,
+Nearest to states: forward, racing, cover, arithmetic, study, vacuum, vs, begins,
+Nearest to by: and, as, in, infant, co, manufacturer, with, campaign,
+Nearest to american: hit, importance, austin, entry, depending, retrieved, vs, intermediate,
+Nearest to world: culture, leadership, UNK, false, mathbf, skills, et, titled,
+Nearest to but: and, medical, working, was, connecticut, vs, europeans, denominations,
+Nearest to an: the, ac, plant, challenge, experts, necessary, lake, marxist,
+Nearest to were: jpg, are, facing, covering, manual, circuit, opposite, test,
+Nearest to to: ends, and, plant, in, office, into, supporting, agave,
+Nearest to be: iso, shorter, judah, self, painter, also, dependent, assistance,
+Nearest to used: opposition, hero, private, illinois, legislative, regime, breaking, repeated,</code></pre>
+<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20191021100559.png"></p>
+<h1 id="相关函数说明"><a href="#相关函数说明" class="headerlink" title="相关函数说明"></a>相关函数说明</h1><h2 id="Tensor-eval"><a href="#Tensor-eval" class="headerlink" title="Tensor.eval()"></a>Tensor.eval()</h2><p>.eval() 其实就是tf.Tensor的Session.run() 的另外一种写法，但两者有差别</p>
+<ol>
+<li>eval(): 将字符串string对象转化为有效的表达式参与求值运算返回计算结果</li>
+<li>eval()也是启动计算的一种方式。基于Tensorflow的基本原理，首先需要定义图，然后计算图，其中计算图的函数常见的有run()函数，如sess.run()。同样eval()也是此类函数，</li>
+<li>要注意的是，eval()只能用于tf.Tensor类对象，也就是有输出的Operation，写作Tensor.eval()。对于没有输出的Operation, 可以用.run()或者Session.run()；Session.run()没有这个限制。</li>
+</ol>
+<h2 id="np-argsort"><a href="#np-argsort" class="headerlink" title="np.argsort()"></a>np.argsort()</h2><p>argsort函数返回的是数组值从小到大的索引值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = np.array([<span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.argsort(x)</span><br><span class="line">array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<h2 id="tf-reduce-sum"><a href="#tf-reduce-sum" class="headerlink" title="tf.reduce_sum()"></a>tf.reduce_sum()</h2><p>reduce_sum( ) 是求和函数，在 tensorflow 里面，计算的都是 tensor，可以通过调整 axis =0,1 的维度来控制求和维度。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = tf.constant([[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tf.reduce_sum(x)</span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tf.reduce_sum(x, <span class="number">0</span>)</span><br><span class="line">[<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tf.reduce_sum(x, <span class="number">1</span>)</span><br><span class="line">[<span class="number">3</span>,<span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tf.reduce_sum(x, <span class="number">1</span>, keepdims=<span class="keyword">True</span>)</span><br><span class="line">[[<span class="number">3</span>],[<span class="number">3</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tf.reduce_sum(x, [<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line"><span class="number">6</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="tf-nn-nce-loss"><a href="#tf-nn-nce-loss" class="headerlink" title="tf.nn.nce_loss()"></a>tf.nn.nce_loss()</h2><p>假设nce_loss之前的输入数据是K维的，一共有N个类，那么</p>
+<p>weight.shape = (N, K)</p>
+<p>bias.shape = (N)</p>
+<p>inputs.shape = (batch_size, K)</p>
+<p>labels.shape = (batch_size, num_true)</p>
+<p>num_true : 实际的正样本个数</p>
+<p>num_sampled: 采样出多少个负样本</p>
+<p>num_classes = N</p>
+<p>sampled_values: 采样出的负样本，如果是None，就会用不同的sampler去采样。待会儿说sampler是什么。</p>
+<p>remove_accidental_hits: 如果采样时不小心采样到的负样本刚好是正样本，要不要干掉</p>
+<p>partition_strategy：对weights进行embedding_lookup时并行查表时的策略。TF的embeding_lookup是在CPU里实现的，这里需要考虑多线程查表时的锁的问题</p>
+<p>nce_loss的实现逻辑如下：</p>
+<p>_compute_sampled_logits: 通过这个函数计算出正样本和采样出的负样本对应的output和label</p>
+<p>sigmoid_cross_entropy_with_logits: 通过 sigmoid cross entropy来计算output和label的loss，从而进行反向传播。这个函数把最后的问题转化为了num_sampled+num_real个两类分类问题，然后每个分类问题用了交叉熵的损伤函数，也就是logistic regression常用的损失函数。TF里还提供了一个softmax_cross_entropy_with_logits的函数，和这个有所区别。</p>
+<p>在训练过程中，作为input的embed也会被自动更新</p>
+<h2 id="tf-nn-embedding-lookup"><a href="#tf-nn-embedding-lookup" class="headerlink" title="tf.nn.embedding_lookup()"></a>tf.nn.embedding_lookup()</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Signature:</span></span><br><span class="line">tf.nn.embedding_lookup(params, ids, partition_strategy=<span class="string">'mod'</span>, name=<span class="keyword">None</span>, validate_indices=<span class="keyword">True</span>, max_norm=<span class="keyword">None</span>)</span><br><span class="line"><span class="comment"># Docstring:</span></span><br><span class="line"><span class="comment"># Looks up `ids` in a list of embedding tensors.</span></span><br></pre></td></tr></table></figure>
+
+<p>是根据 ids 中的id，寻找 params 中的第id行。比如 ids=[1,3,5]，则找出params中第1，3，5行，组成一个tensor返回。</p>
+<p>embedding_lookup不是简单的查表，params 对应的向量是可以训练的，训练参数个数应该是 feature_num * embedding_size，即前文表述的embedding层权重矩阵，就是说 lookup 的是一种全连接层。</p>
+<p>partition_strategy 为张量编号方式，在张量存在多维时起作用，编号的方式有两种，”mod”（默认） 和 “div”。</p>
+<p>假设：一共有三个tensor [a,b,c] 作为params 参数，所有tensor的第 0 维上一共有 10 个项目（id 0 ~ 9）。</p>
+<p>“mod” : (id) mod len(params) 得到 多少就把 id 分到第几个tensor里面</p>
+<ul>
+<li>a 依次分到id： 0 3 6 9</li>
+<li>b 依次分到id： 1 4 7</li>
+<li>c 依次分到id： 2 5 8</li>
+</ul>
+<p>“div” : (id) div len(params) 可以理解为依次排序，但是这两种切分方式在无法均匀切分的情况下都是将前(max_id+1)%len(params)个 partition 多分配一个元素.</p>
+<ul>
+<li>a 依次分到id： 0 1 2 3</li>
+<li>b 依次分到id： 4 5 6</li>
+<li>c 依次分到id： 7 8 9</li>
+</ul>
+<h2 id="tf-SparseTensor"><a href="#tf-SparseTensor" class="headerlink" title="tf.SparseTensor()"></a>tf.SparseTensor()</h2><p>构造稀疏向量矩阵，每一行为一个样本</p>
+<p>SparseTensor(indices, values, dense_shape)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SparseTensor(indices=[[<span class="number">0</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">2</span>]], values=[<span class="number">1</span>, <span class="number">2</span>], dense_shape=[<span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># represents the dense tensor</span></span><br><span class="line"></span><br><span class="line">[[<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]</span><br><span class="line"> [<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>]</span><br><span class="line"> [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>reference:<br><a href="https://blog.csdn.net/qoopqpqp/article/details/76037334" target="_blank" rel="noopener">https://blog.csdn.net/qoopqpqp/article/details/76037334</a><br><a href="https://segmentfault.com/a/1190000015287066?utm_source=tag-newest" target="_blank" rel="noopener">https://segmentfault.com/a/1190000015287066?utm_source=tag-newest</a><br><a href="https://blog.csdn.net/u012193416/article/details/83349138" target="_blank" rel="noopener">https://blog.csdn.net/u012193416/article/details/83349138</a><br><a href="https://blog.csdn.net/qq_36092251/article/details/79684721" target="_blank" rel="noopener">https://blog.csdn.net/qq_36092251/article/details/79684721</a><br><a href="https://gshtime.github.io/2018/06/01/tensorflow-embedding-lookup-sparse/" target="_blank" rel="noopener">https://gshtime.github.io/2018/06/01/tensorflow-embedding-lookup-sparse/</a></p>
+</blockquote>
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1462,135 +1670,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2019/08/08/转-知识图谱应用需要了解的16个知识/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/08/转-知识图谱应用需要了解的16个知识/" class="post-title-link" itemprop="url">[转]知识图谱应用需要了解的16个知识</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-08-08 20:51:28" itemprop="dateCreated datePublished" datetime="2019-08-08T20:51:28+08:00">2019-08-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-04 16:24:59" itemprop="dateModified" datetime="2020-01-04T16:24:59+08:00">2020-01-04</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/08/08/转-知识图谱应用需要了解的16个知识/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/08/转-知识图谱应用需要了解的16个知识/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <h1 id="1、知识图谱系统的关键特性有哪些？"><a href="#1、知识图谱系统的关键特性有哪些？" class="headerlink" title="1、知识图谱系统的关键特性有哪些？"></a>1、知识图谱系统的关键特性有哪些？</h1><p>1.当然是可视化展示，知识图谱的魅力之一就是让人直观的看到多实体之间的关系，能用图标示的就不要哔哔</p>
-<p>2.多种服务提供方式，有些服务使用方，不需要图，那么可能通过api或者批量文件的方式比较合适。所以从系统建设角度来看，最好能提供多样的服务对接方式，满足前端服务使用方的不同需要，发挥系统价值，是值得考虑的地方。</p>
-<p>3.查询速度，在用户进行图操作，例如实体查询、关系推演扩展时，系统响应时间应该较低，避免大并发情况下用户体验的降低。</p>
-<p>数据建模、批量时间相对来说，外界感知不到，因此不那么重要。</p>
-<h1 id="2、知识图谱适用场景有哪些？"><a href="#2、知识图谱适用场景有哪些？" class="headerlink" title="2、知识图谱适用场景有哪些？"></a>2、知识图谱适用场景有哪些？</h1><p>主要涉及关系分析的场景，利用账户、自然人或者资金交易形成的关系来判定结果是否可用时，比如担保圈、分析实际控制人、实际受益人、识别冒名贷款。而且通常，数据分析的深度在3度到5度，才能体现出优势。</p>
-<p>分析深度小于3度，与传统关系型数据库没有太大差别，大于5度有可能引入较多的噪音数据。当然不排除某些场景下分析5度以上数据的可能性。</p>
-<h1 id="3、有没有业务场景是只能用知识图谱实现的？而其他技术方法无法实现？"><a href="#3、有没有业务场景是只能用知识图谱实现的？而其他技术方法无法实现？" class="headerlink" title="3、有没有业务场景是只能用知识图谱实现的？而其他技术方法无法实现？"></a>3、有没有业务场景是只能用知识图谱实现的？而其他技术方法无法实现？</h1><p>从技术角度考虑，应该没有，有的是效率孰高孰低、开发成本孰高孰低。</p>
-<h1 id="4、知识图谱应用时会面临哪些主要的困难，如何解决？"><a href="#4、知识图谱应用时会面临哪些主要的困难，如何解决？" class="headerlink" title="4、知识图谱应用时会面临哪些主要的困难，如何解决？"></a>4、知识图谱应用时会面临哪些主要的困难，如何解决？</h1><p>主要是确认需求，一方面是适不适合用知识图谱这个工具，另一方面做好与其他系统的对接工作，如何能将知识图谱这个服务以简便快捷的方式输出给其他系统。前者可以和多方面行内外专家交流，后者主要还是要与业务部门进行沟通，确认业务部门的期望，技术实现大多时候不是难点，难的是如何满足欲壑难填的需求。</p>
-<h1 id="5、知识图谱系统的建设核心是什么？该如何选型？"><a href="#5、知识图谱系统的建设核心是什么？该如何选型？" class="headerlink" title="5、知识图谱系统的建设核心是什么？该如何选型？"></a>5、知识图谱系统的建设核心是什么？该如何选型？</h1><p>建设核心是图数据的存储和分析方法。不同的核心，外围使用的方法也不同。</p>
-<p>以titan为例，它是集成在hadoop上的。数据的分析加工主要在使用sparksql和graphx，结果会存放在titan中，数量较多的明细流水会放在hbase中，常用的查询关键字，姓名、手机号码等会放在elasticsearch中，三者通过key相互关联。</p>
-<p>如果换一种图数据库，比如neo4j，整个外围都会跟着调整。所以图数据库的选型不能进场图数据本身考虑，而应该结合整体规划，建设成本，多系统间的关联关系层面进行统筹考虑，甚至可能会为了大局牺牲一些效率。</p>
-<h1 id="6、图形数据库应该怎么选型？选的时候需要考虑哪些问题？"><a href="#6、图形数据库应该怎么选型？选的时候需要考虑哪些问题？" class="headerlink" title="6、图形数据库应该怎么选型？选的时候需要考虑哪些问题？"></a>6、图形数据库应该怎么选型？选的时候需要考虑哪些问题？</h1><p>从系统自身考虑的话，包括高可靠性，读写效率、扩展性，与其他系统相同。</p>
-<p>除此之外，还应该从整体规划和这个系统所处的位置进行考虑，为了满足整体规划，牺牲一些性能或者成本也是必要的。比如为了避免海量数据的多系统存储分析，就选用了以hadoop为基础的图数据库，这样所有的数据只需一份，可以供平台上的多个子系统进行使用。</p>
-<h1 id="7、为满足关键特性系统的架构或组件选择是怎样的？（主要针对hadoop架构）"><a href="#7、为满足关键特性系统的架构或组件选择是怎样的？（主要针对hadoop架构）" class="headerlink" title="7、为满足关键特性系统的架构或组件选择是怎样的？（主要针对hadoop架构）"></a>7、为满足关键特性系统的架构或组件选择是怎样的？（主要针对hadoop架构）</h1><p>1.可视化需要开发一个专门的知识图谱展示界面，将知识图谱中的实体、关系属性等以美观已操作的方式展示出来，因为颜值即正义。可以借用当前比较流行的bootstrap等前端开发语言。</p>
-<p>2.为满足快速查询，可以将部分索引关键字放在索引es中，索引命中后在使用key去titian中查询。</p>
-<p>3.多种服务方式，需要从设计时就进行考虑，至少满足三种api、可视化界面、批量文件。批量文件主要从hive中进行导出，而api接口则需要开发一个服务层，将所有图数据库的命令行操作转换为对应的api接口，轻量级的开发一个java服务放在tomcat中，有条件的可以使用微服务框架。</p>
-<h1 id="8、知识图谱的建设都有哪些重要的环节，需要注意什么？"><a href="#8、知识图谱的建设都有哪些重要的环节，需要注意什么？" class="headerlink" title="8、知识图谱的建设都有哪些重要的环节，需要注意什么？"></a>8、知识图谱的建设都有哪些重要的环节，需要注意什么？</h1><p>从自身项目实施来看，有三个地方：</p>
-<p>1.建模时多系统数据的融合，比如客户的信息存在多个系统中，核心、信贷、理财等，因为系统建设时间不一、多次升级等问题，导致数据不一致，数据质量较差，这样就需要花费很大精力去处理数据质量问题，还可能导致程序返工。</p>
-<p>2.模型开发过中，选择哪些业务场景也很重要，知识图谱不是万金油，有些场景比较费力。应该选择那些跟关联关系分析相关的，有明确结果，业务人员能够明确正确与否的应用场景，便于展示这个工具的优越性。</p>
-<p>3.交付前的测试也很重要。因为知识图谱基本上都是需要融合各个业务系统的数据，涉及面较广。因此要给测试过程留够时间，便于测试人员发现一些数据处理上的遗漏。</p>
-<h1 id="9、知识图谱与智能客服如何对接？"><a href="#9、知识图谱与智能客服如何对接？" class="headerlink" title="9、知识图谱与智能客服如何对接？"></a>9、知识图谱与智能客服如何对接？</h1><p>主要是通过API接口，在接入的同时系统自动调出客户当前的资产负债状况，最近的交易明细，购买产品的状况。在提问的时候，通过nlp系统解析问题中的关键字，识别询问的实体、关系等，找到关联的问题，引导客户按照提问已有的问题。使用知识图谱的好处在于，可以快速的查询出客户周边的所有数据。如果使用传统关系型数据库，则需要按照业务种类，逐个表进行查询，分模块展示。在图谱中则可以一起展示出来，因为是从客户出发按照关联关系进行查询的，并且可以用一张图进行直观的展示。</p>
-<h1 id="10、部署时需要满足怎样的性能要求，qps或tps？如果建设面向外部客户的大规模知识图谱，有哪些可以优化的方向？"><a href="#10、部署时需要满足怎样的性能要求，qps或tps？如果建设面向外部客户的大规模知识图谱，有哪些可以优化的方向？" class="headerlink" title="10、部署时需要满足怎样的性能要求，qps或tps？如果建设面向外部客户的大规模知识图谱，有哪些可以优化的方向？"></a>10、部署时需要满足怎样的性能要求，qps或tps？如果建设面向外部客户的大规模知识图谱，有哪些可以优化的方向？</h1><p>性能的需求应该是与业务场景强相关的，如果是面向外部客户那就要考虑扩容节点提升整体性能，明细数据可以从hbase迁移到es中，加快查询速度，限制部分查询内容或者只能查看经过分析的子图。</p>
-<p>对于行内系统，从数据安全角度来看，只有少部分人能看到所有数据，绝大多数人只能看到部分数据，而且应该是具有特定业务含义的数据，比如某个预警模型的结果。在这种情况下，权限范围内的数据量就很小了，那么在查询的过程中，效率也会相应提升，不会全表扫描。</p>
-<h1 id="11、有没有合适的企业级的分布式知识图谱技术架构？"><a href="#11、有没有合适的企业级的分布式知识图谱技术架构？" class="headerlink" title="11、有没有合适的企业级的分布式知识图谱技术架构？"></a>11、有没有合适的企业级的分布式知识图谱技术架构？</h1><p>横向涉猎不多，答错勿怪。</p>
-<p>titian就是分布式的，因为它是基于hbase的。</p>
-<p>Neo4j 好像就不支持，不像hbase这么简单就可以进行扩展。</p>
-<h1 id="12、知识图谱存储会不会引起数据膨胀？"><a href="#12、知识图谱存储会不会引起数据膨胀？" class="headerlink" title="12、知识图谱存储会不会引起数据膨胀？"></a>12、知识图谱存储会不会引起数据膨胀？</h1><p>图数据库本身不会，但是知识图谱这个系统会，一份数据至少存在于hive加工区和hbase查询区，还有少量的elasticsearch索引区。</p>
-<h1 id="13、关于实体、属性、关系的识别和存储？"><a href="#13、关于实体、属性、关系的识别和存储？" class="headerlink" title="13、关于实体、属性、关系的识别和存储？"></a>13、关于实体、属性、关系的识别和存储？</h1><p>大多数情况下实体关系属性都是比较明确的，因为知识图谱的建模是与现实世界相符的。</p>
-<p>比如银行来说客户就是实体，姓名，身 份 证 号码，手机号都是属性。</p>
-<p>关系相对稍微复杂一点，不过常见的关系也都比较明确，比如客户经理和贷款户，机构和对公客户，合同和借款人等等。</p>
-<p>银行这边的实体基本上都是自然人、账号，机构，合同、押品等，关系就是实体之间的关系，比如账号和自然人的归属关系。</p>
-<p>实体、关系和属性都是存在titan里的，交易明细存在hbase里。</p>
-<h1 id="14、脏数据的处理机制是什么？"><a href="#14、脏数据的处理机制是什么？" class="headerlink" title="14、脏数据的处理机制是什么？"></a>14、脏数据的处理机制是什么？</h1><p>知识图谱作为下游系统其实没有好的办法处理脏数据，基本上有两种策略：</p>
-<p>第一：确定一个优先级，某个属性以哪个系统为准，当两个系统不一致时，不管对错永远以某个系统为准。</p>
-<p>第二：前一种方法不适用的，就将这些数据打入“冷宫”，放到一张表里，定期拿出来，找原系统进行数据修正，这是一个比较漫长的过程。</p>
-<p>不过好在，80%以上的数据是正常的，脏数据多数由于客户长期未发生业务，渠道无法强制客户更新数据。</p>
-<h1 id="15、如何解决外部数据源准确性？"><a href="#15、如何解决外部数据源准确性？" class="headerlink" title="15、如何解决外部数据源准确性？"></a>15、如何解决外部数据源准确性？</h1><p>我个人无法从根本上解决，因为我们只是数据的使用方，准确性是需要从产生的根源上解决的问题。</p>
-<p>不过在使用的时候可以进行多数据源的交叉验证，来提高准确性，完全消除是难以实现的。</p>
-<h1 id="16、用知识图谱做传统的风控行业，局限性在哪里？利用大数据挖掘，除知识图谱外，还有哪些比较好的风控模型？"><a href="#16、用知识图谱做传统的风控行业，局限性在哪里？利用大数据挖掘，除知识图谱外，还有哪些比较好的风控模型？" class="headerlink" title="16、用知识图谱做传统的风控行业，局限性在哪里？利用大数据挖掘，除知识图谱外，还有哪些比较好的风控模型？"></a>16、用知识图谱做传统的风控行业，局限性在哪里？利用大数据挖掘，除知识图谱外，还有哪些比较好的风控模型？</h1><p>1.知识图谱是一种工具，是一种与关系型数据库相对的数据组织方式，有其擅长的领域，但不能手里拿着锤子，看哪里都是钉子。知识图谱也有不擅长的领域。</p>
-<p>2.除大数据外，基于传统的关系型数据库开发一些机器学习或深度学习模型也可以做到风控。</p>
-<blockquote>
-<p>原文链接：<br><a href="https://mp.weixin.qq.com/s/kAxnYpW16fc-JvwhAA8onA" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/kAxnYpW16fc-JvwhAA8onA</a></p>
-</blockquote>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1662,7 +1741,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">141</span>
+          <span class="site-state-item-count">142</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1675,7 +1754,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">218</span>
+        <span class="site-state-item-count">219</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
