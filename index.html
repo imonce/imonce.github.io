@@ -122,7 +122,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">225</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">145</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,6 +196,572 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/01/rl-blog-final/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/07/01/rl-blog-final/" class="post-title-link" itemprop="url">从 AlphaGo 到 LLM：强化学习的前世今生与大模型时代</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2026-07-01 14:46:47 / Modified: 15:33:03" itemprop="dateCreated datePublished" datetime="2026-07-01T14:46:47+08:00">2026-07-01</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2026/07/01/rl-blog-final/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/01/rl-blog-final/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+          
+          <blockquote>
+<p><strong>摘要：</strong> 强化学习（Reinforcement Learning, RL）从上世纪 50 年代的早期构想，到 AlphaGo 的里程碑式突破，再到如今在大语言模型（LLM）中的全面渗透，走过了一条波澜壮阔的技术演进之路。本文回顾了 RL 的核心发展脉络，并重点聚焦 RL 如何与 LLM 结合——从 RLHF 到 PPO、DPO，再到 GRPO、BRPO 等最新算法，梳理其背后的技术逻辑、演进逻辑与前沿趋势。</p>
+</blockquote>
+<hr>
+<h2 id="一、强化学习：一段简史"><a href="#一、强化学习：一段简史" class="headerlink" title="一、强化学习：一段简史"></a>一、强化学习：一段简史</h2><h3 id="1-1-萌芽与奠基（1950s–1980s）"><a href="#1-1-萌芽与奠基（1950s–1980s）" class="headerlink" title="1.1 萌芽与奠基（1950s–1980s）"></a>1.1 萌芽与奠基（1950s–1980s）</h3><p>强化学习的思想源头可以追溯到行为心理学中的<strong>操作性条件反射</strong>（Skinner, 1938）。20 世纪 50 年代，Arthur Samuel 在跳棋程序中提出了”强化学习”的雏形概念。1951 年，Homer Walker 在哈佛 Mark I 计算机上实现了世界上第一个强化学习代理。</p>
+<p>真正的理论奠基来自 <strong>Richard Bellman</strong> 在 1957 年提出的<strong>动态规划</strong>和<strong>贝尔曼方程</strong>，它为强化学习提供了数学基础——将价值函数定义为即时奖励与未来折扣奖励之和。</p>
+<h3 id="1-2-策略梯度与理论完善（1990s）"><a href="#1-2-策略梯度与理论完善（1990s）" class="headerlink" title="1.2 策略梯度与理论完善（1990s）"></a>1.2 策略梯度与理论完善（1990s）</h3><p>90 年代是 RL 走向算法化的关键时期：</p>
+<ul>
+<li><strong>1989</strong>，Chris Watkins 提出了 <strong>Q-Learning</strong>，一种无需模型（model-free）的时序差分学习方法，通过更新 Q 表来学习最优动作价值函数。该论文随后在 Watkins &amp; Barto（1989）中正式发表，奠定了无模型 RL 的基石。</li>
+<li>1996 年，<strong>SARSA</strong>（State-Action-Reward-State-Action）算法由 McCallum 正式提出，与 Q-Learning 的区别在于它属于 on-policy 方法，学习的是实际执行策略的价值，而非理论最优策略的价值。</li>
+<li><strong>REINFORCE 算法</strong>由 Ronald Williams 于 1992 年正式提出，它是基于策略梯度（Policy Gradient）的蒙特卡洛方法，直接优化策略参数而非通过价值函数间接优化，为后来 LLM 中的偏好优化奠定了理论基础。</li>
+</ul>
+<p>REINFORCE 的核心是<strong>策略梯度定理</strong>：对于策略参数 $\theta$，梯度为</p>
+<p>$$\nabla_\theta J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta} \left[ \sum_{t=0}^{T} \nabla_\theta \log \pi_\theta(a_t | s_t) \cdot Q^{\pi_\theta}(s_t, a_t) \right]$$</p>
+<p>在 LLM 语境中，$s_t$ 对应 prompt + 已生成的前缀 $x, y_{&lt;t}$，$a_t$ 对应下一个 token $y_t$。这个公式告诉我们：如果某个 token 带来了高累计回报，就增加其概率；反之则降低。这与 DPO 中的对数概率比本质上是相通的——都是基于回报信号调整 token 概率。</p>
+<p>这一阶段的 RL 主要应用于小型离散控制问题（如走迷宫、平衡杆），受限于计算能力和状态空间的爆炸性问题。</p>
+<h3 id="1-3-深度学习-×-RL：突破临界点（2013–2016）"><a href="#1-3-深度学习-×-RL：突破临界点（2013–2016）" class="headerlink" title="1.3 深度学习 × RL：突破临界点（2013–2016）"></a>1.3 深度学习 × RL：突破临界点（2013–2016）</h3><p>2013 年，DeepMind 发布了 <strong>DQN（Deep Q-Network）</strong>，将深度神经网络与 Q-Learning 结合，首次实现了从原始像素输入直接学习到 Atari 游戏的玩法规则（Mnih et al., 2013）。这是 RL 历史上第一个真正的里程碑。</p>
+<p>关键创新包括：</p>
+<ul>
+<li><strong>深度神经网络作为函数近似器</strong>，替代了传统的 Q 表</li>
+<li><strong>经验回放（Experience Replay）</strong>：将历史经验存储并随机采样，打破数据间的时序相关性</li>
+<li><strong>目标网络（Target Network）</strong>：固定目标 Q 值一段时间，提升训练稳定性</li>
+</ul>
+<p>2016 年，DeepMind 在 <em>Nature</em> 上发表了 <strong>AlphaGo</strong>（Silver et al., 2016），通过结合蒙特卡洛树搜索（MCTS）与深度策略网络和价值网络，击败了围棋世界冠军李世石。AlphaGo 的成功证明了 RL 在超高复杂度博弈中的能力，也引发了全球范围内的 AI 热潮。</p>
+<hr>
+<h2 id="二、RL-与大语言模型：从-RLHF-到后-RLHF-时代"><a href="#二、RL-与大语言模型：从-RLHF-到后-RLHF-时代" class="headerlink" title="二、RL 与大语言模型：从 RLHF 到后 RLHF 时代"></a>二、RL 与大语言模型：从 RLHF 到后 RLHF 时代</h2><h3 id="2-0-一句话类比：RL-对齐-LLM-到底在干什么？"><a href="#2-0-一句话类比：RL-对齐-LLM-到底在干什么？" class="headerlink" title="2.0 一句话类比：RL 对齐 LLM 到底在干什么？"></a>2.0 一句话类比：RL 对齐 LLM 到底在干什么？</h3><p>如果用一个生活化的比喻来理解 RL 如何对齐 LLM：</p>
+<ul>
+<li><strong>预训练</strong>就像让一个学生读了整座图书馆的书，知识渊博但说话不着边际。</li>
+<li><strong>SFT（监督微调）</strong>就像让老师给他一本”标准答案手册”，教他”好的回答应该长什么样”。</li>
+<li><strong>RL 对齐</strong>就像考试——学生每次写完回答后，老师给他打分（奖励），他根据分数调整自己的写法，最终学会在老师期望的方向上优化。</li>
+</ul>
+<p>RLHF、DPO、GRPO 等一系列算法，本质上都是在回答同一个问题：<strong>老师的”打分”应该怎么做，才能让学生学得好、学得快、学得稳？</strong></p>
+<h3 id="2-1-为什么-LLM-需要-RL？"><a href="#2-1-为什么-LLM-需要-RL？" class="headerlink" title="2.1 为什么 LLM 需要 RL？"></a>2.1 为什么 LLM 需要 RL？</h3><p>大语言模型（如 GPT、LLaMA）基于<strong>自回归的无监督预训练</strong>，擅长模仿训练数据的统计规律，但存在几个关键问题：</p>
+<ol>
+<li><strong>人类偏好对齐缺失</strong>：模型可能生成有害、偏见或不准确的回答</li>
+<li><strong>任务导向能力弱</strong>：在需要多步推理或遵循特定指令的场景下表现不佳</li>
+<li><strong>奖励信号缺失</strong>：预训练只有语言建模损失，没有关于”这个回答好不好”的反馈</li>
+</ol>
+<p>RL 的引入，本质上是为 LLM 提供<strong>基于反馈的学习信号</strong>，让模型学会在人类期望的方向上优化输出。</p>
+<h3 id="2-2-RLHF：人类反馈强化学习（2022）"><a href="#2-2-RLHF：人类反馈强化学习（2022）" class="headerlink" title="2.2 RLHF：人类反馈强化学习（2022）"></a>2.2 RLHF：人类反馈强化学习（2022）</h3><p>2022 年，OpenAI 在论文 <strong>“Training language models to follow instructions with human feedback”</strong> 中正式提出了 <strong>RLHF（Reinforcement Learning from Human Feedback）</strong>，成为 LLM 对齐的标杆方法。</p>
+<p>RLHF 分为三步：</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>内容</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SFT</td>
+<td>监督微调</td>
+<td>用人工标注的高质量对话数据微调 LLM</td>
+</tr>
+<tr>
+<td>RM</td>
+<td>奖励模型训练</td>
+<td>让人类对同一 prompt 的不同回答进行排序，训练一个能给出评分的奖励模型</td>
+</tr>
+<tr>
+<td>RL</td>
+<td>强化学习优化</td>
+<td>以预训练 LLM 为初始策略，用 PPO 算法根据奖励模型的反馈进行优化</td>
+</tr>
+</tbody></table>
+<p><strong>核心公式：</strong></p>
+<p>$$\max_{\pi} \mathbb{E}_{x \sim D, y \sim \pi(\cdot|x)} [r(x,y)] - \beta \cdot D _{KL}(\pi(\cdot|x) | \pi _{ref}(\cdot|x))$$</p>
+<p>其中 $r(x,y)$ 是奖励模型给出的分数，$\beta &gt; 0$ 是超参数，控制对齐强度；$\beta \cdot D_{KL}$ 是 KL 散度惩罚项，防止优化后的策略 $\pi$ 偏离参考模型 $\pi_{ref}$ 太远。</p>
+<p><strong>PPO 的完整计算流程：</strong></p>
+<p>PPO（Proximal Policy Optimization，Schulman et al., 2017）是 RLHF 中实际使用的策略优化算法，其核心是<strong>裁剪代理目标（clipped surrogate objective）</strong>。具体步骤如下：</p>
+<p><strong>步骤 1 — 采样</strong>：对于每个 prompt $x$，从当前策略 $\pi_\theta$ 采样生成回答 $y$。自回归生成过程中，每一步的 token 序列为 $y = (y_1, y_2, \ldots, y_T)$，其概率为</p>
+<p>$$\pi_\theta(y|x) = \prod_{t=1}^{T} \pi_\theta(y_t | x, y_{&lt;t})$$</p>
+<p><strong>步骤 2 — 计算奖励</strong>：用训练好的奖励模型 $r_\phi(x, y)$ 给出生成 $y$ 的标量奖励 $r(x,y)$。同时计算 KL 散度惩罚项（单样本估计）：</p>
+<p>$$d(x,y) = \frac{\pi_\theta(y|x)}{\pi_{ref}(y|x)} - \log \frac{\pi_\theta(y|x)}{\pi_{ref}(y|x)} - 1$$</p>
+<p>这是 KL 散度 $D_{KL}(\pi_\theta(\cdot|x) | \pi_{ref}(\cdot|x))$ 在单样本 $y$ 上的无偏估计（满足 $d(x,y) \geq 0$ 且当 $\pi_\theta = \pi_{ref}$ 时等于 0）。综合奖励为：</p>
+<p>$$r^{\text{combined}}(x, y) = r(x, y) - \beta \cdot d(x,y)$$</p>
+<p><strong>步骤 3 — 优势估计（GAE）</strong>：用价值网络 $V_\psi$ 估计优势函数。采用广义优势估计（GAE, Generalized Advantage Estimation，Schulman et al., 2015）：</p>
+<p>$$\delta _t = r _t + \gamma \cdot V_\psi(s _{t+1}) - V _\psi(s _t)$$</p>
+<p>$$A^{\text{GAE}(\gamma, \lambda)} _t = \sum _{l=0}^{\infty} (\gamma \lambda)^l \cdot \delta _{t+l}$$</p>
+<p>其中 $\gamma \in [0, 1]$ 是折扣因子，$\lambda \in [0, 1]$ 是 GAE 平滑参数。GAE 在偏差和方差之间做权衡：$\lambda = 0$ 退化为单步优势估计（低方差、高偏差），$\lambda = 1$ 为蒙特卡洛优势估计（高方差、低偏差）。</p>
+<p><strong>步骤 4 — PPO 裁剪目标</strong>：设 $r_t(\theta) = \frac{\pi_\theta(y_t | x, y_{&lt;t})}{\pi_{\theta_{\text{old}}}(y_t | x, y_{&lt;t})}$ 为新旧策略的概率比。PPO 的裁剪目标为：</p>
+<p>$$L^{\text{CLIP}}(\theta) = \mathbb{E}_t \left[ \min\left( r_t(\theta) \cdot A_t, ; \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon) \cdot A_t \right) \right]$$</p>
+<p>其中 $\epsilon$ 是裁剪超参数（通常取 0.2）。当优势 $A_t &gt; 0$ 时，裁剪上限防止策略更新过快；当 $A_t &lt; 0$ 时，裁剪下限防止策略过度远离旧策略。</p>
+<p><strong>步骤 5 — 总损失</strong>：</p>
+<p>$$\mathcal{L}(\theta) = \mathbb{E}_t \left[ -L^{\text{CLIP}}(\theta) - c_1 \cdot \mathcal{L}_{\text{VF}}(\theta) + c_2 \cdot S[\pi_\theta] (x) \right]$$</p>
+<p>其中 $\mathcal{L} _{\text{VF}} = |r _t \cdot A _t - V _\psi(s _t)|^2$ 是价值函数的 MSE 损失（ $c_1$ 为权重系数），$S[\pi _\theta] (x) = \mathbb{E} _{y \sim \pi _\theta(\cdot|x)} [-\log \pi _\theta(y|x)]$ 是策略的熵（ $c _2$ 为权重系数，鼓励探索）， $c _1, c _2$ 是超参数。注意最小化损失等价于最大化 PPO 目标（因此在 $L^{\text{CLIP}}$ 前加负号）。</p>
+<p><strong>优点：</strong> 能显著改善模型的对齐质量和指令遵循能力。</p>
+<p><strong>痛点：</strong></p>
+<ul>
+<li>训练流程极长（三步串行，每步都要单独训练和评估）</li>
+<li>PPO 算法在 LLM 上训练不稳定，需要精细调参（包括学习率、裁剪参数、价值网络超参数等）</li>
+<li>奖励模型可能存在偏差（reward hacking / reward mis-specification）</li>
+<li>需要额外维护价值网络（critic）和奖励模型（reward model），显存和计算开销大</li>
+</ul>
+<h3 id="2-3-从-RLHF-到-DPO：直接偏好优化（2023）"><a href="#2-3-从-RLHF-到-DPO：直接偏好优化（2023）" class="headerlink" title="2.3 从 RLHF 到 DPO：直接偏好优化（2023）"></a>2.3 从 RLHF 到 DPO：直接偏好优化（2023）</h3><p>2023 年，Stanford 的 <strong>DPO（Direct Preference Optimization）</strong> 论文（Rafailov et al., 2023）提出了一个关键洞察：<strong>不需要显式的奖励模型和 PPO 训练</strong>。</p>
+<p>DPO 的核心思想是将 RLHF 中的最优性条件反向求解出来，得到一个解析解形式的偏好优化目标。简单来说，给定一对回答 $(y_w, y_l)$（一个被偏好，一个被拒绝），DPO 直接最大化：</p>
+<p>$$\mathcal{L} _{\text{DPO}}(\pi _\theta; \pi _{\text{ref}}) = -\mathbb{E} _{(x, y _w, y _l) \sim \mathcal{D}} \left[ \log \sigma \left( \beta \log \frac{\pi _\theta(y _w|x)}{\pi _{\text{ref}}(y _w|x)} - \beta \log \frac{\pi _\theta(y _l|x)}{\pi _{\text{ref}}(y _l|x)} \right) \right]$$</p>
+<p><strong>DPO 公式的推导逻辑：</strong></p>
+<p>DPO 的精妙之处在于从 RLHF 的优化目标反向求解。在 RLHF 的 KL 约束优化框架下，最优策略的解析解为：</p>
+<p>$$\pi^*(y|x) = \frac{1}{Z(x)} \pi_{ref}(y|x) \exp\left(\frac{r^*(x,y)}{\beta}\right)$$</p>
+<p>其中 $Z(x) = \sum_y \pi_{ref}(y|x) \exp\left(\frac{r^*(x,y)}{\beta}\right)$ 是归一化常数（配分函数）。反过来，最优奖励可以表示为：</p>
+<p>$$r^*(x,y) = \beta \log \frac{\pi^*(y|x)}{\pi_{ref}(y|x)} + \beta \cdot \log Z(x)$$</p>
+<p>注意到 $Z(x)$ 与 $y$ 无关，在偏好对比中会被消去。将 $r^*$ 代入 DPO 的偏好损失（即最大化偏好回答的奖励减去拒绝回答的奖励），就得到了上面的损失函数。</p>
+<p><strong>DPO 的完整计算过程：</strong></p>
+<ol>
+<li><strong>输入</strong>：偏好对数据 $(x, y_w, y_l)$，其中 $y_w$ 是被偏好的回答，$y_l$ 是被拒绝的回答，数据集记为 $\mathcal{D}$</li>
+<li><strong>计算对数概率比</strong>：对每个偏好对，分别计算偏好回答和拒绝回答相对于参考模型的对数概率比：</li>
+</ol>
+<p>$$\Delta(x, y_w, y_l) = \log \frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \log \frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)}$$</p>
+<p>其中自回归的对数概率为 $\log \pi_\theta(y|x) = \sum_{t=1}^{T} \log \pi_\theta(y_t | x, y_{&lt;t})$，$T$ 为回答长度。<br>3. <strong>Sigmoid 映射与损失</strong>：将 $\beta \cdot \Delta$ 输入 sigmoid 函数，得到偏好概率：</p>
+<p>$$\sigma(\beta \cdot \Delta) = \frac{1}{1 + \exp(-\beta \cdot \Delta)}$$</p>
+<p>当 $\Delta &gt; 0$ 时，说明偏好回答的对数概率比大于拒绝回答，$\sigma(\beta \cdot \Delta) &gt; 0.5$，损失 $-\log \sigma(\beta \cdot \Delta)$ 较小；反之损失较大。<br>4. <strong>梯度更新</strong>：</p>
+<p>$$\nabla_\theta \mathcal{L}_{\text{DPO}} = -\beta \cdot \left(1 - \sigma(\beta \cdot \Delta)\right) \cdot \nabla_\theta \Delta$$</p>
+<p>当 $\Delta$ 很小（模型难以区分偏好和拒绝）时，$1 - \sigma \approx 0.5$，梯度较大，推动模型加大区分；当 $\Delta$ 很大（模型已能很好地区分）时，$1 - \sigma \approx 0$，梯度趋近于零，自动停止更新。</p>
+<p><strong>意义：</strong> DPO 将三步流程压缩为一步（直接用偏好数据微调），训练更简单、更稳定，且效果与 RLHF 相当甚至更好。</p>
+<p>DPO 引发了后续一系列<strong>偏好优化算法</strong>的爆发，以下逐一介绍其公式细节：</p>
+<h4 id="IPO：Identity-Preference-Optimization"><a href="#IPO：Identity-Preference-Optimization" class="headerlink" title="IPO：Identity Preference Optimization"></a>IPO：Identity Preference Optimization</h4><p>IPO（Wang et al., 2023）的核心洞察是：DPO 损失本质上是希望 $\Delta = \log \frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \log \frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)}$ 为正，而 DPO 用 sigmoid 将其映射到 (0,1)。IPO 直接对这个差值做平方损失：</p>
+<p>$$\mathcal{L}_{\text{IPO}}(\theta) = \mathbb{E} \left[ \left( \frac{1}{2} - \beta \cdot \Delta(x, y_w, y_l) \right)^2 \right]$$</p>
+<p>IPO 对标签噪声（即偏好标注错误的情况）比 DPO 更鲁棒，因为平方损失对极端值的敏感度低于交叉熵。</p>
+<h4 id="KTO：Kahneman-Tversky-Optimization"><a href="#KTO：Kahneman-Tversky-Optimization" class="headerlink" title="KTO：Kahneman-Tversky Optimization"></a>KTO：Kahneman-Tversky Optimization</h4><p>KTO（Ethayarajh et al., 2024）基于前景理论（Prospect Theory），为每个回答分配一个”期望效用”而非依赖成对比较。给定一个目标偏好分数 $r_{\text{target}}$（通常取 0.5），KTO 的损失为：</p>
+<p>$$\mathcal{L} _{\text{KTO}}(\theta) = \mathbb{E} _{(x,y,w) \sim \mathcal{D}} \left[ \begin{array}{l} w \cdot \max\left(0, -\log \sigma(\beta \cdot \log \frac{\pi _\theta(y|x)}{\pi _{ref}(y|x)} - r _{\text{target}})\right) \ + (1-w) \cdot \max\left(0, -\log \sigma(\beta \cdot \log \frac{\pi _{ref}(y|x)}{\pi _\theta(y|x)} + r _{\text{target}})\right) \end{array} \right]$$</p>
+<p>其中 $w \in {0, 1}$ 表示该回答是否被偏好。KTO 不需要成对的偏好数据，每个样本独立优化。</p>
+<h4 id="ORPO：Odds-Ratio-Preference-Optimization"><a href="#ORPO：Odds-Ratio-Preference-Optimization" class="headerlink" title="ORPO：Odds-Ratio Preference Optimization"></a>ORPO：Odds-Ratio Preference Optimization</h4><p>ORPO 将 SFT 的交叉熵损失和 DPO 的偏好损失合并为单步：</p>
+<p>$$\mathcal{L} _{\text{ORPO}}(\theta) = -\mathbb{E} \left[ \log \sigma\left( \beta \cdot \log \frac{\pi _\theta(y _w|x)}{\pi _\theta(y _l|x)} \cdot \frac{\pi _{ref}(y _l|x)}{\pi _{ref}(y _w|x)} \right) \right] - \lambda \cdot \mathcal{L} _{\text{SFT}}(\theta)$$</p>
+<p>其中第二项是标准 SFT 损失（最大化偏好回答的似然，即负对数似然）。ORPO 将偏好比值 $\frac{\pi_\theta(y_w|x)}{\pi_\theta(y_l|x)}$ 与参考模型的比值 $\frac{\pi_{ref}(y_l|x)}{\pi_{ref}(y_w|x)}$ 做对比，本质上是在 SFT 的同时做偏好优化。</p>
+<h4 id="SimPO：Simple-Preference-Optimization"><a href="#SimPO：Simple-Preference-Optimization" class="headerlink" title="SimPO：Simple Preference Optimization"></a>SimPO：Simple Preference Optimization</h4><p>SimPO（Tian et al., 2024）的洞察是：不需要 KL 散度到参考模型，直接用序列的 log-prob 差作为奖励信号：</p>
+<p>$$\mathcal{L}_{\text{SimPO}}(\theta) = -\mathbb{E} \left[ \log \sigma\left( \frac{\beta}{|y_w|} \log \pi_\theta(y_w|x) - \frac{\beta}{|y_l|} \log \pi_\theta(y_l|x) - \gamma \right) \right]$$</p>
+<p>其中 $|y_w|$、$|y_l|$ 分别是回答 $y_w$、$y_l$ 的 token 数（即序列长度），$\gamma$ 是目标 margin 超参数。SimPO 通过长度归一化消除了长度偏好问题，且不需要参考模型 $\pi_{ref}$。</p>
+<h4 id="CPO：Contrastive-Preference-Optimization"><a href="#CPO：Contrastive-Preference-Optimization" class="headerlink" title="CPO：Contrastive Preference Optimization"></a>CPO：Contrastive Preference Optimization</h4><p>CPO 关注正负样本之间的相对距离，使用对比式损失（InfoNCE 风格）。设对于每个 prompt $x$，有一个偏好回答 $y_w$ 和 $K$ 个拒绝回答 $y_1, \ldots, y_K$。定义每个回答的”偏好分数”为 $s(y) = \beta \cdot \log \frac{\pi_\theta(y|x)}{\pi_{ref}(y|x)}$，则 CPO 损失为：</p>
+<p>$$\mathcal{L}_{\text{CPO}}(\theta) = -\mathbb{E} \left[ \log \frac{\exp(s(y_w))}{\sum_{j=0}^{K} \exp(s(y_j))} \right]$$</p>
+<p>其中 $y_0 = y_w$，$y_1, \ldots, y_K$ 为拒绝回答。CPO 将偏好优化视为一个 $K+1$ 类的对比分类问题（InfoNCE 风格）。</p>
+<p>这些算法的共同特点是<strong>去掉了 PPO 训练环节</strong>，将 RL 问题转化为一个监督学习问题。</p>
+<h3 id="2-4-GRPO：组相对策略优化（2024）"><a href="#2-4-GRPO：组相对策略优化（2024）" class="headerlink" title="2.4 GRPO：组相对策略优化（2024）"></a>2.4 GRPO：组相对策略优化（2024）</h3><p>2024 年 11 月，来自 DeepSeek 的 <strong>GRPO（Group Relative Policy Optimization）</strong> 论文（DeepSeek-AI et al., 2024）引起了广泛关注。GRPO 的核心创新在于<strong>用组内相对排名替代了价值网络（critic）</strong>。</p>
+<p><strong>GRPO 的关键设计：</strong></p>
+<ol>
+<li><p><strong>去掉 Critic 模型</strong>：传统 PPO 需要单独训练一个价值函数模型来估计状态价值。GRPO 通过让 LLM 为同一个 prompt 生成多个回答（一个 group），然后用组内的相对奖励（group reward）来计算优势函数（advantage）。</p>
+</li>
+<li><p><strong>组内归一化</strong>：对于一个 prompt 生成的 $G$ 个回答，先计算每个回答的奖励 $r_1, r_2, \ldots, r_G$，然后做组内归一化：</p>
+</li>
+</ol>
+<p>$$\hat{A} _i = \frac{r _i - \text{mean}({r _j} _{j=1}^G)}{\text{std}({r _j} _{j=1}^G)}$$</p>
+<ol start="3">
+<li><strong>简化训练流程</strong>：不需要额外的奖励模型和价值模型，只需要一个基础模型就能完成整个 RL 训练。</li>
+</ol>
+<p><strong>GRPO 的完整计算过程：</strong></p>
+<p>设对于 $N$ 个 prompt ${x_1, x_2, \ldots, x_N}$，当前策略 $\pi_\theta$ 为每个 prompt 生成 $G$ 个回答。</p>
+<p><strong>步骤 1 — 组内采样</strong>：对每个 prompt $x_i$，从 $\pi_\theta$ 采样 $G$ 个回答：</p>
+<p>$${y_{i,1}, y_{i,2}, \ldots, y_{i,G}} \sim \pi_\theta(\cdot|x_i)$$</p>
+<p><strong>步骤 2 — 计算每个回答的奖励</strong>：</p>
+<ul>
+<li>对于可验证任务（数学、代码）：使用精确奖励，正确答案为 1，错误为 0：</li>
+</ul>
+<p>$$r_{i,j} = \mathbb{I}(\text{verify}(y_{i,j}) = \text{true})$$</p>
+<ul>
+<li>对于不可验证任务：使用奖励模型 $r_\phi(x_i, y_{i,j})$ 给出标量评分。</li>
+</ul>
+<p><strong>步骤 3 — 组内优势估计</strong>：计算组内奖励的均值和标准差，然后归一化得到优势：</p>
+<p>$$\hat{A} _{i,j} = \frac{r _{i,j} - \mu _i}{\sigma _i + \epsilon}$$</p>
+<p>其中 $\mu_i = \frac{1}{G}\sum_{k=1}^{G} r_{i,k}$，$\sigma_i = \sqrt{\frac{1}{G}\sum_{k=1}^{G}(r_{i,k} - \mu_i)^2 + \epsilon}$，$\epsilon$ 为数值稳定性项（通常取 $10^{-8}$）。</p>
+<p><strong>步骤 4 — GRPO 裁剪目标</strong>：与 PPO 类似，使用裁剪策略目标，但优势函数用组内归一化的 $\hat{A}_{i,j}$ 替代：</p>
+<p>$$L^{\text{GRPO}}(\theta) = \frac{1}{NG} \sum _{i=1}^{N} \sum _{j=1}^{G} \min\left( \frac{\pi _\theta(y _{i,j}|x _i)}{\pi _{\theta _{\text{old}}}(y _{i,j}|x _i)} \cdot \hat{A} _{i,j}, ; \text{clip}\left(\frac{\pi _\theta(y _{i,j}|x _i)}{\pi _{\theta _{\text{old}}}(y _{i,j}|x _i)}, 1-\epsilon, 1+\epsilon\right) \cdot \hat{A} _{i,j} \right)$$</p>
+<p><strong>步骤 5 — KL 惩罚项</strong>：为防止策略偏离参考模型太远，加入 KL 惩罚：</p>
+<p>$$\mathcal{L} _{\text{GRPO}}(\theta) = L^{\text{GRPO}}(\theta) + \lambda \cdot \frac{1}{NG} \sum _{i=1}^{N} \sum _{j=1}^{G} D _{KL}(\pi _\theta(\cdot|x _i) | \pi _{ref}(\cdot|x _i))$$</p>
+<p><strong>步骤 6 — 梯度更新</strong>：对总损失进行反向传播更新策略参数 $\theta$。</p>
+<p><strong>与 PPO 的关键差异：</strong></p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>PPO (RLHF)</th>
+<th>GRPO</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>优势估计</td>
+<td>需要价值网络 $V_\psi$ 用 GAE 计算</td>
+<td>组内奖励归一化，无需价值网络</td>
+</tr>
+<tr>
+<td>奖励模型</td>
+<td>需要单独训练的 $r_\phi$</td>
+<td>可省略（可验证任务用精确奖励）或复用基础模型</td>
+</tr>
+<tr>
+<td>Critic 模型</td>
+<td>需要，额外参数开销</td>
+<td>不需要</td>
+</tr>
+<tr>
+<td>采样策略</td>
+<td>每个 prompt 采样 1 个回答</td>
+<td>每个 prompt 采样 $G$ 个回答（$G$ 通常为 4–8）</td>
+</tr>
+</tbody></table>
+<p><strong>GRPO 的优势：</strong></p>
+<ul>
+<li><strong>训练效率更高</strong>：省去了奖励模型训练和 PPO 中 critic 的更新</li>
+<li><strong>显存占用更低</strong>：不需要存储 critic 模型的参数</li>
+<li><strong>实现更简洁</strong>：整个流程可以集成在一个训练循环中</li>
+<li><strong>组内相对比较更鲁棒</strong>：组内归一化天然消除了不同 prompt 之间奖励尺度的差异</li>
+</ul>
+<h3 id="2-5-BRPO：引导式相对策略优化（2025）"><a href="#2-5-BRPO：引导式相对策略优化（2025）" class="headerlink" title="2.5 BRPO：引导式相对策略优化（2025）"></a>2.5 BRPO：引导式相对策略优化（2025）</h3><p>2025 年 6 月，<strong>Writing-Zero</strong> 论文（Jia et al., arXiv: 2506.00103）提出了 <strong>BRPO（Bootstrapped Relative Policy Optimization）</strong>，专门解决 RLVR 在<strong>非可验证任务</strong>（如创意写作、开放对话）中的困境。</p>
+<p><strong>背景问题：</strong> RLVR 在数学推理、代码生成等可验证任务上取得了巨大成功，但在创意写作等主观评价任务上，传统的标量奖励模型（scalar reward model）存在明显缺陷：泛化能力差、容易 reward hacking（过度解释、长度偏好等）。</p>
+<p><strong>BRPO 的核心设计：</strong></p>
+<ol>
+<li><p><strong>生成式奖励模型（GenRM）：</strong> 不使用标量评分，而是训练一个 pair-wise 的生成式奖励模型，基于写作原则进行自我批判式评估（self-principled critique），将主观判断转化为可验证的奖励信号。</p>
+</li>
+<li><p><strong>Bootstrapped 引导机制：</strong> BRPO 在训练过程中，从同组 rollout 中动态采样一个引导响应（bootstrapped response）作为临时参考，实现<strong>动态、无参考的成对比较（dynamic reference-free pairwise comparison）</strong>。这与 GRPO 的组内归一化思想一脉相承，但引入了 bootstrapped 参考的概念。</p>
+</li>
+</ol>
+<p><strong>BRPO 的关键创新：</strong></p>
+<ul>
+<li><strong>无需监督微调（SFT-free）：</strong> 直接在预训练模型上训练写作能力</li>
+<li><strong>强抗 reward hacking：</strong> 通过 pair-wise 比较而非标量评分，避免模型迎合单一奖励维度</li>
+<li><strong>统一 RLVR 范式：</strong> 尝试将基于规则、基于参考和基于无参考的奖励建模统一到 RLVR 框架下</li>
+</ul>
+<p><strong>BRPO 的完整计算过程：</strong></p>
+<p>设对于 $N$ 个 prompt ${x_1, x_2, \ldots, x_N}$，当前策略 $\pi_\theta$ 为每个 prompt 生成 $G$ 个回答 ${y_1, y_2, \ldots, y_G}$。</p>
+<p><strong>步骤 1 — 组内采样</strong>：同 GRPO，对每个 prompt $x_i$ 采样 $G$ 个回答。</p>
+<p><strong>步骤 2 — 生成式奖励（GenRM）评估</strong>：训练一个 pair-wise 的生成式奖励模型 $M_{\text{GenRM}}$，对每对回答 $(y_a, y_b)$ 进行自我批判式评估。模型基于写作原则（如结构、连贯性、创意性）输出比较结果而非标量评分：</p>
+<p>$$\text{critique} _{a \to b} = M _{\text{GenRM}}(x, y _a, y _b)$$</p>
+<p>该 critique 是一个自然语言文本，解释为什么 $y_a$ 优于 $y_b$（或反之）。这种 pair-wise 比较避免了标量评分的单一维度问题。</p>
+<p><strong>步骤 3 — Bootstrapped 引导采样</strong>：从同组 rollout 中动态采样一个引导响应 $y_{\text{boot}}$ 作为临时参考。具体而言，从组内 ${y_1, \ldots, y_G}$ 中按概率分布 $p_j \propto \exp(\text{critique}(y_j))$ 采样：</p>
+<p>$$y_{\text{boot}} \sim p_{\text{boot}} = \text{Softmax}\left(\frac{\text{critique}(y_1), \ldots, \text{critique}(y_G)}{\tau}\right)$$</p>
+<p>其中 $\tau$ 是温度参数，控制采样的”锐度”。</p>
+<p><strong>步骤 4 — 动态参考比较</strong>：将当前回答 $y_j$ 与 bootstrapped 参考 $y_{\text{boot}}$ 进行成对比较，得到成对优势：</p>
+<p>$$\hat{A} _{i,j} = \text{critique} _{y _{i,j} \to y _{i,\text{boot}}} - \text{critique} _{y _{i,\text{boot}} \to y _{i,j}}$$</p>
+<p>这种对称的成对比较消除了单个 critic 的主观偏差。</p>
+<p><strong>步骤 5 — BRPO 策略更新</strong>：与 GRPO 类似，使用裁剪策略目标，但优势函数用 bootstrapped 成对比较的 $\hat{A}_{i,j}$ 替代：</p>
+<p>$$\mathcal{L} _{\text{BRPO}}(\theta) = L^{\text{clip}}(\theta; \hat{A}) + \lambda \cdot D _{KL}(\pi _{ref} | \pi _\theta)$$</p>
+<p><strong>与 GRPO 的核心差异：</strong></p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>GRPO</th>
+<th>BRPO</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>奖励形式</td>
+<td>标量奖励 $r \in \mathbb{R}$</td>
+<td>生成式 critique 文本</td>
+</tr>
+<tr>
+<td>优势估计</td>
+<td>组内归一化 $\frac{r_i - \mu}{\sigma}$</td>
+<td>bootstrapped 成对比较</td>
+</tr>
+<tr>
+<td>参考模型</td>
+<td>不需要（除 KL 惩罚项）</td>
+<td>动态 bootstrapped 采样作为参考</td>
+</tr>
+<tr>
+<td>适用任务</td>
+<td>可验证任务（数学、代码）</td>
+<td>非可验证任务（写作、对话）</td>
+</tr>
+<tr>
+<td>SFT 依赖</td>
+<td>通常需要 SFT 初始化</td>
+<td>SFT-free，可直接从预训练模型开始</td>
+</tr>
+</tbody></table>
+<p><strong>BRPO 与 GRPO 的关系：</strong><br>BRPO 和 GRPO 都属于「去 critic」的轻量级偏好优化路线，但侧重点不同：GRPO 侧重于推理类可验证任务中的高效训练，BRPO 侧重于主观任务中如何用生成式奖励和 bootstrapped 参考来克服奖励模型的局限性。两者在技术思路上有相通之处（组内比较、动态参考），可以看作是同一方向上的不同分支。</p>
+<h3 id="2-6-GRPO-的变体与延伸（2024–2025）"><a href="#2-6-GRPO-的变体与延伸（2024–2025）" class="headerlink" title="2.6 GRPO 的变体与延伸（2024–2025）"></a>2.6 GRPO 的变体与延伸（2024–2025）</h3><p>GRPO 提出后，迅速催生了多个改进版本。</p>
+<table>
+<thead>
+<tr>
+<th>算法</th>
+<th>全称</th>
+<th>改进点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>GRPO</strong></td>
+<td>Group Relative Policy Optimization</td>
+<td>组内相对优势，去 critic</td>
+</tr>
+<tr>
+<td><strong>Dr. GRPO</strong></td>
+<td>Diverse Reward GRPO</td>
+<td>引入多样性奖励，鼓励生成多样化的高质量回答</td>
+</tr>
+<tr>
+<td><strong>RLVR</strong></td>
+<td>Reinforcement Learning with Verifiable Rewards</td>
+<td>针对数学推理，使用可验证的正确答案作为奖励信号</td>
+</tr>
+<tr>
+<td><strong>RLOO</strong></td>
+<td>Reinforcement Learning with Leave-One-Out</td>
+<td>改进 GRPO 的优势估计，用 leave-one-out 方式计算</td>
+</tr>
+<tr>
+<td><strong>BRPO</strong></td>
+<td>Bootstrapped Relative Policy Optimization</td>
+<td>引导式相对策略优化，用于非可验证任务（Writing-Zero, 2025）</td>
+</tr>
+<tr>
+<td><strong>PPO-Ref</strong></td>
+<td>PPO with Reference Model</td>
+<td>保留 PPO 框架但优化了参考模型的策略</td>
+</tr>
+<tr>
+<td><strong>DPO++</strong></td>
+<td>DPO Enhanced</td>
+<td>在 DPO 基础上引入更多负样本和对比机制</td>
+</tr>
+<tr>
+<td><strong>REINFORCE++</strong></td>
+<td>—</td>
+<td>将 REINFORCE 算法引入 LLM 对齐，探索梯度估计的改进</td>
+</tr>
+<tr>
+<td><strong>SLiC / SLiF</strong></td>
+<td>Sequence Likelihood Calibration / Finetuning</td>
+<td>通过校准序列似然来对齐偏好</td>
+</tr>
+</tbody></table>
+<p><strong>RLOO 的公式细节：</strong></p>
+<p>RLOO（Zhao et al., 2024）的核心改进是替代 GRPO 的组内归一化优势估计。在 GRPO 中，$\hat{A} _{i,j} = \frac{r _{i,j} - \mu _i}{\sigma _i}$ 中每个样本 $j$ 都参与了均值和方差的计算，因此优势估计中混入了自身信息。RLOO 采用 leave-one-out 方式，将样本 $j$ 自身排除在统计量计算之外：</p>
+<p>$$\hat{A}^{\text{RLOO}} _{i,j} = \frac{r _{i,j} - \frac{1}{G-1}\sum _{k \neq j} r _{i,k}}{\sqrt{\frac{1}{G-1}\sum _{k \neq j}(r _{i,k} - \bar{r} _{i}^{\neg j})^2 + \epsilon}}$$</p>
+<p>其中 $\bar{r} _{i}^{\neg j} = \frac{1}{G-1}\sum _{k \neq j} r _{i,k}$ 是排除样本 $j$ 后的组内均值。RLOO 的优势估计更”无偏”，因为每个样本的优势只依赖其他样本的信息。</p>
+<p><strong>Dr. GRPO 的核心思想：</strong></p>
+<p>Dr. GRPO 在 GRPO 的奖励中加入多样性项。除了原始奖励 $r_{i,j}$，额外计算组内回答的多样性惩罚/奖励：</p>
+<p>$$r^{\text{Dr}} _{i,j} = r _{i,j} + \lambda _{\text{div}} \cdot \frac{1}{G-1} \sum _{k \neq j} \text{diversity}(y _{i,j}, y _{i,k})$$</p>
+<p>其中 $\text{diversity}(y_a, y_b)$ 可以基于 NLSD（Normalized Longest Common Substring Distance）等文本相似度指标计算。这鼓励模型在同一 prompt 下探索多样化的推理路径，避免多回答退化到同一个模式。</p>
+<p>此外还有一些值得关注的方向：<strong>BPO（Budget Preference Optimization）</strong>，在偏好优化中引入计算预算约束，在推理质量和效率之间做权衡；以及 <strong>RLAIF（Reinforcement Learning from AI Feedback）</strong>，用 AI 生成的反馈替代人类标注，大幅降低对齐成本。</p>
+<h3 id="2-7-当前前沿：RL-for-大模型科研"><a href="#2-7-当前前沿：RL-for-大模型科研" class="headerlink" title="2.7 当前前沿：RL for 大模型科研"></a>2.7 当前前沿：RL for 大模型科研</h3><p>2024 年底到 2025 年，RL 在 LLM 中的应用进入了一个新阶段。几个关键趋势：</p>
+<p><strong>（1）RL for Science（科学发现）</strong></p>
+<p>研究人员正在用 RL 驱动 LLM 在科学发现中扮演主动角色——不是让 LLM 回答问题，而是让 LLM 作为<strong>科研代理</strong>，通过”提出假设 → 设计实验 → 分析结果 → 修正假设”的闭环，自主推进科学研究。</p>
+<p><strong>（2）推理能力的 RL 增强</strong></p>
+<p>DeepSeek-R1 和 QwQ 等模型的突破性成果，很大程度上归功于 RL 对推理能力的增强。通过 GRPO 等算法，让模型在数学推理、代码生成等任务上学会”思考过程”的优化，而不仅仅是”答案的正确性”。</p>
+<p><strong>（3）多智能体 RL</strong></p>
+<p>将 LLM 作为多智能体系统中的一个 agent，通过 RL 让多个模型之间协作、竞争、协商，完成更复杂的任务。这在自动化测试、软件工程和仿真系统中展现出巨大潜力。</p>
+<p><strong>（4）RL 与 RAG 的结合</strong></p>
+<p>检索增强生成（RAG）与 RL 的结合——用 RL 优化检索策略、重排算法和最终的答案生成，使系统在信息检索和生成之间形成端到端的优化闭环。</p>
+<hr>
+<h2 id="三、技术对比：主流偏好优化算法一览"><a href="#三、技术对比：主流偏好优化算法一览" class="headerlink" title="三、技术对比：主流偏好优化算法一览"></a>三、技术对比：主流偏好优化算法一览</h2><p>偏好优化算法的设计在多个维度上存在权衡。下表从算法所需的<strong>外部模型</strong>、<strong>训练范式</strong>、<strong>数据需求</strong>和<strong>适用场景</strong>四个维度进行对比，帮助读者理解不同算法的定位和取舍。</p>
+<table>
+<thead>
+<tr>
+<th>算法</th>
+<th align="center">需训练奖励模型？</th>
+<th align="center">需训练价值模型？</th>
+<th align="center">优化范式</th>
+<th align="center">训练步骤</th>
+<th align="center">数据需求</th>
+<th align="center">适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>RLHF (PPO)</strong></td>
+<td align="center">✅ 需要</td>
+<td align="center">✅ 需要</td>
+<td align="center">策略梯度</td>
+<td align="center">3 步（SFT→RM→RL）</td>
+<td align="center">偏好排序（多选项排序）</td>
+<td align="center">通用对话、指令遵循，需要精细对齐的场景</td>
+</tr>
+<tr>
+<td><strong>DPO</strong></td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">直接偏好优化</td>
+<td align="center">1 步（SFT 后微调）</td>
+<td align="center">偏好对（$y_w, y_l$）</td>
+<td align="center">通用偏好对齐，标注数据充足</td>
+</tr>
+<tr>
+<td><strong>IPO</strong></td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">平方损失偏好优化</td>
+<td align="center">1 步（SFT 后微调）</td>
+<td align="center">偏好对</td>
+<td align="center">偏好对含标签噪声的场景</td>
+</tr>
+<tr>
+<td><strong>KTO</strong></td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">直接偏好优化</td>
+<td align="center">1 步（SFT 后微调）</td>
+<td align="center">独立样本 + 效用标签（无需成对）</td>
+<td align="center">无偏好对标注、仅有独立评分的场景</td>
+</tr>
+<tr>
+<td><strong>ORPO</strong></td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">SFT + 偏好联合优化</td>
+<td align="center">1 步（端到端）</td>
+<td align="center">偏好对</td>
+<td align="center">需要兼顾生成质量与偏好对齐</td>
+</tr>
+<tr>
+<td><strong>SimPO</strong></td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">log-prob 差直接优化</td>
+<td align="center">1 步（SFT 后微调）</td>
+<td align="center">偏好对</td>
+<td align="center">需消除长度偏好的场景</td>
+</tr>
+<tr>
+<td><strong>CPO</strong></td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">对比式偏好优化</td>
+<td align="center">1 步（SFT 后微调）</td>
+<td align="center">偏好对 + 多个负样本</td>
+<td align="center">多负样本对比场景</td>
+</tr>
+<tr>
+<td><strong>GRPO</strong></td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">PPO 裁剪策略（去 critic）</td>
+<td align="center">1 步（可直接预训练后训练）</td>
+<td align="center">无需偏好标注，仅需可验证奖励</td>
+<td align="center">可验证任务（数学推理、代码生成）</td>
+</tr>
+<tr>
+<td><strong>RLOO</strong></td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">PPO 裁剪策略（去 critic）</td>
+<td align="center">1 步</td>
+<td align="center">无需偏好标注，仅需可验证奖励</td>
+<td align="center">需无偏优势估计的可验证任务</td>
+</tr>
+<tr>
+<td><strong>BRPO</strong></td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">PPO 裁剪策略（去 critic）</td>
+<td align="center">1 步（SFT-free）</td>
+<td align="center">无需偏好标注，仅需 GenRM 成对比较</td>
+<td align="center">非可验证任务（写作、对话）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>维度说明：</strong></p>
+<ul>
+<li><strong>需训练奖励模型</strong>：算法是否在训练过程中需要单独训练一个奖励模型（Reward Model）</li>
+<li><strong>需训练价值模型</strong>：算法是否需要单独训练一个价值网络（Critic / Value Network）</li>
+<li><strong>优化范式</strong>：算法采用的优化策略类型</li>
+<li><strong>训练步骤</strong>：从预训练/SFT 到最终模型需要经历的训练阶段数</li>
+<li><strong>数据需求</strong>：算法训练所需的标注数据类型（偏好标注 vs 可验证奖励 vs 独立评分）</li>
+<li><strong>适用场景</strong>：算法最适合的任务类型</li>
+</ul>
+<p>总体而言，<strong>RLHF (PPO)</strong> 在通用对齐任务上效果最成熟但复杂度最高；<strong>DPO 系列</strong>（DPO / IPO / KTO / ORPO / SimPO / CPO）通过简化训练流程降低了门槛，但依赖偏好标注数据；<strong>RL 衍生系列</strong>（GRPO / RLOO / BRPO）则完全免除了偏好标注需求，通过组内比较或生成式奖励实现对齐，但各有特定的适用场景。</p>
+</blockquote>
+<hr>
+<h2 id="四、总结与展望"><a href="#四、总结与展望" class="headerlink" title="四、总结与展望"></a>四、总结与展望</h2><p>强化学习从 AlphaGo 到 GRPO 的演进，本质上反映了 AI 研究的一个趋势：**从”用复杂系统解决复杂问题”走向”用更简洁的机制实现相同甚至更好的效果”**。</p>
+<p>RLHF 用三步流程证明了 LLM 对齐的可行性，DPO 用一步优化证明了它更简洁，而 GRPO 进一步去掉了价值模型，让 RL 训练真正变得轻量化和高效化。</p>
+<p>展望未来，随着 RL 技术的持续演进，我们可能会看到：</p>
+<ul>
+<li><strong>RL 成为 LLM 训练的标配环节</strong>，如同预训练和 SFT 一样自然</li>
+<li><strong>RL 与 Agent 框架深度融合</strong>，让大模型具备自主决策和行动能力</li>
+<li><strong>RL for Science 的范式创新</strong>，推动科学发现的自动化和加速化</li>
+<li><strong>多模态 RL</strong>，在视觉、语音、文本等多模态场景下实现对齐和优化</li>
+</ul>
+<p>从 AlphaGo 的棋盘到 LLM 的文本，从离散的动作空间到连续的语义空间，强化学习正在重新定义 AI 的能力边界。而这一切，才刚刚开始。</p>
+<hr>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li>Mnih, V. et al. “Human-level control through deep reinforcement learning.” <em>Nature</em> <strong>518</strong>, 529–533 (2015).</li>
+<li>Silver, D. et al. “Mastering the game of Go with deep neural networks and tree search.” <em>Nature</em> <strong>529</strong>, 484–489 (2016).</li>
+<li>Ouyang, L. et al. “Training language models to follow instructions with human feedback.” <em>NeurIPS</em> 2022.</li>
+<li>Rafailov, R. et al. “Direct preference optimization: Your language model is secretly a reward model.” <em>NeurIPS</em> 2023.</li>
+<li>DeepSeek-AI et al. “DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via RL.” 2024.（GRPO 论文）</li>
+<li>Jia, R. et al. “Writing-Zero: Bridge the Gap Between Non-verifiable Tasks and Verifiable Rewards.” <em>arXiv:2506.00103</em>, 2025.（BRPO 论文）</li>
+<li>Schulman, J. et al. “Proximal Policy Optimization Algorithms.” <em>arXiv:1707.06347</em>, 2017.</li>
+<li>Schulman, J. et al. “High-Dimensional Continuous Control Using Generalized Advantage Estimation.” <em>arXiv:1506.02438</em>, 2015.</li>
+<li>Wang, T. et al. “IPO: Exit the Saddle — An Exact Solution to the Logistic Regression Preference Learning Problem.” <em>NeurIPS</em> 2023.</li>
+<li>Ethayarajh, K. et al. “KTO: Model Alignment as Prospect Theoretic Optimization.” <em>arXiv:2402.01306</em>, 2024.</li>
+<li>Tian, Y. et al. “SimPO: Simple Preference Optimization with a Reference-Free Reward.” <em>NeurIPS</em> 2024.</li>
+<li>Zhao, H. et al. “RLOO: Reinforcement Learning with Leave-One-Out Advantage Estimation.” <em>arXiv:2412.18899</em>, 2024.</li>
+<li>Williams, R. J. “Simple statistical gradient-following algorithms for connectionist reinforcement learning.” <em>Machine Learning</em> <strong>8</strong>(3), 229–256 (1992).</li>
+<li>Watkins, C. J. C. H. &amp; Barto, A. G. “Q-learning.” <em>Machine Learning</em> <strong>8</strong>(3–4), 279–292 (1992).</li>
+</ol>
+<hr>
+<p><em>本文基于公开文献整理，内容截至 2026 年 6 月。</em></p>
+
+          
+          
+          
+          
+          
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
     <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/06/30/推荐系统技术全景/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -219,10 +785,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2026-06-30 22:16:11 / Modified: 22:16:15" itemprop="dateCreated datePublished" datetime="2026-06-30T22:16:11+08:00">2026-06-30</time>
+              <time title="Created: 2026-06-30 22:16:11" itemprop="dateCreated datePublished" datetime="2026-06-30T22:16:11+08:00">2026-06-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-07-01 15:37:36" itemprop="dateModified" datetime="2026-07-01T15:37:36+08:00">2026-07-01</time>
+              </span>
 
           
   
@@ -273,7 +845,7 @@
 <p>第二步，<strong>IDF（逆文档频率）</strong> 衡量这个词在所有电影中有多”稀有”——越稀有的词，区分度越高：<br>$$IDF(t) = \log\frac{N}{df(t)}$$<br>其中 $N$ 是电影总数，$df(t)$ 是包含词 $t$ 的电影数。比如有 10000 部电影，”科幻”出现了 5000 部，$df(\text{科幻}) = 5000$，$IDF = \log(10000/5000) = \log 2 \approx 0.69$；而”诺兰”只出现在 10 部电影里，$IDF = \log(10000/10) = \log 1000 \approx 6.91$。显然”诺兰”的区分度远高于”科幻”。</p>
 <p>最后 <strong>TF-IDF = TF × IDF</strong>。某个词在某部电影中既常见（TF 高），又在整体中稀有（IDF 高），那它就构成了这部电影的”核心标签”。</p>
 </li>
-<li><p><strong>KNN（最近邻）：</strong> 计算两部电影的特征向量之间的相似度，越相似推荐概率越高。最常用的相似度度量是<strong>余弦相似度</strong>：<br>$$\text{Cosine}(A, B) = \frac{A \cdot B}{|A| \times |B|} = \frac{\sum_{i=1}^{n} A_i B_i}{\sqrt{\sum_{i=1}^{n} A_i^2} \times \sqrt{\sum_{i=1}^{n} B_i^2}}$$<br>具体怎么算？假设用三个标签维度来描述电影：[科幻，动作，诺兰]。电影 X 的特征向量是 A = [0.9, 0.3, 0.8]，电影 Y 的特征向量是 B = [0.8, 0.2, 0.9]。</p>
+<li><p><strong>KNN（最近邻）：</strong> 计算两部电影的特征向量之间的相似度，越相似推荐概率越高。最常用的相似度度量是<strong>余弦相似度</strong>：<br>$$\text{Cosine}(A, B) = \frac{A \cdot B}{|A| \times |B|} = \frac{\sum _{i=1}^{n} A _i B _i}{\sqrt{\sum _{i=1}^{n} A _i^2} \times \sqrt{\sum _{i=1}^{n} B _i^2}}$$<br>具体怎么算？假设用三个标签维度来描述电影：[科幻，动作，诺兰]。电影 X 的特征向量是 A = [0.9, 0.3, 0.8]，电影 Y 的特征向量是 B = [0.8, 0.2, 0.9]。</p>
 <ul>
 <li>分子（点积）：$A \cdot B = 0.9 \times 0.8 + 0.3 \times 0.2 + 0.8 \times 0.9 = 0.72 + 0.06 + 0.72 = 1.50$</li>
 <li>分母（模长乘积）：$|A| = \sqrt{0.9^2 + 0.3^2 + 0.8^2} = \sqrt{0.81 + 0.09 + 0.64} = \sqrt{1.54} \approx 1.24$，同理 $|B| = \sqrt{0.8^2 + 0.2^2 + 0.9^2} = \sqrt{0.64 + 0.04 + 0.81} = \sqrt{1.49} \approx 1.22$</li>
@@ -329,18 +901,18 @@
 <td>2</td>
 </tr>
 </tbody></table>
-<p>先算平均评分：$\bar{r}<em>A = (5+4+1)/3 = 3.33$，$\bar{r}<em>B = (4+3+2)/3 = 3.00$。用减去均值后的评分来计算相似度：<br>$$\text{sim}(A, B) = \frac{\sum</em>{i \in I</em>{AB}} (r_{Ai} - \bar{r}<em>A)(r</em>{Bi} - \bar{r}<em>B)}{\sqrt{\sum</em>{i \in I_{AB}} (r_{Ai} - \bar{r}<em>A)^2} \times \sqrt{\sum</em>{i \in I_{AB}} (r_{Bi} - \bar{r}_B)^2}}$$<br>具体计算：</p>
+<p>先算平均评分：$\bar{r} _A = (5+4+1)/3 = 3.33$，$\bar{r} _B = (4+3+2)/3 = 3.00$。用减去均值后的评分来计算相似度：<br>$$\text{sim}(A, B) = \frac{\sum _{i \in I _{AB}} (r _{Ai} - \bar{r} _A)(r _{Bi} - \bar{r} _B)}{\sqrt{\sum _{i \in I _{AB}} (r _{Ai} - \bar{r} _A)^2} \times \sqrt{\sum _{i \in I _{AB}} (r _{Bi} - \bar{r} _B)^2}}$$<br>具体计算：</p>
 <ul>
 <li>分子：$(5-3.33)(4-3.00) + (4-3.33)(3-3.00) + (1-3.33)(2-3.00) = 1.67 \times 1.00 + 0.67 \times 0.00 + (-2.33) \times (-1.00) = 1.67 + 0 + 2.33 = 4.00$</li>
 <li>分母：$\sqrt{1.67^2 + 0.67^2 + 2.33^2} \times \sqrt{1.00^2 + 0.00^2 + 1.00^2} = \sqrt{2.79 + 0.45 + 5.43} \times \sqrt{1 + 0 + 1} = \sqrt{8.67} \times \sqrt{2} \approx 2.94 \times 1.41 = 4.15$</li>
 <li>相似度：$\text{sim}(A, B) = 4.00 / 4.15 \approx 0.96$</li>
 </ul>
 <p>接近 1，说明用户 A 和用户 B 的品味高度一致。</p>
-<p><strong>评分预测：</strong> 找到与用户 u 最相似的 k 个邻居后，预测用户 u 对物品 i 的评分：<br>$$\hat{r}_{ui} = \bar{r}<em>u + \frac{\sum</em>{v \in N_u(k)} \text{sim}(u, v) \times (r_{vi} - \bar{r}<em>v)}{\sum</em>{v \in N_u(k)} |\text{sim}(u, v)|}$$<br>具体怎么算？假设用户 C 还没看《盗梦空间》，我们想用用户 A 和用户 B 帮他预测。已知：$\bar{r}_C = 3.0$，用户 A 对《盗梦空间》评分 4，相似度 0.96；用户 B 对《盗梦空间》评分 3，相似度 0.90。</p>
+<p><strong>评分预测：</strong> 找到与用户 u 最相似的 k 个邻居后，预测用户 u 对物品 i 的评分：<br>$$\hat{r} _{ui} = \bar{r} _u + \frac{\sum _{v \in N _u(k)} \text{sim}(u, v) \times (r _{vi} - \bar{r} _v)}{\sum _{v \in N _u(k)} |\text{sim}(u, v)|}$$<br>具体怎么算？假设用户 C 还没看《盗梦空间》，我们想用用户 A 和用户 B 帮他预测。已知：$\bar{r} _C = 3.0$，用户 A 对《盗梦空间》评分 4，相似度 0.96；用户 B 对《盗梦空间》评分 3，相似度 0.90。</p>
 <ul>
 <li>分子：$0.96 \times (4 - 3.33) + 0.90 \times (3 - 3.00) = 0.96 \times 0.67 + 0.90 \times 0.00 = 0.64 + 0 = 0.64$</li>
 <li>分母：$0.96 + 0.90 = 1.86$</li>
-<li>预测评分：$\hat{r}_{C, \text{盗梦空间}} = 3.00 + 0.64 / 1.86 = 3.00 + 0.34 = 3.34$</li>
+<li>预测评分：$\hat{r} _{C, \text{盗梦空间}} = 3.00 + 0.64 / 1.86 = 3.00 + 0.34 = 3.34$</li>
 </ul>
 <p>用户 C 预计会给《盗梦空间》打 3.34 分。</p>
 <p><strong>局限性：</strong> 当用户量达到千万级时，计算”你和所有人的相似度”计算量巨大。而且很多用户可能只看过很少的物品，很难找到足够相似的人。</p>
@@ -363,7 +935,7 @@
 <li>交集：${\text{张三, 李四, 王五}}$，共 3 人</li>
 <li>相似度：$\text{sim}(A, B) = 3 / \sqrt{5 \times 5} = 3 / 5 = 0.60$</li>
 </ul>
-<p><strong>评分预测：</strong> 假设用户 u 给电影 A 打了 5 分，与 A 最相似的两部电影是 B（相似度 0.60，u 打了 4 分）和 C（相似度 0.40，u 打了 3 分）。预测 u 对电影 D 的评分（D 与 B 的相似度 0.70，与 C 的相似度 0.50）：<br>$$\hat{r}<em>{ui} = \frac{\sum</em>{j \in S(i, k) \cap R_u} w_{ij} \times r_{uj}}{\sum_{j \in S(i, k) \cap R_u} |w_{ij}|} = \frac{0.70 \times 4 + 0.50 \times 3}{0.70 + 0.50} = \frac{2.8 + 1.5}{1.2} = \frac{4.3}{1.2} \approx 3.58$$<br>用户 u 预计会给电影 D 打 3.58 分。</p>
+<p><strong>评分预测：</strong> 假设用户 u 给电影 A 打了 5 分，与 A 最相似的两部电影是 B（相似度 0.60，u 打了 4 分）和 C（相似度 0.40，u 打了 3 分）。预测 u 对电影 D 的评分（D 与 B 的相似度 0.70，与 C 的相似度 0.50）：<br>$$\hat{r} _{ui} = \frac{\sum _{j \in S(i, k) \cap R _u} w _{ij} \times r _{uj}}{\sum _{j \in S(i, k) \cap R _u} |w _{ij}|} = \frac{0.70 \times 4 + 0.50 \times 3}{0.70 + 0.50} = \frac{2.8 + 1.5}{1.2} = \frac{4.3}{1.2} \approx 3.58$$<br>用户 u 预计会给电影 D 打 3.58 分。</p>
 <p><strong>局限性：</strong> 对新物品完全没用——刚上架的电影没有人给它评过分，它就永远不会被推荐。</p>
 <h3 id="3-矩阵分解（Matrix-Factorization-MF）"><a href="#3-矩阵分解（Matrix-Factorization-MF）" class="headerlink" title="3. 矩阵分解（Matrix Factorization, MF）"></a>3. 矩阵分解（Matrix Factorization, MF）</h3><p><strong>一句话解释：</strong> 把”用户-物品评分表”压缩成两个小表格，每个用户和每个物品各有一组”隐向量”，它们的点积就能近似原始评分。</p>
 <p><strong>详细解释：</strong></p>
@@ -377,8 +949,8 @@
 </ul>
 <p>使得 $U \times V^T \approx$ 原始评分矩阵 $R$</p>
 <p>其中 k 是隐向量的维度（通常 50~256），远小于 N 和 M。</p>
-<p><strong>优化目标：</strong><br>$$\min_{U, V} \sum_{(u, i) \in \Omega} (r_{ui} - \hat{r}<em>{ui})^2 + \lambda (|U|_F^2 + |V|_F^2)$$<br>其中 $\Omega$ 是已知的评分集合，$\hat{r}</em>{ui} = u_u^T v_i$（用户隐向量与物品隐向量的点积），$\lambda$ 是正则化系数，$|\cdot|_F$ 是 Frobenius 范数。</p>
-<p><strong>SGD 更新规则：</strong><br>$$e_{ui} = r_{ui} - u_u^T v_i$$<br>$$u_u \leftarrow u_u + \gamma (e_{ui} \cdot v_i - \lambda \cdot u_u)$$<br>$$v_i \leftarrow v_i + \gamma (e_{ui} \cdot u_u - \lambda \cdot v_i)$$<br>其中 $\gamma$ 是学习率，$e_{ui}$ 是预测误差。每次只更新一个已知的 $(u,i)$ 对。</p>
+<p><strong>优化目标：</strong><br>$$\min _{U, V} \sum _{(u, i) \in \Omega} (r _{ui} - \hat{r} _{ui})^2 + \lambda (|U| _F^2 + |V| _F^2)$$<br>其中 $\Omega$ 是已知的评分集合，$\hat{r} _{ui} = u _u^T v _i$（用户隐向量与物品隐向量的点积），$\lambda$ 是正则化系数，$|\cdot| _F$ 是 Frobenius 范数。</p>
+<p><strong>SGD 更新规则：</strong><br>$$e _{ui} = r _{ui} - u _u^T v _i$$<br>$$u _u \leftarrow u _u + \gamma (e _{ui} \cdot v _i - \lambda \cdot u _u)$$<br>$$v _i \leftarrow v _i + \gamma (e _{ui} \cdot u _u - \lambda \cdot v _i)$$<br>其中 $\gamma$ 是学习率，$e _{ui}$ 是预测误差。每次只更新一个已知的 $(u,i)$ 对。</p>
 <p><strong>经典算法：</strong></p>
 <ul>
 <li><strong>SVD（奇异值分解）：</strong> 最经典的矩阵分解方法，但要求矩阵完整（不能有缺失值），而实际评分矩阵大量缺失。</li>
@@ -402,7 +974,7 @@
 <p><strong>问题：</strong> 人工设计交叉特征非常累，而且很难穷举所有可能的组合。</p>
 <h3 id="2-逻辑回归（LR）"><a href="#2-逻辑回归（LR）" class="headerlink" title="2. 逻辑回归（LR）"></a>2. 逻辑回归（LR）</h3><p><strong>为什么推荐 LR？</strong> 因为它简单、可解释、线上推理极快。</p>
 <p>LR 的输出是：用户点击某条广告的概率 = σ(w₁x₁ + w₂x₂ + … + wₙxₙ)，其中 σ 是 sigmoid 函数（把任意实数压缩到 0~1 之间），x 是特征，w 是权重。</p>
-<p><strong>数学公式：</strong><br>$$P(y=1 \mid x) = \sigma(w^T x + b) = \frac{1}{1 + e^{-(w^T x + b)}}$$<br><strong>损失函数（交叉熵）：</strong><br>$$\mathcal{L} = -\frac{1}{N} \sum_{i=1}^{N} [y_i \log(\hat{y}_i) + (1-y_i) \log(1-\hat{y}_i)]$$<br>其中 $\hat{y}_i = \sigma(w^T x_i + b)$，$y_i \in {0, 1}$ 是真实标签。</p>
+<p><strong>数学公式：</strong><br>$$P(y=1 \mid x) = \sigma(w^T x + b) = \frac{1}{1 + e^{-(w^T x + b)}}$$<br><strong>损失函数（交叉熵）：</strong><br>$$\mathcal{L} = -\frac{1}{N} \sum _{i=1}^{N} [y _i \log(\hat{y} _i) + (1-y _i) \log(1-\hat{y} _i)]$$<br>其中 $\hat{y} _i = \sigma(w^T x _i + b)$，$y _i \in {0, 1}$ 是真实标签。</p>
 <p><strong>关键问题：</strong> 如果特征都是人工设计的，LR 的性能上限就在那里了。所以关键是”如何自动发现好的特征交叉”。</p>
 <h3 id="3-FM——自动发现特征交叉"><a href="#3-FM——自动发现特征交叉" class="headerlink" title="3. FM——自动发现特征交叉"></a>3. FM——自动发现特征交叉</h3><p><strong>一句话解释：</strong> 给每个特征学一个”隐向量”，通过隐向量的点积来自动发现特征之间的二阶交叉关系。</p>
 <p><strong>举个例子：</strong></p>
@@ -414,8 +986,8 @@
 <p>传统 LR 需要人工构造交叉特征”性别×广告类别”（比如”男×男装”、”女×女装”）。如果有一百个特征，交叉特征就有 C(100,2) = 4950 个，而且大部分数据是稀疏的（你不可能看到所有组合）。</p>
 <p>FM 的巧妙之处在于：它给每个特征学一个 k 维隐向量 v₁, v₂, …, vₙ。两个特征的交叉就通过它们的隐向量点积 vᵢ·vⱼ 来近似。</p>
 <p><strong>核心公式：</strong></p>
-<p>FM 的预测公式为：<br>$$\hat{y}(x) = w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle v_i, v_j \rangle x_i x_j$$<br>其中 $w_0$ 是全局偏置，$w_i$ 是第 $i$ 个特征的权重，$v_i$ 是第 $i$ 个特征的 k 维隐向量，$\langle v_i, v_j \rangle$ 是隐向量的点积。</p>
-<p>交叉项的数学推导——利用平方和展开的技巧，二阶交叉项可以改写为：<br>$$\sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle v_i, v_j \rangle x_i x_j = \frac{1}{2} \sum_{f=1}^{k} \left( \left( \sum_{i=1}^{n} v_{i,f} x_i \right)^2 - \sum_{i=1}^{n} v_{i,f}^2 x_i^2 \right)$$</p>
+<p>FM 的预测公式为：<br>$$\hat{y}(x) = w _0 + \sum _{i=1}^{n} w _i x _i + \sum _{i=1}^{n} \sum _{j=i+1}^{n} \langle v _i, v _j \rangle x _i x _j$$<br>其中 $w _0$ 是全局偏置，$w _i$ 是第 $i$ 个特征的权重，$v _i$ 是第 $i$ 个特征的 k 维隐向量，$\langle v _i, v _j \rangle$ 是隐向量的点积。</p>
+<p>交叉项的数学推导——利用平方和展开的技巧，二阶交叉项可以改写为：<br>$$\sum _{i=1}^{n} \sum _{j=i+1}^{n} \langle v _i, v _j \rangle x _i x _j = \frac{1}{2} \sum _{f=1}^{k} \left( \left( \sum _{i=1}^{n} v _{i,f} x _i \right)^2 - \sum _{i=1}^{n} v _{i,f}^2 x _i^2 \right)$$</p>
 <p>这意味着即使特征非常稀疏，FM 也能高效地学习交叉项，计算复杂度是 O(kn)，而不是 O(n²)。</p>
 <p><strong>FM 的实际影响：</strong> 2010 年提出后，FM 在 CTR 预估（预测用户是否会点击广告/商品）领域成为重要工具。</p>
 <h3 id="4-FFM——给每个特征每个”域”一个隐向量"><a href="#4-FFM——给每个特征每个”域”一个隐向量" class="headerlink" title="4. FFM——给每个特征每个”域”一个隐向量"></a>4. FFM——给每个特征每个”域”一个隐向量</h3><p><strong>一句话解释：</strong> FM 给每个特征一个隐向量，但 FFM 发现：同一个特征在不同的”上下文”（Field）中可能代表不同的含义，所以给每个特征在每个 Field 里单独学一个隐向量。</p>
@@ -425,10 +997,10 @@
 <li>特征 A：性别（男）</li>
 <li>特征 B：广告类别（男装）</li>
 </ul>
-<p>在 FM 中，性别”男”只有一个隐向量 v_A。但在 FFM 中，性别”男”对广告类别”男装”的隐向量，和性别”男”对广告类别”女装”的隐向量是不同的——v_A(男装) ≠ v_A(女装)。</p>
+<p>在 FM 中，性别”男”只有一个隐向量 $v_A$ 。但在 FFM 中，性别”男”对广告类别”男装”的隐向量，和性别”男”对广告类别”女装”的隐向量是不同的—— $v_A(男装) ≠ v_A(女装)$ 。</p>
 <p>因为性别”男”和广告”男装”之间的相关性，和性别”男”与广告”女装”之间的相关性显然不同。FFM 捕捉到了这种”上下文依赖性”。</p>
 <p><strong>2016 年 WSDM 最佳论文。</strong> 在 2014–2018 年间，FFM 是工业界 CTR 预估的标配算法。</p>
-<p><strong>FFM 的公式改进：</strong><br>FM 中的交叉项是 $\sum_{i=1}^n \sum_{j=i+1}^n \langle v_i, v_j \rangle x_i x_j$，其中隐向量 $v_i$ 与特征无关。<br>FFM 则将隐向量按”域（Field）”拆分：$\langle v_{i, F_j}, v_{j, F_i} \rangle$，其中 $v_{i, F_j}$ 表示特征 $i$ 在特征 $j$ 所属域中的隐向量。于是：<br>$$\hat{y}(x) = w_0 + \sum_{i=1}^n w_i x_i + \sum_{i=1}^n \sum_{j=i+1}^n \langle v_{i, F_j}, v_{j, F_i} \rangle x_i x_j$$<br>代价是隐向量个数从 $n \times k$ 增加到 $n \times k \times |\text{Fields}|$，但精度显著提升。</p>
+<p><strong>FFM 的公式改进：</strong><br>FM 中的交叉项是 $\sum _{i=1}^n \sum _{j=i+1}^n \langle v _i, v _j \rangle x _i x _j$，其中隐向量 $v _i$ 与特征无关。<br>FFM 则将隐向量按”域（Field）”拆分：$\langle v _{i, F _j}, v _{j, F _i} \rangle$，其中 $v _{i, F _j}$ 表示特征 $i$ 在特征 $j$ 所属域中的隐向量。于是：<br>$$\hat{y}(x) = w _0 + \sum _{i=1}^n w _i x _i + \sum _{i=1}^n \sum _{j=i+1}^n \langle v _{i, F _j}, v _{j, F _i} \rangle x _i x _j$$<br>代价是隐向量个数从 $n \times k$ 增加到 $n \times k \times |\text{Fields}|$，但精度显著提升。</p>
 <h3 id="5-GBDT-LR"><a href="#5-GBDT-LR" class="headerlink" title="5. GBDT + LR"></a>5. GBDT + LR</h3><p><strong>一句话解释：</strong> 用树模型（XGBoost/LightGBM）自动做特征交叉，用 LR 做最终的分类。</p>
 <p><strong>具体流程：</strong></p>
 <ol>
@@ -444,9 +1016,9 @@
 </ul>
 <p><strong>具体转化过程：</strong><br>假设用 $T$ 棵树做 GBDT，每棵树有 $L$ 个叶子节点。对于一个样本 $x$：</p>
 <ol>
-<li>输入每棵树，得到它落入的叶子节点索引：$t(x) = (t_1(x), t_2(x), \ldots, t_T(x))$</li>
+<li>输入每棵树，得到它落入的叶子节点索引：$t(x) = (t _1(x), t _2(x), \ldots, t _T(x))$</li>
 <li>将叶子索引做 one-hot 编码，得到新的特征向量 $x’ = \text{onehot}(t(x))$，维度为 $T \times L$</li>
-<li>将 $x’$ 输入 LR：$\hat{y} = \sigma(w_{LR}^T x’ + b_{LR})$</li>
+<li>将 $x’$ 输入 LR：$\hat{y} = \sigma(w _{LR}^T x’ + b _{LR})$</li>
 </ol>
 <hr>
 <h2 id="五、第四阶段：深度学习时代（2014–2019）"><a href="#五、第四阶段：深度学习时代（2014–2019）" class="headerlink" title="五、第四阶段：深度学习时代（2014–2019）"></a>五、第四阶段：深度学习时代（2014–2019）</h2><h3 id="1-Google-Wide-amp-Deep（2016）"><a href="#1-Google-Wide-amp-Deep（2016）" class="headerlink" title="1. Google Wide &amp; Deep（2016）"></a>1. Google Wide &amp; Deep（2016）</h3><p><strong>一句话解释：</strong> 用两个网络并行工作——Wide 部分负责”记忆”你之前见过的模式，Deep 部分负责”泛化”到没见过的组合。</p>
@@ -454,18 +1026,18 @@
 <p><strong>Wide 部分（记忆能力）：</strong></p>
 <ul>
 <li>用稀疏的交叉特征（人工设计的），如”25岁女性×北京×女装×晚间”</li>
-<li>输出：$s_{\text{wide}} = w_{\text{wide}}^T x_{\text{wide}} + b_{\text{wide}}$</li>
+<li>输出：$s _{\text{wide}} = w _{\text{wide}}^T x _{\text{wide}} + b _{\text{wide}}$</li>
 <li>优点：对见过的组合记得很准</li>
 <li>缺点：没见过的新组合就无能为力了（稀疏特征中没出现的组合输出为零）</li>
 </ul>
 <p><strong>Deep 部分（泛化能力）：</strong></p>
 <ul>
-<li>Embedding 层：把稀疏特征（用户 ID、商品 ID 等）映射到稠密向量：$e_i = \text{Embed}(f_i)$</li>
+<li>Embedding 层：把稀疏特征（用户 ID、商品 ID 等）映射到稠密向量：$e _i = \text{Embed}(f _i)$</li>
 <li>DNN：多层全连接网络，逐层变换：$h^{(l+1)} = \sigma(W^{(l)} h^{(l)} + b^{(l)})$</li>
 <li>优点：没见过的新组合也能通过 Embedding 的连续空间做泛化</li>
 <li>缺点：对某些特定组合不够精准</li>
 </ul>
-<p><strong>最终融合：</strong><br>$$\hat{y} = \sigma(s_{\text{wide}} + s_{\text{deep}}) = \sigma(w_{\text{wide}}^T x_{\text{wide}} + b_{\text{wide}} + w_{\text{deep}}^T h_{\text{deep}} + b_{\text{deep}})$$<br>即把两部分的 logits 相加（而不是拼接再做一次 LR），等价于一个逻辑回归。</p>
+<p><strong>最终融合：</strong><br>$$\hat{y} = \sigma(s _{\text{wide}} + s _{\text{deep}}) = \sigma(w _{\text{wide}}^T x _{\text{wide}} + b _{\text{wide}} + w _{\text{deep}}^T h _{\text{deep}} + b _{\text{deep}})$$<br>即把两部分的 logits 相加（而不是拼接再做一次 LR），等价于一个逻辑回归。</p>
 <p><strong>效果：</strong> Google Play 上线后 CTR 提升 2.7%。</p>
 <h3 id="2-DeepFM（2017）"><a href="#2-DeepFM（2017）" class="headerlink" title="2. DeepFM（2017）"></a>2. DeepFM（2017）</h3><p><strong>一句话解释：</strong> 去掉 Wide &amp; Deep 中需要人工设计 Wide 部分特征的麻烦，用 FM 自动提取低阶交叉，用 DNN 自动提取高阶交叉，两者共享同一个 Embedding 层。</p>
 <p><strong>为什么比 Wide &amp; Deep 更好？</strong></p>
@@ -477,9 +1049,9 @@
 </ul>
 <p><strong>DeepFM 的预测公式：</strong><br>DeepFM 由两个子网络组成，共享同一组 Embedding 层：</p>
 <ul>
-<li><strong>FM 部分（捕获二阶特征交叉）：</strong><br>$$s_{\text{FM}} = w_0 + \sum_{i=1}^n w_i x_i + \frac{1}{2} \sum_{f=1}^k \left( \left( \sum_{i=1}^n v_{i,f} x_i \right)^2 - \sum_{i=1}^n v_{i,f}^2 x_i^2 \right)$$</li>
-<li><strong>DNN 部分（捕获高阶特征交叉）：</strong><br>$$h^{(0)} = [e_1, e_2, \ldots, e_n], \quad h^{(l+1)} = \sigma(W^{(l)} h^{(l)} + b^{(l)})$$<br>$$s_{\text{DNN}} = w_{\text{out}}^T h^{(L)} + b_{\text{out}}$$</li>
-<li><strong>最终预测：</strong><br>$$\hat{y} = \sigma(s_{\text{FM}} + s_{\text{DNN}})$$<br>FM 和 DNN 的输出直接相加，共享同一组 Embedding $v_i = e_i$，无需任何人工特征交叉。</li>
+<li><strong>FM 部分（捕获二阶特征交叉）：</strong><br>$$s _{\text{FM}} = w _0 + \sum _{i=1}^n w _i x _i + \frac{1}{2} \sum _{f=1}^k \left( \left( \sum _{i=1}^n v _{i,f} x _i \right)^2 - \sum _{i=1}^n v _{i,f}^2 x _i^2 \right)$$</li>
+<li><strong>DNN 部分（捕获高阶特征交叉）：</strong><br>$$h^{(0)} = [e _1, e _2, \ldots, e _n], \quad h^{(l+1)} = \sigma(W^{(l)} h^{(l)} + b^{(l)})$$<br>$$s _{\text{DNN}} = w _{\text{out}}^T h^{(L)} + b _{\text{out}}$$</li>
+<li><strong>最终预测：</strong><br>$$\hat{y} = \sigma(s _{\text{FM}} + s _{\text{DNN}})$$<br>FM 和 DNN 的输出直接相加，共享同一组 Embedding $v _i = e _i$，无需任何人工特征交叉。</li>
 </ul>
 <h3 id="3-DIN-DIEN（阿里巴巴，2018–2019）"><a href="#3-DIN-DIEN（阿里巴巴，2018–2019）" class="headerlink" title="3. DIN / DIEN（阿里巴巴，2018–2019）"></a>3. DIN / DIEN（阿里巴巴，2018–2019）</h3><p><strong>一句话解释：</strong> 用户对不同商品的兴趣不同。推荐女装时，他看过的”美白牙膏”和”口红”兴趣权重不同，应该动态调整。</p>
 <p><strong>DIN（Deep Interest Network）的核心创新——注意力机制：</strong></p>
@@ -498,23 +1070,23 @@
 <li>用注意力机制计算每个历史行为对当前预测的权重</li>
 <li>加权求和得到用户兴趣表示</li>
 </ol>
-<p><strong>DIN 的注意力权重计算：</strong><br>设候选商品 embedding 为 $e_c$，用户历史行为序列为 $h = [e_{h_1}, e_{h_2}, \ldots, e_{h_m}]$：</p>
+<p><strong>DIN 的注意力权重计算：</strong><br>设候选商品 embedding 为 $e _c$，用户历史行为序列为 $h = [e _{h _1}, e _{h _2}, \ldots, e _{h _m}]$：</p>
 <ul>
-<li>用多层感知机（MLP）计算每个历史行为与候选商品的相关性：$a_j = \text{Attention}(e_{h_j}, e_c) = \text{softmax}(v^T \tanh(W_1 e_{h_j} + W_2 e_c + b))$</li>
-<li>其中 $W_1, W_2, v$ 是可学习参数，$\tanh$ 和点积捕捉历史行为与候选商品之间的非线性相关性</li>
-<li>加权求和得到用户兴趣表示：$u = \sum_{j=1}^m a_j \cdot e_{h_j}$</li>
-<li>最后将 $u$ 与候选商品 $e_c$ 拼接，通过全连接层预测点击率：$\hat{y} = \text{FC}([u; e_c])$</li>
+<li>用多层感知机（MLP）计算每个历史行为与候选商品的相关性：$a _j = \text{Attention}(e _{h _j}, e _c) = \text{softmax}(v^T \tanh(W _1 e _{h _j} + W _2 e _c + b))$</li>
+<li>其中 $W _1, W _2, v$ 是可学习参数，$\tanh$ 和点积捕捉历史行为与候选商品之间的非线性相关性</li>
+<li>加权求和得到用户兴趣表示：$u = \sum _{j=1}^m a _j \cdot e _{h _j}$</li>
+<li>最后将 $u$ 与候选商品 $e _c$ 拼接，通过全连接层预测点击率：$\hat{y} = \text{FC}([u; e _c])$</li>
 </ul>
 <p><strong>DIEN 更进一步——兴趣演化：</strong></p>
 <p>DIN 只是静态地计算不同历史行为的权重，但用户的兴趣是随时间变化的。比如你以前喜欢二次元，现在转向了运动健身。DIEN 用 GRU（门控循环单元）来建模这种兴趣的演变过程。</p>
 <p><strong>DIEN 的两个关键创新：</strong></p>
 <ol>
 <li><strong>GRU with Attentional Update Gate（AUGRU）：</strong> 用 DIN 的注意力权重来调节 GRU 的更新门，让注意力强的行为对当前兴趣的影响更大：<ul>
-<li>传统 GRU 更新门：$z_t = \sigma(W_z \cdot [h_{t-1}, x_t])$</li>
-<li>AUGRU 用注意力权重 $\alpha_t$ 加权历史行为：$h’_{t-1} = \sum_j \alpha_j \cdot h_j$，然后 $z_t = \sigma(W_z \cdot [h’_{t-1}, x_t])$，即先用注意力机制过滤历史行为，再输入 GRU</li>
+<li>传统 GRU 更新门：$z _t = \sigma(W _z \cdot [h _{t-1}, x _t])$</li>
+<li>AUGRU 用注意力权重 $\alpha _t$ 加权历史行为：$h’ _{t-1} = \sum _j \alpha _j \cdot h _j$，然后 $z _t = \sigma(W _z \cdot [h’ _{t-1}, x _t])$，即先用注意力机制过滤历史行为，再输入 GRU</li>
 </ul>
 </li>
-<li><strong>辅助损失函数：</strong> 在 GRU 的每个时间步加入辅助损失，监督隐状态的变化是否合理：<br>$$\mathcal{L}<em>{\text{aux}} = \frac{1}{T} \sum</em>{t=1}^T \text{BCE}(a_t, \mathbb{I}(y_t = 1))$$<br>其中 $a_t$ 是 GRU 在时间步 $t$ 的注意力输出，$y_t$ 是用户在该时间步是否产生交互的标签。这个辅助损失防止 GRU 学到噪声，起到正则化的作用。</li>
+<li><strong>辅助损失函数：</strong> 在 GRU 的每个时间步加入辅助损失，监督隐状态的变化是否合理：<br>$$\mathcal{L} _{\text{aux}} = \frac{1}{T} \sum _{t=1}^T \text{BCE}(a _t, \mathbb{I}(y _t = 1))$$<br>其中 $a _t$ 是 GRU 在时间步 $t$ 的注意力输出，$y _t$ 是用户在该时间步是否产生交互的标签。这个辅助损失防止 GRU 学到噪声，起到正则化的作用。</li>
 </ol>
 <p><strong>DIEN 的完整流程：</strong></p>
 <ol>
@@ -539,15 +1111,15 @@
 <li>因为 CTR 的样本多（只要曝光就有数据），模型能学到更好的用户表示</li>
 <li>这些表示被共享给 CVR 任务，缓解了稀疏性</li>
 </ul>
-<p><strong>ESMM 的模型结构：</strong><br>ESMM 假设点击和购买之间满足<strong>条件独立性</strong>：给定用户和商品的联合表示，购买行为与是否点击条件独立。于是：<br>$$P_{\text{ctcvr}} = P_{\text{ctr}} \times P_{\text{cvr}}$$</p>
+<p><strong>ESMM 的模型结构：</strong><br>ESMM 假设点击和购买之间满足<strong>条件独立性</strong>：给定用户和商品的联合表示，购买行为与是否点击条件独立。于是：<br>$$P _{\text{ctcvr}} = P _{\text{ctr}} \times P _{\text{cvr}}$$</p>
 <p>模型架构：</p>
 <ul>
 <li><strong>共享底层：</strong> 用户和商品的 Embedding 层完全共享</li>
-<li><strong>CTR 子网络：</strong> 用曝光数据训练（样本最多），输出 $\hat{p}_{\text{ctr}}$</li>
-<li><strong>CTCVR 子网络：</strong> 用点击且购买的数据训练（样本最少），输出 $\hat{p}_{\text{ctcvr}}$</li>
-<li><strong>隐式 CVR：</strong> $\hat{p}<em>{\text{cvr}} = \frac{\hat{p}</em>{\text{ctcvr}}}{\hat{p}_{\text{ctr}} + \epsilon}$，其中 $\epsilon$ 是极小数防止除零</li>
+<li><strong>CTR 子网络：</strong> 用曝光数据训练（样本最多），输出 $\hat{p} _{\text{ctr}}$</li>
+<li><strong>CTCVR 子网络：</strong> 用点击且购买的数据训练（样本最少），输出 $\hat{p} _{\text{ctcvr}}$</li>
+<li><strong>隐式 CVR：</strong> $\hat{p} _{\text{cvr}} = \frac{\hat{p} _{\text{ctcvr}}}{\hat{p} _{\text{ctr}} + \epsilon}$，其中 $\epsilon$ 是极小数防止除零</li>
 </ul>
-<p><strong>损失函数：</strong><br>$$\mathcal{L} = -\frac{1}{N} \sum_{i=1}^N \left[ c_i \log(\hat{p}_{\text{ctr}, i}) + (1-c_i) \log(1-\hat{p}_{\text{ctr}, i}) + v_i \log(\hat{p}_{\text{ctcvr}, i}) + (1-v_i) \log(1-\hat{p}_{\text{ctcvr}, i}) \right]$$<br>其中 $c_i$ 是点击标签（曝光即有），$v_i$ 是购买标签（仅点击后有值）。</p>
+<p><strong>损失函数：</strong><br>$$\mathcal{L} = -\frac{1}{N} \sum _{i=1}^N \left[ c _i \log(\hat{p} _{\text{ctr}, i}) + (1-c _i) \log(1-\hat{p} _{\text{ctr}, i}) + v _i \log(\hat{p} _{\text{ctcvr}, i}) + (1-v _i) \log(1-\hat{p} _{\text{ctcvr}, i}) \right]$$<br>其中 $c _i$ 是点击标签（曝光即有），$v _i$ 是购买标签（仅点击后有值）。</p>
 <h3 id="5-MMoE（Google，2018）"><a href="#5-MMoE（Google，2018）" class="headerlink" title="5. MMoE（Google，2018）"></a>5. MMoE（Google，2018）</h3><p><strong>一句话解释：</strong> 多任务学习时，不同任务之间可能有冲突。MMoE 用多个”专家”网络，每个任务有自己的”门控”来选择从哪些专家那里获取信息。</p>
 <p><strong>详细解释：</strong></p>
 <p>假设一个推荐系统要同时做三个任务：CTR 预估（是否点击）、CVR 预估（是否购买）、时长预估（停留多久）。</p>
@@ -564,22 +1136,22 @@
 <li>购买任务可能主要从”品质商品专家”获取信息</li>
 </ol>
 <p><strong>效果：</strong> 比简单的多任务学习（共享底层特征）效果更好，因为它能自动学习任务间的相关性和冲突。</p>
-<p><strong>MMoE 的数学描述：</strong><br>假设有 $T$ 个任务，$G$ 个专家网络 ${e_g(\cdot)}_{g=1}^G$，每个任务 $t$ 有一个门控（Gating）网络 $g^{(t)}(\cdot)$：</p>
+<p><strong>MMoE 的数学描述：</strong><br>假设有 $T$ 个任务，$G$ 个专家网络 ${e _g(\cdot)} _{g=1}^G$，每个任务 $t$ 有一个门控（Gating）网络 $g^{(t)}(\cdot)$：</p>
 <ul>
-<li><strong>专家输出：</strong> $e_g(x) = W_g^{(e)} x + b_g^{(e)}$</li>
-<li><strong>任务门控：</strong> $g^{(t)}(x) = \text{softmax}(W_g^{(t)} x + b_g^{(t)})$，其中 $g^{(t)}(x)_g$ 表示任务 $t$ 对专家 $g$ 的权重</li>
-<li><strong>任务特定的专家组合：</strong> $\hat{y}^{(t)} = \sum_{g=1}^G g^{(t)}(x)_g \cdot e_g(x)$</li>
+<li><strong>专家输出：</strong> $e _g(x) = W _g^{(e)} x + b _g^{(e)}$</li>
+<li><strong>任务门控：</strong> $g^{(t)}(x) = \text{softmax}(W _g^{(t)} x + b _g^{(t)})$，其中 $g^{(t)}(x) _g$ 表示任务 $t$ 对专家 $g$ 的权重</li>
+<li><strong>任务特定的专家组合：</strong> $\hat{y}^{(t)} = \sum _{g=1}^G g^{(t)}(x) _g \cdot e _g(x)$</li>
 </ul>
 <p>每个任务通过自己的门控网络，自动学习从哪些专家获取信息。例如点击任务可能更多地从”标题党专家”获取信息，而购买任务从”品质商品专家”获取信息。</p>
 <h4 id="GRU4Rec（2016）"><a href="#GRU4Rec（2016）" class="headerlink" title="GRU4Rec（2016）"></a>GRU4Rec（2016）</h4><p><strong>一句话解释：</strong> 用户的浏览历史是一个时间序列，用 GRU（一种改进的 RNN）来记住这个序列，预测下一个会点什么。</p>
 <p><strong>GRU 核心公式：</strong><br>GRU 有两个门控机制来控制信息流：</p>
 <ul>
-<li><strong>更新门（Update Gate）：</strong> $z_t = \sigma(W_z \cdot [h_{t-1}, x_t])$，决定有多少旧记忆保留</li>
-<li><strong>重置门（Reset Gate）：</strong> $r_t = \sigma(W_r \cdot [h_{t-1}, x_t])$，决定多少旧记忆被丢弃</li>
-<li><strong>候选记忆：</strong> $\tilde{h}_t = \text{tanh}(W \cdot [r_t \odot h_{t-1}, x_t])$，$\odot$ 表示逐元素乘法</li>
-<li><strong>最终记忆：</strong> $h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t$，新旧记忆按更新门比例融合</li>
+<li><strong>更新门（Update Gate）：</strong> $z _t = \sigma(W _z \cdot [h _{t-1}, x _t])$，决定有多少旧记忆保留</li>
+<li><strong>重置门（Reset Gate）：</strong> $r _t = \sigma(W _r \cdot [h _{t-1}, x _t])$，决定多少旧记忆被丢弃</li>
+<li><strong>候选记忆：</strong> $\tilde{h} _t = \text{tanh}(W \cdot [r _t \odot h _{t-1}, x _t])$，$\odot$ 表示逐元素乘法</li>
+<li><strong>最终记忆：</strong> $h _t = (1 - z _t) \odot h _{t-1} + z _t \odot \tilde{h} _t$，新旧记忆按更新门比例融合</li>
 </ul>
-<p><strong>预测输出：</strong><br>$$\hat{y}_i = \text{softmax}(v_i^T \cdot h_t)$$<br>其中 $v_i$ 是物品 $i$ 的 embedding，$h_t$ 是 GRU 最后一个时间步的隐状态。目标是最大化实际被点击物品的概率。</p>
+<p><strong>预测输出：</strong><br>$$\hat{y} _i = \text{softmax}(v _i^T \cdot h _t)$$<br>其中 $v _i$ 是物品 $i$ 的 embedding，$h _t$ 是 GRU 最后一个时间步的隐状态。目标是最大化实际被点击物品的概率。</p>
 <p><strong>具体流程：</strong></p>
 <ol>
 <li>用户行为序列：[商品 A, 商品 C, 商品 E, …]</li>
@@ -596,7 +1168,7 @@
 <li>通过多层自注意力（Self-Attention）</li>
 <li>预测下一个商品</li>
 </ol>
-<p><strong>自注意力（Self-Attention）核心公式：</strong><br>$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$<br>其中 $Q = XW_Q$、$K = XW_K$、$V = XW_V$ 分别是由输入 $X$ 通过可学习权重矩阵投影得到的查询、键、值矩阵，$d_k$ 是键向量的维度。$\frac{QK^T}{\sqrt{d_k}}$ 计算每个物品对其他所有物品的关注程度，除以 $\sqrt{d_k}$ 是为了防止点积过大导致 softmax 梯度消失。然后对输出做归一化，再经过前馈网络（FFN），即 SASRec 中的一层。</p>
+<p><strong>自注意力（Self-Attention）核心公式：</strong><br>$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d _k}}\right)V$$<br>其中 $Q = XW _Q$、$K = XW _K$、$V = XW _V$ 分别是由输入 $X$ 通过可学习权重矩阵投影得到的查询、键、值矩阵，$d _k$ 是键向量的维度。$\frac{QK^T}{\sqrt{d _k}}$ 计算每个物品对其他所有物品的关注程度，除以 $\sqrt{d _k}$ 是为了防止点积过大导致 softmax 梯度消失。然后对输出做归一化，再经过前馈网络（FFN），即 SASRec 中的一层。</p>
 <p><strong>因果掩码：</strong> 在训练时，用户不能看到未来的行为（防止信息泄露），所以 Self-Attention 矩阵上三角部分被 mask 掉（设为 $-\infty$），保证预测第 $t$ 个物品时只能用前 $t-1$ 个物品的信息。</p>
 <p><strong>为什么 Transformer 比 RNN 好？</strong></p>
 <ul>
@@ -614,9 +1186,9 @@
 <p><strong>BERT4Rec 的训练目标：</strong><br>与 SASRec（因果 Mask，预测下一个）不同，BERT4Rec 使用<strong>双向上下文</strong>：</p>
 <ol>
 <li>以 15% 的概率随机替换用户序列中的某些商品 ID 为 <code>[MASK]</code> token</li>
-<li>训练掩码预测任务：$\mathcal{L} = -\log P(x_t^{\text{orig}} \mid x_t^{\text{masked}}, \text{context})$</li>
+<li>训练掩码预测任务：$\mathcal{L} = -\log P(x _t^{\text{orig}} \mid x _t^{\text{masked}}, \text{context})$</li>
 <li>由于是自注意力机制，模型可以同时看到被遮挡位置的左边和右边所有商品</li>
-<li>预测时，输出层对商品 ID 做 softmax：$P(x \mid h) = \text{softmax}(W_{\text{item}}^T h + b_{\text{item}})$，其中 $h$ 是 [MASK] 位置的 Transformer 隐状态</li>
+<li>预测时，输出层对商品 ID 做 softmax：$P(x \mid h) = \text{softmax}(W _{\text{item}}^T h + b _{\text{item}})$，其中 $h$ 是 [MASK] 位置的 Transformer 隐状态</li>
 </ol>
 <p><strong>BERT4Rec vs SASRec：</strong></p>
 <ul>
@@ -642,7 +1214,7 @@
 <li>U2 会聚合 A、D 的信息</li>
 <li>经过几轮聚合，U1 和 U2 虽然没直接交互，但通过商品 A 有了间接联系</li>
 </ol>
-<p><strong>消息传递公式：</strong><br>对于一般 GNN，第 $k$ 层的消息传递为：<br>$$h_v^{(k)} = \text{Aggregate}\left({h_u^{(k-1)} \mid u \in \mathcal{N}(v)}\right)$$<br>$$h_v^{(k)} = \text{Update}\left(h_v^{(k-1)}, h_v^{(k)}\right)$$<br>其中 $\mathcal{N}(v)$ 是节点 $v$ 的邻居集合。在推荐场景下，节点分为用户节点和物品节点，边表示用户-物品交互。</p>
+<p><strong>消息传递公式：</strong><br>对于一般 GNN，第 $k$ 层的消息传递为：<br>$$h _v^{(k)} = \text{Aggregate}\left({h _u^{(k-1)} \mid u \in \mathcal{N}(v)}\right)$$<br>$$h _v^{(k)} = \text{Update}\left(h _v^{(k-1)}, h _v^{(k)}\right)$$<br>其中 $\mathcal{N}(v)$ 是节点 $v$ 的邻居集合。在推荐场景下，节点分为用户节点和物品节点，边表示用户-物品交互。</p>
 <h3 id="2-LightGCN（2020）"><a href="#2-LightGCN（2020）" class="headerlink" title="2. LightGCN（2020）"></a>2. LightGCN（2020）</h3><p><strong>一句话解释：</strong> 研究发现，在推荐场景下，复杂的 GNN 变体（GCN、GAT 等）并不比简单的线性聚合好。去掉非线性激活函数和特征变换，只用最轻量的邻居聚合，效果反而更好。</p>
 <p><strong>详细解释：</strong></p>
 <p>之前的图推荐模型（如 GraphSAGE、GAT）会做这些事：</p>
@@ -656,9 +1228,9 @@
 <p><strong>邻居聚合 = 每个邻居的特征 × 归一化权重</strong></p>
 <p>效果反而更好，而且速度更快。这背后的原因是：在推荐场景中，用户的偏好不是固定的，而是通过和物品的交互”传播”出来的，不需要复杂的非线性变换。</p>
 <p><strong>为什么叫”Light”？</strong> 因为轻量化——去掉不必要的操作，让模型更轻更快。</p>
-<p><strong>LightGCN 的核心公式：</strong><br>LightGCN 只保留最基础的邻居聚合操作。设 $E_k$ 为第 $k$ 层的节点表示：<br>$$E_{k+1} = \tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} E_k$$<br>其中 $\tilde{A} = A + I$ 是加入自环的邻接矩阵，$\tilde{D}$ 是对应的度矩阵。归一化因子 $\tilde{D}^{-\frac{1}{2}}<em>{ii} \tilde{D}^{-\frac{1}{2}}</em>{jj} = \frac{1}{\sqrt{d_i \times d_j}}$ 保证了聚合时的权重平衡。</p>
-<p><strong>最终输出（多层聚合的叠加）：</strong><br>$$E = \sum_{k=0}^K \alpha_k E_k$$<br>其中 $\alpha_k$ 是第 $k$ 层的权重（通常设为均匀权重 $\alpha_k = \frac{1}{K+1}$）。将 $0 \sim K$ 层的所有表示拼接/相加，而不是只取最后一层，这样可以捕获多跳邻居的信息。</p>
-<p><strong>训练损失（BPR 损失）：</strong><br>$$\mathcal{L} = -\sum_{(u, i, j) \in \mathcal{O}} \ln \sigma(\hat{y}<em>{u, i} - \hat{y}</em>{u, j}) + \lambda |E|^2$$<br>其中 $(u, i, j)$ 是三元组：用户 $u$ 正样本物品 $i$，负样本物品 $j$（随机采样用户 $u$ 未交互过的物品），$\hat{y}_{u, i} = e_u^T e_i$ 是用户 $u$ 对物品 $i$ 的预测分数，$\sigma$ 是 sigmoid 函数。BPR 优化的目标是让正样本的分数高于负样本。</p>
+<p><strong>LightGCN 的核心公式：</strong><br>LightGCN 只保留最基础的邻居聚合操作。设 $E _k$ 为第 $k$ 层的节点表示：<br>$$E _{k+1} = \tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} E _k$$<br>其中 $\tilde{A} = A + I$ 是加入自环的邻接矩阵，$\tilde{D}$ 是对应的度矩阵。归一化因子 $\tilde{D}^{-\frac{1}{2}} _{ii} \tilde{D}^{-\frac{1}{2}} _{jj} = \frac{1}{\sqrt{d _i \times d _j}}$ 保证了聚合时的权重平衡。</p>
+<p><strong>最终输出（多层聚合的叠加）：</strong><br>$$E = \sum _{k=0}^K \alpha _k E _k$$<br>其中 $\alpha _k$ 是第 $k$ 层的权重（通常设为均匀权重 $\alpha _k = \frac{1}{K+1}$）。将 $0 \sim K$ 层的所有表示拼接/相加，而不是只取最后一层，这样可以捕获多跳邻居的信息。</p>
+<p><strong>训练损失（BPR 损失）：</strong><br>$$\mathcal{L} = -\sum _{(u, i, j) \in \mathcal{O}} \ln \sigma(\hat{y} _{u, i} - \hat{y} _{u, j}) + \lambda |E|^2$$<br>其中 $(u, i, j)$ 是三元组：用户 $u$ 正样本物品 $i$，负样本物品 $j$（随机采样用户 $u$ 未交互过的物品），$\hat{y} _{u, i} = e _u^T e _i$ 是用户 $u$ 对物品 $i$ 的预测分数，$\sigma$ 是 sigmoid 函数。BPR 优化的目标是让正样本的分数高于负样本。</p>
 <h3 id="3-SGL（2021）"><a href="#3-SGL（2021）" class="headerlink" title="3. SGL（2021）"></a>3. SGL（2021）</h3><p><strong>一句话解释：</strong> 在推荐场景下，正样本（用户买过的）和负样本（用户没买过的）都太多了。SGL 通过在图上做数据增强，用对比学习来学到更好的表示。</p>
 <p><strong>具体做法：</strong></p>
 <ol>
@@ -668,9 +1240,9 @@
 <li>对不同的用户/物品，表示应该尽可能远离</li>
 </ol>
 <p><strong>核心洞察：</strong> 推荐场景下正负样本太多，传统的对比学习需要精心设计负采样策略。SGL 通过图上的数据增强，避免了这个问题。</p>
-<p><strong>SGL 的对比学习损失：</strong><br>SGL 在原始图 $G$ 上做 $M$ 种数据增强操作（随机删边、随机节点掩码、随机边掩码），得到 $M$ 个增强视图 ${G_1, G_2, \ldots, G_M}$，然后用 LightGCN 在每个视图上学到节点表示 $E_1, E_2, \ldots, E_M$。</p>
-<p><strong>InfoNCE 损失（对比学习标准损失）：</strong><br>对于一个锚点 $v$ 和其增强视图 $v_m$，损失为：<br>$$\mathcal{L}<em>{\text{InfoNCE}} = -\log \frac{\exp(\text{sim}(E_v, E_m) / \tau)}{\sum</em>{v’ \in \mathcal{B}} \exp(\text{sim}(E_v, E’_{m’}) / \tau)}$$<br>其中 $\text{sim}(a, b) = \frac{a^T b}{|a| \cdot |b|}$ 是余弦相似度，$\tau$ 是温度系数，$\mathcal{B}$ 是 batch 中的负样本集合。</p>
-<p><strong>最终节点表示：</strong><br>$$E_v = \sum_{m=1}^M w_m \cdot E_v^{(m)}$$<br>将 $M$ 个视图中的同一节点的表示加权求和，得到鲁棒的最终表示。</p>
+<p><strong>SGL 的对比学习损失：</strong><br>SGL 在原始图 $G$ 上做 $M$ 种数据增强操作（随机删边、随机节点掩码、随机边掩码），得到 $M$ 个增强视图 ${G _1, G _2, \ldots, G _M}$，然后用 LightGCN 在每个视图上学到节点表示 $E _1, E _2, \ldots, E _M$。</p>
+<p><strong>InfoNCE 损失（对比学习标准损失）：</strong><br>对于一个锚点 $v$ 和其增强视图 $v _m$，损失为：<br>$$\mathcal{L} _{\text{InfoNCE}} = -\log \frac{\exp(\text{sim}(E _v, E _m) / \tau)}{\sum _{v’ \in \mathcal{B}} \exp(\text{sim}(E _v, E’ _{m’}) / \tau)}$$<br>其中 $\text{sim}(a, b) = \frac{a^T b}{|a| \cdot |b|}$ 是余弦相似度，$\tau$ 是温度系数，$\mathcal{B}$ 是 batch 中的负样本集合。</p>
+<p><strong>最终节点表示：</strong><br>$$E _v = \sum _{m=1}^M w _m \cdot E _v^{(m)}$$<br>将 $M$ 个视图中的同一节点的表示加权求和，得到鲁棒的最终表示。</p>
 <hr>
 <h2 id="七、第六阶段：大规模工业系统架构"><a href="#七、第六阶段：大规模工业系统架构" class="headerlink" title="七、第六阶段：大规模工业系统架构"></a>七、第六阶段：大规模工业系统架构</h2><p>推荐系统在实际工业部署中从来不是单一模型，而是一个<strong>分层架构</strong>。</p>
 <h3 id="1-召回（Retrieval）"><a href="#1-召回（Retrieval）" class="headerlink" title="1. 召回（Retrieval）"></a>1. 召回（Retrieval）</h3><p><strong>一句话解释：</strong> 从几百万个候选物品中，快速选出几千个候选。</p>
@@ -681,12 +1253,12 @@
 </ul>
 <p><strong>双塔模型公式：</strong></p>
 <ul>
-<li>用户塔：$e_u = f_U(x_u)$，其中 $x_u$ 是用户特征（年龄、性别、历史行为统计等），$f_U$ 是一个多层神经网络</li>
-<li>物品塔：$e_i = f_I(x_i)$，其中 $x_i$ 是物品特征（类别、价格、描述 embedding 等），$f_I$ 是一个多层神经网络</li>
-<li>相似度：$s(u, i) = e_u^T e_i$（向量点积，也可以加 L2 归一化后做余弦相似度）</li>
-<li>训练时使用负采样：对于每个正样本 $(u, i)$，采样 $K$ 个负样本物品 $j_1, \ldots, j_K$，用 InfoNCE 损失：<br>$$\mathcal{L} = -\log \frac{\exp(e_u^T e_i / \tau)}{\sum_{k=0}^K \exp(e_u^T e_{j_k} / \tau)}$$<br>其中 $j_0 = i$ 是正样本，$\tau$ 是温度系数。</li>
+<li>用户塔：$e _u = f _U(x _u)$，其中 $x _u$ 是用户特征（年龄、性别、历史行为统计等），$f _U$ 是一个多层神经网络</li>
+<li>物品塔：$e _i = f _I(x _i)$，其中 $x _i$ 是物品特征（类别、价格、描述 embedding 等），$f _I$ 是一个多层神经网络</li>
+<li>相似度：$s(u, i) = e _u^T e _i$（向量点积，也可以加 L2 归一化后做余弦相似度）</li>
+<li>训练时使用负采样：对于每个正样本 $(u, i)$，采样 $K$ 个负样本物品 $j _1, \ldots, j _K$，用 InfoNCE 损失：<br>$$\mathcal{L} = -\log \frac{\exp(e _u^T e _i / \tau)}{\sum _{k=0}^K \exp(e _u^T e _{j _k} / \tau)}$$<br>其中 $j _0 = i$ 是正样本，$\tau$ 是温度系数。</li>
 </ul>
-<p><strong>向量检索（FAISS）：</strong><br>当物品数量 $N$ 达到百万级时，暴力计算 $e_u^T e_i$（$O(Nd)$）太慢。FAISS 使用近似最近邻搜索（ANN），如 HNSW 或 IVF-PQ，将检索复杂度降至 $O(\log N \cdot d)$，百万级物品的检索可在毫秒级完成。</p>
+<p><strong>向量检索（FAISS）：</strong><br>当物品数量 $N$ 达到百万级时，暴力计算 $e _u^T e _i$（$O(Nd)$）太慢。FAISS 使用近似最近邻搜索（ANN），如 HNSW 或 IVF-PQ，将检索复杂度降至 $O(\log N \cdot d)$，百万级物品的检索可在毫秒级完成。</p>
 <ul>
 <li><strong>多路召回：</strong> 用多种策略并行召回，最后融合。比如：向量召回 1000 个 + 热门召回 500 个 + 协同召回 500 个 + 实时召回 500 个 = 2500 个候选。</li>
 </ul>
@@ -725,7 +1297,7 @@
 <li><strong>TALLRec（2023）：</strong> 利用 LLM 的长上下文能力，处理完整的用户交互历史（几千条行为），传统模型很难处理这么长的序列</li>
 <li><strong>LLM-ReRank（2023）：</strong> 用 LLM 对传统推荐系统的候选做重排，发现 LLM 在排序任务上表现不错</li>
 </ul>
-<p><strong>数学形式化：</strong><br>给定用户上下文 $C_u$ 和候选物品集合 $\mathcal{I} = {i_1, \ldots, i_N}$，LLM 作为排序器计算每个物品的相对相关性得分：<br>$$\hat{s}_j = \text{LLM}(C_u, i_j)$$<br>排序结果为：<br>$$\text{Rank} = \text{sort}(\hat{s}_1, \hat{s}_2, \ldots, \hat{s}_N)$$<br>排序的本质等价于最大化条件概率：$\hat{s}_j = P(\text{&quot;item } j \text{ is relevant}\mid C_u)$。</p>
+<p><strong>数学形式化：</strong><br>给定用户上下文 $C _u$ 和候选物品集合 $\mathcal{I} = {i _1, \ldots, i _N}$，LLM 作为排序器计算每个物品的相对相关性得分：<br>$$\hat{s} _j = \text{LLM}(C _u, i _j)$$<br>排序结果为：<br>$$\text{Rank} = \text{sort}(\hat{s} _1, \hat{s} _2, \ldots, \hat{s} _N)$$<br>排序的本质等价于最大化条件概率：$\hat{s} _j = P(\text{&quot;item } j \text{ is relevant}\mid C _u)$。</p>
 <h4 id="范式二：LLM-作为推荐生成器"><a href="#范式二：LLM-作为推荐生成器" class="headerlink" title="范式二：LLM 作为推荐生成器"></a>范式二：LLM 作为推荐生成器</h4><p><strong>做法：</strong> 直接把推荐任务看作文本生成。用户输入查询，LLM 输出推荐的物品。</p>
 <p><strong>例子：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：我喜欢科幻电影，喜欢诺兰导演的作品</span><br><span class="line">输出：《星际穿越》《盗梦空间》《信条》</span><br></pre></td></tr></table></figure>
@@ -735,22 +1307,22 @@
 <li><strong>LLM4Rec（2023）：</strong> 将推荐任务统一为文本生成任务，把物品 ID、标题、描述等信息拼接作为输入</li>
 <li><strong>InstructRec（2023）：</strong> 用指令微调（Instruction Tuning）让 LLM 适应推荐任务</li>
 </ul>
-<p><strong>数学形式化：</strong><br>生成式推荐的核心是将推荐看作<strong>自回归生成</strong>：<br>$$P(i_1, i_2, \ldots, i_k \mid C_u) = \prod_{t=1}^k P(i_t \mid C_u, i_1, \ldots, i_{t-1})$$<br>其中 $i_1, \ldots, i_k$ 是依次生成的推荐物品序列。每个物品的生成条件于用户上下文和之前已生成的物品。</p>
-<p><strong>训练目标（交叉熵）：</strong><br>$$\mathcal{L} = -\sum_{t=1}^T \log P(i_t^\text{true} \mid C_u, i_1^\text{true}, \ldots, i_{t-1}^\text{true})$$<br>即最大化真实推荐序列的出现概率。这与语言模型的训练完全一致，唯一的区别是输入不是句子而是用户行为序列，输出不是下一个词而是物品 ID。</p>
+<p><strong>数学形式化：</strong><br>生成式推荐的核心是将推荐看作<strong>自回归生成</strong>：<br>$$P(i _1, i _2, \ldots, i _k \mid C _u) = \prod _{t=1}^k P(i _t \mid C _u, i _1, \ldots, i _{t-1})$$<br>其中 $i _1, \ldots, i _k$ 是依次生成的推荐物品序列。每个物品的生成条件于用户上下文和之前已生成的物品。</p>
+<p><strong>训练目标（交叉熵）：</strong><br>$$\mathcal{L} = -\sum _{t=1}^T \log P(i _t^\text{true} \mid C _u, i _1^\text{true}, \ldots, i _{t-1}^\text{true})$$<br>即最大化真实推荐序列的出现概率。这与语言模型的训练完全一致，唯一的区别是输入不是句子而是用户行为序列，输出不是下一个词而是物品 ID。</p>
 <h4 id="范式三：LLM-作为特征编码器"><a href="#范式三：LLM-作为特征编码器" class="headerlink" title="范式三：LLM 作为特征编码器"></a>范式三：LLM 作为特征编码器</h4><p><strong>做法：</strong> 用 LLM 编码物品描述，得到高质量的语义 embedding，再输入到传统推荐模型中。</p>
 <p><strong>为什么需要这个？</strong> 传统推荐系统中，每个商品只有一个 ID embedding，没有语义信息。LLM 的 embedding 包含了丰富的语义。</p>
 <p><strong>数学形式化：</strong></p>
 <ul>
-<li>物品文本描述 $t_i$ 输入 LLM：$e_i^\text{LLM} = \text{LLM}_\text{enc}(t_i)$</li>
-<li>其中 $\text{LLM}_\text{enc}$ 通常取 LLM 最后一层的 [CLS] 标记（或平均所有 token 的表示）</li>
-<li>将 $e_i^\text{LLM}$ 与传统 ID embedding $e_i^\text{ID}$ 拼接：$e_i^\text{hybrid} = [e_i^\text{ID}; e_i^\text{LLM}]$</li>
-<li>将 $e_i^\text{hybrid}$ 输入到传统推荐模型（如 LightGCN、DeepFM）</li>
+<li>物品文本描述 $t _i$ 输入 LLM：$e _i^\text{LLM} = \text{LLM} _\text{enc}(t _i)$</li>
+<li>其中 $\text{LLM} _\text{enc}$ 通常取 LLM 最后一层的 [CLS] 标记（或平均所有 token 的表示）</li>
+<li>将 $e _i^\text{LLM}$ 与传统 ID embedding $e _i^\text{ID}$ 拼接：$e _i^\text{hybrid} = [e _i^\text{ID}; e _i^\text{LLM}]$</li>
+<li>将 $e _i^\text{hybrid}$ 输入到传统推荐模型（如 LightGCN、DeepFM）</li>
 </ul>
 <p>这样，即使新物品没有交互数据，LLM 也能通过语义理解给出合理的推荐。</p>
 <h3 id="3-大模型推荐的核心挑战"><a href="#3-大模型推荐的核心挑战" class="headerlink" title="3. 大模型推荐的核心挑战"></a>3. 大模型推荐的核心挑战</h3><h4 id="幻觉问题"><a href="#幻觉问题" class="headerlink" title="幻觉问题"></a>幻觉问题</h4><p><strong>问题：</strong> LLM 可能”编造”一个不存在的商品，或者推荐一个完全不相关的商品。</p>
 <p><strong>解决思路：</strong></p>
 <ul>
-<li><strong>RAG（检索增强）：</strong> 先检索候选物品，再让 LLM 在候选集中选择。形式化地，先通过传统召回得到候选集 $\mathcal{I}<em>\text{recall}$，然后 LLM 在 $\mathcal{I}_\text{recall}$ 内排序：<br>$$P(i_j \mid C_u) = \frac{\exp(\hat{s}_j / \tau)}{\sum</em>{i_k \in \mathcal{I}_\text{recall}} \exp(\hat{s}_k / \tau)}$$</li>
+<li><strong>RAG（检索增强）：</strong> 先检索候选物品，再让 LLM 在候选集中选择。形式化地，先通过传统召回得到候选集 $\mathcal{I} _\text{recall}$，然后 LLM 在 $\mathcal{I} _\text{recall}$ 内排序：<br>$$P(i _j \mid C _u) = \frac{\exp(\hat{s} _j / \tau)}{\sum _{i _k \in \mathcal{I} _\text{recall}} \exp(\hat{s} _k / \tau)}$$</li>
 <li><strong>约束解码：</strong> 限制 LLM 只能从候选物品 ID 中选择，不能编造新 ID。即解码时只允许输出预定义物品 ID 集合中的 token，其他 token 的概率设为 $-\infty$。</li>
 </ul>
 <h4 id="效率问题"><a href="#效率问题" class="headerlink" title="效率问题"></a>效率问题</h4><p><strong>问题：</strong> LLM 推理很慢，推荐系统需要毫秒级响应。</p>
@@ -766,11 +1338,11 @@
 <h3 id="传统推荐-vs-生成式推荐"><a href="#传统推荐-vs-生成式推荐" class="headerlink" title="传统推荐 vs 生成式推荐"></a>传统推荐 vs 生成式推荐</h3><p><strong>传统推荐（判别式）：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">用户 A + 商品 1 → 得分 0.8</span><br><span class="line">用户 A + 商品 2 → 得分 0.3</span><br><span class="line">用户 A + 商品 3 → 得分 0.9</span><br><span class="line">排序后推荐：商品 3, 商品 1</span><br></pre></td></tr></table></figure>
 
-<p>每个商品单独打分，然后排序。数学形式化：<br>$$\hat{y}_i = f(u, i), \quad \text{Recommend} = \text{Top-K}({\hat{y}<em>i}</em>{i=1}^N)$$<br>其中 $f(u, i)$ 是评分函数，Top-K 选出分数最高的 $K$ 个物品。<strong>关键局限：</strong> 每个物品的评分独立，无法考虑物品之间的序列依赖。</p>
+<p>每个商品单独打分，然后排序。数学形式化：<br>$$\hat{y} _i = f(u, i), \quad \text{Recommend} = \text{Top-K}({\hat{y} _i} _{i=1}^N)$$<br>其中 $f(u, i)$ 是评分函数，Top-K 选出分数最高的 $K$ 个物品。<strong>关键局限：</strong> 每个物品的评分独立，无法考虑物品之间的序列依赖。</p>
 <p><strong>生成式推荐（生成式）：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户 A → [商品 3] [商品 1] [商品 2]</span><br></pre></td></tr></table></figure>
 
-<p>直接生成推荐序列，不需要打分排序。数学形式化：<br>$$P(\mathbf{i} \mid u) = \prod_{t=1}^K P(i_t \mid u, i_1, \ldots, i_{t-1})$$<br>物品之间不再独立，后一个物品的生成条件于前一个，天然考虑了物品间的序列依赖。</p>
+<p>直接生成推荐序列，不需要打分排序。数学形式化：<br>$$P(\mathbf{i} \mid u) = \prod _{t=1}^K P(i _t \mid u, i _1, \ldots, i _{t-1})$$<br>物品之间不再独立，后一个物品的生成条件于前一个，天然考虑了物品间的序列依赖。</p>
 <h3 id="代表性工作"><a href="#代表性工作" class="headerlink" title="代表性工作"></a>代表性工作</h3><h4 id="GenRec（阿里巴巴，2023）"><a href="#GenRec（阿里巴巴，2023）" class="headerlink" title="GenRec（阿里巴巴，2023）"></a>GenRec（阿里巴巴，2023）</h4><p><strong>做法：</strong> 用自回归语言模型做推荐。用户的行为序列和查询被建模为文本，模型直接生成物品 ID 序列。</p>
 <p><strong>关键创新：</strong></p>
 <ul>
@@ -2167,222 +2739,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/07/08/时空知识库概述/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/07/08/时空知识库概述/" class="post-title-link" itemprop="url">时空知识库概述</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-07-08 16:56:36" itemprop="dateCreated datePublished" datetime="2024-07-08T16:56:36+08:00">2024-07-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2024/07/08/时空知识库概述/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2024/07/08/时空知识库概述/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <h1 id="Pre"><a href="#Pre" class="headerlink" title="Pre"></a>Pre</h1><p><em>时空知识库</em> 这一概念使用较少，更多的是 <em>时空数据库</em> ，本文认为时空知识库是在时空数据库的基础上的知识扩展。下文叙述中不再严格区分两个概念，主要以知识数据库为主。</p>
-<h1 id="时空数据库概念"><a href="#时空数据库概念" class="headerlink" title="时空数据库概念"></a>时空数据库概念</h1><p>时空数据库是一种特殊类型的数据库，它能够存储和管理与时间和空间相关的数据。随着科技的发展和数据的爆炸性增长，时空数据库的重要性也日益凸显。它不仅可以用于地理信息系统（GIS）、气象预测、交通管理等领域，还可以应用于智能城市、物联网、人工智能等新兴技术的发展。</p>
-<p>时空数据库的概念源于对现实世界的模拟和分析需求。传统的数据库主要关注数据的存储和查询，而时空数据库则更加注重数据的时序和空间特征。它能够有效地处理和分析大量的时空数据，提供更加准确和全面的信息。</p>
-<h1 id="时空数据库特征"><a href="#时空数据库特征" class="headerlink" title="时空数据库特征"></a>时空数据库特征</h1><p><strong>时空数据库的特点之一是支持时间和空间的索引。</strong> 时间索引可以帮助用户快速定位到某个时间点或时间段的数据，而空间索引则可以帮助用户快速定位到某个地理位置的数据。这种索引的设计和优化是时空数据库的关键技术之一。</p>
-<p><strong>时空数据库还具有多维数据模型。</strong> 传统的数据库主要采用关系模型，而时空数据库则采用多维数据模型。它可以将数据按照时间、空间和属性等多个维度进行组织和管理，提供更加灵活和高效的数据操作。</p>
-<p><strong>时空数据库还具有时空数据类型。</strong> 传统的数据库主要支持数值、字符和日期等基本数据类型，而时空数据库则支持点、线、面、体等时空数据类型。这些数据类型可以更好地表示和处理与时间和空间相关的数据。</p>
-<p><strong>时空数据库还具有时空数据操作。</strong> 传统的数据库主要支持数据的插入、更新和删除等基本操作，而时空数据库则支持时空数据的查询、分析和可视化等高级操作。这些操作可以帮助用户更好地理解和利用时空数据。</p>
-<p><strong>时空数据库还具有时空数据分析。</strong> 传统的数据库主要关注数据的存储和查询，而时空数据库则更加注重数据的分析和挖掘。它可以通过时空数据的聚类、分类、预测和优化等方法，提取出有价值的信息和知识。</p>
-<h1 id="关于时空数据库构建"><a href="#关于时空数据库构建" class="headerlink" title="关于时空数据库构建"></a>关于时空数据库构建</h1><h2 id="相比于传统数据库的主要升级"><a href="#相比于传统数据库的主要升级" class="headerlink" title="相比于传统数据库的主要升级"></a>相比于传统数据库的主要升级</h2><ol>
-<li><p>实体对象模型升级。将面向存储和制图的点、线、面要素模型升级为面向分析和应用的实体对象模型，并借助语义化技术， <strong>实现地物空间信息、属性信息、时态信息的实体化存储</strong> ，同时提供不同粒度地理实体动态组合、聚合、专题信息实时挂接等功能，从而实现复合实体转换重组以及多源数据有机融合，更好为时空分析与业务应用提供数据支撑。</p>
-</li>
-<li><p>三维立体模型升级。将二维平面模型升级为三维立体模型，以二维地理实体为基础，通过三维时空动态匹配与自动挂接，自动提取传统三维地形数据（DEM、DSM）的高程信息，并有机融合基于激光扫描、倾斜摄影、三维重建等构建的真三维模型数据， <strong>实现二维模型的三维化拓展</strong> ，以更符合现实世界认知习惯的方式为用户提供全空间场景化时空信息产品。</p>
-</li>
-<li><p>动态时序模型升级。将静态版本模型升级为动态时序模型，以地理实体为载体，以基元版本数据为基础， <strong>依照时序记录几何、属性、相互关系等信息的增加、删除或修改变化及相应时态信息</strong> ，并以增量形式存储于基元版本数据中，实现对地理现象的产生、演变、消亡等动态时序变化信息的全周期存储、管理与表达。</p>
-</li>
-</ol>
-<h2 id="构建过程"><a href="#构建过程" class="headerlink" title="构建过程"></a>构建过程</h2><p>以下是 <a href="#references">ref2</a> 中的构建系统逻辑。</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407092043852.png"></p>
-<p>从这张图可以看出，首先数据流通过适当的采样程序被分割（离散化）成一系列数据块（句子），如上所述。这些数据块的大小（数据的数量M），以及采样周期Ts，在本文中没有讨论，因为它们是依赖于问题参数的，我们想要解释的是主要思想。</p>
-<p>一般来说，数据块的大小M对应于代表监控环境中一个典型情况或机器典型工作条件（模式）的合理数量的数据。它可以在不同的物理系统中变化。例如，在从图形信息（图像序列）中获取知识时，一个数据块实际上就是一张图片中包含的所有RGB像素信息。</p>
-<p>至于数据块之间的采样周期Ts，它们不必相等，因为下一个数据块可能在更远（不同）的时间瞬间可用（测量）。换句话说，所提出的进化知识库系统更像是一个在线系统，或者更准确地说，是一个准实时系统，从某种意义上说，新的数据块在它们可用的地方被处理（而不一定是在固定的采样时间内）。这种假设从计算的角度来看更宽松，也更接近现实世界中学习和知识构建的过程。</p>
-<p>每个获得的单个数据块都将进一步处理，以提取最显著（重要）的知识项，这些将被称为近期知识项（近期KI）。这是通过一个特殊的新引入的序列聚类算法完成的，该算法将在下一节III中详细解释。这个算法的目标是从数据块中提取数据组（聚类）的中心（原型），以递减的顺序，从最大的聚类开始，继续到最小的聚类。这个序列过程的结束是由预先给定的阈值决定的，如图2.1所示。</p>
-<p>一旦通过序列聚类提取出近期知识项（KI），它们就进一步用作图2.1所示的进化知识库（KB）更新算法的输入。在这里，根据知识库中已经存在（旧的）知识项，可以区分出三种不同的更新模式。它们被编号为0、1和2，并在下一个图2.2中展示。</p>
-<h1 id="关于时空数据库操作"><a href="#关于时空数据库操作" class="headerlink" title="关于时空数据库操作"></a>关于时空数据库操作</h1><p>初上文提到时空数据的“增删改查”基础操作，以及“查询分析可视化”等高级操作外，还应存在以下操作：</p>
-<ul>
-<li>记忆（learn）：增加新的时空数据，并与更新现有数据的时空关联关系。</li>
-<li>遗忘（forget）：删除原有时空数据，并删除相关关联关系以及其他数据表中的相关知识痕迹，如删除某一误判风险事件，同时应删除事件处置、原因溯源等一切相关时空数据。</li>
-<li>学习（relearn）：更新已有时空数据，并更新时空相关数据，如更新某一风险判断政策或条件，应同时更新所有风险判断及处置相关数据。</li>
-</ul>
-<p>以下是 <a href="#references">ref2</a> 中的关于三种操作对应的情况：</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407092030683.png"></p>
-<p>模式0表示知识库中现有的（旧的）知识项（Knowledge Item，KI）尚未被序列聚类中的任何近期KI“访问”。这意味着所有近期KI都位于这个现有KI的预定 <em>resolution</em> 参数之外。 <em>resolution</em> 参数是一个用来在知识库（KB）中将“接近的知识项”与“远离的知识项”分开的距离，如图2.2所示。从这个例子中可以看到，知识库中有两个模式为0的KI。这些被视为将在某种程度上逐渐淡出（遗忘步骤）的旧知识项。</p>
-<p>模式1表示知识库中完全新的知识项（新KI）。这意味着近期KI与知识库中的所有现有KI都相距甚远。在这种情况下，这个新知识应该接受一个全新的（首次）学习步骤。在图2.2的例子中，有两种情况是模式1。</p>
-<p>模式2表示近期KI位于知识库中现有KI的附近，即在由 <em>resolution</em> 参数定义的圆形区域内。这样的情况表明，知识库中的旧现有KI将升级为需要以某种方式重新学习刷新的知识项，同时考虑到近期KI所携带的知识量。在图2.2的例子中，有两种情况是模式2。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>时空数据库相比传统数据库的升级体现在以下方面：</p>
-<h2 id="数据结构方面"><a href="#数据结构方面" class="headerlink" title="数据结构方面"></a>数据结构方面</h2><p>在进行数据ER图设计时，时间、空间特征应被单独构建为数据实体。</p>
-<h2 id="数据操作方面"><a href="#数据操作方面" class="headerlink" title="数据操作方面"></a>数据操作方面</h2><p>简单的增删改查应升级成时空相关的“记忆”、“遗忘”、“学习”、“分析”等。</p>
-<h2 id="数据维护方面"><a href="#数据维护方面" class="headerlink" title="数据维护方面"></a>数据维护方面</h2><p>应在动态性方面大幅强化，包括时空关系的自动挖掘，知识更新、失效的自动化判断，insight（如风险预警）的自动生成等。</p>
-<h2 id="整体构建过程"><a href="#整体构建过程" class="headerlink" title="整体构建过程"></a>整体构建过程</h2><p>依然与传统数据库类似：</p>
-<p>构建时空数据库是一个复杂的过程，需要考虑数据的收集、处理、存储和管理系统等多个方面。以下是构建时空数据库的具体步骤：</p>
-<ol>
-<li><p><strong>需求分析</strong>：</p>
-<ul>
-<li>确定数据库的目标和用途。</li>
-<li>了解用户需求和期望的功能。</li>
-</ul>
-</li>
-<li><p><strong>数据收集</strong>：</p>
-<ul>
-<li>收集时空数据，可能包括地理信息、时间序列数据、遥感数据等。</li>
-<li>确定数据来源和收集方法。</li>
-</ul>
-</li>
-<li><p><strong>数据预处理</strong>：</p>
-<ul>
-<li>清洗数据，去除错误和不一致的数据。</li>
-<li>标准化数据格式，确保数据的一致性。</li>
-</ul>
-</li>
-<li><p><strong>数据建模</strong>：</p>
-<ul>
-<li>确定数据的空间和时间维度，并进行对应实体设计。</li>
-<li>设计时空数据模型与ER图，包括实体、关系和属性的定义。</li>
-</ul>
-</li>
-<li><p><strong>选择技术平台</strong>（可视情况提前）：</p>
-<ul>
-<li>选择适合时空数据存储和查询的数据库管理系统（如PostGIS、MongoDB等）。</li>
-</ul>
-</li>
-<li><p><strong>数据集成</strong>：</p>
-<ul>
-<li>将清洗和标准化后的数据导入数据库。</li>
-<li>进行数据整合，确保数据逻辑一致性。</li>
-</ul>
-</li>
-<li><p><strong>建立索引和优化</strong>：</p>
-<ul>
-<li>为提高查询效率，建立空间和时间索引。</li>
-<li>优化数据库性能，调整参数以适应大规模数据操作。</li>
-</ul>
-</li>
-<li><p><strong>开发数据库管理系统</strong>：</p>
-<ul>
-<li>开发或配置数据库管理系统，实现数据的增删改查等操作。</li>
-<li>实现数据可视化和分析工具。</li>
-</ul>
-</li>
-<li><p><strong>数据更新策略</strong>：</p>
-<ul>
-<li>制定数据更新和维护的策略。</li>
-<li>确定数据更新频率和方法。</li>
-</ul>
-</li>
-<li><p><strong>安全性和隐私保护</strong>：</p>
-<ul>
-<li>实施数据安全措施，保护数据不被未授权访问。</li>
-<li>确保符合数据保护法规。</li>
-</ul>
-</li>
-<li><p><strong>测试和验证</strong>：</p>
-<ul>
-<li>对数据库进行测试，确保功能正确性和性能满足要求。</li>
-<li>验证数据的准确性和完整性。</li>
-</ul>
-</li>
-<li><p><strong>用户培训和文档编写</strong>：</p>
-<ul>
-<li>为用户提供培训，确保他们能够有效使用数据库。</li>
-<li>编写用户手册和系统文档。</li>
-</ul>
-</li>
-<li><p><strong>部署和上线</strong>：</p>
-<ul>
-<li>将数据库部署到生产环境。</li>
-<li>正式上线提供服务。</li>
-</ul>
-</li>
-<li><p><strong>监控和维护</strong>：</p>
-<ul>
-<li>监控数据库性能和健康状况。</li>
-<li>定期维护和升级系统。</li>
-</ul>
-</li>
-</ol>
-<p>构建时空数据库是一个迭代和持续的过程，需要不断地根据用户反馈和技术发展进行优化和升级。</p>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
-<li><a href="https://wenku.baidu.com/view/2bd7de9f9a8fcc22bcd126fff705cc1754275f3b.html?_wkts_=1720526169067&amp;bdQuery=%E6%97%B6%E7%A9%BA%E7%9F%A5%E8%AF%86%E5%BA%93" target="_blank" rel="noopener">https://wenku.baidu.com/view/2bd7de9f9a8fcc22bcd126fff705cc1754275f3b.html?_wkts_=1720526169067&amp;bdQuery=%E6%97%B6%E7%A9%BA%E7%9F%A5%E8%AF%86%E5%BA%93</a></li>
-<li><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=5584860" target="_blank" rel="noopener">https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=5584860</a></li>
-</ol>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2454,7 +2810,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -2467,7 +2823,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">225</span>
+        <span class="site-state-item-count">228</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

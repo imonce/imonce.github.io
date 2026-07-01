@@ -30,7 +30,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="导语： 推荐系统已经渗透到我们生活的方方面面——淘宝的商品、抖音的视频、知乎的回答、Spotify 的歌单、小红书的内容。本文从最传统的推荐方法一路讲到最前沿的研究方向，用尽量通俗的语言完整梳理推荐系统的技术演进脉络。   一、为什么推荐系统如此重要在信息爆炸的时代，核心问题不再是”信息不够多”，而是”注意力不够用”。假设你在淘宝上有 1000 万种商品，在抖音上有数亿条视频，你一天能看完多少？">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2026-06-30T14:16:15.377Z">
+<meta property="og:updated_time" content="2026-07-01T07:37:36.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="推荐系统技术全景：从协同过滤到大语言模型，三十年演进之路">
 <meta name="twitter:description" content="导语： 推荐系统已经渗透到我们生活的方方面面——淘宝的商品、抖音的视频、知乎的回答、Spotify 的歌单、小红书的内容。本文从最传统的推荐方法一路讲到最前沿的研究方向，用尽量通俗的语言完整梳理推荐系统的技术演进脉络。   一、为什么推荐系统如此重要在信息爆炸的时代，核心问题不再是”信息不够多”，而是”注意力不够用”。假设你在淘宝上有 1000 万种商品，在抖音上有数亿条视频，你一天能看完多少？">
@@ -124,7 +124,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">225</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -134,7 +134,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">145</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -221,10 +221,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2026-06-30 22:16:11 / Modified: 22:16:15" itemprop="dateCreated datePublished" datetime="2026-06-30T22:16:11+08:00">2026-06-30</time>
+              <time title="Created: 2026-06-30 22:16:11" itemprop="dateCreated datePublished" datetime="2026-06-30T22:16:11+08:00">2026-06-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-07-01 15:37:36" itemprop="dateModified" datetime="2026-07-01T15:37:36+08:00">2026-07-01</time>
+              </span>
 
           
             <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
@@ -280,7 +286,7 @@
 <p>第二步，<strong>IDF（逆文档频率）</strong> 衡量这个词在所有电影中有多”稀有”——越稀有的词，区分度越高：<br>$$IDF(t) = \log\frac{N}{df(t)}$$<br>其中 $N$ 是电影总数，$df(t)$ 是包含词 $t$ 的电影数。比如有 10000 部电影，”科幻”出现了 5000 部，$df(\text{科幻}) = 5000$，$IDF = \log(10000/5000) = \log 2 \approx 0.69$；而”诺兰”只出现在 10 部电影里，$IDF = \log(10000/10) = \log 1000 \approx 6.91$。显然”诺兰”的区分度远高于”科幻”。</p>
 <p>最后 <strong>TF-IDF = TF × IDF</strong>。某个词在某部电影中既常见（TF 高），又在整体中稀有（IDF 高），那它就构成了这部电影的”核心标签”。</p>
 </li>
-<li><p><strong>KNN（最近邻）：</strong> 计算两部电影的特征向量之间的相似度，越相似推荐概率越高。最常用的相似度度量是<strong>余弦相似度</strong>：<br>$$\text{Cosine}(A, B) = \frac{A \cdot B}{|A| \times |B|} = \frac{\sum_{i=1}^{n} A_i B_i}{\sqrt{\sum_{i=1}^{n} A_i^2} \times \sqrt{\sum_{i=1}^{n} B_i^2}}$$<br>具体怎么算？假设用三个标签维度来描述电影：[科幻，动作，诺兰]。电影 X 的特征向量是 A = [0.9, 0.3, 0.8]，电影 Y 的特征向量是 B = [0.8, 0.2, 0.9]。</p>
+<li><p><strong>KNN（最近邻）：</strong> 计算两部电影的特征向量之间的相似度，越相似推荐概率越高。最常用的相似度度量是<strong>余弦相似度</strong>：<br>$$\text{Cosine}(A, B) = \frac{A \cdot B}{|A| \times |B|} = \frac{\sum _{i=1}^{n} A _i B _i}{\sqrt{\sum _{i=1}^{n} A _i^2} \times \sqrt{\sum _{i=1}^{n} B _i^2}}$$<br>具体怎么算？假设用三个标签维度来描述电影：[科幻，动作，诺兰]。电影 X 的特征向量是 A = [0.9, 0.3, 0.8]，电影 Y 的特征向量是 B = [0.8, 0.2, 0.9]。</p>
 <ul>
 <li>分子（点积）：$A \cdot B = 0.9 \times 0.8 + 0.3 \times 0.2 + 0.8 \times 0.9 = 0.72 + 0.06 + 0.72 = 1.50$</li>
 <li>分母（模长乘积）：$|A| = \sqrt{0.9^2 + 0.3^2 + 0.8^2} = \sqrt{0.81 + 0.09 + 0.64} = \sqrt{1.54} \approx 1.24$，同理 $|B| = \sqrt{0.8^2 + 0.2^2 + 0.9^2} = \sqrt{0.64 + 0.04 + 0.81} = \sqrt{1.49} \approx 1.22$</li>
@@ -336,18 +342,18 @@
 <td>2</td>
 </tr>
 </tbody></table>
-<p>先算平均评分：$\bar{r}<em>A = (5+4+1)/3 = 3.33$，$\bar{r}<em>B = (4+3+2)/3 = 3.00$。用减去均值后的评分来计算相似度：<br>$$\text{sim}(A, B) = \frac{\sum</em>{i \in I</em>{AB}} (r_{Ai} - \bar{r}<em>A)(r</em>{Bi} - \bar{r}<em>B)}{\sqrt{\sum</em>{i \in I_{AB}} (r_{Ai} - \bar{r}<em>A)^2} \times \sqrt{\sum</em>{i \in I_{AB}} (r_{Bi} - \bar{r}_B)^2}}$$<br>具体计算：</p>
+<p>先算平均评分：$\bar{r} _A = (5+4+1)/3 = 3.33$，$\bar{r} _B = (4+3+2)/3 = 3.00$。用减去均值后的评分来计算相似度：<br>$$\text{sim}(A, B) = \frac{\sum _{i \in I _{AB}} (r _{Ai} - \bar{r} _A)(r _{Bi} - \bar{r} _B)}{\sqrt{\sum _{i \in I _{AB}} (r _{Ai} - \bar{r} _A)^2} \times \sqrt{\sum _{i \in I _{AB}} (r _{Bi} - \bar{r} _B)^2}}$$<br>具体计算：</p>
 <ul>
 <li>分子：$(5-3.33)(4-3.00) + (4-3.33)(3-3.00) + (1-3.33)(2-3.00) = 1.67 \times 1.00 + 0.67 \times 0.00 + (-2.33) \times (-1.00) = 1.67 + 0 + 2.33 = 4.00$</li>
 <li>分母：$\sqrt{1.67^2 + 0.67^2 + 2.33^2} \times \sqrt{1.00^2 + 0.00^2 + 1.00^2} = \sqrt{2.79 + 0.45 + 5.43} \times \sqrt{1 + 0 + 1} = \sqrt{8.67} \times \sqrt{2} \approx 2.94 \times 1.41 = 4.15$</li>
 <li>相似度：$\text{sim}(A, B) = 4.00 / 4.15 \approx 0.96$</li>
 </ul>
 <p>接近 1，说明用户 A 和用户 B 的品味高度一致。</p>
-<p><strong>评分预测：</strong> 找到与用户 u 最相似的 k 个邻居后，预测用户 u 对物品 i 的评分：<br>$$\hat{r}_{ui} = \bar{r}<em>u + \frac{\sum</em>{v \in N_u(k)} \text{sim}(u, v) \times (r_{vi} - \bar{r}<em>v)}{\sum</em>{v \in N_u(k)} |\text{sim}(u, v)|}$$<br>具体怎么算？假设用户 C 还没看《盗梦空间》，我们想用用户 A 和用户 B 帮他预测。已知：$\bar{r}_C = 3.0$，用户 A 对《盗梦空间》评分 4，相似度 0.96；用户 B 对《盗梦空间》评分 3，相似度 0.90。</p>
+<p><strong>评分预测：</strong> 找到与用户 u 最相似的 k 个邻居后，预测用户 u 对物品 i 的评分：<br>$$\hat{r} _{ui} = \bar{r} _u + \frac{\sum _{v \in N _u(k)} \text{sim}(u, v) \times (r _{vi} - \bar{r} _v)}{\sum _{v \in N _u(k)} |\text{sim}(u, v)|}$$<br>具体怎么算？假设用户 C 还没看《盗梦空间》，我们想用用户 A 和用户 B 帮他预测。已知：$\bar{r} _C = 3.0$，用户 A 对《盗梦空间》评分 4，相似度 0.96；用户 B 对《盗梦空间》评分 3，相似度 0.90。</p>
 <ul>
 <li>分子：$0.96 \times (4 - 3.33) + 0.90 \times (3 - 3.00) = 0.96 \times 0.67 + 0.90 \times 0.00 = 0.64 + 0 = 0.64$</li>
 <li>分母：$0.96 + 0.90 = 1.86$</li>
-<li>预测评分：$\hat{r}_{C, \text{盗梦空间}} = 3.00 + 0.64 / 1.86 = 3.00 + 0.34 = 3.34$</li>
+<li>预测评分：$\hat{r} _{C, \text{盗梦空间}} = 3.00 + 0.64 / 1.86 = 3.00 + 0.34 = 3.34$</li>
 </ul>
 <p>用户 C 预计会给《盗梦空间》打 3.34 分。</p>
 <p><strong>局限性：</strong> 当用户量达到千万级时，计算”你和所有人的相似度”计算量巨大。而且很多用户可能只看过很少的物品，很难找到足够相似的人。</p>
@@ -370,7 +376,7 @@
 <li>交集：${\text{张三, 李四, 王五}}$，共 3 人</li>
 <li>相似度：$\text{sim}(A, B) = 3 / \sqrt{5 \times 5} = 3 / 5 = 0.60$</li>
 </ul>
-<p><strong>评分预测：</strong> 假设用户 u 给电影 A 打了 5 分，与 A 最相似的两部电影是 B（相似度 0.60，u 打了 4 分）和 C（相似度 0.40，u 打了 3 分）。预测 u 对电影 D 的评分（D 与 B 的相似度 0.70，与 C 的相似度 0.50）：<br>$$\hat{r}<em>{ui} = \frac{\sum</em>{j \in S(i, k) \cap R_u} w_{ij} \times r_{uj}}{\sum_{j \in S(i, k) \cap R_u} |w_{ij}|} = \frac{0.70 \times 4 + 0.50 \times 3}{0.70 + 0.50} = \frac{2.8 + 1.5}{1.2} = \frac{4.3}{1.2} \approx 3.58$$<br>用户 u 预计会给电影 D 打 3.58 分。</p>
+<p><strong>评分预测：</strong> 假设用户 u 给电影 A 打了 5 分，与 A 最相似的两部电影是 B（相似度 0.60，u 打了 4 分）和 C（相似度 0.40，u 打了 3 分）。预测 u 对电影 D 的评分（D 与 B 的相似度 0.70，与 C 的相似度 0.50）：<br>$$\hat{r} _{ui} = \frac{\sum _{j \in S(i, k) \cap R _u} w _{ij} \times r _{uj}}{\sum _{j \in S(i, k) \cap R _u} |w _{ij}|} = \frac{0.70 \times 4 + 0.50 \times 3}{0.70 + 0.50} = \frac{2.8 + 1.5}{1.2} = \frac{4.3}{1.2} \approx 3.58$$<br>用户 u 预计会给电影 D 打 3.58 分。</p>
 <p><strong>局限性：</strong> 对新物品完全没用——刚上架的电影没有人给它评过分，它就永远不会被推荐。</p>
 <h3 id="3-矩阵分解（Matrix-Factorization-MF）"><a href="#3-矩阵分解（Matrix-Factorization-MF）" class="headerlink" title="3. 矩阵分解（Matrix Factorization, MF）"></a>3. 矩阵分解（Matrix Factorization, MF）</h3><p><strong>一句话解释：</strong> 把”用户-物品评分表”压缩成两个小表格，每个用户和每个物品各有一组”隐向量”，它们的点积就能近似原始评分。</p>
 <p><strong>详细解释：</strong></p>
@@ -384,8 +390,8 @@
 </ul>
 <p>使得 $U \times V^T \approx$ 原始评分矩阵 $R$</p>
 <p>其中 k 是隐向量的维度（通常 50~256），远小于 N 和 M。</p>
-<p><strong>优化目标：</strong><br>$$\min_{U, V} \sum_{(u, i) \in \Omega} (r_{ui} - \hat{r}<em>{ui})^2 + \lambda (|U|_F^2 + |V|_F^2)$$<br>其中 $\Omega$ 是已知的评分集合，$\hat{r}</em>{ui} = u_u^T v_i$（用户隐向量与物品隐向量的点积），$\lambda$ 是正则化系数，$|\cdot|_F$ 是 Frobenius 范数。</p>
-<p><strong>SGD 更新规则：</strong><br>$$e_{ui} = r_{ui} - u_u^T v_i$$<br>$$u_u \leftarrow u_u + \gamma (e_{ui} \cdot v_i - \lambda \cdot u_u)$$<br>$$v_i \leftarrow v_i + \gamma (e_{ui} \cdot u_u - \lambda \cdot v_i)$$<br>其中 $\gamma$ 是学习率，$e_{ui}$ 是预测误差。每次只更新一个已知的 $(u,i)$ 对。</p>
+<p><strong>优化目标：</strong><br>$$\min _{U, V} \sum _{(u, i) \in \Omega} (r _{ui} - \hat{r} _{ui})^2 + \lambda (|U| _F^2 + |V| _F^2)$$<br>其中 $\Omega$ 是已知的评分集合，$\hat{r} _{ui} = u _u^T v _i$（用户隐向量与物品隐向量的点积），$\lambda$ 是正则化系数，$|\cdot| _F$ 是 Frobenius 范数。</p>
+<p><strong>SGD 更新规则：</strong><br>$$e _{ui} = r _{ui} - u _u^T v _i$$<br>$$u _u \leftarrow u _u + \gamma (e _{ui} \cdot v _i - \lambda \cdot u _u)$$<br>$$v _i \leftarrow v _i + \gamma (e _{ui} \cdot u _u - \lambda \cdot v _i)$$<br>其中 $\gamma$ 是学习率，$e _{ui}$ 是预测误差。每次只更新一个已知的 $(u,i)$ 对。</p>
 <p><strong>经典算法：</strong></p>
 <ul>
 <li><strong>SVD（奇异值分解）：</strong> 最经典的矩阵分解方法，但要求矩阵完整（不能有缺失值），而实际评分矩阵大量缺失。</li>
@@ -409,7 +415,7 @@
 <p><strong>问题：</strong> 人工设计交叉特征非常累，而且很难穷举所有可能的组合。</p>
 <h3 id="2-逻辑回归（LR）"><a href="#2-逻辑回归（LR）" class="headerlink" title="2. 逻辑回归（LR）"></a>2. 逻辑回归（LR）</h3><p><strong>为什么推荐 LR？</strong> 因为它简单、可解释、线上推理极快。</p>
 <p>LR 的输出是：用户点击某条广告的概率 = σ(w₁x₁ + w₂x₂ + … + wₙxₙ)，其中 σ 是 sigmoid 函数（把任意实数压缩到 0~1 之间），x 是特征，w 是权重。</p>
-<p><strong>数学公式：</strong><br>$$P(y=1 \mid x) = \sigma(w^T x + b) = \frac{1}{1 + e^{-(w^T x + b)}}$$<br><strong>损失函数（交叉熵）：</strong><br>$$\mathcal{L} = -\frac{1}{N} \sum_{i=1}^{N} [y_i \log(\hat{y}_i) + (1-y_i) \log(1-\hat{y}_i)]$$<br>其中 $\hat{y}_i = \sigma(w^T x_i + b)$，$y_i \in {0, 1}$ 是真实标签。</p>
+<p><strong>数学公式：</strong><br>$$P(y=1 \mid x) = \sigma(w^T x + b) = \frac{1}{1 + e^{-(w^T x + b)}}$$<br><strong>损失函数（交叉熵）：</strong><br>$$\mathcal{L} = -\frac{1}{N} \sum _{i=1}^{N} [y _i \log(\hat{y} _i) + (1-y _i) \log(1-\hat{y} _i)]$$<br>其中 $\hat{y} _i = \sigma(w^T x _i + b)$，$y _i \in {0, 1}$ 是真实标签。</p>
 <p><strong>关键问题：</strong> 如果特征都是人工设计的，LR 的性能上限就在那里了。所以关键是”如何自动发现好的特征交叉”。</p>
 <h3 id="3-FM——自动发现特征交叉"><a href="#3-FM——自动发现特征交叉" class="headerlink" title="3. FM——自动发现特征交叉"></a>3. FM——自动发现特征交叉</h3><p><strong>一句话解释：</strong> 给每个特征学一个”隐向量”，通过隐向量的点积来自动发现特征之间的二阶交叉关系。</p>
 <p><strong>举个例子：</strong></p>
@@ -421,8 +427,8 @@
 <p>传统 LR 需要人工构造交叉特征”性别×广告类别”（比如”男×男装”、”女×女装”）。如果有一百个特征，交叉特征就有 C(100,2) = 4950 个，而且大部分数据是稀疏的（你不可能看到所有组合）。</p>
 <p>FM 的巧妙之处在于：它给每个特征学一个 k 维隐向量 v₁, v₂, …, vₙ。两个特征的交叉就通过它们的隐向量点积 vᵢ·vⱼ 来近似。</p>
 <p><strong>核心公式：</strong></p>
-<p>FM 的预测公式为：<br>$$\hat{y}(x) = w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle v_i, v_j \rangle x_i x_j$$<br>其中 $w_0$ 是全局偏置，$w_i$ 是第 $i$ 个特征的权重，$v_i$ 是第 $i$ 个特征的 k 维隐向量，$\langle v_i, v_j \rangle$ 是隐向量的点积。</p>
-<p>交叉项的数学推导——利用平方和展开的技巧，二阶交叉项可以改写为：<br>$$\sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle v_i, v_j \rangle x_i x_j = \frac{1}{2} \sum_{f=1}^{k} \left( \left( \sum_{i=1}^{n} v_{i,f} x_i \right)^2 - \sum_{i=1}^{n} v_{i,f}^2 x_i^2 \right)$$</p>
+<p>FM 的预测公式为：<br>$$\hat{y}(x) = w _0 + \sum _{i=1}^{n} w _i x _i + \sum _{i=1}^{n} \sum _{j=i+1}^{n} \langle v _i, v _j \rangle x _i x _j$$<br>其中 $w _0$ 是全局偏置，$w _i$ 是第 $i$ 个特征的权重，$v _i$ 是第 $i$ 个特征的 k 维隐向量，$\langle v _i, v _j \rangle$ 是隐向量的点积。</p>
+<p>交叉项的数学推导——利用平方和展开的技巧，二阶交叉项可以改写为：<br>$$\sum _{i=1}^{n} \sum _{j=i+1}^{n} \langle v _i, v _j \rangle x _i x _j = \frac{1}{2} \sum _{f=1}^{k} \left( \left( \sum _{i=1}^{n} v _{i,f} x _i \right)^2 - \sum _{i=1}^{n} v _{i,f}^2 x _i^2 \right)$$</p>
 <p>这意味着即使特征非常稀疏，FM 也能高效地学习交叉项，计算复杂度是 O(kn)，而不是 O(n²)。</p>
 <p><strong>FM 的实际影响：</strong> 2010 年提出后，FM 在 CTR 预估（预测用户是否会点击广告/商品）领域成为重要工具。</p>
 <h3 id="4-FFM——给每个特征每个”域”一个隐向量"><a href="#4-FFM——给每个特征每个”域”一个隐向量" class="headerlink" title="4. FFM——给每个特征每个”域”一个隐向量"></a>4. FFM——给每个特征每个”域”一个隐向量</h3><p><strong>一句话解释：</strong> FM 给每个特征一个隐向量，但 FFM 发现：同一个特征在不同的”上下文”（Field）中可能代表不同的含义，所以给每个特征在每个 Field 里单独学一个隐向量。</p>
@@ -432,10 +438,10 @@
 <li>特征 A：性别（男）</li>
 <li>特征 B：广告类别（男装）</li>
 </ul>
-<p>在 FM 中，性别”男”只有一个隐向量 v_A。但在 FFM 中，性别”男”对广告类别”男装”的隐向量，和性别”男”对广告类别”女装”的隐向量是不同的——v_A(男装) ≠ v_A(女装)。</p>
+<p>在 FM 中，性别”男”只有一个隐向量 $v_A$ 。但在 FFM 中，性别”男”对广告类别”男装”的隐向量，和性别”男”对广告类别”女装”的隐向量是不同的—— $v_A(男装) ≠ v_A(女装)$ 。</p>
 <p>因为性别”男”和广告”男装”之间的相关性，和性别”男”与广告”女装”之间的相关性显然不同。FFM 捕捉到了这种”上下文依赖性”。</p>
 <p><strong>2016 年 WSDM 最佳论文。</strong> 在 2014–2018 年间，FFM 是工业界 CTR 预估的标配算法。</p>
-<p><strong>FFM 的公式改进：</strong><br>FM 中的交叉项是 $\sum_{i=1}^n \sum_{j=i+1}^n \langle v_i, v_j \rangle x_i x_j$，其中隐向量 $v_i$ 与特征无关。<br>FFM 则将隐向量按”域（Field）”拆分：$\langle v_{i, F_j}, v_{j, F_i} \rangle$，其中 $v_{i, F_j}$ 表示特征 $i$ 在特征 $j$ 所属域中的隐向量。于是：<br>$$\hat{y}(x) = w_0 + \sum_{i=1}^n w_i x_i + \sum_{i=1}^n \sum_{j=i+1}^n \langle v_{i, F_j}, v_{j, F_i} \rangle x_i x_j$$<br>代价是隐向量个数从 $n \times k$ 增加到 $n \times k \times |\text{Fields}|$，但精度显著提升。</p>
+<p><strong>FFM 的公式改进：</strong><br>FM 中的交叉项是 $\sum _{i=1}^n \sum _{j=i+1}^n \langle v _i, v _j \rangle x _i x _j$，其中隐向量 $v _i$ 与特征无关。<br>FFM 则将隐向量按”域（Field）”拆分：$\langle v _{i, F _j}, v _{j, F _i} \rangle$，其中 $v _{i, F _j}$ 表示特征 $i$ 在特征 $j$ 所属域中的隐向量。于是：<br>$$\hat{y}(x) = w _0 + \sum _{i=1}^n w _i x _i + \sum _{i=1}^n \sum _{j=i+1}^n \langle v _{i, F _j}, v _{j, F _i} \rangle x _i x _j$$<br>代价是隐向量个数从 $n \times k$ 增加到 $n \times k \times |\text{Fields}|$，但精度显著提升。</p>
 <h3 id="5-GBDT-LR"><a href="#5-GBDT-LR" class="headerlink" title="5. GBDT + LR"></a>5. GBDT + LR</h3><p><strong>一句话解释：</strong> 用树模型（XGBoost/LightGBM）自动做特征交叉，用 LR 做最终的分类。</p>
 <p><strong>具体流程：</strong></p>
 <ol>
@@ -451,9 +457,9 @@
 </ul>
 <p><strong>具体转化过程：</strong><br>假设用 $T$ 棵树做 GBDT，每棵树有 $L$ 个叶子节点。对于一个样本 $x$：</p>
 <ol>
-<li>输入每棵树，得到它落入的叶子节点索引：$t(x) = (t_1(x), t_2(x), \ldots, t_T(x))$</li>
+<li>输入每棵树，得到它落入的叶子节点索引：$t(x) = (t _1(x), t _2(x), \ldots, t _T(x))$</li>
 <li>将叶子索引做 one-hot 编码，得到新的特征向量 $x’ = \text{onehot}(t(x))$，维度为 $T \times L$</li>
-<li>将 $x’$ 输入 LR：$\hat{y} = \sigma(w_{LR}^T x’ + b_{LR})$</li>
+<li>将 $x’$ 输入 LR：$\hat{y} = \sigma(w _{LR}^T x’ + b _{LR})$</li>
 </ol>
 <hr>
 <h2 id="五、第四阶段：深度学习时代（2014–2019）"><a href="#五、第四阶段：深度学习时代（2014–2019）" class="headerlink" title="五、第四阶段：深度学习时代（2014–2019）"></a>五、第四阶段：深度学习时代（2014–2019）</h2><h3 id="1-Google-Wide-amp-Deep（2016）"><a href="#1-Google-Wide-amp-Deep（2016）" class="headerlink" title="1. Google Wide &amp; Deep（2016）"></a>1. Google Wide &amp; Deep（2016）</h3><p><strong>一句话解释：</strong> 用两个网络并行工作——Wide 部分负责”记忆”你之前见过的模式，Deep 部分负责”泛化”到没见过的组合。</p>
@@ -461,18 +467,18 @@
 <p><strong>Wide 部分（记忆能力）：</strong></p>
 <ul>
 <li>用稀疏的交叉特征（人工设计的），如”25岁女性×北京×女装×晚间”</li>
-<li>输出：$s_{\text{wide}} = w_{\text{wide}}^T x_{\text{wide}} + b_{\text{wide}}$</li>
+<li>输出：$s _{\text{wide}} = w _{\text{wide}}^T x _{\text{wide}} + b _{\text{wide}}$</li>
 <li>优点：对见过的组合记得很准</li>
 <li>缺点：没见过的新组合就无能为力了（稀疏特征中没出现的组合输出为零）</li>
 </ul>
 <p><strong>Deep 部分（泛化能力）：</strong></p>
 <ul>
-<li>Embedding 层：把稀疏特征（用户 ID、商品 ID 等）映射到稠密向量：$e_i = \text{Embed}(f_i)$</li>
+<li>Embedding 层：把稀疏特征（用户 ID、商品 ID 等）映射到稠密向量：$e _i = \text{Embed}(f _i)$</li>
 <li>DNN：多层全连接网络，逐层变换：$h^{(l+1)} = \sigma(W^{(l)} h^{(l)} + b^{(l)})$</li>
 <li>优点：没见过的新组合也能通过 Embedding 的连续空间做泛化</li>
 <li>缺点：对某些特定组合不够精准</li>
 </ul>
-<p><strong>最终融合：</strong><br>$$\hat{y} = \sigma(s_{\text{wide}} + s_{\text{deep}}) = \sigma(w_{\text{wide}}^T x_{\text{wide}} + b_{\text{wide}} + w_{\text{deep}}^T h_{\text{deep}} + b_{\text{deep}})$$<br>即把两部分的 logits 相加（而不是拼接再做一次 LR），等价于一个逻辑回归。</p>
+<p><strong>最终融合：</strong><br>$$\hat{y} = \sigma(s _{\text{wide}} + s _{\text{deep}}) = \sigma(w _{\text{wide}}^T x _{\text{wide}} + b _{\text{wide}} + w _{\text{deep}}^T h _{\text{deep}} + b _{\text{deep}})$$<br>即把两部分的 logits 相加（而不是拼接再做一次 LR），等价于一个逻辑回归。</p>
 <p><strong>效果：</strong> Google Play 上线后 CTR 提升 2.7%。</p>
 <h3 id="2-DeepFM（2017）"><a href="#2-DeepFM（2017）" class="headerlink" title="2. DeepFM（2017）"></a>2. DeepFM（2017）</h3><p><strong>一句话解释：</strong> 去掉 Wide &amp; Deep 中需要人工设计 Wide 部分特征的麻烦，用 FM 自动提取低阶交叉，用 DNN 自动提取高阶交叉，两者共享同一个 Embedding 层。</p>
 <p><strong>为什么比 Wide &amp; Deep 更好？</strong></p>
@@ -484,9 +490,9 @@
 </ul>
 <p><strong>DeepFM 的预测公式：</strong><br>DeepFM 由两个子网络组成，共享同一组 Embedding 层：</p>
 <ul>
-<li><strong>FM 部分（捕获二阶特征交叉）：</strong><br>$$s_{\text{FM}} = w_0 + \sum_{i=1}^n w_i x_i + \frac{1}{2} \sum_{f=1}^k \left( \left( \sum_{i=1}^n v_{i,f} x_i \right)^2 - \sum_{i=1}^n v_{i,f}^2 x_i^2 \right)$$</li>
-<li><strong>DNN 部分（捕获高阶特征交叉）：</strong><br>$$h^{(0)} = [e_1, e_2, \ldots, e_n], \quad h^{(l+1)} = \sigma(W^{(l)} h^{(l)} + b^{(l)})$$<br>$$s_{\text{DNN}} = w_{\text{out}}^T h^{(L)} + b_{\text{out}}$$</li>
-<li><strong>最终预测：</strong><br>$$\hat{y} = \sigma(s_{\text{FM}} + s_{\text{DNN}})$$<br>FM 和 DNN 的输出直接相加，共享同一组 Embedding $v_i = e_i$，无需任何人工特征交叉。</li>
+<li><strong>FM 部分（捕获二阶特征交叉）：</strong><br>$$s _{\text{FM}} = w _0 + \sum _{i=1}^n w _i x _i + \frac{1}{2} \sum _{f=1}^k \left( \left( \sum _{i=1}^n v _{i,f} x _i \right)^2 - \sum _{i=1}^n v _{i,f}^2 x _i^2 \right)$$</li>
+<li><strong>DNN 部分（捕获高阶特征交叉）：</strong><br>$$h^{(0)} = [e _1, e _2, \ldots, e _n], \quad h^{(l+1)} = \sigma(W^{(l)} h^{(l)} + b^{(l)})$$<br>$$s _{\text{DNN}} = w _{\text{out}}^T h^{(L)} + b _{\text{out}}$$</li>
+<li><strong>最终预测：</strong><br>$$\hat{y} = \sigma(s _{\text{FM}} + s _{\text{DNN}})$$<br>FM 和 DNN 的输出直接相加，共享同一组 Embedding $v _i = e _i$，无需任何人工特征交叉。</li>
 </ul>
 <h3 id="3-DIN-DIEN（阿里巴巴，2018–2019）"><a href="#3-DIN-DIEN（阿里巴巴，2018–2019）" class="headerlink" title="3. DIN / DIEN（阿里巴巴，2018–2019）"></a>3. DIN / DIEN（阿里巴巴，2018–2019）</h3><p><strong>一句话解释：</strong> 用户对不同商品的兴趣不同。推荐女装时，他看过的”美白牙膏”和”口红”兴趣权重不同，应该动态调整。</p>
 <p><strong>DIN（Deep Interest Network）的核心创新——注意力机制：</strong></p>
@@ -505,23 +511,23 @@
 <li>用注意力机制计算每个历史行为对当前预测的权重</li>
 <li>加权求和得到用户兴趣表示</li>
 </ol>
-<p><strong>DIN 的注意力权重计算：</strong><br>设候选商品 embedding 为 $e_c$，用户历史行为序列为 $h = [e_{h_1}, e_{h_2}, \ldots, e_{h_m}]$：</p>
+<p><strong>DIN 的注意力权重计算：</strong><br>设候选商品 embedding 为 $e _c$，用户历史行为序列为 $h = [e _{h _1}, e _{h _2}, \ldots, e _{h _m}]$：</p>
 <ul>
-<li>用多层感知机（MLP）计算每个历史行为与候选商品的相关性：$a_j = \text{Attention}(e_{h_j}, e_c) = \text{softmax}(v^T \tanh(W_1 e_{h_j} + W_2 e_c + b))$</li>
-<li>其中 $W_1, W_2, v$ 是可学习参数，$\tanh$ 和点积捕捉历史行为与候选商品之间的非线性相关性</li>
-<li>加权求和得到用户兴趣表示：$u = \sum_{j=1}^m a_j \cdot e_{h_j}$</li>
-<li>最后将 $u$ 与候选商品 $e_c$ 拼接，通过全连接层预测点击率：$\hat{y} = \text{FC}([u; e_c])$</li>
+<li>用多层感知机（MLP）计算每个历史行为与候选商品的相关性：$a _j = \text{Attention}(e _{h _j}, e _c) = \text{softmax}(v^T \tanh(W _1 e _{h _j} + W _2 e _c + b))$</li>
+<li>其中 $W _1, W _2, v$ 是可学习参数，$\tanh$ 和点积捕捉历史行为与候选商品之间的非线性相关性</li>
+<li>加权求和得到用户兴趣表示：$u = \sum _{j=1}^m a _j \cdot e _{h _j}$</li>
+<li>最后将 $u$ 与候选商品 $e _c$ 拼接，通过全连接层预测点击率：$\hat{y} = \text{FC}([u; e _c])$</li>
 </ul>
 <p><strong>DIEN 更进一步——兴趣演化：</strong></p>
 <p>DIN 只是静态地计算不同历史行为的权重，但用户的兴趣是随时间变化的。比如你以前喜欢二次元，现在转向了运动健身。DIEN 用 GRU（门控循环单元）来建模这种兴趣的演变过程。</p>
 <p><strong>DIEN 的两个关键创新：</strong></p>
 <ol>
 <li><strong>GRU with Attentional Update Gate（AUGRU）：</strong> 用 DIN 的注意力权重来调节 GRU 的更新门，让注意力强的行为对当前兴趣的影响更大：<ul>
-<li>传统 GRU 更新门：$z_t = \sigma(W_z \cdot [h_{t-1}, x_t])$</li>
-<li>AUGRU 用注意力权重 $\alpha_t$ 加权历史行为：$h’_{t-1} = \sum_j \alpha_j \cdot h_j$，然后 $z_t = \sigma(W_z \cdot [h’_{t-1}, x_t])$，即先用注意力机制过滤历史行为，再输入 GRU</li>
+<li>传统 GRU 更新门：$z _t = \sigma(W _z \cdot [h _{t-1}, x _t])$</li>
+<li>AUGRU 用注意力权重 $\alpha _t$ 加权历史行为：$h’ _{t-1} = \sum _j \alpha _j \cdot h _j$，然后 $z _t = \sigma(W _z \cdot [h’ _{t-1}, x _t])$，即先用注意力机制过滤历史行为，再输入 GRU</li>
 </ul>
 </li>
-<li><strong>辅助损失函数：</strong> 在 GRU 的每个时间步加入辅助损失，监督隐状态的变化是否合理：<br>$$\mathcal{L}<em>{\text{aux}} = \frac{1}{T} \sum</em>{t=1}^T \text{BCE}(a_t, \mathbb{I}(y_t = 1))$$<br>其中 $a_t$ 是 GRU 在时间步 $t$ 的注意力输出，$y_t$ 是用户在该时间步是否产生交互的标签。这个辅助损失防止 GRU 学到噪声，起到正则化的作用。</li>
+<li><strong>辅助损失函数：</strong> 在 GRU 的每个时间步加入辅助损失，监督隐状态的变化是否合理：<br>$$\mathcal{L} _{\text{aux}} = \frac{1}{T} \sum _{t=1}^T \text{BCE}(a _t, \mathbb{I}(y _t = 1))$$<br>其中 $a _t$ 是 GRU 在时间步 $t$ 的注意力输出，$y _t$ 是用户在该时间步是否产生交互的标签。这个辅助损失防止 GRU 学到噪声，起到正则化的作用。</li>
 </ol>
 <p><strong>DIEN 的完整流程：</strong></p>
 <ol>
@@ -546,15 +552,15 @@
 <li>因为 CTR 的样本多（只要曝光就有数据），模型能学到更好的用户表示</li>
 <li>这些表示被共享给 CVR 任务，缓解了稀疏性</li>
 </ul>
-<p><strong>ESMM 的模型结构：</strong><br>ESMM 假设点击和购买之间满足<strong>条件独立性</strong>：给定用户和商品的联合表示，购买行为与是否点击条件独立。于是：<br>$$P_{\text{ctcvr}} = P_{\text{ctr}} \times P_{\text{cvr}}$$</p>
+<p><strong>ESMM 的模型结构：</strong><br>ESMM 假设点击和购买之间满足<strong>条件独立性</strong>：给定用户和商品的联合表示，购买行为与是否点击条件独立。于是：<br>$$P _{\text{ctcvr}} = P _{\text{ctr}} \times P _{\text{cvr}}$$</p>
 <p>模型架构：</p>
 <ul>
 <li><strong>共享底层：</strong> 用户和商品的 Embedding 层完全共享</li>
-<li><strong>CTR 子网络：</strong> 用曝光数据训练（样本最多），输出 $\hat{p}_{\text{ctr}}$</li>
-<li><strong>CTCVR 子网络：</strong> 用点击且购买的数据训练（样本最少），输出 $\hat{p}_{\text{ctcvr}}$</li>
-<li><strong>隐式 CVR：</strong> $\hat{p}<em>{\text{cvr}} = \frac{\hat{p}</em>{\text{ctcvr}}}{\hat{p}_{\text{ctr}} + \epsilon}$，其中 $\epsilon$ 是极小数防止除零</li>
+<li><strong>CTR 子网络：</strong> 用曝光数据训练（样本最多），输出 $\hat{p} _{\text{ctr}}$</li>
+<li><strong>CTCVR 子网络：</strong> 用点击且购买的数据训练（样本最少），输出 $\hat{p} _{\text{ctcvr}}$</li>
+<li><strong>隐式 CVR：</strong> $\hat{p} _{\text{cvr}} = \frac{\hat{p} _{\text{ctcvr}}}{\hat{p} _{\text{ctr}} + \epsilon}$，其中 $\epsilon$ 是极小数防止除零</li>
 </ul>
-<p><strong>损失函数：</strong><br>$$\mathcal{L} = -\frac{1}{N} \sum_{i=1}^N \left[ c_i \log(\hat{p}_{\text{ctr}, i}) + (1-c_i) \log(1-\hat{p}_{\text{ctr}, i}) + v_i \log(\hat{p}_{\text{ctcvr}, i}) + (1-v_i) \log(1-\hat{p}_{\text{ctcvr}, i}) \right]$$<br>其中 $c_i$ 是点击标签（曝光即有），$v_i$ 是购买标签（仅点击后有值）。</p>
+<p><strong>损失函数：</strong><br>$$\mathcal{L} = -\frac{1}{N} \sum _{i=1}^N \left[ c _i \log(\hat{p} _{\text{ctr}, i}) + (1-c _i) \log(1-\hat{p} _{\text{ctr}, i}) + v _i \log(\hat{p} _{\text{ctcvr}, i}) + (1-v _i) \log(1-\hat{p} _{\text{ctcvr}, i}) \right]$$<br>其中 $c _i$ 是点击标签（曝光即有），$v _i$ 是购买标签（仅点击后有值）。</p>
 <h3 id="5-MMoE（Google，2018）"><a href="#5-MMoE（Google，2018）" class="headerlink" title="5. MMoE（Google，2018）"></a>5. MMoE（Google，2018）</h3><p><strong>一句话解释：</strong> 多任务学习时，不同任务之间可能有冲突。MMoE 用多个”专家”网络，每个任务有自己的”门控”来选择从哪些专家那里获取信息。</p>
 <p><strong>详细解释：</strong></p>
 <p>假设一个推荐系统要同时做三个任务：CTR 预估（是否点击）、CVR 预估（是否购买）、时长预估（停留多久）。</p>
@@ -571,22 +577,22 @@
 <li>购买任务可能主要从”品质商品专家”获取信息</li>
 </ol>
 <p><strong>效果：</strong> 比简单的多任务学习（共享底层特征）效果更好，因为它能自动学习任务间的相关性和冲突。</p>
-<p><strong>MMoE 的数学描述：</strong><br>假设有 $T$ 个任务，$G$ 个专家网络 ${e_g(\cdot)}_{g=1}^G$，每个任务 $t$ 有一个门控（Gating）网络 $g^{(t)}(\cdot)$：</p>
+<p><strong>MMoE 的数学描述：</strong><br>假设有 $T$ 个任务，$G$ 个专家网络 ${e _g(\cdot)} _{g=1}^G$，每个任务 $t$ 有一个门控（Gating）网络 $g^{(t)}(\cdot)$：</p>
 <ul>
-<li><strong>专家输出：</strong> $e_g(x) = W_g^{(e)} x + b_g^{(e)}$</li>
-<li><strong>任务门控：</strong> $g^{(t)}(x) = \text{softmax}(W_g^{(t)} x + b_g^{(t)})$，其中 $g^{(t)}(x)_g$ 表示任务 $t$ 对专家 $g$ 的权重</li>
-<li><strong>任务特定的专家组合：</strong> $\hat{y}^{(t)} = \sum_{g=1}^G g^{(t)}(x)_g \cdot e_g(x)$</li>
+<li><strong>专家输出：</strong> $e _g(x) = W _g^{(e)} x + b _g^{(e)}$</li>
+<li><strong>任务门控：</strong> $g^{(t)}(x) = \text{softmax}(W _g^{(t)} x + b _g^{(t)})$，其中 $g^{(t)}(x) _g$ 表示任务 $t$ 对专家 $g$ 的权重</li>
+<li><strong>任务特定的专家组合：</strong> $\hat{y}^{(t)} = \sum _{g=1}^G g^{(t)}(x) _g \cdot e _g(x)$</li>
 </ul>
 <p>每个任务通过自己的门控网络，自动学习从哪些专家获取信息。例如点击任务可能更多地从”标题党专家”获取信息，而购买任务从”品质商品专家”获取信息。</p>
 <h4 id="GRU4Rec（2016）"><a href="#GRU4Rec（2016）" class="headerlink" title="GRU4Rec（2016）"></a>GRU4Rec（2016）</h4><p><strong>一句话解释：</strong> 用户的浏览历史是一个时间序列，用 GRU（一种改进的 RNN）来记住这个序列，预测下一个会点什么。</p>
 <p><strong>GRU 核心公式：</strong><br>GRU 有两个门控机制来控制信息流：</p>
 <ul>
-<li><strong>更新门（Update Gate）：</strong> $z_t = \sigma(W_z \cdot [h_{t-1}, x_t])$，决定有多少旧记忆保留</li>
-<li><strong>重置门（Reset Gate）：</strong> $r_t = \sigma(W_r \cdot [h_{t-1}, x_t])$，决定多少旧记忆被丢弃</li>
-<li><strong>候选记忆：</strong> $\tilde{h}_t = \text{tanh}(W \cdot [r_t \odot h_{t-1}, x_t])$，$\odot$ 表示逐元素乘法</li>
-<li><strong>最终记忆：</strong> $h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t$，新旧记忆按更新门比例融合</li>
+<li><strong>更新门（Update Gate）：</strong> $z _t = \sigma(W _z \cdot [h _{t-1}, x _t])$，决定有多少旧记忆保留</li>
+<li><strong>重置门（Reset Gate）：</strong> $r _t = \sigma(W _r \cdot [h _{t-1}, x _t])$，决定多少旧记忆被丢弃</li>
+<li><strong>候选记忆：</strong> $\tilde{h} _t = \text{tanh}(W \cdot [r _t \odot h _{t-1}, x _t])$，$\odot$ 表示逐元素乘法</li>
+<li><strong>最终记忆：</strong> $h _t = (1 - z _t) \odot h _{t-1} + z _t \odot \tilde{h} _t$，新旧记忆按更新门比例融合</li>
 </ul>
-<p><strong>预测输出：</strong><br>$$\hat{y}_i = \text{softmax}(v_i^T \cdot h_t)$$<br>其中 $v_i$ 是物品 $i$ 的 embedding，$h_t$ 是 GRU 最后一个时间步的隐状态。目标是最大化实际被点击物品的概率。</p>
+<p><strong>预测输出：</strong><br>$$\hat{y} _i = \text{softmax}(v _i^T \cdot h _t)$$<br>其中 $v _i$ 是物品 $i$ 的 embedding，$h _t$ 是 GRU 最后一个时间步的隐状态。目标是最大化实际被点击物品的概率。</p>
 <p><strong>具体流程：</strong></p>
 <ol>
 <li>用户行为序列：[商品 A, 商品 C, 商品 E, …]</li>
@@ -603,7 +609,7 @@
 <li>通过多层自注意力（Self-Attention）</li>
 <li>预测下一个商品</li>
 </ol>
-<p><strong>自注意力（Self-Attention）核心公式：</strong><br>$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$<br>其中 $Q = XW_Q$、$K = XW_K$、$V = XW_V$ 分别是由输入 $X$ 通过可学习权重矩阵投影得到的查询、键、值矩阵，$d_k$ 是键向量的维度。$\frac{QK^T}{\sqrt{d_k}}$ 计算每个物品对其他所有物品的关注程度，除以 $\sqrt{d_k}$ 是为了防止点积过大导致 softmax 梯度消失。然后对输出做归一化，再经过前馈网络（FFN），即 SASRec 中的一层。</p>
+<p><strong>自注意力（Self-Attention）核心公式：</strong><br>$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d _k}}\right)V$$<br>其中 $Q = XW _Q$、$K = XW _K$、$V = XW _V$ 分别是由输入 $X$ 通过可学习权重矩阵投影得到的查询、键、值矩阵，$d _k$ 是键向量的维度。$\frac{QK^T}{\sqrt{d _k}}$ 计算每个物品对其他所有物品的关注程度，除以 $\sqrt{d _k}$ 是为了防止点积过大导致 softmax 梯度消失。然后对输出做归一化，再经过前馈网络（FFN），即 SASRec 中的一层。</p>
 <p><strong>因果掩码：</strong> 在训练时，用户不能看到未来的行为（防止信息泄露），所以 Self-Attention 矩阵上三角部分被 mask 掉（设为 $-\infty$），保证预测第 $t$ 个物品时只能用前 $t-1$ 个物品的信息。</p>
 <p><strong>为什么 Transformer 比 RNN 好？</strong></p>
 <ul>
@@ -621,9 +627,9 @@
 <p><strong>BERT4Rec 的训练目标：</strong><br>与 SASRec（因果 Mask，预测下一个）不同，BERT4Rec 使用<strong>双向上下文</strong>：</p>
 <ol>
 <li>以 15% 的概率随机替换用户序列中的某些商品 ID 为 <code>[MASK]</code> token</li>
-<li>训练掩码预测任务：$\mathcal{L} = -\log P(x_t^{\text{orig}} \mid x_t^{\text{masked}}, \text{context})$</li>
+<li>训练掩码预测任务：$\mathcal{L} = -\log P(x _t^{\text{orig}} \mid x _t^{\text{masked}}, \text{context})$</li>
 <li>由于是自注意力机制，模型可以同时看到被遮挡位置的左边和右边所有商品</li>
-<li>预测时，输出层对商品 ID 做 softmax：$P(x \mid h) = \text{softmax}(W_{\text{item}}^T h + b_{\text{item}})$，其中 $h$ 是 [MASK] 位置的 Transformer 隐状态</li>
+<li>预测时，输出层对商品 ID 做 softmax：$P(x \mid h) = \text{softmax}(W _{\text{item}}^T h + b _{\text{item}})$，其中 $h$ 是 [MASK] 位置的 Transformer 隐状态</li>
 </ol>
 <p><strong>BERT4Rec vs SASRec：</strong></p>
 <ul>
@@ -649,7 +655,7 @@
 <li>U2 会聚合 A、D 的信息</li>
 <li>经过几轮聚合，U1 和 U2 虽然没直接交互，但通过商品 A 有了间接联系</li>
 </ol>
-<p><strong>消息传递公式：</strong><br>对于一般 GNN，第 $k$ 层的消息传递为：<br>$$h_v^{(k)} = \text{Aggregate}\left({h_u^{(k-1)} \mid u \in \mathcal{N}(v)}\right)$$<br>$$h_v^{(k)} = \text{Update}\left(h_v^{(k-1)}, h_v^{(k)}\right)$$<br>其中 $\mathcal{N}(v)$ 是节点 $v$ 的邻居集合。在推荐场景下，节点分为用户节点和物品节点，边表示用户-物品交互。</p>
+<p><strong>消息传递公式：</strong><br>对于一般 GNN，第 $k$ 层的消息传递为：<br>$$h _v^{(k)} = \text{Aggregate}\left({h _u^{(k-1)} \mid u \in \mathcal{N}(v)}\right)$$<br>$$h _v^{(k)} = \text{Update}\left(h _v^{(k-1)}, h _v^{(k)}\right)$$<br>其中 $\mathcal{N}(v)$ 是节点 $v$ 的邻居集合。在推荐场景下，节点分为用户节点和物品节点，边表示用户-物品交互。</p>
 <h3 id="2-LightGCN（2020）"><a href="#2-LightGCN（2020）" class="headerlink" title="2. LightGCN（2020）"></a>2. LightGCN（2020）</h3><p><strong>一句话解释：</strong> 研究发现，在推荐场景下，复杂的 GNN 变体（GCN、GAT 等）并不比简单的线性聚合好。去掉非线性激活函数和特征变换，只用最轻量的邻居聚合，效果反而更好。</p>
 <p><strong>详细解释：</strong></p>
 <p>之前的图推荐模型（如 GraphSAGE、GAT）会做这些事：</p>
@@ -663,9 +669,9 @@
 <p><strong>邻居聚合 = 每个邻居的特征 × 归一化权重</strong></p>
 <p>效果反而更好，而且速度更快。这背后的原因是：在推荐场景中，用户的偏好不是固定的，而是通过和物品的交互”传播”出来的，不需要复杂的非线性变换。</p>
 <p><strong>为什么叫”Light”？</strong> 因为轻量化——去掉不必要的操作，让模型更轻更快。</p>
-<p><strong>LightGCN 的核心公式：</strong><br>LightGCN 只保留最基础的邻居聚合操作。设 $E_k$ 为第 $k$ 层的节点表示：<br>$$E_{k+1} = \tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} E_k$$<br>其中 $\tilde{A} = A + I$ 是加入自环的邻接矩阵，$\tilde{D}$ 是对应的度矩阵。归一化因子 $\tilde{D}^{-\frac{1}{2}}<em>{ii} \tilde{D}^{-\frac{1}{2}}</em>{jj} = \frac{1}{\sqrt{d_i \times d_j}}$ 保证了聚合时的权重平衡。</p>
-<p><strong>最终输出（多层聚合的叠加）：</strong><br>$$E = \sum_{k=0}^K \alpha_k E_k$$<br>其中 $\alpha_k$ 是第 $k$ 层的权重（通常设为均匀权重 $\alpha_k = \frac{1}{K+1}$）。将 $0 \sim K$ 层的所有表示拼接/相加，而不是只取最后一层，这样可以捕获多跳邻居的信息。</p>
-<p><strong>训练损失（BPR 损失）：</strong><br>$$\mathcal{L} = -\sum_{(u, i, j) \in \mathcal{O}} \ln \sigma(\hat{y}<em>{u, i} - \hat{y}</em>{u, j}) + \lambda |E|^2$$<br>其中 $(u, i, j)$ 是三元组：用户 $u$ 正样本物品 $i$，负样本物品 $j$（随机采样用户 $u$ 未交互过的物品），$\hat{y}_{u, i} = e_u^T e_i$ 是用户 $u$ 对物品 $i$ 的预测分数，$\sigma$ 是 sigmoid 函数。BPR 优化的目标是让正样本的分数高于负样本。</p>
+<p><strong>LightGCN 的核心公式：</strong><br>LightGCN 只保留最基础的邻居聚合操作。设 $E _k$ 为第 $k$ 层的节点表示：<br>$$E _{k+1} = \tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} E _k$$<br>其中 $\tilde{A} = A + I$ 是加入自环的邻接矩阵，$\tilde{D}$ 是对应的度矩阵。归一化因子 $\tilde{D}^{-\frac{1}{2}} _{ii} \tilde{D}^{-\frac{1}{2}} _{jj} = \frac{1}{\sqrt{d _i \times d _j}}$ 保证了聚合时的权重平衡。</p>
+<p><strong>最终输出（多层聚合的叠加）：</strong><br>$$E = \sum _{k=0}^K \alpha _k E _k$$<br>其中 $\alpha _k$ 是第 $k$ 层的权重（通常设为均匀权重 $\alpha _k = \frac{1}{K+1}$）。将 $0 \sim K$ 层的所有表示拼接/相加，而不是只取最后一层，这样可以捕获多跳邻居的信息。</p>
+<p><strong>训练损失（BPR 损失）：</strong><br>$$\mathcal{L} = -\sum _{(u, i, j) \in \mathcal{O}} \ln \sigma(\hat{y} _{u, i} - \hat{y} _{u, j}) + \lambda |E|^2$$<br>其中 $(u, i, j)$ 是三元组：用户 $u$ 正样本物品 $i$，负样本物品 $j$（随机采样用户 $u$ 未交互过的物品），$\hat{y} _{u, i} = e _u^T e _i$ 是用户 $u$ 对物品 $i$ 的预测分数，$\sigma$ 是 sigmoid 函数。BPR 优化的目标是让正样本的分数高于负样本。</p>
 <h3 id="3-SGL（2021）"><a href="#3-SGL（2021）" class="headerlink" title="3. SGL（2021）"></a>3. SGL（2021）</h3><p><strong>一句话解释：</strong> 在推荐场景下，正样本（用户买过的）和负样本（用户没买过的）都太多了。SGL 通过在图上做数据增强，用对比学习来学到更好的表示。</p>
 <p><strong>具体做法：</strong></p>
 <ol>
@@ -675,9 +681,9 @@
 <li>对不同的用户/物品，表示应该尽可能远离</li>
 </ol>
 <p><strong>核心洞察：</strong> 推荐场景下正负样本太多，传统的对比学习需要精心设计负采样策略。SGL 通过图上的数据增强，避免了这个问题。</p>
-<p><strong>SGL 的对比学习损失：</strong><br>SGL 在原始图 $G$ 上做 $M$ 种数据增强操作（随机删边、随机节点掩码、随机边掩码），得到 $M$ 个增强视图 ${G_1, G_2, \ldots, G_M}$，然后用 LightGCN 在每个视图上学到节点表示 $E_1, E_2, \ldots, E_M$。</p>
-<p><strong>InfoNCE 损失（对比学习标准损失）：</strong><br>对于一个锚点 $v$ 和其增强视图 $v_m$，损失为：<br>$$\mathcal{L}<em>{\text{InfoNCE}} = -\log \frac{\exp(\text{sim}(E_v, E_m) / \tau)}{\sum</em>{v’ \in \mathcal{B}} \exp(\text{sim}(E_v, E’_{m’}) / \tau)}$$<br>其中 $\text{sim}(a, b) = \frac{a^T b}{|a| \cdot |b|}$ 是余弦相似度，$\tau$ 是温度系数，$\mathcal{B}$ 是 batch 中的负样本集合。</p>
-<p><strong>最终节点表示：</strong><br>$$E_v = \sum_{m=1}^M w_m \cdot E_v^{(m)}$$<br>将 $M$ 个视图中的同一节点的表示加权求和，得到鲁棒的最终表示。</p>
+<p><strong>SGL 的对比学习损失：</strong><br>SGL 在原始图 $G$ 上做 $M$ 种数据增强操作（随机删边、随机节点掩码、随机边掩码），得到 $M$ 个增强视图 ${G _1, G _2, \ldots, G _M}$，然后用 LightGCN 在每个视图上学到节点表示 $E _1, E _2, \ldots, E _M$。</p>
+<p><strong>InfoNCE 损失（对比学习标准损失）：</strong><br>对于一个锚点 $v$ 和其增强视图 $v _m$，损失为：<br>$$\mathcal{L} _{\text{InfoNCE}} = -\log \frac{\exp(\text{sim}(E _v, E _m) / \tau)}{\sum _{v’ \in \mathcal{B}} \exp(\text{sim}(E _v, E’ _{m’}) / \tau)}$$<br>其中 $\text{sim}(a, b) = \frac{a^T b}{|a| \cdot |b|}$ 是余弦相似度，$\tau$ 是温度系数，$\mathcal{B}$ 是 batch 中的负样本集合。</p>
+<p><strong>最终节点表示：</strong><br>$$E _v = \sum _{m=1}^M w _m \cdot E _v^{(m)}$$<br>将 $M$ 个视图中的同一节点的表示加权求和，得到鲁棒的最终表示。</p>
 <hr>
 <h2 id="七、第六阶段：大规模工业系统架构"><a href="#七、第六阶段：大规模工业系统架构" class="headerlink" title="七、第六阶段：大规模工业系统架构"></a>七、第六阶段：大规模工业系统架构</h2><p>推荐系统在实际工业部署中从来不是单一模型，而是一个<strong>分层架构</strong>。</p>
 <h3 id="1-召回（Retrieval）"><a href="#1-召回（Retrieval）" class="headerlink" title="1. 召回（Retrieval）"></a>1. 召回（Retrieval）</h3><p><strong>一句话解释：</strong> 从几百万个候选物品中，快速选出几千个候选。</p>
@@ -688,12 +694,12 @@
 </ul>
 <p><strong>双塔模型公式：</strong></p>
 <ul>
-<li>用户塔：$e_u = f_U(x_u)$，其中 $x_u$ 是用户特征（年龄、性别、历史行为统计等），$f_U$ 是一个多层神经网络</li>
-<li>物品塔：$e_i = f_I(x_i)$，其中 $x_i$ 是物品特征（类别、价格、描述 embedding 等），$f_I$ 是一个多层神经网络</li>
-<li>相似度：$s(u, i) = e_u^T e_i$（向量点积，也可以加 L2 归一化后做余弦相似度）</li>
-<li>训练时使用负采样：对于每个正样本 $(u, i)$，采样 $K$ 个负样本物品 $j_1, \ldots, j_K$，用 InfoNCE 损失：<br>$$\mathcal{L} = -\log \frac{\exp(e_u^T e_i / \tau)}{\sum_{k=0}^K \exp(e_u^T e_{j_k} / \tau)}$$<br>其中 $j_0 = i$ 是正样本，$\tau$ 是温度系数。</li>
+<li>用户塔：$e _u = f _U(x _u)$，其中 $x _u$ 是用户特征（年龄、性别、历史行为统计等），$f _U$ 是一个多层神经网络</li>
+<li>物品塔：$e _i = f _I(x _i)$，其中 $x _i$ 是物品特征（类别、价格、描述 embedding 等），$f _I$ 是一个多层神经网络</li>
+<li>相似度：$s(u, i) = e _u^T e _i$（向量点积，也可以加 L2 归一化后做余弦相似度）</li>
+<li>训练时使用负采样：对于每个正样本 $(u, i)$，采样 $K$ 个负样本物品 $j _1, \ldots, j _K$，用 InfoNCE 损失：<br>$$\mathcal{L} = -\log \frac{\exp(e _u^T e _i / \tau)}{\sum _{k=0}^K \exp(e _u^T e _{j _k} / \tau)}$$<br>其中 $j _0 = i$ 是正样本，$\tau$ 是温度系数。</li>
 </ul>
-<p><strong>向量检索（FAISS）：</strong><br>当物品数量 $N$ 达到百万级时，暴力计算 $e_u^T e_i$（$O(Nd)$）太慢。FAISS 使用近似最近邻搜索（ANN），如 HNSW 或 IVF-PQ，将检索复杂度降至 $O(\log N \cdot d)$，百万级物品的检索可在毫秒级完成。</p>
+<p><strong>向量检索（FAISS）：</strong><br>当物品数量 $N$ 达到百万级时，暴力计算 $e _u^T e _i$（$O(Nd)$）太慢。FAISS 使用近似最近邻搜索（ANN），如 HNSW 或 IVF-PQ，将检索复杂度降至 $O(\log N \cdot d)$，百万级物品的检索可在毫秒级完成。</p>
 <ul>
 <li><strong>多路召回：</strong> 用多种策略并行召回，最后融合。比如：向量召回 1000 个 + 热门召回 500 个 + 协同召回 500 个 + 实时召回 500 个 = 2500 个候选。</li>
 </ul>
@@ -732,7 +738,7 @@
 <li><strong>TALLRec（2023）：</strong> 利用 LLM 的长上下文能力，处理完整的用户交互历史（几千条行为），传统模型很难处理这么长的序列</li>
 <li><strong>LLM-ReRank（2023）：</strong> 用 LLM 对传统推荐系统的候选做重排，发现 LLM 在排序任务上表现不错</li>
 </ul>
-<p><strong>数学形式化：</strong><br>给定用户上下文 $C_u$ 和候选物品集合 $\mathcal{I} = {i_1, \ldots, i_N}$，LLM 作为排序器计算每个物品的相对相关性得分：<br>$$\hat{s}_j = \text{LLM}(C_u, i_j)$$<br>排序结果为：<br>$$\text{Rank} = \text{sort}(\hat{s}_1, \hat{s}_2, \ldots, \hat{s}_N)$$<br>排序的本质等价于最大化条件概率：$\hat{s}_j = P(\text{&quot;item } j \text{ is relevant}\mid C_u)$。</p>
+<p><strong>数学形式化：</strong><br>给定用户上下文 $C _u$ 和候选物品集合 $\mathcal{I} = {i _1, \ldots, i _N}$，LLM 作为排序器计算每个物品的相对相关性得分：<br>$$\hat{s} _j = \text{LLM}(C _u, i _j)$$<br>排序结果为：<br>$$\text{Rank} = \text{sort}(\hat{s} _1, \hat{s} _2, \ldots, \hat{s} _N)$$<br>排序的本质等价于最大化条件概率：$\hat{s} _j = P(\text{&quot;item } j \text{ is relevant}\mid C _u)$。</p>
 <h4 id="范式二：LLM-作为推荐生成器"><a href="#范式二：LLM-作为推荐生成器" class="headerlink" title="范式二：LLM 作为推荐生成器"></a>范式二：LLM 作为推荐生成器</h4><p><strong>做法：</strong> 直接把推荐任务看作文本生成。用户输入查询，LLM 输出推荐的物品。</p>
 <p><strong>例子：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：我喜欢科幻电影，喜欢诺兰导演的作品</span><br><span class="line">输出：《星际穿越》《盗梦空间》《信条》</span><br></pre></td></tr></table></figure>
@@ -742,22 +748,22 @@
 <li><strong>LLM4Rec（2023）：</strong> 将推荐任务统一为文本生成任务，把物品 ID、标题、描述等信息拼接作为输入</li>
 <li><strong>InstructRec（2023）：</strong> 用指令微调（Instruction Tuning）让 LLM 适应推荐任务</li>
 </ul>
-<p><strong>数学形式化：</strong><br>生成式推荐的核心是将推荐看作<strong>自回归生成</strong>：<br>$$P(i_1, i_2, \ldots, i_k \mid C_u) = \prod_{t=1}^k P(i_t \mid C_u, i_1, \ldots, i_{t-1})$$<br>其中 $i_1, \ldots, i_k$ 是依次生成的推荐物品序列。每个物品的生成条件于用户上下文和之前已生成的物品。</p>
-<p><strong>训练目标（交叉熵）：</strong><br>$$\mathcal{L} = -\sum_{t=1}^T \log P(i_t^\text{true} \mid C_u, i_1^\text{true}, \ldots, i_{t-1}^\text{true})$$<br>即最大化真实推荐序列的出现概率。这与语言模型的训练完全一致，唯一的区别是输入不是句子而是用户行为序列，输出不是下一个词而是物品 ID。</p>
+<p><strong>数学形式化：</strong><br>生成式推荐的核心是将推荐看作<strong>自回归生成</strong>：<br>$$P(i _1, i _2, \ldots, i _k \mid C _u) = \prod _{t=1}^k P(i _t \mid C _u, i _1, \ldots, i _{t-1})$$<br>其中 $i _1, \ldots, i _k$ 是依次生成的推荐物品序列。每个物品的生成条件于用户上下文和之前已生成的物品。</p>
+<p><strong>训练目标（交叉熵）：</strong><br>$$\mathcal{L} = -\sum _{t=1}^T \log P(i _t^\text{true} \mid C _u, i _1^\text{true}, \ldots, i _{t-1}^\text{true})$$<br>即最大化真实推荐序列的出现概率。这与语言模型的训练完全一致，唯一的区别是输入不是句子而是用户行为序列，输出不是下一个词而是物品 ID。</p>
 <h4 id="范式三：LLM-作为特征编码器"><a href="#范式三：LLM-作为特征编码器" class="headerlink" title="范式三：LLM 作为特征编码器"></a>范式三：LLM 作为特征编码器</h4><p><strong>做法：</strong> 用 LLM 编码物品描述，得到高质量的语义 embedding，再输入到传统推荐模型中。</p>
 <p><strong>为什么需要这个？</strong> 传统推荐系统中，每个商品只有一个 ID embedding，没有语义信息。LLM 的 embedding 包含了丰富的语义。</p>
 <p><strong>数学形式化：</strong></p>
 <ul>
-<li>物品文本描述 $t_i$ 输入 LLM：$e_i^\text{LLM} = \text{LLM}_\text{enc}(t_i)$</li>
-<li>其中 $\text{LLM}_\text{enc}$ 通常取 LLM 最后一层的 [CLS] 标记（或平均所有 token 的表示）</li>
-<li>将 $e_i^\text{LLM}$ 与传统 ID embedding $e_i^\text{ID}$ 拼接：$e_i^\text{hybrid} = [e_i^\text{ID}; e_i^\text{LLM}]$</li>
-<li>将 $e_i^\text{hybrid}$ 输入到传统推荐模型（如 LightGCN、DeepFM）</li>
+<li>物品文本描述 $t _i$ 输入 LLM：$e _i^\text{LLM} = \text{LLM} _\text{enc}(t _i)$</li>
+<li>其中 $\text{LLM} _\text{enc}$ 通常取 LLM 最后一层的 [CLS] 标记（或平均所有 token 的表示）</li>
+<li>将 $e _i^\text{LLM}$ 与传统 ID embedding $e _i^\text{ID}$ 拼接：$e _i^\text{hybrid} = [e _i^\text{ID}; e _i^\text{LLM}]$</li>
+<li>将 $e _i^\text{hybrid}$ 输入到传统推荐模型（如 LightGCN、DeepFM）</li>
 </ul>
 <p>这样，即使新物品没有交互数据，LLM 也能通过语义理解给出合理的推荐。</p>
 <h3 id="3-大模型推荐的核心挑战"><a href="#3-大模型推荐的核心挑战" class="headerlink" title="3. 大模型推荐的核心挑战"></a>3. 大模型推荐的核心挑战</h3><h4 id="幻觉问题"><a href="#幻觉问题" class="headerlink" title="幻觉问题"></a>幻觉问题</h4><p><strong>问题：</strong> LLM 可能”编造”一个不存在的商品，或者推荐一个完全不相关的商品。</p>
 <p><strong>解决思路：</strong></p>
 <ul>
-<li><strong>RAG（检索增强）：</strong> 先检索候选物品，再让 LLM 在候选集中选择。形式化地，先通过传统召回得到候选集 $\mathcal{I}<em>\text{recall}$，然后 LLM 在 $\mathcal{I}_\text{recall}$ 内排序：<br>$$P(i_j \mid C_u) = \frac{\exp(\hat{s}_j / \tau)}{\sum</em>{i_k \in \mathcal{I}_\text{recall}} \exp(\hat{s}_k / \tau)}$$</li>
+<li><strong>RAG（检索增强）：</strong> 先检索候选物品，再让 LLM 在候选集中选择。形式化地，先通过传统召回得到候选集 $\mathcal{I} _\text{recall}$，然后 LLM 在 $\mathcal{I} _\text{recall}$ 内排序：<br>$$P(i _j \mid C _u) = \frac{\exp(\hat{s} _j / \tau)}{\sum _{i _k \in \mathcal{I} _\text{recall}} \exp(\hat{s} _k / \tau)}$$</li>
 <li><strong>约束解码：</strong> 限制 LLM 只能从候选物品 ID 中选择，不能编造新 ID。即解码时只允许输出预定义物品 ID 集合中的 token，其他 token 的概率设为 $-\infty$。</li>
 </ul>
 <h4 id="效率问题"><a href="#效率问题" class="headerlink" title="效率问题"></a>效率问题</h4><p><strong>问题：</strong> LLM 推理很慢，推荐系统需要毫秒级响应。</p>
@@ -773,11 +779,11 @@
 <h3 id="传统推荐-vs-生成式推荐"><a href="#传统推荐-vs-生成式推荐" class="headerlink" title="传统推荐 vs 生成式推荐"></a>传统推荐 vs 生成式推荐</h3><p><strong>传统推荐（判别式）：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">用户 A + 商品 1 → 得分 0.8</span><br><span class="line">用户 A + 商品 2 → 得分 0.3</span><br><span class="line">用户 A + 商品 3 → 得分 0.9</span><br><span class="line">排序后推荐：商品 3, 商品 1</span><br></pre></td></tr></table></figure>
 
-<p>每个商品单独打分，然后排序。数学形式化：<br>$$\hat{y}_i = f(u, i), \quad \text{Recommend} = \text{Top-K}({\hat{y}<em>i}</em>{i=1}^N)$$<br>其中 $f(u, i)$ 是评分函数，Top-K 选出分数最高的 $K$ 个物品。<strong>关键局限：</strong> 每个物品的评分独立，无法考虑物品之间的序列依赖。</p>
+<p>每个商品单独打分，然后排序。数学形式化：<br>$$\hat{y} _i = f(u, i), \quad \text{Recommend} = \text{Top-K}({\hat{y} _i} _{i=1}^N)$$<br>其中 $f(u, i)$ 是评分函数，Top-K 选出分数最高的 $K$ 个物品。<strong>关键局限：</strong> 每个物品的评分独立，无法考虑物品之间的序列依赖。</p>
 <p><strong>生成式推荐（生成式）：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户 A → [商品 3] [商品 1] [商品 2]</span><br></pre></td></tr></table></figure>
 
-<p>直接生成推荐序列，不需要打分排序。数学形式化：<br>$$P(\mathbf{i} \mid u) = \prod_{t=1}^K P(i_t \mid u, i_1, \ldots, i_{t-1})$$<br>物品之间不再独立，后一个物品的生成条件于前一个，天然考虑了物品间的序列依赖。</p>
+<p>直接生成推荐序列，不需要打分排序。数学形式化：<br>$$P(\mathbf{i} \mid u) = \prod _{t=1}^K P(i _t \mid u, i _1, \ldots, i _{t-1})$$<br>物品之间不再独立，后一个物品的生成条件于前一个，天然考虑了物品间的序列依赖。</p>
 <h3 id="代表性工作"><a href="#代表性工作" class="headerlink" title="代表性工作"></a>代表性工作</h3><h4 id="GenRec（阿里巴巴，2023）"><a href="#GenRec（阿里巴巴，2023）" class="headerlink" title="GenRec（阿里巴巴，2023）"></a>GenRec（阿里巴巴，2023）</h4><p><strong>做法：</strong> 用自回归语言模型做推荐。用户的行为序列和查询被建模为文本，模型直接生成物品 ID 序列。</p>
 <p><strong>关键创新：</strong></p>
 <ul>
@@ -911,7 +917,10 @@
     <a href="/2026/06/28/从零开始如何自己写一个 OpenClaw Agent Skill并发布到 GitHub 和 ClawHub/" rel="prev" title="从零开始：如何自己写一个 OpenClaw Agent Skill，并发布到 GitHub 和 ClawHub">
       <i class="fa fa-chevron-left"></i> 从零开始：如何自己写一个 OpenClaw Agent Skill，并发布到 GitHub 和 ClawHub
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2026/07/01/rl-blog-final/" rel="next" title="从 AlphaGo 到 LLM：强化学习的前世今生与大模型时代">
+      从 AlphaGo 到 LLM：强化学习的前世今生与大模型时代 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -996,7 +1005,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1009,7 +1018,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">225</span>
+        <span class="site-state-item-count">228</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
