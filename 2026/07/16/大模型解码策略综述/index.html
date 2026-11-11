@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="解码不是”调参”，是在似然最大化、多样性、正确性约束三者之间做显式的取舍。大多数线上事故，源于把这三者的优先级搞反了。  导语语言模型的训练目标只有一个：最大化 log p(y|x)。但从这个分布到最终输出的一段文本，中间隔着一个决策过程——每一步从 5 万维的词表里选一个 token，重复几百次。">
+<meta name="keywords" content="大模型,解码策略">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大模型解码策略综述：从贪心到受控生成">
+<meta property="og:url" content="https://imonce.github.io/2026/07/16/大模型解码策略综述/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="解码不是”调参”，是在似然最大化、多样性、正确性约束三者之间做显式的取舍。大多数线上事故，源于把这三者的优先级搞反了。  导语语言模型的训练目标只有一个：最大化 log p(y|x)。但从这个分布到最终输出的一段文本，中间隔着一个决策过程——每一步从 5 万维的词表里选一个 token，重复几百次。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2026-11-11T07:27:16.783Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大模型解码策略综述：从贪心到受控生成">
+<meta name="twitter:description" content="解码不是”调参”，是在似然最大化、多样性、正确性约束三者之间做显式的取舍。大多数线上事故，源于把这三者的优先级搞反了。  导语语言模型的训练目标只有一个：最大化 log p(y|x)。但从这个分布到最终输出的一段文本，中间隔着一个决策过程——每一步从 5 万维的词表里选一个 token，重复几百次。">
+
+<link rel="canonical" href="https://imonce.github.io/2026/07/16/大模型解码策略综述/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>大模型解码策略综述：从贪心到受控生成 | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/16/大模型解码策略综述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          大模型解码策略综述：从贪心到受控生成
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-16 17:27:46" itemprop="dateCreated datePublished" datetime="2026-07-16T17:27:46+08:00">2026-07-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:27:16" itemprop="dateModified" datetime="2026-11-11T15:27:16+08:00">2026-11-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2026/07/16/大模型解码策略综述/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/16/大模型解码策略综述/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>解码不是”调参”，是在<strong>似然最大化、多样性、正确性约束</strong>三者之间做显式的取舍。大多数线上事故，源于把这三者的优先级搞反了。</p>
+</blockquote>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>语言模型的训练目标只有一个：最大化 <code>log p(y|x)</code>。但从这个分布到最终输出的一段文本，中间隔着一个<strong>决策过程</strong>——每一步从 5 万维的词表里选一个 token，重复几百次。</p>
+<a id="more"></a>
+<p>这个决策过程就是解码。它决定了同一组权重能产出完全不同性质的系统：同一个模型，贪心解码会复读，高温采样会胡说，束搜索会输出”最安全但最无聊”的答案。</p>
+<p>工程上普遍存在的三个误解：</p>
+<ol>
+<li><strong>“temperature 是创造力旋钮”</strong> —— 它只能重塑已有分布，不能创造新模态。模型不知道的事，调温度也变不出来。</li>
+<li><strong>“top-p 和 top-k 都设上更稳”</strong> —— 两者串联时的实际行为与直觉相反，多数情况下是一个在无效化另一个。</li>
+<li><strong>“greedy 是最保守的选择”</strong> —— 贪心在开放生成上恰恰最容易产生退化的重复循环。</li>
+</ol>
+<p>本文按”从基础到受控”的顺序拆九种策略，给出每种策略的数学形式、失效模式，然后在<strong>组合顺序</strong>这一节说明真实的 pipeline 行为（这是最多人踩坑的地方），最后给 RAG / Agent / 推理 / 创意四类场景的选型与具体参数。</p>
+<hr>
+<h2 id="0-先建立坐标系：解码到底在解什么"><a href="#0-先建立坐标系：解码到底在解什么" class="headerlink" title="0. 先建立坐标系：解码到底在解什么"></a>0. 先建立坐标系：解码到底在解什么</h2><h3 id="0-1-自回归分解与”两步错位”"><a href="#0-1-自回归分解与”两步错位”" class="headerlink" title="0.1 自回归分解与”两步错位”"></a>0.1 自回归分解与”两步错位”</h3><p>模型给的是条件分布：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p(y | x) = Π_&#123;t=1&#125;^&#123;T&#125; p(y_t | y_&#123;&lt;t&#125;, x)</span><br></pre></td></tr></table></figure>
+
+<p>每一步，模型输出 logits <code>z ∈ R^V</code>，经过 softmax 得到 <code>p_t ∈ Δ^{V-1}</code>（概率单纯形）。解码算法要做的，就是<strong>在这个单纯形上定义一个选择规则</strong>，然后迭代。</p>
+<p>这里有一个关键的”两步错位”，它解释了大量问题：</p>
+<blockquote>
+<p><strong>训练时</strong>，模型见的是人类文本，优化的是每一步的条件似然。<br><strong>推理时</strong>，我们要的是一个”好的完整序列”，这是一个<strong>全局</strong>目标。</p>
+</blockquote>
+<p>局部最优（每步取 argmax）不等于全局最优；而全局最优（序列级 MAP）在自回归模型上<strong>不可解</strong>。所有解码算法的差异，本质上就是”如何用可接受的成本逼近某个全局目标”。</p>
+<h3 id="0-2-三类目标，三种哲学"><a href="#0-2-三类目标，三种哲学" class="headerlink" title="0.2 三类目标，三种哲学"></a>0.2 三类目标，三种哲学</h3><table>
+<thead>
+<tr>
+<th>目标</th>
+<th>数学形式</th>
+<th>追求</th>
+<th>代表算法</th>
+<th>典型场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>MAP / 似然最大化</strong></td>
+<td><code>argmax_y p(y|x)</code></td>
+<td>最可能的序列</td>
+<td>贪心、Beam Search</td>
+<td>翻译、摘要、结构化抽取</td>
+</tr>
+<tr>
+<td><strong>分布采样</strong></td>
+<td><code>y ~ p(·|x)</code></td>
+<td>从真实分布抽样，保持多样性</td>
+<td>纯采样、Top-k、Top-p、min-p、温度</td>
+<td>创意写作、对话、数据合成</td>
+</tr>
+<tr>
+<td><strong>受控生成</strong></td>
+<td><code>argmax / sample s.t. y ∈ L</code></td>
+<td>输出必须满足硬约束</td>
+<td>约束解码、对比解码、自洽解码</td>
+<td>JSON 输出、代码、数学推理</td>
+</tr>
+</tbody></table>
+<p>第三类严格来说不是”另一种采样器”，而是<strong>在采样器外面套一层修正</strong>。这个区分很重要：约束解码和自洽解码可以叠加在任意采样器上，而 top-p 和 top-k 是同一层的竞争关系。</p>
+<h3 id="0-3-一个必须先破除的迷思：更高概率-≠-更好文本"><a href="#0-3-一个必须先破除的迷思：更高概率-≠-更好文本" class="headerlink" title="0.3 一个必须先破除的迷思：更高概率 ≠ 更好文本"></a>0.3 一个必须先破除的迷思：更高概率 ≠ 更好文本</h3><p>这是理解全部解码策略的前提。</p>
+<p>Holtzman et al. (2020) 的核心观察是：<strong>人类文本的困惑度并不低</strong>。真实人类写作的 token 序列，其模型似然往往显著低于模型自己生成的高概率文本。原因有两点：</p>
+<ol>
+<li>自然语言本身有高熵（同一个意思有无数种说法），最可能的续写反而是陈词滥调；</li>
+<li>自回归模型在”重复”上有正反馈——<code>p(&quot;的&quot; | &quot;...的的的&quot;)</code> 会异常高，因为这种上下文在训练数据里罕见但模型对它的估计是”局部一致”的。</li>
+</ol>
+<p>所以：<strong>任何纯粹最大化似然的解码器（贪心、束搜索），在开放生成上都会趋向退化</strong>。这不是 bug，是目标函数选错了。这也是 top-p 这类截断采样能被提出的根本动机。</p>
+<hr>
+<h2 id="1-概率采样：一切的地基"><a href="#1-概率采样：一切的地基" class="headerlink" title="1. 概率采样：一切的地基"></a>1. 概率采样：一切的地基</h2><h3 id="1-1-定义"><a href="#1-1-定义" class="headerlink" title="1.1 定义"></a>1.1 定义</h3><p>最朴素的解码：每步直接从模型分布抽样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y_t ~ p(· | y_&#123;&lt;t&#125;, x) = softmax(z / T)|_&#123;T=1&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-为什么它是”地基”而不是”一个选项”"><a href="#1-2-为什么它是”地基”而不是”一个选项”" class="headerlink" title="1.2 为什么它是”地基”而不是”一个选项”"></a>1.2 为什么它是”地基”而不是”一个选项”</h3><p>所有截断采样（top-k、top-p、min-p）都是”<strong>先修改分布，再做这个采样</strong>“。所以理解纯采样的性质，就理解了全部采样器的一半。</p>
+<p>纯采样的三个性质：</p>
+<table>
+<thead>
+<tr>
+<th>性质</th>
+<th>含义</th>
+<th>工程后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>无偏</strong></td>
+<td>采样分布 = 模型分布</td>
+<td>想评估模型真实能力（如 pass@k），必须用它</td>
+</tr>
+<tr>
+<td><strong>高方差</strong></td>
+<td>同一个 prompt 每次输出不同</td>
+<td>线上不可复现，评测必须多次采样</td>
+</tr>
+<tr>
+<td><strong>长尾暴露</strong></td>
+<td>必定会抽到低概率 token</td>
+<td>5 万词表里，<code>p=1e-5</code> 的 token 在 500 步里被抽中的概率约 0.5%——足够让一个回答崩掉</td>
+</tr>
+</tbody></table>
+<p>第三点是最致命的。词表 5 万，即使每个 token 概率都极低，累积起来的长尾质量也不可忽略。<strong>一次采样踩到一个”坏 token”，后续所有 token 都在错误的上下文上生成</strong>，错误会自我强化。</p>
+<p>这就是为什么纯采样在实践中几乎不会裸用——它必须配截断。</p>
+<h3 id="1-3-什么时候确实该用纯采样"><a href="#1-3-什么时候确实该用纯采样" class="headerlink" title="1.3 什么时候确实该用纯采样"></a>1.3 什么时候确实该用纯采样</h3><ul>
+<li><strong>pass@k 评测</strong>：想估计”模型有能力生成正确解”，必须无偏采样；</li>
+<li><strong>合成数据生成</strong>：需要覆盖分布，多样性优先于单条质量；</li>
+<li><strong>best-of-N 的第一阶段</strong>：先多样采样，再用 verifier 筛选。</li>
+</ul>
+<p><strong>其余场景，纯采样都是错的。</strong></p>
+<hr>
+<h2 id="2-贪心解码：简单，但目标错了"><a href="#2-贪心解码：简单，但目标错了" class="headerlink" title="2. 贪心解码：简单，但目标错了"></a>2. 贪心解码：简单，但目标错了</h2><h3 id="2-1-定义"><a href="#2-1-定义" class="headerlink" title="2.1 定义"></a>2.1 定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y_t = argmax_v p(v | y_&#123;&lt;t&#125;, x)</span><br></pre></td></tr></table></figure>
+
+<p>每步取概率最高的 token，无随机性。</p>
+<h3 id="2-2-它优化的是什么"><a href="#2-2-它优化的是什么" class="headerlink" title="2.2 它优化的是什么"></a>2.2 它优化的是什么</h3><p>贪心优化的是<strong>每一步的局部最优</strong>，而不是序列的全局最优。这两者不等价，反例很经典：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Step 1:  p(A)=0.6,  p(B)=0.4</span><br><span class="line">         选 A（贪心）</span><br><span class="line">Step 2:  p(x|A) 的所有续写都很差，总概率 0.6 × 0.01 = 0.006</span><br><span class="line">         而 p(B) 之后的续写总概率 0.4 × 0.9 = 0.36</span><br></pre></td></tr></table></figure>
+
+<p>贪心选了 A，但 B 开头的序列总体概率高 60 倍。<strong>局部贪心在多步决策上是短视的。</strong></p>
+<h3 id="2-3-优点（真实存在的）"><a href="#2-3-优点（真实存在的）" class="headerlink" title="2.3 优点（真实存在的）"></a>2.3 优点（真实存在的）</h3><table>
+<thead>
+<tr>
+<th>优点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>完全确定性</strong></td>
+<td>同样的输入 → 同样的输出。这是可复现性、审计、回归测试的前提</td>
+</tr>
+<tr>
+<td><strong>零额外开销</strong></td>
+<td>一次前向，无需维护多个候选</td>
+</tr>
+<tr>
+<td><strong>对”唯一正确答案”任务有效</strong></td>
+<td>抽取式 QA、分类、格式转换、代码补全的确定性部分</td>
+</tr>
+<tr>
+<td><strong>不易产生”事实漂移”</strong></td>
+<td>相比采样，不会突然抽到罕见 token 导致跑偏</td>
+</tr>
+</tbody></table>
+<h3 id="2-4-缺点（同样真实）"><a href="#2-4-缺点（同样真实）" class="headerlink" title="2.4 缺点（同样真实）"></a>2.4 缺点（同样真实）</h3><table>
+<thead>
+<tr>
+<th>缺点</th>
+<th>机制</th>
+<th>表现</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>退化重复</strong></td>
+<td>高概率 token 自我强化</td>
+<td>“这款产品非常非常非常非常…”</td>
+</tr>
+<tr>
+<td><strong>零多样性</strong></td>
+<td>无随机性</td>
+<td>pass@k 评测中 k&gt;1 无意义；同质化严重</td>
+</tr>
+<tr>
+<td><strong>对 prompt 敏感</strong></td>
+<td>微小改动导致输出剧变</td>
+<td>换个标点，答案结构完全不同</td>
+</tr>
+<tr>
+<td><strong>过早锁定错误前提</strong></td>
+<td>一旦早期选错，后面无法回头</td>
+<td>推理链第一步错，后面全错</td>
+</tr>
+</tbody></table>
+<h3 id="2-5-一个常见误用：把贪心当”最安全”"><a href="#2-5-一个常见误用：把贪心当”最安全”" class="headerlink" title="2.5 一个常见误用：把贪心当”最安全”"></a>2.5 一个常见误用：把贪心当”最安全”</h3><p>很多人认为”贪心 = 最保守 = 最不会胡说”。这个直觉在<strong>抽取任务</strong>上成立，在<strong>生成任务</strong>上不成立。</p>
+<p>原因：贪心最大化的是”每步最可能”，而模型最可能的续写在开放域上常常是<strong>最泛泛、最模板化</strong>的表达——它不会胡说，但会输出”正确的废话”。同时，一旦进入重复循环，贪心<strong>无法自行逃出</strong>（因为重复的上下文让重复 token 的概率更高）。</p>
+<p><strong>真正的”保守”是低温度 + 窄截断的采样，而不是贪心。</strong> 前者保留了逃离退化循环的可能性。</p>
+<h3 id="2-6-温度与贪心的关系"><a href="#2-6-温度与贪心的关系" class="headerlink" title="2.6 温度与贪心的关系"></a>2.6 温度与贪心的关系</h3><p><code>T → 0</code> 时 <code>softmax(z/T)</code> 趋于 one-hot，采样退化为 argmax。所以**”温度设成 0”和”贪心”在数学上等价**。但工程上要注意：</p>
+<ul>
+<li>大多数框架里 <code>temperature=0</code> 会走特判分支（避免除零），行为等同于 <code>do_sample=False</code>；</li>
+<li>部分框架里 <code>temperature=0</code> 会直接报错或产生 NaN；</li>
+<li><strong><code>do_sample=False</code> 时，<code>temperature</code> / <code>top_p</code> / <code>top_k</code> 通常被忽略</strong>——这是最常见的”我明明调了参数但没生效”的原因。</li>
+</ul>
+<hr>
+<h2 id="3-MAP-解码与-Beam-Search"><a href="#3-MAP-解码与-Beam-Search" class="headerlink" title="3. MAP 解码与 Beam Search"></a>3. MAP 解码与 Beam Search</h2><h3 id="3-1-严格区分：MAP-≠-贪心"><a href="#3-1-严格区分：MAP-≠-贪心" class="headerlink" title="3.1 严格区分：MAP ≠ 贪心"></a>3.1 严格区分：MAP ≠ 贪心</h3><p>这是必须说清的一点，因为很多文章混用。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>定义</th>
+<th>可解性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>MAP（最大后验）</strong></td>
+<td><code>ŷ = argmax_y p(y | x)</code>，在<strong>整个序列空间</strong>上取最大</td>
+<td><strong>不可解</strong>（精确求解是 NP-hard，序列空间 <code>V^T</code>）</td>
+</tr>
+<tr>
+<td><strong>贪心</strong></td>
+<td><code>ŷ_t = argmax p(y_t | y_{&lt;t})</code>，逐步取最大</td>
+<td>可解，但不是 MAP</td>
+</tr>
+<tr>
+<td><strong>Beam Search</strong></td>
+<td>保留 k 条候选，近似搜索</td>
+<td>可解，是 MAP 的<strong>近似</strong></td>
+</tr>
+</tbody></table>
+<p>三者只有在极特殊情况下重合（比如每步分布都是 one-hot）。</p>
+<h3 id="3-2-Beam-Search-的机制"><a href="#3-2-Beam-Search-的机制" class="headerlink" title="3.2 Beam Search 的机制"></a>3.2 Beam Search 的机制</h3><p>维护 <code>k</code> 条候选序列（beam width），每步：</p>
+<ol>
+<li>对每条候选，计算词表上所有 token 的概率；</li>
+<li>把所有 <code>k × V</code> 个扩展按累计对数概率排序；</li>
+<li>保留前 <code>k</code> 条，丢弃其余；</li>
+<li>重复直到所有候选遇到 EOS 或达到最大长度。</li>
+</ol>
+<p>得分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">score(y) = Σ_t log p(y_t | y_&#123;&lt;t&#125;, x)</span><br></pre></td></tr></table></figure>
+
+<p>用 log 是因为：避免连乘下溢，且把”概率相乘”变成”对数相加”（可增量更新）。</p>
+<h3 id="3-3-长度惩罚：不是可选优化，是必需修正"><a href="#3-3-长度惩罚：不是可选优化，是必需修正" class="headerlink" title="3.3 长度惩罚：不是可选优化，是必需修正"></a>3.3 长度惩罚：不是可选优化，是必需修正</h3><p>上面的得分有个致命问题：**<code>log p &lt; 0</code> 恒成立，所以序列越长，得分越低**。Beam Search 会系统性地偏好短序列——输出几个词就 EOS。</p>
+<p>修正（Wu et al., 2016 GNMT）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">score(y) = (1 / |y|^α) · Σ_t log p(y_t | ...)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>α = 0</code>：无惩罚（偏好短句）</li>
+<li><code>α = 1</code>：纯平均（偏好长句，可能啰嗦）</li>
+<li><code>α ≈ 0.6–0.7</code>：常用折中</li>
+</ul>
+<p><strong>这个超参对输出长度的影响非常大，且没有跨任务的通用最优值。</strong> 换数据集必须重调，否则会得到”全部输出 3 个词”或”全部撞到 max_length”的极端结果。</p>
+<h3 id="3-4-Beam-Search-的三个结构性缺陷"><a href="#3-4-Beam-Search-的三个结构性缺陷" class="headerlink" title="3.4 Beam Search 的三个结构性缺陷"></a>3.4 Beam Search 的三个结构性缺陷</h3><p><strong>缺陷一：Beam Search Curse（束搜索诅咒）</strong></p>
+<p>现象：增大 <code>k</code> 在机器翻译上单调提升 BLEU，但在开放生成上<strong>先升后降</strong>，且降得很厉害。</p>
+<p>机制：<code>k</code> 越大，搜索越接近”全局最可能的序列”，而全局最可能的序列往往是最<strong>通用、最平淡</strong>的（”我不知道该怎么回答这个问题。”这类句子的概率极高）。</p>
+<p>Holtzman et al. (2020) 的实验直接对比了 human text / pure sampling / beam search 的似然与多样性，结论是：<strong>beam search 的文本在似然上最高，但在与人类文本的分布距离上最远</strong>。</p>
+<p><strong>缺陷二：k 条候选不是 k 种可能</strong></p>
+<p>Beam 里的 k 条序列通常<strong>高度相似</strong>（只差一两个 token）。它们不构成对分布的多模态覆盖，只是搜索过程中的”近邻”。所以：</p>
+<ul>
+<li>不能用 beam 的 k 条做”多样性集成”；</li>
+<li>想做多样性，要用 <strong>Diverse Beam Search</strong>（在 beam 间加惩罚项）或直接采样。</li>
+</ul>
+<p><strong>缺陷三：计算成本 × k，且无法批处理友好</strong></p>
+<p>每步要算 <code>k × V</code> 个概率（虽然共享前向，但打分和排序是额外的），显存占用随 k 线性增长。k=10 时吞吐可能掉 5–8 倍。</p>
+<h3 id="3-5-Beam-Search-仍然不可替代的场景"><a href="#3-5-Beam-Search-仍然不可替代的场景" class="headerlink" title="3.5 Beam Search 仍然不可替代的场景"></a>3.5 Beam Search 仍然不可替代的场景</h3><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>机器翻译</strong></td>
+<td>输出空间相对受限，BLEU 与似然相关性高，长度惩罚可调</td>
+</tr>
+<tr>
+<td><strong>语音识别 / OCR 后处理</strong></td>
+<td>需要”最可能”的转录，且候选可用声学模型重打分</td>
+</tr>
+<tr>
+<td><strong>结构化抽取（表格→文本）</strong></td>
+<td>格式固定，最优解唯一</td>
+</tr>
+<tr>
+<td><strong>需要”最稳”答案且可接受平淡</strong></td>
+<td>客服 FAQ、模板化回复</td>
+</tr>
+<tr>
+<td><strong>配合外部重打分器（reranker）</strong></td>
+<td>beam 提供候选池，reranker 用更强的模型/规则重排</td>
+</tr>
+</tbody></table>
+<p><strong>判断标准很简单</strong>：如果这个任务有”标准答案”，beam search 可能有用；如果这个任务”有很多好答案”，beam search 会让输出变差。</p>
+<hr>
+<h2 id="4-温度缩放：被误解最深的参数"><a href="#4-温度缩放：被误解最深的参数" class="headerlink" title="4. 温度缩放：被误解最深的参数"></a>4. 温度缩放：被误解最深的参数</h2><h3 id="4-1-数学形式"><a href="#4-1-数学形式" class="headerlink" title="4.1 数学形式"></a>4.1 数学形式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p_i(T) = exp(z_i / T) / Σ_j exp(z_j / T)</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>T</th>
+<th>效果</th>
+<th>分布形态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>T → 0</code></td>
+<td>趋于 one-hot</td>
+<td>极小熵（= 贪心）</td>
+</tr>
+<tr>
+<td><code>T = 1</code></td>
+<td>原始分布</td>
+<td>模型训练时的分布</td>
+</tr>
+<tr>
+<td><code>T &gt; 1</code></td>
+<td>拉平</td>
+<td>熵增大，长尾概率上升</td>
+</tr>
+<tr>
+<td><code>T → ∞</code></td>
+<td>趋于均匀</td>
+<td>最大熵（= 随机）</td>
+</tr>
+</tbody></table>
+<p>注意 <code>T</code> 是<strong>在对数域除以</strong>，所以是<strong>指数级</strong>地改变概率比：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p_i / p_j = exp((z_i - z_j) / T)</span><br></pre></td></tr></table></figure>
+
+<p><code>T=0.5</code> 时，原本 <code>z</code> 差 2 的两个 token，概率比从 <code>e²≈7.4</code> 变成 <code>e⁴≈55</code>。<strong>温度对概率比的影响是高度非线性的</strong>，这是”为什么 0.7 和 0.8 差别很大”的原因。</p>
+<h3 id="4-2-熵的变化不是线性的"><a href="#4-2-熵的变化不是线性的" class="headerlink" title="4.2 熵的变化不是线性的"></a>4.2 熵的变化不是线性的</h3><p>一个被忽略的事实：温度对熵的影响不是线性的，且<strong>依赖分布本身的形状</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>原始分布</th>
+<th>T=0.5</th>
+<th>T=1.0</th>
+<th>T=1.5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>极尖锐（<code>p_max=0.99</code>）</td>
+<td>几乎不变（仍 0.99+）</td>
+<td>0.99</td>
+<td>略降</td>
+</tr>
+<tr>
+<td>中等（<code>p_max=0.4</code>，20 个候选）</td>
+<td>显著变尖（~0.75）</td>
+<td>0.4</td>
+<td>变平</td>
+</tr>
+<tr>
+<td>已很平（<code>p_max=0.05</code>，100 候选）</td>
+<td>明显变尖</td>
+<td>0.05</td>
+<td>趋于均匀</td>
+</tr>
+</tbody></table>
+<p><strong>这意味着：同一个温度值，在不同的上下文下效果差异极大。</strong> 在模型”很确定”的位置（语法、常见词），温度几乎不影响；在模型”不确定”的位置（实体名、专业术语），温度会剧烈改变候选集。</p>
+<p>这也是为什么”温度调参”很难有通用配方——它不是全局旋钮，是<strong>局部敏感的重参数化</strong>。</p>
+<h3 id="4-3-三个调参误区"><a href="#4-3-三个调参误区" class="headerlink" title="4.3 三个调参误区"></a>4.3 三个调参误区</h3><p><strong>误区一：把温度当”创造力”旋钮</strong></p>
+<p>温度只能让<strong>已有的低概率 token 更容易被选中</strong>。如果模型压根不知道某个概念（对应 token 概率 <code>1e-8</code>），<code>T=1.5</code> 也基本抽不到。</p>
+<p>真正的”创造力”来自：模型的知识覆盖、prompt 的开放性、以及<strong>采样器对多模态的覆盖能力</strong>。温度只是最后的调节阀。</p>
+<p><strong>误区二：混淆”采样温度”和”校准温度”</strong></p>
+<p>这是两个同形不同义的东西：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>采样温度</th>
+<th>校准温度（Temperature Scaling, Guo et al. 2017）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>目的</td>
+<td>控制输出多样性</td>
+<td>修正模型置信度校准</td>
+</tr>
+<tr>
+<td>取值</td>
+<td>0.0–2.0，人工调</td>
+<td>在验证集上优化 NLL 得到，通常 &lt; 1</td>
+</tr>
+<tr>
+<td>应用位置</td>
+<td>解码时</td>
+<td>训练后处理 / 推理时对 logits 缩放</td>
+</tr>
+<tr>
+<td>关注指标</td>
+<td>多样性、连贯性</td>
+<td>ECE（期望校准误差）</td>
+</tr>
+</tbody></table>
+<p>把一个在验证集上学到的校准温度（比如 0.85）直接当采样温度用，是常见错误——它会让输出过度确定，失去多样性。</p>
+<p><strong>误区三：用高温度”防止重复”</strong></p>
+<p>重复的根因是<strong>局部概率正反馈</strong>，不是分布太尖。把 <code>T</code> 调高，确实能打散重复，但同时引入了大量低质量 token，结果是”不复读但开始胡说”。</p>
+<p>正确做法：低温度 + 窄截断（top-p 0.9）+ repetition penalty，而不是单纯加温度。</p>
+<h3 id="4-4-温度与截断的强耦合"><a href="#4-4-温度与截断的强耦合" class="headerlink" title="4.4 温度与截断的强耦合"></a>4.4 温度与截断的强耦合</h3><p><strong>这是本文最重要的一条工程结论</strong>：</p>
+<blockquote>
+<p>温度的调整会改变整个分布，从而<strong>改变 top-p 选出的候选集</strong>。</p>
+</blockquote>
+<p>具体地：</p>
+<ul>
+<li><code>T</code> 高 → 分布变平 → 累积概率需要更多 token 才达到 <code>p</code> → <strong>核变大</strong> → 候选更多、更容易抽到垃圾；</li>
+<li><code>T</code> 低 → 分布变尖 → <strong>核变小</strong> → 候选很少 → 接近贪心。</li>
+</ul>
+<p>所以 <code>T=1.2, top_p=0.95</code> 和 <code>T=0.8, top_p=0.95</code> 是<strong>两个完全不同的采样器</strong>，尽管 top_p 一样。</p>
+<p><strong>推论</strong>：调参时不能固定 top_p 单独扫温度。必须<strong>联合调</strong>，或改用<strong>对分布形状不敏感的截断方法</strong>（见 6.4 min-p）。</p>
+<hr>
+<h2 id="5-Top-k-采样：固定预算的截断"><a href="#5-Top-k-采样：固定预算的截断" class="headerlink" title="5. Top-k 采样：固定预算的截断"></a>5. Top-k 采样：固定预算的截断</h2><h3 id="5-1-定义"><a href="#5-1-定义" class="headerlink" title="5.1 定义"></a>5.1 定义</h3><p>保留概率最高的 <code>k</code> 个 token，重新归一化后采样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">V_k = topk(p, k)</span><br><span class="line">p&apos;_i = p_i / Σ_&#123;j∈V_k&#125; p_j    (i ∈ V_k),  否则 0</span><br></pre></td></tr></table></figure>
+
+<p><code>k=1</code> 等价于贪心；<code>k=V</code> 等价于纯采样。</p>
+<h3 id="5-2-它解决什么"><a href="#5-2-它解决什么" class="headerlink" title="5.2 它解决什么"></a>5.2 它解决什么</h3><p>把”必定会抽到长尾”的问题，变成”只在头部 k 个里抽”。这直接消除了 1.2 节说的长尾风险。</p>
+<h3 id="5-3-它的核心缺陷：k-是绝对数，而分布的”陡峭程度”是变化的"><a href="#5-3-它的核心缺陷：k-是绝对数，而分布的”陡峭程度”是变化的" class="headerlink" title="5.3 它的核心缺陷：k 是绝对数，而分布的”陡峭程度”是变化的"></a>5.3 它的核心缺陷：k 是绝对数，而分布的”陡峭程度”是变化的</h3><p>考虑两个位置：</p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>分布</th>
+<th><code>k=50</code> 的效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>模型很确定</strong>（如 <code>&quot;2+2=&quot;</code> 后面）</td>
+<td><code>p(&quot;4&quot;)=0.99</code>，其余分摊 0.01</td>
+<td>后 49 个 token 的分母极小，但**归一化后它们共占 1%**——引入了不必要的噪声</td>
+</tr>
+<tr>
+<td><strong>模型很不确定</strong>（如句子开头）</td>
+<td>前 50 个 token 各占 1%–2%，第 51 个占 0.9%</td>
+<td>截断在<strong>合法候选中间</strong>，损失了有效质量</td>
+</tr>
+</tbody></table>
+<p><strong>同一个 <code>k</code> 在两种情况下都不对：该窄的时候太宽，该宽的时候太窄。</strong></p>
+<p>这就是 top-p 被提出的直接动机。</p>
+<hr>
+<h2 id="6-核采样（Top-p）：按概率质量截断"><a href="#6-核采样（Top-p）：按概率质量截断" class="headerlink" title="6. 核采样（Top-p）：按概率质量截断"></a>6. 核采样（Top-p）：按概率质量截断</h2><h3 id="6-1-定义"><a href="#6-1-定义" class="headerlink" title="6.1 定义"></a>6.1 定义</h3><p>取<strong>累积概率达到 p 的最小 token 集合</strong>，重归一化后采样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">V_p = argmin_&#123;V&apos; ⊆ V&#125; &#123; |V&apos;| : Σ_&#123;i∈V&apos;&#125; p_i ≥ p &#125;   （V&apos; 按概率降序取前若干）</span><br><span class="line">p&apos;_i = p_i / Σ_&#123;j∈V_p&#125; p_j   (i ∈ V_p)</span><br></pre></td></tr></table></figure>
+
+<p>关键差别：<strong>候选集大小是动态的</strong>。</p>
+<ul>
+<li>分布尖锐 → 一两个 token 就够 <code>p</code> → 核很小 → 接近贪心；</li>
+<li>分布平坦 → 需要很多 token → 核很大 → 更自由。</li>
+</ul>
+<p>这个”自适应”是 top-p 相对 top-k 的唯一但决定性的优势。</p>
+<h3 id="6-2-数值示例"><a href="#6-2-数值示例" class="headerlink" title="6.2 数值示例"></a>6.2 数值示例</h3><p>假设 <code>p = 0.9</code>：</p>
+<table>
+<thead>
+<tr>
+<th>情况</th>
+<th>分布（降序）</th>
+<th>top-50</th>
+<th>top-p=0.9</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A：极尖锐</td>
+<td><code>[0.95, 0.02, 0.01, ...]</code></td>
+<td>50 个（引入 5% 噪声）</td>
+<td><strong>1 个</strong>（<code>0.95 ≥ 0.9</code>）</td>
+</tr>
+<tr>
+<td>B：中等</td>
+<td><code>[0.3, 0.25, 0.15, 0.1, 0.08, 0.05, ...]</code></td>
+<td>50 个（远超需要）</td>
+<td><strong>5 个</strong>（累计 0.88，加第 6 个到 0.93）</td>
+</tr>
+<tr>
+<td>C：平坦</td>
+<td>1000 个 token 各 0.001</td>
+<td>50 个（只占 5% 质量）</td>
+<td><strong>900 个</strong>（需要 900 个才到 0.9）</td>
+</tr>
+</tbody></table>
+<p>情况 C 暴露了 top-p 的隐患：<strong>核可以是 900 个 token</strong>，几乎等于不截断。</p>
+<h3 id="6-3-Top-p-的四个坑"><a href="#6-3-Top-p-的四个坑" class="headerlink" title="6.3 Top-p 的四个坑"></a>6.3 Top-p 的四个坑</h3><p><strong>坑一：<code>p</code> 接近 1 时等于不截断</strong><br><code>top_p=1.0</code> 保留全部词表，退化为纯采样。有些人以为 <code>p=1.0</code> 是”最保守”，恰恰相反。</p>
+<p><strong>坑二：高温 + 高 p = 双重放开</strong><br><code>T=1.3, top_p=0.98</code> 几乎等于纯采样——分布被拉平，<code>0.98</code> 又几乎不截断。这是”模型胡说”最常见的参数组合。</p>
+<p><strong>坑三：低温 + 高 p 的伪安全感</strong><br><code>T=0.3, top_p=0.95</code>：温度让分布极尖，核自动收缩到 1–3 个 token。看起来是”top_p 0.95 很宽松”，实际行为接近贪心。<strong>你以为在用核采样，其实在用贪心。</strong></p>
+<p><strong>坑四：<code>p</code> 太小导致多样性归零</strong><br><code>top_p=0.1</code> 在多数位置只会留下 1 个 token。表面上”还在采样”，实际完全确定。<strong>如果评测显示”多次采样结果完全一致”，先查这里，而不是怀疑随机种子。</strong></p>
+<h3 id="6-4-min-p：对分布形状更鲁棒的替代"><a href="#6-4-min-p：对分布形状更鲁棒的替代" class="headerlink" title="6.4 min-p：对分布形状更鲁棒的替代"></a>6.4 min-p：对分布形状更鲁棒的替代</h3><p>Top-p 的问题在于”绝对概率质量”这个量在分布形状变化时不稳定。min-p（Nguyen et al., 2024，<em>Turning Up the Heat</em>，arXiv:2407.01082）换了个基准：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">保留 p_i ≥ p_min · max_j p_j 的 token</span><br></pre></td></tr></table></figure>
+
+<p>即：<strong>相对最大概率的比值</strong>，而不是累积质量。</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>top-p</th>
+<th>min-p</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>阈值依据</td>
+<td>累积概率质量</td>
+<td>相对最高概率的比值</td>
+</tr>
+<tr>
+<td>尖端分布</td>
+<td>核 → 1（接近贪心，可能过度确定）</td>
+<td>按比值截断，仍保留若干候选</td>
+</tr>
+<tr>
+<td>平坦分布</td>
+<td>核 → 巨大（几乎不截断）</td>
+<td>按比值截断，自动收紧</td>
+</tr>
+<tr>
+<td>高温下的行为</td>
+<td>核膨胀，容易引入垃圾</td>
+<td><strong>衰减慢，高温下仍能保持连贯</strong></td>
+</tr>
+<tr>
+<td>与温度解耦</td>
+<td>强耦合（温度变了核就变）</td>
+<td>弱耦合（比值对温度更鲁棒）</td>
+</tr>
+</tbody></table>
+<p>min-p 的论文主张是：<strong>它允许在更高温度下采样而不崩</strong>，因为截断基准随峰值高度自动缩放。这对创意生成（想要高温但不想胡说）价值明显。</p>
+<p><strong>实践建议</strong>：如果你的场景需要 <code>T &gt; 1.0</code> 的多样性，优先试 <code>min_p=0.05–0.1</code> 而不是继续放大 <code>top_p</code>。</p>
+<h3 id="6-5-其他截断方法（了解即可）"><a href="#6-5-其他截断方法（了解即可）" class="headerlink" title="6.5 其他截断方法（了解即可）"></a>6.5 其他截断方法（了解即可）</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>判据</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Typical Sampling</strong>（Meister et al., 2022）</td>
+<td>保留信息量 <code>-log p</code> 接近期望熵的 token</td>
+<td>同时排除”太可预测”和”太离谱”，理论上更优雅；工程上不如 top-p 常用</td>
+</tr>
+<tr>
+<td><strong>η-sampling</strong></td>
+<td>基于熵的绝对阈值</td>
+<td>少见</td>
+</tr>
+<tr>
+<td><strong>Mirostat</strong></td>
+<td>动态控制困惑度</td>
+<td>适合长文本一致性，实现复杂</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="7-对比解码：用”减法”去掉平庸"><a href="#7-对比解码：用”减法”去掉平庸" class="headerlink" title="7. 对比解码：用”减法”去掉平庸"></a>7. 对比解码：用”减法”去掉平庸</h2><h3 id="7-1-需要先澄清：三个不同的东西"><a href="#7-1-需要先澄清：三个不同的东西" class="headerlink" title="7.1 需要先澄清：三个不同的东西"></a>7.1 需要先澄清：三个不同的东西</h3><p>“对比解码”在文献里指至少三种机制，混用会得出错误结论。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>出处</th>
+<th>机制</th>
+<th>解决的问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Contrastive Search</strong></td>
+<td>Su et al., 2022</td>
+<td><strong>单模型</strong>。打分 = <code>(1-α)·p(v|ctx) - α·max_sim(v, ctx)</code></td>
+<td>退化重复（用”与上下文的相似度”做惩罚）</td>
+</tr>
+<tr>
+<td><strong>Contrastive Decoding (CD)</strong></td>
+<td>Li et al., 2023</td>
+<td><strong>双模型</strong>。<code>logits = (1+α)log p_exp - α log p_ama</code></td>
+<td>去掉通用/高频 token，放大专家模型的独特知识</td>
+</tr>
+<tr>
+<td><strong>DOLA</strong></td>
+<td>O’Brien &amp; Lewis, 2023</td>
+<td><strong>单模型、跨层</strong>。<code>logits = log p_final - α·log p_early</code></td>
+<td>低成本版 CD，改善推理与事实性</td>
+</tr>
+<tr>
+<td><strong>VCD</strong></td>
+<td>Leng et al., 2023</td>
+<td>多模态版 CD。对比”原图”与”失真图”的 logits</td>
+<td>多模态幻觉</td>
+</tr>
+</tbody></table>
+<p><strong>其中只有 CD / DOLA / VCD 是真正的”对比两个分布”，Contrastive Search 本质是一个抗重复的打分函数。</strong> 本文后续的”对比解码”指 CD 家族。</p>
+<h3 id="7-2-CD-的直觉"><a href="#7-2-CD-的直觉" class="headerlink" title="7.2 CD 的直觉"></a>7.2 CD 的直觉</h3><p>把两个模型的分布相减：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log p_CD(v) = (1 + α) · log p_expert(v) - α · log p_amateur(v)</span><br></pre></td></tr></table></figure>
+
+<p>展开看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">= log p_expert(v) + α · [log p_expert(v) - log p_amateur(v)]</span><br></pre></td></tr></table></figure>
+
+<p>即：**在专家模型的分布上，额外奖励”专家比业余模型更偏好的 token”**。</p>
+<p>直觉：业余模型（小模型 / 早期层）捕捉的是”通用的、高频的、语法性的”规律。专家模型比它多出来的部分，才是<strong>真正的知识</strong>。相减相当于：</p>
+<ul>
+<li>抑制”the / of / is”这类两个模型都觉得该出现的 token；</li>
+<li>放大”专家认为该出现但业余不认为”的专业术语。</li>
+</ul>
+<p>这与”用更大模型”不是一回事——它是<strong>用两个模型的差异做信号增强</strong>，成本接近单模型（DOLA 甚至完全免费）。</p>
+<h3 id="7-3-参数-α-的行为"><a href="#7-3-参数-α-的行为" class="headerlink" title="7.3 参数 α 的行为"></a>7.3 参数 α 的行为</h3><ul>
+<li><code>α = 0</code>：退化为专家模型的普通解码；</li>
+<li><code>α</code> 增大：对比增强，专业性上升，但<strong>流畅度和多样性下降</strong>；</li>
+<li><code>α</code> 过大：分布可能被推到”专家认为可能但业余认为不可能”的极端 token 上 → 出现罕见词、拼写错误、语法崩坏。</li>
+</ul>
+<p>**必须加一个”合理性约束”**（Li et al. 2023 的做法）：只保留满足 <code>p_expert(v) ≥ β · max_w p_expert(w)</code> 的 token，再做 CD。否则会出现”为了对比而对比”的崩坏。</p>
+<h3 id="7-4-优点与代价"><a href="#7-4-优点与代价" class="headerlink" title="7.4 优点与代价"></a>7.4 优点与代价</h3><table>
+<thead>
+<tr>
+<th>优点</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>事实性/推理能力提升（不需微调）</td>
+<td>双模型 → 显存 ×2、计算 ×2（DOLA 除外）</td>
+</tr>
+<tr>
+<td>抑制”安全但空洞”的通用回答</td>
+<td>α 敏感，需按任务调</td>
+</tr>
+<tr>
+<td>可与任意采样器叠加</td>
+<td>两个模型必须<strong>同 tokenizer</strong>，否则 logits 无法对齐</td>
+</tr>
+<tr>
+<td>DOLA 版本几乎零额外成本</td>
+<td>对比会放大 artifacts（生僻词、格式错误）</td>
+</tr>
+<tr>
+<td></td>
+<td>流畅度/多样性下降，长文本易疲劳</td>
+</tr>
+</tbody></table>
+<h3 id="7-5-什么时候值得用"><a href="#7-5-什么时候值得用" class="headerlink" title="7.5 什么时候值得用"></a>7.5 什么时候值得用</h3><p><strong>值得</strong>：</p>
+<ul>
+<li>知识密集型 QA（需要模型”说出专业细节”而不是”说套话”）；</li>
+<li>需要减少”我不知道”式的回避；</li>
+<li>有现成的小模型可作 amateur（同一家族的不同规模最佳）；</li>
+<li>多模态幻觉抑制（VCD）。</li>
+</ul>
+<p><strong>不值得</strong>：</p>
+<ul>
+<li>创意写作（CD 会压制多样性，与目标冲突）；</li>
+<li>低延迟场景（双模型翻倍）；</li>
+<li>模型本身已经很强（CD 的增益随基座能力上升而递减）。</li>
+</ul>
+<h3 id="7-6-一个常被忽略的风险：逐字复现"><a href="#7-6-一个常被忽略的风险：逐字复现" class="headerlink" title="7.6 一个常被忽略的风险：逐字复现"></a>7.6 一个常被忽略的风险：逐字复现</h3><p>Contrastive Search 尤其容易<strong>逐字复现训练数据</strong>。原因是它的惩罚项只惩罚”与上下文的相似”，一旦上下文本身就是训练语料里的片段，模型会被推向”继续复制”。</p>
+<p>如果涉及版权敏感的内容生成，<strong>不要用 Contrastive Search</strong>（或用 n-gram 遮挡做后处理）。</p>
+<hr>
+<h2 id="8-约束解码：把”不许说”变成”不可能说”"><a href="#8-约束解码：把”不许说”变成”不可能说”" class="headerlink" title="8. 约束解码：把”不许说”变成”不可能说”"></a>8. 约束解码：把”不许说”变成”不可能说”</h2><h3 id="8-1-核心机制：在-logits-上做掩码"><a href="#8-1-核心机制：在-logits-上做掩码" class="headerlink" title="8.1 核心机制：在 logits 上做掩码"></a>8.1 核心机制：在 logits 上做掩码</h3><p>约束解码不是一种采样器，而是<strong>在采样前修改 logits</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">z&apos;_i = z_i           if token i 在当前状态下合法</span><br><span class="line">z&apos;_i = -inf          otherwise</span><br><span class="line">p = softmax(z&apos; / T)</span><br></pre></td></tr></table></figure>
+
+<p>关键在于”当前状态下合法”的判定。三种实现层级：</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>机制</th>
+<th>表达力</th>
+<th>代表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>词表级掩码</strong>（ban list / allow list）</td>
+<td>静态黑白名单</td>
+<td>最弱</td>
+<td>各类 <code>bad_words_ids</code></td>
+</tr>
+<tr>
+<td><strong>正则 / FSM</strong></td>
+<td>编译成正则自动机，按前缀推进状态</td>
+<td>中（正则语言）</td>
+<td>Outlines（Willard &amp; Louf, 2023）</td>
+</tr>
+<tr>
+<td><strong>CFG / 语法</strong></td>
+<td>上下文无关文法，维护解析栈</td>
+<td>最强（含嵌套、递归）</td>
+<td>XGrammar、Guidance、LMQL、llama.cpp GBNF</td>
+</tr>
+</tbody></table>
+<h3 id="8-2-FSM-方案的工作方式"><a href="#8-2-FSM-方案的工作方式" class="headerlink" title="8.2 FSM 方案的工作方式"></a>8.2 FSM 方案的工作方式</h3><p>以 JSON 为例，正则描述”当前应该输出 <code>{</code> 或 <code>&quot;</code> 或数字”：</p>
+<ol>
+<li>预编译：把正则转成 DFA，对每个状态预计算”哪些 token 可从该状态出发”（用 token 的前缀树匹配）；</li>
+<li>运行：每步根据当前 DFA 状态，得到合法 token 集合，掩码 logits；</li>
+<li>推进：选中 token 后，按 token 的字符序列推进 DFA 状态。</li>
+</ol>
+<p>难点在<strong>第 1 步的预计算</strong>：词表 5 万 × DFA 状态数，可能到百万级组合。Outlines 的做法是构建 token 的 trie，与 DFA 做交，只存可达组合。<strong>大语法（如完整 JSON Schema + 长枚举）的预编译可能耗时数十秒</strong>，需要缓存。</p>
+<h3 id="8-3-五个真实的坑"><a href="#8-3-五个真实的坑" class="headerlink" title="8.3 五个真实的坑"></a>8.3 五个真实的坑</h3><p><strong>坑一：Tokenization 边界跨字符</strong></p>
+<p>一个 token 可能对应多个字符（如 <code>&quot;name&quot;</code> 可能是一个 token）。DFA 按字符推进，但 token 是原子的。<strong>必须做”token 前缀是否与 DFA 路径一致”的匹配</strong>，而不是简单按首个字符判断。这是自研实现最常见的 bug。</p>
+<p><strong>坑二：Grammar Tax（语法税）</strong></p>
+<p>Geng et al. (2023) 的发现：<strong>强制语法约束会降低语义质量</strong>。原因有二：</p>
+<ol>
+<li>掩码后模型被迫从”它本来不想选”的 token 里选，分布被扭曲；</li>
+<li>模型在训练时从未见过”被掩码的分布”，这是分布外推。</li>
+</ol>
+<p>表现为：JSON 格式完美，但字段内容变得空洞或错位。<strong>约束越强（如复杂 CFG），tax 越重。</strong></p>
+<p><strong>坑三：掩码导致”全 -inf”</strong></p>
+<p>如果前缀已经走到一个不可接受的状态（比如生成了非法字符），后续所有 token 都可能被掩码 → <code>softmax</code> 全零 → NaN。</p>
+<p>应对：<strong>状态必须可回溯</strong>（在某些实现里叫 “token healing” 或 rewind），或者允许”逃生 token”（少量 token 始终合法，用于跳出死局）。</p>
+<p><strong>坑四：与 repetition penalty 打架</strong></p>
+<p>repetition penalty 会修改 logits（把出现过的 token 概率除以惩罚系数）。如果这个操作发生在掩码<strong>之后</strong>，可能把概率质量推到已被掩码的 token 上（-inf 除以任何数还是 -inf，但归一化时其余 token 的分母变了）；如果发生在<strong>之前</strong>，可能让一个合法但重复的 token 被过度压制，导致输出怪异。</p>
+<p><strong>正确顺序：先做所有 logit 变换（penalty、temperature、CD），最后做约束掩码，然后 softmax。</strong> 掩码必须是最靠近 softmax 的一步。</p>
+<p><strong>坑五：语法正确 ≠ 语义正确</strong></p>
+<p>JSON Schema 能保证”<code>age</code> 是整数”，不能保证”<code>age</code> 是这个人真实的年龄”。<strong>约束解码只解决 syntax，不解决 semantics。</strong> 很多团队在接入约束解码后，误以为幻觉问题解决了——其实只是从”格式错”变成了”格式对的错”。</p>
+<h3 id="8-4-什么时候必须用"><a href="#8-4-什么时候必须用" class="headerlink" title="8.4 什么时候必须用"></a>8.4 什么时候必须用</h3><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>约束形式</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Function calling / 工具调用</strong></td>
+<td>JSON Schema</td>
+<td>Agent 的硬需求，否则解析失败</td>
+</tr>
+<tr>
+<td><strong>结构化抽取</strong></td>
+<td>JSON / 固定字段</td>
+<td>保证下游可解析</td>
+</tr>
+<tr>
+<td><strong>代码生成</strong></td>
+<td>CFG（目标语言语法）</td>
+<td>保证可编译，但不保证正确</td>
+</tr>
+<tr>
+<td><strong>SQL 生成</strong></td>
+<td>目标方言的 CFG</td>
+<td>同上</td>
+</tr>
+<tr>
+<td><strong>分类 / 枚举输出</strong></td>
+<td>枚举白名单</td>
+<td>最简单也最有效</td>
+</tr>
+<tr>
+<td><strong>格式严格的报告</strong></td>
+<td>模板 / 正则</td>
+<td>如日期、编号</td>
+</tr>
+</tbody></table>
+<p><strong>判断标准</strong>：如果下游程序要 <code>json.loads()</code> 它，就必须用约束解码。如果输出是给人看的，用 prompt 约束 + 后处理校验更划算（避免 grammar tax）。</p>
+<hr>
+<h2 id="9-自洽解码：用采样换正确率"><a href="#9-自洽解码：用采样换正确率" class="headerlink" title="9. 自洽解码：用采样换正确率"></a>9. 自洽解码：用采样换正确率</h2><h3 id="9-1-机制"><a href="#9-1-机制" class="headerlink" title="9.1 机制"></a>9.1 机制</h3><p>不是”改进单次解码”，而是”<strong>多次采样 + 聚合</strong>“：</p>
+<ol>
+<li>用非零温度采样 <code>N</code> 条推理路径（<code>T</code> 通常 0.5–1.0，<code>top_p</code> 0.9–1.0）；</li>
+<li>从每条路径中<strong>抽取最终答案</strong>（正则/解析器）；</li>
+<li>对答案做<strong>多数投票</strong>（majority vote）；</li>
+<li>输出票数最高的答案。</li>
+</ol>
+<p>Wang et al. (2023) 的原始结果：PaLM-540B 在 GSM8K 上，贪心 CoT 约 56.5%，自洽（N=40）达到约 74.4%（论文自报，不同复现略有差异）。</p>
+<p><strong>注意增益的来源</strong>：不是”投票选出对的”，而是”<strong>错误是分散的，正确是集中的</strong>“。如果模型对某类题有系统性误解，40 条路径会一致地错，投票无效。</p>
+<h3 id="9-2-四个前提条件（缺一不可）"><a href="#9-2-四个前提条件（缺一不可）" class="headerlink" title="9.2 四个前提条件（缺一不可）"></a>9.2 四个前提条件（缺一不可）</h3><table>
+<thead>
+<tr>
+<th>前提</th>
+<th>说明</th>
+<th>缺了会怎样</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>答案可抽取且可比较</strong></td>
+<td>数字、选项、短实体</td>
+<td>自由文本无法投票</td>
+</tr>
+<tr>
+<td><strong>模型有基础能力</strong></td>
+<td>单次准确率 &gt; 随机</td>
+<td>全错的时候投票还是错</td>
+</tr>
+<tr>
+<td><strong>采样有真实多样性</strong></td>
+<td><code>T &gt; 0</code>，核足够宽</td>
+<td>40 条全一样，等于贪心</td>
+</tr>
+<tr>
+<td><strong>错误分布分散</strong></td>
+<td>错在不同地方</td>
+<td>系统性偏差，投票放大错误</td>
+</tr>
+</tbody></table>
+<p>第三条是最容易失效的：很多人设了 <code>T=0.7</code> 但 <code>top_p=0.5</code>，实际核只有 1–2 个 token，40 条采样高度同质，<strong>收益接近零，成本 ×40</strong>。</p>
+<h3 id="9-3-成本结构"><a href="#9-3-成本结构" class="headerlink" title="9.3 成本结构"></a>9.3 成本结构</h3><table>
+<thead>
+<tr>
+<th>项</th>
+<th>成本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>计算</td>
+<td><code>N ×</code> 生成 token 数（可并行，墙钟时间增加有限）</td>
+</tr>
+<tr>
+<td>显存</td>
+<td><code>N ×</code> KV cache（若并行）</td>
+</tr>
+<tr>
+<td>工程</td>
+<td>答案抽取器、投票逻辑、平票处理</td>
+</tr>
+</tbody></table>
+<p>N 的边际收益递减很快：多数任务上 <code>N=5</code> 拿到约 70% 的收益，<code>N=40</code> 才拿满。<strong>N=5–10 是性价比区间</strong>，N&gt;20 只在离线/高价值场景合理。</p>
+<h3 id="9-4-三个易踩的坑"><a href="#9-4-三个易踩的坑" class="headerlink" title="9.4 三个易踩的坑"></a>9.4 三个易踩的坑</h3><p><strong>坑一：答案没归一化</strong><br>“¥1,200”、”1200”、”1.2k” 会被当成三个不同答案。必须先做单位/格式归一化，否则投票是噪声。</p>
+<p><strong>坑二：把”一致性”当”正确性”</strong><br>模型可以<strong>自信地一致犯错</strong>。自洽的输出只是”模型内部共识”，不是”事实”。在高风险场景必须配外部 verifier（执行代码、查数据库、检索核对）。</p>
+<p><strong>坑三：用在开放生成上</strong><br>“写一段产品文案”没有可投票的答案。这类任务应该用 <strong>best-of-N + 奖励模型/verifier 打分</strong>，而不是投票。</p>
+<h3 id="9-5-自洽的泛化形态（2025–2026-的主流）"><a href="#9-5-自洽的泛化形态（2025–2026-的主流）" class="headerlink" title="9.5 自洽的泛化形态（2025–2026 的主流）"></a>9.5 自洽的泛化形态（2025–2026 的主流）</h3><p>自洽的本质是”<strong>用多次采样 + 选择机制提升可靠性</strong>“，这个框架已经泛化出多个变体：</p>
+<table>
+<thead>
+<tr>
+<th>变体</th>
+<th>选择机制</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Majority Vote</strong></td>
+<td>答案票数</td>
+<td>有离散答案的推理</td>
+</tr>
+<tr>
+<td><strong>Best-of-N + Verifier</strong></td>
+<td>奖励模型/ORM 打分</td>
+<td>无标准答案但有质量信号</td>
+</tr>
+<tr>
+<td><strong>Best-of-N + 执行验证</strong></td>
+<td>跑单测/跑代码</td>
+<td>代码生成</td>
+</tr>
+<tr>
+<td><strong>Tree Search / MCTS</strong></td>
+<td>搜索 + 价值估计</td>
+<td>复杂推理（o1/R1 类的内部机制）</td>
+</tr>
+<tr>
+<td><strong>Self-Refine / Critic</strong></td>
+<td>自我批评后重写</td>
+<td>长文生成</td>
+</tr>
+</tbody></table>
+<p><strong>2024 年之后的一个重要变化</strong>：推理模型（o1/R1 系列）把”搜索”内化到了模型里（生成更长的思维链、内部多路径探索）。对外部解码策略的影响是：</p>
+<ul>
+<li><strong>外部采样参数的重要性下降</strong>（模型自己会探索，不需要你用高温逼它）；</li>
+<li><strong>best-of-N 仍有效</strong>，但 N 可以更小；</li>
+<li><strong>自洽的收益变小</strong>（因为单次已经接近”多次采样后的结果”）。</li>
+</ul>
+<hr>
+<h2 id="10-汇总对比表"><a href="#10-汇总对比表" class="headerlink" title="10. 汇总对比表"></a>10. 汇总对比表</h2><h3 id="10-1-策略总表（九种核心-min-p-扩展）"><a href="#10-1-策略总表（九种核心-min-p-扩展）" class="headerlink" title="10.1 策略总表（九种核心 + min-p 扩展）"></a>10.1 策略总表（九种核心 + min-p 扩展）</h3><table>
+<thead>
+<tr>
+<th>策略</th>
+<th>核心公式 / 机制</th>
+<th>随机性</th>
+<th>额外成本</th>
+<th>最适合</th>
+<th>主要风险</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>纯采样</strong></td>
+<td><code>y_t ~ p(·)</code></td>
+<td>高</td>
+<td>1×</td>
+<td>pass@k 评测、数据合成、best-of-N 前置</td>
+<td>长尾 token 导致崩坏</td>
+</tr>
+<tr>
+<td><strong>贪心</strong></td>
+<td><code>argmax p(·)</code></td>
+<td>无</td>
+<td>1×</td>
+<td>抽取、分类、格式化、可复现场景</td>
+<td>退化重复、零多样性</td>
+</tr>
+<tr>
+<td><strong>Beam Search</strong></td>
+<td>保留 k 条，<code>Σ log p</code> + 长度惩罚</td>
+<td>无</td>
+<td>k×</td>
+<td>翻译、ASR、有唯一答案的生成</td>
+<td>beam curse、k 条高度相似</td>
+</tr>
+<tr>
+<td><strong>温度缩放</strong></td>
+<td><code>softmax(z/T)</code></td>
+<td>调节器</td>
+<td>1×</td>
+<td>配合任意采样器</td>
+<td>与截断强耦合、易误调</td>
+</tr>
+<tr>
+<td><strong>Top-k</strong></td>
+<td>保留前 k，重归一化</td>
+<td>中</td>
+<td>1×</td>
+<td>简单可控的对话</td>
+<td>k 是绝对数，不适应分布形状</td>
+</tr>
+<tr>
+<td><strong>Top-p（核）</strong></td>
+<td>累积质量 ≥ p 的最小集</td>
+<td>中</td>
+<td>1×</td>
+<td><strong>通用默认</strong></td>
+<td>p→1 等于不截断、与温度强耦合</td>
+</tr>
+<tr>
+<td><strong>min-p</strong></td>
+<td><code>p_i ≥ p_min · p_max</code></td>
+<td>中</td>
+<td>1×</td>
+<td>高温下的创意生成</td>
+<td>生态支持较少，需手写</td>
+</tr>
+<tr>
+<td><strong>对比解码</strong></td>
+<td><code>(1+α)log p_exp - α log p_ama</code></td>
+<td>中</td>
+<td>2×（DOLA 1×）</td>
+<td>知识密集 QA、幻觉抑制</td>
+<td>α 敏感、流畅度下降、需同 tokenizer</td>
+</tr>
+<tr>
+<td><strong>约束解码</strong></td>
+<td>非法 token 置 <code>-inf</code></td>
+<td>取决于底层采样器</td>
+<td>1× + 预编译</td>
+<td>JSON / 工具调用 / 代码</td>
+<td>grammar tax、跨字符 token、全 -inf</td>
+</tr>
+<tr>
+<td><strong>自洽解码</strong></td>
+<td>N 次采样 + 多数投票</td>
+<td>高（需 N 次）</td>
+<td>N×</td>
+<td>数学/逻辑推理</td>
+<td>答案不可投票、系统性偏差</td>
+</tr>
+</tbody></table>
+<h3 id="10-2-它们分属不同”层”"><a href="#10-2-它们分属不同”层”" class="headerlink" title="10.2 它们分属不同”层”"></a>10.2 它们分属不同”层”</h3><p>这是理解组合关系的关键——**这些策略不在同一层，所以不能简单”选一个”**：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">第 0 层  搜索框架        ：贪心 / Beam / 采样（决定&quot;要不要看多个候选&quot;）</span><br><span class="line">第 1 层  logit 变换      ：温度 / repetition penalty / 对比解码（改变分布形状）</span><br><span class="line">第 2 层  截断            ：top-k / top-p / min-p（限制候选集）</span><br><span class="line">第 3 层  掩码            ：约束解码（强删非法候选） ← 必须最靠近 softmax</span><br><span class="line">第 4 层  外层聚合        ：自洽解码 / best-of-N（跨多次生成做选择）</span><br></pre></td></tr></table></figure>
+
+<p><strong>同一个系统里，第 1–3 层是叠加的，第 0 层是互斥的，第 4 层是外层的循环。</strong></p>
+<hr>
+<h2 id="11-组合顺序：真实-pipeline-的行为"><a href="#11-组合顺序：真实-pipeline-的行为" class="headerlink" title="11. 组合顺序：真实 pipeline 的行为"></a>11. 组合顺序：真实 pipeline 的行为</h2><p>这一节是本文最”工程”的部分。大多数参数调不明白，是因为不知道框架内部的执行顺序。</p>
+<h3 id="11-1-标准执行顺序"><a href="#11-1-标准执行顺序" class="headerlink" title="11.1 标准执行顺序"></a>11.1 标准执行顺序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">logits (V,)</span><br><span class="line">  ↓ ① repetition / presence / frequency penalty</span><br><span class="line">  ↓ ② 对比解码修正（若启用）</span><br><span class="line">  ↓ ③ 温度缩放  z / T</span><br><span class="line">  ↓ ④ top-k 掩码</span><br><span class="line">  ↓ ⑤ top-p 掩码</span><br><span class="line">  ↓ ⑥ 约束解码掩码（必须最后）</span><br><span class="line">  ↓ softmax</span><br><span class="line">  ↓ 采样 / argmax</span><br></pre></td></tr></table></figure>
+
+<p>三条硬规则：</p>
+<ol>
+<li><strong>温度必须在 top-p 之前</strong>——因为 top-p 的阈值定义在概率上，而概率依赖温度；</li>
+<li><strong>约束掩码必须在最后</strong>——否则其他变换会把概率质量推回被禁 token；</li>
+<li><strong>penalty 必须在温度之前</strong>——它是 logit 空间的加性/乘性修正，应该先于归一化。</li>
+</ol>
+<h3 id="11-2-top-k-和-top-p-一起用，到底发生了什么"><a href="#11-2-top-k-和-top-p-一起用，到底发生了什么" class="headerlink" title="11.2 top-k 和 top-p 一起用，到底发生了什么"></a>11.2 top-k 和 top-p 一起用，到底发生了什么</h3><p>这是被问得最多、也误解最深的一点。</p>
+<p><strong>串联时的真实行为</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">先 top-k：候选集从 V 缩到 k 个，重归一化 → 概率和为 1</span><br><span class="line">再 top-p：在这 k 个里，取累积 ≥ p 的前若干个</span><br></pre></td></tr></table></figure>
+
+<p>所以：</p>
+<table>
+<thead>
+<tr>
+<th>参数组合</th>
+<th>实际效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>k=50, p=0.95</code></td>
+<td>通常 <strong>p 生效</strong>（50 个里累积到 0.95 往往只要 5–20 个），k 基本是”安全上限”</td>
+</tr>
+<tr>
+<td><code>k=10, p=0.99</code></td>
+<td>通常 <strong>k 生效</strong>（10 个的累积可能只有 0.85，永远达不到 0.99，于是全保留）</td>
+</tr>
+<tr>
+<td><code>k=5, p=0.5</code></td>
+<td><strong>两者都生效</strong>，实际核 = 在 5 个里累积到 0.5，非常窄</td>
+</tr>
+<tr>
+<td><code>k=1000, p=0.9</code></td>
+<td><strong>p 生效</strong>，k 是无效参数（形同虚设）</td>
+</tr>
+</tbody></table>
+<p><strong>结论：两个都设，实际生效的是”更严格的那个”（取交集）。</strong></p>
+<p>这带来两个副作用：</p>
+<p><strong>副作用 A：k 会”截断 p 的本意”</strong><br>top-p 的设计意图是”自适应”——分布平坦时放开到很多 token。但如果 <code>k=40</code>，<strong>平坦分布的核被硬性限制在 40 个</strong>，自适应能力被破坏。这时 top-p 退化成了”min(40, p 对应的核)”。</p>
+<p><strong>副作用 B：p 会让 k 失去可解释性</strong><br>你设 <code>k=50</code> 以为”最多 50 个候选”，但实际可能只有 6 个。<strong>日志里看到的分布行为与参数直觉不符</strong>，调参变成盲调。</p>
+<p><strong>实践建议</strong>：</p>
+<ul>
+<li><strong>只用一个</strong>。通用场景用 top-p（<code>0.9–0.95</code>）；需要严格延迟/内存控制时用 top-k；</li>
+<li>如果框架强制两个都有（如 HF <code>generate</code>），<strong>把不用的那个设为中性值</strong>：<code>top_k=0</code>（表示禁用）或 <code>top_p=1.0</code>；</li>
+<li><strong>绝不要两个都设成”紧”的值</strong>（如 <code>k=10, p=0.5</code>），那实际上是一个极窄的确定性采样器，你以为是”稳”，其实接近贪心且不可预测。</li>
+</ul>
+<h3 id="11-3-温度与-top-p-的联合调参"><a href="#11-3-温度与-top-p-的联合调参" class="headerlink" title="11.3 温度与 top-p 的联合调参"></a>11.3 温度与 top-p 的联合调参</h3><p>因为 <code>T</code> 改变分布 → 改变核大小，所以必须<strong>二维联合</strong>，不能一维扫。</p>
+<p>一个可操作的做法（以”想要多样性但不胡说”为目标）：</p>
+<table>
+<thead>
+<tr>
+<th>目标</th>
+<th>T</th>
+<th>top_p</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>几乎确定（抽取）</td>
+<td>0.0–0.2</td>
+<td>0.9</td>
+<td>温度主导，核自动很窄</td>
+</tr>
+<tr>
+<td>稳健问答（RAG）</td>
+<td>0.2–0.4</td>
+<td>0.9</td>
+<td>事实优先，允许轻微措辞变化</td>
+</tr>
+<tr>
+<td>通用对话</td>
+<td>0.6–0.8</td>
+<td>0.9–0.95</td>
+<td>平衡</td>
+</tr>
+<tr>
+<td>创意写作</td>
+<td>0.9–1.1</td>
+<td>0.95–0.98</td>
+<td>或改用 min-p</td>
+</tr>
+<tr>
+<td>高温创意（少胡说）</td>
+<td>1.0–1.3</td>
+<td>—</td>
+<td><strong>改用 min_p=0.05–0.1</strong>，不用 top-p</td>
+</tr>
+<tr>
+<td>自洽采样</td>
+<td>0.7–1.0</td>
+<td>0.95–1.0</td>
+<td>核要足够宽，否则 N 次采样同质</td>
+</tr>
+</tbody></table>
+<p><strong>验证方法</strong>：固定 prompt，采样 20 次，统计”输出完全一致的比例”和”输出的语义簇数”。如果一致率 &gt; 80%，说明核太窄，采样没起作用。</p>
+<h3 id="11-4-一个被忽视的交互：repetition-penalty-的副作用"><a href="#11-4-一个被忽视的交互：repetition-penalty-的副作用" class="headerlink" title="11.4 一个被忽视的交互：repetition penalty 的副作用"></a>11.4 一个被忽视的交互：repetition penalty 的副作用</h3><p><code>repetition_penalty</code> 的实现（HF 风格）是：对已出现 token，正 logit 除以 <code>r</code>、负 logit 乘以 <code>r</code>（<code>r &gt; 1</code> 时压制）。</p>
+<p>三个副作用：</p>
+<ol>
+<li><strong><code>r</code> 稍大就破坏语法</strong>：<code>r=1.3</code> 时，模型可能被迫避开必要的功能词（”的”、”is”），产生不通顺的句子；</li>
+<li><strong>与约束解码冲突</strong>：被 penalty 压低的 token 如果是唯一合法候选，掩码后仍然会被选中，但概率被扭曲；</li>
+<li><strong>长文本累积漂移</strong>：出现过的 token 越多，被压制的集合越大，越到后面越”词穷”。</li>
+</ol>
+<p><strong>建议</strong>：<code>repetition_penalty</code> 保持在 <code>1.0–1.1</code>，不要超过 <code>1.2</code>。如果重复严重，优先检查<strong>是不是解码器选错了</strong>（贪心 + 长生成），而不是加大惩罚。</p>
+<hr>
+<h2 id="12-踩坑清单"><a href="#12-踩坑清单" class="headerlink" title="12. 踩坑清单"></a>12. 踩坑清单</h2><h3 id="12-1-参数层面"><a href="#12-1-参数层面" class="headerlink" title="12.1 参数层面"></a>12.1 参数层面</h3><table>
+<thead>
+<tr>
+<th>坑</th>
+<th>现象</th>
+<th>根因</th>
+<th>修法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>temperature</code> 不生效</strong></td>
+<td>调了参数输出没变</td>
+<td><code>do_sample=False</code> 时温度被忽略</td>
+<td>确认 <code>do_sample=True</code> 或直接设 <code>temperature=0</code></td>
+</tr>
+<tr>
+<td><strong><code>top_p=1.0</code> 以为更稳</strong></td>
+<td>输出莫名发散</td>
+<td><code>p=1</code> 等于不截断</td>
+<td>用 <code>0.9–0.95</code></td>
+</tr>
+<tr>
+<td><strong><code>top_k=0</code> 报错</strong></td>
+<td>部分框架 <code>k=0</code> 非法</td>
+<td>语义不一致（HF 里 0=禁用）</td>
+<td>查框架文档，或用中性大值</td>
+</tr>
+<tr>
+<td><strong>两个截断都设紧</strong></td>
+<td>采样”很随机”但结果几乎一致</td>
+<td>取交集，核极小</td>
+<td>只留一个</td>
+</tr>
+<tr>
+<td><strong>温度调高仍重复</strong></td>
+<td>加 T 后不复读但开始胡说</td>
+<td>重复的根因是概率正反馈，不是分布太尖</td>
+<td>低 T + 窄核 + 轻 penalty</td>
+</tr>
+<tr>
+<td><strong>penalty 过大</strong></td>
+<td>句子不通顺、功能词缺失</td>
+<td>压制了必要 token</td>
+<td><code>r ≤ 1.1</code></td>
+</tr>
+<tr>
+<td><strong>max_tokens 太小</strong></td>
+<td>输出被硬截断，JSON 不完整</td>
+<td>解码预算不足</td>
+<td>约束解码场景要预留足够预算</td>
+</tr>
+</tbody></table>
+<h3 id="12-2-语义-质量层面"><a href="#12-2-语义-质量层面" class="headerlink" title="12.2 语义/质量层面"></a>12.2 语义/质量层面</h3><table>
+<thead>
+<tr>
+<th>坑</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>把高似然当高质量</strong></td>
+<td>束搜索/贪心输出”正确的废话”</td>
+</tr>
+<tr>
+<td><strong>把低温度当准确</strong></td>
+<td>低温度只是更确定，不更正确；模型不知道的仍然不知道</td>
+</tr>
+<tr>
+<td><strong>把自洽当正确</strong></td>
+<td>一致性 ≠ 事实性，需外部验证</td>
+</tr>
+<tr>
+<td><strong>把语法约束当语义约束</strong></td>
+<td>JSON 合法不代表字段正确</td>
+</tr>
+<tr>
+<td><strong>用温度掩盖能力不足</strong></td>
+<td>换了三个温度值都不对，说明问题在 prompt 或知识，不在解码</td>
+</tr>
+</tbody></table>
+<h3 id="12-3-评测层面"><a href="#12-3-评测层面" class="headerlink" title="12.3 评测层面"></a>12.3 评测层面</h3><table>
+<thead>
+<tr>
+<th>坑</th>
+<th>后果</th>
+<th>修法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>单次采样做评测</strong></td>
+<td>方差极大，结论不可靠</td>
+<td>≥5 次采样，报均值±标准差</td>
+</tr>
+<tr>
+<td><strong>用贪心做 pass@k 评测</strong></td>
+<td>k&gt;1 无意义（输出相同）</td>
+<td>pass@k 必须无偏采样</td>
+</tr>
+<tr>
+<td><strong>不同任务用同一套参数</strong></td>
+<td>抽取任务发散、创意任务僵硬</td>
+<td>按场景分参数配置</td>
+</tr>
+<tr>
+<td><strong>忽略生成长度的影响</strong></td>
+<td>长输出的质量衰减被平均掉</td>
+<td>分段评估（前 200 / 中 / 尾）</td>
+</tr>
+<tr>
+<td><strong>只看最终答案不看过程</strong></td>
+<td>掩盖推理链的退化</td>
+<td>同时评估过程指标</td>
+</tr>
+</tbody></table>
+<h3 id="12-4-工程-部署层面"><a href="#12-4-工程-部署层面" class="headerlink" title="12.4 工程/部署层面"></a>12.4 工程/部署层面</h3><table>
+<thead>
+<tr>
+<th>坑</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>不可复现</strong></td>
+<td>采样 + 未固定种子 + 浮点非确定性（batch 内不同位置）→ 同输入不同输出。要复现必须 <code>T=0</code> + 固定 batch</td>
+</tr>
+<tr>
+<td><strong>参数分散在多层</strong></td>
+<td>框架默认值 + 应用配置 + 请求参数，三层覆盖顺序不清</td>
+</tr>
+<tr>
+<td><strong>流式输出与约束冲突</strong></td>
+<td>约束解码在 token 边界可能”卡住”，流式会看到长时间无输出</td>
+</tr>
+<tr>
+<td><strong>best-of-N 的显存</strong></td>
+<td>N 路并行 → KV cache ×N，容易 OOM</td>
+</tr>
+<tr>
+<td><strong>自洽的答案抽取失败</strong></td>
+<td>正则没覆盖某种输出格式 → 大量样本被丢弃 → 有效 N 骤减</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="13-工程选型"><a href="#13-工程选型" class="headerlink" title="13. 工程选型"></a>13. 工程选型</h2><h3 id="13-1-四类场景的默认配方"><a href="#13-1-四类场景的默认配方" class="headerlink" title="13.1 四类场景的默认配方"></a>13.1 四类场景的默认配方</h3><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>推荐解码</th>
+<th>参数起点</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>RAG（问答/摘要）</strong></td>
+<td>贪心 或 低温度采样 + top-p</td>
+<td><code>T=0.1–0.3, top_p=0.9</code>（或 <code>T=0</code>）</td>
+<td>忠于检索内容，抑制”自由发挥”；引用编号不能错</td>
+</tr>
+<tr>
+<td><strong>Agent（工具调用）</strong></td>
+<td>约束解码 + 低温度</td>
+<td><code>T=0–0.2</code> + JSON Schema 约束</td>
+<td>输出必须可解析；参数错误 = 任务失败；需要可复现</td>
+</tr>
+<tr>
+<td><strong>Agent（规划/分解）</strong></td>
+<td>采样 + 自洽（N=3–5）</td>
+<td><code>T=0.7, top_p=0.95</code>，多方案后验证</td>
+<td>规划有多解，单次易陷入局部最优；用执行结果或 verifier 选择</td>
+</tr>
+<tr>
+<td><strong>推理（数学/逻辑）</strong></td>
+<td>自洽 或 best-of-N</td>
+<td><code>T=0.7–1.0, top_p=0.95–1.0, N=5–10</code></td>
+<td>需要覆盖多条推理路径；错误分散时投票有效</td>
+</tr>
+<tr>
+<td><strong>创意生成（文案/故事）</strong></td>
+<td>min-p 或 top-p，较高温度</td>
+<td><code>T=0.9–1.1, min_p=0.05</code> 或 <code>top_p=0.95–0.98</code></td>
+<td>需要多样性；用 min-p 避免高温崩坏</td>
+</tr>
+<tr>
+<td><strong>代码生成</strong></td>
+<td>低温度 + 约束（语法）+ 执行验证</td>
+<td><code>T=0.2, top_p=0.95</code>，配合单测</td>
+<td>需要正确性；语法约束保编译，单测保语义</td>
+</tr>
+<tr>
+<td><strong>结构化抽取</strong></td>
+<td>约束解码 + 贪心</td>
+<td><code>T=0</code> + JSON Schema</td>
+<td>确定性优先，格式必须对</td>
+</tr>
+<tr>
+<td><strong>翻译</strong></td>
+<td>Beam Search（k=4–5, α≈0.6）</td>
+<td><code>beam=4, length_penalty=0.6</code></td>
+<td>有标准答案，BLEU 与似然相关</td>
+</tr>
+<tr>
+<td><strong>数据合成</strong></td>
+<td>纯采样 / 高温度</td>
+<td><code>T=1.0–1.2, top_p=1.0</code></td>
+<td>需要覆盖分布</td>
+</tr>
+</tbody></table>
+<h3 id="13-2-Agent-场景：为什么”低温度-约束解码”是默认"><a href="#13-2-Agent-场景：为什么”低温度-约束解码”是默认" class="headerlink" title="13.2 Agent 场景：为什么”低温度 + 约束解码”是默认"></a>13.2 Agent 场景：为什么”低温度 + 约束解码”是默认</h3><p>Agent 的解码约束比普通对话严格得多，原因有三个：</p>
+<ol>
+<li><strong>输出必须机器可解析</strong>。工具调用的 JSON 一旦格式错，整条链路断掉。这使**约束解码从”优化”变成”必需”**；</li>
+<li><strong>参数错误不可恢复</strong>。<code>{&quot;date&quot;: &quot;明天&quot;}</code> 比 <code>{&quot;date&quot;: &quot;2026-11-12&quot;}</code> 更难处理，而低温度能让模型更倾向输出规范格式；</li>
+<li><strong>需要可复现的调试</strong>。Agent 失败时，你要能重放。<code>T=0</code> 是唯一能做到的方式。</li>
+</ol>
+<p>但<strong>规划阶段是例外</strong>：单一规划容易陷入”第一条想到的路”，而这条路可能不可行。这时应该：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">采样 N=3–5 个计划（T=0.7）</span><br><span class="line">  → 每个计划做可行性检查（前置条件、工具是否存在）</span><br><span class="line">    → 选第一个通过的；全不通过则重新规划</span><br></pre></td></tr></table></figure>
+
+<p>这是”<strong>用采样换鲁棒性，用验证替代投票</strong>“，比纯自洽更适合 Agent（因为计划没有”票数”，只有”可行/不可行”）。</p>
+<h3 id="13-3-RAG-场景：三个具体建议"><a href="#13-3-RAG-场景：三个具体建议" class="headerlink" title="13.3 RAG 场景：三个具体建议"></a>13.3 RAG 场景：三个具体建议</h3><p><strong>建议一：<code>T</code> 要低，但不能是 0</strong></p>
+<p><code>T=0</code> 的问题是确定性退化：模型可能陷入模板化表达，或者在长文档摘要时反复复述同一句。<code>T=0.1–0.3</code> 保留一点措辞变化，同时不引入事实漂移。</p>
+<p><strong>建议二：引用/编号必须用约束解码或后校验</strong></p>
+<p>RAG 最常见的严重错误是”编造引用编号”。两种解法：</p>
+<ul>
+<li>约束：把引用编号限制在 <code>[1, N]</code> 的白名单里（枚举解码）；</li>
+<li>后校验：生成后用正则提取所有 <code>[n]</code>，检查 <code>n ≤ N</code>，超界则重生成或剔除。</li>
+</ul>
+<p><strong>建议三：摘要任务要控制生成长度</strong></p>
+<p>长摘要的尾部质量衰减明显（模型越写越空）。用 <code>min_tokens</code> + 明确的结构约束（”分三点，每点不超过两句”）比调温度有效。</p>
+<h3 id="13-4-推理场景：N-的选择与验证器"><a href="#13-4-推理场景：N-的选择与验证器" class="headerlink" title="13.4 推理场景：N 的选择与验证器"></a>13.4 推理场景：N 的选择与验证器</h3><table>
+<thead>
+<tr>
+<th>N</th>
+<th>相对收益</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1（贪心）</td>
+<td>基线</td>
+<td>简单题、低延迟</td>
+</tr>
+<tr>
+<td>3–5</td>
+<td>约 60–70% 的增益</td>
+<td>线上默认</td>
+</tr>
+<tr>
+<td>10–20</td>
+<td>约 85–90%</td>
+<td>高价值、离线</td>
+</tr>
+<tr>
+<td>40+</td>
+<td>接近饱和</td>
+<td>研究/评测</td>
+</tr>
+</tbody></table>
+<p>**关键不是 N，是”有没有 verifier”**：</p>
+<ul>
+<li>有可执行验证（代码跑单测、数学能符号验证、答案能查库）→ <strong>best-of-N 优于投票</strong>，因为验证比投票更准；</li>
+<li>无可执行验证（开放式推理）→ 投票是唯一可用的聚合方式。</li>
+</ul>
+<h3 id="13-5-一个决策清单"><a href="#13-5-一个决策清单" class="headerlink" title="13.5 一个决策清单"></a>13.5 一个决策清单</h3><p>如果你只想要一个可执行的判断流程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">1. 输出需要被程序解析吗？</span><br><span class="line">   → 是：约束解码 + T=0</span><br><span class="line">   → 否：继续</span><br><span class="line"></span><br><span class="line">2. 有唯一正确答案吗？</span><br><span class="line">   → 是（翻译/抽取/分类）：</span><br><span class="line">       - 有标准答案且需要&quot;最可能&quot; → Beam Search（k=4）+ 长度惩罚</span><br><span class="line">       - 只需要&quot;一个对的&quot; → 贪心</span><br><span class="line">   → 否：继续</span><br><span class="line"></span><br><span class="line">3. 答案可以抽取并比较吗？</span><br><span class="line">   → 是（数学/逻辑/选项）：自洽 N=5，T=0.7，top_p=0.95</span><br><span class="line">   → 否：继续</span><br><span class="line"></span><br><span class="line">4. 需要多样性吗？</span><br><span class="line">   → 是（创意/头脑风暴）：min-p 0.05 或 top_p 0.95，T=0.9–1.1</span><br><span class="line">   → 否（RAG/客服）：T=0.2，top_p=0.9，top_k 禁用</span><br><span class="line"></span><br><span class="line">5. 有幻觉问题且知识密集吗？</span><br><span class="line">   → 是：叠加 DOLA 对比解码（α=0.5–1.0），或 VCD（多模态）</span><br><span class="line">   → 否：结束</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="14-前沿：2025–2026-的三个变化"><a href="#14-前沿：2025–2026-的三个变化" class="headerlink" title="14. 前沿：2025–2026 的三个变化"></a>14. 前沿：2025–2026 的三个变化</h2><p><strong>① 解码正在被”内化”到模型里</strong></p>
+<p>推理模型（o1/R1 系列）把搜索、反思、多路径探索放进了生成过程。对外部解码的影响：</p>
+<ul>
+<li>采样参数的重要性下降（模型自己在做 test-time search）；</li>
+<li>自洽的收益变小（单次输出已经等价于”多次采样的聚合”）；</li>
+<li>但<strong>约束解码仍然必需</strong>（结构化输出不会因为模型变强而消失）。</li>
+</ul>
+<p><strong>② 采样器的改进集中在”高温下的稳定性”</strong></p>
+<p>min-p（2024）之后，社区的方向从”设计更好的截断规则”转向”让截断对温度更鲁棒”。这对创意生成、数据合成、多样本生成都直接有用。</p>
+<p><strong>③ “解码”的边界在扩展到 test-time compute</strong></p>
+<p>如果把”解码”理解为”如何用推理算力换质量”，那 best-of-N、verifier 引导的搜索、MCTS、并行思考都属于解码的广义范畴。这个视角下，2026 年的核心问题不是”选哪个采样器”，而是”<strong>算力该花在采样上还是花在验证上</strong>“。</p>
+<p>我的判断：<strong>验证的 ROI 高于采样</strong>。5 个候选 + 一个可靠 verifier，比 50 个候选 + 投票更有效，也更便宜。</p>
+<hr>
+<h2 id="15-小结"><a href="#15-小结" class="headerlink" title="15. 小结"></a>15. 小结</h2><ol>
+<li><strong>解码的三种哲学：最大化似然、从分布采样、受控生成。</strong> 选错哲学比选错参数严重得多——用贪心做创意生成、用高温做事实问答，都是根本性错配。</li>
+<li><strong>更高概率 ≠ 更好文本。</strong> 人类文本的模型似然显著低于模型自生成的高概率文本。这是全部截断采样（top-k/top-p/min-p）存在的理由，也是束搜索在开放生成上失效的原因。</li>
+<li><strong>贪心不是 MAP，束搜索也只是 MAP 的近似。</strong> 序列级 MAP 在自回归模型上不可解；贪心是逐步局部最优，短视且容易退化。</li>
+<li><strong>束搜索的三个硬缺陷</strong>：长度偏置（必须加长度惩罚，且 α 需按任务重调）、beam curse（k 越大越平淡）、k 条候选高度相似（不能当多样性用）。它只适合”有唯一答案”的任务。</li>
+<li><strong>温度是”方差旋钮”，不是”创造力旋钮”。</strong> 它只能重塑已有分布；对概率比的影响是指数级的（<code>p_i/p_j = exp((z_i-z_j)/T)</code>），所以在不同上下文里效果差异极大。</li>
+<li><strong>温度与 top-p 强耦合，必须二维联合调。</strong> 高温让核膨胀、低温让核收缩。这也是”我明明设了 top_p=0.95 但输出像贪心”的原因——<code>T=0.3</code> 时核早就缩到 1–2 个 token 了。</li>
+<li><strong>top-k 和 top-p 一起用，实际生效的是”更严格的那个”（取交集）。</strong> <code>k=50, p=0.95</code> 通常 p 生效；<code>k=10, p=0.99</code> 通常 k 生效。两个都设紧值 = 一个不可预测的确定性采样器。<strong>只留一个，另一个设中性值。</strong></li>
+<li><strong>对比解码的本质是”用减法去平庸”。</strong> <code>(1+α)log p_exp - α log p_ama</code> 等价于”奖励专家比业余更偏好的 token”。DOLA 用同模型的早期层替代业余模型，几乎零成本。但它压制多样性、α 敏感、双模型需同 tokenizer。</li>
+<li><strong>约束解码把”不许说”变成”不可能说”，但只保语法不保语义。</strong> 五个真实的坑：token 跨字符边界、grammar tax、全 -inf 死锁、与 penalty 打架、掩码必须在最后。<strong>语法对的错，比格式错更难发现。</strong></li>
+<li><strong>自洽的收益来自”错误分散、正确集中”，四个前提缺一不可</strong>：答案可抽取、模型有基础能力、采样有真实多样性、错误非系统性。最常见的失效是”设了 T=0.7 但 top_p=0.5”，40 次采样同质，成本 ×40 收益 ≈ 0。</li>
+<li><strong>执行顺序有硬约束</strong>：penalty → 对比 → 温度 → top-k → top-p → 约束掩码 → softmax。温度和约束掩码的位置尤其不能错。</li>
+<li><strong>验证的 ROI 高于采样。</strong> 5 个候选 + 一个可靠 verifier &gt; 50 个候选 + 投票。如果只能做一件事，做 verifier，而不是调温度。</li>
+</ol>
+<p>如果只留一句：<strong>解码是在”模型想说什么”和”你要什么”之间做仲裁——参数只调得动前者，后者得靠约束和验证。</strong></p>
+<hr>
+<h3 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h3><p><strong>核心论文</strong></p>
+<ul>
+<li>Holtzman et al., <em>The Curious Case of Neural Text Degeneration</em>, ICLR 2020（top-p / nucleus sampling；人类文本似然分析；beam search 退化）</li>
+<li>Fan, Lewis, Dauphin, <em>Hierarchical Neural Story Generation</em>, ACL 2018（top-k sampling）</li>
+<li>Wu et al., <em>Google’s Neural Machine Translation System</em>, 2016（beam search + length penalty，α 的原始形式）</li>
+<li>Guo et al., <em>On Calibration of Modern Neural Networks</em>, ICML 2017（temperature scaling 用于置信度校准）</li>
+<li>Meister et al., <em>Locally Typical Sampling</em>, TACL 2022</li>
+<li>Nguyen et al., <em>Turning Up the Heat: Min-p Sampling for Creative and Coherent LLM Outputs</em>, arXiv:2407.01082（min-p）</li>
+<li>Su et al., <em>A Contrastive Framework for Neural Text Generation</em>, NeurIPS 2022（Contrastive Search）</li>
+<li>Li et al., <em>Contrastive Decoding: Open-ended Text Generation as Optimization</em>, ACL 2023</li>
+<li>O’Brien &amp; Lewis, <em>Contrastive Decoding Improves Reasoning in Large Language Models</em>（DOLA），2023</li>
+<li>Leng et al., <em>Mitigating Object Hallucinations in Large Vision-Language Models through Visual Contrastive Decoding</em>（VCD）, 2023</li>
+<li>Wang et al., <em>Self-Consistency Improves Chain of Thought Reasoning in Language Models</em>, ICLR 2023</li>
+<li>Willard &amp; Louf, <em>Efficient Guided Generation for Large Language Models</em>, 2023（Outlines / FSM）</li>
+<li>Geng et al., <em>Grammar-Constrained Decoding for Structured NLP Tasks without Finetuning</em>, EMNLP 2023（grammar tax）</li>
+<li>Lu et al., <em>An Empirical Study of Constrained Decoding for LLMs</em>, 2024–2025（约束对语义质量的影响）</li>
+</ul>
+<p><strong>延伸阅读</strong></p>
+<ul>
+<li>arXiv:2602.18292, <em>Decoding as Optimisation on the Probability Simplex: From Top-K to Top-P (Nucleus) to Best-of-K Samplers</em>, 2026（把 top-k/top-p 统一为单纯形上的优化问题）</li>
+<li>关于 min-p 的中文解读：<a href="https://news.qq.com/rain/a/20250930A089GX00" target="_blank" rel="noopener">腾讯新闻，2025-09-30</a></li>
+</ul>
+<blockquote>
+<p><strong>说明</strong>：文中所有具体数值（如自洽 56.5%→74.4%）均为论文自报，不同复现条件、不同版本的模型会有偏差；采样参数的建议区间来自工程经验，<strong>必须在自己的模型与数据上验证</strong>——不同厂商的 tokenizer、logit 尺度、默认 system prompt 都会改变最优参数。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/大模型/" rel="tag"># 大模型</a>
+              <a href="/tags/解码策略/" rel="tag"># 解码策略</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/07/13/具身智能完整模型栈/" rel="prev" title="具身智能的完整模型栈：VLM、VLA、世界模型、规划 LLM 与小脑">
+      <i class="fa fa-chevron-left"></i> 具身智能的完整模型栈：VLM、VLA、世界模型、规划 LLM 与小脑
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/07/19/面向Agent的强化学习前沿/" rel="next" title="面向 Agent 的强化学习：从 GRPO 到 Agentic RL">
+      面向 Agent 的强化学习：从 GRPO 到 Agentic RL <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-先建立坐标系：解码到底在解什么"><span class="nav-number">2.</span> <span class="nav-text">0. 先建立坐标系：解码到底在解什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-1-自回归分解与”两步错位”"><span class="nav-number">2.1.</span> <span class="nav-text">0.1 自回归分解与”两步错位”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-2-三类目标，三种哲学"><span class="nav-number">2.2.</span> <span class="nav-text">0.2 三类目标，三种哲学</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-3-一个必须先破除的迷思：更高概率-≠-更好文本"><span class="nav-number">2.3.</span> <span class="nav-text">0.3 一个必须先破除的迷思：更高概率 ≠ 更好文本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-概率采样：一切的地基"><span class="nav-number">3.</span> <span class="nav-text">1. 概率采样：一切的地基</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-定义"><span class="nav-number">3.1.</span> <span class="nav-text">1.1 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-为什么它是”地基”而不是”一个选项”"><span class="nav-number">3.2.</span> <span class="nav-text">1.2 为什么它是”地基”而不是”一个选项”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-什么时候确实该用纯采样"><span class="nav-number">3.3.</span> <span class="nav-text">1.3 什么时候确实该用纯采样</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-贪心解码：简单，但目标错了"><span class="nav-number">4.</span> <span class="nav-text">2. 贪心解码：简单，但目标错了</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-定义"><span class="nav-number">4.1.</span> <span class="nav-text">2.1 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-它优化的是什么"><span class="nav-number">4.2.</span> <span class="nav-text">2.2 它优化的是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-优点（真实存在的）"><span class="nav-number">4.3.</span> <span class="nav-text">2.3 优点（真实存在的）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-缺点（同样真实）"><span class="nav-number">4.4.</span> <span class="nav-text">2.4 缺点（同样真实）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-一个常见误用：把贪心当”最安全”"><span class="nav-number">4.5.</span> <span class="nav-text">2.5 一个常见误用：把贪心当”最安全”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-温度与贪心的关系"><span class="nav-number">4.6.</span> <span class="nav-text">2.6 温度与贪心的关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-MAP-解码与-Beam-Search"><span class="nav-number">5.</span> <span class="nav-text">3. MAP 解码与 Beam Search</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-严格区分：MAP-≠-贪心"><span class="nav-number">5.1.</span> <span class="nav-text">3.1 严格区分：MAP ≠ 贪心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Beam-Search-的机制"><span class="nav-number">5.2.</span> <span class="nav-text">3.2 Beam Search 的机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-长度惩罚：不是可选优化，是必需修正"><span class="nav-number">5.3.</span> <span class="nav-text">3.3 长度惩罚：不是可选优化，是必需修正</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-Beam-Search-的三个结构性缺陷"><span class="nav-number">5.4.</span> <span class="nav-text">3.4 Beam Search 的三个结构性缺陷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-Beam-Search-仍然不可替代的场景"><span class="nav-number">5.5.</span> <span class="nav-text">3.5 Beam Search 仍然不可替代的场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-温度缩放：被误解最深的参数"><span class="nav-number">6.</span> <span class="nav-text">4. 温度缩放：被误解最深的参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-数学形式"><span class="nav-number">6.1.</span> <span class="nav-text">4.1 数学形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-熵的变化不是线性的"><span class="nav-number">6.2.</span> <span class="nav-text">4.2 熵的变化不是线性的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-三个调参误区"><span class="nav-number">6.3.</span> <span class="nav-text">4.3 三个调参误区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-温度与截断的强耦合"><span class="nav-number">6.4.</span> <span class="nav-text">4.4 温度与截断的强耦合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Top-k-采样：固定预算的截断"><span class="nav-number">7.</span> <span class="nav-text">5. Top-k 采样：固定预算的截断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-定义"><span class="nav-number">7.1.</span> <span class="nav-text">5.1 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-它解决什么"><span class="nav-number">7.2.</span> <span class="nav-text">5.2 它解决什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-它的核心缺陷：k-是绝对数，而分布的”陡峭程度”是变化的"><span class="nav-number">7.3.</span> <span class="nav-text">5.3 它的核心缺陷：k 是绝对数，而分布的”陡峭程度”是变化的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-核采样（Top-p）：按概率质量截断"><span class="nav-number">8.</span> <span class="nav-text">6. 核采样（Top-p）：按概率质量截断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-定义"><span class="nav-number">8.1.</span> <span class="nav-text">6.1 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-数值示例"><span class="nav-number">8.2.</span> <span class="nav-text">6.2 数值示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-Top-p-的四个坑"><span class="nav-number">8.3.</span> <span class="nav-text">6.3 Top-p 的四个坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-min-p：对分布形状更鲁棒的替代"><span class="nav-number">8.4.</span> <span class="nav-text">6.4 min-p：对分布形状更鲁棒的替代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-其他截断方法（了解即可）"><span class="nav-number">8.5.</span> <span class="nav-text">6.5 其他截断方法（了解即可）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-对比解码：用”减法”去掉平庸"><span class="nav-number">9.</span> <span class="nav-text">7. 对比解码：用”减法”去掉平庸</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-需要先澄清：三个不同的东西"><span class="nav-number">9.1.</span> <span class="nav-text">7.1 需要先澄清：三个不同的东西</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-CD-的直觉"><span class="nav-number">9.2.</span> <span class="nav-text">7.2 CD 的直觉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-参数-α-的行为"><span class="nav-number">9.3.</span> <span class="nav-text">7.3 参数 α 的行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-优点与代价"><span class="nav-number">9.4.</span> <span class="nav-text">7.4 优点与代价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-5-什么时候值得用"><span class="nav-number">9.5.</span> <span class="nav-text">7.5 什么时候值得用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-6-一个常被忽略的风险：逐字复现"><span class="nav-number">9.6.</span> <span class="nav-text">7.6 一个常被忽略的风险：逐字复现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-约束解码：把”不许说”变成”不可能说”"><span class="nav-number">10.</span> <span class="nav-text">8. 约束解码：把”不许说”变成”不可能说”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-核心机制：在-logits-上做掩码"><span class="nav-number">10.1.</span> <span class="nav-text">8.1 核心机制：在 logits 上做掩码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-FSM-方案的工作方式"><span class="nav-number">10.2.</span> <span class="nav-text">8.2 FSM 方案的工作方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-五个真实的坑"><span class="nav-number">10.3.</span> <span class="nav-text">8.3 五个真实的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4-什么时候必须用"><span class="nav-number">10.4.</span> <span class="nav-text">8.4 什么时候必须用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-自洽解码：用采样换正确率"><span class="nav-number">11.</span> <span class="nav-text">9. 自洽解码：用采样换正确率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-机制"><span class="nav-number">11.1.</span> <span class="nav-text">9.1 机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-四个前提条件（缺一不可）"><span class="nav-number">11.2.</span> <span class="nav-text">9.2 四个前提条件（缺一不可）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-成本结构"><span class="nav-number">11.3.</span> <span class="nav-text">9.3 成本结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-4-三个易踩的坑"><span class="nav-number">11.4.</span> <span class="nav-text">9.4 三个易踩的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-5-自洽的泛化形态（2025–2026-的主流）"><span class="nav-number">11.5.</span> <span class="nav-text">9.5 自洽的泛化形态（2025–2026 的主流）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-汇总对比表"><span class="nav-number">12.</span> <span class="nav-text">10. 汇总对比表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-策略总表（九种核心-min-p-扩展）"><span class="nav-number">12.1.</span> <span class="nav-text">10.1 策略总表（九种核心 + min-p 扩展）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-2-它们分属不同”层”"><span class="nav-number">12.2.</span> <span class="nav-text">10.2 它们分属不同”层”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-组合顺序：真实-pipeline-的行为"><span class="nav-number">13.</span> <span class="nav-text">11. 组合顺序：真实 pipeline 的行为</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-1-标准执行顺序"><span class="nav-number">13.1.</span> <span class="nav-text">11.1 标准执行顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-2-top-k-和-top-p-一起用，到底发生了什么"><span class="nav-number">13.2.</span> <span class="nav-text">11.2 top-k 和 top-p 一起用，到底发生了什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-3-温度与-top-p-的联合调参"><span class="nav-number">13.3.</span> <span class="nav-text">11.3 温度与 top-p 的联合调参</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-4-一个被忽视的交互：repetition-penalty-的副作用"><span class="nav-number">13.4.</span> <span class="nav-text">11.4 一个被忽视的交互：repetition penalty 的副作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-踩坑清单"><span class="nav-number">14.</span> <span class="nav-text">12. 踩坑清单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#12-1-参数层面"><span class="nav-number">14.1.</span> <span class="nav-text">12.1 参数层面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-2-语义-质量层面"><span class="nav-number">14.2.</span> <span class="nav-text">12.2 语义/质量层面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-3-评测层面"><span class="nav-number">14.3.</span> <span class="nav-text">12.3 评测层面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-4-工程-部署层面"><span class="nav-number">14.4.</span> <span class="nav-text">12.4 工程/部署层面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-工程选型"><span class="nav-number">15.</span> <span class="nav-text">13. 工程选型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#13-1-四类场景的默认配方"><span class="nav-number">15.1.</span> <span class="nav-text">13.1 四类场景的默认配方</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-2-Agent-场景：为什么”低温度-约束解码”是默认"><span class="nav-number">15.2.</span> <span class="nav-text">13.2 Agent 场景：为什么”低温度 + 约束解码”是默认</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-3-RAG-场景：三个具体建议"><span class="nav-number">15.3.</span> <span class="nav-text">13.3 RAG 场景：三个具体建议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-4-推理场景：N-的选择与验证器"><span class="nav-number">15.4.</span> <span class="nav-text">13.4 推理场景：N 的选择与验证器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-5-一个决策清单"><span class="nav-number">15.5.</span> <span class="nav-text">13.5 一个决策清单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-前沿：2025–2026-的三个变化"><span class="nav-number">16.</span> <span class="nav-text">14. 前沿：2025–2026 的三个变化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-小结"><span class="nav-number">17.</span> <span class="nav-text">15. 小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考来源"><span class="nav-number">17.1.</span> <span class="nav-text">参考来源</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">259</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

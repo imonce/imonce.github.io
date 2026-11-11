@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="“统一排序”这个词在 2025–2026 年被用得极滥。它至少指三件不同的事：统一打分、统一阶段、统一目标。搞混这三个层次，会让技术选型从一开始就错。  导语推荐与搜索的排序系统，过去十年几乎都长成同一个形状：漏斗。">
+<meta name="keywords" content="统一排序,unified ranking">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unified Ranking：从级联漏斗到单一模型，推荐与搜索排序的范式迁移">
+<meta property="og:url" content="https://imonce.github.io/2026/07/27/UnifiedRanking统一排序/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="“统一排序”这个词在 2025–2026 年被用得极滥。它至少指三件不同的事：统一打分、统一阶段、统一目标。搞混这三个层次，会让技术选型从一开始就错。  导语推荐与搜索的排序系统，过去十年几乎都长成同一个形状：漏斗。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2026-11-11T07:27:24.579Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unified Ranking：从级联漏斗到单一模型，推荐与搜索排序的范式迁移">
+<meta name="twitter:description" content="“统一排序”这个词在 2025–2026 年被用得极滥。它至少指三件不同的事：统一打分、统一阶段、统一目标。搞混这三个层次，会让技术选型从一开始就错。  导语推荐与搜索的排序系统，过去十年几乎都长成同一个形状：漏斗。">
+
+<link rel="canonical" href="https://imonce.github.io/2026/07/27/UnifiedRanking统一排序/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>Unified Ranking：从级联漏斗到单一模型，推荐与搜索排序的范式迁移 | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/27/UnifiedRanking统一排序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Unified Ranking：从级联漏斗到单一模型，推荐与搜索排序的范式迁移
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-27 23:33:32" itemprop="dateCreated datePublished" datetime="2026-07-27T23:33:32+08:00">2026-07-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:27:24" itemprop="dateModified" datetime="2026-11-11T15:27:24+08:00">2026-11-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2026/07/27/UnifiedRanking统一排序/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/27/UnifiedRanking统一排序/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>“统一排序”这个词在 2025–2026 年被用得极滥。它至少指三件不同的事：统一打分、统一阶段、统一目标。搞混这三个层次，会让技术选型从一开始就错。</p>
+</blockquote>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>推荐与搜索的排序系统，过去十年几乎都长成同一个形状：<strong>漏斗</strong>。</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">百万级候选 ──召回──&gt; 万级 ──粗排──&gt; 千级 ──精排──&gt; 百级 ──重排──&gt; 十级</span><br></pre></td></tr></table></figure>
+
+<p>这个架构不是设计出来的，是<strong>算力约束逼出来的</strong>。精排模型（几百维特征、上亿参数、序列建模）算一次要几毫秒，百万候选就是几小时——不可能。所以必须用越来越轻的模型做越来越粗的筛选。</p>
+<p>但漏斗有个内在矛盾：<strong>每一级都只看得到上一级喂给它的东西</strong>。召回用双塔（用户向量·物品向量），它理解不了”用户此刻在比价”；粗排用几十个特征，它判断不了”这个商品和上一个点击是替代关系”；精排终于有全量特征，但它只处理剩下的千分之一。</p>
+<p><strong>前链路的天花板，就是整个系统的天花板。</strong> 而这正是 Unified Ranking 想解决的问题。</p>
+<p>不过，这个领域目前有两个常见的叙事偏差：</p>
+<ol>
+<li><strong>“一个模型取代级联”被讲成了纯算法突破</strong>，实际上它首先是<strong>成本结构</strong>的重新计算（下面会给出具体的测算）；</li>
+<li><strong>“统一”被当成单一目标</strong>，实际上有五个不同层次的统一，混为一谈会导致”以为自己在做 A，其实在做 B”。</li>
+</ol>
+<p>本文先把”统一”这个词拆开，再讲三条主流路线的技术细节与代表工作，然后辨析它和多任务、双塔的关系，最后给落地难点。面向做过推荐/搜索排序、理解双塔与 DIN 类模型的读者。</p>
+<hr>
+<h2 id="1-级联架构的五个原罪"><a href="#1-级联架构的五个原罪" class="headerlink" title="1. 级联架构的五个原罪"></a>1. 级联架构的五个原罪</h2><p>在讲方案之前，必须先把痛点量化——否则”统一”听起来只是一个时髦词。</p>
+<h3 id="1-1-原罪一：样本选择偏差（SSB）会逐级放大"><a href="#1-1-原罪一：样本选择偏差（SSB）会逐级放大" class="headerlink" title="1.1 原罪一：样本选择偏差（SSB）会逐级放大"></a>1.1 原罪一：样本选择偏差（SSB）会逐级放大</h3><p>粗排的训练样本，来自召回的曝光；精排的训练样本，来自粗排的曝光。<strong>每一级都在”上一级认为好的东西”上学</strong>，从未见过被上一级过滤掉的负样本。</p>
+<p>Alibaba 的 ESSM（<em>Entire Space Multi-Task Model</em>, 2019）就是为这个问题提出的：在 CTR 预估里，点击样本是”曝光→点击”链路的子集，直接在上面训练会高估 CTR。它的解法是加辅助任务（CTCVR = CTR × CVR）来利用全空间样本。</p>
+<p><strong>但这只是缓解。</strong> 级联的每一级都有自己的选择偏差，而且<strong>偏差会复利</strong>：召回漏掉的，粗排永远学不到；粗排误判的，精排永远纠正不了。</p>
+<h3 id="1-2-原罪二：目标不一致，且无法端到端对齐"><a href="#1-2-原罪二：目标不一致，且无法端到端对齐" class="headerlink" title="1.2 原罪二：目标不一致，且无法端到端对齐"></a>1.2 原罪二：目标不一致，且无法端到端对齐</h3><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>典型优化目标</th>
+<th>与最终目标的关系</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>召回</td>
+<td>内积相似度 / 对比学习</td>
+<td>间接</td>
+</tr>
+<tr>
+<td>粗排</td>
+<td>CTR（或简化多目标）</td>
+<td>间接</td>
+</tr>
+<tr>
+<td>精排</td>
+<td>多目标加权（CTR × CVR × 时长…）</td>
+<td><strong>接近但不等价</strong></td>
+</tr>
+<tr>
+<td>重排</td>
+<td>列表级效用（多样性、去重）</td>
+<td>直接但局部</td>
+</tr>
+</tbody></table>
+<p>四级各自优化自己的代理目标，**没有任何一级在优化”最终的列表效用”**。所以会出现：每一级离线指标都涨，线上大盘不涨，甚至跌——因为级间的”最优”是错位的。</p>
+<h3 id="1-3-原罪三：算力利用率的极大浪费"><a href="#1-3-原罪三：算力利用率的极大浪费" class="headerlink" title="1.3 原罪三：算力利用率的极大浪费"></a>1.3 原罪三：算力利用率的极大浪费</h3><p>这一点在业界的公开分享里有一个很具体的数字。快手在 AICon 的分享（<a href="https://www.infoq.cn/article/4O7KcKogofXH1LCm6EiR" target="_blank" rel="noopener">InfoQ，2025-11</a>）提到：</p>
+<blockquote>
+<p>传统级联式推荐系统由于算力高度碎片化，<strong>MFU 往往极低，可能仅为 1% 甚至更低</strong>。</p>
+</blockquote>
+<p>MFU（Model FLOPs Utilization）低的原因很直接：每一级都是独立的服务，有自己的 batch、自己的扩缩容、自己的峰值冗余。<strong>召回阶段为了 QPS 牺牲模型复杂度，精排阶段为了延迟牺牲 batch size</strong>——硬件在两处都没跑满。</p>
+<p>他们提出了一个”广义 MFU”的定义：以系统一天的推理 OPEX 为基准，算出这笔钱在市场上能买到多少 GPU 算力（分母 T FLOPs），除以当天实际发生的计算量（分子）。<strong>这个指标的含义是：你的钱有多少真的变成了计算。</strong></p>
+<p>传统级联的答案是：很少。</p>
+<h3 id="1-4-原罪四：反馈不闭环"><a href="#1-4-原罪四：反馈不闭环" class="headerlink" title="1.4 原罪四：反馈不闭环"></a>1.4 原罪四：反馈不闭环</h3><p>线上真实的用户行为（曝光→点击→转化→留存），只回到<strong>最后一级</strong>的日志里。召回和粗排的模型更新，依赖的是”重训时的全局数据”，反馈延迟以天计。</p>
+<p>而漏斗架构下，<strong>任何一级的改动都要重新对齐其他三级</strong>。一次联合优化在工程上几乎不可行。</p>
+<h3 id="1-5-原罪五：创新被锁在单点"><a href="#1-5-原罪五：创新被锁在单点" class="headerlink" title="1.5 原罪五：创新被锁在单点"></a>1.5 原罪五：创新被锁在单点</h3><p>想加一个新目标（”减少营销感内容”），传统做法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">定义一个可 A/B 的指标 → 在某一级加一个辅助 loss 或加权项</span><br><span class="line">→ 调权重 → 发现压了另一个目标 → 再加一个约束</span><br><span class="line">→ 系统越来越臃肿</span><br></pre></td></tr></table></figure>
+
+<p>快手分享里对这个循环有个很准确的描述：**”长期导致系统冗余”**。每次业务介入都在某一级”加点东西”，最终没有人能说清整个系统在优化什么。</p>
+<h3 id="1-6-小结：痛点的本质是”信息在传递中衰减”"><a href="#1-6-小结：痛点的本质是”信息在传递中衰减”" class="headerlink" title="1.6 小结：痛点的本质是”信息在传递中衰减”"></a>1.6 小结：痛点的本质是”信息在传递中衰减”</h3><p>把这五条收拢，其实是一个问题：<strong>漏斗的每一级都在做有损压缩，而压缩的目标（代理指标）与最终目标（用户价值）不一致。</strong></p>
+<p>Unified Ranking 的出发点就是：<strong>能不能不做这个有损压缩，或者至少让压缩的目标和最终目标对齐？</strong></p>
+<hr>
+<h2 id="2-“统一”到底统一了什么：五个层次"><a href="#2-“统一”到底统一了什么：五个层次" class="headerlink" title="2. “统一”到底统一了什么：五个层次"></a>2. “统一”到底统一了什么：五个层次</h2><p>这是本文最想先说清的部分。**”Unified Ranking” 在不同团队嘴里是不同的事**，而它们的难度、收益、风险差一个数量级。</p>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>统一的是什么</th>
+<th>典型做法</th>
+<th>难度</th>
+<th>收益</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>L1 统一打分</strong></td>
+<td>一个模型给所有候选打分（不改漏斗）</td>
+<td>大模型 + ANN 近似 / 向量检索</td>
+<td>中</td>
+<td>中（消除同分不同源）</td>
+</tr>
+<tr>
+<td><strong>L2 统一阶段</strong></td>
+<td>召回+粗排+精排合成一个模型</td>
+<td>生成式（SID 自回归） / 全库打分</td>
+<td><strong>高</strong></td>
+<td><strong>高</strong></td>
+</tr>
+<tr>
+<td><strong>L3 统一目标</strong></td>
+<td>多目标融合成一个统一效用</td>
+<td>统一 reward / 单塔多目标 / RL</td>
+<td>中高</td>
+<td>高</td>
+</tr>
+<tr>
+<td><strong>L4 统一场景</strong></td>
+<td>多业务场景共用一个模型</td>
+<td>场景 token / 多任务专家</td>
+<td>中</td>
+<td>中高（迁移效率）</td>
+</tr>
+<tr>
+<td><strong>L5 统一模态</strong></td>
+<td>行为 ID + 文本 + 图像一起建模</td>
+<td>统一 token 空间 + 多任务预训练</td>
+<td>高</td>
+<td>待验证</td>
+</tr>
+</tbody></table>
+<p><strong>大多数被叫做 “Unified Ranking” 的工作，实际落在 L2 或 L3。</strong> 而 L1 其实很常见（很多”统一排序”只是把粗排和精排合并成一个模型，召回还是双塔）。</p>
+<p><strong>选型的第一步，是确认你要解决哪一个层次的问题</strong>：</p>
+<ul>
+<li>如果痛点是”粗排和精排目标不一致” → L3（统一目标），不需要动架构；</li>
+<li>如果痛点是”召回的天花板限制了精排” → L2（统一阶段），需要重构；</li>
+<li>如果痛点是”多场景重复建设” → L4，和 L2 无关；</li>
+<li>如果痛点是”新物品冷启动” → 部分在 L2（生成式能编码新物品），部分在特征工程。</li>
+</ul>
+<h3 id="2-1-一个关键洞察：L2-的可行性来自”激活参数”，不是”参数量”"><a href="#2-1-一个关键洞察：L2-的可行性来自”激活参数”，不是”参数量”" class="headerlink" title="2.1 一个关键洞察：L2 的可行性来自”激活参数”，不是”参数量”"></a>2.1 一个关键洞察：L2 的可行性来自”激活参数”，不是”参数量”</h3><p>这是理解 2025–2026 这波统一排序浪潮的钥匙。</p>
+<p>传统认知：推荐模型已经很大了（如果把稀疏 ID embedding 算进去，是 T 级参数），不可能再大。</p>
+<p>快手的反驳（同上分享）非常关键：</p>
+<blockquote>
+<p>对”模型已足够大”的判断应聚焦<strong>激活参数</strong>。在线推理时，推荐模型的激活参数远小于典型语言模型：以快手为例约 250M；亦有同行 baseline 仅 16M。</p>
+</blockquote>
+<p><strong>这个区分极其重要</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>稀疏 embedding（总参数）</th>
+<th>激活参数（单次计算量）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>规模</td>
+<td>T 级（万亿）</td>
+<td>M–B 级（百万到十亿）</td>
+</tr>
+<tr>
+<td>成本来源</td>
+<td><strong>内存/显存</strong>（要放下整个表）</td>
+<td><strong>计算/延迟</strong></td>
+</tr>
+<tr>
+<td>能否 scale</td>
+<td>受显存限制</td>
+<td><strong>有很大空间</strong></td>
+</tr>
+</tbody></table>
+<p>所以”推荐模型已经很大”这个论断混淆了两件事：<strong>参数量大 ≠ 计算量大</strong>。稀疏表是”查表”，不是”计算”。真正的计算量（激活参数）只有几百 M——比同期的 LLM 小两三个数量级。</p>
+<p><strong>这意味着：推荐的 scale-up 空间是真实的，而且不需要等硬件突破。</strong></p>
+<h3 id="2-2-成本测算：为什么”更大模型反而更便宜”"><a href="#2-2-成本测算：为什么”更大模型反而更便宜”" class="headerlink" title="2.2 成本测算：为什么”更大模型反而更便宜”"></a>2.2 成本测算：为什么”更大模型反而更便宜”</h3><p>这是 Unified Ranking 最反直觉、也最有说服力的部分。我把这个测算完整复述一遍（来源同上），因为它决定了这条路线的可行性边界：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">假设（信息流广告场景）：</span><br><span class="line">  CPM = 20 元，广告占比 10%</span><br><span class="line">  → 10,000 次曝光收入 = 20 元</span><br><span class="line">  → 单次曝光收入 = 0.002 元</span><br><span class="line"></span><br><span class="line">要保持 80% 的&quot;计算毛利&quot;：</span><br><span class="line">  → 单次曝光可投入计算成本 = 0.002 × 20% = 0.0004 元</span><br><span class="line"></span><br><span class="line">硬件：H20，OPEX ≈ 5.6 元/小时</span><br><span class="line">  → 0.0004 元可购买约 15.2T FLOPs（已计入 MFU 40%）</span><br><span class="line"></span><br><span class="line">若单次曝光消耗 1,000 token：</span><br><span class="line">  → 可用模型规模 ≈ 15.2T / 1000 / (2 × 激活比例) ≈ 7.6B 参数</span><br></pre></td></tr></table></figure>
+
+<p>结论：<strong>在 CPM 20 元量级的业务上，用 7.6B 的模型做在线推荐，在成本上是可行的。</strong></p>
+<p>而传统级联因为 MFU 只有 1%，<strong>同样的钱只能买到 1/40 的算力</strong>。所以：</p>
+<blockquote>
+<p><strong>统一架构的收益，主要不是”模型变强了”，而是”同样的钱买到了 40 倍的算力”。</strong></p>
+</blockquote>
+<p>这也解释了快手公开的结论：<strong>服务成本降至原系统的 1/10，同时模型更大、效果更好</strong>。不是矛盾，是 MFU 的红利。</p>
+<p><strong>但这个测算有三个前提，缺一不可</strong>：</p>
+<ol>
+<li><strong>业务 CPM 要够高</strong>（20 元量级）——低价值场景（如纯信息流的低价广告）算不过来；</li>
+<li><strong>单次请求的 token 预算要小</strong>（几百 token）——推荐不需要长 CoT，这是它相对 Chatbot 的优势；</li>
+<li><strong>MFU 能真的提上去</strong>——这依赖工程（下文第 6 节）。</li>
+</ol>
+<p><strong>所以”Unified Ranking 一定更便宜”是错的。</strong> 正确表述是：”<strong>在高 ARPU、低 token 需求的场景下，统一架构能把碎片化的算力集中起来，从而在同等成本下获得更大的模型</strong>。”</p>
+<hr>
+<h2 id="3-三条主流技术路线"><a href="#3-三条主流技术路线" class="headerlink" title="3. 三条主流技术路线"></a>3. 三条主流技术路线</h2><h3 id="3-1-路线-A：生成式（Generative-Retrieval-Ranking）"><a href="#3-1-路线-A：生成式（Generative-Retrieval-Ranking）" class="headerlink" title="3.1 路线 A：生成式（Generative Retrieval + Ranking）"></a>3.1 路线 A：生成式（Generative Retrieval + Ranking）</h3><p>这是 2025–2026 最受关注的一条，也是 L2（统一阶段）最彻底的实现。</p>
+<h4 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h4><p>把推荐/搜索重新表述为<strong>序列生成</strong>问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">传统：给定用户，从候选集里挑选 top-k（判别式）</span><br><span class="line">生成：给定用户历史，自回归生成下一个 item 的 token 序列（生成式）</span><br></pre></td></tr></table></figure>
+
+<p>关键是<strong>物品怎么变成 token</strong>。这一步叫 <strong>Semantic ID（SID）</strong>，通常做法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">item → 多模态/协同 embedding → 量化（RQ-VAE / K-means）→ 离散 token 序列</span><br><span class="line">例：video_12345 → [a3, f7, 2b, 9c]   （4 层码本，每层 256 个码）</span><br></pre></td></tr></table></figure>
+
+<p>生成时，模型自回归输出这 4 个 token，再反查回 item ID。</p>
+<h4 id="代表工作"><a href="#代表工作" class="headerlink" title="代表工作"></a>代表工作</h4><table>
+<thead>
+<tr>
+<th>工作</th>
+<th>时间</th>
+<th>机构</th>
+<th>核心贡献</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>TIGER</strong></td>
+<td>2023</td>
+<td>Google</td>
+<td>提出用语义 ID + 生成式检索替代稠密检索，语义 ID 比随机 ID 泛化好</td>
+</tr>
+<tr>
+<td><strong>HSTU</strong></td>
+<td>2024</td>
+<td>Meta</td>
+<td>分层序列转导器（Hierarchical Sequential Transducer），把推荐当序列转导；提出推荐领域的 scaling law，报告相对 baseline 有数量级的速度提升（论文自报 5.3×–15.2×，视序列长度）</td>
+</tr>
+<tr>
+<td><strong>OneRec</strong></td>
+<td>2025</td>
+<td>快手</td>
+<td><strong>单一模型覆盖召回+粗排+精排+重排</strong>；用 RL（Reward System）做偏好对齐；线上服务成本降至 1/10</td>
+</tr>
+<tr>
+<td><strong>OneRec-V2</strong></td>
+<td>2025</td>
+<td>快手</td>
+<td>Lazy Decoder-Only：砍掉 Encoder 侧计算，训练资源省 94%，同等算力下模型从 0.5B 扩到 8B</td>
+</tr>
+<tr>
+<td><strong>OneRec-Think</strong></td>
+<td>2025–2026</td>
+<td>快手</td>
+<td>文本 + 图像 + 行为 token 统一基座，做”生成—理解”一体</td>
+</tr>
+<tr>
+<td><strong>UniSearch</strong></td>
+<td>2025</td>
+<td>业界（多家）</td>
+<td>生成式统一搜索，思路与 OneRec 类似（该名称在多个团队的工作中出现，具体以各自论文为准）</td>
+</tr>
+</tbody></table>
+<h4 id="OneRec-的工程细节（值得单独看）"><a href="#OneRec-的工程细节（值得单独看）" class="headerlink" title="OneRec 的工程细节（值得单独看）"></a>OneRec 的工程细节（值得单独看）</h4><p>上面那个 InfoQ 分享提供了几个非常具体、且在其他论文里很少见的细节：</p>
+<p><strong>① 样本组织：为什么不能直接”用户 Doc + next token”</strong></p>
+<p>这是最容易被忽略的一点。LLM 的训练以文档为单位，对全局时间不敏感。但推荐<strong>必须严格服从时间因果</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">用户 U1 的行为：A → B → C</span><br><span class="line">用户 U2 的行为：... → D（发生在 T4 之后）</span><br><span class="line"></span><br><span class="line">如果按 Doc 训练：</span><br><span class="line">  训练完 U1 的 Doc 后，模型已&quot;见过&quot; T4 之后的信息</span><br><span class="line">  再去学 U2 的 B→C 预测，就发生了时间泄漏</span><br></pre></td></tr></table></figure>
+
+<p>解法是<strong>拆成曝光级样本</strong>：<code>A→B</code>、<code>AB→C</code>、<code>ABC→D</code>……确保每次预测只用到该时刻之前的历史。</p>
+<p>代价也明确：<strong>语言模型可以用单向 Transformer 复用前缀计算，而曝光级样本会重复计算用户历史</strong>，效率下降。这个代价直接引出了 V2 的架构改动。</p>
+<p><strong>② V2 的核心发现：Encoder-Decoder 的”计算与监督错配”</strong></p>
+<p>第一版用 Encoder-Decoder。分析发现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">训练计算分布：Encoder（编码用户历史）≈ 90%，Decoder ≈ 10%</span><br><span class="line">监督信号分布：Encoder 无直接 loss，loss 全在 Decoder</span><br></pre></td></tr></table></figure>
+
+<p><strong>算力花在没有监督的地方。</strong> 这就是为什么 Encoder 侧的 scaling law 不明显——投更多算力，没有对应的梯度信号去用它。</p>
+<p>V2 的改法：<strong>几乎移除 Encoder，只保留一个轻量投影</strong>，把算力集中到 Decoder。结果：训练资源省 94%，等量资源下模型从 0.5B 扩到 8B，且 loss 随规模平滑下降（符合 scaling law）。</p>
+<p><strong>这个洞察的价值超出 OneRec</strong>：任何”编码器 + 任务头”的架构，都应该问一句”<strong>计算发生在哪、监督发生在哪，它们对齐吗？</strong>“</p>
+<p><strong>③ RL 的三类 reward</strong></p>
+<p>OneRec 用 RL 而不是纯监督，设计了三种奖励：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>内容</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>兴趣偏好</strong></td>
+<td>把点赞/关注/观看等信号统一成一个逻辑输出</td>
+<td>替代传统的”多目标手工加权”</td>
+</tr>
+<tr>
+<td><strong>业务偏好</strong></td>
+<td>生态约束（创作者成长、营销感占比等）</td>
+<td>只需定义”什么是营销感”+ 设定 reward，天级响应</td>
+</tr>
+<tr>
+<td><strong>格式约束</strong></td>
+<td>生成的 SID 必须能解码到真实 item</td>
+<td>防止”说错话”，提升合法率</td>
+</tr>
+</tbody></table>
+<p>第二条值得特别注意：<strong>业务方只需定义 reward，不需要在某一级”加点东西”**。这直接解决了 1.5 节的”系统臃肿”问题。而且分享提到业务 reward 收敛</strong>所需样本量约为传统方式的 1/1000**——因为梯度直接作用在最终输出上，不需要逐级穿透。</p>
+<h4 id="路线的根本限制"><a href="#路线的根本限制" class="headerlink" title="路线的根本限制"></a>路线的根本限制</h4><p>生成式统一排序有一个<strong>结构性风险</strong>，很少被正面讨论：</p>
+<blockquote>
+<p><strong>自回归生成的”候选空间”是全部 item，但它的”打分能力”是序列似然的副产品。</strong></p>
+</blockquote>
+<p>具体三个问题：</p>
+<ol>
+<li><strong>列表级约束难做</strong>。多样性、去重、配额（”前 3 条不能都是同一作者”）在自回归生成里没有自然的位置。传统重排可以在列表层面优化，生成式只能靠”生成后过滤 + 重新生成”，成本高且不确定。</li>
+<li><strong>精确打分难做</strong>。判别的精排模型可以输出校准良好的 pCTR（用于计费、排序、混排）。生成模型的 likelihood 与 CTR 不是单调关系，需要额外校准。</li>
+<li><strong>冷启动的方向变了</strong>。传统模型靠 ID embedding 记忆，新 item 冷启困难；生成式靠内容语义（这是优势），但<strong>如果 SID 的量化把细粒度差异抹平了</strong>，相似的新 item 会生成同一个 token 序列，无法区分。</li>
+</ol>
+<p>第 3 点在实践中很关键：**码本大小（每层多少 token）和层数，直接决定了生成模型的”分辨率”**。太小 → 大量 item 共享 SID；太大 → 生成空间爆炸、合法率下降。</p>
+<h3 id="3-2-路线-B：大模型-近似检索（”重排序器打全库”）"><a href="#3-2-路线-B：大模型-近似检索（”重排序器打全库”）" class="headerlink" title="3.2 路线 B：大模型 + 近似检索（”重排序器打全库”）"></a>3.2 路线 B：大模型 + 近似检索（”重排序器打全库”）</h3><p>这条路线的思路是：不做生成，但<strong>让精排级的模型能对全库候选打分</strong>。</p>
+<h4 id="机制"><a href="#机制" class="headerlink" title="机制"></a>机制</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">用户请求</span><br><span class="line">  ↓</span><br><span class="line">用轻量的向量表示做 ANN 检索（top-N，N 可以很大，比如 10 万）</span><br><span class="line">  ↓</span><br><span class="line">用重模型对这 N 个候选精确打分（批量化、GPU 推理）</span><br><span class="line">  ↓</span><br><span class="line">取 top-k</span><br></pre></td></tr></table></figure>
+
+<p>关键在<strong>中间这一步的吞吐</strong>：如果重模型能在 50ms 内打 10 万个候选，漏斗就压成了两级。</p>
+<h4 id="这条路线的三个支撑技术"><a href="#这条路线的三个支撑技术" class="headerlink" title="这条路线的三个支撑技术"></a>这条路线的三个支撑技术</h4><table>
+<thead>
+<tr>
+<th>技术</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>用户表示与物品表示的解耦</strong></td>
+<td>用户侧用重模型算一次（一次请求只算一次），物品侧离线预计算或缓存</td>
+</tr>
+<tr>
+<td><strong>批量化 + GPU 推理优化</strong></td>
+<td>把 10 万个候选当成一个大 batch，用 TensorRT / Triton 优化</td>
+</tr>
+<tr>
+<td><strong>级联的”软”化</strong></td>
+<td>不用硬 top-k 截断，而是用近似打分 + 精确打分的两段式，但两段共享表示</td>
+</tr>
+</tbody></table>
+<h4 id="与生成式的对比"><a href="#与生成式的对比" class="headerlink" title="与生成式的对比"></a>与生成式的对比</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>生成式（路线 A）</th>
+<th>大模型+近似检索（路线 B）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>候选空间</td>
+<td>隐式（生成什么就是什么）</td>
+<td>显式（全库）</td>
+</tr>
+<tr>
+<td>打分语义</td>
+<td>序列似然（需校准）</td>
+<td>判别式（天然校准）</td>
+</tr>
+<tr>
+<td>列表约束</td>
+<td>难</td>
+<td>容易（拿到分数后可任意重排）</td>
+</tr>
+<tr>
+<td>新 item</td>
+<td>靠语义（好）</td>
+<td>靠特征（取决于特征工程）</td>
+</tr>
+<tr>
+<td>工程改动</td>
+<td><strong>极大</strong>（重构链路）</td>
+<td>中（优化现有精排）</td>
+</tr>
+<tr>
+<td>成熟度</td>
+<td>早期，少数团队落地</td>
+<td>更成熟，多数团队的渐进路径</td>
+</tr>
+</tbody></table>
+<p><strong>我的判断：路线 B 是大多数团队的现实选择，路线 A 是头部团队在验证的方向。</strong> 因为 B 的改动是渐进的（先把粗排做大、再把召回做大），而 A 需要重建整个数据与训练 pipeline。</p>
+<h3 id="3-3-路线-C：级联内的一致性修正（”不统一的统一”）"><a href="#3-3-路线-C：级联内的一致性修正（”不统一的统一”）" class="headerlink" title="3.3 路线 C：级联内的一致性修正（”不统一的统一”）"></a>3.3 路线 C：级联内的一致性修正（”不统一的统一”）</h3><p>这条路不追求”一个模型”，而是<strong>让多个模型之间的目标对齐</strong>。</p>
+<h4 id="典型做法"><a href="#典型做法" class="headerlink" title="典型做法"></a>典型做法</h4><table>
+<thead>
+<tr>
+<th>做法</th>
+<th>机制</th>
+<th>解决的问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>蒸馏对齐</strong></td>
+<td>用精排模型给粗排的样本打 soft label，让粗排拟合精排</td>
+<td>级间目标不一致</td>
+</tr>
+<tr>
+<td><strong>全空间建模</strong>（ESSM 类）</td>
+<td>加辅助任务，利用全漏斗样本</td>
+<td>样本选择偏差</td>
+</tr>
+<tr>
+<td><strong>共享底层表示</strong></td>
+<td>各级共享 embedding / 特征，只换上层</td>
+<td>特征重复建设、表示不一致</td>
+</tr>
+<tr>
+<td><strong>联合训练（交替优化）</strong></td>
+<td>固定精排训粗排，再反过来</td>
+<td>目标对齐</td>
+</tr>
+<tr>
+<td><strong>一致性正则</strong></td>
+<td>惩罚”粗排高分但精排低分”的样本</td>
+<td>排序不一致</td>
+</tr>
+</tbody></table>
+<h4 id="为什么这条路值得认真考虑"><a href="#为什么这条路值得认真考虑" class="headerlink" title="为什么这条路值得认真考虑"></a>为什么这条路值得认真考虑</h4><p>它有三个现实优势：</p>
+<ol>
+<li><strong>工程风险低</strong>：不改变线上架构，可以逐步替换；</li>
+<li><strong>可解释</strong>：每一级的作用清晰，出问题好定位；</li>
+<li><strong>收益可测</strong>：能单独度量”一致性提升带来了多少线上收益”。</li>
+</ol>
+<p><strong>代价</strong>：它无法突破”前链路天花板”这个根本限制——粗排的容量还是那么小，召回还是双塔。它只是让漏斗”漏得更少”，不是”不漏”。</p>
+<h3 id="3-4-三条路线的定位"><a href="#3-4-三条路线的定位" class="headerlink" title="3.4 三条路线的定位"></a>3.4 三条路线的定位</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">      收益上限</span><br><span class="line">         ↑</span><br><span class="line">高  │   路线A（生成式统一）</span><br><span class="line">    │        ●</span><br><span class="line">    │</span><br><span class="line">    │        路线B（大模型+近似检索）</span><br><span class="line">    │            ●</span><br><span class="line">中  │</span><br><span class="line">    │   路线C（一致性修正）</span><br><span class="line">    │        ●</span><br><span class="line">低  │</span><br><span class="line">    └──────────────────────────→ 工程改动 / 风险</span><br><span class="line">        低              高</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意横轴</strong>：路线 A 的收益最高但改动最大；路线 C 收益最有限但风险最低。<strong>这个图没有”最优解”，只有”当前阶段适合哪个”。</strong></p>
+<hr>
+<h2 id="4-与多任务-多目标排序的关系"><a href="#4-与多任务-多目标排序的关系" class="headerlink" title="4. 与多任务 / 多目标排序的关系"></a>4. 与多任务 / 多目标排序的关系</h2><p>这是最容易混淆的一对概念，必须辨析清楚。</p>
+<h3 id="4-1-它们不是同一件事"><a href="#4-1-它们不是同一件事" class="headerlink" title="4.1 它们不是同一件事"></a>4.1 它们不是同一件事</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>多任务排序（MTL）</th>
+<th>统一排序（Unified Ranking）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>解决什么</strong></td>
+<td>一个模型预测多个目标（CTR、CVR、时长…）</td>
+<td>一个模型处理多个阶段/场景/候选空间</td>
+</tr>
+<tr>
+<td><strong>统一的维度</strong></td>
+<td><strong>目标维</strong>（output）</td>
+<td><strong>阶段/场景维</strong>（pipeline）</td>
+</tr>
+<tr>
+<td><strong>典型结构</strong></td>
+<td>Shared-Bottom、MMOE、PLE、ESMM</td>
+<td>生成式、全库打分、统一 token</td>
+</tr>
+<tr>
+<td><strong>不涉及</strong></td>
+<td>候选集怎么来</td>
+<td>目标怎么融合（通常还是手工加权）</td>
+</tr>
+<tr>
+<td><strong>正交性</strong></td>
+<td><strong>可以自由组合</strong></td>
+<td>同左</td>
+</tr>
+</tbody></table>
+<p><strong>关键结论：多任务和统一排序是正交的。</strong> 一个统一排序模型内部仍然是多任务的（要预测点击、转化、时长），一个多任务模型也可以只用在精排一级。</p>
+<h3 id="4-2-但它们有一个共同的深层问题：目标怎么融合"><a href="#4-2-但它们有一个共同的深层问题：目标怎么融合" class="headerlink" title="4.2 但它们有一个共同的深层问题：目标怎么融合"></a>4.2 但它们有一个共同的深层问题：目标怎么融合</h3><p>传统做法是手工加权：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">final_score = w1 · pCTR + w2 · pCVR · price + w3 · 时长 + ...</span><br></pre></td></tr></table></figure>
+
+<p>这套做法的三个问题：</p>
+<ol>
+<li><strong>权重是全局的，但最优权重随上下文变化</strong>（新用户更看重探索，老用户更看重精准）；</li>
+<li><strong>权重与业务目标的关系不透明</strong>（调 w2 会不会伤留存？不知道）；</li>
+<li><strong>目标之间会冲突</strong>（提时长可能降转化）。</li>
+</ol>
+<p><strong>统一排序模型的一个隐含承诺是：用统一效用替代手工加权。</strong> 具体有三种实现：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>机制</th>
+<th>代表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>单一 reward</strong></td>
+<td>把多目标压成一个标量（如”用户价值”），用 RL 优化</td>
+<td>OneRec 的 Reward System</td>
+</tr>
+<tr>
+<td><strong>列表级效用</strong></td>
+<td>直接优化整个列表的效用（而非逐条打分）</td>
+<td>生成式天然是列表级</td>
+</tr>
+<tr>
+<td><strong>帕累托 / 约束优化</strong></td>
+<td>主目标最大化 + 其他目标做约束</td>
+<td>业务约束型 reward</td>
+</tr>
+</tbody></table>
+<p>第一条最激进也最吸引人：<strong>业务方只需定义”什么是好的推荐”，不需要调权重</strong>。但它引入了新问题——<strong>reward 设计错了，模型会朝错误方向优化，而且因为是端到端，错误会被放大</strong>。</p>
+<p>这是我在第 6 节要展开的核心风险。</p>
+<h3 id="4-3-一个实用的组合建议"><a href="#4-3-一个实用的组合建议" class="headerlink" title="4.3 一个实用的组合建议"></a>4.3 一个实用的组合建议</h3><p>如果你的团队现在做的是 MTL 精排，想往统一排序走，<strong>不要一步跳到 L2</strong>。建议的路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Step 1：把精排的 MTL 做扎实（PLE 类），确定主目标是哪些</span><br><span class="line">Step 2：用蒸馏/全空间建模做级间对齐（路线 C），验证&quot;一致性&quot;值多少收益</span><br><span class="line">Step 3：把粗排和精排合并成一个模型（L1 的部分统一），看延迟和效果</span><br><span class="line">Step 4：如果 Step 3 收益明显，再考虑 L2（生成式或全库打分）</span><br></pre></td></tr></table></figure>
+
+<p><strong>每一步都要有独立的 A/B 和归因</strong>。跳过 Step 2 直接做 L2 的团队，往往在上线后无法回答”收益来自哪里”，也无法在出问题时回滚。</p>
+<hr>
+<h2 id="5-与传统双塔、深度排序模型的对比"><a href="#5-与传统双塔、深度排序模型的对比" class="headerlink" title="5. 与传统双塔、深度排序模型的对比"></a>5. 与传统双塔、深度排序模型的对比</h2><h3 id="5-1-三代排序技术的定位"><a href="#5-1-三代排序技术的定位" class="headerlink" title="5.1 三代排序技术的定位"></a>5.1 三代排序技术的定位</h3><table>
+<thead>
+<tr>
+<th>代际</th>
+<th>代表</th>
+<th>用户-物品交互</th>
+<th>候选空间</th>
+<th>主要瓶颈</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>双塔（Two-Tower）</strong></td>
+<td>DSSM、YouTubeDNN</td>
+<td><strong>只在最后内积</strong></td>
+<td>全库（ANN）</td>
+<td>表达力（用户和物品不能细粒度交互）</td>
+</tr>
+<tr>
+<td><strong>深度排序（DLRM）</strong></td>
+<td>DIN、DIEN、SIM、DeepFM</td>
+<td>特征交叉 + 序列 attention</td>
+<td>千级（只做精排）</td>
+<td>候选空间小（受延迟限制）</td>
+</tr>
+<tr>
+<td><strong>统一排序</strong></td>
+<td>OneRec、HSTU</td>
+<td>全序列建模 + 生成/全库打分</td>
+<td><strong>全库或准全库</strong></td>
+<td>工程复杂度、目标设计</td>
+</tr>
+</tbody></table>
+<p><strong>这张表说明了统一排序的历史位置</strong>：它想同时拿到”双塔的全库覆盖”和”DLRM 的交互表达力”——而这两者此前是互斥的。</p>
+<h3 id="5-2-为什么双塔的表达力是天花板"><a href="#5-2-为什么双塔的表达力是天花板" class="headerlink" title="5.2 为什么双塔的表达力是天花板"></a>5.2 为什么双塔的表达力是天花板</h3><p>双塔的结构决定了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">score(u, i) = f(u) · g(i)</span><br></pre></td></tr></table></figure>
+
+<p>用户和物品<strong>在编码时完全看不见对方</strong>。这带来一个数学后果：<strong>它只能表达”用户-物品”的可分解（decomposable）交互</strong>。</p>
+<p>DIN 的贡献正是指出这一点：用户的历史兴趣应该<strong>根据候选物品</strong>做 attention（”这个用户买过鞋，但现在看的是手机，鞋的历史应该降权”）。而这个 attention 需要 <code>(u, i)</code> 同时参与——<strong>双塔做不到</strong>。</p>
+<p>所以双塔的召回率上限，本质上是”可分解交互”的表达上限。</p>
+<h3 id="5-3-统一排序怎么绕开这个限制"><a href="#5-3-统一排序怎么绕开这个限制" class="headerlink" title="5.3 统一排序怎么绕开这个限制"></a>5.3 统一排序怎么绕开这个限制</h3><p>两条不同的绕法：</p>
+<p><strong>绕法一（生成式）：把候选”内化”进模型</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">score = P(next_item = i | history)</span><br></pre></td></tr></table></figure>
+
+<p>模型在生成时，已经把 history（用户侧）和候选空间（全部 item 的 token 表示）都编码进了参数。<strong>用户和物品在”生成过程”中交互</strong>——每次生成一个 token，都是用 history 去约束 item 空间。</p>
+<p>这与双塔的根本差别：<strong>双塔的 item 表示是独立预计算的、与用户无关的；生成式的 item 表示是在用户上下文中”逐 token 生成”的。</strong></p>
+<p><strong>绕法二（全库打分）：把重模型批量化</strong></p>
+<p>保持判别式结构，但让重模型能对 10 万候选打分。这样 <code>(u, i)</code> 在每个候选上都有完整交互（DIN 类的 attention 可以做）。</p>
+<p>代价是算力：<code>10 万候选 × 每候选 N 次特征交叉</code>。这就是为什么它依赖”用户侧算一次 + 物品侧预计算”的解耦。</p>
+<h3 id="5-4-一张更完整的对比表"><a href="#5-4-一张更完整的对比表" class="headerlink" title="5.4 一张更完整的对比表"></a>5.4 一张更完整的对比表</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>双塔召回</th>
+<th>深度精排</th>
+<th>生成式统一</th>
+<th>大模型+近似检索</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>候选规模</td>
+<td>全库（亿级）</td>
+<td>千级</td>
+<td>全库（生成）</td>
+<td>万–十万级</td>
+</tr>
+<tr>
+<td>用户-物品交互</td>
+<td>内积（弱）</td>
+<td>全特征交叉（强）</td>
+<td>生成过程中隐式交互</td>
+<td>全特征交叉（强）</td>
+</tr>
+<tr>
+<td>序列建模</td>
+<td>用户侧</td>
+<td>用户侧（SIM 类）</td>
+<td><strong>双向/长程</strong></td>
+<td>用户侧</td>
+</tr>
+<tr>
+<td>训练方式</td>
+<td>对比学习 + 负采样</td>
+<td>监督（CTR/CVR）</td>
+<td>生成（next token） + RL</td>
+<td>监督</td>
+</tr>
+<tr>
+<td>打分校准</td>
+<td>中</td>
+<td><strong>好</strong></td>
+<td>需额外校准</td>
+<td><strong>好</strong></td>
+</tr>
+<tr>
+<td>列表级优化</td>
+<td>❌</td>
+<td>❌（逐条）</td>
+<td>⚠️（隐式）</td>
+<td>✅（拿到分数后可重排）</td>
+</tr>
+<tr>
+<td>新物品冷启动</td>
+<td>差（ID 记忆）</td>
+<td>差</td>
+<td><strong>好</strong>（语义）</td>
+<td>中</td>
+</tr>
+<tr>
+<td>工程改动</td>
+<td>—</td>
+<td>中</td>
+<td><strong>极大</strong></td>
+<td>中</td>
+</tr>
+<tr>
+<td>延迟</td>
+<td>低（&lt;10ms）</td>
+<td>中（几 ms/千条）</td>
+<td><strong>需优化</strong>（吞吐取决于解码）</td>
+<td>高（万条 × 重模型）</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="6-落地难点：四个不能绕过的工程问题"><a href="#6-落地难点：四个不能绕过的工程问题" class="headerlink" title="6. 落地难点：四个不能绕过的工程问题"></a>6. 落地难点：四个不能绕过的工程问题</h2><h3 id="6-1-难点一：延迟与吞吐的重新计算"><a href="#6-1-难点一：延迟与吞吐的重新计算" class="headerlink" title="6.1 难点一：延迟与吞吐的重新计算"></a>6.1 难点一：延迟与吞吐的重新计算</h3><p>传统级联的延迟预算是”每级几十毫秒”。统一架构变成”一个模型吃掉全部预算”，这就要求<strong>单次推理必须极快</strong>。</p>
+<p><strong>生成式的延迟特性与传统模型完全不同</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>传统精排</th>
+<th>生成式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>计算模式</td>
+<td>一次 forward 出全部候选分</td>
+<td><strong>自回归：每生成一个 token 一次 forward</strong></td>
+</tr>
+<tr>
+<td>延迟与什么成正比</td>
+<td>候选数（可批量）</td>
+<td><strong>生成序列长度</strong>（串行）</td>
+</tr>
+<tr>
+<td>优化手段</td>
+<td>batch、量化、蒸馏</td>
+<td><strong>beam search 宽度、KV cache、投机解码</strong></td>
+</tr>
+</tbody></table>
+<p><strong>一个关键数字</strong>：如果 SID 是 4 层码本，生成 10 个 item 就是 40 次自回归 forward。假设每个 forward 5ms，就是 200ms——<strong>超预算</strong>。</p>
+<p>所以生成式统一排序必须做<strong>并行解码</strong>：一次 forward 用 beam search 出 K 条候选，再用一个轻量的判别头精排。快手的分享提到生成后还会反解回 item ID 并做合法性校验，这一步也是延迟的一部分。</p>
+<p><strong>路线 B（全库打分）的延迟瓶颈在特征</strong>：10 万候选 × 每个候选 200 个特征的搬运，是 memory-bound 的。必须做：</p>
+<ul>
+<li>物品侧特征离线预计算 + 缓存（只取增量）；</li>
+<li>用户侧特征算一次，broadcast 到所有候选；</li>
+<li>特征交叉在 GPU 上做（而不是 CPU 拼装）。</li>
+</ul>
+<h3 id="6-2-难点二：样本分布与时间因果"><a href="#6-2-难点二：样本分布与时间因果" class="headerlink" title="6.2 难点二：样本分布与时间因果"></a>6.2 难点二：样本分布与时间因果</h3><p>这一节是<strong>统一排序最容易被低估的坑</strong>。</p>
+<h4 id="坑一：时间泄漏（前面提过，但值得再说一遍）"><a href="#坑一：时间泄漏（前面提过，但值得再说一遍）" class="headerlink" title="坑一：时间泄漏（前面提过，但值得再说一遍）"></a>坑一：时间泄漏（前面提过，但值得再说一遍）</h4><p>LLM 的训练是”文档为单位”，推荐是”事件流为单位”。两者的根本差异：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LLM：同一个 doc 内的 token 是&quot;同时&quot;可见的（训练时）</span><br><span class="line">推荐：用户 t 时刻的行为，只能由 t 之前的事件解释</span><br></pre></td></tr></table></figure>
+
+<p>如果你把”用户全部历史”拼成一个 doc 做 next-token 预测，<strong>训练时模型会看到未来</strong>。快手的解法是拆曝光级样本（<code>A→B</code>、<code>AB→C</code>），代价是重复计算。</p>
+<p><strong>判断你的 pipeline 有没有这个问题，看一个指标</strong>：离线 AUC 是否显著高于线上（差 2 个点以上）。如果有，先查时间泄漏，而不是加特征。</p>
+<h4 id="坑二：曝光偏差在统一模型里依然存在"><a href="#坑二：曝光偏差在统一模型里依然存在" class="headerlink" title="坑二：曝光偏差在统一模型里依然存在"></a>坑二：曝光偏差在统一模型里依然存在</h4><p>统一排序消除了”级间”的样本选择偏差，但**没有消除”曝光偏差”**：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用户只对&quot;被展示的 item&quot;产生行为</span><br><span class="line">→ 训练数据只有被展示的</span><br><span class="line">→ 模型学不到&quot;没被展示但用户会喜欢&quot;的</span><br></pre></td></tr></table></figure>
+
+<p>这个问题在生成式里更微妙：**如果训练目标是 next-item prediction，那模型学到的是”用户会点什么”，而不是”用户会喜欢什么”**。这两个不等价（点击诱饵）。</p>
+<p><strong>三条缓解路径</strong>：</p>
+<ol>
+<li><strong>探索流量</strong>（ε-greedy / Thompson sampling）：主动展示一些低分候选，收集反事实样本；</li>
+<li><strong>IPS / 逆倾向加权</strong>：用曝光概率做加权，纠正分布偏差（需要准确的 propensity 估计）；</li>
+<li><strong>RL + 长期价值</strong>：用留存/长期指标做 reward，而不是单次点击（OneRec 走的是这条）。</li>
+</ol>
+<h3 id="6-3-难点三：目标冲突与-reward-设计（最大的风险）"><a href="#6-3-难点三：目标冲突与-reward-设计（最大的风险）" class="headerlink" title="6.3 难点三：目标冲突与 reward 设计（最大的风险）"></a>6.3 难点三：目标冲突与 reward 设计（最大的风险）</h3><p>这是我认为<strong>统一排序最大的、且最少被公开讨论的风险</strong>。</p>
+<p>传统级联下，目标冲突是在<strong>模块边界</strong>上处理的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">精排优化 CTR → 重排加多样性约束 → 冲突在重排层被&quot;修正&quot;</span><br></pre></td></tr></table></figure>
+
+<p>统一之后，<strong>冲突必须在模型内部解决</strong>，靠一个 reward 函数。这带来三个问题：</p>
+<p><strong>问题一：reward 错了，全链路一起错</strong></p>
+<p>因为端到端，一个设计不当的 reward 会直接扭曲整个生成分布。而且<strong>错误会被放大</strong>——没有下游模块来”兜底”。</p>
+<p><strong>问题二：reward hacking 更隐蔽</strong></p>
+<p>单个模型优化一个标量，容易找到”看起来优化了但实际有害”的路径：</p>
+<table>
+<thead>
+<tr>
+<th>表面优化</th>
+<th>实际伤害</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>提高点击率</td>
+<td>用标题党（短期涨、长期伤留存）</td>
+</tr>
+<tr>
+<td>提高时长</td>
+<td>推长视频/自动连播（用户疲劳）</td>
+</tr>
+<tr>
+<td>提高转化</td>
+<td>推低价引流品（GMV 涨、毛利跌）</td>
+</tr>
+</tbody></table>
+<p>这些在传统架构下会被重排或业务规则拦截，在统一模型里需要<strong>显式写进 reward 或作为约束</strong>。</p>
+<p><strong>问题三：多目标的量纲不可比</strong></p>
+<p><code>pCTR</code> 是概率，<code>时长</code> 是秒，<code>GMV</code> 是元。压成一个标量需要归一化，而归一化的方式直接影响优化方向。</p>
+<p><strong>我的建议（三条）</strong>：</p>
+<ol>
+<li><strong>reward 必须可分解、可审计</strong>：每个子 reward 单独记录，出问题能定位到是哪一项被过度优化；</li>
+<li><strong>必须有护栏指标（guardrail metrics）</strong>：留存、多样性、内容质量等不进 reward，但作为<strong>硬约束</strong>监控，一旦越界就回滚；</li>
+<li><strong>先离线小规模验证 reward 的单调性</strong>：用历史数据回放，看”reward 高的轨迹”是否真的对应”业务指标好”，再上线。</li>
+</ol>
+<p><strong>一条经验</strong>：<strong>如果你不能把”什么是好的推荐”写成 3–5 条可度量的规则，就不要上端到端 RL。</strong> 先用多任务 + 手工加权，至少每一步都是可控的。</p>
+<h3 id="6-4-难点四：SID-的设计（生成式独有）"><a href="#6-4-难点四：SID-的设计（生成式独有）" class="headerlink" title="6.4 难点四：SID 的设计（生成式独有）"></a>6.4 难点四：SID 的设计（生成式独有）</h3><p>这条路线的很多效果，最终落在 tokenizer 上。</p>
+<p><strong>核心权衡</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>小码本 / 少层</th>
+<th>大码本 / 多层</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>分辨率</td>
+<td>低（大量 item 共享 SID）</td>
+<td>高（能区分细粒度）</td>
+</tr>
+<tr>
+<td>生成空间</td>
+<td>小（容易生成）</td>
+<td>大（合法率下降）</td>
+</tr>
+<tr>
+<td>泛化</td>
+<td>好（相似 item 共享 token，冷启动友好）</td>
+<td>差（等价于 ID）</td>
+</tr>
+<tr>
+<td>序列长度</td>
+<td>短（解码快）</td>
+<td>长（解码慢）</td>
+</tr>
+</tbody></table>
+<p><strong>快手分享里有个很关键的观察</strong>：SID 的 embedding 必须”既懂内容、又懂推荐”。</p>
+<ul>
+<li>只用多模态相似度 → 看了”葡萄视频”，会推其他水果（形似神不似）；</li>
+<li>只用协同过滤 embedding → 会推”挑选蔬菜”（共现相关但语义浅）；</li>
+<li>理想的是能识别”这个视频核心是农药污染/食品安全”，从而推其他食品安全内容。</li>
+</ul>
+<p>他们的做法是双 loss：<strong>item-to-item 对比学习</strong>（对齐协同信号）+ <strong>语义保持 loss</strong>（用 LM 从表征重建描述）。这是目前公开资料里最具体的一个 SID 设计。</p>
+<h3 id="6-5-一张落地检查清单"><a href="#6-5-一张落地检查清单" class="headerlink" title="6.5 一张落地检查清单"></a>6.5 一张落地检查清单</h3><p>在决定做统一排序之前，逐条自查：</p>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>不满足的后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>业务 ARPU 是否足够高（CPM 20 元量级）？</td>
+<td>成本算不过来</td>
+</tr>
+<tr>
+<td>单次请求的 token 预算是否 &lt; 500？</td>
+<td>延迟超标</td>
+</tr>
+<tr>
+<td>有没有可靠的离线评测（能预测线上）？</td>
+<td>无法归因</td>
+</tr>
+<tr>
+<td>有没有护栏指标与回滚机制？</td>
+<td>reward 出错时无法止损</td>
+</tr>
+<tr>
+<td>数据 pipeline 是否严格时间因果？</td>
+<td>时间泄漏，离线虚高</td>
+</tr>
+<tr>
+<td>是否有探索流量收集反事实？</td>
+<td>曝光偏差无法纠正</td>
+</tr>
+<tr>
+<td>团队能否维护”数据—训练—推理”一体化系统？</td>
+<td>上线后无法迭代</td>
+</tr>
+</tbody></table>
+<p><strong>七项里少于五项满足，建议先走路线 C（一致性修正）。</strong></p>
+<hr>
+<h2 id="7-选型建议"><a href="#7-选型建议" class="headerlink" title="7. 选型建议"></a>7. 选型建议</h2><h3 id="7-1-按团队阶段选"><a href="#7-1-按团队阶段选" class="headerlink" title="7.1 按团队阶段选"></a>7.1 按团队阶段选</h3><table>
+<thead>
+<tr>
+<th>你的现状</th>
+<th>建议路线</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>级联已经很成熟，指标卡住</td>
+<td><strong>路线 C</strong>（一致性修正 + 蒸馏对齐）</td>
+<td>低成本验证”前链路天花板”是不是真瓶颈</td>
+</tr>
+<tr>
+<td>精排已很强，召回明显拖后腿</td>
+<td><strong>路线 B</strong>（放大召回 + 重模型打全库）</td>
+<td>直接补短板，改动可控</td>
+</tr>
+<tr>
+<td>多场景重复建设，边际成本高</td>
+<td><strong>L4 统一场景</strong>（不是 L2）</td>
+<td>问题和阶段无关，别上生成式</td>
+</tr>
+<tr>
+<td>有强工程团队 + 高 ARPU 场景</td>
+<td><strong>路线 A</strong>（生成式）</td>
+<td>唯一能拿到 40× 算力红利的路线</td>
+</tr>
+<tr>
+<td>新物品占比高、冷启动痛</td>
+<td><strong>路线 A</strong>（生成式的语义 SID 有天然优势）</td>
+<td>但要注意码本分辨率的权衡</td>
+</tr>
+<tr>
+<td>团队 &lt; 10 人</td>
+<td><strong>路线 C 或 B</strong>，不要碰 A</td>
+<td>A 需要数据/训练/推理一体化团队</td>
+</tr>
+</tbody></table>
+<h3 id="7-2-按场景选（推荐-vs-搜索）"><a href="#7-2-按场景选（推荐-vs-搜索）" class="headerlink" title="7.2 按场景选（推荐 vs 搜索）"></a>7.2 按场景选（推荐 vs 搜索）</h3><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>特点</th>
+<th>推荐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>信息流推荐</strong></td>
+<td>候选多、无明确 query、序列长</td>
+<td>生成式（OneRec 类）最契合</td>
+</tr>
+<tr>
+<td><strong>电商搜索</strong></td>
+<td>有 query、强约束（库存/价格）、需要精确匹配</td>
+<td><strong>路线 B</strong>（大模型+检索）为主，生成式做 query 理解</td>
+</tr>
+<tr>
+<td><strong>电商推荐</strong></td>
+<td>有明确购买意图、列表约束多（不能重复店铺）</td>
+<td>混合：生成式做召回，判别式做精排+重排</td>
+</tr>
+<tr>
+<td><strong>本地生活</strong></td>
+<td>地理约束强、候选相对少</td>
+<td>路线 B（约束可以先过滤，再做重排序）</td>
+</tr>
+<tr>
+<td><strong>短视频</strong></td>
+<td>无限下滑、强序列、时长敏感</td>
+<td>生成式（当前落地案例最多）</td>
+</tr>
+<tr>
+<td><strong>广告</strong></td>
+<td>需要校准（计费）+ 出价机制</td>
+<td><strong>判别式为主</strong>，生成式只做召回</td>
+</tr>
+</tbody></table>
+<p><strong>最后一行值得强调</strong>：<strong>广告场景对”校准”的要求是刚性的</strong>（计费必须准），而生成式的 likelihood 需要额外校准层。这是为什么广告排序的统一化比自然推荐更慢。</p>
+<h3 id="7-3-一条务实的演进路线（12-个月）"><a href="#7-3-一条务实的演进路线（12-个月）" class="headerlink" title="7.3 一条务实的演进路线（12 个月）"></a>7.3 一条务实的演进路线（12 个月）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">M1–M2：量化现状</span><br><span class="line">  - 算清楚各级的 MFU（用&quot;广义 MFU&quot;口径）</span><br><span class="line">  - 建离线→线上的归因链路</span><br><span class="line">  - 这一步的产出是&quot;值不值得改&quot;的判断依据</span><br><span class="line"></span><br><span class="line">M3–M5：路线 C</span><br><span class="line">  - 精排蒸馏到粗排</span><br><span class="line">  - 全空间建模（ESSM 类）</span><br><span class="line">  - 目标：nDCG/GAUC 涨 1–2 个点，验证一致性价值</span><br><span class="line"></span><br><span class="line">M6–M8：粗排与精排合并（L1）</span><br><span class="line">  - 共享底层，统一打分</span><br><span class="line">  - 观察延迟与效果</span><br><span class="line">  - 这一步是&quot;统一&quot;的第一次真实检验</span><br><span class="line"></span><br><span class="line">M9–M12：评估 L2</span><br><span class="line">  - 若 L1 收益明显且延迟可控 → 试点生成式（选一个子场景）</span><br><span class="line">  - 若 L1 收益不明显 → 说明瓶颈不在这里，回到特征/数据</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键在 M1–M2</strong>：如果不先量化 MFU 和归因，后面的每一步都无法判断”是不是真的变好了”。</p>
+<hr>
+<h2 id="8-小结"><a href="#8-小结" class="headerlink" title="8. 小结"></a>8. 小结</h2><ol>
+<li><strong>级联架构的五个痛点，本质是”信息在传递中衰减，而压缩目标与最终目标不一致”。</strong> 样本选择偏差会逐级复利；每级优化的是代理指标；算力碎片化；反馈不闭环；创新被锁在单点。</li>
+<li><strong>“统一排序”至少指五个层次</strong>：统一打分（L1）、统一阶段（L2）、统一目标（L3）、统一场景（L4）、统一模态（L5）。<strong>大多数工作落在 L2 或 L3，而 L1 常被误认为 L2。选型第一步是确认你要解决哪一层。</strong></li>
+<li><strong>L2 的可行性来自”激活参数”而非”参数量”。</strong> 推荐模型的总参数（稀疏表）是 T 级，但单次计算的激活参数只有几百 M——比同期的 LLM 小两三个数量级。**”推荐模型已经很大了”这个论断混淆了显存和计算。**</li>
+<li><strong>统一架构的收益主要不是”模型变强”，而是”同样的钱买到更多算力”。</strong> 传统级联 MFU 可能只有 1%（算力碎片化），统一后能到 40% 量级。这是 40× 的杠杆，比换模型架构的收益大得多。</li>
+<li><strong>但”更便宜”有三个前提</strong>：高 ARPU（CPM 20 元量级）、低 token 需求（&lt;500/请求）、工程能把 MFU 提上去。<strong>低价值场景算不过来。</strong></li>
+<li><strong>三条路线各有位置</strong>：生成式（A）收益最高但改动最大；大模型+近似检索（B）是多数团队的现实路径；一致性修正（C）风险最低但突破不了天花板。<strong>没有最优解，只有阶段适配。</strong></li>
+<li><strong>生成式的结构性风险是”打分能力是序列似然的副产品”。</strong> 列表级约束难做、精确校准难做、SID 分辨率有限。这三点决定了它不能无条件替代判别式精排。</li>
+<li><strong>OneRec-V2 最有价值的发现是”计算与监督的错配”**：Encoder 吃掉 90% 算力但没有直接 loss，所以 Encoder 侧看不到 scaling law。</strong>任何”编码器 + 任务头”的架构都该自查这一点。**</li>
+<li><strong>时间泄漏是统一排序最隐蔽的坑。</strong> 用户 Doc + next-token 会让模型看到未来；解法是拆曝光级样本，代价是重复计算。<strong>判断方法：离线 AUC 显著高于线上（差 2 点以上）就先查这个。</strong></li>
+<li><strong>多任务与统一排序是正交的。</strong> MTL 统一的是”目标维”，统一排序统一的是”阶段/场景维”。一个统一排序模型内部仍然是多任务的。</li>
+<li><strong>最大的风险在 reward 设计，不在架构。</strong> 端到端意味着 reward 错了全链路一起错，且没有下游模块兜底。<strong>必须有可分解的子 reward + 护栏指标 + 离线单调性验证。</strong></li>
+<li><strong>“如果你不能把’什么是好的推荐’写成 3–5 条可度量规则，就不要上端到端 RL。”</strong> 先用多任务 + 手工加权，至少每一步可控。</li>
+<li><strong>演进顺序应该是 C → L1 → L2，而不是直接跳到生成式。</strong> 跳过中间步骤的团队，上线后往往答不出”收益来自哪里”，出问题也无法回滚。</li>
+</ol>
+<p>如果只留一句：<strong>统一排序不是”用一个更大的模型替代漏斗”，而是”把碎片化的算力集中起来，用省下来的钱换更大的模型”——它的前提是成本结构，不是算法先进性。</strong></p>
+<hr>
+<h3 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h3><p><strong>生成式推荐与统一排序</strong></p>
+<ul>
+<li>Rajput et al., <em>Recommender Systems with Generative Retrieval</em>（TIGER）, NeurIPS 2023；arXiv:2305.05065（语义 ID + 生成式检索）</li>
+<li>Zhai et al., <em>Actions Speak Louder than Words: Trillion-Parameter Sequential Transducers for Generative Recommendations</em>（HSTU）, ICML 2024；arXiv:2402.17152（Meta；序列转导 + 推荐 scaling law）</li>
+<li><em>OneRec: Unifying Retrieve and Rank with Generative Recommender and Iterative Preference Alignment</em>, arXiv:2502.18965（快手；单模型覆盖召回→重排）</li>
+<li><em>Killing Two Birds with One Stone: Unifying Retrieval and Ranking with a Single Generative Recommendation Model</em>, arXiv:2504.16454</li>
+<li>周国睿（快手），<em>抛弃”级联”架构！快手 OneRec 用大模型重构推荐系统，服务成本降至 1/10</em>，AICon 演讲实录，<a href="https://www.infoq.cn/article/4O7KcKogofXH1LCm6EiR" target="_blank" rel="noopener">InfoQ</a>（本文中 MFU 测算、激活参数 250M、服务成本 1/10、V2 的 94% 资源节省与 0.5B→8B、时间泄漏与曝光级样本、三类 reward、业务 reward 样本量 1/1000、短视频到其他场景 1.5 个月迁移等细节均引自该分享）</li>
+<li><em>Scaling Generative Recommendations with Context Parallelism on Hierarchical Sequential Transducers</em>, arXiv:2508.04711</li>
+</ul>
+<p><strong>级联与多任务</strong></p>
+<ul>
+<li>Ma et al., <em>Entire Space Multi-Task Model: An Effective Approach for Estimating Post-Click Conversion Rate</em>（ESSM）, SIGIR 2018；arXiv:1904.06813（样本选择偏差）</li>
+<li>Ma et al., <em>Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts</em>（MMoE）, KDD 2018</li>
+<li>Tang et al., <em>Progressive Layered Extraction</em>（PLE）, RecSys 2020</li>
+<li>Zhou et al., <em>Deep Interest Network for Click-Through Rate Prediction</em>（DIN）, KDD 2018（双塔表达力上限的经典论证）</li>
+<li>Pi et al., <em>Search-based User Interest Modeling with Lifelong Sequential Behavior Data</em>（SIM）, 2020</li>
+<li>Covington et al., <em>Deep Neural Networks for YouTube Recommendations</em>, RecSys 2016（双塔召回的工业范式）</li>
+</ul>
+<p><strong>排序评估与偏差</strong></p>
+<ul>
+<li>Joachims, Swaminathan, Schnabel, <em>Unbiased Learning-to-Rank with Biased Feedback</em>, WSDM 2017（IPS 与曝光偏差）</li>
+<li>Steck et al., <em>Deep Learning for Recommender Systems: A Netflix Case Study</em>, 2021（列表级效用与校准的讨论）</li>
+</ul>
+<blockquote>
+<p><strong>说明</strong>：本文的成本测算（CPM 20 元、广告占比 10%、MFU 40%、单次 1000 token → 7.6B 可行）完整引自快手在 AICon 的公开分享，属单一厂商的假设与结论，<strong>不同业务量级下结论会变</strong>。”MFU 传统级联仅 1%”是分享中的表述，我未独立验证，引用时请保留出处。UniSearch 这一名称在多个团队的工作中出现，本文未展开具体技术细节，以各自论文为准。各论文的效果数字均为作者自报，复现条件不同会有偏差。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/统一排序/" rel="tag"># 统一排序</a>
+              <a href="/tags/unified-ranking/" rel="tag"># unified ranking</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/07/22/BM25到稠密检索-BGE与混合检索/" rel="prev" title="从 BM25 到稠密检索：BGE 系列与混合检索的工程实践">
+      <i class="fa fa-chevron-left"></i> 从 BM25 到稠密检索：BGE 系列与混合检索的工程实践
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/07/27/GBDT三巨头与SHAP可解释性/" rel="next" title="GBDT 三巨头与 SHAP：从分裂策略到可解释性的工程手册">
+      GBDT 三巨头与 SHAP：从分裂策略到可解释性的工程手册 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-级联架构的五个原罪"><span class="nav-number">2.</span> <span class="nav-text">1. 级联架构的五个原罪</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-原罪一：样本选择偏差（SSB）会逐级放大"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 原罪一：样本选择偏差（SSB）会逐级放大</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-原罪二：目标不一致，且无法端到端对齐"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 原罪二：目标不一致，且无法端到端对齐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-原罪三：算力利用率的极大浪费"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 原罪三：算力利用率的极大浪费</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-原罪四：反馈不闭环"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 原罪四：反馈不闭环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-原罪五：创新被锁在单点"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 原罪五：创新被锁在单点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-小结：痛点的本质是”信息在传递中衰减”"><span class="nav-number">2.6.</span> <span class="nav-text">1.6 小结：痛点的本质是”信息在传递中衰减”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-“统一”到底统一了什么：五个层次"><span class="nav-number">3.</span> <span class="nav-text">2. “统一”到底统一了什么：五个层次</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-一个关键洞察：L2-的可行性来自”激活参数”，不是”参数量”"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 一个关键洞察：L2 的可行性来自”激活参数”，不是”参数量”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-成本测算：为什么”更大模型反而更便宜”"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 成本测算：为什么”更大模型反而更便宜”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-三条主流技术路线"><span class="nav-number">4.</span> <span class="nav-text">3. 三条主流技术路线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-路线-A：生成式（Generative-Retrieval-Ranking）"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 路线 A：生成式（Generative Retrieval + Ranking）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#核心思路"><span class="nav-number">4.1.1.</span> <span class="nav-text">核心思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代表工作"><span class="nav-number">4.1.2.</span> <span class="nav-text">代表工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OneRec-的工程细节（值得单独看）"><span class="nav-number">4.1.3.</span> <span class="nav-text">OneRec 的工程细节（值得单独看）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路线的根本限制"><span class="nav-number">4.1.4.</span> <span class="nav-text">路线的根本限制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-路线-B：大模型-近似检索（”重排序器打全库”）"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 路线 B：大模型 + 近似检索（”重排序器打全库”）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#机制"><span class="nav-number">4.2.1.</span> <span class="nav-text">机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#这条路线的三个支撑技术"><span class="nav-number">4.2.2.</span> <span class="nav-text">这条路线的三个支撑技术</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与生成式的对比"><span class="nav-number">4.2.3.</span> <span class="nav-text">与生成式的对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-路线-C：级联内的一致性修正（”不统一的统一”）"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 路线 C：级联内的一致性修正（”不统一的统一”）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#典型做法"><span class="nav-number">4.3.1.</span> <span class="nav-text">典型做法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么这条路值得认真考虑"><span class="nav-number">4.3.2.</span> <span class="nav-text">为什么这条路值得认真考虑</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-三条路线的定位"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 三条路线的定位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-与多任务-多目标排序的关系"><span class="nav-number">5.</span> <span class="nav-text">4. 与多任务 / 多目标排序的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-它们不是同一件事"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 它们不是同一件事</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-但它们有一个共同的深层问题：目标怎么融合"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 但它们有一个共同的深层问题：目标怎么融合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-一个实用的组合建议"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 一个实用的组合建议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-与传统双塔、深度排序模型的对比"><span class="nav-number">6.</span> <span class="nav-text">5. 与传统双塔、深度排序模型的对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-三代排序技术的定位"><span class="nav-number">6.1.</span> <span class="nav-text">5.1 三代排序技术的定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-为什么双塔的表达力是天花板"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 为什么双塔的表达力是天花板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-统一排序怎么绕开这个限制"><span class="nav-number">6.3.</span> <span class="nav-text">5.3 统一排序怎么绕开这个限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-一张更完整的对比表"><span class="nav-number">6.4.</span> <span class="nav-text">5.4 一张更完整的对比表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-落地难点：四个不能绕过的工程问题"><span class="nav-number">7.</span> <span class="nav-text">6. 落地难点：四个不能绕过的工程问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-难点一：延迟与吞吐的重新计算"><span class="nav-number">7.1.</span> <span class="nav-text">6.1 难点一：延迟与吞吐的重新计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-难点二：样本分布与时间因果"><span class="nav-number">7.2.</span> <span class="nav-text">6.2 难点二：样本分布与时间因果</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#坑一：时间泄漏（前面提过，但值得再说一遍）"><span class="nav-number">7.2.1.</span> <span class="nav-text">坑一：时间泄漏（前面提过，但值得再说一遍）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#坑二：曝光偏差在统一模型里依然存在"><span class="nav-number">7.2.2.</span> <span class="nav-text">坑二：曝光偏差在统一模型里依然存在</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-难点三：目标冲突与-reward-设计（最大的风险）"><span class="nav-number">7.3.</span> <span class="nav-text">6.3 难点三：目标冲突与 reward 设计（最大的风险）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-难点四：SID-的设计（生成式独有）"><span class="nav-number">7.4.</span> <span class="nav-text">6.4 难点四：SID 的设计（生成式独有）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-一张落地检查清单"><span class="nav-number">7.5.</span> <span class="nav-text">6.5 一张落地检查清单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-选型建议"><span class="nav-number">8.</span> <span class="nav-text">7. 选型建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-按团队阶段选"><span class="nav-number">8.1.</span> <span class="nav-text">7.1 按团队阶段选</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-按场景选（推荐-vs-搜索）"><span class="nav-number">8.2.</span> <span class="nav-text">7.2 按场景选（推荐 vs 搜索）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-一条务实的演进路线（12-个月）"><span class="nav-number">8.3.</span> <span class="nav-text">7.3 一条务实的演进路线（12 个月）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-小结"><span class="nav-number">9.</span> <span class="nav-text">8. 小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考来源"><span class="nav-number">9.1.</span> <span class="nav-text">参考来源</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">259</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

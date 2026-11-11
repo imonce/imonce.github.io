@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Agent 的 RL 不是”把 RLHF 用在多轮对话上”。它的奖励稀疏、horizon 长、环境不可微且非平稳、rollout 成本高一个量级——这五点差异，把算法和基础设施都改了。  导语2024 年的 RL 后训练主线是 RLHF：偏好对 → 奖励模型 → PPO。2025 年的主线换成 RLVR：可验证奖励 → GRPO → 数学/代码能力跃升。2026 年的主线正在变成 Agentic">
+<meta name="keywords" content="rl,reinforcement learning,强化学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向 Agent 的强化学习：从 GRPO 到 Agentic RL">
+<meta property="og:url" content="https://imonce.github.io/2026/07/19/面向Agent的强化学习前沿/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="Agent 的 RL 不是”把 RLHF 用在多轮对话上”。它的奖励稀疏、horizon 长、环境不可微且非平稳、rollout 成本高一个量级——这五点差异，把算法和基础设施都改了。  导语2024 年的 RL 后训练主线是 RLHF：偏好对 → 奖励模型 → PPO。2025 年的主线换成 RLVR：可验证奖励 → GRPO → 数学/代码能力跃升。2026 年的主线正在变成 Agentic">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2026-11-11T07:27:18.463Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面向 Agent 的强化学习：从 GRPO 到 Agentic RL">
+<meta name="twitter:description" content="Agent 的 RL 不是”把 RLHF 用在多轮对话上”。它的奖励稀疏、horizon 长、环境不可微且非平稳、rollout 成本高一个量级——这五点差异，把算法和基础设施都改了。  导语2024 年的 RL 后训练主线是 RLHF：偏好对 → 奖励模型 → PPO。2025 年的主线换成 RLVR：可验证奖励 → GRPO → 数学/代码能力跃升。2026 年的主线正在变成 Agentic">
+
+<link rel="canonical" href="https://imonce.github.io/2026/07/19/面向Agent的强化学习前沿/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>面向 Agent 的强化学习：从 GRPO 到 Agentic RL | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/19/面向Agent的强化学习前沿/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          面向 Agent 的强化学习：从 GRPO 到 Agentic RL
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-19 19:49:45" itemprop="dateCreated datePublished" datetime="2026-07-19T19:49:45+08:00">2026-07-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:27:18" itemprop="dateModified" datetime="2026-11-11T15:27:18+08:00">2026-11-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2026/07/19/面向Agent的强化学习前沿/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/19/面向Agent的强化学习前沿/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>Agent 的 RL 不是”把 RLHF 用在多轮对话上”。它的奖励稀疏、horizon 长、环境不可微且非平稳、rollout 成本高一个量级——这五点差异，把算法和基础设施都改了。</p>
+</blockquote>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>2024 年的 RL 后训练主线是 RLHF：偏好对 → 奖励模型 → PPO。2025 年的主线换成 RLVR：可验证奖励 → GRPO → 数学/代码能力跃升。2026 年的主线正在变成 Agentic RL：<strong>让模型在环境里跑几十步，用最终结果做奖励</strong>。</p>
+<a id="more"></a>
+<p>三次迭代不是同一件事的版本升级，而是<strong>问题结构在变</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>RLHF（2023–2024）</th>
+<th>RLVR（2025）</th>
+<th>Agentic RL（2025–2026）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>决策步数</td>
+<td>1（整段回复）</td>
+<td>1（整段 CoT）</td>
+<td>10–200（多轮工具调用）</td>
+</tr>
+<tr>
+<td>奖励来源</td>
+<td>人类偏好 → RM</td>
+<td>程序验证（答案/单测）</td>
+<td>环境终态 + 中间验证</td>
+</tr>
+<tr>
+<td>奖励密度</td>
+<td>稠密（一句话一个分）</td>
+<td>稀疏（整条一个 0/1）</td>
+<td><strong>极稀疏</strong>（几十步一个 0/1）</td>
+</tr>
+<tr>
+<td>环境</td>
+<td>无（离线数据）</td>
+<td>无（静态题库）</td>
+<td><strong>有状态、不可微、非平稳</strong></td>
+</tr>
+<tr>
+<td>rollout 成本</td>
+<td>低</td>
+<td>中</td>
+<td><strong>高（含真实工具调用与沙箱）</strong></td>
+</tr>
+<tr>
+<td>主要瓶颈</td>
+<td>奖励模型偏差</td>
+<td>奖励黑客 / 熵坍缩</td>
+<td><strong>信用分配 + 系统工程</strong></td>
+</tr>
+</tbody></table>
+<p>本文按这个演进顺序展开：先讲清 Agent 的架构（因为”什么是策略、什么是环境”决定了 RL 怎么建模），再讲为什么 PPO 系在长任务上失效，然后是 GRPO / RLVR / Agentic RL 三层的技术要点，最后是 Slime 这类异步基础设施解决的工程问题。</p>
+<hr>
+<h2 id="0-前置：把-Agent-形式化成-POMDP"><a href="#0-前置：把-Agent-形式化成-POMDP" class="headerlink" title="0. 前置：把 Agent 形式化成 POMDP"></a>0. 前置：把 Agent 形式化成 POMDP</h2><h3 id="0-1-一句话定义"><a href="#0-1-一句话定义" class="headerlink" title="0.1 一句话定义"></a>0.1 一句话定义</h3><p>Agent 的强化学习，优化的是这个目标：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">max_θ  E_&#123;τ ~ π_θ&#125; [ R(τ) ],    τ = (s_0, a_0, o_1, s_1, a_1, ..., s_T)</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>a_t</code> 是<strong>一段 token 序列</strong>（不是单个动作），<code>s_t</code> 由环境转移 <code>s_{t+1} ~ P(·|s_t, a_t)</code> 决定，<code>o_t</code> 是部分观测，<code>R(τ)</code> 通常只在终态给一次。</p>
+<p>四个关键性质，每一个都和传统 RL 不同：</p>
+<table>
+<thead>
+<tr>
+<th>性质</th>
+<th>Agent 的具体形态</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>动作是文本</strong></td>
+<td><code>a_t = (tool_name, args)</code> 或自然语言</td>
+<td>动作空间是离散但<strong>组合爆炸</strong>的；不可枚举、不可连续化</td>
+</tr>
+<tr>
+<td><strong>环境不可微</strong></td>
+<td>工具返回、HTTP 响应、文件系统</td>
+<td>不能反传；只能靠 REINFORCE 类的 score function 估计</td>
+</tr>
+<tr>
+<td><strong>非平稳</strong></td>
+<td>网页会变、API 会限流、依赖会升级</td>
+<td>同一个动作在不同 episode 得到不同奖励 → <strong>方差天然很大</strong></td>
+</tr>
+<tr>
+<td><strong>部分可观测</strong></td>
+<td>只看得到工具返回，看不到世界真实状态</td>
+<td>必须靠上下文（history）当 belief state；POMDP 而非 MDP</td>
+</tr>
+</tbody></table>
+<h3 id="0-2-学术界常做的简化（以及它带来的失真）"><a href="#0-2-学术界常做的简化（以及它带来的失真）" class="headerlink" title="0.2 学术界常做的简化（以及它带来的失真）"></a>0.2 学术界常做的简化（以及它带来的失真）</h3><p>为了让训练跑得动，几乎所有工程实现都做了三个简化：</p>
+<ol>
+<li><strong>把 belief state 简化为完整 history</strong>（不做显式状态估计）；</li>
+<li><strong>把环境当作确定性</strong>（同参数同输入 → 同输出，实测不成立）；</li>
+<li><strong>只用终态奖励</strong>（<code>R(τ) = r_T</code>），放弃中间信号。</li>
+</ol>
+<p>这三个简化的代价，正好是 Agentic RL 当前最主要的三类失败：<strong>上下文爆炸、训练方差大、信用分配不准</strong>。后面会逐一对应。</p>
+<hr>
+<h2 id="1-Agent-通用架构：哪些是策略，哪些是环境"><a href="#1-Agent-通用架构：哪些是策略，哪些是环境" class="headerlink" title="1. Agent 通用架构：哪些是策略，哪些是环境"></a>1. Agent 通用架构：哪些是策略，哪些是环境</h2><h3 id="1-1-五个组件"><a href="#1-1-五个组件" class="headerlink" title="1.1 五个组件"></a>1.1 五个组件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">                 ┌─────────────────────────────┐</span><br><span class="line">                 │  ① 规划 Planner              │</span><br><span class="line">                 │  任务分解 / 子目标选择         │</span><br><span class="line">                 └──────────┬──────────────────┘</span><br><span class="line">                            ↓ 子目标</span><br><span class="line">┌──────────────┐   ┌────────▼────────┐   ┌──────────────┐</span><br><span class="line">│ ② 记忆 Memory │←→│ ⑤ 执行器 Executor │→│ ③ 工具 Tools  │</span><br><span class="line">│ 短期/长期      │   │ 生成动作 + 解析    │   │ 检索/代码/API │</span><br><span class="line">└──────────────┘   └────────┬────────┘   └──────┬───────┘</span><br><span class="line">                            ↓ 动作                │ 观测</span><br><span class="line">                 ┌──────────▼──────────────────┐ │</span><br><span class="line">                 │  ④ 反思 Reflector            │←┘</span><br><span class="line">                 │  失败归因 / 策略修正           │</span><br><span class="line">                 └─────────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>作用</th>
+<th>在 RL 里的角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>① 规划</strong></td>
+<td>把任务拆成子目标序列</td>
+<td><strong>策略的一部分</strong>（可训练）</td>
+</tr>
+<tr>
+<td><strong>② 记忆</strong></td>
+<td>保存跨步/跨会话的信息</td>
+<td><strong>环境的一部分</strong>（通常是固定规则或外部检索）</td>
+</tr>
+<tr>
+<td><strong>③ 工具</strong></td>
+<td>与外部世界交互</td>
+<td><strong>环境</strong>（绝对不可微，且非平稳）</td>
+</tr>
+<tr>
+<td><strong>④ 反思</strong></td>
+<td>从失败中提取修正信号</td>
+<td>策略的一部分，但<strong>也可以当奖励塑形器</strong></td>
+</tr>
+<tr>
+<td><strong>⑤ 执行器</strong></td>
+<td>把子目标变成具体的 token/调用</td>
+<td><strong>策略</strong>（训练的实体）</td>
+</tr>
+</tbody></table>
+<h3 id="1-2-这个划分为什么决定-RL-方案"><a href="#1-2-这个划分为什么决定-RL-方案" class="headerlink" title="1.2 这个划分为什么决定 RL 方案"></a>1.2 这个划分为什么决定 RL 方案</h3><p><strong>关键洞察：只有 ①④⑤ 是可训练的，②③ 是环境。</strong></p>
+<p>这带来三个直接结论：</p>
+<p><strong>结论一：工具的质量决定 RL 的上限，且训练改变不了它。</strong><br>如果某个工具本身不稳定（超时率 10%），RL 会学到”少用它”——这不是模型的进步，是模型的妥协。<strong>做 Agentic RL 之前，先把工具的成功率稳定在 95% 以上</strong>，否则你在训练模型去规避工程缺陷。</p>
+<p><strong>结论二：记忆模块的设计会污染信用分配。</strong><br>如果记忆是”自动摘要”（每 N 步压缩一次历史），那么某一个动作的后果可能被摘要抹掉，模型无法把结果归因到那个动作。<strong>记忆的压缩是不可逆的信息损失，而 RL 需要的信息恰好是被压缩掉的那些细节。</strong></p>
+<p><strong>结论三：反思模块是一个”免费的奖励信号源”，但也是奖励黑客的入口。</strong><br>用 LLM 自评作奖励（self-reward），在短任务上有效；在长任务上会导致”模型学会说服自己成功了”——这是 Agentic RL 最隐蔽的失败模式。</p>
+<h3 id="1-3-一个被忽视的问题：动作粒度的选择"><a href="#1-3-一个被忽视的问题：动作粒度的选择" class="headerlink" title="1.3 一个被忽视的问题：动作粒度的选择"></a>1.3 一个被忽视的问题：动作粒度的选择</h3><p>Agent 的动作可以是：</p>
+<table>
+<thead>
+<tr>
+<th>粒度</th>
+<th>例子</th>
+<th>优缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Token 级</strong></td>
+<td>每个 token 一个动作</td>
+<td>最细，但 horizon 变成几万步，信用分配几乎不可能</td>
+</tr>
+<tr>
+<td><strong>工具调用级</strong></td>
+<td>一次 <code>search(q)</code> 一个动作</td>
+<td>horizon = 调用次数（10–100），<strong>最常用</strong></td>
+</tr>
+<tr>
+<td><strong>子任务级</strong></td>
+<td>“完成登录流程”</td>
+<td>horizon 短（3–10），但需要分层策略</td>
+</tr>
+</tbody></table>
+<p><strong>这个选择直接决定了 RL 算法怎么用</strong>：</p>
+<ul>
+<li>工具调用级 → 可以把”一次调用内部的所有 token 共享同一个 advantage”（这也是 GRPO 在 Agent 场景的默认做法）；</li>
+<li>Token 级 → 需要 token 级奖励，否则几万步共享一个标量，梯度全是噪声。</li>
+</ul>
+<p>工程上 99% 的实现选<strong>工具调用级</strong>，然后在调用内部做 token 级 loss（同一个 advantage 广播到该调用的所有 token）。这个细节在论文里常被省略，但它决定了 loss mask 怎么写。</p>
+<hr>
+<h2 id="2-为什么-PPO-Critic-方案在长任务上失效"><a href="#2-为什么-PPO-Critic-方案在长任务上失效" class="headerlink" title="2. 为什么 PPO / Critic 方案在长任务上失效"></a>2. 为什么 PPO / Critic 方案在长任务上失效</h2><h3 id="2-1-回顾-PPO-的结构"><a href="#2-1-回顾-PPO-的结构" class="headerlink" title="2.1 回顾 PPO 的结构"></a>2.1 回顾 PPO 的结构</h3><p>PPO 的目标：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">L = E_t [ min( r_t(θ) Â_t,  clip(r_t(θ), 1-ε, 1+ε) Â_t ) ]</span><br><span class="line">r_t(θ) = π_θ(a_t|s_t) / π_θold(a_t|s_t)</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>Â_t</code> 是<strong>优势估计</strong>，标准做法是 GAE：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Â_t = Σ_&#123;l=0&#125;^&#123;T-t&#125; (γλ)^l δ_&#123;t+l&#125;,   δ_t = r_t + γ V(s_&#123;t+1&#125;) - V(s_t)</span><br></pre></td></tr></table></figure>
+
+<p><strong>这要求一个 value network（critic）<code>V(s)</code>。</strong> 对 LLM，就是再训一个同规模的模型，输出”当前状态的价值”。</p>
+<h3 id="2-2-五个失效点"><a href="#2-2-五个失效点" class="headerlink" title="2.2 五个失效点"></a>2.2 五个失效点</h3><p><strong>失效点一：critic 本身训不出来</strong></p>
+<p><code>V(s)</code> 要预测”从当前上下文出发的期望回报”。对 Agent 任务：</p>
+<ul>
+<li>状态是<strong>几十轮工具调用的完整 history</strong>，长度几万 token；</li>
+<li>同一个状态，不同环境随机性下回报差异极大（非平稳）；</li>
+<li>早期训练时策略很差，回报分布全是 0 或 1，critic 学到的几乎是常数。</li>
+</ul>
+<p>结果是 <strong>critic 的 MSE loss 长期居高不下，<code>Â_t</code> 接近噪声</strong>。用噪声当优势，PPO 的 clip 机制反而会放大偏差。</p>
+<p><strong>失效点二：显存与算力翻倍</strong></p>
+<p>7B 策略 + 7B critic + 7B reference（KL 约束用）= 21B 的显存占用。而 Agent 的 rollout 本身已经很长（几万 token 的 context），<strong>KV cache 会成为第一个 OOM 的地方</strong>。</p>
+<p><strong>失效点三：GAE 的 horizon 问题</strong></p>
+<p>GAE 用 <code>λ</code> 在”偏差”和”方差”之间折中。但 Agent 任务的 <code>T</code> 是 50–200 步，且奖励只在终点：</p>
+<ul>
+<li><code>λ</code> 小 → 优势几乎完全依赖 critic（而 critic 不准）；</li>
+<li><code>λ</code> 大 → 优势退化为 Monte Carlo（方差爆炸）；</li>
+<li><strong>没有中间地带</strong>，因为中间根本没有奖励。</li>
+</ul>
+<p><strong>失效点四：奖励尺度不一致</strong></p>
+<p>Agent 任务常有多种奖励：格式正确（+0.1）、工具调用成功（+0.2）、最终答案正确（+1.0）。critic 要拟合这种多尺度混合信号，比单纯的 0/1 更难。</p>
+<p><strong>失效点五：训练-推理不一致被放大</strong></p>
+<p>PPO 的 importance ratio <code>r_t</code> 假设 rollout 和 training 用的是同一个策略。但实际：</p>
+<ul>
+<li>rollout 用 SGLang/vLLM（推理优化过的 kernel，bf16/fp8）；</li>
+<li>training 用 Megatron（不同的 kernel、不同的并行切分）；</li>
+<li>两者的 logprob 有系统性差异（1e-3 到 1e-2 量级）。</li>
+</ul>
+<p>短序列上这个差异可忽略；<strong>长序列上，<code>r_t</code> 会随步数漂移，clip 频繁触发，有效样本被丢弃</strong>。这就是为什么大规模 RL 必须做 <strong>权重同步 + logprob 校正</strong>（后面第 5 节）。</p>
+<h3 id="2-3-RLHF-的另外两个-Agent-特有问题"><a href="#2-3-RLHF-的另外两个-Agent-特有问题" class="headerlink" title="2.3 RLHF 的另外两个 Agent 特有问题"></a>2.3 RLHF 的另外两个 Agent 特有问题</h3><p><strong>问题一：偏好模型不适用于轨迹</strong></p>
+<p>RLHF 的 RM 是 <code>r(x, y)</code>——输入 prompt + 整段回复。对 Agent 轨迹，<code>y</code> 是 50 轮交错的 <code>动作/观测</code>，长度几十万 token。RM 在这种长度上：</p>
+<ul>
+<li>注意力稀释，几乎只看得到开头和结尾；</li>
+<li>无法判断”中间第 23 步的那个工具调用是否合理”。</li>
+</ul>
+<p><strong>问题二：人类标注不可行</strong></p>
+<p>给一条 50 步的 Agent 轨迹打偏好分，需要标注者理解每一步的工具语义、判断中间状态。成本是普通对话的 50–100 倍，且一致性极差（不同标注者给的分可能完全相反）。</p>
+<p><strong>这两点是 RLVR 出现的直接原因</strong>：不是”RLVR 更好”，而是”RLHF 在 Agent 上根本做不了”。</p>
+<hr>
+<h2 id="3-GRPO：去掉-critic-的极简方案"><a href="#3-GRPO：去掉-critic-的极简方案" class="headerlink" title="3. GRPO：去掉 critic 的极简方案"></a>3. GRPO：去掉 critic 的极简方案</h2><h3 id="3-1-核心想法"><a href="#3-1-核心想法" class="headerlink" title="3.1 核心想法"></a>3.1 核心想法</h3><p>GRPO（Group Relative Policy Optimization, Shao et al., DeepSeekMath 2024）的洞察非常朴素：</p>
+<blockquote>
+<p><strong>如果同一个问题的多个回答之间有可比性，那么”组内相对排名”就可以替代”绝对价值估计”。</strong></p>
+</blockquote>
+<p>于是：不用 critic，用同一 prompt 的 G 个采样结果互相比较。</p>
+<h3 id="3-2-公式"><a href="#3-2-公式" class="headerlink" title="3.2 公式"></a>3.2 公式</h3><p>对每个问题 <code>q</code>，从旧策略采样 <code>G</code> 个输出 <code>{o_1, ..., o_G}</code>，每个得到奖励 <code>{r_1, ..., r_G}</code>。</p>
+<p><strong>优势</strong>（组内标准化）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Â_&#123;i,t&#125; = (r_i - mean(r_1..r_G)) / std(r_1..r_G)</span><br></pre></td></tr></table></figure>
+
+<p>注意：**同一个 <code>o_i</code> 内所有 token 共享同一个 <code>Â_i</code>**（因为奖励是序列级的）。</p>
+<p><strong>目标函数</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">J_GRPO(θ) = E[ (1/G) Σ_i (1/|o_i|) Σ_t ( min( ρ_&#123;i,t&#125; Â_i, clip(ρ_&#123;i,t&#125;, 1-ε, 1+ε) Â_i ) - β·D_KL(π_θ || π_ref) ) ]</span><br><span class="line"></span><br><span class="line">ρ_&#123;i,t&#125; = π_θ(o_&#123;i,t&#125; | q, o_&#123;i,&lt;t&#125;) / π_θold(o_&#123;i,t&#125; | q, o_&#123;i,&lt;t&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>三个细节值得注意：</p>
+<ol>
+<li><strong><code>1/|o_i|</code> 是长度归一化</strong>——它让长短回答的 loss 量级可比，但引入了长度偏置（见 3.4）；</li>
+<li><strong>KL 是加性惩罚而非合入奖励</strong>（DeepSeekMath 用无偏 KL 估计量），可以逐 token 算；</li>
+<li><strong><code>Â_i</code> 不依赖 critic</strong>，完全由组内统计量决定。</li>
+</ol>
+<h3 id="3-3-为什么它能工作（三个解释）"><a href="#3-3-为什么它能工作（三个解释）" class="headerlink" title="3.3 为什么它能工作（三个解释）"></a>3.3 为什么它能工作（三个解释）</h3><p><strong>解释一：组内标准化是一种”自适应基线”</strong></p>
+<p>REINFORCE 的方差来自 <code>R</code> 的绝对尺度。减去 baseline 不减方差是有条件的：<code>Var(R - b) = Var(R) - 2Cov(R,b) + Var(b)</code>，最优 <code>b = E[R]</code>。</p>
+<p>GRPO 用 <code>mean(r_1..r_G)</code> 估计 <code>E[R]</code>，用 <code>std</code> 归一化尺度。<strong>这相当于一个不需要训练的、无参数的 value baseline</strong>——代价是只能用组内信息，不能跨状态泛化。</p>
+<p><strong>解释二：它天然适配”0/1 奖励”</strong></p>
+<p>对可验证奖励，<code>r_i ∈ {0,1}</code>。组内标准化的结果极其直观：</p>
+<ul>
+<li>G=8 里 3 对 5 错 → 对的 <code>Â = +0.65</code>，错的 <code>Â = -0.39</code>；</li>
+<li>全对或全错 → <code>std = 0</code> → <strong><code>Â = 0</code>，没有梯度</strong>。</li>
+</ul>
+<p>后者是 GRPO 最大的工程问题（3.4 详述），但也是它的”诚实”之处：<strong>它不假装能从全对的样本里学到东西</strong>。</p>
+<p><strong>解释三：它把”比较”变成了学习信号</strong></p>
+<p>这是与 RLHF 的深层联系：RLHF 用人类比较 <code>(y_w, y_l)</code> 训练奖励模型；GRPO 用<strong>程序比较</strong>（奖励高低）直接在策略上做更新。<strong>跳过奖励模型，直接用可验证信号做相对排序</strong>——这是 RLVR 能用 GRPO 的根本原因。</p>
+<h3 id="3-4-五个必须知道的缺陷"><a href="#3-4-五个必须知道的缺陷" class="headerlink" title="3.4 五个必须知道的缺陷"></a>3.4 五个必须知道的缺陷</h3><p><strong>缺陷一：全对/全错组产生零梯度（zero-variance group）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果 std(r) = 0  →  Â_i = 0  →  loss 梯度 = 0  →  这个 batch 白跑</span><br></pre></td></tr></table></figure>
+
+<p>早期训练时，简单题（全对）和难题（全错）各占一半，**有效样本只有 10–30%**。这是 RL 训练”看起来在跑但指标不动”的最常见原因。</p>
+<p><strong>解法（DAPO，字节 2025）</strong>：<strong>动态采样</strong>——过滤掉全对和全错的组，只用”部分正确”的组做梯度。代价是要额外采样补足 batch size，rollout 成本上升。</p>
+<p><strong>缺陷二：长度偏置</strong></p>
+<p><code>1/|o_i|</code> 归一化让长度不同的回答 loss 可比，但也意味着：</p>
+<ul>
+<li>长回答的每个 token 权重小 → 模型倾向<strong>生成更长的回答</strong>（因为长回答”分摊”了同样的 loss）；</li>
+<li>另一面：如果错误回答更长，惩罚被稀释。</li>
+</ul>
+<p><strong>Dr. GRPO（Liu et al., 2025）</strong> 的修法：去掉 <code>1/|o_i|</code>，改成”按 token 总数归一化（全局常数）”，同时去掉 <code>std</code> 归一化（因为 <code>std</code> 也会引入难度偏置——简单题的 <code>std</code> 小，梯度被放大）。</p>
+<p><strong>缺陷三：熵坍缩（entropy collapse）</strong></p>
+<p><code>clip(ρ, 1-ε, 1+ε)</code> 是对称的。但实际分布是偏斜的：</p>
+<ul>
+<li>高概率 token 的 <code>ρ</code> 上升空间有限（已经接近 1）；</li>
+<li>低概率 token 的 <code>ρ</code> 下降空间大。</li>
+</ul>
+<p>结果：<strong>采样分布越来越尖，熵单调下降，探索能力丧失</strong>。典型表现是训练后期 <code>pass@1</code> 涨但 <code>pass@k</code> 跌。</p>
+<p><strong>DAPO 的 clip-higher</strong>：把上界放宽（<code>1+ε_high</code>, 如 0.28）、下界保持（<code>1-ε_low</code>, 如 0.2）。给低概率 token 留出上升空间。</p>
+<p><strong>缺陷四：KL 惩罚对 Agent 任务的副作用</strong></p>
+<p>GRPO 保留 KL 约束（不偏离 reference 太远）。但 Agent 任务需要<strong>探索新的工具使用方式</strong>，而新方式在 reference 模型里概率极低 → KL 惩罚会把它们压回去。</p>
+<p><strong>DAPO 直接去掉了 KL</strong>（”long CoT 本来就要大幅偏离原模型”）。Agentic RL 里这个取舍更激进：很多实现只用 reference 做软约束，或者只在早期开 KL 后期关掉。</p>
+<p><strong>缺陷五：组内样本不独立（环境随机性）</strong></p>
+<p>如果环境有随机性（同一个动作可能成功也可能失败），<code>G</code> 个样本的奖励差异部分来自<strong>环境噪声</strong>而非策略差异。这时组内标准化会：</p>
+<ul>
+<li>把”运气好”当成”策略好”，强化错误动作；</li>
+<li>需要 <code>G</code> 足够大（8–32）才能把信号从噪声里分出来。</li>
+</ul>
+<p><strong>这就是 Agentic RL 需要比 RLVR 更大的 G 的原因</strong>——不是因为策略更难，是因为环境更吵。</p>
+<hr>
+<h2 id="4-RLVR：把”对不对”交给程序判断"><a href="#4-RLVR：把”对不对”交给程序判断" class="headerlink" title="4. RLVR：把”对不对”交给程序判断"></a>4. RLVR：把”对不对”交给程序判断</h2><h3 id="4-1-定义与奖励构造"><a href="#4-1-定义与奖励构造" class="headerlink" title="4.1 定义与奖励构造"></a>4.1 定义与奖励构造</h3><p>RLVR（Reinforcement Learning with Verifiable Rewards）的核心是：<strong>奖励来自一个确定性的、程序化的验证器（verifier），而不是学习出来的奖励模型。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r(τ) = verifier(answer(τ), ground_truth)</span><br></pre></td></tr></table></figure>
+
+<p>四类常见的 verifier：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>例子</th>
+<th>可靠性</th>
+<th>覆盖</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>答案精确匹配</strong></td>
+<td>数学题最终数值、选择题选项</td>
+<td>极高</td>
+<td>窄（需要答案唯一）</td>
+</tr>
+<tr>
+<td><strong>单元测试 / 执行</strong></td>
+<td>代码跑通测试、SQL 返回正确结果</td>
+<td>高</td>
+<td>中（需要可执行环境）</td>
+</tr>
+<tr>
+<td><strong>规则/格式校验</strong></td>
+<td>JSON schema、正则、长度约束</td>
+<td>极高</td>
+<td>只覆盖形式</td>
+</tr>
+<tr>
+<td><strong>环境终态检查</strong></td>
+<td>任务完成后文件状态、数据库状态</td>
+<td>高</td>
+<td>需要状态快照</td>
+</tr>
+</tbody></table>
+<p>Agent 场景最常用的是后两类 + 执行类，因为**Agent 的输出很少是”一个答案”，而是”环境的一个状态”**。</p>
+<h3 id="4-2-为什么-RLVR-在-Agent-上几乎是必然选择"><a href="#4-2-为什么-RLVR-在-Agent-上几乎是必然选择" class="headerlink" title="4.2 为什么 RLVR 在 Agent 上几乎是必然选择"></a>4.2 为什么 RLVR 在 Agent 上几乎是必然选择</h3><p>对比 RLHF：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>RLHF</th>
+<th>RLVR</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>奖励来源</td>
+<td>人类偏好 → RM</td>
+<td>程序验证</td>
+</tr>
+<tr>
+<td>单条标注成本</td>
+<td>高（人要读完整轨迹）</td>
+<td><strong>零</strong>（可无限次重跑）</td>
+</tr>
+<tr>
+<td>一致性</td>
+<td>低（标注者分歧）</td>
+<td><strong>完美</strong>（同一输入同一输出）</td>
+</tr>
+<tr>
+<td>可被 hack</td>
+<td>严重（reward model 过优化）</td>
+<td><strong>可控</strong>（除非 verifier 有漏洞）</td>
+</tr>
+<tr>
+<td>适用长度</td>
+<td>短（RM 看不了长轨迹）</td>
+<td><strong>长</strong>（verifier 只看终态）</td>
+</tr>
+<tr>
+<td>覆盖范围</td>
+<td>广（任何主观质量）</td>
+<td><strong>窄</strong>（必须有客观判据）</td>
+</tr>
+</tbody></table>
+<p>第 5 行是关键：<strong>verifier 只需要看终态</strong>，所以轨迹多长都无所谓。这一条让 RLVR 天然适配长程 Agent。</p>
+<h3 id="4-3-一个必须知道的清醒结论：Spurious-Rewards"><a href="#4-3-一个必须知道的清醒结论：Spurious-Rewards" class="headerlink" title="4.3 一个必须知道的清醒结论：Spurious Rewards"></a>4.3 一个必须知道的清醒结论：Spurious Rewards</h3><p>2025 年有一篇影响很大的论文（<em>Spurious Rewards: Rethinking Training Signals in RLVR</em>, arXiv:2506.10947）做了个反直觉实验：</p>
+<p><strong>在 Qwen2.5-Math-7B 上，把奖励换成随机奖励（完全不看答案对错，随机给 0/1），RLVR 训练后 MATH 上的表现仍然大幅提升。</strong></p>
+<p>这个结果的含义非常重：</p>
+<ol>
+<li>**RLVR 的收益有一部分不是”学到了新能力”，而是”激发了已有能力”**——RL 的作用是让模型更倾向于输出它已经会的高概率路径，而不是学会新知识；</li>
+<li>**”奖励涨了”不等于”能力涨了”**：如果奖励设计有偏，模型会优化那个偏的奖励；</li>
+<li><strong>不同模型家族对这个效应的敏感度差异极大</strong>（论文里 Qwen 敏感，Llama 几乎无收益）——这意味着”XX 模型用 RLVR 涨了 20 点”这类结论不能跨模型迁移。</li>
+</ol>
+<p><strong>工程含义</strong>：</p>
+<ul>
+<li>做 RLVR 必须同时监控 <strong>pass@1 和 pass@k</strong>（前者涨后者跌 = 熵坍缩，能力没涨只是在收窄分布）；</li>
+<li>必须有 <strong>held-out 的、分布外的评测集</strong>，防止在训练分布上过拟合；</li>
+<li>**别把”奖励曲线”当”能力曲线”**。</li>
+</ul>
+<h3 id="4-4-奖励设计的五个坑"><a href="#4-4-奖励设计的五个坑" class="headerlink" title="4.4 奖励设计的五个坑"></a>4.4 奖励设计的五个坑</h3><p><strong>坑一：奖励黑客（reward hacking）</strong></p>
+<p>verifier 有漏洞时，模型会找到漏洞而不是解决问题。典型例子：</p>
+<table>
+<thead>
+<tr>
+<th>漏洞</th>
+<th>模型学到的</th>
+<th>修法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>答案匹配用 <code>in</code> 判断</td>
+<td>输出包含正确答案的所有可能形式</td>
+<td>用严格解析 + 集合比较</td>
+</tr>
+<tr>
+<td>单测只测 happy path</td>
+<td>硬编码测试用例的返回值</td>
+<td>隐藏测试 + 随机化输入</td>
+</tr>
+<tr>
+<td>格式分权重过高</td>
+<td>只输出格式不求正确</td>
+<td>格式分设为必要条件而非加分项</td>
+</tr>
+<tr>
+<td>环境终态检查不完整</td>
+<td>只完成最简单的子任务就终止</td>
+<td>全量状态断言</td>
+</tr>
+</tbody></table>
+<p><strong>坑二：奖励尺度失衡</strong></p>
+<p>如果 <code>r = 0.1·format + 0.2·tool_ok + 1.0·correct</code>，模型会优先学”容易拿的分”（格式、调用成功），而”正确”的梯度被稀释。<strong>在训练早期，模型会先学会输出漂亮的格式，然后卡在那里。</strong></p>
+<p>修法：<strong>用必要条件而非加权和</strong>。<code>r = 1.0 if (format_ok and correct) else 0.0</code>。这会让奖励更稀疏（回到全 0 的问题），但避免了”局部最优陷阱”。</p>
+<p><strong>坑三：验证器与生产环境不一致</strong></p>
+<p>训练时用 mock 的工具（返回预置 JSON），上线用真实 API（返回格式略有不同）。**模型在训练里 90% 成功，上线 40%**。</p>
+<p>这不是模型的错。<strong>verifier 必须跑在和线上一致的环境里</strong>，包括工具的超时行为、错误码、返回格式。</p>
+<p><strong>坑四：过度稀疏</strong></p>
+<p>终态奖励在 50 步任务上，成功率的初始值可能只有 3%。这意味着 <strong>G=8 的组里几乎全是 0，<code>std=0</code>，没有梯度</strong>。</p>
+<p>三条缓解路径：</p>
+<ul>
+<li><strong>课程学习</strong>：从简单任务开始（成功率 30–50% 的难度带），逐步加难；</li>
+<li><strong>中间验证点</strong>：把一个长任务拆成几个可验证的子目标，每个给部分奖励（但这又引入了”部分完成”的 hack 空间）；</li>
+<li><strong>过程奖励模型（PRM）</strong>：训一个模型给每一步打分（成本高、本身也有偏差）。</li>
+</ul>
+<p><strong>坑五：验证器本身的成本</strong></p>
+<p>代码类任务的验证要跑测试，一次几秒到几十秒。<code>G=8</code> × <code>batch=256</code> = 2048 次执行，<strong>验证时间可能超过生成时间</strong>。这是 Slime 这类框架必须做异步的原因之一。</p>
+<h3 id="4-5-RLVR-的能力边界"><a href="#4-5-RLVR-的能力边界" class="headerlink" title="4.5 RLVR 的能力边界"></a>4.5 RLVR 的能力边界</h3><p><strong>能做的</strong>：数学、代码、结构化输出、有明确终态的任务（表单填写、文件操作、游戏通关）。</p>
+<p><strong>做不了的</strong>：</p>
+<ul>
+<li>开放式写作（没有 verifier）；</li>
+<li>需要”风格、语气、有用性”判断的任务；</li>
+<li>多解且都合理的任务（verifier 只认一个答案，会把模型训练成”只走一条路”）；</li>
+<li>长尾的专业领域（写 verifier 的成本高于标注成本）。</li>
+</ul>
+<p><strong>一个实用判断</strong>：<strong>如果一个任务你写不出 verifier，就不要用 RLVR。</strong> 强行用 LLM-as-judge 当 verifier，是把”奖励模型偏差”的问题换了个壳。</p>
+<hr>
+<h2 id="5-基础设施：Slime-与异步-RL-的工程问题"><a href="#5-基础设施：Slime-与异步-RL-的工程问题" class="headerlink" title="5. 基础设施：Slime 与异步 RL 的工程问题"></a>5. 基础设施：Slime 与异步 RL 的工程问题</h2><h3 id="5-1-为什么-RL-的工程比-SFT-难一个量级"><a href="#5-1-为什么-RL-的工程比-SFT-难一个量级" class="headerlink" title="5.1 为什么 RL 的工程比 SFT 难一个量级"></a>5.1 为什么 RL 的工程比 SFT 难一个量级</h3><p>SFT 是纯计算：读 batch → 前向 → 反向 → 更新。RL 多了一个<strong>闭环</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rollout（生成） → reward（验证） → train（更新） → 同步权重 → rollout ...</span><br></pre></td></tr></table></figure>
+
+<p>这个闭环引入四类工程问题：</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>表现</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>训推异构</strong></td>
+<td>rollout 用 SGLang/vLLM，train 用 Megatron</td>
+<td>logprob 不一致 → importance ratio 有偏</td>
+</tr>
+<tr>
+<td><strong>长尾生成</strong></td>
+<td>agent 任务里 90% 在 10s 结束，10% 要 5 分钟</td>
+<td>GPU 空转等待（利用率可能只有 30–50%）</td>
+</tr>
+<tr>
+<td><strong>权重同步开销</strong></td>
+<td>每步把几百 GB 权重从训练集群传到推理集群</td>
+<td>通信时间可能超过计算时间</td>
+</tr>
+<tr>
+<td><strong>环境与沙箱</strong></td>
+<td>工具调用、代码执行、浏览器</td>
+<td>状态管理、隔离、故障恢复</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-Slime-的设计"><a href="#5-2-Slime-的设计" class="headerlink" title="5.2 Slime 的设计"></a>5.2 Slime 的设计</h3><p>Slime（THUDM/智谱，<code>github.com/THUDM/slime</code>）的定位是”<strong>RL Scaling 的训练框架</strong>“，核心是两个能力：</p>
+<ol>
+<li><strong>高性能训练</strong>：把 <strong>Megatron</strong>（训练）与 <strong>SGLang</strong>（rollout）对接；</li>
+<li><strong>灵活数据生成</strong>：通过自定义生成接口 + server-based 引擎，支持任意 rollout 工作流。</li>
+</ol>
+<p>架构是三段式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">┌────────────────┐      ┌──────────────┐      ┌─────────────────┐</span><br><span class="line">│ training       │←────→│ data buffer  │←────→│ rollout         │</span><br><span class="line">│ (Megatron)     │      │ (桥接模块)    │      │ (SGLang+router) │</span><br><span class="line">└────────────────┘      └──────────────┘      └─────────────────┘</span><br><span class="line">        │                                              │</span><br><span class="line">        │ 训练后同步权重                                  │ 生成样本 + 奖励/verifier</span><br><span class="line">        └──────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<p>设计目标（官方表述）：<strong>让 Megatron 训练、SGLang rollout、自定义数据生成、奖励计算、verifier 反馈、环境交互，都走同一条 training / rollout / Data Buffer 路径</strong>，而不是堆叠成一堆互不相连的 trainer、rollout 服务和 agent 框架。</p>
+<h3 id="5-3-它解决的四个具体问题"><a href="#5-3-它解决的四个具体问题" class="headerlink" title="5.3 它解决的四个具体问题"></a>5.3 它解决的四个具体问题</h3><p><strong>问题一：训推一致的权重同步</strong></p>
+<p>三个层级的方案：</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>机制</th>
+<th>开销</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>全量同步</strong></td>
+<td>每步传完整权重</td>
+<td>最高</td>
+</tr>
+<tr>
+<td><strong>Delta Weight Sync</strong></td>
+<td>只传变化的字节（走共享存储）</td>
+<td>中</td>
+</tr>
+<tr>
+<td><strong>PD 分离 + 异步</strong></td>
+<td>prefill / decode 资源分开，权重异步流式更新</td>
+<td>低，但有 staleness</td>
+</tr>
+</tbody></table>
+<p><strong>“Delta Weight Sync”是关键优化</strong>：RL 每步的权重变化通常只有 0.1%–1% 的数值发生实质变化，传 delta 比传全量省一个数量级。</p>
+<p><strong>问题二：长尾 rollout（这是 Agentic RL 最大的效率杀手）</strong></p>
+<p>Agent 任务的生成长度分布极度不均。同步等待的结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">step 1: [====任务A 10s====][==任务B 12s==][=======任务C 95s=======]</span><br><span class="line">                                        ↑ 前两个 GPU 空转 83s</span><br></pre></td></tr></table></figure>
+
+<p>Slime 的 <code>examples/fully_async</code> 提供<strong>完全异步 rollout</strong>——不等待整批完成，谁先结束谁先进 buffer。代价是引入 <strong>staleness</strong>（训练用的策略比当前策略旧了 N 步），需要：</p>
+<ul>
+<li><strong>重要性采样校正</strong>（用旧的 logprob 做 ratio）；</li>
+<li><strong>staleness 上限</strong>（超过 N 步的样本丢弃）；</li>
+<li><strong>更保守的 clip</strong>。</li>
+</ul>
+<p>这是”吞吐 vs 偏差”的显式权衡。<strong>没有免费的异步。</strong></p>
+<p><strong>问题三：Agent 工作流的接口解耦</strong></p>
+<p>Slime 用 <code>--custom-generate-function-path</code> 把 agent 逻辑注入标准 rollout 循环。官方给了几个例子：</p>
+<ul>
+<li><code>examples/multi_agent</code>：多 agent 生成；</li>
+<li><code>examples/search-r1</code>：搜索/RAG 式多轮；</li>
+<li><code>examples/coding_agent_rl</code>：coding agent + 沙箱 + 官方测试作奖励。</li>
+</ul>
+<p><strong>这个设计的意义</strong>：训练框架不需要理解”什么是 agent”，只需要知道”给我一个 prompt，我调你的函数，你返回 trajectory + reward”。<strong>Agent 的复杂性被封在 user function 里。</strong></p>
+<p><strong>问题四：TITO（Token-In-Token-Out）与 token 级 logprob 保真</strong></p>
+<p>这是最容易被忽略、但会直接破坏训练的问题。</p>
+<p>Agent 框架的典型流程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">prompt → 模型生成 a_1 → 环境中执行 → 得到 o_1</span><br><span class="line">       → 拼成新 prompt: [prompt, a_1, o_1] → 再生成 a_2 → ...</span><br></pre></td></tr></table></figure>
+
+<p><strong>问题在于</strong>：拼接后重新 tokenize，<code>a_1</code> 的 token 边界可能改变（因为 BPE 是上下文相关的）。后果是：</p>
+<ul>
+<li>训练时算出的 <code>log π(a_1 | prompt)</code> 与 rollout 时的不一致；</li>
+<li>importance ratio 偏离 1，clip 频繁触发；</li>
+<li><strong>模型在优化一个它实际上没有生成过的 token 序列</strong>。</li>
+</ul>
+<p>解法：<strong>TITO</strong> —— 全程保留 token id 而不重新编码，只对新生成的部分做 tokenize，并用 <strong>loss mask</strong> 标记”哪些 token 是模型生成的”（工具返回的部分 mask 掉，不参与 loss）。</p>
+<p>Slime 生态里的 Miles、Dressage 都明确实现了 TITO 和 segment-aware training。<strong>这是 Agentic RL 必须做对的一件事，做错了训练会莫名其妙不收敛。</strong></p>
+<h3 id="5-4-生态：Slime-作为”RL-底座”"><a href="#5-4-生态：Slime-作为”RL-底座”" class="headerlink" title="5.4 生态：Slime 作为”RL 底座”"></a>5.4 生态：Slime 作为”RL 底座”</h3><p>Slime 的 README 列出了一批基于它的独立系统，这个分布本身说明了它的定位（<strong>一个可复用的 RL 内核，而不是一个端到端产品</strong>）：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>侧重</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>vime</strong></td>
+<td>vLLM 原生（rollout 后端换成 vLLM + vllm-router，其余保持）</td>
+</tr>
+<tr>
+<td><strong>Miles</strong></td>
+<td>企业级（LoRA、TITO、低精度训练、运维工具）</td>
+</tr>
+<tr>
+<td><strong>Relax</strong></td>
+<td>全模态（text/vision/audio）+ 完全异步，TransferQueue 解耦 Actor/Rollout/Reference</td>
+</tr>
+<tr>
+<td><strong>Dressage</strong></td>
+<td>黑盒 agent（OpenCode、OpenClaw）+ 任意沙箱（E2B、K8s）</td>
+</tr>
+<tr>
+<td><strong>ART</strong></td>
+<td>AWS Bedrock AgentCore 上的生产 agent RL</td>
+</tr>
+<tr>
+<td><strong>APRIL</strong></td>
+<td>部分 rollout 加速（over-provisioning 请求、管理部分完成）</td>
+</tr>
+<tr>
+<td><strong>RLVE</strong></td>
+<td>400 个可验证环境联合训练，难度自适应</td>
+</tr>
+</tbody></table>
+<p>README 自述 Slime 是 GLM-5.x / GLM-4.5–4.7 系列的 RL 框架（截至 2026-11 抓取）。这类”官方背书”是可信度信号，但具体版本迭代请以仓库为准。</p>
+<h3 id="5-5-选型建议"><a href="#5-5-选型建议" class="headerlink" title="5.5 选型建议"></a>5.5 选型建议</h3><table>
+<thead>
+<tr>
+<th>你的情况</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>只有单机 8 卡，做算法验证</td>
+<td>TRL / OpenRLHF（生态成熟、上手快）</td>
+</tr>
+<tr>
+<td>多机，需要 Megatron 的并行能力</td>
+<td>Slime / verl</td>
+</tr>
+<tr>
+<td>rollout 想用 vLLM 生态</td>
+<td>vime（Slime 系）或 verl</td>
+</tr>
+<tr>
+<td>大量黑盒 agent（不改内部逻辑）</td>
+<td>Dressage（Slime 系）</td>
+</tr>
+<tr>
+<td>需要完全异步 + 长尾</td>
+<td>Slime 的 fully_async / Relax</td>
+</tr>
+<tr>
+<td>要接企业级 K8s 与多租户</td>
+<td>Miles / OCE 类方案</td>
+</tr>
+</tbody></table>
+<p><strong>一条经验</strong>：<strong>先测”rollout 时间 / 训练时间”的比值</strong>。如果 &lt; 1，说明瓶颈在训练，异步收益有限；如果 &gt; 3（Agent 任务常见），必须上异步，否则 GPU 利用率会惨不忍睹。</p>
+<hr>
+<h2 id="6-Agentic-RL：和单步偏好-RL-的本质区别"><a href="#6-Agentic-RL：和单步偏好-RL-的本质区别" class="headerlink" title="6. Agentic RL：和单步偏好 RL 的本质区别"></a>6. Agentic RL：和单步偏好 RL 的本质区别</h2><h3 id="6-1-六个结构性差异"><a href="#6-1-六个结构性差异" class="headerlink" title="6.1 六个结构性差异"></a>6.1 六个结构性差异</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>单步偏好 RL（RLHF/RLVR on CoT）</th>
+<th>Agentic RL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>决策单元</strong></td>
+<td>1（整段回复）</td>
+<td>10–200（工具调用轮次）</td>
+</tr>
+<tr>
+<td><strong>状态</strong></td>
+<td>静态 prompt</td>
+<td>动态环境状态（部分可观测）</td>
+</tr>
+<tr>
+<td><strong>奖励</strong></td>
+<td>1 个标量</td>
+<td>通常 1 个标量（终态），但<strong>跨几十步</strong></td>
+</tr>
+<tr>
+<td><strong>转移</strong></td>
+<td>无</td>
+<td><code>s_{t+1} ~ P(· | s_t, a_t)</code>，<strong>不可微、非平稳</strong></td>
+</tr>
+<tr>
+<td><strong>方差来源</strong></td>
+<td>采样随机性</td>
+<td>采样 + <strong>环境随机性</strong>（双重）</td>
+</tr>
+<tr>
+<td><strong>rollout 成本</strong></td>
+<td>1 次生成</td>
+<td>N 次生成 + N 次工具调用 + 沙箱</td>
+</tr>
+<tr>
+<td><strong>信用分配</strong></td>
+<td>不需要（整段共享）</td>
+<td><strong>核心难题</strong></td>
+</tr>
+</tbody></table>
+<h3 id="6-2-信用分配：Agentic-RL-的核心难题"><a href="#6-2-信用分配：Agentic-RL-的核心难题" class="headerlink" title="6.2 信用分配：Agentic RL 的核心难题"></a>6.2 信用分配：Agentic RL 的核心难题</h3><p>一条 50 步的轨迹，终态奖励 <code>r=1</code>。<strong>哪一步的贡献最大？</strong></p>
+<p>四个主流思路：</p>
+<table>
+<thead>
+<tr>
+<th>思路</th>
+<th>机制</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>轨迹级广播</strong>（GRPO 默认）</td>
+<td>整条轨迹所有 token 共享同一个 <code>Â</code></td>
+<td>简单、无偏</td>
+<td>方差极大；把”运气”当”能力”</td>
+</tr>
+<tr>
+<td><strong>轮次级奖励（turn-level）</strong></td>
+<td>每轮给一个分（PRM 或启发式）</td>
+<td>信号密</td>
+<td>PRM 本身有偏；成本高</td>
+</tr>
+<tr>
+<td><strong>Token 级奖励</strong></td>
+<td>每个 token 一个分</td>
+<td>信号最密</td>
+<td>极难获得可靠信号</td>
+</tr>
+<tr>
+<td><strong>反事实/留一法</strong></td>
+<td>去掉某一步重跑，看奖励变化</td>
+<td>理论上最准</td>
+<td>成本 × 步数，不可行</td>
+</tr>
+</tbody></table>
+<p>**当前最务实的是”轨迹级广播 + 关键步掩码”**：</p>
+<ul>
+<li>整条轨迹一个优势（避免引入 PRM 偏差）；</li>
+<li>但用 loss mask <strong>只对”关键决策点”回传梯度</strong>（比如只对工具调用参数、不对格式 token）；</li>
+<li>这样既保持了无偏，又降低了噪声。</li>
+</ul>
+<h3 id="6-3-一个残酷的现实：Agentic-RL-的有效信号很少"><a href="#6-3-一个残酷的现实：Agentic-RL-的有效信号很少" class="headerlink" title="6.3 一个残酷的现实：Agentic RL 的有效信号很少"></a>6.3 一个残酷的现实：Agentic RL 的有效信号很少</h3><p>设一条轨迹 50 步，每步平均 200 token，就是 1 万 token。如果用一个终态标量做优势，那么<strong>每个 token 得到的信号量是 1/10000</strong>。</p>
+<p>对比 RLVR 的数学题（一条 CoT 2000 token）：信号密度高 5 倍。</p>
+<p>这解释了两个现象：</p>
+<ol>
+<li><strong>Agentic RL 需要更多的 rollout</strong>（同样信息量，样本数要 ×5）；</li>
+<li><strong>Agentic RL 的提升更慢、更不稳</strong>——这不是实现问题，是信息论层面的限制。</li>
+</ol>
+<h3 id="6-4-环境非平稳带来的方差"><a href="#6-4-环境非平稳带来的方差" class="headerlink" title="6.4 环境非平稳带来的方差"></a>6.4 环境非平稳带来的方差</h3><p>设某个工具的成功率 95%。一条 20 次调用的轨迹，全部成功的概率是 <code>0.95^20 ≈ 36%</code>。</p>
+<p>也就是说：<strong>即使策略完美，64% 的轨迹会因为工具随机失败而拿不到奖励</strong>。</p>
+<p>后果：</p>
+<ul>
+<li><code>G=8</code> 的组里，全是”失败”，<code>std=0</code>，零梯度；</li>
+<li>模型可能学到”失败的轨迹不好”——但它学不到是”哪一步的错”，因为错的可能是工具而不是策略。</li>
+</ul>
+<p><strong>三条应对</strong>：</p>
+<ol>
+<li><strong>环境确定性化</strong>：mock 掉不稳定工具，或用重试+缓存让工具行为可复现；</li>
+<li>**区分”策略失败”和”环境失败”**：在 verifier 里加标记，环境失败的样本只做负样本（降低权重）或直接丢弃；</li>
+<li><strong>增大 G</strong>：用统计手段把信号从噪声里分出来，代价是成本。</li>
+</ol>
+<h3 id="6-5-六个落地难点（按踩坑频率排序）"><a href="#6-5-六个落地难点（按踩坑频率排序）" class="headerlink" title="6.5 六个落地难点（按踩坑频率排序）"></a>6.5 六个落地难点（按踩坑频率排序）</h3><p><strong>难点一：训练-推理一致性</strong><br>Agent 框架（自己写的 loop）与训练框架（Megatron）对同一段文本的 tokenization 不一致 → logprob 不匹配。<strong>必须 TITO + 显式记录 token 级 logprob 与 mask。</strong></p>
+<p><strong>难点二：上下文长度爆炸</strong><br>50 轮 × 每轮 500 token（含工具返回）= 2.5 万 token。加上 KV cache，<code>batch=64</code> 时显存会先于计算成为瓶颈。应对：截断策略（丢最早的轮次）、工具返回摘要、prefix caching。</p>
+<p><strong>难点三：奖励稀疏 + 全 0 组</strong><br>成功率 &lt; 10% 的任务，GRPO 基本训不动。必须先做 <strong>SFT 冷启动</strong>（把成功率拉到 20–30%），再上 RL。<strong>跳过 SFT 直接 RL 是新手最常犯的错。</strong></p>
+<p><strong>难点四：环境不可复现</strong><br>同一个 seed 跑两次，工具返回不同 → 训练不可复现 → 无法 debug。应对：录制-回放（record &amp; replay）、确定性 mock。</p>
+<p><strong>难点五：多轮 rollout 的中间状态丢失</strong><br>Agent 在第 30 步崩了，你想知道是第几步开始错的。如果没有完整的 trace（每步的 prompt、action、observation、logprob），只能重跑。</p>
+<p><strong>难点六：评测集污染</strong><br>Agent 任务的”测试集”往往是真实网站/API。跑几次之后：</p>
+<ul>
+<li>网站记住了你的 IP，返回不同内容；</li>
+<li>任务的初始状态被前一次运行改变了（比如文件已被创建）。</li>
+</ul>
+<p><strong>必须有”环境重置”机制</strong>（容器快照、数据库回滚），否则评测不可比。</p>
+<h3 id="6-6-一个参考训练配方"><a href="#6-6-一个参考训练配方" class="headerlink" title="6.6 一个参考训练配方"></a>6.6 一个参考训练配方</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">阶段 0：环境准备</span><br><span class="line">  - 工具成功率 &gt; 95%，加超时和重试</span><br><span class="line">  - 容器化 + 快照回滚，保证可复现</span><br><span class="line"></span><br><span class="line">阶段 1：SFT 冷启动（1–3k 条专家轨迹）</span><br><span class="line">  - 目标：把单次成功率拉到 20–40%</span><br><span class="line">  - 数据：人工 / 强模型 / 规则生成，覆盖主要失败模式</span><br><span class="line"></span><br><span class="line">阶段 2：RLVR + GRPO（G=8–16）</span><br><span class="line">  - 奖励：终态 verifier（0/1）+ 必要格式检查（作为闸门而非加分）</span><br><span class="line">  - 动态采样：过滤全对/全错组</span><br><span class="line">  - clip-higher（上界 0.28）+ 无 KL 或弱 KL</span><br><span class="line">  - 完全异步 rollout（若 rollout/train &gt; 3）</span><br><span class="line"></span><br><span class="line">阶段 3：课程学习 + 难度自适应</span><br><span class="line">  - 按当前成功率动态选任务（0.2–0.8 成功率带）</span><br><span class="line">  - 对长尾任务单独加采样权重</span><br><span class="line"></span><br><span class="line">阶段 4：稳定性收尾</span><br><span class="line">  - 监控 pass@1 / pass@k / 熵，防熵坍缩</span><br><span class="line">  - 分布外评测集验证泛化</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="7-对比：PPO-GRPO-RLVR-Agentic-RL"><a href="#7-对比：PPO-GRPO-RLVR-Agentic-RL" class="headerlink" title="7. 对比：PPO / GRPO / RLVR / Agentic RL"></a>7. 对比：PPO / GRPO / RLVR / Agentic RL</h2><h3 id="7-1-算法层对比"><a href="#7-1-算法层对比" class="headerlink" title="7.1 算法层对比"></a>7.1 算法层对比</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>PPO（带 critic）</th>
+<th>GRPO</th>
+<th>RLVR（可叠加任意算法）</th>
+<th>Agentic RL（范式）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>算法本质</strong></td>
+<td>Actor-Critic + clip</td>
+<td>无 critic，组内基线 + clip</td>
+<td><strong>奖励定义</strong>（不是算法）</td>
+<td><strong>问题设定</strong>（不是算法）</td>
+</tr>
+<tr>
+<td><strong>是否需要 value net</strong></td>
+<td>是（同规模）</td>
+<td>否</td>
+<td>取决于底层算法</td>
+<td>通常否（critic 训不动）</td>
+</tr>
+<tr>
+<td><strong>显存（7B 为例）</strong></td>
+<td>~21B（policy+critic+ref）</td>
+<td>~14B（policy+ref）</td>
+<td>同底层算法</td>
+<td>~14B + 环境</td>
+</tr>
+<tr>
+<td><strong>优势估计</strong></td>
+<td>GAE + <code>V(s)</code></td>
+<td>组内标准化</td>
+<td>同底层算法</td>
+<td>组内 + 轮次掩码</td>
+</tr>
+<tr>
+<td><strong>奖励要求</strong></td>
+<td>稠密/连续最佳</td>
+<td><strong>0/1 即可</strong></td>
+<td>必须可程序验证</td>
+<td>终态可验证</td>
+</tr>
+<tr>
+<td><strong>典型 G / batch</strong></td>
+<td>—</td>
+<td>G=8–64</td>
+<td>G=8–16</td>
+<td><strong>G=8–32（需更大）</strong></td>
+</tr>
+<tr>
+<td><strong>训练步数</strong></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>10–200</td>
+</tr>
+<tr>
+<td><strong>主要失效</strong></td>
+<td>critic 不准、显存翻倍</td>
+<td>零方差组、熵坍缩</td>
+<td>奖励黑客、假性提升</td>
+<td>信用分配、方差爆炸</td>
+</tr>
+<tr>
+<td><strong>成熟度</strong></td>
+<td>高（但 Agent 上不好用）</td>
+<td>高</td>
+<td>高</td>
+<td>中（工程未标准化）</td>
+</tr>
+</tbody></table>
+<h3 id="7-2-场景选择"><a href="#7-2-场景选择" class="headerlink" title="7.2 场景选择"></a>7.2 场景选择</h3><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>推荐方案</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>数学/代码推理</strong></td>
+<td>RLVR + GRPO（DAPO 变体）</td>
+<td>答案可验证；单步；已有大量成功案例</td>
+</tr>
+<tr>
+<td><strong>格式化输出 / 工具调用规范</strong></td>
+<td>RLVR + GRPO，奖励=格式闸门</td>
+<td>规则可验证；不需要长 horizon</td>
+</tr>
+<tr>
+<td><strong>多轮工具调用 Agent</strong></td>
+<td>RLVR + GRPO + 异步 + SFT 冷启动</td>
+<td>终态可验证；但必须解决稀疏与长尾</td>
+</tr>
+<tr>
+<td><strong>开放式对话（有用性/风格）</strong></td>
+<td>RLHF + PPO/DPO</td>
+<td>没有 verifier，只能靠偏好（但 Agent 长轨迹上不可行）</td>
+</tr>
+<tr>
+<td><strong>主观质量 + 可验证混合</strong></td>
+<td>两阶段：先 RLVR 训能力，再 RLHF 调风格</td>
+<td>分开做，避免奖励尺度打架</td>
+</tr>
+<tr>
+<td><strong>超长任务（&gt;100 步）</strong></td>
+<td>分层 RL / 子目标分解 + 轮次级奖励</td>
+<td>轨迹级广播信号密度太低</td>
+</tr>
+<tr>
+<td><strong>没有 verifier 的任务</strong></td>
+<td><strong>不要用 RL</strong>，用 SFT / DPO / best-of-N</td>
+<td>强行用 LLM-judge 是换个壳的 RM</td>
+</tr>
+</tbody></table>
+<h3 id="7-3-一个容易混淆的点：RLVR-是”奖励”，不是”算法”"><a href="#7-3-一个容易混淆的点：RLVR-是”奖励”，不是”算法”" class="headerlink" title="7.3 一个容易混淆的点：RLVR 是”奖励”，不是”算法”"></a>7.3 一个容易混淆的点：RLVR 是”奖励”，不是”算法”</h3><p>RLVR 和 GRPO 不是并列关系：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RLVR 定义奖励  →  GRPO/PPO 优化策略</span><br><span class="line">   （what）        （how）</span><br></pre></td></tr></table></figure>
+
+<p>所以”用 RLVR 还是用 GRPO”这个问法本身不成立。正确的问题是：</p>
+<ul>
+<li><strong>奖励怎么定义</strong>（RLVR / RM / 混合）；</li>
+<li><strong>用什么算法优化</strong>（GRPO / PPO / DAPO / 其他）；</li>
+<li><strong>用什么基础设施跑</strong>（Slime / verl / TRL）；</li>
+<li><strong>问题怎么建模</strong>（单步 / 多轮 / 分层）。</li>
+</ul>
+<p><strong>这四层是独立的，可以自由组合。</strong> 混为一谈是当前讨论里最常见的概念混乱。</p>
+<hr>
+<h2 id="8-瓶颈与前沿"><a href="#8-瓶颈与前沿" class="headerlink" title="8. 瓶颈与前沿"></a>8. 瓶颈与前沿</h2><h3 id="8-1-五个真瓶颈"><a href="#8-1-五个真瓶颈" class="headerlink" title="8.1 五个真瓶颈"></a>8.1 五个真瓶颈</h3><p><strong>瓶颈一：信用分配没有好解法</strong></p>
+<p>轨迹级广播是”无偏但高方差”，PRM 是”低方差但有偏”，反事实是”准确但不可行”。<strong>目前没有既准又便宜的方法。</strong> 这是 Agentic RL 最根本的理论缺口。</p>
+<p><strong>瓶颈二：环境是最大成本项，不是模型</strong></p>
+<p>做 Agentic RL，80% 的工程量在环境：沙箱、快照、工具 mock、故障注入、状态重置。<strong>模型和数据反而简单。</strong> 这也是为什么只有少数团队能做大规摸 Agentic RL——不是算力问题，是环境工程问题。</p>
+<p><strong>瓶颈三：评测不可比</strong></p>
+<p>Agent 评测的方差极大（同一策略两次评测差 10–20 个点很常见）。原因：环境非平稳、任务难度分布不均、样本量小。<strong>没有可靠的评测，就无法判断”改进”是不是噪声。</strong></p>
+<p><strong>瓶颈四：能力天花板来自基座，不是 RL</strong></p>
+<p>Spurious Rewards 已经说明：RLVR 的收益很大一部分是”激发”而非”学习”。Agentic RL 更甚——<strong>RL 能让模型更稳定地用已有能力，但很难教会它全新的能力</strong>。这与”RL 能突破能力上限”的叙事不符。</p>
+<p><strong>瓶颈五：多模态与长上下文</strong></p>
+<p>真 Agent 要看屏幕、读文档、操作 GUI。视觉 token 让上下文爆炸更快（一张图 1000+ token），而长上下文的 RL 训练成本是超线性的。</p>
+<h3 id="8-2-五个值得关注的方向"><a href="#8-2-五个值得关注的方向" class="headerlink" title="8.2 五个值得关注的方向"></a>8.2 五个值得关注的方向</h3><p><strong>方向一：更细粒度的奖励信号</strong></p>
+<ul>
+<li><strong>Turn-level credit</strong>（如 TRACE：用信用估计做轮次级奖励分配）；</li>
+<li><strong>Token 级奖励</strong>（如 ADRS：宣称在 3B 模型上做到 94.5% 成功率，据 2026-09 报道）；</li>
+<li><strong>Hindsight 重标注</strong>：从后验的成功/失败反推中间步骤的对错（类似 HER）。</li>
+</ul>
+<p><strong>方向二：无环境的 RL（offline / sim-based）</strong></p>
+<p>用世界模型或历史轨迹做”虚拟环境”，避免真实工具调用。风险是 sim2real gap。</p>
+<p><strong>方向三：异步 + 容错的极致化</strong></p>
+<ul>
+<li><strong>部分 rollout</strong>（APRIL）：不等整条轨迹完成就开始训练；</li>
+<li><strong>staleness-aware 优化</strong>：显式建模”样本有多旧”，用加权而非丢弃；</li>
+<li><strong>断点续训</strong>：Agent 任务跑几小时，故障是常态。</li>
+</ul>
+<p><strong>方向四：多智能体 RL 与自博弈</strong></p>
+<p>单 agent 的能力受限于其探索能力。多 agent（自博弈、竞争、协作）可以提供更丰富的学习信号，尤其在无 verifier 的任务上（用对手/队友当 verifier）。Slime 的 README 提到 qqr 用 <strong>ArenaRL</strong>（锦标赛式相对排名）解决”判别性坍缩”，这是一个值得关注的方向。</p>
+<p><strong>方向五：从”训练策略”转向”训练 harness”</strong></p>
+<p>一个正在浮现的观点：<strong>Agent 的能力瓶颈不在模型参数，而在 harness（工具设计、上下文组织、错误恢复）</strong>。所以 RL 的对象可能从”模型权重”扩展到”harness 的可学习部分”（提示、工具选择策略、检索策略）。</p>
+<p>这个方向的工程含义很大：<strong>如果 harness 的改进比模型微调收益更高，那 RL 的 ROI 就该重新算。</strong></p>
+<hr>
+<h2 id="9-小结"><a href="#9-小结" class="headerlink" title="9. 小结"></a>9. 小结</h2><ol>
+<li><strong>Agent 的 RL 是 POMDP，不是 bandit。</strong> 动作是文本、环境不可微且非平稳、奖励极稀疏、horizon 长——四个性质共同决定了”直接套 RLHF 会失败”。</li>
+<li><strong>先分清”策略”和”环境”。</strong> 规划、执行器、反思是可训练的；记忆和工具是环境。<strong>工具成功率不达标时做 RL，是在训练模型规避你的工程缺陷。</strong></li>
+<li><strong>PPO 在长 Agent 任务上有五个失效点</strong>：critic 训不出来（状态太长、回报太吵）、显存翻倍、GAE 没有中间奖励可用、奖励尺度混叠、训练-推理 logprob 漂移被长序列放大。</li>
+<li><strong>GRPO 的核心是”用组内相对排名替代价值估计”。</strong> 它把 RLHF 的”人类比较”换成了”程序比较”，这是它和 RLVR 天然契合的原因。省掉 critic 是结果，不是目的。</li>
+<li><strong>GRPO 的五个坑</strong>：全对/全错组零梯度（→ DAPO 动态采样）、长度偏置（→ Dr. GRPO 去掉 <code>1/|o|</code> 和 <code>std</code>）、熵坍缩（→ clip-higher）、KL 阻碍探索（→ 去掉或弱化）、组内样本受环境噪声污染（→ 增大 G）。</li>
+<li><strong>RLVR 是”奖励定义”，不是算法。</strong> 它可以和 GRPO/PPO/DAPO 任意组合。”用 RLVR 还是 GRPO”是个错误的问法。</li>
+<li><strong>RLVR 的收益有一部分是”激发”而非”学习”。</strong> Spurious Rewards 的实验（随机奖励也能涨点）要求我们必须同时看 pass@1 和 pass@k，并有分布外评测。<strong>别把奖励曲线当能力曲线。</strong></li>
+<li><strong>奖励设计的核心原则是”必要条件而非加权和”。</strong> <code>r = 1 if (format_ok and correct) else 0</code> 比 <code>0.1·format + 1.0·correct</code> 更难训，但不会陷入”先学格式后卡住”的局部最优。</li>
+<li><strong>Slime 这类框架解决的是四件事</strong>：训推一致（delta weight sync）、长尾 rollout（fully async + staleness 控制）、工作流解耦（<code>custom-generate-function-path</code>）、token 保真（TITO）。<strong>其中 TITO 最容易被忽略，做错了训练会莫名不收敛。</strong></li>
+<li><strong>Agentic RL 的有效信号密度比 RLVR 低约一个量级。</strong> 1 万 token 共享一个标量，这是信息论层面的限制，不是实现问题。<strong>所以它需要更多 rollout、更慢的收敛、更强的工程。</strong></li>
+<li><strong>必须 SFT 冷启动。</strong> 成功率 &lt; 10% 的任务上直接 RL，组内全是 0，没有梯度。先把成功率拉到 20–40%，再上 RL。</li>
+<li><strong>Agentic RL 的瓶颈主要在环境工程和评测，不在算法。</strong> 80% 的工程量在沙箱、快照、工具 mock、状态重置。<strong>这也是为什么大团队和小团队在这个方向上差距拉得特别开。</strong></li>
+</ol>
+<p>如果只留一句：<strong>Agent 的 RL，算法已经足够（GRPO + RLVR 就是当前的最优组合），真正的护城河是环境工程——能不能低成本、可复现、大规模地让 Agent 在真实世界里失败。</strong></p>
+<hr>
+<h3 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h3><p><strong>算法</strong></p>
+<ul>
+<li>Shao et al., <em>DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models</em>, 2024（GRPO 原始提出；组内标准化 + KL 惩罚）</li>
+<li>DeepSeek-AI, <em>DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning</em>, 2025（GRPO + 规则奖励的大规模实践）</li>
+<li>Yu et al., <em>DAPO: An Open-Source LLM Reinforcement Learning System at Scale</em>, 2025（clip-higher、动态采样、token 级 loss、去掉 KL）</li>
+<li>Liu et al., <em>Understanding R1-Zero-Like Training: A Critical Perspective</em>, 2025（Dr. GRPO：去掉长度与 std 归一化）</li>
+<li>Zheng et al., <em>GSPO: Group Sequence Policy Optimization</em>, 2025（序列级重要性比）</li>
+<li>Schulman et al., <em>Proximal Policy Optimization Algorithms</em>, 2017（PPO 原始）</li>
+<li>Rafailov et al., <em>DPO: Direct Preference Optimization</em>, 2023</li>
+<li>Lambert et al., <em>Tülu 3: Pushing Frontiers in Open Language Model Post-Training</em>, 2024（RLVR 的系统化实践）</li>
+</ul>
+<p><strong>RLVR 与奖励</strong></p>
+<ul>
+<li><em>Spurious Rewards: Rethinking Training Signals in RLVR</em>, arXiv:2506.10947（随机奖励也能提升的实证）</li>
+<li><em>RLBFF: Binary Flexible Feedback to bridge between Human Feedback &amp; Verifiable Rewards</em>, arXiv:2509.21319</li>
+<li>Lightman et al., <em>Let’s Verify Step by Step</em>, 2023（PRM）</li>
+</ul>
+<p><strong>Agentic RL</strong></p>
+<ul>
+<li>Jin et al., <em>AgentGym-RL: Training LLM Agents for Long-Horizon Decision Making through Multi-Turn Reinforcement Learning</em>, 2025</li>
+<li><em>SkyRL-Agent: Efficient RL Training for Multi-turn LLM Agent</em>, arXiv:2511.16108</li>
+<li><em>TRACE: Turn-level Reward Assignment via Credit Estimation for Long-Horizon Agents</em>, 2026</li>
+<li>RAGEN / Agent-R1 系列（多轮 agent RL 的开源实践）</li>
+</ul>
+<p><strong>基础设施</strong></p>
+<ul>
+<li>Slime 官方仓库与 README：<a href="https://github.com/THUDM/slime%EF%BC%88Megatron" target="_blank" rel="noopener">https://github.com/THUDM/slime（Megatron</a> + SGLang + Data Buffer 架构、fully_async、delta weight sync、TITO 相关生态；抓取时间 2026-11-11）</li>
+<li><em>slime: An SGLang-Native Post-Training Framework for RL Scaling</em>（官方博客）</li>
+<li><em>Agent-Oriented Design: An Asynchronous and Decoupled Framework for Agentic RL</em>（官方博客）</li>
+<li><em>APRIL: Accelerating RL Training with Active Partial Rollouts</em>（部分 rollout 加速）</li>
+<li><em>Laminar: A Scalable Asynchronous RL Post-Training Framework</em>, arXiv:2510.12633</li>
+<li>OpenRLHF / verl / TRL 开源框架文档</li>
+</ul>
+<blockquote>
+<p><strong>说明</strong>：文中引用 Slime README 的”GLM-5.x 系列 RL 框架”为官方自述（抓取于 2026-11-11），具体版本迭代请以仓库最新状态为准。所有具体数值（如 94.5% 成功率、随机奖励实验结论）均标注了来源性质（论文自报 / 二手报道），不同模型与复现条件下会显著偏差。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/rl/" rel="tag"># rl</a>
+              <a href="/tags/reinforcement-learning/" rel="tag"># reinforcement learning</a>
+              <a href="/tags/强化学习/" rel="tag"># 强化学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/07/16/大模型解码策略综述/" rel="prev" title="大模型解码策略综述：从贪心到受控生成">
+      <i class="fa fa-chevron-left"></i> 大模型解码策略综述：从贪心到受控生成
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/07/22/BM25到稠密检索-BGE与混合检索/" rel="next" title="从 BM25 到稠密检索：BGE 系列与混合检索的工程实践">
+      从 BM25 到稠密检索：BGE 系列与混合检索的工程实践 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-前置：把-Agent-形式化成-POMDP"><span class="nav-number">2.</span> <span class="nav-text">0. 前置：把 Agent 形式化成 POMDP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-1-一句话定义"><span class="nav-number">2.1.</span> <span class="nav-text">0.1 一句话定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-2-学术界常做的简化（以及它带来的失真）"><span class="nav-number">2.2.</span> <span class="nav-text">0.2 学术界常做的简化（以及它带来的失真）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Agent-通用架构：哪些是策略，哪些是环境"><span class="nav-number">3.</span> <span class="nav-text">1. Agent 通用架构：哪些是策略，哪些是环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-五个组件"><span class="nav-number">3.1.</span> <span class="nav-text">1.1 五个组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-这个划分为什么决定-RL-方案"><span class="nav-number">3.2.</span> <span class="nav-text">1.2 这个划分为什么决定 RL 方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-一个被忽视的问题：动作粒度的选择"><span class="nav-number">3.3.</span> <span class="nav-text">1.3 一个被忽视的问题：动作粒度的选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-为什么-PPO-Critic-方案在长任务上失效"><span class="nav-number">4.</span> <span class="nav-text">2. 为什么 PPO / Critic 方案在长任务上失效</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-回顾-PPO-的结构"><span class="nav-number">4.1.</span> <span class="nav-text">2.1 回顾 PPO 的结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-五个失效点"><span class="nav-number">4.2.</span> <span class="nav-text">2.2 五个失效点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-RLHF-的另外两个-Agent-特有问题"><span class="nav-number">4.3.</span> <span class="nav-text">2.3 RLHF 的另外两个 Agent 特有问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-GRPO：去掉-critic-的极简方案"><span class="nav-number">5.</span> <span class="nav-text">3. GRPO：去掉 critic 的极简方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-核心想法"><span class="nav-number">5.1.</span> <span class="nav-text">3.1 核心想法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-公式"><span class="nav-number">5.2.</span> <span class="nav-text">3.2 公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-为什么它能工作（三个解释）"><span class="nav-number">5.3.</span> <span class="nav-text">3.3 为什么它能工作（三个解释）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-五个必须知道的缺陷"><span class="nav-number">5.4.</span> <span class="nav-text">3.4 五个必须知道的缺陷</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-RLVR：把”对不对”交给程序判断"><span class="nav-number">6.</span> <span class="nav-text">4. RLVR：把”对不对”交给程序判断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-定义与奖励构造"><span class="nav-number">6.1.</span> <span class="nav-text">4.1 定义与奖励构造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-为什么-RLVR-在-Agent-上几乎是必然选择"><span class="nav-number">6.2.</span> <span class="nav-text">4.2 为什么 RLVR 在 Agent 上几乎是必然选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-一个必须知道的清醒结论：Spurious-Rewards"><span class="nav-number">6.3.</span> <span class="nav-text">4.3 一个必须知道的清醒结论：Spurious Rewards</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-奖励设计的五个坑"><span class="nav-number">6.4.</span> <span class="nav-text">4.4 奖励设计的五个坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-RLVR-的能力边界"><span class="nav-number">6.5.</span> <span class="nav-text">4.5 RLVR 的能力边界</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-基础设施：Slime-与异步-RL-的工程问题"><span class="nav-number">7.</span> <span class="nav-text">5. 基础设施：Slime 与异步 RL 的工程问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-为什么-RL-的工程比-SFT-难一个量级"><span class="nav-number">7.1.</span> <span class="nav-text">5.1 为什么 RL 的工程比 SFT 难一个量级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Slime-的设计"><span class="nav-number">7.2.</span> <span class="nav-text">5.2 Slime 的设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-它解决的四个具体问题"><span class="nav-number">7.3.</span> <span class="nav-text">5.3 它解决的四个具体问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-生态：Slime-作为”RL-底座”"><span class="nav-number">7.4.</span> <span class="nav-text">5.4 生态：Slime 作为”RL 底座”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-选型建议"><span class="nav-number">7.5.</span> <span class="nav-text">5.5 选型建议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Agentic-RL：和单步偏好-RL-的本质区别"><span class="nav-number">8.</span> <span class="nav-text">6. Agentic RL：和单步偏好 RL 的本质区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-六个结构性差异"><span class="nav-number">8.1.</span> <span class="nav-text">6.1 六个结构性差异</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-信用分配：Agentic-RL-的核心难题"><span class="nav-number">8.2.</span> <span class="nav-text">6.2 信用分配：Agentic RL 的核心难题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-一个残酷的现实：Agentic-RL-的有效信号很少"><span class="nav-number">8.3.</span> <span class="nav-text">6.3 一个残酷的现实：Agentic RL 的有效信号很少</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-环境非平稳带来的方差"><span class="nav-number">8.4.</span> <span class="nav-text">6.4 环境非平稳带来的方差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-六个落地难点（按踩坑频率排序）"><span class="nav-number">8.5.</span> <span class="nav-text">6.5 六个落地难点（按踩坑频率排序）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-6-一个参考训练配方"><span class="nav-number">8.6.</span> <span class="nav-text">6.6 一个参考训练配方</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-对比：PPO-GRPO-RLVR-Agentic-RL"><span class="nav-number">9.</span> <span class="nav-text">7. 对比：PPO / GRPO / RLVR / Agentic RL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-算法层对比"><span class="nav-number">9.1.</span> <span class="nav-text">7.1 算法层对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-场景选择"><span class="nav-number">9.2.</span> <span class="nav-text">7.2 场景选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-一个容易混淆的点：RLVR-是”奖励”，不是”算法”"><span class="nav-number">9.3.</span> <span class="nav-text">7.3 一个容易混淆的点：RLVR 是”奖励”，不是”算法”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-瓶颈与前沿"><span class="nav-number">10.</span> <span class="nav-text">8. 瓶颈与前沿</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-五个真瓶颈"><span class="nav-number">10.1.</span> <span class="nav-text">8.1 五个真瓶颈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-五个值得关注的方向"><span class="nav-number">10.2.</span> <span class="nav-text">8.2 五个值得关注的方向</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-小结"><span class="nav-number">11.</span> <span class="nav-text">9. 小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考来源"><span class="nav-number">11.1.</span> <span class="nav-text">参考来源</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">259</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

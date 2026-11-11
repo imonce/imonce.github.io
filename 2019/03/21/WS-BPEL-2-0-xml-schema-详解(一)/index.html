@@ -22,18 +22,18 @@
     var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="本系列文章将一行一行的解读wsbpel2.0的源码。 相关xsd语法问题，请参见XSD学习笔记完整版 wsbpel2.0 xsd源码来自：ws-bpel_executable.xsd schema声明1234&amp;lt;xsd:schema xmlns=&quot;http://docs.oasis-open.org/wsbpel/2.0/process/executable&quot; 	xmlns:xsd=&quot;http">
+  <meta name="description" content="本系列文章将一行一行的解读wsbpel2.0的源码。 相关xsd语法问题，请参见XSD学习笔记完整版 wsbpel2.0 xsd源码来自：ws-bpel_executable.xsd">
 <meta name="keywords" content="BPEL,WSBPEL,ws-bpel,BPEL2.0,Schema,XSD">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WS-BPEL 2.0 xml schema 详解(一)">
 <meta property="og:url" content="https://imonce.github.io/2019/03/21/WS-BPEL-2-0-xml-schema-详解(一)/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
-<meta property="og:description" content="本系列文章将一行一行的解读wsbpel2.0的源码。 相关xsd语法问题，请参见XSD学习笔记完整版 wsbpel2.0 xsd源码来自：ws-bpel_executable.xsd schema声明1234&amp;lt;xsd:schema xmlns=&quot;http://docs.oasis-open.org/wsbpel/2.0/process/executable&quot; 	xmlns:xsd=&quot;http">
+<meta property="og:description" content="本系列文章将一行一行的解读wsbpel2.0的源码。 相关xsd语法问题，请参见XSD学习笔记完整版 wsbpel2.0 xsd源码来自：ws-bpel_executable.xsd">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2026-06-28T14:37:22.531Z">
+<meta property="og:updated_time" content="2026-11-11T07:18:26.862Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WS-BPEL 2.0 xml schema 详解(一)">
-<meta name="twitter:description" content="本系列文章将一行一行的解读wsbpel2.0的源码。 相关xsd语法问题，请参见XSD学习笔记完整版 wsbpel2.0 xsd源码来自：ws-bpel_executable.xsd schema声明1234&amp;lt;xsd:schema xmlns=&quot;http://docs.oasis-open.org/wsbpel/2.0/process/executable&quot; 	xmlns:xsd=&quot;http">
+<meta name="twitter:description" content="本系列文章将一行一行的解读wsbpel2.0的源码。 相关xsd语法问题，请参见XSD学习笔记完整版 wsbpel2.0 xsd源码来自：ws-bpel_executable.xsd">
 
 <link rel="canonical" href="https://imonce.github.io/2019/03/21/WS-BPEL-2-0-xml-schema-详解(一)/">
 
@@ -124,17 +124,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
+                <time title="Modified: 2026-11-11 15:18:26" itemprop="dateModified" datetime="2026-11-11T15:18:26+08:00">2026-11-11</time>
               </span>
 
           
@@ -267,6 +267,7 @@
         <p>本系列文章将一行一行的解读wsbpel2.0的源码。</p>
 <p>相关xsd语法问题，请参见<a href="https://imonce.github.io/2019/03/15/XSD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%AE%8C%E6%95%B4%E7%89%88/#%E7%AE%80%E5%8D%95%E7%B1%BB%E5%9E%8B">XSD学习笔记完整版</a></p>
 <p>wsbpel2.0 xsd源码来自：<a href="http://docs.oasis-open.org/wsbpel/2.0/OS/process/executable/ws-bpel_executable.xsd" target="_blank" rel="noopener">ws-bpel_executable.xsd</a></p>
+<a id="more"></a>
 <h1 id="schema声明"><a href="#schema声明" class="headerlink" title="schema声明"></a>schema声明</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:schema</span> <span class="attr">xmlns</span>=<span class="string">"http://docs.oasis-open.org/wsbpel/2.0/process/executable"</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:xsd</span>=<span class="string">"http://www.w3.org/2001/XMLSchema"</span> <span class="attr">targetNamespace</span>=<span class="string">"http://docs.oasis-open.org/wsbpel/2.0/process/executable"</span> <span class="attr">elementFormDefault</span>=<span class="string">"qualified"</span> <span class="attr">blockDefault</span>=<span class="string">"#all"</span>&gt;</span></span><br><span class="line">	...</span><br><span class="line"><span class="tag">&lt;<span class="name">\xsd</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>声明命名空间<code>http://docs.oasis-open.org/wsbpel/2.0/process/executable</code>，没有前缀。</p>
@@ -603,20 +604,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">228</span>
+        <span class="site-state-item-count">259</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="导语2026 年的编码 Agent 市场已经过了”能不能写代码”的阶段，进入”能不能嵌进工程系统“的阶段。但市面上的对比文章普遍存在一个方法论错误：把厂商封闭的编码产品、可自托管的 Agent 运行时、通用任务 Agent 放在同一维度上打分。 结果是：Claude Code 在”本地部署友好度”上输给 OpenClaw，OpenClaw 在”开箱代码质量”上输给 Claude Code，两边都不">
+<meta name="keywords" content="agent,vibe coding,Claude Code,Codex,Hermes,OpenClaw,Manus">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Claude Code、Codex、Hermes、OpenClaw、Manus 横向拆解">
+<meta property="og:url" content="https://imonce.github.io/2026/07/04/编码Agent横向对比与VibeCoding辨析/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="导语2026 年的编码 Agent 市场已经过了”能不能写代码”的阶段，进入”能不能嵌进工程系统“的阶段。但市面上的对比文章普遍存在一个方法论错误：把厂商封闭的编码产品、可自托管的 Agent 运行时、通用任务 Agent 放在同一维度上打分。 结果是：Claude Code 在”本地部署友好度”上输给 OpenClaw，OpenClaw 在”开箱代码质量”上输给 Claude Code，两边都不">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2026-11-11T07:27:10.884Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Claude Code、Codex、Hermes、OpenClaw、Manus 横向拆解">
+<meta name="twitter:description" content="导语2026 年的编码 Agent 市场已经过了”能不能写代码”的阶段，进入”能不能嵌进工程系统“的阶段。但市面上的对比文章普遍存在一个方法论错误：把厂商封闭的编码产品、可自托管的 Agent 运行时、通用任务 Agent 放在同一维度上打分。 结果是：Claude Code 在”本地部署友好度”上输给 OpenClaw，OpenClaw 在”开箱代码质量”上输给 Claude Code，两边都不">
+
+<link rel="canonical" href="https://imonce.github.io/2026/07/04/编码Agent横向对比与VibeCoding辨析/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>Claude Code、Codex、Hermes、OpenClaw、Manus 横向拆解 | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/04/编码Agent横向对比与VibeCoding辨析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Claude Code、Codex、Hermes、OpenClaw、Manus 横向拆解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-04 14:39:49" itemprop="dateCreated datePublished" datetime="2026-07-04T14:39:49+08:00">2026-07-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:27:10" itemprop="dateModified" datetime="2026-11-11T15:27:10+08:00">2026-11-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2026/07/04/编码Agent横向对比与VibeCoding辨析/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/04/编码Agent横向对比与VibeCoding辨析/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>2026 年的编码 Agent 市场已经过了”能不能写代码”的阶段，进入”<strong>能不能嵌进工程系统</strong>“的阶段。但市面上的对比文章普遍存在一个方法论错误：把<strong>厂商封闭的编码产品</strong>、<strong>可自托管的 Agent 运行时</strong>、<strong>通用任务 Agent</strong> 放在同一维度上打分。</p>
+<p>结果是：Claude Code 在”本地部署友好度”上输给 OpenClaw，OpenClaw 在”开箱代码质量”上输给 Claude Code，两边都不服。这不是产品差距，是<strong>比较维度错配</strong>。</p>
+<a id="more"></a>
+<p>本文做三件事：</p>
+<ol>
+<li>先建立分类坐标系，把五者按”控制权归属”和”抽象层级”放回各自位置；</li>
+<li>在<strong>六个真实影响工程决策的维度</strong>上做对比（本地部署、长代码库理解、工具调用、调试闭环、上下文、开源协议）；</li>
+<li>拆开 Vibe Coding 这个概念——它被严重误读，大多数人争论的是它的输入形式，而它的判别标准其实在验收环节。</li>
+</ol>
+<blockquote>
+<p><strong>时效性声明</strong>：本文数据核对时间为 2026-11-11。编码 Agent 是月度迭代的品类，模型名、版本号、价格在一个季度内都可能变化。凡涉及具体版本与数字，均标注来源；属于工程判断的评分，明确标注为主观评估。</p>
+</blockquote>
+<hr>
+<h2 id="1-坐标系：先分清”产品””运行时””通用-Agent”"><a href="#1-坐标系：先分清”产品””运行时””通用-Agent”" class="headerlink" title="1. 坐标系：先分清”产品””运行时””通用 Agent”"></a>1. 坐标系：先分清”产品””运行时””通用 Agent”</h2><h3 id="1-1-一张定位表"><a href="#1-1-一张定位表" class="headerlink" title="1.1 一张定位表"></a>1.1 一张定位表</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>本质是什么</th>
+<th>谁控制执行环境</th>
+<th>模型绑定</th>
+<th>编码是</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Claude Code</strong></td>
+<td>厂商自研的终端编码 Agent（闭源产品）</td>
+<td>你的机器，但 harness 由 Anthropic 控制</td>
+<td>强绑定 Claude 系列</td>
+<td>唯一主业</td>
+</tr>
+<tr>
+<td><strong>Codex</strong></td>
+<td>厂商编码 Agent 产品线（CLI/App/Cloud/IDE 四形态）</td>
+<td>本地或 OpenAI 云沙箱</td>
+<td>强绑定 GPT 系列</td>
+<td>唯一主业</td>
+</tr>
+<tr>
+<td><strong>Hermes</strong></td>
+<td>开源自进化 Agent 框架（Nous Research）</td>
+<td>你的服务器</td>
+<td>无绑定，可接本地模型</td>
+<td>能力之一</td>
+</tr>
+<tr>
+<td><strong>OpenClaw</strong></td>
+<td>开源自托管 Agent 运行时 + 网关</td>
+<td>你的设备</td>
+<td>无绑定，模型/harness 皆插件</td>
+<td>能力之一</td>
+</tr>
+<tr>
+<td><strong>Manus</strong></td>
+<td>云端通用任务 Agent（SaaS）</td>
+<td>Manus 云虚拟机</td>
+<td>不透明（自研调度）</td>
+<td>子能力之一</td>
+</tr>
+</tbody></table>
+<h3 id="1-2-分类带来的三个直接结论"><a href="#1-2-分类带来的三个直接结论" class="headerlink" title="1.2 分类带来的三个直接结论"></a>1.2 分类带来的三个直接结论</h3><p><strong>结论一：只有两个是”编码专用产品”。</strong><br>Claude Code 和 Codex 的全部设计取舍都围绕”让代码变更落地”：读仓库、改文件、跑测试、提 PR。它们的 harness 是垂直优化的，所以在<strong>单点编码任务上的效率上限最高</strong>，代价是<strong>你无法改它的行为逻辑</strong>。</p>
+<p><strong>结论二：OpenClaw 和 Hermes 卖的不是”编码能力”，是”控制权”。</strong><br>它们提供 Gateway、会话、记忆、技能、通道接入这套运行时，模型是可替换件。编码能力来自你接的模型和装的 skill/plugin。所以拿它们和 Claude Code 比”代码写得好不好”，本质上是在比<strong>你配的那个模型</strong>，而不是比产品。</p>
+<p><strong>结论三：Manus 的对手不是编码工具，是”交付物”。</strong><br>Manus 的核心抽象是”给一个任务，产出可用的东西”——网站、报告、PPT、数据分析。写代码只是达成交付物的手段之一。用 Manus 做 20 万行 Java 单体仓库的重构，是选错了工具；用它两小时搭一个带后端和登录的 MVP，才是它的甜点区。</p>
+<h3 id="1-3-一个容易忽略的事实：harness-比模型更决定体验"><a href="#1-3-一个容易忽略的事实：harness-比模型更决定体验" class="headerlink" title="1.3 一个容易忽略的事实：harness 比模型更决定体验"></a>1.3 一个容易忽略的事实：harness 比模型更决定体验</h3><p>同一个模型，套不同 harness，在长任务上的成功率差异可以达到数十个百分点。原因在于 harness 决定了：</p>
+<ul>
+<li><strong>上下文怎么组织</strong>（全量塞 / 检索 / 子 Agent 隔离 / 压缩时机）</li>
+<li><strong>工具怎么暴露</strong>（工具数量、描述质量、是否按需加载）</li>
+<li><strong>失败怎么恢复</strong>（重试策略、检查点、回滚）</li>
+<li><strong>验证怎么做</strong>（能否跑测试、能否读 CI、能否自测）</li>
+</ul>
+<p>所以”某模型在 Terminal-Bench 上 91.9%”这类数字，衡量的是<strong>模型 + 官方 harness</strong> 的组合，不是你把它接进自己框架后的表现。这一点在做技术选型时经常被忽略。</p>
+<hr>
+<h2 id="2-逐个拆解"><a href="#2-逐个拆解" class="headerlink" title="2. 逐个拆解"></a>2. 逐个拆解</h2><h3 id="2-1-Claude-Code：把”工程闭环”做到极致的闭源终端"><a href="#2-1-Claude-Code：把”工程闭环”做到极致的闭源终端" class="headerlink" title="2.1 Claude Code：把”工程闭环”做到极致的闭源终端"></a>2.1 Claude Code：把”工程闭环”做到极致的闭源终端</h3><p><strong>定位</strong>：终端优先的编码 Agent，故意不做 GUI。设计哲学是”嵌入已有工作流”，而不是”再造一个 IDE”。</p>
+<p><strong>底层模型</strong>：Claude 系列，无法切换。2026 年的旗舰线包括 Claude Fable 5、Sonnet 5、Opus 4.8 等（具体档位随订阅变化）。强绑定是<strong>产品决策而非技术限制</strong>——它换来了对执行边界和工具行为的完全掌控。</p>
+<p><strong>核心能力（2026 年形态）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>机制</th>
+<th>工程价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>CLAUDE.md</strong></td>
+<td>项目级常驻约定文件</td>
+<td>把团队规范从”每次口述”变成”仓库资产”</td>
+</tr>
+<tr>
+<td><strong>Subagents</strong></td>
+<td>独立上下文的子 Agent</td>
+<td>探索过程不污染主上下文，天然隔离噪声</td>
+</tr>
+<tr>
+<td><strong>Skills</strong></td>
+<td><code>SKILL.md</code> + 资源，渐进式加载</td>
+<td>把流程知识变成可版本管理的文件，token 与技能数解耦</td>
+</tr>
+<tr>
+<td><strong>Hooks</strong></td>
+<td>生命周期钩子（工具调用前后）</td>
+<td>确定性管控：格式化、拦截危险命令、审计</td>
+</tr>
+<tr>
+<td><strong>MCP</strong></td>
+<td>标准工具协议</td>
+<td>接外部系统，不用自己写适配</td>
+</tr>
+<tr>
+<td><strong>Plugins</strong></td>
+<td>Skills + Commands + Agents + Hooks 的打包</td>
+<td>团队级分发</td>
+</tr>
+<tr>
+<td><strong>Checkpoint / 回滚</strong></td>
+<td>会话级快照</td>
+<td>长任务失败可回到已知好状态</td>
+</tr>
+</tbody></table>
+<p>这套东西的本质是：<strong>把”Agent 的行为”从 prompt 里的软约束，变成仓库里的硬资产</strong>。Hooks 尤其关键——它是唯一能在模型之外强制执行规则的地方（模型可以忽略 prompt，但不能忽略 hook）。</p>
+<p><strong>部署形态</strong>：本地 CLI（Node.js 运行时），也可通过 <code>/teleport</code> 把会话迁移到云端继续。<strong>没有自托管版本</strong>，执行在你的机器上，但 harness 与遥测受厂商控制。</p>
+<p><strong>关键取舍</strong>：只服务会用终端的人。产品经理、运营、非技术创始人一律用不了。这是它的天花板，也是它在专业开发者中渗透率高的原因——<strong>窄产品赚时间，宽产品赚流量</strong>。</p>
+<blockquote>
+<p>参考：Claude Code 2.1.x 系列在 2026 年初密集更新 Agent 能力、开发者体验与安全性（<a href="https://news.qq.com/rain/a/20260109A02XTZ00" target="_blank" rel="noopener">腾讯新闻，2026-01-09</a>）；年化收入据路透社 2026 年 2 月披露突破 25 亿美元、企业订阅占比过半（二手报道，<a href="https://www.woshipm.com/ai/6390626.html" target="_blank" rel="noopener">人人都是产品经理，2026-05-08</a>）。</p>
+</blockquote>
+<h3 id="2-2-Codex：从-CLI-长成”四形态-云环境”"><a href="#2-2-Codex：从-CLI-长成”四形态-云环境”" class="headerlink" title="2.2 Codex：从 CLI 长成”四形态 + 云环境”"></a>2.2 Codex：从 CLI 长成”四形态 + 云环境”</h3><p><strong>定位</strong>：OpenAI 的编码 Agent 产品线。和 Claude Code 最大的结构性差异是：<strong>它不把”本地终端”当唯一入口</strong>，而是把同一个 Agent 铺到四种执行环境上。</p>
+<p><strong>四种形态（截至 2026 年中）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>形态</th>
+<th>执行位置</th>
+<th>适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>CLI</strong></td>
+<td>本地终端（Rust 实现，Apache-2.0 开源）</td>
+<td>终端党、脚本化、CI 内嵌</td>
+</tr>
+<tr>
+<td><strong>App（桌面）</strong></td>
+<td>本地</td>
+<td>不想开终端但要素材本地权限</td>
+</tr>
+<tr>
+<td><strong>Cloud（Web）</strong></td>
+<td>OpenAI 云沙箱，接 GitHub</td>
+<td>并行派发多个任务、离线跑</td>
+</tr>
+<tr>
+<td><strong>IDE 插件</strong></td>
+<td>编辑器侧边栏</td>
+<td>需要看 diff 逐行确认</td>
+</tr>
+</tbody></table>
+<p>2026 年 9 月 DevDay 进一步引入<strong>可复用云端开发环境</strong>——同一环境可从任意设备接入，把”我的开发机”变成云上持久对象（<a href="https://www.pingwest.com/w/318035" target="_blank" rel="noopener">品玩/TechCrunch，2026-09-30</a>）。这是和 Claude Code”本地优先”路线的根本分歧：**Codex 赌的是”开发环境应该像容器一样可编排”，Claude Code 赌的是”开发者的机器就是最好的沙箱”**。</p>
+<p><strong>底层模型</strong>：GPT-5.x-Codex / GPT-5.6 系列。2026 年 8 月的公开数据中，GPT-5.6 Sol 在 Terminal-Bench 2.1 上为 88.8%，Sol Ultra 为 91.9%；Claude Fable 5 为 83.1%，Opus 4.8 为 78.9%（引自二手汇总，<a href="https://www.woshipm.com/ai/6445209.html" target="_blank" rel="noopener">人人都是产品经理，2026-08-12</a>；<strong>benchmark 存在污染与 harness 依赖问题，不建议作为唯一选型依据</strong>）。</p>
+<p><strong>核心能力</strong>：任务并行、PR 自动生成与自审、<code>AGENTS.md</code> 作为仓库级约定、云端环境快照、Codex Security CLI（Apache-2.0，做仓库级安全扫描）。</p>
+<p><strong>部署形态</strong>：CLI 可自托管执行；Cloud 为托管服务；整体是”开源客户端 + 闭源服务”的混合模式。</p>
+<p><strong>关键取舍</strong>：云端并行是它最强的差异化，但也是最大的约束——<strong>你的代码要出网</strong>。金融、军工、部分医疗场景直接出局。</p>
+<h3 id="2-3-Hermes：把”自我进化”当第一性原理的框架"><a href="#2-3-Hermes：把”自我进化”当第一性原理的框架" class="headerlink" title="2.3 Hermes：把”自我进化”当第一性原理的框架"></a>2.3 Hermes：把”自我进化”当第一性原理的框架</h3><p><strong>定位</strong>：Nous Research 于 2026 年 2 月发布的开源自改进 Agent 框架，slogan 是 “The agent that grows with you”。<strong>它不是编码工具</strong>，是一个带学习闭环的通用 Agent 运行时。</p>
+<p><strong>底层模型</strong>：不绑定。支持 Ollama 本地模型、OpenAI/Claude 系列、以及任意 OpenAI 兼容接口。这既是优点（隐私与成本可控），也是缺点（<strong>效果强依赖你接的模型</strong>，弱模型 + 自进化会放大错误）。</p>
+<p><strong>核心机制：学习闭环</strong></p>
+<p>它的差异点不在工具数量，而在”经验怎么沉淀”：</p>
+<ol>
+<li><strong>执行</strong> → 记录工具调用链与结果；</li>
+<li><strong>评估</strong> → 用反馈/结果判定这次任务的好坏；</li>
+<li><strong>抽象</strong> → 把成功的流程抽成可复用技能，写入技能库；</li>
+<li><strong>复用</strong> → 后续任务检索技能并加载。</li>
+</ol>
+<p>有公开分析指出其自进化环节结合了 GEPA 类的提示进化（生成变体 → 追踪表现 → 按适应度更新策略库），并配合复杂度筛选与反思抽象（<a href="https://www.php.cn/faq/2492201.html" target="_blank" rel="noopener">php.cn，2026-05-19</a>，属技术解读，非官方论文）。</p>
+<p><strong>核心能力</strong>：跨会话持久记忆、技能自动生成与复用、全平台消息网关（Telegram / 飞书 / 企业微信 / Slack / Discord）、工具调用、定时任务。</p>
+<p><strong>部署形态</strong>：自托管（你自己的服务器），数据不出内网。<strong>MIT 协议</strong>，可商用、可修改。</p>
+<p><strong>生态数据</strong>：2026 年 4 月公开报道为 17K Stars、207 位贡献者、上线两个月（<a href="https://www.woshipm.com/ai/6370531.html" target="_blank" rel="noopener">人人都是产品经理，2026-04-04</a>）；技能市场 agentskills.io 收录 131 个技能（72 内置 + 59 可选），覆盖 26+ 类别（<a href="https://www.woshipm.com/ai/6390626.html" target="_blank" rel="noopener">人人都是产品经理，2026-05-08</a>）。</p>
+<p><strong>关键取舍</strong>：MIT + 自托管 + 自进化，是研究和私有化场景的最优解；但**”自动生成的技能”没有强制验证器**，这是它最大的工程风险——错误流程会被固化进技能库，然后被反复调用。</p>
+<h3 id="2-4-OpenClaw：把-Agent-做成”个人基础设施”"><a href="#2-4-OpenClaw：把-Agent-做成”个人基础设施”" class="headerlink" title="2.4 OpenClaw：把 Agent 做成”个人基础设施”"></a>2.4 OpenClaw：把 Agent 做成”个人基础设施”</h3><p><strong>定位</strong>：开源自托管 AI 助手/Agent 运行时，2025 年底由 Peter Steinberger 起手，2026 年 1 月下旬爆红（曾用名 ClawdBot、Moltbot）。现在的官方叙事是”你的助手，跑在你的设备上，出现在你的聊天软件里”。</p>
+<p><strong>底层模型</strong>：完全解耦。官方明确”Models and agent harnesses (Claude, Codex, local models) are plugins you can swap”——<strong>它甚至可以把 Claude Code、Codex 当成自己的 harness 插件</strong>。这是理解 OpenClaw 的关键：它卖的是<strong>编排层</strong>，不是模型能力。</p>
+<p><strong>架构</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Gateway</strong></td>
+<td>本地控制平面：会话、工具、事件、通道路由</td>
+</tr>
+<tr>
+<td><strong>Channels</strong></td>
+<td>Discord / iMessage / Slack / Teams / Telegram / WhatsApp 等 20+ 入口</td>
+</tr>
+<tr>
+<td><strong>Companion apps &amp; nodes</strong></td>
+<td>语音、Canvas、摄像头、屏幕、设备本地动作</td>
+</tr>
+<tr>
+<td><strong>Tools / Skills / Plugins</strong></td>
+<td>能力扩展，Plugin SDK + ClawHub 分发</td>
+</tr>
+<tr>
+<td><strong>Sandboxing</strong></td>
+<td>可选；默认主会话工具<strong>直接跑在宿主机</strong></td>
+</tr>
+</tbody></table>
+<p><strong>核心能力</strong>：多通道接入、持久化记忆与凭据本地存储、Skills（<code>SKILL.md</code>）、MCP、Code Mode、Workboard 会话管理、定时自动化、异地完整备份（可到 Cloudflare R2）。</p>
+<p>2026 年 10 月的 v2026.10.1（402 位贡献者、2425 PR、3055 commits）做了两个方向性更新（<a href="https://www.36kr.com/p/4022398856040328" target="_blank" rel="noopener">36氪/机器之心，2026-10-12</a>）：</p>
+<ul>
+<li><strong><code>skills_search</code> + <code>skills_read</code>**：不再把所有技能目录塞进 prompt，改为</strong>先检索、再按需读全文**。这是解决”技能数量 vs 上下文预算”矛盾的正确做法，值得所有做 skill 系统的团队抄。</li>
+<li><strong>MCP Apps</strong>：把 MCP 工具的交互界面直接开在聊天区旁边，人可以在表单里填参数、确认授权。</li>
+</ul>
+<p><strong>部署形态</strong>：纯本地自托管（macOS / Linux / Windows / Docker / Nix），MIT 协议，<strong>无付费层、无托管服务</strong>，由独立 501(c)(3) 基金会治理。企业侧有 OCE（OpenClaw Enterprise）控制平面，定位是”Agent 版的 Kubernetes”，目前未发 1.0，仅适合内部试点（<a href="https://news.qq.com/rain/a/20261014A07JR000" target="_blank" rel="noopener">腾讯新闻/至顶科技，2026-10-14</a>）。</p>
+<p><strong>关键取舍</strong>：能力上限极高（能读你的文件、跑你的命令、发你的消息），但<strong>权限也是真的高</strong>。官方 README 直接写了 “Tools run on the host for the main session unless you configure sandboxing”——这意味着默认配置下，一个提示注入就可能变成宿主机命令执行。NVIDIA 的 NemoClaw 用 OpenShell 做内核级沙箱、网络策略和审计日志，本质是在补这块（<a href="https://www.w3cschool.cn/ollamadocs/ollamadocs-integrations-nemoclaw.html" target="_blank" rel="noopener">w3cschool/Ollama 文档</a>）。</p>
+<h3 id="2-5-Manus：云端通用-Agent，编码只是手段"><a href="#2-5-Manus：云端通用-Agent，编码只是手段" class="headerlink" title="2.5 Manus：云端通用 Agent，编码只是手段"></a>2.5 Manus：云端通用 Agent，编码只是手段</h3><p><strong>定位</strong>：通用任务 Agent，产物导向。2025 年 3 月由中国团队 Monica.im（蝴蝶效应）发布，2025 年 10 月推出 Manus 1.5。</p>
+<p><strong>底层模型</strong>：不公开具体模型与调度策略。对外呈现的是”多智能体协作 + 云端虚拟机”的黑箱。</p>
+<p><strong>核心能力（Manus 1.5）</strong>：</p>
+<ul>
+<li><strong>全栈 Web 应用开发</strong>：对话式产出带持久化后端、数据库、用户认证、嵌入式 AI 的应用，不用离开平台处理托管与部署；</li>
+<li><strong>集成浏览器自测</strong>：启动应用、像真实用户一样交互、发现问题并自主修复——<strong>这是它最有价值的一环，因为它闭合了 verify loop</strong>；</li>
+<li><strong>研究 + 内容 + 图像 + 幻灯片的单上下文串联</strong>：一个任务里完成”调研 → 建站 → 分析数据 → 出 PPT”；</li>
+<li><strong>协作与资料库</strong>：多人共享会话，产物集中管理。</li>
+</ul>
+<p>官方称 1.5 架构使平均任务时长从 4 月的 15 分钟降到不足 4 分钟，内部基准任务质量 +15%、满意度 +6%；分 Manus-1.5 与 1.5-lite 两档，lite 全量开放、订阅用户有积分折扣（<a href="https://watcha.cn/products/manus15" target="_blank" rel="noopener">观猹产品页</a>）。</p>
+<p><strong>部署形态</strong>：纯 SaaS，云端虚拟机执行，<strong>不可本地部署</strong>。计费为订阅 + 积分/credits。</p>
+<p><strong>关键取舍</strong>：它优化的是”从想法到可交付物”的端到端时长，不是”在既有代码库里的精确变更”。所以它对<strong>绿地项目</strong>（从零开始）极强，对<strong>棕地项目</strong>（几十万行遗留系统）帮助有限——因为它没有你内网的仓库、CI、私有依赖。</p>
+<hr>
+<h2 id="3-六维横向对比"><a href="#3-六维横向对比" class="headerlink" title="3. 六维横向对比"></a>3. 六维横向对比</h2><h3 id="3-1-总表"><a href="#3-1-总表" class="headerlink" title="3.1 总表"></a>3.1 总表</h3><blockquote>
+<p>下表中”技术事实”列来自公开资料（截至 2026-11-11）；”评估”列为主观工程判断，5 分制，仅供方向参考。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Claude Code</th>
+<th>Codex</th>
+<th>Hermes</th>
+<th>OpenClaw</th>
+<th>Manus</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>本地部署友好度</strong></td>
+<td>3（本地执行，harness 闭源）</td>
+<td>4（CLI 开源 Apache-2.0；云依赖）</td>
+<td>5（服务器自托管，MIT）</td>
+<td>5（本机自托管，MIT）</td>
+<td>1（纯 SaaS）</td>
+</tr>
+<tr>
+<td><strong>长代码库理解</strong></td>
+<td>5</td>
+<td>5</td>
+<td>2–3（取决于接入模型）</td>
+<td>2–3（取决于 harness/模型）</td>
+<td>2（无法访问私有仓库）</td>
+</tr>
+<tr>
+<td><strong>工具调用</strong></td>
+<td>5（MCP + Hooks + Skills）</td>
+<td>5（MCP + 沙箱 + 并行）</td>
+<td>4（MCP 生态 + 自生成技能）</td>
+<td>5（MCP + Plugins + ClawHub）</td>
+<td>3（内置工具为主，扩展性弱）</td>
+</tr>
+<tr>
+<td><strong>调试能力</strong></td>
+<td>5（跑测试/读 CI/git 操作）</td>
+<td>5（云端跑测 + PR 自审）</td>
+<td>3（能跑命令，缺专用验证层）</td>
+<td>3–4（Code Mode + 沙箱可选）</td>
+<td>4（浏览器自测是亮点，但沙箱不可控）</td>
+</tr>
+<tr>
+<td><strong>上下文策略</strong></td>
+<td>compaction + subagent + skills 渐进加载</td>
+<td>云端任务隔离 + 大窗口</td>
+<td>持久记忆 + 技能复用</td>
+<td>技能检索按需加载 + 会话管理</td>
+<td>单任务窗口扩展</td>
+</tr>
+<tr>
+<td><strong>开源协议</strong></td>
+<td>闭源</td>
+<td>CLI/Apache-2.0（服务闭源）</td>
+<td>MIT</td>
+<td>MIT</td>
+<td>闭源 SaaS</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-本地部署友好度：不只是”能不能装”"><a href="#3-2-本地部署友好度：不只是”能不能装”" class="headerlink" title="3.2 本地部署友好度：不只是”能不能装”"></a>3.2 本地部署友好度：不只是”能不能装”</h3><p>这个维度要拆成三问，答案经常不一致：</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>Claude Code</th>
+<th>Codex CLI</th>
+<th>Hermes</th>
+<th>OpenClaw</th>
+<th>Manus</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>代码是否出你的机器？</td>
+<td>否（推理走 API）</td>
+<td>CLI 否；Cloud <strong>是</strong></td>
+<td>否（可全本地模型）</td>
+<td>否（可全本地模型）</td>
+<td><strong>是</strong></td>
+</tr>
+<tr>
+<td>能否离线/内网跑？</td>
+<td>否</td>
+<td>否</td>
+<td>可（配 Ollama）</td>
+<td>可（配 Ollama/vLLM）</td>
+<td>否</td>
+</tr>
+<tr>
+<td>能否改行为逻辑？</td>
+<td>否（只能配 hooks/skills）</td>
+<td>CLI 可改（开源）</td>
+<td>可改（MIT）</td>
+<td>可改（MIT）</td>
+<td>否</td>
+</tr>
+</tbody></table>
+<p><strong>关键判断</strong>：真正决定”能不能进内网”的不是客户端是否开源，而是<strong>推理是否必须走公网</strong>。Codex CLI 开源但依赖 OpenAI API；Hermes/OpenClaw 开源且能接 Ollama，才算完整的内网方案。但要注意——<strong>本地模型的能力折损是真实的</strong>，用 7B/14B 模型跑 OpenClaw，体验和接 Claude 差一个量级。选”本地”之前先想清楚：你要的是合规，还是省钱？两者结论可能相反。</p>
+<h3 id="3-3-长代码库理解：三条技术路线"><a href="#3-3-长代码库理解：三条技术路线" class="headerlink" title="3.3 长代码库理解：三条技术路线"></a>3.3 长代码库理解：三条技术路线</h3><p>这是编码 Agent 最核心的能力，业内实际有三条路线，各自代价不同：</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>代表</th>
+<th>机制</th>
+<th>优势</th>
+<th>短板</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Agentic Search（无索引）</strong></td>
+<td>Claude Code 主流用法</td>
+<td>LLM 自己 grep/glob/读文件，多轮收敛</td>
+<td>无索引漂移、结果可解释、隐私好、冷启动快</td>
+<td>依赖命名规范；仓库越乱越靠模型”猜”；轮次多则慢</td>
+</tr>
+<tr>
+<td><strong>语义索引</strong></td>
+<td>Cursor 类 IDE 产品</td>
+<td>代码切块 + embedding + 向量召回</td>
+<td>首轮召回快，跨文件语义匹配强</td>
+<td>索引需重建（分支切换、大 monorepo 是痛点）；有隐私顾虑</td>
+</tr>
+<tr>
+<td><strong>云端仓库快照 + 并行任务</strong></td>
+<td>Codex Cloud</td>
+<td>云端完整 clone、装依赖、跑测试</td>
+<td>环境一致性最好，可并行 N 个任务</td>
+<td>首次环境准备慢；依赖出网</td>
+</tr>
+</tbody></table>
+<p>Claude Code 选 1 是刻意的：Anthropic 多次表达过”不做索引”的立场，理由是<strong>索引会漂移、会过时，而 grep 的结果永远是真的</strong>。工程上的实际差异是：</p>
+<ul>
+<li>单文件/邻近文件任务：三者差别不大；</li>
+<li>跨 20 个文件追一条调用链：agentic search 的轮次成本显著上升，索引方案更快；</li>
+<li>重命名混乱、无类型标注的遗留仓库：agentic search 容易漏，索引的语义召回更有优势。</li>
+</ul>
+<p><strong>结论</strong>：没有普适最优。<strong>代码规范好、类型完整的仓库，agentic search 性价比最高；命名混乱的老仓库，先补类型和命名，比换工具收益大。</strong></p>
+<h3 id="3-4-工具调用：MCP-收敛了接口，没收敛”流程”"><a href="#3-4-工具调用：MCP-收敛了接口，没收敛”流程”" class="headerlink" title="3.4 工具调用：MCP 收敛了接口，没收敛”流程”"></a>3.4 工具调用：MCP 收敛了接口，没收敛”流程”</h3><p>2025–2026 年最大的变化是<strong>工具层协议收敛到 MCP</strong>。五个里至少四个支持 MCP（Claude Code、Codex、OpenClaw、Hermes），这意味着”接一个内部系统”这件事的成本从”每家写一个适配器”降到”写一个 MCP server”。</p>
+<p>但要分清两个层次：</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>解决什么</th>
+<th>代表机制</th>
+<th>是否已标准化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>工具层</strong></td>
+<td>单个原子能力怎么暴露</td>
+<td>MCP</td>
+<td>事实标准</td>
+</tr>
+<tr>
+<td><strong>流程层</strong></td>
+<td>一串动作怎么复用</td>
+<td>Skills / Commands / Workflow</td>
+<td><strong>未标准化</strong>，各家方言</td>
+</tr>
+</tbody></table>
+<p>这正是 OpenClaw 和 Claude Code 都在做 Skills 的原因：<strong>MCP 让你有更多工具，Skills 让你不必每次重新组织工具</strong>。而工具越多，选择准确率越低——所以 OpenClaw 在 2026.10 把技能目录改成 <code>skills_search</code> 按需检索，方向是对的。</p>
+<p>一个反直觉的工程结论：<strong>接 50 个 MCP server 的 Agent 不一定比接 5 个的强</strong>。工具描述占上下文、选择空间变大、错误调用率上升。工具集要做”策展”，不是”堆砌”。</p>
+<h3 id="3-5-调试能力：能不能闭合-verify-loop"><a href="#3-5-调试能力：能不能闭合-verify-loop" class="headerlink" title="3.5 调试能力：能不能闭合 verify loop"></a>3.5 调试能力：能不能闭合 verify loop</h3><p>“调试能力”不是”能不能改 bug”，而是<strong>Agent 能否自己确认改对了</strong>。这决定了长任务的收敛性。</p>
+<table>
+<thead>
+<tr>
+<th>验证手段</th>
+<th>Claude Code</th>
+<th>Codex</th>
+<th>Hermes</th>
+<th>OpenClaw</th>
+<th>Manus</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>跑单测/构建</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅（需配）</td>
+<td>✅（需配）</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>读 CI 日志</td>
+<td>✅</td>
+<td>✅（GitHub 集成）</td>
+<td>⚠️ 需自建</td>
+<td>⚠️ 需自建</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>浏览器端自测</td>
+<td>⚠️ 需装 Playwright MCP</td>
+<td>⚠️ 需配</td>
+<td>⚠️ 需配</td>
+<td>⚠️ 需配</td>
+<td>✅ <strong>内置</strong></td>
+</tr>
+<tr>
+<td>提交前人工 diff 确认</td>
+<td>✅</td>
+<td>✅（IDE 形态最佳）</td>
+<td>⚠️</td>
+<td>⚠️</td>
+<td>❌（黑箱）</td>
+</tr>
+<tr>
+<td>失败回滚</td>
+<td>✅ checkpoint</td>
+<td>⚠️ 依赖 git</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+</tbody></table>
+<p>这是我认为<strong>Manus 最被低估、也最容易被高估</strong>的地方：内置浏览器自测确实闭合了”UI 改完到底对不对”这个环，对绿地 Web 项目价值极高；但它的执行在云端黑箱里，你看不到中间 diff，出问题只能重跑。<strong>verifier 强，可观测性弱</strong>。</p>
+<p>反过来 Claude Code 是<strong>verifier 弱一点（要自己配），可观测性强</strong>（每一步都能看、能中断、能回滚）。生产环境里，后者通常更重要——因为你需要为结果负责，而不只是拿到结果。</p>
+<h3 id="3-6-开源协议：MIT-和-Apache-2-0-的差别比想象中大"><a href="#3-6-开源协议：MIT-和-Apache-2-0-的差别比想象中大" class="headerlink" title="3.6 开源协议：MIT 和 Apache-2.0 的差别比想象中大"></a>3.6 开源协议：MIT 和 Apache-2.0 的差别比想象中大</h3><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>协议</th>
+<th>商用</th>
+<th>修改</th>
+<th>专利授权</th>
+<th>商标</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Claude Code</td>
+<td>闭源</td>
+<td>按订阅条款</td>
+<td>❌</td>
+<td>无</td>
+<td>Anthropic</td>
+<td>企业需看 DPA 与数据条款</td>
+</tr>
+<tr>
+<td>Codex CLI</td>
+<td><strong>Apache-2.0</strong></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ <strong>显式授予</strong></td>
+<td>不含商标</td>
+<td>含专利 retaliation 条款</td>
+</tr>
+<tr>
+<td>Hermes</td>
+<td><strong>MIT</strong></td>
+<td>✅</td>
+<td>✅</td>
+<td>❌ 无明示</td>
+<td>不含商标</td>
+<td>最宽松，法务最省事</td>
+</tr>
+<tr>
+<td>OpenClaw</td>
+<td><strong>MIT</strong></td>
+<td>✅</td>
+<td>✅</td>
+<td>❌ 无明示</td>
+<td>不含商标</td>
+<td>基金会治理（501(c)(3)）</td>
+</tr>
+<tr>
+<td>Manus</td>
+<td>闭源 SaaS</td>
+<td>按订阅条款</td>
+<td>❌</td>
+<td>无</td>
+<td>Manus</td>
+<td>数据处理在境外需评估</td>
+</tr>
+</tbody></table>
+<p><strong>给企业法务的三条实操建议</strong>：</p>
+<ol>
+<li><strong>有专利风险敞口的场景选 Apache-2.0 而非 MIT</strong>。MIT 不含专利授权条款，贡献者日后主张专利时你没有明示许可；Apache-2.0 第 3 条明确授予专利许可，并含 retaliation（你起诉别人专利侵权则授权终止）。Codex CLI 在这里更稳。</li>
+<li>**MIT 项目要注意”无担保”**。Hermes/OpenClaw 出问题，责任在你自己。</li>
+<li><strong>闭源产品的风险不在协议，在数据条款与可撤销性</strong>。订阅制意味着供应商可以改价、改模型、改配额，你的工作流会被动跟着变。</li>
+</ol>
+<hr>
+<h2 id="4-Vibe-Coding-辨析：被误读的不是输入，是验收"><a href="#4-Vibe-Coding-辨析：被误读的不是输入，是验收" class="headerlink" title="4. Vibe Coding 辨析：被误读的不是输入，是验收"></a>4. Vibe Coding 辨析：被误读的不是输入，是验收</h2><h3 id="4-1-它到底是什么"><a href="#4-1-它到底是什么" class="headerlink" title="4.1 它到底是什么"></a>4.1 它到底是什么</h3><p>2025 年 2 月，Andrej Karpathy 在 X 上发了那句话：</p>
+<blockquote>
+<p>“There’s a new kind of coding I call ‘vibe coding’, where you fully give in to the vibes, embrace exponentials, and forget that the code even exists.”</p>
+</blockquote>
+<p>2025 年底，Collins 词典把 Vibe Coding 选为年度词汇。到 2026 年 8 月，它已经走完了”狂欢 → 反思”的完整周期（<a href="https://www.woshipm.com/ai/6445209.html" target="_blank" rel="noopener">人人都是产品经理，2026-08-12</a>）。</p>
+<p>定义里其实有<strong>两个可分离的成分</strong>：</p>
+<ul>
+<li><strong>(a) 输入侧</strong>：用自然语言表达意图，而不是写代码；</li>
+<li><strong>(b) 验收侧</strong>：<strong>放弃阅读代码</strong>，”forget that the code even exists”，靠运行结果和感觉判断对错。</li>
+</ul>
+<p><strong>绝大多数争论混淆了这两者。</strong> 用 Claude Code 写代码、但每行 diff 都看过的人，做的是 (a) 而不是完整意义上的 Vibe Coding。<strong>判别标准是 (b)：你是否还愿意/能够为这段代码的正确性负责。</strong></p>
+<h3 id="4-2-与传统目标驱动式编码-Agent-的思路差异"><a href="#4-2-与传统目标驱动式编码-Agent-的思路差异" class="headerlink" title="4.2 与传统目标驱动式编码 Agent 的思路差异"></a>4.2 与传统目标驱动式编码 Agent 的思路差异</h3><p>先明确”目标驱动式”（goal-driven / verifier-driven）是什么：给定<strong>目标 + 可执行的验收条件</strong>，Agent 迭代直到验收通过。SWE-bench 式的任务、带单测的需求、CI 必须绿的 PR，都是这个范式。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>目标驱动式 Agent</th>
+<th>Vibe Coding</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>输入</strong></td>
+<td>目标 + 约束 + 验收标准</td>
+<td>感觉 + 模糊描述</td>
+</tr>
+<tr>
+<td><strong>验证者（verifier）</strong></td>
+<td>程序：单测、类型检查、CI、断言</td>
+<td><strong>人</strong>：看一眼、跑一下、觉得对</td>
+</tr>
+<tr>
+<td><strong>终止条件</strong></td>
+<td>验收通过（客观）</td>
+<td>“看起来行了”（主观）</td>
+</tr>
+<tr>
+<td><strong>失败可见性</strong></td>
+<td>高（测试红/绿）</td>
+<td>低（只有明显 bug 才暴露）</td>
+</tr>
+<tr>
+<td><strong>迭代成本</strong></td>
+<td>每次迭代有明确信号</td>
+<td>每次迭代靠人肉判断，易陷入”越改越乱”</td>
+</tr>
+<tr>
+<td><strong>适用生命周期</strong></td>
+<td>长期维护的生产系统</td>
+<td>短周期原型、一次性脚本、内部工具</td>
+</tr>
+<tr>
+<td><strong>对使用者的要求</strong></td>
+<td>会写验收标准</td>
+<td>会描述需求 + 能判断”跑起来对不对”</td>
+</tr>
+</tbody></table>
+<p>用一句话概括差异：</p>
+<blockquote>
+<p><strong>目标驱动式 Agent 把”对不对”交给程序判定；Vibe Coding 把”对不对”交给人的直觉判定。</strong></p>
+<p>前者可规模化（可并行、可自动回归），后者不可规模化（人的注意力是瓶颈）。</p>
+</blockquote>
+<h3 id="4-3-90-天崩溃曲线：机制解释"><a href="#4-3-90-天崩溃曲线：机制解释" class="headerlink" title="4.3 90 天崩溃曲线：机制解释"></a>4.3 90 天崩溃曲线：机制解释</h3><p>公开数据里有一组很值得警惕的观察：Y Combinator 2025 冬季批次中，21% 的团队代码库超过 91% 由 AI 生成；到第 90 天，其中 40%–60% 的团队发现”修一个 bug 会破坏另外三个功能”，冲刺产能被稳定化工作吞噬，原始速度优势完全消失（<a href="https://www.woshipm.com/ai/6445209.html" target="_blank" rel="noopener">人人都是产品经理，2026-08-12</a>）。</p>
+<p>这个曲线的机制不复杂，但常被归因为”模型不行”：</p>
+<ol>
+<li><strong>没有 verifier 的系统必然熵增</strong>。每加一个功能，隐含假设多一条，但没有测试把它钉住。</li>
+<li><strong>AI 代码的维护成本 ≈ 阅读成本</strong>。Vibe Coding 没有消除阅读成本，只是把它<strong>外部化到未来</strong>（”技术债”的现代版）。</li>
+<li><strong>耦合是隐式产生的</strong>。人类写代码时会本能地避免过度耦合（因为要自己维护）；Agent 只对当前 prompt 负责，天然倾向于”能跑就行”的实现。</li>
+<li><strong>人的记忆是瓶颈</strong>。Vibe Coding 依赖你记得”上次那个地方是怎么改的”，而这个记忆在 3 周后必然失效。</li>
+</ol>
+<p>所以 90 天不是玄学，是**”隐式假设 &gt; 显式约束”的临界点**。</p>
+<h3 id="4-4-适用场景：按”可验证性-×-生命周期”切"><a href="#4-4-适用场景：按”可验证性-×-生命周期”切" class="headerlink" title="4.4 适用场景：按”可验证性 × 生命周期”切"></a>4.4 适用场景：按”可验证性 × 生命周期”切</h3><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>生命周期短</strong></th>
+<th><strong>生命周期长</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>可验证性高</strong>（有测试/有明确 IO）</td>
+<td>✅ 非常适合 Vibe Coding（脚本、数据管道、内部工具）</td>
+<td>⚠️ 可以用，但要逐步补测试，转目标驱动</td>
+</tr>
+<tr>
+<td><strong>可验证性低</strong>（UI/交互/业务规则模糊）</td>
+<td>✅ 适合（原型、demo、一次性活动页）</td>
+<td>❌ <strong>高危</strong>（核心业务系统、金融/医疗逻辑）</td>
+</tr>
+</tbody></table>
+<p><strong>明确不适合 Vibe Coding 的四类</strong>：</p>
+<ol>
+<li><strong>有合规/审计要求的系统</strong>（金融、医疗、车控）——你无法为”没读过的代码”签字；</li>
+<li><strong>多人长期协作的代码库</strong>——风格与隐式约定会失控；</li>
+<li><strong>性能/资源敏感路径</strong>——“能跑”和”跑得动”差一个数量级；</li>
+<li><strong>安全边界相关代码</strong>（认证、加密、权限）——LLM 生成的这类代码是漏洞高发区。</li>
+</ol>
+<h3 id="4-5-第三条路：SDD（规范驱动开发）"><a href="#4-5-第三条路：SDD（规范驱动开发）" class="headerlink" title="4.5 第三条路：SDD（规范驱动开发）"></a>4.5 第三条路：SDD（规范驱动开发）</h3><p>2026 年一个明显的趋势是 <strong>Spec-Driven Development</strong> 的回归：先写规范（需求 + 验收标准 + 边界条件），再让 Agent 实现（<a href="https://juejin.cn/post/7662301751685677075" target="_blank" rel="noopener">掘金，2026-07-14</a>；<a href="https://juejin.cn/post/7633735779241000970" target="_blank" rel="noopener">掘金，2026-04-29</a>）。</p>
+<p>它的本质不是”新方法论”，而是<strong>把 verifier 前移</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Vibe Coding:     感觉 → 代码 → 跑一下 → 感觉不对 → 再改</span><br><span class="line">目标驱动 Agent:   目标 + 测试 → 代码 → 测试通过 → 结束</span><br><span class="line">SDD:            规范(含验收) → 代码 → 规范即验收 → 结束</span><br></pre></td></tr></table></figure>
+
+<p>SDD 解决的是<strong>目标驱动式 Agent 的前置成本问题</strong>：写测试比写 spec 贵，但写 spec 比”事后 debug”便宜。对 Coding Agent 尤其重要——**spec 是 Agent 唯一能稳定消费的”意图压缩包”**，比 20 轮对话澄清有效得多。</p>
+<p>我的工程判断：<strong>Vibe Coding 适合探索期，SDD 适合交付期，两者不是替代关系，是阶段关系。</strong> 争论”该不该 Vibe Coding”没有意义，真正的问题是”你现在在哪个阶段”。</p>
+<hr>
+<h2 id="5-选型建议"><a href="#5-选型建议" class="headerlink" title="5. 选型建议"></a>5. 选型建议</h2><h3 id="5-1-决策树（按约束排序，而不是按功能排序）"><a href="#5-1-决策树（按约束排序，而不是按功能排序）" class="headerlink" title="5.1 决策树（按约束排序，而不是按功能排序）"></a>5.1 决策树（按约束排序，而不是按功能排序）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">你的代码能不能出网？</span><br><span class="line">├── 不能 → 排除 Codex Cloud / Manus</span><br><span class="line">│         └── 需要完整内网 + 本地模型？</span><br><span class="line">│             ├── 是 → OpenClaw（工程量大、生态成熟）</span><br><span class="line">│             │        或 Hermes（自进化、生态早期）</span><br><span class="line">│             └── 否 → Claude Code（本地执行，推理走 API）</span><br><span class="line">│</span><br><span class="line">└── 能</span><br><span class="line">    ├── 主要工作是在既有大仓库里做精确变更？</span><br><span class="line">    │   ├── 是 → Claude Code / Codex（二选一，见 5.2）</span><br><span class="line">    │   └── 否</span><br><span class="line">    │       ├── 要从零交付一个能上线的应用/报告/PPT？</span><br><span class="line">    │       │   └── 是 → Manus</span><br><span class="line">    │       └── 要搭自己的 Agent 产品 / 做自进化研究？</span><br><span class="line">    │           └── 是 → Hermes（研究） / OpenClaw（产品化）</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-2-Claude-Code-vs-Codex：不是”谁更强”，是”你的组织长什么样”"><a href="#5-2-Claude-Code-vs-Codex：不是”谁更强”，是”你的组织长什么样”" class="headerlink" title="5.2 Claude Code vs Codex：不是”谁更强”，是”你的组织长什么样”"></a>5.2 Claude Code vs Codex：不是”谁更强”，是”你的组织长什么样”</h3><table>
+<thead>
+<tr>
+<th>你的情况</th>
+<th>建议</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>深度终端用户、单机开发、重视可控与可回滚</td>
+<td><strong>Claude Code</strong></td>
+<td>终端体验、checkpoint、hooks 的确定性管控最成熟</td>
+</tr>
+<tr>
+<td>团队已重度使用 GitHub + PR 流程</td>
+<td><strong>Codex</strong></td>
+<td>云端并行 + PR 自审 + AGENTS.md 与 GitHub 工作流贴合</td>
+</tr>
+<tr>
+<td>需要同时派发多个任务、机器会被关掉</td>
+<td><strong>Codex Cloud</strong></td>
+<td>云端持久环境，任务不依赖本地机器在线</td>
+</tr>
+<tr>
+<td>已有大量 Claude 订阅/合规审查通过</td>
+<td><strong>Claude Code</strong></td>
+<td>采购与合规路径已通，切换成本最低</td>
+</tr>
+<tr>
+<td>要审代码安全、做仓库级扫描</td>
+<td><strong>Codex（+ Security CLI）</strong></td>
+<td>有专门的开源安全扫描形态</td>
+</tr>
+<tr>
+<td>两者都想用</td>
+<td><strong>双轨</strong>：Claude Code 做探索与重构，Codex 做批量与 CI</td>
+<td>现实中不少团队就是这么干的，成本可接受</td>
+</tr>
+</tbody></table>
+<p>一个务实的观察：<strong>这两个产品的差异，在 80% 的日常任务上小于”你有没有写好 CLAUDE.md / AGENTS.md”带来的差异。</strong> 先把仓库约定文件写好、把测试跑通，再纠结工具。</p>
+<h3 id="5-3-场景-→-推荐组合"><a href="#5-3-场景-→-推荐组合" class="headerlink" title="5.3 场景 → 推荐组合"></a>5.3 场景 → 推荐组合</h3><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>首选</th>
+<th>备选</th>
+<th>关键理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单人全栈开发</td>
+<td>Claude Code</td>
+<td>Codex CLI</td>
+<td>上下文连续性 + 回滚</td>
+</tr>
+<tr>
+<td>团队 PR 流水线</td>
+<td>Codex</td>
+<td>Claude Code + CI</td>
+<td>云端并行、GitHub 原生</td>
+</tr>
+<tr>
+<td>遗留系统重构（10 万行+）</td>
+<td>Claude Code + subagents</td>
+<td>Codex Cloud</td>
+<td>需要隔离探索上下文、逐步验证</td>
+</tr>
+<tr>
+<td>从零做 MVP / 内部工具</td>
+<td>Manus</td>
+<td>Codex / Claude Code</td>
+<td>端到端交付，含部署与自测</td>
+</tr>
+<tr>
+<td>数据不出内网</td>
+<td>OpenClaw + 本地模型</td>
+<td>Hermes</td>
+<td>MIT + 可接 Ollama/vLLM</td>
+</tr>
+<tr>
+<td>私有化 + 自进化研究</td>
+<td>Hermes</td>
+<td>OpenClaw</td>
+<td>学习闭环是核心差异点</td>
+</tr>
+<tr>
+<td>企业规模化管控</td>
+<td>Codex/Claude Code + OCE</td>
+<td>自建网关</td>
+<td>需要命名空间隔离、凭据管理、审计</td>
+</tr>
+<tr>
+<td>非技术成员参与</td>
+<td>Manus</td>
+<td>—</td>
+<td>唯一不需要终端的选项</td>
+</tr>
+</tbody></table>
+<h3 id="5-4-各自的短板（选之前必须接受的代价）"><a href="#5-4-各自的短板（选之前必须接受的代价）" class="headerlink" title="5.4 各自的短板（选之前必须接受的代价）"></a>5.4 各自的短板（选之前必须接受的代价）</h3><table>
+<thead>
+<tr>
+<th>产品</th>
+<th>最痛的三点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Claude Code</strong></td>
+<td>① 强绑定 Claude，模型换代你做不了主；② 长任务 token 消耗大，成本不可预测；③ 无自托管，合规只能靠合同</td>
+</tr>
+<tr>
+<td><strong>Codex</strong></td>
+<td>① Cloud 必须出网；② 云端环境准备有冷启动成本；③ PR 由 Agent 生成后，<strong>审查负担转移到人</strong>，团队容易”看着像对就 merge”</td>
+</tr>
+<tr>
+<td><strong>Hermes</strong></td>
+<td>① 生态早期，技能质量参差；② 自进化缺强制验证器，错误会固化；③ 效果强依赖你接的模型</td>
+</tr>
+<tr>
+<td><strong>OpenClaw</strong></td>
+<td>① <strong>升级频繁破坏自定义工作流</strong>（社区真实抱怨）；② 默认宿主机权限，安全需自己兜；③ 插件/技能质量无门槛</td>
+</tr>
+<tr>
+<td><strong>Manus</strong></td>
+<td>① 纯黑箱，不可本地、不可审计；② 私有仓库/内网依赖基本无解；③ 积分计费，长任务失败重试成本不透明</td>
+</tr>
+</tbody></table>
+<h3 id="5-5-组合策略：两条被验证过的路径"><a href="#5-5-组合策略：两条被验证过的路径" class="headerlink" title="5.5 组合策略：两条被验证过的路径"></a>5.5 组合策略：两条被验证过的路径</h3><p><strong>路径 A：能力分层（推荐给 10 人以上团队）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Manus（探索 / 交付物） → Claude Code 或 Codex（实现） → CI + 人工 review（把关）</span><br></pre></td></tr></table></figure>
+
+<p>理由：探索期用容忍度高、产出快的工具；实现期用可控、可回滚的工具；把关期必须有程序化 verifier + 人。</p>
+<p><strong>路径 B：双 Agent 交叉验证（推荐给关键模块）</strong></p>
+<p>让 Claude Code 写实现，Codex 做 review（或反过来）。两个异构模型的盲区不重合，实测能捞出一批单模型自审漏掉的问题。代价是成本翻倍，只对核心模块值得。</p>
+<hr>
+<h2 id="6-工程踩坑点"><a href="#6-工程踩坑点" class="headerlink" title="6. 工程踩坑点"></a>6. 工程踩坑点</h2><h3 id="6-1-通用坑（与选哪个产品无关）"><a href="#6-1-通用坑（与选哪个产品无关）" class="headerlink" title="6.1 通用坑（与选哪个产品无关）"></a>6.1 通用坑（与选哪个产品无关）</h3><table>
+<thead>
+<tr>
+<th>坑</th>
+<th>表现</th>
+<th>修法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>把 Agent 当 autocomplete</strong></td>
+<td>只给一句话需求，期待它猜对</td>
+<td>给目标 + 约束 + 验收标准（SDD）</td>
+</tr>
+<tr>
+<td><strong>没有 verifier</strong></td>
+<td>改完不知道对不对，靠肉眼</td>
+<td>先补测试/类型检查/CI，再上 Agent</td>
+</tr>
+<tr>
+<td><strong>仓库约定文件缺失</strong></td>
+<td>每次都要重复交代规范</td>
+<td>写 <code>CLAUDE.md</code> / <code>AGENTS.md</code>，进版本库</td>
+</tr>
+<tr>
+<td><strong>上下文塞满</strong></td>
+<td>把所有文档贴进 prompt</td>
+<td>分层：常驻约定 &lt; 200 行；其余按需检索</td>
+</tr>
+<tr>
+<td><strong>自动批准所有命令</strong></td>
+<td><code>--dangerously-skip-permissions</code> 常态化</td>
+<td>白名单 + hook 拦截危险命令</td>
+</tr>
+<tr>
+<td><strong>benchmark 选型</strong></td>
+<td>按榜单分数决策</td>
+<td>用自己仓库的 20 个真实任务做 A/B</td>
+</tr>
+<tr>
+<td><strong>忽略缓存成本</strong></td>
+<td>每轮重排上下文，prompt cache 全 miss</td>
+<td>稳定前缀，易变内容放尾部</td>
+</tr>
+</tbody></table>
+<h3 id="6-2-分产品坑"><a href="#6-2-分产品坑" class="headerlink" title="6.2 分产品坑"></a>6.2 分产品坑</h3><p><strong>Claude Code</strong></p>
+<ul>
+<li><strong>CLAUDE.md 膨胀</strong>：写着写着变成 500 行，反而稀释注意力。控制在 100–200 行，只放”模型猜不到的东西”（构建命令、目录约定、禁忌）。</li>
+<li><strong>Subagent 黑箱</strong>：子 Agent 只回结论不给证据，主 Agent 无法校验。要求它回传”结论 + 依据文件 + 置信度”。</li>
+<li><strong>Hooks 写太狠</strong>：每个工具调用都跑一遍格式化 + lint，长任务直接卡死。只对写操作挂 hook。</li>
+<li><strong>跳过权限确认</strong>：省事，但一次提示注入就可能是 <code>rm -rf</code>。</li>
+</ul>
+<p><strong>Codex</strong></p>
+<ul>
+<li><strong>云端环境不一致</strong>：本地能跑、云端装不上依赖（私有包、系统库）。提前用容器固化环境。</li>
+<li><strong>PR 洪水</strong>：并行派发 10 个任务 → 10 个 PR → 没人认真看。限制并发数，强制”人审 + CI 双绿”。</li>
+<li><strong>AGENTS.md 与实际不符</strong>：写了但过期，Agent 会照着错的做。当成代码维护，改流程必须同步改它。</li>
+</ul>
+<p><strong>Hermes</strong></p>
+<ul>
+<li><strong>技能库污染</strong>：自动生成的技能没有验证，错的一次成功就被固化。加”技能准入”：必须带样例输入输出 + 通过一次回归。</li>
+<li><strong>自进化不可控</strong>：策略库在你不注意时漂移。定期导出 diff 审计。</li>
+<li><strong>弱模型放大错误</strong>：本地小模型 + 自进化 = 错误自我强化。要么用强模型，要么关掉自动演化。</li>
+</ul>
+<p><strong>OpenClaw</strong></p>
+<ul>
+<li><strong>升级破坏工作流</strong>：这是社区最集中的抱怨——几乎每次升级都要修环境，有人因此转向托管产品（<a href="https://www.36kr.com/p/4022398856040328" target="_blank" rel="noopener">36氪，2026-10-12</a>）。<strong>锁版本 + 升级前备份 + 在测试机先跑一周</strong>，不要追最新。</li>
+<li><strong>默认宿主机权限</strong>：官方明确主会话工具直接跑在宿主机。开沙箱，或至少用独立用户 + 容器。</li>
+<li><strong>多通道路由混乱</strong>：同时接 5 个聊天软件后，会话串线、权限错配。按通道划分 workspace。</li>
+<li><strong>token 成本失控</strong>：常驻 Agent + 高频消息 = 账单不可预测。设日预算上限。</li>
+</ul>
+<p><strong>Manus</strong></p>
+<ul>
+<li><strong>长任务失败成本</strong>：跑到 90% 失败，重试要重花积分。把大任务拆成可交付的小段。</li>
+<li><strong>不可审计</strong>：出问题看不到中间过程。关键产物要求它输出变更说明与验证记录。</li>
+<li><strong>数据边界</strong>：上传的仓库/数据在云端，先过一遍合规。</li>
+</ul>
+<h3 id="6-3-一条被低估的踩坑：把”工具数量”当能力"><a href="#6-3-一条被低估的踩坑：把”工具数量”当能力" class="headerlink" title="6.3 一条被低估的踩坑：把”工具数量”当能力"></a>6.3 一条被低估的踩坑：把”工具数量”当能力</h3><p>OpenClaw 装了 80 个 skill、Claude Code 接了 30 个 MCP server——结果是<strong>选择准确率下降 + 上下文被描述占满</strong>。判断标准应该是：<strong>最近 30 天真正被调用过的工具/技能有几个</strong>，其余的归档。工具集的健康度看”命中率”，不看”库存量”。</p>
+<hr>
+<h2 id="7-小结"><a href="#7-小结" class="headerlink" title="7. 小结"></a>7. 小结</h2><ol>
+<li><strong>这五者不在同一生态位。</strong> Claude Code / Codex 是垂直编码产品，比的是 harness 打磨程度；OpenClaw / Hermes 是可自托管的 Agent 运行时，比的是编排能力与生态；Manus 是通用任务 Agent，比的是端到端交付。<strong>跨生态位比”谁更强”没有意义。</strong></li>
+<li><strong>决定编码 Agent 体验的是 harness，不是模型分数。</strong> 同一模型换 harness，长任务成功率能差数十个百分点。榜单分数衡量的是”模型 + 官方 harness”，不是你的集成效果。</li>
+<li><strong>本地部署的真正判据是”推理是否出网”，不是客户端是否开源。</strong> 要内网就得接受本地模型的能力折损；两者不可兼得。</li>
+<li><strong>长代码库理解有三条路线，没有普适最优。</strong> 仓库规范好 → agentic search 性价比最高；命名混乱的老仓库 → 先补类型与命名，比换工具收益大。</li>
+<li><strong>MCP 收敛了工具层，没收敛流程层。</strong> 工具越多选择越难，工具集要策展不要堆砌；Skills 的价值在于”不必每次重组工具”。</li>
+<li><strong>调试能力的本质是能否闭合 verify loop。</strong> Manus 的浏览器自测很强但不可观测，Claude Code 的 verifier 要自己配但每一步可见可回滚——生产环境通常后者更重要。</li>
+<li><strong>Vibe Coding 的判别标准在验收侧，不在输入侧。</strong> 用自然语言写代码不算 Vibe Coding，<strong>放弃阅读代码、把 verifier 换成人眼</strong>才算。它的适用边界由”可验证性 × 生命周期”决定。</li>
+<li><strong>90 天崩溃不是模型问题，是”隐式假设超过显式约束”的临界点。</strong> Vibe Coding 没有消除阅读成本，只是把它外部化。</li>
+<li><strong>选型的正确顺序是：先定数据边界 → 再定工作流形态 → 最后才比功能。</strong> 反过来做，一定选到”功能最全但用不起来”的那个。</li>
+<li><strong>先写好 <code>CLAUDE.md</code>/<code>AGENTS.md</code>、把测试跑通，再纠结工具。</strong> 这两件事的收益，大于在 Claude Code 和 Codex 之间反复横跳。</li>
+</ol>
+<p>如果只留一句：<strong>编码 Agent 的上限由模型决定，下限由 harness 和 verifier 决定——而生产环境里，你感受到的几乎全是下限。</strong></p>
+<hr>
+<h3 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h3><p><strong>产品与官方资料</strong></p>
+<ul>
+<li>OpenClaw GitHub 仓库与 README（MIT 协议、Gateway 架构、模型/harness 插件化、sandboxing 说明）：<a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">https://github.com/openclaw/openclaw</a></li>
+<li>OpenClaw v2026.10.1 更新（skills_search / skills_read、MCP Apps）：<a href="https://www.36kr.com/p/4022398856040328" target="_blank" rel="noopener">36氪/机器之心，2026-10-12</a>；官方 release notes：<a href="https://docs.openclaw.ai/releases/2026.10.1" target="_blank" rel="noopener">https://docs.openclaw.ai/releases/2026.10.1</a></li>
+<li>OpenClaw 企业版 OCE 与 OCC 控制平面：<a href="https://news.qq.com/rain/a/20261014A07JR000" target="_blank" rel="noopener">腾讯新闻/至顶科技，2026-10-14</a></li>
+<li>NemoClaw（NVIDIA OpenShell 沙箱方案）：<a href="https://www.w3cschool.cn/ollamadocs/ollamadocs-integrations-nemoclaw.html" target="_blank" rel="noopener">https://www.w3cschool.cn/ollamadocs/ollamadocs-integrations-nemoclaw.html</a></li>
+<li>Manus 1.5 发布说明：<a href="https://watcha.cn/products/manus15" target="_blank" rel="noopener">观猹产品页</a></li>
+<li>Codex 四种形态（CLI / App / Cloud / IDE）：<a href="https://blog.csdn.net/vibecoding77/article/details/163241764" target="_blank" rel="noopener">CSDN，2026-07-27</a>（页面当前抓取受限，结论以 OpenAI 官方文档为准）</li>
+<li>Codex 可复用云端开发环境：<a href="https://www.pingwest.com/w/318035" target="_blank" rel="noopener">品玩/TechCrunch，2026-09-30</a></li>
+<li>Codex Security CLI（Apache-2.0）：<a href="https://www.oschina.net/news/481986" target="_blank" rel="noopener">OSCHINA，2026-07-29</a></li>
+<li>Claude Code 2.1 更新：<a href="https://news.qq.com/rain/a/20260109A02XTZ00" target="_blank" rel="noopener">腾讯新闻，2026-01-09</a></li>
+</ul>
+<p><strong>生态与分析</strong></p>
+<ul>
+<li>Hermes Agent 评测（17K stars / 207 贡献者 / MIT / 学习闭环）：<a href="https://www.woshipm.com/ai/6370531.html" target="_blank" rel="noopener">人人都是产品经理，2026-04-04</a></li>
+<li>Agent 框架图鉴（Hermes 技能市场 131 技能、Claude Code ARR 25 亿美元）：<a href="https://www.woshipm.com/ai/6390626.html" target="_blank" rel="noopener">人人都是产品经理，2026-05-08</a></li>
+<li>Hermes GEPA 自进化机制解读：<a href="https://www.php.cn/faq/2492201.html" target="_blank" rel="noopener">php.cn，2026-05-19</a></li>
+<li>Vibe Coding 全景（Collins 年度词、YC 90 天崩溃数据、2026 模型与 benchmark 现状）：<a href="https://www.woshipm.com/ai/6445209.html" target="_blank" rel="noopener">人人都是产品经理，2026-08-12</a></li>
+<li>Vibe Coding 与规格驱动开发：<a href="https://juejin.cn/post/7662301751685677075" target="_blank" rel="noopener">掘金，2026-07-14</a>；<a href="https://juejin.cn/post/7633735779241000970" target="_blank" rel="noopener">掘金，2026-04-29</a></li>
+<li>Claude Code vs Codex 使用体验与定价：<a href="https://www.zhiding.cn/ai-applications/2026/0813/3196196.shtml" target="_blank" rel="noopener">至顶网，2026-08-13</a></li>
+</ul>
+<blockquote>
+<p>说明：OpenClaw、Hermes 的 star 数与版本号在本文核对时（2026-11-11）已明显高于上表中的报道时点，引用时请以官方仓库为准；benchmark 数字来自二手汇总，仅作量级参考。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/agent/" rel="tag"># agent</a>
+              <a href="/tags/vibe-coding/" rel="tag"># vibe coding</a>
+              <a href="/tags/Claude-Code/" rel="tag"># Claude Code</a>
+              <a href="/tags/Codex/" rel="tag"># Codex</a>
+              <a href="/tags/Hermes/" rel="tag"># Hermes</a>
+              <a href="/tags/OpenClaw/" rel="tag"># OpenClaw</a>
+              <a href="/tags/Manus/" rel="tag"># Manus</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/07/01/rl-blog-final/" rel="prev" title="从 AlphaGo 到 LLM：强化学习的前世今生与大模型时代">
+      <i class="fa fa-chevron-left"></i> 从 AlphaGo 到 LLM：强化学习的前世今生与大模型时代
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/07/07/Mamba-vs-Transformer-时序建模路线对比/" rel="next" title="时序建模的四条路线：Transformer、Mamba、GRU 与 ODE 求解器">
+      时序建模的四条路线：Transformer、Mamba、GRU 与 ODE 求解器 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-坐标系：先分清”产品””运行时””通用-Agent”"><span class="nav-number">2.</span> <span class="nav-text">1. 坐标系：先分清”产品””运行时””通用 Agent”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-一张定位表"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 一张定位表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-分类带来的三个直接结论"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 分类带来的三个直接结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-一个容易忽略的事实：harness-比模型更决定体验"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 一个容易忽略的事实：harness 比模型更决定体验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-逐个拆解"><span class="nav-number">3.</span> <span class="nav-text">2. 逐个拆解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Claude-Code：把”工程闭环”做到极致的闭源终端"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 Claude Code：把”工程闭环”做到极致的闭源终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Codex：从-CLI-长成”四形态-云环境”"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Codex：从 CLI 长成”四形态 + 云环境”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Hermes：把”自我进化”当第一性原理的框架"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 Hermes：把”自我进化”当第一性原理的框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-OpenClaw：把-Agent-做成”个人基础设施”"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 OpenClaw：把 Agent 做成”个人基础设施”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-Manus：云端通用-Agent，编码只是手段"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 Manus：云端通用 Agent，编码只是手段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-六维横向对比"><span class="nav-number">4.</span> <span class="nav-text">3. 六维横向对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-总表"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 总表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-本地部署友好度：不只是”能不能装”"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 本地部署友好度：不只是”能不能装”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-长代码库理解：三条技术路线"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 长代码库理解：三条技术路线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-工具调用：MCP-收敛了接口，没收敛”流程”"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 工具调用：MCP 收敛了接口，没收敛”流程”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-调试能力：能不能闭合-verify-loop"><span class="nav-number">4.5.</span> <span class="nav-text">3.5 调试能力：能不能闭合 verify loop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-开源协议：MIT-和-Apache-2-0-的差别比想象中大"><span class="nav-number">4.6.</span> <span class="nav-text">3.6 开源协议：MIT 和 Apache-2.0 的差别比想象中大</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Vibe-Coding-辨析：被误读的不是输入，是验收"><span class="nav-number">5.</span> <span class="nav-text">4. Vibe Coding 辨析：被误读的不是输入，是验收</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-它到底是什么"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 它到底是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-与传统目标驱动式编码-Agent-的思路差异"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 与传统目标驱动式编码 Agent 的思路差异</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-90-天崩溃曲线：机制解释"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 90 天崩溃曲线：机制解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-适用场景：按”可验证性-×-生命周期”切"><span class="nav-number">5.4.</span> <span class="nav-text">4.4 适用场景：按”可验证性 × 生命周期”切</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-第三条路：SDD（规范驱动开发）"><span class="nav-number">5.5.</span> <span class="nav-text">4.5 第三条路：SDD（规范驱动开发）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-选型建议"><span class="nav-number">6.</span> <span class="nav-text">5. 选型建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-决策树（按约束排序，而不是按功能排序）"><span class="nav-number">6.1.</span> <span class="nav-text">5.1 决策树（按约束排序，而不是按功能排序）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Claude-Code-vs-Codex：不是”谁更强”，是”你的组织长什么样”"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 Claude Code vs Codex：不是”谁更强”，是”你的组织长什么样”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-场景-→-推荐组合"><span class="nav-number">6.3.</span> <span class="nav-text">5.3 场景 → 推荐组合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-各自的短板（选之前必须接受的代价）"><span class="nav-number">6.4.</span> <span class="nav-text">5.4 各自的短板（选之前必须接受的代价）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-组合策略：两条被验证过的路径"><span class="nav-number">6.5.</span> <span class="nav-text">5.5 组合策略：两条被验证过的路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-工程踩坑点"><span class="nav-number">7.</span> <span class="nav-text">6. 工程踩坑点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-通用坑（与选哪个产品无关）"><span class="nav-number">7.1.</span> <span class="nav-text">6.1 通用坑（与选哪个产品无关）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-分产品坑"><span class="nav-number">7.2.</span> <span class="nav-text">6.2 分产品坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-一条被低估的踩坑：把”工具数量”当能力"><span class="nav-number">7.3.</span> <span class="nav-text">6.3 一条被低估的踩坑：把”工具数量”当能力</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-小结"><span class="nav-number">8.</span> <span class="nav-text">7. 小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考来源"><span class="nav-number">8.1.</span> <span class="nav-text">参考来源</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">259</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

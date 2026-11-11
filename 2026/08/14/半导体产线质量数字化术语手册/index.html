@@ -1,0 +1,2046 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="这份术语表不是按字母序排的。因为懂这些词的关键不是记住定义，而是知道它们串成几条链——串错了链，AI 方案在 POC 阶段就会撞墙。  导语面向 AI 落地工程师，半导体产线有三个”看不懂”：  术语看不懂：ADC、OCAP、FDC 混着讲，不知道谁是谁的上游； 链路看不懂：拿到了设备数据，但不知道它该进 SPC 还是 FDC，也不知道异常之后谁接手； 边界看不懂：模型准确率 99%，工艺工程师">
+<meta name="keywords" content="半导体,产线数字化,术语介绍">
+<meta property="og:type" content="article">
+<meta property="og:title" content="半导体产线质量数字化术语手册：从 EAP 到 APQP，以及 AI 落在哪里">
+<meta property="og:url" content="https://imonce.github.io/2026/08/14/半导体产线质量数字化术语手册/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="这份术语表不是按字母序排的。因为懂这些词的关键不是记住定义，而是知道它们串成几条链——串错了链，AI 方案在 POC 阶段就会撞墙。  导语面向 AI 落地工程师，半导体产线有三个”看不懂”：  术语看不懂：ADC、OCAP、FDC 混着讲，不知道谁是谁的上游； 链路看不懂：拿到了设备数据，但不知道它该进 SPC 还是 FDC，也不知道异常之后谁接手； 边界看不懂：模型准确率 99%，工艺工程师">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2026-11-11T07:27:28.443Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="半导体产线质量数字化术语手册：从 EAP 到 APQP，以及 AI 落在哪里">
+<meta name="twitter:description" content="这份术语表不是按字母序排的。因为懂这些词的关键不是记住定义，而是知道它们串成几条链——串错了链，AI 方案在 POC 阶段就会撞墙。  导语面向 AI 落地工程师，半导体产线有三个”看不懂”：  术语看不懂：ADC、OCAP、FDC 混着讲，不知道谁是谁的上游； 链路看不懂：拿到了设备数据，但不知道它该进 SPC 还是 FDC，也不知道异常之后谁接手； 边界看不懂：模型准确率 99%，工艺工程师">
+
+<link rel="canonical" href="https://imonce.github.io/2026/08/14/半导体产线质量数字化术语手册/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>半导体产线质量数字化术语手册：从 EAP 到 APQP，以及 AI 落在哪里 | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/08/14/半导体产线质量数字化术语手册/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          半导体产线质量数字化术语手册：从 EAP 到 APQP，以及 AI 落在哪里
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-08-14 20:03:10" itemprop="dateCreated datePublished" datetime="2026-08-14T20:03:10+08:00">2026-08-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:27:28" itemprop="dateModified" datetime="2026-11-11T15:27:28+08:00">2026-11-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2026/08/14/半导体产线质量数字化术语手册/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/08/14/半导体产线质量数字化术语手册/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>这份术语表不是按字母序排的。因为<strong>懂这些词的关键不是记住定义，而是知道它们串成几条链</strong>——串错了链，AI 方案在 POC 阶段就会撞墙。</p>
+</blockquote>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>面向 AI 落地工程师，半导体产线有三个”看不懂”：</p>
+<ol>
+<li><strong>术语看不懂</strong>：ADC、OCAP、FDC 混着讲，不知道谁是谁的上游；</li>
+<li><strong>链路看不懂</strong>：拿到了设备数据，但不知道它该进 SPC 还是 FDC，也不知道异常之后谁接手；</li>
+<li><strong>边界看不懂</strong>：模型准确率 99%，工艺工程师一句”这个我不能签字”就打回来了。</li>
+</ol>
+<a id="more"></a>
+<p>本文按<strong>链路顺序</strong>重排 13 个术语，而不是按字母序。理由很简单：<strong>在半导体产线里，决定一个 AI 方案能不能落地的，往往不是算法，而是它挂在链路的哪个位置</strong>。</p>
+<blockquote>
+<p><strong>一个前置说明</strong>：这 13 个词里，12 个是半导体/质量管理术语，<code>Dify</code> 不是——它是 LLM 应用开发平台，出现在这份清单里说明受众在做”AI 应用层”的落地。本文会明确把它放在最后一节，并说明它和前面 12 个词的关系（以及不该有的关系）。</p>
+<p><strong>另一处诚实说明</strong>：<code>COA</code> 在半导体语境下有歧义（见 1.4）。本文按最常见的 <code>Certificate of Analysis</code> 展开，如果你的产线用它指别的东西，请以内部定义为准。</p>
+</blockquote>
+<hr>
+<h2 id="0-先定位：13-个术语分别在哪一层"><a href="#0-先定位：13-个术语分别在哪一层" class="headerlink" title="0. 先定位：13 个术语分别在哪一层"></a>0. 先定位：13 个术语分别在哪一层</h2><p>用 ISA-95 的分层先给出坐标系（这套分层的价值在于：<strong>跨层通信是产线数字化的主要成本来源</strong>）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">┌──────────────────────────────────────────────────────────────┐</span><br><span class="line">│ L4  ERP / 经营层                                              │</span><br><span class="line">│     APQP（先期质量策划，跨 L4-L3 的流程）                     │</span><br><span class="line">├──────────────────────────────────────────────────────────────┤</span><br><span class="line">│ L3  MES（制造执行）                                           │</span><br><span class="line">│     工单派发 · WIP 追踪 · 谱系(genealogy) · Recipe 管理       │</span><br><span class="line">│     SPC（过程控制，统计侧）· OCAP（异常处置）· 8D（问题闭环） │</span><br><span class="line">│     SOP（作业标准，跨 L3-L1 的文档）                          │</span><br><span class="line">├──────────────────────────────────────────────────────────────┤</span><br><span class="line">│ L2  EAP / SCADA（设备自动化与数据采集）                       │</span><br><span class="line">│     SECS/GEM 通信 · Recipe 上下载 · Trace 采集 · 告警         │</span><br><span class="line">│     FDC（设备侧实时监控，跨 L2-L3）                           │</span><br><span class="line">│     ADC（缺陷分类，跨 L2-L3）                                 │</span><br><span class="line">├──────────────────────────────────────────────────────────────┤</span><br><span class="line">│ L1  设备控制（PLC / 运动控制 / 工艺模块）                     │</span><br><span class="line">│     AOI（光学检测，在线设备）                                 │</span><br><span class="line">├──────────────────────────────────────────────────────────────┤</span><br><span class="line">│ L0  传感器 / 执行器                                           │</span><br><span class="line">│     DOE（实验设计，是方法论，不占某一层）                     │</span><br><span class="line">└──────────────────────────────────────────────────────────────┘</span><br><span class="line">                  ↕</span><br><span class="line">Dify（AI 应用层 / LLM 编排，横跨 L3-L4）</span><br></pre></td></tr></table></figure>
+
+<p>这张图最重要的信息是<strong>四个”跨层”标记</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>跨哪几层</th>
+<th>为什么跨层很重要</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>APQP</strong></td>
+<td>L4 ↔ L3</td>
+<td>它是”产品导入期的流程”，决定了后面所有控制项</td>
+</tr>
+<tr>
+<td><strong>FDC</strong></td>
+<td>L2 ↔ L3</td>
+<td>数据在设备侧，判定与处置在 MES 侧</td>
+</tr>
+<tr>
+<td><strong>ADC</strong></td>
+<td>L1 ↔ L3</td>
+<td>图像在设备侧，缺陷分类结果要进良率系统</td>
+</tr>
+<tr>
+<td><strong>SOP</strong></td>
+<td>L3 ↔ L1</td>
+<td>文档在系统里，执行在工位上</td>
+</tr>
+</tbody></table>
+<p><strong>跨层的术语，就是 AI 落地时最容易出问题的地方</strong>——因为数据、模型、决策权分属不同团队。</p>
+<hr>
+<h2 id="1-术语逐条拆（按链路顺序）"><a href="#1-术语逐条拆（按链路顺序）" class="headerlink" title="1. 术语逐条拆（按链路顺序）"></a>1. 术语逐条拆（按链路顺序）</h2><h3 id="1-1-MES：产线的”账本-调度台”"><a href="#1-1-MES：产线的”账本-调度台”" class="headerlink" title="1.1 MES：产线的”账本 + 调度台”"></a>1.1 MES：产线的”账本 + 调度台”</h3><p><strong>全称</strong>：Manufacturing Execution System，制造执行系统。</p>
+<p><strong>它做什么</strong>（不要只记”制造执行”，要记四件事）：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>具体内容</th>
+<th>没有它会怎样</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>工单与派工</strong></td>
+<td>哪个 lot 在哪台机台、用什么 recipe、什么优先级</td>
+<td>靠人喊，排产靠 Excel</td>
+</tr>
+<tr>
+<td><strong>WIP 追踪</strong></td>
+<td>每片/每批在制品的当前位置与状态</td>
+<td>找不到货，交期承诺不可信</td>
+</tr>
+<tr>
+<td><strong>谱系（Genealogy）</strong></td>
+<td>这片 wafer 经过了哪些机台、哪些腔体、哪些批次材料</td>
+<td><strong>出问题时无法界定受影响范围（召回/hold 范围算不出来）</strong></td>
+</tr>
+<tr>
+<td><strong>Recipe 管理</strong></td>
+<td>工艺配方的版本、审批、下发</td>
+<td>版本混乱，改错参数无人知</td>
+</tr>
+</tbody></table>
+<p><strong>半导体场景的特殊性</strong>：</p>
+<ul>
+<li><strong>Lot / Wafer / Die 三级粒度</strong>：MES 要同时管 batch（炉管 25 片一批）、single-wafer（单片处理）、die（封装前的单个芯片）；</li>
+<li><strong>Rework / 返工路径</strong>：不良品可以重工，重工后谱系要能追溯（不然良率分析会把重工品和正常品混在一起）；</li>
+<li><strong>Bank / Hold 机制</strong>：任何异常（SPC OOC、FDC alarm、设备故障）都会把 lot 置为 hold，等工程判断。<strong>这是”异常闭环”在系统上的物理落点。</strong></li>
+</ul>
+<p><strong>对 AI 工程师最重要的一点</strong>：<strong>MES 是”标签”的来源</strong>。你要做良率预测、缺陷归因，最终都要 join 回 MES 的谱系表才能知道”这片 wafer 走了哪条路径”。<strong>没有谱系，你的特征工程就只能做到”当前机台”这一层。</strong></p>
+<h3 id="1-2-EAP：设备与系统的”翻译官”"><a href="#1-2-EAP：设备与系统的”翻译官”" class="headerlink" title="1.2 EAP：设备与系统的”翻译官”"></a>1.2 EAP：设备与系统的”翻译官”</h3><p><strong>全称</strong>：Equipment Automation Program，设备自动化程序。</p>
+<p><strong>它是干什么的</strong>（一句话）：<strong>把设备的私有接口，翻译成 MES 能听懂的标准消息。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MES ──(标准命令)──&gt; EAP ──(SECS/GEM)──&gt; 设备</span><br><span class="line">                      ↑</span><br><span class="line">                 协议转换 + 状态机 + 数据缓存</span><br></pre></td></tr></table></figure>
+
+<p><strong>EAP 承担的六件事</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>通信协议栈</strong></td>
+<td>SECS-I / HSMS（TCP）、SECS-II（消息内容）、GEM（行为模型）</td>
+</tr>
+<tr>
+<td><strong>远程命令</strong></td>
+<td>MES 下发 START / STOP / PAUSE / RESUME / PP-SELECT</td>
+</tr>
+<tr>
+<td><strong>Recipe 管理</strong></td>
+<td>Recipe 上传/下载/比对（防止机台上跑的不是 MES 认为的那个版本）</td>
+</tr>
+<tr>
+<td><strong>数据采集</strong></td>
+<td>实时事件（event）、报警（alarm）、<strong>Trace 数据（传感器时序）</strong></td>
+</tr>
+<tr>
+<td><strong>状态上报</strong></td>
+<td>设备状态机（Idle / Running / Down / Engineering…）</td>
+</tr>
+<tr>
+<td><strong>载具/基板追踪</strong></td>
+<td>Carrier、Substrate 的位置与状态</td>
+</tr>
+</tbody></table>
+<p><strong>必须知道的 SEMI 标准编号</strong>（这是和这家客户对话的”入场券”）：</p>
+<table>
+<thead>
+<tr>
+<th>标准</th>
+<th>内容</th>
+<th>工程意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>E4</strong></td>
+<td>SECS-I（串口传输）</td>
+<td>老设备还在用</td>
+</tr>
+<tr>
+<td><strong>E37</strong></td>
+<td>HSMS（TCP/IP 传输）</td>
+<td>新设备主流</td>
+</tr>
+<tr>
+<td><strong>E5</strong></td>
+<td>SECS-II（消息语义、Stream/Function）</td>
+<td>例如 <code>S1F1</code> 是”你在吗”</td>
+</tr>
+<tr>
+<td><strong>E30</strong></td>
+<td>GEM（通用设备模型）</td>
+<td>定义了状态机、报警、变量、事件的标准行为</td>
+</tr>
+<tr>
+<td><strong>E40 / E94</strong></td>
+<td>Process Job / Control Job</td>
+<td>批次作业与控制的抽象</td>
+</tr>
+<tr>
+<td><strong>E87 / E90</strong></td>
+<td>Carrier / Substrate Tracking</td>
+<td>载具与基板追踪</td>
+</tr>
+<tr>
+<td><strong>E10 / E79</strong></td>
+<td>设备 RAM（可靠性/可用性/可维护性）、OEE</td>
+<td>设备效率指标的标准化定义</td>
+</tr>
+<tr>
+<td><strong>E116</strong></td>
+<td>EPT（设备性能追踪）</td>
+<td>更细的性能指标采集</td>
+</tr>
+</tbody></table>
+<p><strong>踩坑提醒（这一段是 AI 工程师最该看的）</strong>：</p>
+<ol>
+<li><strong>Trace 数据的采样率不统一</strong>。有的设备 1Hz，有的 10Hz，有的”事件触发式”（只在数值变化超过阈值时上报）。<strong>做时序模型前必须先做重采样与对齐</strong>，否则多机台的特征没法拼。</li>
+<li><strong>Timestamp 不可信</strong>。设备时钟与 MES 时钟常有秒级偏移，跨设备关联时会错位。要么做 NTP 同步，要么用”事件索引”而非绝对时间对齐。</li>
+<li><strong>Trace 变量名是设备厂商私有的</strong>。同一物理量（如腔体压力）在不同厂商设备上叫不同名字（<code>ChamberPressure</code> / <code>PRESS_CH</code> / <code>VAC_1</code>）。<strong>没有统一的变量字典，你的模型只能一台机器一个模型。</strong></li>
+<li><strong>不是所有设备都开 Trace</strong>。老设备可能只能采 event，拿不到时序。<strong>这决定了你的方案能不能规模化。</strong></li>
+</ol>
+<p><strong>一句话定位</strong>：EAP 是<strong>数据的地基</strong>。地基不稳（采样不齐、时间不同步、变量名不统一），上面的 FDC/SPC/AI 全是空中楼阁。</p>
+<h3 id="1-3-AOI：在线光学”找不同”"><a href="#1-3-AOI：在线光学”找不同”" class="headerlink" title="1.3 AOI：在线光学”找不同”"></a>1.3 AOI：在线光学”找不同”</h3><p><strong>全称</strong>：Automated Optical Inspection，自动光学检测。</p>
+<p><strong>机制</strong>（比”拍照找缺陷”要具体）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 成像：线扫相机/面阵相机 + 多角度光源（明场/暗场）</span><br><span class="line">2. 对准：与&quot;黄金参考&quot;（golden reference）做配准</span><br><span class="line">   - 类型 A：Die-to-Die（相邻 die 互比）</span><br><span class="line">   - 类型 B：Die-to-Database（与设计版图比）</span><br><span class="line">3. 差分：算图像差异，超阈值的区域标为&quot;缺陷候选&quot;（defect candidate）</span><br><span class="line">4. 输出：缺陷坐标 + 尺寸 + 图像 patch + 粗分类</span><br></pre></td></tr></table></figure>
+
+<p><strong>它最强的能力</strong>：<strong>快 + 全检</strong>。人眼看 1% 抽样，AOI 可以 100% 全检，且速度是人的几十倍。</p>
+<p><strong>它最大的问题（这是 AI 的第一个机会）</strong>：</p>
+<blockquote>
+<p><strong>AOI 的”缺陷候选”里，大量是误报（false call / nuisance）。</strong></p>
+</blockquote>
+<p>业界常见情况（<strong>范围性表述，随产品、工艺节点、算法版本差异极大</strong>）：AOI 报出的候选里，<strong>30%–70% 需要人工复判（review）才能确认是否真缺陷</strong>。</p>
+<p>这意味着：</p>
+<ul>
+<li>复判是<strong>人力瓶颈</strong>（一条先进封装线可能需要几十人做复判）；</li>
+<li>复判是<strong>一致性瓶颈</strong>（不同人判定不同）；</li>
+<li>复判是<strong>节拍瓶颈</strong>（AOI 几秒出一片，人看一片要几分钟）。</li>
+</ul>
+<p><strong>这个结构性矛盾，就是”AI 做误报过滤”的 ROI 来源</strong>。下面 4.1 会展开。</p>
+<h3 id="1-4-ADC：给缺陷”贴标签”"><a href="#1-4-ADC：给缺陷”贴标签”" class="headerlink" title="1.4 ADC：给缺陷”贴标签”"></a>1.4 ADC：给缺陷”贴标签”</h3><p><strong>全称</strong>：Automatic Defect Classification，自动缺陷分类。</p>
+<blockquote>
+<p><strong>术语歧义提示</strong>：在<strong>设备电气</strong>语境里，ADC 是 Analog-to-Digital Converter（模数转换器，EAP 采数据时常见）。在<strong>质量/检测</strong>语境里，ADC 是 Automatic Defect Classification。这两者同缩写不同物，看上下文区分。本文按后者讲。</p>
+</blockquote>
+<p><strong>它在链路里的位置</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AOI（或 e-beam 复检 SEM）→ 缺陷候选 → ADC → 缺陷类别（bin code）</span><br><span class="line">                                              ↓</span><br><span class="line">                                        良率分析 / 缺陷 Pareto / 根因</span><br></pre></td></tr></table></figure>
+
+<p><strong>两种技术路线</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>机制</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>RB-ADC</strong>（Rule-Based）</td>
+<td>用缺陷属性（尺寸、极性、灰度、位置、长宽比、邻域特征）做规则分类</td>
+<td>可解释、无需训练数据、稳定</td>
+<td>规则难覆盖长尾；换产品要重写规则</td>
+</tr>
+<tr>
+<td><strong>AI-ADC</strong>（Deep Learning）</td>
+<td>直接对缺陷图像 patch 做 CNN/ViT 分类</td>
+<td>可覆盖长尾、跨产品迁移</td>
+<td>需要标注数据；黑箱；类别不平衡严重</td>
+</tr>
+</tbody></table>
+<p><strong>关键工程点</strong>：</p>
+<ol>
+<li><strong>bin code 体系是客户定义的</strong>，不是通用的。同一类”颗粒”在不同 fab 可能分成三种 bin（按尺寸/位置/来源）。<strong>你的模型输出必须映射到客户的 bin 体系，否则结果无法进入既有报表。</strong></li>
+<li><strong>类别极度不平衡</strong>：常见缺陷（particle、scratch）占 90%+，致命缺陷（void、delamination）可能 &lt; 1%。<strong>用 accuracy 评估是自欺欺人，必须看 per-class recall + 混淆矩阵。</strong></li>
+<li><strong>标注质量决定上限</strong>。缺陷分类的标注依赖 SEM 复检 + 工程师判断，<strong>标注者间一致性（inter-annotator agreement）往往不高</strong>。做模型前先算一下标注一致性——如果 kappa &lt; 0.6，你的”99% 准确率”没有意义。</li>
+</ol>
+<h3 id="1-5-COA：材料的”体检报告”"><a href="#1-5-COA：材料的”体检报告”" class="headerlink" title="1.5 COA：材料的”体检报告”"></a>1.5 COA：材料的”体检报告”</h3><p><strong>全称</strong>：Certificate of Analysis，分析证书（也叫材质证明/检验报告）。</p>
+<blockquote>
+<p><strong>术语歧义提示</strong>：COA 在不同产线可能指不同东西。半导体/材料语境下最常见的是 Certificate of Analysis。<strong>请以你所在产线的内部定义为准。</strong> 本文按此展开，并在末尾给出它与 COC 的区别。</p>
+</blockquote>
+<p><strong>它是什么</strong>：供应商随批次（lot）提供的<strong>实测数据报告</strong>——不是”我保证符合”，而是”我测了，这是数值”。</p>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>材料批号</td>
+<td>供应商 lot ID（<strong>这是追溯的源头</strong>）</td>
+</tr>
+<tr>
+<td>规格项</td>
+<td>纯度、金属离子含量、颗粒数、粘度、水分、粒径分布…</td>
+</tr>
+<tr>
+<td>实测值 + 方法</td>
+<td>每个规格项的测量结果 + 测试方法（如 ICP-MS）</td>
+</tr>
+<tr>
+<td>判定</td>
+<td>Pass / Fail（对照规格上下限）</td>
+</tr>
+</tbody></table>
+<p><strong>它与 COC 的区别（很容易混）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>COA（Certificate of Analysis）</th>
+<th>COC（Certificate of Conformance）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>给什么</td>
+<td><strong>实测数值</strong> + 方法</td>
+<td><strong>符合性声明</strong>（”符合规格”）</td>
+</tr>
+<tr>
+<td>信息量</td>
+<td>高（可做趋势分析）</td>
+<td>低（只有结论）</td>
+</tr>
+<tr>
+<td>用途</td>
+<td>IQC 判定、SPC 入料监控、供应商对比</td>
+<td>合规存档</td>
+</tr>
+</tbody></table>
+<p><strong>对 AI 的价值（常被忽略）</strong>：</p>
+<p>COA 是<strong>唯一能提前拿到”上游材料变异”的数据</strong>。如果你的良率突然掉了，而 FDC/SPC 都没报警，<strong>第一个该查的就是近期 COA 里某个规格项有没有漂移</strong>。</p>
+<p><strong>落地要点</strong>：COA 通常是 <strong>PDF/Excel</strong>，格式各供应商不同。<strong>把它结构化成表（材料批号 → 规格项 → 实测值）是很多”良率归因”项目的第一步，也是最脏的一步。</strong></p>
+<h3 id="1-6-SPC：用统计判断”这算不算变了”"><a href="#1-6-SPC：用统计判断”这算不算变了”" class="headerlink" title="1.6 SPC：用统计判断”这算不算变了”"></a>1.6 SPC：用统计判断”这算不算变了”</h3><p><strong>全称</strong>：Statistical Process Control，统计过程控制。</p>
+<p><strong>核心思想</strong>（一句话）：<strong>区分”普通原因变异”和”特殊原因变异”。</strong></p>
+<ul>
+<li>普通原因（common cause）：工艺本身的固有波动，调它没用，要改工艺；</li>
+<li>特殊原因（special cause）：某个可归因的事件（设备偏移、材料批次、操作失误），<strong>必须找出来</strong>。</li>
+</ul>
+<p><strong>工具：控制图（Control Chart）</strong></p>
+<p>最常用三种：</p>
+<table>
+<thead>
+<tr>
+<th>图</th>
+<th>适用</th>
+<th>统计量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>X̄-R</strong>（均值-极差）</td>
+<td>子组抽样（如每批测 5 点）</td>
+<td>组均值 + 组内极差</td>
+</tr>
+<tr>
+<td><strong>I-MR</strong>（单值-移动极差）</td>
+<td>单件测量（半导体常见，因为 wafer 内测量点少）</td>
+<td>单值 + 相邻差</td>
+</tr>
+<tr>
+<td><strong>EWMA / CUSUM</strong></td>
+<td>检测<strong>微小但持续的偏移</strong></td>
+<td>指数加权 / 累积和</td>
+</tr>
+</tbody></table>
+<p><strong>控制限 vs 规格限（这是最常被混淆的一对）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>控制限（Control Limit）</th>
+<th>规格限（Spec Limit）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>来源</td>
+<td><strong>从数据算出来</strong>（±3σ）</td>
+<td><strong>客户/设计定义</strong></td>
+</tr>
+<tr>
+<td>含义</td>
+<td>过程”正常波动”的范围</td>
+<td>产品”能否接受”的边界</td>
+</tr>
+<tr>
+<td>超出后</td>
+<td>过程失控（OOC）→ 查原因</td>
+<td>产品不合格（OOS）→ 判废/返工</td>
+</tr>
+<tr>
+<td>谁定</td>
+<td>工艺工程师</td>
+<td>设计/客户</td>
+</tr>
+</tbody></table>
+<p><strong>关键洞察</strong>：<strong>控制限比规格限窄</strong>（正常情况）。如果控制限逼近甚至超过规格限，说明 <strong>Cpk 不够，工艺能力不足</strong>——这是”要改工艺”而不是”要调控制图”的信号。</p>
+<p><strong>能力指标</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Cp  = (USL − LSL) / (6σ_within)      # 潜在能力（不考虑居中）</span><br><span class="line">Cpk = min(USL−μ, μ−LSL) / (3σ_within)  # 实际能力（考虑居中）</span><br><span class="line">Pp/Ppk = 同上，但用 σ_overall           # 长期表现</span><br></pre></td></tr></table></figure>
+
+<p><strong>经验判据</strong>：Cpk ≥ 1.33 是量产门槛，≥ 1.67 是汽车/高可靠场景的常见要求。</p>
+<p><strong>判异规则</strong>：除了”超出 ±3σ”，还有 <strong>Nelson rules（8 条）/ Western Electric rules（4 条）</strong>，用来捕捉”没超限但形态异常”的模式：</p>
+<ul>
+<li>连续 7 点在中心线同侧（均值偏移）；</li>
+<li>连续 6 点递增/递减（趋势）；</li>
+<li>连续 14 点交替上下（系统性振荡）；</li>
+<li>2/3 点落在 ±2σ 外（接近失控）。</li>
+</ul>
+<p><strong>这 8 条规则是”规则引擎”的经典案例，也是 AI 最容易做出增益的地方</strong>——因为<strong>多条规则同时触发时，人工判断”到底是哪种异常”很费时</strong>（见 4.3）。</p>
+<h3 id="1-7-FDC：盯着设备的”心电图”"><a href="#1-7-FDC：盯着设备的”心电图”" class="headerlink" title="1.7 FDC：盯着设备的”心电图”"></a>1.7 FDC：盯着设备的”心电图”</h3><p><strong>全称</strong>：Fault Detection and Classification，故障检测与分类。</p>
+<p><strong>它与 SPC 的根本区别（这是全文最重要的一处辨析）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>SPC</th>
+<th>FDC</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>监控对象</strong></td>
+<td><strong>产品质量</strong>（量测结果：膜厚、CD、overlay）</td>
+<td><strong>设备状态</strong>（传感器时序：RF 功率、腔压、气体流量、温度）</td>
+</tr>
+<tr>
+<td><strong>数据来源</strong></td>
+<td>量测机台（metrology）</td>
+<td>设备自身的 trace 数据</td>
+</tr>
+<tr>
+<td><strong>采样节奏</strong></td>
+<td>批次级 / 每批几个点（<strong>滞后</strong>）</td>
+<td><strong>in-situ，秒级（实时）</strong></td>
+</tr>
+<tr>
+<td><strong>反馈速度</strong></td>
+<td>加工完 + 量测完才知道（可能几小时）</td>
+<td>加工<strong>过程中</strong>就能发现</td>
+</tr>
+<tr>
+<td><strong>典型异常</strong></td>
+<td>膜厚偏移、CD 漂移</td>
+<td>腔体漏气、RF 反射功率异常、气流不稳</td>
+</tr>
+<tr>
+<td><strong>处置</strong></td>
+<td>hold lot、重工</td>
+<td><strong>中止当前片</strong>（interlock / abort）</td>
+</tr>
+</tbody></table>
+<p><strong>一句话</strong>：<strong>SPC 是”事后体检”，FDC 是”术中监护”。</strong></p>
+<p><strong>FDC 的技术栈（三代）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>代际</th>
+<th>方法</th>
+<th>特点</th>
+<th>局限</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>第一代</strong></td>
+<td>单变量阈值 + 指纹比对（golden trace）</td>
+<td>简单、可解释</td>
+<td>漏报多；阈值难调；每 recipe 要单独设</td>
+</tr>
+<tr>
+<td><strong>第二代</strong></td>
+<td>多变量统计（PCA、Hotelling T²、SPE/DModX）</td>
+<td>能捕捉”单个正常、组合异常”</td>
+<td>假设近线性；漂移后要重训</td>
+</tr>
+<tr>
+<td><strong>第三代</strong></td>
+<td>深度学习（AutoEncoder、LSTM/TCN、对比学习）</td>
+<td>能建模复杂时序模式</td>
+<td>黑箱；样本不平衡；验证难</td>
+</tr>
+</tbody></table>
+<p><strong>FDC 的三个真实难点</strong>：</p>
+<ol>
+<li>** nuisance alarm（骚扰告警）**。阈值设太严 → 告警爆炸 → 工程师关掉告警 → 系统形同虚设。这是 FDC 项目失败的最主要原因。</li>
+<li><strong>跨机台差异</strong>。同型号机台的 trace 分布也有差异（腔体老化、部件更换）。**”一模一台”是常态**，做全局模型很难。</li>
+<li><strong>标签极稀疏</strong>。真实故障几百次里才有一次，<strong>有标签的故障更是少数</strong>。所以 FDC 的 AI 化通常是<strong>无监督异常检测</strong>，而不是分类。</li>
+</ol>
+<h3 id="1-8-SOP：正常时怎么做"><a href="#1-8-SOP：正常时怎么做" class="headerlink" title="1.8 SOP：正常时怎么做"></a>1.8 SOP：正常时怎么做</h3><p><strong>全称</strong>：Standard Operating Procedure，标准作业程序。</p>
+<p><strong>它的定位</strong>：**”正常路径”的说明书**。包括操作步骤、参数设定、安全注意事项、记录要求。</p>
+<p><strong>在半导体里的特殊要求</strong>：</p>
+<ul>
+<li><strong>版本受控</strong>：SOP 有版本号，改动要审批（变更管理）；</li>
+<li><strong>与 recipe 绑定</strong>：SOP 说”用 recipe A 的 2.1 版”，MES 要能校验；</li>
+<li><strong>培训记录</strong>：谁在什么时候培训过哪一版（审计要求）；</li>
+<li><strong>现场可得</strong>：工位上要能查到（纸质或电子）。</li>
+</ul>
+<p><strong>对 AI 的价值</strong>：SOP 是<strong>最容易被低估的知识资产</strong>。它包含了大量”工艺专家的隐性知识”（为什么要这样做、什么情况要停）。<strong>做 RAG 问答时，SOP 是最优质的语料</strong>（见 4.6）。</p>
+<h3 id="1-9-OCAP：异常时怎么做"><a href="#1-9-OCAP：异常时怎么做" class="headerlink" title="1.9 OCAP：异常时怎么做"></a>1.9 OCAP：异常时怎么做</h3><p><strong>全称</strong>：Out of Control Action Plan，失控行动计划。</p>
+<p><strong>它的定位</strong>：**”异常路径”的决策树<strong>——</strong>提前写好的 if-then**。</p>
+<p><strong>典型 OCAP 的内容结构</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">触发条件：SPC X̄ 图连续 7 点上升 / Cpk &lt; 1.33 / FDC alarm A-07</span><br><span class="line">  ↓</span><br><span class="line">Step 1：确认数据（是否量测错误？是否录入错误？）</span><br><span class="line">Step 2：立即动作（Hold lot / 停设备 / 通知谁）</span><br><span class="line">Step 3：排查清单（按可能性排序：查设备 → 查材料 → 查操作 → 查环境）</span><br><span class="line">Step 4：判定标准（什么情况放行、什么情况报废、什么情况升级）</span><br><span class="line">Step 5：记录要求（要填哪些字段、附哪些证据）</span><br><span class="line">Step 6：升级路径（多久没解决要找谁）</span><br></pre></td></tr></table></figure>
+
+<p><strong>OCAP 与 SOP 的关系</strong>（这是最容易混的一对）：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>SOP</th>
+<th>OCAP</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>覆盖场景</td>
+<td><strong>正常</strong></td>
+<td><strong>异常</strong></td>
+</tr>
+<tr>
+<td>触发</td>
+<td>按计划执行</td>
+<td>被事件触发（OOC / alarm）</td>
+</tr>
+<tr>
+<td>内容</td>
+<td>步骤、参数</td>
+<td><strong>判断、处置、升级</strong></td>
+</tr>
+<tr>
+<td>读者</td>
+<td>操作员</td>
+<td>工程师为主</td>
+</tr>
+<tr>
+<td>变更频率</td>
+<td>低</td>
+<td>中（每次 8D 后可能更新）</td>
+</tr>
+</tbody></table>
+<p><strong>一句话</strong>：<strong>SOP 是”怎么干”，OCAP 是”出事了怎么办”。</strong></p>
+<p><strong>OCAP 是 AI 落地的最佳切入点之一</strong>，原因很实在：<strong>它天然是决策树，而决策树是可以被学习、被检索、被自动匹配的</strong>。而且它的失败代价可控（AI 建议、人确认）。</p>
+<h3 id="1-10-8D：把一次异常变成不再发生"><a href="#1-10-8D：把一次异常变成不再发生" class="headerlink" title="1.10 8D：把一次异常变成不再发生"></a>1.10 8D：把一次异常变成不再发生</h3><p><strong>全称</strong>：Eight Disciplines，八项纪律（问题解决法）。</p>
+<p><strong>八个步骤</strong>（注意 D0 有时被单列）：</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>名称</th>
+<th>关键产出</th>
+<th>常见敷衍做法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>D0</strong></td>
+<td>应急反应</td>
+<td>临时措施</td>
+<td>跳过</td>
+</tr>
+<tr>
+<td><strong>D1</strong></td>
+<td>组建团队</td>
+<td>跨职能小组</td>
+<td>只拉自己部门</td>
+</tr>
+<tr>
+<td><strong>D2</strong></td>
+<td>描述问题</td>
+<td><strong>5W2H + 量化</strong>（多少片、什么时间、哪个腔体）</td>
+<td>“良率低了”（不可量化）</td>
+</tr>
+<tr>
+<td><strong>D3</strong></td>
+<td>临时遏制（ICA）</td>
+<td>隔离库存、加严检验</td>
+<td>只处理在制，忘了已出货</td>
+</tr>
+<tr>
+<td><strong>D4</strong></td>
+<td>根本原因（RCA）</td>
+<td>5Why + 鱼骨图 + <strong>验证</strong></td>
+<td>停在”操作员疏忽”</td>
+</tr>
+<tr>
+<td><strong>D5</strong></td>
+<td>永久纠正措施（PCA）</td>
+<td>选方案、评估风险</td>
+<td>只治标</td>
+</tr>
+<tr>
+<td><strong>D6</strong></td>
+<td>实施与验证</td>
+<td>数据证明有效</td>
+<td>改了就宣布完成</td>
+</tr>
+<tr>
+<td><strong>D7</strong></td>
+<td>预防再发</td>
+<td><strong>更新 SOP / OCAP / FMEA / 控制计划</strong></td>
+<td>忘掉这一步</td>
+</tr>
+<tr>
+<td><strong>D8</strong></td>
+<td>团队认可与关闭</td>
+<td>归档、横展到其他产线</td>
+<td>只关闭不横展</td>
+</tr>
+</tbody></table>
+<p><strong>D4 是最容易失败的一步</strong>，三个典型病症：</p>
+<ol>
+<li>**停在”人为失误”**：这不是根因，是”为什么人会容易犯这个错”的起点（防错设计、界面、培训、疲劳）；</li>
+<li><strong>没有验证根因</strong>：找到原因后要能”复现”（把原因加回去，问题重现）或”消除验证”（去掉原因，问题消失）；</li>
+<li><strong>单因假设</strong>：实际原因常是多因素叠加（设备微偏 + 材料批次 + 环境湿度），只改一个不够。</li>
+</ol>
+<p><strong>D7 是 AI 最有价值的一步</strong>（很少被这么用）：<strong>把 8D 的结论自动写回 OCAP / FMEA / 控制计划</strong>。这是”组织记忆”的落地方式——见 4.5。</p>
+<p><strong>8D 与 5Why、鱼骨图的关系</strong>：8D 是<strong>框架</strong>，5Why 和鱼骨图是 <strong>D4 里的工具</strong>。不要把它们并列。</p>
+<h3 id="1-11-DOE：用最少的实验找出参数窗口"><a href="#1-11-DOE：用最少的实验找出参数窗口" class="headerlink" title="1.11 DOE：用最少的实验找出参数窗口"></a>1.11 DOE：用最少的实验找出参数窗口</h3><p><strong>全称</strong>：Design of Experiments，实验设计。</p>
+<p><strong>它解决什么</strong>：工艺有 8 个参数，每个 3 个水平，全试一遍是 <code>3^8 = 6561</code> 次实验。<strong>DOE 用统计方法把次数压到几十次，还能分辨主效应和交互效应。</strong></p>
+<p><strong>四类设计（按用途）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>用途</th>
+<th>实验次数（8 因子为例）</th>
+<th>何时用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>全因子（Full Factorial）</strong></td>
+<td>精确估计所有主效应 + 交互</td>
+<td><code>2^8 = 256</code></td>
+<td>因子少（≤4）、要精细</td>
+</tr>
+<tr>
+<td><strong>部分因子（Fractional Factorial）</strong></td>
+<td>筛因子（哪些重要）</td>
+<td><code>2^(8-4) = 16</code></td>
+<td><strong>因子多、先做筛选</strong>（最常用）</td>
+</tr>
+<tr>
+<td><strong>Plackett-Burman</strong></td>
+<td>极快速筛（只估主效应）</td>
+<td>12</td>
+<td>因子很多（&gt;10）、预算极紧</td>
+</tr>
+<tr>
+<td><strong>响应曲面（RSM / CCD / Box-Behnken）</strong></td>
+<td>找最优点（不是找显著因子）</td>
+<td>20–50</td>
+<td>已筛出 2–3 个关键因子，要优化</td>
+</tr>
+</tbody></table>
+<p><strong>三个必须懂的统计概念</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>含义</th>
+<th>工程后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>混杂（Confounding）</strong></td>
+<td>部分因子设计里，高阶交互与主效应”绑”在一起</td>
+<td>如果真实存在强交互，会误判主效应</td>
+</tr>
+<tr>
+<td><strong>分辨率（Resolution）</strong></td>
+<td>III / IV / V，越高混杂越少</td>
+<td>RIII 主效应不与主效应混；RIV 主效应不与二阶交互混</td>
+</tr>
+<tr>
+<td><strong>区组（Blocking）</strong></td>
+<td>把”非研究因子”（如不同批次、不同天）分块</td>
+<td>不做区组，会把批次差异当成因子效应</td>
+</tr>
+</tbody></table>
+<p><strong>踩坑（AI 工程师特别容易犯）</strong>：</p>
+<ul>
+<li><strong>把 DOE 数据直接喂给模型做拟合</strong>：部分因子设计的数据是”稀疏、有混杂”的，<strong>直接做特征重要性会得到错误的结论</strong>（因为存在 alias）；</li>
+<li><strong>忽略中心点（center points）</strong>：中心点用来检验”是否存在曲率”，没有它就无法判断该不该上 RSM；</li>
+<li><strong>随机化（randomization）没做</strong>：不随机化，时间漂移会混进因子效应。</li>
+</ul>
+<p><strong>AI 与 DOE 的结合点</strong>：<strong>贝叶斯优化 / 主动学习</strong>。传统 DOE 是”一次性设计”，贝叶斯优化是”序贯设计”——每做一批实验，用结果更新代理模型，再选下一批最有信息量的点。<strong>这在实验成本极高（一片 wafer 几千美元）的场景下价值很大</strong>。</p>
+<h3 id="1-12-APQP：产品导入期的”质量总纲”"><a href="#1-12-APQP：产品导入期的”质量总纲”" class="headerlink" title="1.12 APQP：产品导入期的”质量总纲”"></a>1.12 APQP：产品导入期的”质量总纲”</h3><p><strong>全称</strong>：Advanced Product Quality Planning，先期质量策划。</p>
+<p><strong>出身</strong>：AIAG（美国汽车工业行动集团）的质量框架，配合 IATF 16949。<strong>半导体做车规（AEC-Q100/Q101）时几乎必然被客户要求。</strong></p>
+<p><strong>五个阶段与交付物</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>名称</th>
+<th>关键交付物</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>① 策划</strong></td>
+<td>Plan and Define Program</td>
+<td>客户需求、可靠性目标、<strong>初始 BOM/流程图</strong></td>
+</tr>
+<tr>
+<td><strong>② 产品设计</strong></td>
+<td>Product Design &amp; Development</td>
+<td><strong>DFMEA</strong>、设计验证计划（DVP&amp;R）、图纸</td>
+</tr>
+<tr>
+<td><strong>③ 过程设计</strong></td>
+<td>Process Design &amp; Development</td>
+<td><strong>PFMEA</strong>、<strong>控制计划（Control Plan）</strong>、MSA、过程流程图</td>
+</tr>
+<tr>
+<td><strong>④ 产品与过程确认</strong></td>
+<td>Product &amp; Process Validation</td>
+<td><strong>PPAP</strong> 提交、试生产、能力验证（Cpk）</td>
+</tr>
+<tr>
+<td><strong>⑤ 反馈与纠正</strong></td>
+<td>Feedback, Assessment &amp; Corrective Action</td>
+<td>量产监控、<strong>8D</strong>、持续改进</td>
+</tr>
+</tbody></table>
+<p><strong>两个必须知道的缩写</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>缩写</th>
+<th>全称</th>
+<th>是什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>PFMEA</strong></td>
+<td>Process FMEA</td>
+<td>过程失效模式分析：列出每个工序可能的失效、严重度(S)/频度(O)/探测度(D)，算 RPN</td>
+</tr>
+<tr>
+<td><strong>PPAP</strong></td>
+<td>Production Part Approval Process</td>
+<td>生产件批准程序：向客户提交的一整套证据包（通常 18 项）</td>
+</tr>
+</tbody></table>
+<p><strong>APQP 对 AI 落地的决定性作用（这是全文最关键的一条）</strong>：</p>
+<blockquote>
+<p><strong>APQP 阶段 ③ 产出的”控制计划”，定义了哪些参数进 SPC、哪些进 FDC、采样频率多少、失控时执行哪个 OCAP。</strong></p>
+</blockquote>
+<p>换句话说：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">APQP（策划）→ 控制计划（决策）→ SPC / FDC 的监控项（执行）</span><br><span class="line">                                    ↓ 异常</span><br><span class="line">                                 OCAP（处置）</span><br><span class="line">                                    ↓ 根因</span><br><span class="line">                                  8D（闭环）</span><br><span class="line">                                    ↓ D7</span><br><span class="line">                              更新 SOP / FMEA / 控制计划（回到 APQP）</span><br></pre></td></tr></table></figure>
+
+<p><strong>这就是”质量闭环”的完整链路。</strong> 而 AI 只要碰”监控项”或”判定规则”，就动到了控制计划——<strong>而控制计划是客户批准过的</strong>（见 5.1）。</p>
+<h3 id="1-13-Dify：AI-应用层，不属于产线栈"><a href="#1-13-Dify：AI-应用层，不属于产线栈" class="headerlink" title="1.13 Dify：AI 应用层，不属于产线栈"></a>1.13 Dify：AI 应用层，不属于产线栈</h3><p><strong>它是什么</strong>：开源的 LLM 应用开发平台（LLMOps）。核心能力：</p>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>可视化编排</strong></td>
+<td>拖拽式 workflow（LLM / 检索 / 条件分支 / 代码节点）</td>
+</tr>
+<tr>
+<td><strong>RAG pipeline</strong></td>
+<td>文档切分、向量化、检索、重排</td>
+</tr>
+<tr>
+<td><strong>Agent</strong></td>
+<td>工具调用、多步规划</td>
+</tr>
+<tr>
+<td><strong>模型管理</strong></td>
+<td>多模型接入、切换、参数配置</td>
+</tr>
+<tr>
+<td><strong>可观测</strong></td>
+<td>日志、trace、成本统计</td>
+</tr>
+<tr>
+<td><strong>发布</strong></td>
+<td>API / 内嵌页面</td>
+</tr>
+</tbody></table>
+<p><strong>它和前面 12 个词的关系</strong>：<strong>没有直接关系。</strong> 它不采集设备数据，不做 SPC，不控设备。</p>
+<p><strong>它真正的用途（在半导体场景里）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>用 Dify 做什么</th>
+<th>关键前提</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>SOP / OCAP 问答助手</strong></td>
+<td>把 SOP、OCAP、设备手册、历史 8D 灌进 RAG，让工程师用自然语言查</td>
+<td><strong>文档要结构化、版本要标注</strong></td>
+</tr>
+<tr>
+<td><strong>8D 报告起草</strong></td>
+<td>输入异常描述，生成 D8 初稿框架</td>
+<td>只能起草，不能定稿</td>
+</tr>
+<tr>
+<td><strong>良率异常初筛</strong></td>
+<td>结合规则引擎输出 + LLM 生成”可能原因清单”</td>
+<td><strong>必须有确定性工具做事实计算，LLM 只做归纳</strong></td>
+</tr>
+<tr>
+<td><strong>培训与考试</strong></td>
+<td>基于 SOP 生成问答对</td>
+<td>内容正确性要人工校验</td>
+</tr>
+</tbody></table>
+<p><strong>必须提醒的三点（这是”AI 应用层”最容易翻车的地方）</strong>：</p>
+<ol>
+<li><strong>不要把 LLM 当计算器</strong>。良率、Cpk、偏移量必须由确定性代码算，LLM 只解释结果。<strong>在工业场景，一个算错的数字比一个答不出的问题严重得多。</strong></li>
+<li><strong>RAG 的召回质量决定一切</strong>。如果 SOP 是扫描版 PDF、没有版本号、段落切得乱七八糟，RAG 会给出”看起来对但引用了过期版本”的答案。<strong>这是最危险的失败模式</strong>（因为答案读起来很合理）。</li>
+<li><strong>不要把 Dify 放进控制回路</strong>。它适合”人问它答”，不适合”它判断然后设备动作”。<strong>任何影响 lot 处置的决策，不能由 LLM 直接输出。</strong></li>
+</ol>
+<hr>
+<h2 id="2-三条数据流：把术语串成链"><a href="#2-三条数据流：把术语串成链" class="headerlink" title="2. 三条数据流：把术语串成链"></a>2. 三条数据流：把术语串成链</h2><p>术语背下来没用，**要能画出”数据从哪来、经过谁、到哪去”**。半导体产线其实只有三条流，它们在不同位置汇合。</p>
+<h3 id="2-1-流一：设备信号流（秒级，实时）"><a href="#2-1-流一：设备信号流（秒级，实时）" class="headerlink" title="2.1 流一：设备信号流（秒级，实时）"></a>2.1 流一：设备信号流（秒级，实时）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">设备传感器 (L0)</span><br><span class="line">   ↓ 模拟/数字信号</span><br><span class="line">设备控制器 (L1) —— 采样、闭环</span><br><span class="line">   ↓ SECS/GEM (E5/E30)</span><br><span class="line">EAP (L2) —— 协议转换、Trace 采集、时间戳</span><br><span class="line">   ↓ 消息队列 / 数据库</span><br><span class="line">FDC (L2-L3) —— 多变量模型、阈值判定</span><br><span class="line">   ↓ alarm</span><br><span class="line">MES (L3) —— Hold lot / 停设备</span><br><span class="line">   ↓</span><br><span class="line">OCAP —— 工程师按预案处置</span><br></pre></td></tr></table></figure>
+
+<p><strong>特点</strong>：<strong>高频、实时、以设备为中心</strong>。数据量最大（一台设备一天几个 GB 的 trace 很常见）。</p>
+<p><strong>AI 切入点</strong>：异常检测、虚拟量测、漂移预警。<strong>难点是标注稀疏 + 跨机台差异</strong>。</p>
+<h3 id="2-2-流二：质量测量流（批次级，滞后）"><a href="#2-2-流二：质量测量流（批次级，滞后）" class="headerlink" title="2.2 流二：质量测量流（批次级，滞后）"></a>2.2 流二：质量测量流（批次级，滞后）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">加工完成</span><br><span class="line">   ↓</span><br><span class="line">量测机台（metrology：膜厚/CD/overlay/defect review）</span><br><span class="line">   ↓ 测量结果（每批 5-25 个点）</span><br><span class="line">MES —— 与 lot 绑定，写谱系</span><br><span class="line">   ↓</span><br><span class="line">SPC (L3) —— 控制图、Cpk、Nelson rules</span><br><span class="line">   ↓ OOC</span><br><span class="line">OCAP —— 判定：放行 / 重工 / 报废 / 升级</span><br><span class="line">   ↓ 若根因不明</span><br><span class="line">8D —— D2 描述 → D4 根因 → D5-D6 措施 → D7 更新标准</span><br><span class="line">   ↓</span><br><span class="line">更新 SOP / 控制计划 / FMEA</span><br></pre></td></tr></table></figure>
+
+<p><strong>特点</strong>：<strong>低频、滞后、以产品为中心</strong>。数据量小（但每条都关键）。</p>
+<p><strong>AI 切入点</strong>：虚拟量测（用设备 trace 预测量测结果，<strong>把滞后变成实时</strong>）、Cpk 预测、OOC 归因。</p>
+<h3 id="2-3-流三：缺陷图像流（片级，准实时）"><a href="#2-3-流三：缺陷图像流（片级，准实时）" class="headerlink" title="2.3 流三：缺陷图像流（片级，准实时）"></a>2.3 流三：缺陷图像流（片级，准实时）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">AOI (L1) —— 成像、差分、出候选</span><br><span class="line">   ↓ 候选 patch + 坐标</span><br><span class="line">ADC (L1-L3) —— 分类（规则 or 模型）</span><br><span class="line">   ↓ bin code</span><br><span class="line">良率分析系统（Yield Management）—— 缺陷 Pareto、wafer map 聚类</span><br><span class="line">   ↓ 发现系统性缺陷</span><br><span class="line">8D / 根因分析 —— 查设备、查材料（COA）、查工艺</span><br><span class="line">   ↓</span><br><span class="line">更新检测配方 / 控制计划</span><br></pre></td></tr></table></figure>
+
+<p><strong>特点</strong>：<strong>中频、大文件（图像）、以缺陷为中心</strong>。</p>
+<p><strong>AI 切入点</strong>：<strong>误报过滤（最高 ROI）</strong>、缺陷分类、wafer map 图案识别。</p>
+<h3 id="2-4-三流如何汇合：一次真实的异常排查"><a href="#2-4-三流如何汇合：一次真实的异常排查" class="headerlink" title="2.4 三流如何汇合：一次真实的异常排查"></a>2.4 三流如何汇合：一次真实的异常排查</h3><p>假设良率突然掉了 2%。<strong>三流在这里汇合</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1. 良率系统发现某产品良率下降（流三：缺陷统计）</span><br><span class="line">   ↓</span><br><span class="line">2. 查 wafer map：缺陷集中在 wafer 边缘（图案识别）</span><br><span class="line">   ↓</span><br><span class="line">3. 查谱系（MES）：这批 wafer 都经过了 3 号刻蚀机的 B 腔</span><br><span class="line">   ↓</span><br><span class="line">4. 查 FDC（流一）：B 腔的 RF 反射功率在过去 3 天有缓慢上升</span><br><span class="line">   ↓</span><br><span class="line">5. 查 SPC（流二）：CD 量测的均值有 0.8nm 偏移，但还在控制限内（未触发 OOC）</span><br><span class="line">   ↓</span><br><span class="line">6. 查 COA：同期换了一批新的刻蚀气体，COA 显示水分含量在规格内但偏高</span><br><span class="line">   ↓</span><br><span class="line">7. 结论：气体水分 + 腔体老化 叠加 → RF 匹配变差 → 边缘刻蚀速率不均</span><br><span class="line">   ↓</span><br><span class="line">8. 8D：D5 换腔体部件 + 收紧气体 COA 的水分内控线</span><br><span class="line">   ↓</span><br><span class="line">9. D7：把&quot;RF 反射功率的斜率&quot;加入 FDC 监控项（原先只监控绝对值）</span><br><span class="line">       → 更新控制计划</span><br></pre></td></tr></table></figure>
+
+<p><strong>这个案例说明了三件事</strong>：</p>
+<ol>
+<li><strong>单看任何一条流都找不到根因</strong>——SPC 没报警（在限内），FDC 没报警（绝对值正常），只有”跨流关联”才发现；</li>
+<li>**AI 的机会在”跨流关联”**，而不是”把某一个模型做准”；</li>
+<li>**最终动作是”改控制计划”**——这解释了为什么 AI 落地的最大阻力在变更管理（见 5.1）。</li>
+</ol>
+<hr>
+<h2 id="3-上下游依赖关系与易混淆对照"><a href="#3-上下游依赖关系与易混淆对照" class="headerlink" title="3. 上下游依赖关系与易混淆对照"></a>3. 上下游依赖关系与易混淆对照</h2><h3 id="3-1-依赖图（谁决定谁）"><a href="#3-1-依赖图（谁决定谁）" class="headerlink" title="3.1 依赖图（谁决定谁）"></a>3.1 依赖图（谁决定谁）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[APQP] ──产出──&gt; [控制计划 Control Plan]</span><br><span class="line">                        │</span><br><span class="line">                        │ 定义：监控哪些参数 / 采样频率 / 失控执行哪个 OCAP</span><br><span class="line">                        ↓</span><br><span class="line">        ┌───────────────┴───────────────┐</span><br><span class="line">        ↓                               ↓</span><br><span class="line">[SPC] 产品质量侧                    [FDC] 设备状态侧</span><br><span class="line">控制图 / Cpk / Nelson rules         Trace 多变量 / 阈值 / 模型</span><br><span class="line">        ↓                               ↓</span><br><span class="line">   OOC / OOS                          alarm</span><br><span class="line">        └───────────────┬───────────────┘</span><br><span class="line">                        ↓</span><br><span class="line">                  [OCAP] 按预案处置</span><br><span class="line">                  放行 / 重工 / 报废 / 升级</span><br><span class="line">                        ↓ 若根因不明</span><br><span class="line">                   [8D] D1..D8</span><br><span class="line">                        ↓ D7 预防再发</span><br><span class="line">        更新 SOP / PFMEA / 控制计划 ──&gt; 回到 [APQP]（下一轮）</span><br><span class="line"></span><br><span class="line">注：[DOE] 独立于这条主链，它产出&quot;工艺窗口&quot;（规格限与中心值），</span><br><span class="line">    是 [控制计划] 的输入之一。</span><br></pre></td></tr></table></figure>
+
+<p><strong>三条硬依赖，记这三条就够</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>依赖</th>
+<th>含义</th>
+<th>违背的后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>APQP → 控制计划 → SPC/FDC</strong></td>
+<td>监控什么、怎么监控，是策划阶段定的</td>
+<td>如果 AI 想加监控项，必须走变更</td>
+</tr>
+<tr>
+<td><strong>DOE → 规格限/中心值</strong></td>
+<td>规格不是拍脑袋，是实验定出来的</td>
+<td>用错规格限，Cpk 算出来是假的</td>
+</tr>
+<tr>
+<td><strong>8D 的 D7 → 标准更新</strong></td>
+<td>闭环的终点是”标准变了”</td>
+<td>不改标准，同类问题必然复发</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-七对最容易混淆的术语"><a href="#3-2-七对最容易混淆的术语" class="headerlink" title="3.2 七对最容易混淆的术语"></a>3.2 七对最容易混淆的术语</h3><table>
+<thead>
+<tr>
+<th>对</th>
+<th>区别（一句话）</th>
+<th>混错的后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>SPC vs FDC</strong></td>
+<td>事后量产品 vs 术中看设备；批次级 vs 秒级</td>
+<td>用 SPC 的数据做实时控制（滞后几小时）；用 FDC 的数据做能力分析（trace 不是产品特性）</td>
+</tr>
+<tr>
+<td><strong>OCAP vs SOP</strong></td>
+<td>异常时怎么办 vs 正常时怎么做</td>
+<td>出事了查 SOP，查不到处置方案</td>
+</tr>
+<tr>
+<td><strong>AOI vs ADC</strong></td>
+<td>找”哪里有异常” vs 判”这是什么异常”</td>
+<td>以为上了 AOI 就有了分类能力，实际还要复判</td>
+</tr>
+<tr>
+<td><strong>控制限 vs 规格限</strong></td>
+<td>数据算的 vs 客户定的</td>
+<td>用规格限画控制图 → 永远不报警（限太宽）</td>
+</tr>
+<tr>
+<td><strong>8D vs 5Why</strong></td>
+<td>框架 vs 工具（5Why 在 D4 里）</td>
+<td>把 5Why 当完整方法论，做完没有防再发</td>
+</tr>
+<tr>
+<td><strong>APQP vs PPAP</strong></td>
+<td>过程（5 阶段） vs 交付物（证据包）</td>
+<td>以为交了 PPAP 就完成 APQP</td>
+</tr>
+<tr>
+<td><strong>COA vs COC</strong></td>
+<td>给数据 vs 给声明</td>
+<td>只留 COC，出问题时无法做趋势分析</td>
+</tr>
+</tbody></table>
+<h3 id="3-3-四组”看起来相关但无关”的术语"><a href="#3-3-四组”看起来相关但无关”的术语" class="headerlink" title="3.3 四组”看起来相关但无关”的术语"></a>3.3 四组”看起来相关但无关”的术语</h3><p>这一组更隐蔽，因为<strong>它们在中文字面上很像，但在系统里完全没有关系</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>组</th>
+<th>为什么容易混</th>
+<th>实际关系</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>MES vs EAP</strong></td>
+<td>都”管设备”</td>
+<td>MES 管工单与谱系（L3），EAP 管通信与采集（L2）。<strong>MES 不知道 SECS 消息长什么样，EAP 不知道 lot 的优先级</strong></td>
+</tr>
+<tr>
+<td><strong>FDC vs 良率分析</strong></td>
+<td>都在”发现异常”</td>
+<td>FDC 看<strong>实时设备信号</strong>，良率分析看<strong>累积的缺陷/量测统计</strong>。<strong>FDC 报警不等于良率会掉</strong>（反之亦然）</td>
+</tr>
+<tr>
+<td><strong>ADC vs 缺陷检测</strong></td>
+<td>都叫”检测”</td>
+<td>检测（inspection）是”发现异常像素”，分类（ADC）是”给它命名”。<strong>先检测后分类，是两个工序</strong></td>
+</tr>
+<tr>
+<td><strong>Dify vs MES</strong></td>
+<td>都”有工作流”</td>
+<td>Dify 的 workflow 是<strong>LLM 编排</strong>（prompt→检索→生成），MES 的 workflow 是<strong>物理批次流转</strong>。二者没有替代关系</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="4-六个-AI-落地机会（按-ROI-排序）"><a href="#4-六个-AI-落地机会（按-ROI-排序）" class="headerlink" title="4. 六个 AI 落地机会（按 ROI 排序）"></a>4. 六个 AI 落地机会（按 ROI 排序）</h2><p>排序依据不是”技术先进性”，而是 <strong>ROI = 收益 / （技术风险 × 变更成本）</strong>。</p>
+<h3 id="4-1-机会一：AOI-误报过滤（ROI-最高）"><a href="#4-1-机会一：AOI-误报过滤（ROI-最高）" class="headerlink" title="4.1 机会一：AOI 误报过滤（ROI 最高）"></a>4.1 机会一：AOI 误报过滤（ROI 最高）</h3><p><strong>为什么排第一</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>评估</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>痛点明确</td>
+<td>复判是人力瓶颈，30%–70% 的候选是误报（范围性表述）</td>
+</tr>
+<tr>
+<td>数据现成</td>
+<td>AOI 已经在存缺陷图像 + 坐标 + 设备参数，<strong>不需要新增采集</strong></td>
+</tr>
+<tr>
+<td>标签现成</td>
+<td>复判结果（工程师判 OK/NG）就是标签，<strong>已经存在系统里</strong></td>
+</tr>
+<tr>
+<td>评估明确</td>
+<td>“过滤掉多少误报 + 漏掉多少真缺陷”是一个清晰的权衡曲线</td>
+</tr>
+<tr>
+<td><strong>失败成本低</strong></td>
+<td><strong>AI 只做”减法”（把明显是误报的挑出来给人快速过），最坏情况是多留几条给人看</strong></td>
+</tr>
+<tr>
+<td>变更阻力小</td>
+<td>不改控制计划，只改”人看多少条”</td>
+</tr>
+</tbody></table>
+<p><strong>技术要点</strong>：</p>
+<ol>
+<li><strong>输入不只是图像</strong>：缺陷的坐标、尺寸、长宽比、灰度统计、以及<strong>该 die 的工艺参数</strong>都是有效特征；</li>
+<li><strong>不要做二分类，做排序</strong>。输出”这是误报的概率”，然后按阈值过滤——<strong>这样工程上可以调”放过多少”，而不是被迫在某个点上取舍</strong>；</li>
+<li><strong>按缺陷类型分组评估</strong>。整体误报率降低 50%，但某类致命缺陷的漏检上升——<strong>这是不可接受的，必须分组看</strong>；</li>
+<li><strong>必须能”拒绝判断”**。低置信度的样本直接送人工，</strong>不要强判**。</li>
+</ol>
+<p><strong>落地形态</strong>：AI 前置过滤 → 人工快速确认（从”逐条判”变成”批量确认”）→ 真缺陷进 ADC。</p>
+<h3 id="4-2-机会二：ADC-缺陷分类"><a href="#4-2-机会二：ADC-缺陷分类" class="headerlink" title="4.2 机会二：ADC 缺陷分类"></a>4.2 机会二：ADC 缺陷分类</h3><p><strong>为什么排第二</strong>：ROI 高，但<strong>比误报过滤多两个风险</strong>（类别不平衡 + 类别体系要映射）。</p>
+<p><strong>技术要点</strong>：</p>
+<ol>
+<li><strong>bin code 映射是第一步，不是最后一步</strong>。先和客户/工艺确认”你说的 bin 3 到底指什么”，再设计分类头；</li>
+<li><strong>用层次分类而非平铺分类</strong>：先分大类（particle / scratch / pattern / void），再分细类。<strong>这样新类别出现时可以只改子分类器</strong>；</li>
+<li><strong>少样本类用度量学习</strong>（prototypical network / triplet），因为致命缺陷样本天然少；</li>
+<li><strong>必须报混淆矩阵 + per-class recall</strong>，不能只报 accuracy；</li>
+<li><strong>模型不确定时输出”Unknown”**，让工程师归类——</strong>这比强行归类更有价值**（Unknown 的样本是下一轮标注的素材）。</li>
+</ol>
+<h3 id="4-3-机会三：FDC-异常检测（含”骚扰告警”治理）"><a href="#4-3-机会三：FDC-异常检测（含”骚扰告警”治理）" class="headerlink" title="4.3 机会三：FDC 异常检测（含”骚扰告警”治理）"></a>4.3 机会三：FDC 异常检测（含”骚扰告警”治理）</h3><p><strong>注意：这里的 ROI 不在”发现新故障”，而在”减少无效告警”。</strong></p>
+<p><strong>为什么</strong>：大多数 fab 已经有 FDC 系统，且<strong>工程师对告警的信任度已经被”告警爆炸”摧毁</strong>。你再加一个模型说”我发现了新异常”，大概率被忽略。</p>
+<p><strong>真正有价值的三个方向</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>方向</th>
+<th>做法</th>
+<th>收益</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>告警去重/聚合</strong></td>
+<td>把同一根因触发的 20 条告警合并成 1 条</td>
+<td>工程师处理量降 80%</td>
+</tr>
+<tr>
+<td><strong>自适应阈值</strong></td>
+<td>用历史数据自动算每台机台每变量的合理范围（而非全局固定阈值）</td>
+<td>减少 nuisance alarm</td>
+</tr>
+<tr>
+<td><strong>告警优先级排序</strong></td>
+<td>基于”历史上有多少告警最终导致 hold/报废”给告警打分</td>
+<td>让工程师先看重要的</td>
+</tr>
+</tbody></table>
+<p><strong>技术要点</strong>：</p>
+<ol>
+<li>**优先做”每机台一模型”而不是”全局模型”**。跨机台差异太大，全局模型在多数机台上都不准；</li>
+<li><strong>用无监督 + 少量标签</strong>（PU learning / 半监督）。异常样本极少，纯监督不可行；</li>
+<li><strong>可解释性是硬要求</strong>（见 5.2）：**必须给出”是哪个变量、在什么时间段、偏离了多少”**。只说”异常分数 0.87”的模型不会被采纳。</li>
+</ol>
+<h3 id="4-4-机会四：虚拟量测（VM）"><a href="#4-4-机会四：虚拟量测（VM）" class="headerlink" title="4.4 机会四：虚拟量测（VM）"></a>4.4 机会四：虚拟量测（VM）</h3><p><strong>机制</strong>：用<strong>设备 trace 数据</strong>预测<strong>量测结果</strong>（膜厚、CD、overlay）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">真实量测：加工 → 送去量测机台 → 2 小时后拿到结果 → SPC 判 → 晚了</span><br><span class="line">虚拟量测：加工 → 用 trace 预测 → 秒级拿到预测值 → 提前发现异常</span><br></pre></td></tr></table></figure>
+
+<p><strong>为什么价值大</strong>：</p>
+<ul>
+<li><strong>量测是瓶颈</strong>（量测机台贵、排队久、有些是抽检）；</li>
+<li>**VM 能做到”片片全检”**（真实量测只能抽检）；</li>
+<li><strong>可以提前触发 hold</strong>（不用等量测完才发现问题）。</li>
+</ul>
+<p><strong>技术要点</strong>：</p>
+<ol>
+<li><strong>VM 的精度要求极高</strong>。量测本身有噪声（repeatability），<strong>VM 的误差必须显著小于规格带宽</strong>（经验：VM 误差 &lt; 10% 规格带宽才有用）；</li>
+<li><strong>必须做”适用域检测”（applicability domain）</strong>：当 trace 落在训练分布外时（如新 recipe、设备大修后），VM 要<strong>拒绝输出</strong>，而不是给一个错的预测；</li>
+<li><strong>VM 不能替代量测</strong>（客户审核不认），只能做”预警”。<strong>这一点必须在项目立项时说清楚，否则验收时会被推翻。</strong></li>
+</ol>
+<h3 id="4-5-机会五：根因分析与-8D-加速"><a href="#4-5-机会五：根因分析与-8D-加速" class="headerlink" title="4.5 机会五：根因分析与 8D 加速"></a>4.5 机会五：根因分析与 8D 加速</h3><p><strong>这是”跨流关联”的典型场景</strong>（见 2.4 的案例）。</p>
+<p><strong>三个层次</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>做法</th>
+<th>难度</th>
+<th>价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>L1 检索</strong></td>
+<td>从历史 8D / OCAP 里找”类似问题怎么解决的”</td>
+<td>低（RAG）</td>
+<td>中（省查资料时间）</td>
+</tr>
+<tr>
+<td><strong>L2 关联</strong></td>
+<td>把良率下降与 FDC/SPC/COA/谱系做统计关联，输出候选原因排序</td>
+<td>中</td>
+<td><strong>高</strong></td>
+</tr>
+<tr>
+<td><strong>L3 因果</strong></td>
+<td>用因果图/干预实验确认根因</td>
+<td>高</td>
+<td>最高（但通常要人做实验）</td>
+</tr>
+</tbody></table>
+<p><strong>建议从 L1 + L2 做起</strong>，L3 交给工艺工程师（他们要的是”候选清单”，不是”结论”）。</p>
+<p><strong>L2 的关键工程点</strong>：</p>
+<ul>
+<li><strong>必须能 join 谱系</strong>（MES）：没有”这批 wafer 经过了哪些机台/腔体”，就无法做关联；</li>
+<li><strong>必须做多重比较校正</strong>：你同时检验 200 个变量，α=0.05 会有 10 个假阳性（见《开放域问答评测》那篇里的统计部分）；</li>
+<li>**输出必须是”排序 + 证据”，不是”结论”**。工程师要能自己判断。</li>
+</ul>
+<h3 id="4-6-机会六：知识助手（SOP-OCAP-问答）"><a href="#4-6-机会六：知识助手（SOP-OCAP-问答）" class="headerlink" title="4.6 机会六：知识助手（SOP/OCAP 问答）"></a>4.6 机会六：知识助手（SOP/OCAP 问答）</h3><p><strong>这就是 Dify 这类平台的用武之地</strong>。</p>
+<p><strong>做对了的三条</strong>：</p>
+<ol>
+<li><strong>只答”文档里有的”**，答不出就说没有（</strong>不要让它推理**）；</li>
+<li><strong>必须给出版本 + 段落引用</strong>（”根据 SOP-ETCH-021 v3.2 第 4.3 节”）——<strong>没有版本号的回答在审计时等于零</strong>；</li>
+<li>**答案是”指向原文”，不是”总结”**。工程师要的是原文，不是 LLM 的转述。</li>
+</ol>
+<p><strong>做错了的三种（都很常见）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>错误</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>让它算 Cpk / 良率</td>
+<td>算错（LLM 不擅长数值计算）</td>
+</tr>
+<tr>
+<td>混入网页/通用语料</td>
+<td>给出”行业通行做法”而非”本厂规定”，<strong>这是最危险的</strong></td>
+</tr>
+<tr>
+<td>不做版本管理</td>
+<td>引用过期 SOP，导致操作错误</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="5-工业场景的三个硬约束"><a href="#5-工业场景的三个硬约束" class="headerlink" title="5. 工业场景的三个硬约束"></a>5. 工业场景的三个硬约束</h2><h3 id="5-1-合规：模型上线-工艺变更"><a href="#5-1-合规：模型上线-工艺变更" class="headerlink" title="5.1 合规：模型上线 = 工艺变更"></a>5.1 合规：模型上线 = 工艺变更</h3><p>这是 AI 落地半导体最大的、也是最容易被低估的障碍。</p>
+<p><strong>核心逻辑链</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">AI 模型影响了&quot;某个 lot 是否放行&quot;</span><br><span class="line">  ↓</span><br><span class="line">这改变了&quot;过程的判定规则&quot;</span><br><span class="line">  ↓</span><br><span class="line">在 IATF 16949 / 客户审核体系里，这是&quot;过程变更&quot;</span><br><span class="line">  ↓</span><br><span class="line">必须走变更管理：影响评估 → 验证 → 客户批准（车规场景）</span><br><span class="line">  ↓</span><br><span class="line">（在 APQP 体系里，还要更新控制计划）</span><br></pre></td></tr></table></figure>
+
+<p><strong>这意味着</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>你以为在做</th>
+<th>实际在做</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>“上线一个模型”</td>
+<td>“发起一次工艺变更”</td>
+</tr>
+<tr>
+<td>“迭代模型版本”</td>
+<td>“重复一次变更流程”</td>
+</tr>
+<tr>
+<td>“模型效果提升 3 个点”</td>
+<td>“需要重新提交验证证据”</td>
+</tr>
+</tbody></table>
+<p><strong>三条应对策略</strong>：</p>
+<ol>
+<li><strong>把 AI 放在”建议”位置，不放”决策”位置</strong>。人签字，AI 只是提供输入——<strong>这样不构成过程变更</strong>；</li>
+<li><strong>先做”减法”**（减少复判量、减少告警数），</strong>后做”加法”**（新增检出、自动处置）。减法的变更风险远小于加法；</li>
+<li><strong>从”辅助工具”立项，不要从”AI 决策系统”立项</strong>。前者走 IT 变更流程，后者走工艺变更流程，<strong>周期差 5–10 倍</strong>。</li>
+</ol>
+<p><strong>其他合规项</strong>：</p>
+<ul>
+<li><strong>数据完整性</strong>：谁改了模型、什么时候、基于什么数据（类似 ALCOA+ 原则）；</li>
+<li><strong>可追溯</strong>：任何一个判定，要能回溯到”当时用的是哪个模型版本 + 哪批训练数据”；</li>
+<li><strong>客户特定要求</strong>：车规客户（AEC-Q100）通常要求”任何影响产品特性的变更都要通知”。</li>
+</ul>
+<h3 id="5-2-可解释：工程师要能”为这个判断负责”"><a href="#5-2-可解释：工程师要能”为这个判断负责”" class="headerlink" title="5.2 可解释：工程师要能”为这个判断负责”"></a>5.2 可解释：工程师要能”为这个判断负责”</h3><p><strong>为什么可解释在工业里是刚需（而不是”nice to have”）</strong>：</p>
+<p>工程师在 8D 报告上签字，意味着”我愿意为这个结论负责”。<strong>如果他无法向客户解释”为什么模型这么判”，他就不会签。</strong></p>
+<p>具体需要什么：</p>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>具体形式</th>
+<th>不满足的后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>定位到变量</strong></td>
+<td>“腔体压力在 t=120s 偏离基线 3.2σ”</td>
+<td>只说”异常分数高”，无法排查</td>
+</tr>
+<tr>
+<td><strong>定位到时间</strong></td>
+<td>精确到秒的时间窗</td>
+<td>无法回看当时发生了什么</td>
+</tr>
+<tr>
+<td><strong>定位到样本</strong></td>
+<td>哪几片/哪几个 die</td>
+<td>无法界定 hold 范围</td>
+</tr>
+<tr>
+<td><strong>可复现</strong></td>
+<td>同样输入 → 同样输出（无随机性）</td>
+<td>无法在评审时复现</td>
+</tr>
+<tr>
+<td><strong>可对比</strong></td>
+<td>与”正常时的基线”对比</td>
+<td>无法判断”偏了多少”</td>
+</tr>
+</tbody></table>
+<p><strong>一个实操建议</strong>：<strong>把”解释”当成产品的第一功能，而不是附加功能。</strong></p>
+<p>具体做法：</p>
+<ul>
+<li>模型的输出<strong>不是</strong>一个分数，而是”分数 + top-3 贡献变量 + 时间窗 + 对比基线”；</li>
+<li>界面上<strong>同时展示原始 trace 曲线</strong>（标注异常区间），而不只是结论；</li>
+<li>保留<strong>每次判定的快照</strong>（输入数据 + 模型版本 + 输出），供事后审计。</li>
+</ul>
+<h3 id="5-3-停机风险：两类错误的代价不对称"><a href="#5-3-停机风险：两类错误的代价不对称" class="headerlink" title="5.3 停机风险：两类错误的代价不对称"></a>5.3 停机风险：两类错误的代价不对称</h3><p><strong>这是工业 AI 与互联网 AI 最本质的差异</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>错误类型</th>
+<th>后果</th>
+<th>代价量级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>误报（False Positive）</strong></td>
+<td>停机检查 → 产能损失 + 该批可能报废（热预算）</td>
+<td>中（可承受，但累积起来很大）</td>
+</tr>
+<tr>
+<td><strong>漏报（False Negative）</strong></td>
+<td>批量不良流出 → 客户投诉 + 召回 + 信誉</td>
+<td><strong>极高（可能数百万美元 + 客户关系）</strong></td>
+</tr>
+</tbody></table>
+<p><strong>代价不对称的直接后果</strong>：</p>
+<ol>
+<li><strong>阈值必须偏保守</strong>（宁可多报）。这意味着你做的”高精度模型”在业务上会被调到”高召回”——<strong>你的 AUC 提升可能根本体现不出来</strong>；</li>
+<li><strong>评估指标要和业务对齐</strong>：不要报 accuracy / F1，要报 **”在给定漏检率上限下，误报率能降到多少”**；</li>
+<li><strong>必须区分”可停机”和”不可停机”的告警</strong>。有些工序（如炉管、湿法）停机代价极高（要重新升温/换液），这类工序的模型必须更保守。</li>
+</ol>
+<p><strong>一个实操框架</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 和工艺确认&quot;可接受的漏检率&quot;（如 &lt; 0.1%）</span><br><span class="line">2. 在这个约束下，最大化&quot;误报过滤率&quot;</span><br><span class="line">3. 报&quot;过滤率 @ 漏检率 0.1%&quot; 这个数字，而不是 AUC</span><br><span class="line">4. 给出&quot;如果阈值再放宽，过滤率能到多少，但漏检会升到多少&quot;的曲线</span><br></pre></td></tr></table></figure>
+
+<p><strong>这条曲线（类似 DET 曲线）比任何单一指标都有说服力</strong>，因为它把决策权交给了工艺工程师。</p>
+<h3 id="5-4-第四个约束（常被漏掉）：数据可得性"><a href="#5-4-第四个约束（常被漏掉）：数据可得性" class="headerlink" title="5.4 第四个约束（常被漏掉）：数据可得性"></a>5.4 第四个约束（常被漏掉）：数据可得性</h3><table>
+<thead>
+<tr>
+<th>约束</th>
+<th>表现</th>
+<th>应对</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>标注成本</strong></td>
+<td>缺陷标注需要工程师 + SEM 复检，一条几美元到几十美元</td>
+<td>主动学习（只标最有价值的样本）</td>
+</tr>
+<tr>
+<td><strong>样本不平衡</strong></td>
+<td>致命缺陷 &lt; 0.1%</td>
+<td>用 anomaly detection 而非 classification</td>
+</tr>
+<tr>
+<td><strong>数据孤岛</strong></td>
+<td>设备数据在 EAP 库、量测在 SPC 库、谱系在 MES 库</td>
+<td>先做数据打通（这往往是项目 60% 的工作量）</td>
+</tr>
+<tr>
+<td><strong>历史数据不可用</strong></td>
+<td>老设备没开 Trace；系统升级导致格式变化</td>
+<td>项目前先做数据可用性评估</td>
+</tr>
+<tr>
+<td><strong>隐私/出口管制</strong></td>
+<td>有些 fab 不允许数据出内网</td>
+<td>必须支持本地部署（这也是 Dify 开源版的价值之一）</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="6-落地路径建议"><a href="#6-落地路径建议" class="headerlink" title="6. 落地路径建议"></a>6. 落地路径建议</h2><h3 id="6-1-一个-12-个月的现实路径"><a href="#6-1-一个-12-个月的现实路径" class="headerlink" title="6.1 一个 12 个月的现实路径"></a>6.1 一个 12 个月的现实路径</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">M1–M2：数据可达性评估（不要跳过）</span><br><span class="line">  □ 目标工序有没有 Trace？采样率？变量字典有没有？</span><br><span class="line">  □ 量测数据能不能按 lot 对齐？</span><br><span class="line">  □ MES 谱系能不能 join？</span><br><span class="line">  □ 历史标签（复判结果/8D）有多少条？</span><br><span class="line">  → 产出：可行性报告。这里的结论经常是&quot;数据不够，先做数据治理&quot;</span><br><span class="line"></span><br><span class="line">M3–M5：AOI 误报过滤（第一个 ROI）</span><br><span class="line">  □ 不改控制计划、不做自动决策，只做&quot;人看多少条&quot;</span><br><span class="line">  □ 评估指标：过滤率 @ 漏检率 0.1%</span><br><span class="line">  □ 上线形态：AI 前置 + 人工确认</span><br><span class="line"></span><br><span class="line">M6–M8：FDC 告警治理</span><br><span class="line">  □ 先把现有告警的&quot;有效告警率&quot;算出来（通常 &lt; 20%）</span><br><span class="line">  □ 做去重/聚合 + 自适应阈值</span><br><span class="line">  □ 指标：工程师日均处理告警数、有效告警占比</span><br><span class="line"></span><br><span class="line">M9–M12：跨流关联（根因候选）</span><br><span class="line">  □ 打通设备 + 量测 + 谱系</span><br><span class="line">  □ 输出&quot;候选原因排序 + 证据&quot;</span><br><span class="line">  □ 与 8D 流程结合，衡量&quot;平均结案时间&quot;是否缩短</span><br></pre></td></tr></table></figure>
+
+<p><strong>为什么这个顺序</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>变更风险</th>
+<th>数据要求</th>
+<th>收益可见性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AOI 误报</td>
+<td>低（不改判定）</td>
+<td>低（数据现成）</td>
+<td>高（人力节省可量化）</td>
+</tr>
+<tr>
+<td>FDC 治理</td>
+<td>低（减少告警不是增加）</td>
+<td>中</td>
+<td>中</td>
+</tr>
+<tr>
+<td>跨流关联</td>
+<td>中（影响排查流程）</td>
+<td><strong>高</strong>（要打通三库）</td>
+<td>高但慢</td>
+</tr>
+</tbody></table>
+<h3 id="6-2-三个”不要”"><a href="#6-2-三个”不要”" class="headerlink" title="6.2 三个”不要”"></a>6.2 三个”不要”</h3><table>
+<thead>
+<tr>
+<th>不要</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>不要一上来做”全自动判定”</strong></td>
+<td>变更流程走不完，且一次误判就会失去信任</td>
+</tr>
+<tr>
+<td><strong>不要用通用异常检测算法（Isolation Forest / AutoEncoder 直接套）</strong></td>
+<td>半导体 trace 有强周期性、多阶段（step）、变量间强相关，通用方法会产生海量误报</td>
+</tr>
+<tr>
+<td><strong>不要只和 IT 部门对接</strong></td>
+<td>工艺工程师才是最终用户和签字人，他们的需求（可解释、可复现）决定了方案形态</td>
+</tr>
+</tbody></table>
+<h3 id="6-3-一句话判断项目能不能做"><a href="#6-3-一句话判断项目能不能做" class="headerlink" title="6.3 一句话判断项目能不能做"></a>6.3 一句话判断项目能不能做</h3><p><strong>在立项前问三个问题</strong>：</p>
+<ol>
+<li>**”如果这个模型判错了，谁承担后果、怎么回滚？”**——答不出来，说明还没到能落地的阶段；</li>
+<li>**”这个判定要不要写进控制计划/OCAP？”**——要写，就是工艺变更，周期 ×5；</li>
+<li>**”工艺工程师愿意用一个月，还是只是评审时点头？”**——只点头的，上线三个月就会被弃用。</li>
+</ol>
+<hr>
+<h2 id="7-小结"><a href="#7-小结" class="headerlink" title="7. 小结"></a>7. 小结</h2><ol>
+<li><strong>学这些术语的关键是”串成链”，不是背定义。</strong> 三条流（设备信号 / 质量测量 / 缺陷图像）在不同位置汇合，<strong>AI 的价值主要在”跨流关联”，而不是”把单点模型做准”。</strong></li>
+<li><strong>SPC vs FDC 是全文最重要的一处辨析</strong>：SPC 监控<strong>产品质量</strong>（批次级、滞后），FDC 监控<strong>设备状态</strong>（秒级、实时）。<strong>用 SPC 做实时控制会滞后几小时；用 FDC 数据做能力分析是概念错误。</strong></li>
+<li><strong>控制限 ≠ 规格限。</strong> 控制限从数据算（±3σ），规格限由客户/设计定。<strong>用规格限画控制图，永远不报警。</strong></li>
+<li><strong>OCAP vs SOP</strong>：OCAP 是”异常时怎么办”的决策树，SOP 是”正常时怎么做”的说明书。<strong>OCAP 天然适合被检索、被学习，是 AI 最好的切入点之一。</strong></li>
+<li><strong>APQP 决定了一切</strong>：它的阶段③产出”控制计划”，<strong>控制计划定义了哪些参数进 SPC、哪些进 FDC、失控执行哪个 OCAP</strong>。这就是为什么”AI 想加一个监控项”要走变更流程。</li>
+<li><strong>8D 的 D7 是最容易被跳过、也最值钱的一步</strong>：把结论写回 SOP / FMEA / 控制计划。<strong>不改标准，同类问题必然复发。AI 在这里的价值是”自动起草标准更新”，而不是”自动找根因”。</strong></li>
+<li><strong>AOI 与 ADC 是两个工序</strong>：AOI 找”哪里有异常”，ADC 判”这是什么异常”。AOI 的痛点是<strong>30%–70% 的误报</strong>（范围性表述），这直接决定了”误报过滤”是 ROI 最高的 AI 机会。</li>
+<li><strong>COA 是被低估的数据源</strong>：它是唯一能提前拿到”上游材料变异”的数据。<strong>良率突然掉了而 FDC/SPC 都没报警时，第一个该查 COA。</strong></li>
+<li><strong>Dify 不属于产线栈</strong>。它是 LLM 应用层工具，适合做 SOP/OCAP 问答、8D 起草。<strong>三个红线：不当计算器、必须有版本引用、不进控制回路。</strong></li>
+<li><strong>合规的本质是”模型上线 = 工艺变更”。</strong> 三条应对：放”建议”位不放”决策”位、先做减法后做加法、从”辅助工具”立项而不是”AI 决策系统”。</li>
+<li><strong>可解释不是加分项，是入场券。</strong> 工程师要为结论签字。最小可接受形式：<strong>定位到变量 + 时间窗 + 对比基线 + 可复现</strong>。</li>
+<li><strong>误报和漏报的代价严重不对称</strong>（漏报可能是数百万美元 + 客户关系）。所以<strong>不要报 AUC/F1，要报”过滤率 @ 漏检率约束”的曲线</strong>——把决策权交给工艺工程师。</li>
+<li><strong>落地顺序：AOI 误报 → FDC 告警治理 → 跨流关联。</strong> 前两步”只减不增”，变更风险低；第三步需要打通三库，往往占项目 60% 的工作量。</li>
+</ol>
+<p>如果只留一句：<strong>在半导体产线，AI 的技术难度不是主要矛盾——把模型放在”建议位”而不是”决策位”、把指标说成”过滤率@漏检率”而不是 AUC、把解释做成一等功能而不是附加功能，这三件事决定了方案能不能活过第一次评审。</strong></p>
+<hr>
+<h3 id="术语速查表"><a href="#术语速查表" class="headerlink" title="术语速查表"></a>术语速查表</h3><table>
+<thead>
+<tr>
+<th>缩写</th>
+<th>全称</th>
+<th>中文</th>
+<th>所在层</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>MES</strong></td>
+<td>Manufacturing Execution System</td>
+<td>制造执行系统</td>
+<td>L3</td>
+</tr>
+<tr>
+<td><strong>EAP</strong></td>
+<td>Equipment Automation Program</td>
+<td>设备自动化程序</td>
+<td>L2</td>
+</tr>
+<tr>
+<td><strong>AOI</strong></td>
+<td>Automated Optical Inspection</td>
+<td>自动光学检测</td>
+<td>L1</td>
+</tr>
+<tr>
+<td><strong>ADC</strong></td>
+<td>Automatic Defect Classification</td>
+<td>自动缺陷分类</td>
+<td>L1–L3</td>
+</tr>
+<tr>
+<td><strong>COA</strong></td>
+<td>Certificate of Analysis</td>
+<td>分析证书</td>
+<td>L3/L4（入料）</td>
+</tr>
+<tr>
+<td><strong>SPC</strong></td>
+<td>Statistical Process Control</td>
+<td>统计过程控制</td>
+<td>L3</td>
+</tr>
+<tr>
+<td><strong>FDC</strong></td>
+<td>Fault Detection and Classification</td>
+<td>故障检测与分类</td>
+<td>L2–L3</td>
+</tr>
+<tr>
+<td><strong>SOP</strong></td>
+<td>Standard Operating Procedure</td>
+<td>标准作业程序</td>
+<td>L3–L1</td>
+</tr>
+<tr>
+<td><strong>OCAP</strong></td>
+<td>Out of Control Action Plan</td>
+<td>失控行动计划</td>
+<td>L3</td>
+</tr>
+<tr>
+<td><strong>8D</strong></td>
+<td>Eight Disciplines</td>
+<td>八项纪律（问题解决法）</td>
+<td>跨层流程</td>
+</tr>
+<tr>
+<td><strong>DOE</strong></td>
+<td>Design of Experiments</td>
+<td>实验设计</td>
+<td>方法论</td>
+</tr>
+<tr>
+<td><strong>APQP</strong></td>
+<td>Advanced Product Quality Planning</td>
+<td>先期质量策划</td>
+<td>L4–L3</td>
+</tr>
+<tr>
+<td><strong>Dify</strong></td>
+<td>（产品名，非缩写）</td>
+<td>LLM 应用开发平台</td>
+<td>AI 应用层</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h3><p><strong>标准与框架</strong></p>
+<ul>
+<li>SEMI Standards：E4（SECS-I）、E5（SECS-II）、E30（GEM）、E37（HSMS）、E40（Process Job）、E87（Carrier Management）、E90（Substrate Tracking）、E94（Control Job）、E10（设备 RAM）、E79（OEE）、E116（EPT）</li>
+<li>ISA-95 / IEC 62264：企业与控制系统集成分层（L0–L4）</li>
+<li>AIAG, <em>Advanced Product Quality Planning (APQP) and Control Plan Reference Manual</em></li>
+<li>AIAG, <em>Production Part Approval Process (PPAP) Reference Manual</em></li>
+<li>AIAG &amp; VDA, <em>FMEA Handbook</em>（DFMEA / PFMEA，含 RPN 与 Action Priority）</li>
+<li>IATF 16949:2016（汽车行业质量管理体系）</li>
+<li>AEC-Q100 / AEC-Q101（车规级半导体可靠性认证）</li>
+</ul>
+<p><strong>方法与工具</strong></p>
+<ul>
+<li>Montgomery, <em>Introduction to Statistical Quality Control</em>（控制图、Cpk/Ppk、Nelson/Western Electric 规则的系统教材）</li>
+<li>Montgomery, <em>Design and Analysis of Experiments</em>（DOE：部分因子、混杂、分辨率、RSM）</li>
+<li>Taguchi, <em>Introduction to Quality Engineering</em>（正交表与稳健设计）</li>
+<li>Wheeler &amp; Chambers, <em>Understanding Statistical Process Control</em>（控制限与规格限的经典辨析）</li>
+<li>Pyzdek &amp; Keller, <em>The Six Sigma Handbook</em>（8D、DMAIC、根因分析工具）</li>
+<li>Dify 官方文档：<a href="https://docs.dify.ai(workflow、rag/" target="_blank" rel="noopener">https://docs.dify.ai（workflow、RAG</a> pipeline、Agent、可观测）</li>
+</ul>
+<blockquote>
+<p><strong>说明</strong>：文中关于”AOI 误报率 30%–70%”、”FDC 有效告警率 &lt; 20%”等数字为<strong>业界常见范围的表述</strong>，随产品类型、工艺节点、算法版本、产线管理水平差异极大，<strong>不构成对任何具体产线的事实断言</strong>；用于立项测算时请以自有数据重新统计。<code>COA</code> 与 <code>ADC</code> 两处术语歧义已在正文标注，请以所在产线的内部定义为准。SEMI 标准编号与内容按公开标准体系整理，具体条款以官方发布版本为准。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/半导体/" rel="tag"># 半导体</a>
+              <a href="/tags/产线数字化/" rel="tag"># 产线数字化</a>
+              <a href="/tags/术语介绍/" rel="tag"># 术语介绍</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/08/07/开放域问答评测-数据集与统计显著性/" rel="prev" title="开放域问答评测：从数据集到统计显著性">
+      <i class="fa fa-chevron-left"></i> 开放域问答评测：从数据集到统计显著性
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/08/29/AI服务定价理论综述/" rel="next" title="AI 服务定价：当计价单位变成商品，成本导向为什么会失灵">
+      AI 服务定价：当计价单位变成商品，成本导向为什么会失灵 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-先定位：13-个术语分别在哪一层"><span class="nav-number">2.</span> <span class="nav-text">0. 先定位：13 个术语分别在哪一层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-术语逐条拆（按链路顺序）"><span class="nav-number">3.</span> <span class="nav-text">1. 术语逐条拆（按链路顺序）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-MES：产线的”账本-调度台”"><span class="nav-number">3.1.</span> <span class="nav-text">1.1 MES：产线的”账本 + 调度台”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-EAP：设备与系统的”翻译官”"><span class="nav-number">3.2.</span> <span class="nav-text">1.2 EAP：设备与系统的”翻译官”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-AOI：在线光学”找不同”"><span class="nav-number">3.3.</span> <span class="nav-text">1.3 AOI：在线光学”找不同”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-ADC：给缺陷”贴标签”"><span class="nav-number">3.4.</span> <span class="nav-text">1.4 ADC：给缺陷”贴标签”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-COA：材料的”体检报告”"><span class="nav-number">3.5.</span> <span class="nav-text">1.5 COA：材料的”体检报告”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-SPC：用统计判断”这算不算变了”"><span class="nav-number">3.6.</span> <span class="nav-text">1.6 SPC：用统计判断”这算不算变了”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-FDC：盯着设备的”心电图”"><span class="nav-number">3.7.</span> <span class="nav-text">1.7 FDC：盯着设备的”心电图”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8-SOP：正常时怎么做"><span class="nav-number">3.8.</span> <span class="nav-text">1.8 SOP：正常时怎么做</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-OCAP：异常时怎么做"><span class="nav-number">3.9.</span> <span class="nav-text">1.9 OCAP：异常时怎么做</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10-8D：把一次异常变成不再发生"><span class="nav-number">3.10.</span> <span class="nav-text">1.10 8D：把一次异常变成不再发生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-11-DOE：用最少的实验找出参数窗口"><span class="nav-number">3.11.</span> <span class="nav-text">1.11 DOE：用最少的实验找出参数窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-12-APQP：产品导入期的”质量总纲”"><span class="nav-number">3.12.</span> <span class="nav-text">1.12 APQP：产品导入期的”质量总纲”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-13-Dify：AI-应用层，不属于产线栈"><span class="nav-number">3.13.</span> <span class="nav-text">1.13 Dify：AI 应用层，不属于产线栈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-三条数据流：把术语串成链"><span class="nav-number">4.</span> <span class="nav-text">2. 三条数据流：把术语串成链</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-流一：设备信号流（秒级，实时）"><span class="nav-number">4.1.</span> <span class="nav-text">2.1 流一：设备信号流（秒级，实时）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-流二：质量测量流（批次级，滞后）"><span class="nav-number">4.2.</span> <span class="nav-text">2.2 流二：质量测量流（批次级，滞后）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-流三：缺陷图像流（片级，准实时）"><span class="nav-number">4.3.</span> <span class="nav-text">2.3 流三：缺陷图像流（片级，准实时）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-三流如何汇合：一次真实的异常排查"><span class="nav-number">4.4.</span> <span class="nav-text">2.4 三流如何汇合：一次真实的异常排查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-上下游依赖关系与易混淆对照"><span class="nav-number">5.</span> <span class="nav-text">3. 上下游依赖关系与易混淆对照</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-依赖图（谁决定谁）"><span class="nav-number">5.1.</span> <span class="nav-text">3.1 依赖图（谁决定谁）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-七对最容易混淆的术语"><span class="nav-number">5.2.</span> <span class="nav-text">3.2 七对最容易混淆的术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-四组”看起来相关但无关”的术语"><span class="nav-number">5.3.</span> <span class="nav-text">3.3 四组”看起来相关但无关”的术语</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-六个-AI-落地机会（按-ROI-排序）"><span class="nav-number">6.</span> <span class="nav-text">4. 六个 AI 落地机会（按 ROI 排序）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-机会一：AOI-误报过滤（ROI-最高）"><span class="nav-number">6.1.</span> <span class="nav-text">4.1 机会一：AOI 误报过滤（ROI 最高）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-机会二：ADC-缺陷分类"><span class="nav-number">6.2.</span> <span class="nav-text">4.2 机会二：ADC 缺陷分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-机会三：FDC-异常检测（含”骚扰告警”治理）"><span class="nav-number">6.3.</span> <span class="nav-text">4.3 机会三：FDC 异常检测（含”骚扰告警”治理）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-机会四：虚拟量测（VM）"><span class="nav-number">6.4.</span> <span class="nav-text">4.4 机会四：虚拟量测（VM）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-机会五：根因分析与-8D-加速"><span class="nav-number">6.5.</span> <span class="nav-text">4.5 机会五：根因分析与 8D 加速</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-机会六：知识助手（SOP-OCAP-问答）"><span class="nav-number">6.6.</span> <span class="nav-text">4.6 机会六：知识助手（SOP/OCAP 问答）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-工业场景的三个硬约束"><span class="nav-number">7.</span> <span class="nav-text">5. 工业场景的三个硬约束</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-合规：模型上线-工艺变更"><span class="nav-number">7.1.</span> <span class="nav-text">5.1 合规：模型上线 = 工艺变更</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-可解释：工程师要能”为这个判断负责”"><span class="nav-number">7.2.</span> <span class="nav-text">5.2 可解释：工程师要能”为这个判断负责”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-停机风险：两类错误的代价不对称"><span class="nav-number">7.3.</span> <span class="nav-text">5.3 停机风险：两类错误的代价不对称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-第四个约束（常被漏掉）：数据可得性"><span class="nav-number">7.4.</span> <span class="nav-text">5.4 第四个约束（常被漏掉）：数据可得性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-落地路径建议"><span class="nav-number">8.</span> <span class="nav-text">6. 落地路径建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-一个-12-个月的现实路径"><span class="nav-number">8.1.</span> <span class="nav-text">6.1 一个 12 个月的现实路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-三个”不要”"><span class="nav-number">8.2.</span> <span class="nav-text">6.2 三个”不要”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-一句话判断项目能不能做"><span class="nav-number">8.3.</span> <span class="nav-text">6.3 一句话判断项目能不能做</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-小结"><span class="nav-number">9.</span> <span class="nav-text">7. 小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#术语速查表"><span class="nav-number">9.1.</span> <span class="nav-text">术语速查表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考来源"><span class="nav-number">9.2.</span> <span class="nav-text">参考来源</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">259</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

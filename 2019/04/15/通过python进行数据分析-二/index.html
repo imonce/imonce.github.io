@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190415212511.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190416211434.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190416211504.png">
-<meta property="og:updated_time" content="2026-06-28T14:37:22.542Z">
+<meta property="og:updated_time" content="2026-11-11T07:26:59.617Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通过Python进行数据分析(二)">
 <meta name="twitter:description" content="Counting time zones with pandas1234# %matplotlib主要是在使用jupyter notebook 或者 jupyter qtconsole的时候才会用到# 具体作用是当你调用matplotlib.pyplot的绘图函数plot()进行绘图的时候，可以直接在你的python console里面生成图像# 默认是弹出一个绘图窗口%matplotlib inl">
@@ -128,17 +128,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
+                <time title="Modified: 2026-11-11 15:26:59" itemprop="dateModified" datetime="2026-11-11T15:26:59+08:00">2026-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -278,6 +278,8 @@
 
       
         <h3 id="Counting-time-zones-with-pandas"><a href="#Counting-time-zones-with-pandas" class="headerlink" title="Counting time zones with pandas"></a>Counting time zones with pandas</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># %matplotlib主要是在使用jupyter notebook 或者 jupyter qtconsole的时候才会用到</span></span><br><span class="line"><span class="comment"># 具体作用是当你调用matplotlib.pyplot的绘图函数plot()进行绘图的时候，可以直接在你的python console里面生成图像</span></span><br><span class="line"><span class="comment"># 默认是弹出一个绘图窗口</span></span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python有多个版本，Python 2.7到Python 3.x，Python提供了__future__模块，把3.x新版本的特性导入到当前版本</span></span><br><span class="line"><span class="comment"># 这一句的意思是除法按照python3来：</span></span><br><span class="line"><span class="comment"># 区别就是python2里边10/3=3，python3里边10/3=3.3333333333333335</span></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> division</span><br><span class="line"><span class="comment"># 导入numpy中的随机函数randn</span></span><br><span class="line"><span class="keyword">from</span> numpy.random <span class="keyword">import</span> randn</span><br><span class="line"><span class="comment"># 到处numpy包，并命名为np</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment"># 导入os包</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="comment"># 导入matplotlib.pyplot，并命名为plt，主要用于绘图</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="comment"># 导入pandas包，并命名为pd</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="comment"># 利用rc方法，plt.rc('figure',figsize=(10,6))全局默认图像大小为10X6</span></span><br><span class="line">plt.rc(<span class="string">'figure'</span>, figsize=(<span class="number">10</span>, <span class="number">6</span>))</span><br><span class="line"><span class="comment"># numpy set print options 小数点后4位</span></span><br><span class="line">np.set_printoptions(precision=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
 
@@ -1004,20 +1006,20 @@ Length: 97, dtype: float64</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">228</span>
+        <span class="site-state-item-count">259</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

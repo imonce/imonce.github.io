@@ -31,7 +31,7 @@
 <meta property="og:description" content="这篇文章提出了一种新的基于冗余字典的图像信号稀疏表示的补丁式图像修复算法，该算法保证低风险的条件下，在处理大的孔的同时，保存图像细节。 与现有的所有工作不同，这篇文章假设每个图像块在冗余字典上允许稀疏表示的假设下，从连续不完全信号恢复的角度考虑图像修复问题。为了保证填充孔与周围环境之间的视觉合理性和一致性约束，这篇文章建议直接从当前图像的完整源区域采样，构造一个冗余信号字典。然后，我们依次计算出孔">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190618131653.png">
-<meta property="og:updated_time" content="2026-06-28T14:37:22.542Z">
+<meta property="og:updated_time" content="2026-11-11T07:27:02.450Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机应用数学学习笔记（三）：通过稀疏表示进行图像修复（IMAGE INPAINTING VIA SPARSE REPRESENTATION）">
 <meta name="twitter:description" content="这篇文章提出了一种新的基于冗余字典的图像信号稀疏表示的补丁式图像修复算法，该算法保证低风险的条件下，在处理大的孔的同时，保存图像细节。 与现有的所有工作不同，这篇文章假设每个图像块在冗余字典上允许稀疏表示的假设下，从连续不完全信号恢复的角度考虑图像修复问题。为了保证填充孔与周围环境之间的视觉合理性和一致性约束，这篇文章建议直接从当前图像的完整源区域采样，构造一个冗余信号字典。然后，我们依次计算出孔">
@@ -126,17 +126,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -231,7 +231,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
+                <time title="Modified: 2026-11-11 15:27:02" itemprop="dateModified" datetime="2026-11-11T15:27:02+08:00">2026-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -277,6 +277,7 @@
       
         <p>这篇文章提出了一种新的基于冗余字典的图像信号稀疏表示的补丁式图像修复算法，该算法保证低风险的条件下，在处理大的孔的同时，保存图像细节。</p>
 <p>与现有的所有工作不同，这篇文章假设每个图像块在冗余字典上允许稀疏表示的假设下，从连续不完全信号恢复的角度考虑图像修复问题。为了保证填充孔与周围环境之间的视觉合理性和一致性约束，这篇文章建议直接从当前图像的完整源区域采样，构造一个冗余信号字典。然后，我们依次计算出孔边界上每个不完整补片的稀疏表示，并将其恢复到整个孔被填满为止。</p>
+<a id="more"></a>
 <p>实验结果表明，该方法能够有效地填充视觉上可信的信息，并降低引入不需要的对象的风险。</p>
 <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>一般而言，文献中有两种主要的图像修复方法：基于PDE的方法和基于范例的方法。</p>
 <ul>
@@ -424,20 +425,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">228</span>
+        <span class="site-state-item-count">259</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

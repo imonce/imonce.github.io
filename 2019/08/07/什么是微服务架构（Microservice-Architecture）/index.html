@@ -22,20 +22,20 @@
     var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="背景假设你在开发一个服务端应用。该应用必须支持各种各样的客户端，包括桌面浏览器、手机浏览器和本地手机应用。应用可能也需要公开部分API供第三方使用，还可能与其他应用通过web service或消息代理(message broker)相集成。应用执行业务逻辑来处理请求(HTTP请求或者消息)；访问数据库；与其他系统交换消息；并返回HTML/JSON/XML类型的响应。 应用或是多层架构或是六角架构，">
-<meta name="keywords" content="软件架构,服务架构,Software Architecture,Service Architecture,微服务架构,Microservice Architecture">
+  <meta name="description" content="背景假设你在开发一个服务端应用。该应用必须支持各种各样的客户端，包括桌面浏览器、手机浏览器和本地手机应用。应用可能也需要公开部分API供第三方使用，还可能与其他应用通过web service或消息代理(message broker)相集成。应用执行业务逻辑来处理请求(HTTP请求或者消息)；访问数据库；与其他系统交换消息；并返回HTML/JSON/XML类型的响应。">
+<meta name="keywords" content="软件架构,服务架构,微服务架构,Software Architecture,Service Architecture,Microservice Architecture">
 <meta property="og:type" content="article">
 <meta property="og:title" content="什么是微服务架构（Microservice Architecture）">
 <meta property="og:url" content="https://imonce.github.io/2019/08/07/什么是微服务架构（Microservice-Architecture）/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
-<meta property="og:description" content="背景假设你在开发一个服务端应用。该应用必须支持各种各样的客户端，包括桌面浏览器、手机浏览器和本地手机应用。应用可能也需要公开部分API供第三方使用，还可能与其他应用通过web service或消息代理(message broker)相集成。应用执行业务逻辑来处理请求(HTTP请求或者消息)；访问数据库；与其他系统交换消息；并返回HTML/JSON/XML类型的响应。 应用或是多层架构或是六角架构，">
+<meta property="og:description" content="背景假设你在开发一个服务端应用。该应用必须支持各种各样的客户端，包括桌面浏览器、手机浏览器和本地手机应用。应用可能也需要公开部分API供第三方使用，还可能与其他应用通过web service或消息代理(message broker)相集成。应用执行业务逻辑来处理请求(HTTP请求或者消息)；访问数据库；与其他系统交换消息；并返回HTML/JSON/XML类型的响应。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190807223130.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190807224059.png">
-<meta property="og:updated_time" content="2026-06-28T14:37:22.536Z">
+<meta property="og:updated_time" content="2026-11-11T07:20:49.605Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="什么是微服务架构（Microservice Architecture）">
-<meta name="twitter:description" content="背景假设你在开发一个服务端应用。该应用必须支持各种各样的客户端，包括桌面浏览器、手机浏览器和本地手机应用。应用可能也需要公开部分API供第三方使用，还可能与其他应用通过web service或消息代理(message broker)相集成。应用执行业务逻辑来处理请求(HTTP请求或者消息)；访问数据库；与其他系统交换消息；并返回HTML/JSON/XML类型的响应。 应用或是多层架构或是六角架构，">
+<meta name="twitter:description" content="背景假设你在开发一个服务端应用。该应用必须支持各种各样的客户端，包括桌面浏览器、手机浏览器和本地手机应用。应用可能也需要公开部分API供第三方使用，还可能与其他应用通过web service或消息代理(message broker)相集成。应用执行业务逻辑来处理请求(HTTP请求或者消息)；访问数据库；与其他系统交换消息；并返回HTML/JSON/XML类型的响应。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190807223130.png">
 
 <link rel="canonical" href="https://imonce.github.io/2019/08/07/什么是微服务架构（Microservice-Architecture）/">
@@ -127,17 +127,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
+                <time title="Modified: 2026-11-11 15:20:49" itemprop="dateModified" datetime="2026-11-11T15:20:49+08:00">2026-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -277,6 +277,7 @@
 
       
         <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>假设你在开发一个服务端应用。该应用必须支持各种各样的客户端，包括桌面浏览器、手机浏览器和本地手机应用。应用可能也需要公开部分API供第三方使用，还可能与其他应用通过web service或消息代理(message broker)相集成。应用执行业务逻辑来处理请求(HTTP请求或者消息)；访问数据库；与其他系统交换消息；并返回HTML/JSON/XML类型的响应。</p>
+<a id="more"></a>
 <p>应用或是多层架构或是六角架构，并且包含多种类型的组件：</p>
 <ul>
 <li>表示组件(Presentation components) - 响应处理HTTP请求，并返回HTML或JSON/XML(对于web service API)</li>
@@ -392,9 +393,9 @@
           <div class="post-tags">
               <a href="/tags/软件架构/" rel="tag"># 软件架构</a>
               <a href="/tags/服务架构/" rel="tag"># 服务架构</a>
+              <a href="/tags/微服务架构/" rel="tag"># 微服务架构</a>
               <a href="/tags/Software-Architecture/" rel="tag"># Software Architecture</a>
               <a href="/tags/Service-Architecture/" rel="tag"># Service Architecture</a>
-              <a href="/tags/微服务架构/" rel="tag"># 微服务架构</a>
               <a href="/tags/Microservice-Architecture/" rel="tag"># Microservice Architecture</a>
           </div>
 
@@ -495,20 +496,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">228</span>
+        <span class="site-state-item-count">259</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

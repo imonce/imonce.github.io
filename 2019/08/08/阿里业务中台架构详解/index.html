@@ -22,13 +22,13 @@
     var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="reference:https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ  阿里业务中台架构图 基础设施服务，即IAAS层，提供硬件底层支持。 基础服务层，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。 互联网业务中台，包括各服务中心的抽象出来的各种业务能力，包括交易中心、支付中心、营销中心、结">
+  <meta name="description" content="reference:https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ  阿里业务中台架构图 基础设施服务，即IAAS层，提供硬件底层支持。 基础服务层，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。">
 <meta name="keywords" content="中台,业务中台,架构,业务架构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[转]阿里业务中台架构详解">
 <meta property="og:url" content="https://imonce.github.io/2019/08/08/阿里业务中台架构详解/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
-<meta property="og:description" content="reference:https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ  阿里业务中台架构图 基础设施服务，即IAAS层，提供硬件底层支持。 基础服务层，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。 互联网业务中台，包括各服务中心的抽象出来的各种业务能力，包括交易中心、支付中心、营销中心、结">
+<meta property="og:description" content="reference:https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ  阿里业务中台架构图 基础设施服务，即IAAS层，提供硬件底层支持。 基础服务层，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808205642.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808211326.png">
@@ -39,10 +39,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808211932.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808212101.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808212213.png">
-<meta property="og:updated_time" content="2026-06-28T14:37:22.543Z">
+<meta property="og:updated_time" content="2026-11-11T07:27:08.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[转]阿里业务中台架构详解">
-<meta name="twitter:description" content="reference:https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ  阿里业务中台架构图 基础设施服务，即IAAS层，提供硬件底层支持。 基础服务层，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。 互联网业务中台，包括各服务中心的抽象出来的各种业务能力，包括交易中心、支付中心、营销中心、结">
+<meta name="twitter:description" content="reference:https://mp.weixin.qq.com/s/eLI4vcBwi0Q96yRlzvN3BQ  阿里业务中台架构图 基础设施服务，即IAAS层，提供硬件底层支持。 基础服务层，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190808205642.png">
 
 <link rel="canonical" href="https://imonce.github.io/2019/08/08/阿里业务中台架构详解/">
@@ -134,17 +134,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -239,7 +239,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
+                <time title="Modified: 2026-11-11 15:27:08" itemprop="dateModified" datetime="2026-11-11T15:27:08+08:00">2026-11-11</time>
               </span>
 
           
@@ -280,6 +280,7 @@
 <h1 id="阿里业务中台架构图"><a href="#阿里业务中台架构图" class="headerlink" title="阿里业务中台架构图"></a>阿里业务中台架构图</h1><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/20190808205642.png"></p>
 <p>基础设施服务，即IAAS层，提供硬件底层支持。</p>
 <p>基础服务层，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。</p>
+<a id="more"></a>
 <p>互联网业务中台，包括各服务中心的抽象出来的各种业务能力，包括交易中心、支付中心、营销中心、结算中心、用户中心、账户中心等等。也包括非业务类服务，如日志分析中心、配置中心、序列中心、基础中心。</p>
 <p>业务应用，经过调取业务中台，组装形成独立业务服务能力的业务应用，如网银、手机银行。</p>
 <p>交易来源，就是前台用户使用的各个端，如淘宝App、PC站等。</p>
@@ -419,20 +420,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">228</span>
+        <span class="site-state-item-count">259</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

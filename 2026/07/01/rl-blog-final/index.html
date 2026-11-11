@@ -30,7 +30,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="摘要： 强化学习（Reinforcement Learning, RL）从上世纪 50 年代的早期构想，到 AlphaGo 的里程碑式突破，再到如今在大语言模型（LLM）中的全面渗透，走过了一条波澜壮阔的技术演进之路。本文回顾了 RL 的核心发展脉络，并重点聚焦 RL 如何与 LLM 结合——从 RLHF 到 PPO、DPO，再到 GRPO、BRPO 等最新算法，梳理其背后的技术逻辑、演进逻辑与">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2026-07-01T07:33:03.519Z">
+<meta property="og:updated_time" content="2026-11-11T07:26:46.457Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从 AlphaGo 到 LLM：强化学习的前世今生与大模型时代">
 <meta name="twitter:description" content="摘要： 强化学习（Reinforcement Learning, RL）从上世纪 50 年代的早期构想，到 AlphaGo 的里程碑式突破，再到如今在大语言模型（LLM）中的全面渗透，走过了一条波澜壮阔的技术演进之路。本文回顾了 RL 的核心发展脉络，并重点聚焦 RL 如何与 LLM 结合——从 RLHF 到 PPO、DPO，再到 GRPO、BRPO 等最新算法，梳理其背后的技术逻辑、演进逻辑与">
@@ -124,17 +124,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -221,10 +221,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2026-07-01 14:46:47 / Modified: 15:33:03" itemprop="dateCreated datePublished" datetime="2026-07-01T14:46:47+08:00">2026-07-01</time>
+              <time title="Created: 2026-07-01 14:46:47" itemprop="dateCreated datePublished" datetime="2026-07-01T14:46:47+08:00">2026-07-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:26:46" itemprop="dateModified" datetime="2026-11-11T15:26:46+08:00">2026-11-11</time>
+              </span>
 
           
             <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
@@ -261,6 +267,7 @@
         <blockquote>
 <p><strong>摘要：</strong> 强化学习（Reinforcement Learning, RL）从上世纪 50 年代的早期构想，到 AlphaGo 的里程碑式突破，再到如今在大语言模型（LLM）中的全面渗透，走过了一条波澜壮阔的技术演进之路。本文回顾了 RL 的核心发展脉络，并重点聚焦 RL 如何与 LLM 结合——从 RLHF 到 PPO、DPO，再到 GRPO、BRPO 等最新算法，梳理其背后的技术逻辑、演进逻辑与前沿趋势。</p>
 </blockquote>
+<a id="more"></a>
 <hr>
 <h2 id="一、强化学习：一段简史"><a href="#一、强化学习：一段简史" class="headerlink" title="一、强化学习：一段简史"></a>一、强化学习：一段简史</h2><h3 id="1-1-萌芽与奠基（1950s–1980s）"><a href="#1-1-萌芽与奠基（1950s–1980s）" class="headerlink" title="1.1 萌芽与奠基（1950s–1980s）"></a>1.1 萌芽与奠基（1950s–1980s）</h3><p>强化学习的思想源头可以追溯到行为心理学中的<strong>操作性条件反射</strong>（Skinner, 1938）。20 世纪 50 年代，Arthur Samuel 在跳棋程序中提出了”强化学习”的雏形概念。1951 年，Homer Walker 在哈佛 Mark I 计算机上实现了世界上第一个强化学习代理。</p>
 <p>真正的理论奠基来自 <strong>Richard Bellman</strong> 在 1957 年提出的<strong>动态规划</strong>和<strong>贝尔曼方程</strong>，它为强化学习提供了数学基础——将价值函数定义为即时奖励与未来折扣奖励之和。</p>
@@ -742,8 +749,6 @@
 <li>Williams, R. J. “Simple statistical gradient-following algorithms for connectionist reinforcement learning.” <em>Machine Learning</em> <strong>8</strong>(3), 229–256 (1992).</li>
 <li>Watkins, C. J. C. H. &amp; Barto, A. G. “Q-learning.” <em>Machine Learning</em> <strong>8</strong>(3–4), 279–292 (1992).</li>
 </ol>
-<hr>
-<p><em>本文基于公开文献整理，内容截至 2026 年 6 月。</em></p>
 
     </div>
 
@@ -767,7 +772,10 @@
     <a href="/2026/06/30/推荐系统技术全景/" rel="prev" title="推荐系统技术全景：从协同过滤到大语言模型，三十年演进之路">
       <i class="fa fa-chevron-left"></i> 推荐系统技术全景：从协同过滤到大语言模型，三十年演进之路
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2026/07/04/编码Agent横向对比与VibeCoding辨析/" rel="next" title="Claude Code、Codex、Hermes、OpenClaw、Manus 横向拆解">
+      Claude Code、Codex、Hermes、OpenClaw、Manus 横向拆解 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -852,20 +860,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">228</span>
+        <span class="site-state-item-count">259</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

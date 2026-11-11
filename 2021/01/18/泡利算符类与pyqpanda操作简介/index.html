@@ -22,19 +22,19 @@
     var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="泡利算符类泡利算符是一组三个2×2的幺正厄米复矩阵，又称酉矩阵。我们一般都以希腊字母 $\sigma$ 来表示。 在 QPanda 中我们称它们为X门，Y门，Z门。它们对应的矩阵形式如下。 X:$\sigma_x = \left[\begin{matrix}    0 &amp;amp; 1 \\    1 &amp;amp; 0\end{matrix}\right]$ Y:$\sigma_y = \left[\">
+  <meta name="description" content="泡利算符类泡利算符是一组三个2×2的幺正厄米复矩阵，又称酉矩阵。我们一般都以希腊字母 $\sigma$ 来表示。 在 QPanda 中我们称它们为X门，Y门，Z门。它们对应的矩阵形式如下。 X:$\sigma_x = \left[\begin{matrix}    0 &amp;amp; 1 \\    1 &amp;amp; 0\end{matrix}\right]$">
 <meta name="keywords" content="Python,泡利算符,pyqpanda,量子计算">
 <meta property="og:type" content="article">
 <meta property="og:title" content="泡利算符类与pyqpanda操作简介">
 <meta property="og:url" content="https://imonce.github.io/2021/01/18/泡利算符类与pyqpanda操作简介/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
-<meta property="og:description" content="泡利算符类泡利算符是一组三个2×2的幺正厄米复矩阵，又称酉矩阵。我们一般都以希腊字母 $\sigma$ 来表示。 在 QPanda 中我们称它们为X门，Y门，Z门。它们对应的矩阵形式如下。 X:$\sigma_x = \left[\begin{matrix}    0 &amp;amp; 1 \\    1 &amp;amp; 0\end{matrix}\right]$ Y:$\sigma_y = \left[\">
+<meta property="og:description" content="泡利算符类泡利算符是一组三个2×2的幺正厄米复矩阵，又称酉矩阵。我们一般都以希腊字母 $\sigma$ 来表示。 在 QPanda 中我们称它们为X门，Y门，Z门。它们对应的矩阵形式如下。 X:$\sigma_x = \left[\begin{matrix}    0 &amp;amp; 1 \\    1 &amp;amp; 0\end{matrix}\right]$">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20210118215817.png">
-<meta property="og:updated_time" content="2026-06-28T14:37:22.541Z">
+<meta property="og:updated_time" content="2026-11-11T07:24:53.208Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="泡利算符类与pyqpanda操作简介">
-<meta name="twitter:description" content="泡利算符类泡利算符是一组三个2×2的幺正厄米复矩阵，又称酉矩阵。我们一般都以希腊字母 $\sigma$ 来表示。 在 QPanda 中我们称它们为X门，Y门，Z门。它们对应的矩阵形式如下。 X:$\sigma_x = \left[\begin{matrix}    0 &amp;amp; 1 \\    1 &amp;amp; 0\end{matrix}\right]$ Y:$\sigma_y = \left[\">
+<meta name="twitter:description" content="泡利算符类泡利算符是一组三个2×2的幺正厄米复矩阵，又称酉矩阵。我们一般都以希腊字母 $\sigma$ 来表示。 在 QPanda 中我们称它们为X门，Y门，Z门。它们对应的矩阵形式如下。 X:$\sigma_x = \left[\begin{matrix}    0 &amp;amp; 1 \\    1 &amp;amp; 0\end{matrix}\right]$">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20210118215817.png">
 
 <link rel="canonical" href="https://imonce.github.io/2021/01/18/泡利算符类与pyqpanda操作简介/">
@@ -126,17 +126,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -231,7 +231,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
+                <time title="Modified: 2026-11-11 15:24:53" itemprop="dateModified" datetime="2026-11-11T15:24:53+08:00">2026-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -277,6 +277,7 @@
       
         <h1 id="泡利算符类"><a href="#泡利算符类" class="headerlink" title="泡利算符类"></a>泡利算符类</h1><p>泡利算符是一组三个2×2的幺正厄米复矩阵，又称酉矩阵。我们一般都以希腊字母 $\sigma$ 来表示。 在 QPanda 中我们称它们为X门，Y门，Z门。它们对应的矩阵形式如下。</p>
 <p>X:<br>$\sigma_x = \left[\begin{matrix}<br>    0 &amp; 1 \\<br>    1 &amp; 0<br>\end{matrix}\right]$</p>
+<a id="more"></a>
 <p>Y:<br>$\sigma_y = \left[\begin{matrix}<br>    0 &amp; -i \\<br>    i &amp; 0<br>\end{matrix}\right]$</p>
 <p>Z:<br>$\sigma_z = \left[\begin{matrix}<br>    1 &amp; 0 \\<br>    0 &amp; -1<br>\end{matrix}\right]$</p>
 <p>每个抛离矩阵有两个特征值，+1和-1，其对应的归一化特征向量为：</p>
@@ -413,20 +414,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">228</span>
+        <span class="site-state-item-count">259</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

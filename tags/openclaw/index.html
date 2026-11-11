@@ -25,7 +25,7 @@
   <meta name="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人">
 <meta property="og:type" content="website">
 <meta property="og:title" content="C_Meng PSNA">
-<meta property="og:url" content="https://imonce.github.io/tags/openclaw/index.html">
+<meta property="og:url" content="https://imonce.github.io/tags/OpenClaw/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人">
 <meta property="og:locale" content="default">
@@ -33,7 +33,7 @@
 <meta name="twitter:title" content="C_Meng PSNA">
 <meta name="twitter:description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人">
 
-<link rel="canonical" href="https://imonce.github.io/tags/openclaw/">
+<link rel="canonical" href="https://imonce.github.io/tags/OpenClaw/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Tag: openclaw | C_Meng PSNA</title>
+  <title>Tag: OpenClaw | C_Meng PSNA</title>
   
 
 
@@ -122,17 +122,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -199,7 +199,7 @@
   <div class="post-block">
     <div class="posts-collapse">
       <div class="collection-title">
-        <h2 class="collection-header">openclaw
+        <h2 class="collection-header">OpenClaw
           <small>Tag</small>
         </h2>
       </div>
@@ -214,35 +214,15 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2026-06-28T21:51:21+08:00"
-              content="2026-06-28">
-          06-28
+              datetime="2026-07-04T14:39:49+08:00"
+              content="2026-07-04">
+          07-04
         </time>
       </div>
 
       <div class="post-title">
-          <a class="post-title-link" href="/2026/06/28/从零开始如何自己写一个 OpenClaw Agent Skill并发布到 GitHub 和 ClawHub/" itemprop="url">
-            <span itemprop="name">从零开始：如何自己写一个 OpenClaw Agent Skill，并发布到 GitHub 和 ClawHub</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2026-04-24T09:56:17+08:00"
-              content="2026-04-24">
-          04-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2026/04/24/如何在mac上安装openclaw/" itemprop="url">
-            <span itemprop="name">如何在mac上安装openclaw，并使用本地大模型</span>
+          <a class="post-title-link" href="/2026/07/04/编码Agent横向对比与VibeCoding辨析/" itemprop="url">
+            <span itemprop="name">Claude Code、Codex、Hermes、OpenClaw、Manus 横向拆解</span>
           </a>
       </div>
 
@@ -322,20 +302,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">228</span>
+        <span class="site-state-item-count">259</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -513,6 +493,33 @@ document.querySelectorAll('.pdfobject-container').forEach(element => {
 NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
   NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
     var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+
     var guest = 'nick,mail,link';
     guest = guest.split(',').filter(item => {
       return GUEST.includes(item);

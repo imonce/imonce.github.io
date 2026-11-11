@@ -122,17 +122,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,7 +196,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/01/rl-blog-final/">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/08/29/AI服务定价理论综述/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
@@ -210,7 +210,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/07/01/rl-blog-final/" class="post-title-link" itemprop="url">从 AlphaGo 到 LLM：强化学习的前世今生与大模型时代</a>
+            <a href="/2026/08/29/AI服务定价理论综述/" class="post-title-link" itemprop="url">AI 服务定价：当计价单位变成商品，成本导向为什么会失灵</a>
         </h2>
 
         <div class="post-meta">
@@ -219,10 +219,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2026-07-01 14:46:47 / Modified: 15:33:03" itemprop="dateCreated datePublished" datetime="2026-07-01T14:46:47+08:00">2026-07-01</time>
+              <time title="Created: 2026-08-29 20:44:14" itemprop="dateCreated datePublished" datetime="2026-08-29T20:44:14+08:00">2026-08-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:26:38" itemprop="dateModified" datetime="2026-11-11T15:26:38+08:00">2026-11-11</time>
+              </span>
 
           
   
@@ -233,8 +239,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2026/07/01/rl-blog-final/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/01/rl-blog-final/" itemprop="commentCount"></span>
+    <a title="valine" href="/2026/08/29/AI服务定价理论综述/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/08/29/AI服务定价理论综述/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -249,501 +255,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
-          
           <blockquote>
-<p><strong>摘要：</strong> 强化学习（Reinforcement Learning, RL）从上世纪 50 年代的早期构想，到 AlphaGo 的里程碑式突破，再到如今在大语言模型（LLM）中的全面渗透，走过了一条波澜壮阔的技术演进之路。本文回顾了 RL 的核心发展脉络，并重点聚焦 RL 如何与 LLM 结合——从 RLHF 到 PPO、DPO，再到 GRPO、BRPO 等最新算法，梳理其背后的技术逻辑、演进逻辑与前沿趋势。</p>
+<p>AI 服务的定价难点不在”按什么计费”，而在”容量稀缺时谁先用”。前者是会计问题，后者是机制设计问题——绝大多数定价翻车，是把后者当成了前者。</p>
 </blockquote>
-<hr>
-<h2 id="一、强化学习：一段简史"><a href="#一、强化学习：一段简史" class="headerlink" title="一、强化学习：一段简史"></a>一、强化学习：一段简史</h2><h3 id="1-1-萌芽与奠基（1950s–1980s）"><a href="#1-1-萌芽与奠基（1950s–1980s）" class="headerlink" title="1.1 萌芽与奠基（1950s–1980s）"></a>1.1 萌芽与奠基（1950s–1980s）</h3><p>强化学习的思想源头可以追溯到行为心理学中的<strong>操作性条件反射</strong>（Skinner, 1938）。20 世纪 50 年代，Arthur Samuel 在跳棋程序中提出了”强化学习”的雏形概念。1951 年，Homer Walker 在哈佛 Mark I 计算机上实现了世界上第一个强化学习代理。</p>
-<p>真正的理论奠基来自 <strong>Richard Bellman</strong> 在 1957 年提出的<strong>动态规划</strong>和<strong>贝尔曼方程</strong>，它为强化学习提供了数学基础——将价值函数定义为即时奖励与未来折扣奖励之和。</p>
-<h3 id="1-2-策略梯度与理论完善（1990s）"><a href="#1-2-策略梯度与理论完善（1990s）" class="headerlink" title="1.2 策略梯度与理论完善（1990s）"></a>1.2 策略梯度与理论完善（1990s）</h3><p>90 年代是 RL 走向算法化的关键时期：</p>
-<ul>
-<li><strong>1989</strong>，Chris Watkins 提出了 <strong>Q-Learning</strong>，一种无需模型（model-free）的时序差分学习方法，通过更新 Q 表来学习最优动作价值函数。该论文随后在 Watkins &amp; Barto（1989）中正式发表，奠定了无模型 RL 的基石。</li>
-<li>1996 年，<strong>SARSA</strong>（State-Action-Reward-State-Action）算法由 McCallum 正式提出，与 Q-Learning 的区别在于它属于 on-policy 方法，学习的是实际执行策略的价值，而非理论最优策略的价值。</li>
-<li><strong>REINFORCE 算法</strong>由 Ronald Williams 于 1992 年正式提出，它是基于策略梯度（Policy Gradient）的蒙特卡洛方法，直接优化策略参数而非通过价值函数间接优化，为后来 LLM 中的偏好优化奠定了理论基础。</li>
-</ul>
-<p>REINFORCE 的核心是<strong>策略梯度定理</strong>：对于策略参数 $\theta$，梯度为</p>
-<p>$$\nabla_\theta J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta} \left[ \sum_{t=0}^{T} \nabla_\theta \log \pi_\theta(a_t | s_t) \cdot Q^{\pi_\theta}(s_t, a_t) \right]$$</p>
-<p>在 LLM 语境中，$s_t$ 对应 prompt + 已生成的前缀 $x, y_{&lt;t}$，$a_t$ 对应下一个 token $y_t$。这个公式告诉我们：如果某个 token 带来了高累计回报，就增加其概率；反之则降低。这与 DPO 中的对数概率比本质上是相通的——都是基于回报信号调整 token 概率。</p>
-<p>这一阶段的 RL 主要应用于小型离散控制问题（如走迷宫、平衡杆），受限于计算能力和状态空间的爆炸性问题。</p>
-<h3 id="1-3-深度学习-×-RL：突破临界点（2013–2016）"><a href="#1-3-深度学习-×-RL：突破临界点（2013–2016）" class="headerlink" title="1.3 深度学习 × RL：突破临界点（2013–2016）"></a>1.3 深度学习 × RL：突破临界点（2013–2016）</h3><p>2013 年，DeepMind 发布了 <strong>DQN（Deep Q-Network）</strong>，将深度神经网络与 Q-Learning 结合，首次实现了从原始像素输入直接学习到 Atari 游戏的玩法规则（Mnih et al., 2013）。这是 RL 历史上第一个真正的里程碑。</p>
-<p>关键创新包括：</p>
-<ul>
-<li><strong>深度神经网络作为函数近似器</strong>，替代了传统的 Q 表</li>
-<li><strong>经验回放（Experience Replay）</strong>：将历史经验存储并随机采样，打破数据间的时序相关性</li>
-<li><strong>目标网络（Target Network）</strong>：固定目标 Q 值一段时间，提升训练稳定性</li>
-</ul>
-<p>2016 年，DeepMind 在 <em>Nature</em> 上发表了 <strong>AlphaGo</strong>（Silver et al., 2016），通过结合蒙特卡洛树搜索（MCTS）与深度策略网络和价值网络，击败了围棋世界冠军李世石。AlphaGo 的成功证明了 RL 在超高复杂度博弈中的能力，也引发了全球范围内的 AI 热潮。</p>
-<hr>
-<h2 id="二、RL-与大语言模型：从-RLHF-到后-RLHF-时代"><a href="#二、RL-与大语言模型：从-RLHF-到后-RLHF-时代" class="headerlink" title="二、RL 与大语言模型：从 RLHF 到后 RLHF 时代"></a>二、RL 与大语言模型：从 RLHF 到后 RLHF 时代</h2><h3 id="2-0-一句话类比：RL-对齐-LLM-到底在干什么？"><a href="#2-0-一句话类比：RL-对齐-LLM-到底在干什么？" class="headerlink" title="2.0 一句话类比：RL 对齐 LLM 到底在干什么？"></a>2.0 一句话类比：RL 对齐 LLM 到底在干什么？</h3><p>如果用一个生活化的比喻来理解 RL 如何对齐 LLM：</p>
-<ul>
-<li><strong>预训练</strong>就像让一个学生读了整座图书馆的书，知识渊博但说话不着边际。</li>
-<li><strong>SFT（监督微调）</strong>就像让老师给他一本”标准答案手册”，教他”好的回答应该长什么样”。</li>
-<li><strong>RL 对齐</strong>就像考试——学生每次写完回答后，老师给他打分（奖励），他根据分数调整自己的写法，最终学会在老师期望的方向上优化。</li>
-</ul>
-<p>RLHF、DPO、GRPO 等一系列算法，本质上都是在回答同一个问题：<strong>老师的”打分”应该怎么做，才能让学生学得好、学得快、学得稳？</strong></p>
-<h3 id="2-1-为什么-LLM-需要-RL？"><a href="#2-1-为什么-LLM-需要-RL？" class="headerlink" title="2.1 为什么 LLM 需要 RL？"></a>2.1 为什么 LLM 需要 RL？</h3><p>大语言模型（如 GPT、LLaMA）基于<strong>自回归的无监督预训练</strong>，擅长模仿训练数据的统计规律，但存在几个关键问题：</p>
-<ol>
-<li><strong>人类偏好对齐缺失</strong>：模型可能生成有害、偏见或不准确的回答</li>
-<li><strong>任务导向能力弱</strong>：在需要多步推理或遵循特定指令的场景下表现不佳</li>
-<li><strong>奖励信号缺失</strong>：预训练只有语言建模损失，没有关于”这个回答好不好”的反馈</li>
-</ol>
-<p>RL 的引入，本质上是为 LLM 提供<strong>基于反馈的学习信号</strong>，让模型学会在人类期望的方向上优化输出。</p>
-<h3 id="2-2-RLHF：人类反馈强化学习（2022）"><a href="#2-2-RLHF：人类反馈强化学习（2022）" class="headerlink" title="2.2 RLHF：人类反馈强化学习（2022）"></a>2.2 RLHF：人类反馈强化学习（2022）</h3><p>2022 年，OpenAI 在论文 <strong>“Training language models to follow instructions with human feedback”</strong> 中正式提出了 <strong>RLHF（Reinforcement Learning from Human Feedback）</strong>，成为 LLM 对齐的标杆方法。</p>
-<p>RLHF 分为三步：</p>
-<table>
-<thead>
-<tr>
-<th>步骤</th>
-<th>内容</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>SFT</td>
-<td>监督微调</td>
-<td>用人工标注的高质量对话数据微调 LLM</td>
-</tr>
-<tr>
-<td>RM</td>
-<td>奖励模型训练</td>
-<td>让人类对同一 prompt 的不同回答进行排序，训练一个能给出评分的奖励模型</td>
-</tr>
-<tr>
-<td>RL</td>
-<td>强化学习优化</td>
-<td>以预训练 LLM 为初始策略，用 PPO 算法根据奖励模型的反馈进行优化</td>
-</tr>
-</tbody></table>
-<p><strong>核心公式：</strong></p>
-<p>$$\max_{\pi} \mathbb{E}_{x \sim D, y \sim \pi(\cdot|x)} [r(x,y)] - \beta \cdot D _{KL}(\pi(\cdot|x) | \pi _{ref}(\cdot|x))$$</p>
-<p>其中 $r(x,y)$ 是奖励模型给出的分数，$\beta &gt; 0$ 是超参数，控制对齐强度；$\beta \cdot D_{KL}$ 是 KL 散度惩罚项，防止优化后的策略 $\pi$ 偏离参考模型 $\pi_{ref}$ 太远。</p>
-<p><strong>PPO 的完整计算流程：</strong></p>
-<p>PPO（Proximal Policy Optimization，Schulman et al., 2017）是 RLHF 中实际使用的策略优化算法，其核心是<strong>裁剪代理目标（clipped surrogate objective）</strong>。具体步骤如下：</p>
-<p><strong>步骤 1 — 采样</strong>：对于每个 prompt $x$，从当前策略 $\pi_\theta$ 采样生成回答 $y$。自回归生成过程中，每一步的 token 序列为 $y = (y_1, y_2, \ldots, y_T)$，其概率为</p>
-<p>$$\pi_\theta(y|x) = \prod_{t=1}^{T} \pi_\theta(y_t | x, y_{&lt;t})$$</p>
-<p><strong>步骤 2 — 计算奖励</strong>：用训练好的奖励模型 $r_\phi(x, y)$ 给出生成 $y$ 的标量奖励 $r(x,y)$。同时计算 KL 散度惩罚项（单样本估计）：</p>
-<p>$$d(x,y) = \frac{\pi_\theta(y|x)}{\pi_{ref}(y|x)} - \log \frac{\pi_\theta(y|x)}{\pi_{ref}(y|x)} - 1$$</p>
-<p>这是 KL 散度 $D_{KL}(\pi_\theta(\cdot|x) | \pi_{ref}(\cdot|x))$ 在单样本 $y$ 上的无偏估计（满足 $d(x,y) \geq 0$ 且当 $\pi_\theta = \pi_{ref}$ 时等于 0）。综合奖励为：</p>
-<p>$$r^{\text{combined}}(x, y) = r(x, y) - \beta \cdot d(x,y)$$</p>
-<p><strong>步骤 3 — 优势估计（GAE）</strong>：用价值网络 $V_\psi$ 估计优势函数。采用广义优势估计（GAE, Generalized Advantage Estimation，Schulman et al., 2015）：</p>
-<p>$$\delta _t = r _t + \gamma \cdot V_\psi(s _{t+1}) - V _\psi(s _t)$$</p>
-<p>$$A^{\text{GAE}(\gamma, \lambda)} _t = \sum _{l=0}^{\infty} (\gamma \lambda)^l \cdot \delta _{t+l}$$</p>
-<p>其中 $\gamma \in [0, 1]$ 是折扣因子，$\lambda \in [0, 1]$ 是 GAE 平滑参数。GAE 在偏差和方差之间做权衡：$\lambda = 0$ 退化为单步优势估计（低方差、高偏差），$\lambda = 1$ 为蒙特卡洛优势估计（高方差、低偏差）。</p>
-<p><strong>步骤 4 — PPO 裁剪目标</strong>：设 $r_t(\theta) = \frac{\pi_\theta(y_t | x, y_{&lt;t})}{\pi_{\theta_{\text{old}}}(y_t | x, y_{&lt;t})}$ 为新旧策略的概率比。PPO 的裁剪目标为：</p>
-<p>$$L^{\text{CLIP}}(\theta) = \mathbb{E}_t \left[ \min\left( r_t(\theta) \cdot A_t, ; \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon) \cdot A_t \right) \right]$$</p>
-<p>其中 $\epsilon$ 是裁剪超参数（通常取 0.2）。当优势 $A_t &gt; 0$ 时，裁剪上限防止策略更新过快；当 $A_t &lt; 0$ 时，裁剪下限防止策略过度远离旧策略。</p>
-<p><strong>步骤 5 — 总损失</strong>：</p>
-<p>$$\mathcal{L}(\theta) = \mathbb{E}_t \left[ -L^{\text{CLIP}}(\theta) - c_1 \cdot \mathcal{L}_{\text{VF}}(\theta) + c_2 \cdot S[\pi_\theta] (x) \right]$$</p>
-<p>其中 $\mathcal{L} _{\text{VF}} = |r _t \cdot A _t - V _\psi(s _t)|^2$ 是价值函数的 MSE 损失（ $c_1$ 为权重系数），$S[\pi _\theta] (x) = \mathbb{E} _{y \sim \pi _\theta(\cdot|x)} [-\log \pi _\theta(y|x)]$ 是策略的熵（ $c _2$ 为权重系数，鼓励探索）， $c _1, c _2$ 是超参数。注意最小化损失等价于最大化 PPO 目标（因此在 $L^{\text{CLIP}}$ 前加负号）。</p>
-<p><strong>优点：</strong> 能显著改善模型的对齐质量和指令遵循能力。</p>
-<p><strong>痛点：</strong></p>
-<ul>
-<li>训练流程极长（三步串行，每步都要单独训练和评估）</li>
-<li>PPO 算法在 LLM 上训练不稳定，需要精细调参（包括学习率、裁剪参数、价值网络超参数等）</li>
-<li>奖励模型可能存在偏差（reward hacking / reward mis-specification）</li>
-<li>需要额外维护价值网络（critic）和奖励模型（reward model），显存和计算开销大</li>
-</ul>
-<h3 id="2-3-从-RLHF-到-DPO：直接偏好优化（2023）"><a href="#2-3-从-RLHF-到-DPO：直接偏好优化（2023）" class="headerlink" title="2.3 从 RLHF 到 DPO：直接偏好优化（2023）"></a>2.3 从 RLHF 到 DPO：直接偏好优化（2023）</h3><p>2023 年，Stanford 的 <strong>DPO（Direct Preference Optimization）</strong> 论文（Rafailov et al., 2023）提出了一个关键洞察：<strong>不需要显式的奖励模型和 PPO 训练</strong>。</p>
-<p>DPO 的核心思想是将 RLHF 中的最优性条件反向求解出来，得到一个解析解形式的偏好优化目标。简单来说，给定一对回答 $(y_w, y_l)$（一个被偏好，一个被拒绝），DPO 直接最大化：</p>
-<p>$$\mathcal{L} _{\text{DPO}}(\pi _\theta; \pi _{\text{ref}}) = -\mathbb{E} _{(x, y _w, y _l) \sim \mathcal{D}} \left[ \log \sigma \left( \beta \log \frac{\pi _\theta(y _w|x)}{\pi _{\text{ref}}(y _w|x)} - \beta \log \frac{\pi _\theta(y _l|x)}{\pi _{\text{ref}}(y _l|x)} \right) \right]$$</p>
-<p><strong>DPO 公式的推导逻辑：</strong></p>
-<p>DPO 的精妙之处在于从 RLHF 的优化目标反向求解。在 RLHF 的 KL 约束优化框架下，最优策略的解析解为：</p>
-<p>$$\pi^*(y|x) = \frac{1}{Z(x)} \pi_{ref}(y|x) \exp\left(\frac{r^*(x,y)}{\beta}\right)$$</p>
-<p>其中 $Z(x) = \sum_y \pi_{ref}(y|x) \exp\left(\frac{r^*(x,y)}{\beta}\right)$ 是归一化常数（配分函数）。反过来，最优奖励可以表示为：</p>
-<p>$$r^*(x,y) = \beta \log \frac{\pi^*(y|x)}{\pi_{ref}(y|x)} + \beta \cdot \log Z(x)$$</p>
-<p>注意到 $Z(x)$ 与 $y$ 无关，在偏好对比中会被消去。将 $r^*$ 代入 DPO 的偏好损失（即最大化偏好回答的奖励减去拒绝回答的奖励），就得到了上面的损失函数。</p>
-<p><strong>DPO 的完整计算过程：</strong></p>
-<ol>
-<li><strong>输入</strong>：偏好对数据 $(x, y_w, y_l)$，其中 $y_w$ 是被偏好的回答，$y_l$ 是被拒绝的回答，数据集记为 $\mathcal{D}$</li>
-<li><strong>计算对数概率比</strong>：对每个偏好对，分别计算偏好回答和拒绝回答相对于参考模型的对数概率比：</li>
-</ol>
-<p>$$\Delta(x, y_w, y_l) = \log \frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \log \frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)}$$</p>
-<p>其中自回归的对数概率为 $\log \pi_\theta(y|x) = \sum_{t=1}^{T} \log \pi_\theta(y_t | x, y_{&lt;t})$，$T$ 为回答长度。<br>3. <strong>Sigmoid 映射与损失</strong>：将 $\beta \cdot \Delta$ 输入 sigmoid 函数，得到偏好概率：</p>
-<p>$$\sigma(\beta \cdot \Delta) = \frac{1}{1 + \exp(-\beta \cdot \Delta)}$$</p>
-<p>当 $\Delta &gt; 0$ 时，说明偏好回答的对数概率比大于拒绝回答，$\sigma(\beta \cdot \Delta) &gt; 0.5$，损失 $-\log \sigma(\beta \cdot \Delta)$ 较小；反之损失较大。<br>4. <strong>梯度更新</strong>：</p>
-<p>$$\nabla_\theta \mathcal{L}_{\text{DPO}} = -\beta \cdot \left(1 - \sigma(\beta \cdot \Delta)\right) \cdot \nabla_\theta \Delta$$</p>
-<p>当 $\Delta$ 很小（模型难以区分偏好和拒绝）时，$1 - \sigma \approx 0.5$，梯度较大，推动模型加大区分；当 $\Delta$ 很大（模型已能很好地区分）时，$1 - \sigma \approx 0$，梯度趋近于零，自动停止更新。</p>
-<p><strong>意义：</strong> DPO 将三步流程压缩为一步（直接用偏好数据微调），训练更简单、更稳定，且效果与 RLHF 相当甚至更好。</p>
-<p>DPO 引发了后续一系列<strong>偏好优化算法</strong>的爆发，以下逐一介绍其公式细节：</p>
-<h4 id="IPO：Identity-Preference-Optimization"><a href="#IPO：Identity-Preference-Optimization" class="headerlink" title="IPO：Identity Preference Optimization"></a>IPO：Identity Preference Optimization</h4><p>IPO（Wang et al., 2023）的核心洞察是：DPO 损失本质上是希望 $\Delta = \log \frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \log \frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)}$ 为正，而 DPO 用 sigmoid 将其映射到 (0,1)。IPO 直接对这个差值做平方损失：</p>
-<p>$$\mathcal{L}_{\text{IPO}}(\theta) = \mathbb{E} \left[ \left( \frac{1}{2} - \beta \cdot \Delta(x, y_w, y_l) \right)^2 \right]$$</p>
-<p>IPO 对标签噪声（即偏好标注错误的情况）比 DPO 更鲁棒，因为平方损失对极端值的敏感度低于交叉熵。</p>
-<h4 id="KTO：Kahneman-Tversky-Optimization"><a href="#KTO：Kahneman-Tversky-Optimization" class="headerlink" title="KTO：Kahneman-Tversky Optimization"></a>KTO：Kahneman-Tversky Optimization</h4><p>KTO（Ethayarajh et al., 2024）基于前景理论（Prospect Theory），为每个回答分配一个”期望效用”而非依赖成对比较。给定一个目标偏好分数 $r_{\text{target}}$（通常取 0.5），KTO 的损失为：</p>
-<p>$$\mathcal{L} _{\text{KTO}}(\theta) = \mathbb{E} _{(x,y,w) \sim \mathcal{D}} \left[ \begin{array}{l} w \cdot \max\left(0, -\log \sigma(\beta \cdot \log \frac{\pi _\theta(y|x)}{\pi _{ref}(y|x)} - r _{\text{target}})\right) \ + (1-w) \cdot \max\left(0, -\log \sigma(\beta \cdot \log \frac{\pi _{ref}(y|x)}{\pi _\theta(y|x)} + r _{\text{target}})\right) \end{array} \right]$$</p>
-<p>其中 $w \in {0, 1}$ 表示该回答是否被偏好。KTO 不需要成对的偏好数据，每个样本独立优化。</p>
-<h4 id="ORPO：Odds-Ratio-Preference-Optimization"><a href="#ORPO：Odds-Ratio-Preference-Optimization" class="headerlink" title="ORPO：Odds-Ratio Preference Optimization"></a>ORPO：Odds-Ratio Preference Optimization</h4><p>ORPO 将 SFT 的交叉熵损失和 DPO 的偏好损失合并为单步：</p>
-<p>$$\mathcal{L} _{\text{ORPO}}(\theta) = -\mathbb{E} \left[ \log \sigma\left( \beta \cdot \log \frac{\pi _\theta(y _w|x)}{\pi _\theta(y _l|x)} \cdot \frac{\pi _{ref}(y _l|x)}{\pi _{ref}(y _w|x)} \right) \right] - \lambda \cdot \mathcal{L} _{\text{SFT}}(\theta)$$</p>
-<p>其中第二项是标准 SFT 损失（最大化偏好回答的似然，即负对数似然）。ORPO 将偏好比值 $\frac{\pi_\theta(y_w|x)}{\pi_\theta(y_l|x)}$ 与参考模型的比值 $\frac{\pi_{ref}(y_l|x)}{\pi_{ref}(y_w|x)}$ 做对比，本质上是在 SFT 的同时做偏好优化。</p>
-<h4 id="SimPO：Simple-Preference-Optimization"><a href="#SimPO：Simple-Preference-Optimization" class="headerlink" title="SimPO：Simple Preference Optimization"></a>SimPO：Simple Preference Optimization</h4><p>SimPO（Tian et al., 2024）的洞察是：不需要 KL 散度到参考模型，直接用序列的 log-prob 差作为奖励信号：</p>
-<p>$$\mathcal{L}_{\text{SimPO}}(\theta) = -\mathbb{E} \left[ \log \sigma\left( \frac{\beta}{|y_w|} \log \pi_\theta(y_w|x) - \frac{\beta}{|y_l|} \log \pi_\theta(y_l|x) - \gamma \right) \right]$$</p>
-<p>其中 $|y_w|$、$|y_l|$ 分别是回答 $y_w$、$y_l$ 的 token 数（即序列长度），$\gamma$ 是目标 margin 超参数。SimPO 通过长度归一化消除了长度偏好问题，且不需要参考模型 $\pi_{ref}$。</p>
-<h4 id="CPO：Contrastive-Preference-Optimization"><a href="#CPO：Contrastive-Preference-Optimization" class="headerlink" title="CPO：Contrastive Preference Optimization"></a>CPO：Contrastive Preference Optimization</h4><p>CPO 关注正负样本之间的相对距离，使用对比式损失（InfoNCE 风格）。设对于每个 prompt $x$，有一个偏好回答 $y_w$ 和 $K$ 个拒绝回答 $y_1, \ldots, y_K$。定义每个回答的”偏好分数”为 $s(y) = \beta \cdot \log \frac{\pi_\theta(y|x)}{\pi_{ref}(y|x)}$，则 CPO 损失为：</p>
-<p>$$\mathcal{L}_{\text{CPO}}(\theta) = -\mathbb{E} \left[ \log \frac{\exp(s(y_w))}{\sum_{j=0}^{K} \exp(s(y_j))} \right]$$</p>
-<p>其中 $y_0 = y_w$，$y_1, \ldots, y_K$ 为拒绝回答。CPO 将偏好优化视为一个 $K+1$ 类的对比分类问题（InfoNCE 风格）。</p>
-<p>这些算法的共同特点是<strong>去掉了 PPO 训练环节</strong>，将 RL 问题转化为一个监督学习问题。</p>
-<h3 id="2-4-GRPO：组相对策略优化（2024）"><a href="#2-4-GRPO：组相对策略优化（2024）" class="headerlink" title="2.4 GRPO：组相对策略优化（2024）"></a>2.4 GRPO：组相对策略优化（2024）</h3><p>2024 年 11 月，来自 DeepSeek 的 <strong>GRPO（Group Relative Policy Optimization）</strong> 论文（DeepSeek-AI et al., 2024）引起了广泛关注。GRPO 的核心创新在于<strong>用组内相对排名替代了价值网络（critic）</strong>。</p>
-<p><strong>GRPO 的关键设计：</strong></p>
-<ol>
-<li><p><strong>去掉 Critic 模型</strong>：传统 PPO 需要单独训练一个价值函数模型来估计状态价值。GRPO 通过让 LLM 为同一个 prompt 生成多个回答（一个 group），然后用组内的相对奖励（group reward）来计算优势函数（advantage）。</p>
-</li>
-<li><p><strong>组内归一化</strong>：对于一个 prompt 生成的 $G$ 个回答，先计算每个回答的奖励 $r_1, r_2, \ldots, r_G$，然后做组内归一化：</p>
-</li>
-</ol>
-<p>$$\hat{A} _i = \frac{r _i - \text{mean}({r _j} _{j=1}^G)}{\text{std}({r _j} _{j=1}^G)}$$</p>
-<ol start="3">
-<li><strong>简化训练流程</strong>：不需要额外的奖励模型和价值模型，只需要一个基础模型就能完成整个 RL 训练。</li>
-</ol>
-<p><strong>GRPO 的完整计算过程：</strong></p>
-<p>设对于 $N$ 个 prompt ${x_1, x_2, \ldots, x_N}$，当前策略 $\pi_\theta$ 为每个 prompt 生成 $G$ 个回答。</p>
-<p><strong>步骤 1 — 组内采样</strong>：对每个 prompt $x_i$，从 $\pi_\theta$ 采样 $G$ 个回答：</p>
-<p>$${y_{i,1}, y_{i,2}, \ldots, y_{i,G}} \sim \pi_\theta(\cdot|x_i)$$</p>
-<p><strong>步骤 2 — 计算每个回答的奖励</strong>：</p>
-<ul>
-<li>对于可验证任务（数学、代码）：使用精确奖励，正确答案为 1，错误为 0：</li>
-</ul>
-<p>$$r_{i,j} = \mathbb{I}(\text{verify}(y_{i,j}) = \text{true})$$</p>
-<ul>
-<li>对于不可验证任务：使用奖励模型 $r_\phi(x_i, y_{i,j})$ 给出标量评分。</li>
-</ul>
-<p><strong>步骤 3 — 组内优势估计</strong>：计算组内奖励的均值和标准差，然后归一化得到优势：</p>
-<p>$$\hat{A} _{i,j} = \frac{r _{i,j} - \mu _i}{\sigma _i + \epsilon}$$</p>
-<p>其中 $\mu_i = \frac{1}{G}\sum_{k=1}^{G} r_{i,k}$，$\sigma_i = \sqrt{\frac{1}{G}\sum_{k=1}^{G}(r_{i,k} - \mu_i)^2 + \epsilon}$，$\epsilon$ 为数值稳定性项（通常取 $10^{-8}$）。</p>
-<p><strong>步骤 4 — GRPO 裁剪目标</strong>：与 PPO 类似，使用裁剪策略目标，但优势函数用组内归一化的 $\hat{A}_{i,j}$ 替代：</p>
-<p>$$L^{\text{GRPO}}(\theta) = \frac{1}{NG} \sum _{i=1}^{N} \sum _{j=1}^{G} \min\left( \frac{\pi _\theta(y _{i,j}|x _i)}{\pi _{\theta _{\text{old}}}(y _{i,j}|x _i)} \cdot \hat{A} _{i,j}, ; \text{clip}\left(\frac{\pi _\theta(y _{i,j}|x _i)}{\pi _{\theta _{\text{old}}}(y _{i,j}|x _i)}, 1-\epsilon, 1+\epsilon\right) \cdot \hat{A} _{i,j} \right)$$</p>
-<p><strong>步骤 5 — KL 惩罚项</strong>：为防止策略偏离参考模型太远，加入 KL 惩罚：</p>
-<p>$$\mathcal{L} _{\text{GRPO}}(\theta) = L^{\text{GRPO}}(\theta) + \lambda \cdot \frac{1}{NG} \sum _{i=1}^{N} \sum _{j=1}^{G} D _{KL}(\pi _\theta(\cdot|x _i) | \pi _{ref}(\cdot|x _i))$$</p>
-<p><strong>步骤 6 — 梯度更新</strong>：对总损失进行反向传播更新策略参数 $\theta$。</p>
-<p><strong>与 PPO 的关键差异：</strong></p>
-<table>
-<thead>
-<tr>
-<th>对比项</th>
-<th>PPO (RLHF)</th>
-<th>GRPO</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>优势估计</td>
-<td>需要价值网络 $V_\psi$ 用 GAE 计算</td>
-<td>组内奖励归一化，无需价值网络</td>
-</tr>
-<tr>
-<td>奖励模型</td>
-<td>需要单独训练的 $r_\phi$</td>
-<td>可省略（可验证任务用精确奖励）或复用基础模型</td>
-</tr>
-<tr>
-<td>Critic 模型</td>
-<td>需要，额外参数开销</td>
-<td>不需要</td>
-</tr>
-<tr>
-<td>采样策略</td>
-<td>每个 prompt 采样 1 个回答</td>
-<td>每个 prompt 采样 $G$ 个回答（$G$ 通常为 4–8）</td>
-</tr>
-</tbody></table>
-<p><strong>GRPO 的优势：</strong></p>
-<ul>
-<li><strong>训练效率更高</strong>：省去了奖励模型训练和 PPO 中 critic 的更新</li>
-<li><strong>显存占用更低</strong>：不需要存储 critic 模型的参数</li>
-<li><strong>实现更简洁</strong>：整个流程可以集成在一个训练循环中</li>
-<li><strong>组内相对比较更鲁棒</strong>：组内归一化天然消除了不同 prompt 之间奖励尺度的差异</li>
-</ul>
-<h3 id="2-5-BRPO：引导式相对策略优化（2025）"><a href="#2-5-BRPO：引导式相对策略优化（2025）" class="headerlink" title="2.5 BRPO：引导式相对策略优化（2025）"></a>2.5 BRPO：引导式相对策略优化（2025）</h3><p>2025 年 6 月，<strong>Writing-Zero</strong> 论文（Jia et al., arXiv: 2506.00103）提出了 <strong>BRPO（Bootstrapped Relative Policy Optimization）</strong>，专门解决 RLVR 在<strong>非可验证任务</strong>（如创意写作、开放对话）中的困境。</p>
-<p><strong>背景问题：</strong> RLVR 在数学推理、代码生成等可验证任务上取得了巨大成功，但在创意写作等主观评价任务上，传统的标量奖励模型（scalar reward model）存在明显缺陷：泛化能力差、容易 reward hacking（过度解释、长度偏好等）。</p>
-<p><strong>BRPO 的核心设计：</strong></p>
-<ol>
-<li><p><strong>生成式奖励模型（GenRM）：</strong> 不使用标量评分，而是训练一个 pair-wise 的生成式奖励模型，基于写作原则进行自我批判式评估（self-principled critique），将主观判断转化为可验证的奖励信号。</p>
-</li>
-<li><p><strong>Bootstrapped 引导机制：</strong> BRPO 在训练过程中，从同组 rollout 中动态采样一个引导响应（bootstrapped response）作为临时参考，实现<strong>动态、无参考的成对比较（dynamic reference-free pairwise comparison）</strong>。这与 GRPO 的组内归一化思想一脉相承，但引入了 bootstrapped 参考的概念。</p>
-</li>
-</ol>
-<p><strong>BRPO 的关键创新：</strong></p>
-<ul>
-<li><strong>无需监督微调（SFT-free）：</strong> 直接在预训练模型上训练写作能力</li>
-<li><strong>强抗 reward hacking：</strong> 通过 pair-wise 比较而非标量评分，避免模型迎合单一奖励维度</li>
-<li><strong>统一 RLVR 范式：</strong> 尝试将基于规则、基于参考和基于无参考的奖励建模统一到 RLVR 框架下</li>
-</ul>
-<p><strong>BRPO 的完整计算过程：</strong></p>
-<p>设对于 $N$ 个 prompt ${x_1, x_2, \ldots, x_N}$，当前策略 $\pi_\theta$ 为每个 prompt 生成 $G$ 个回答 ${y_1, y_2, \ldots, y_G}$。</p>
-<p><strong>步骤 1 — 组内采样</strong>：同 GRPO，对每个 prompt $x_i$ 采样 $G$ 个回答。</p>
-<p><strong>步骤 2 — 生成式奖励（GenRM）评估</strong>：训练一个 pair-wise 的生成式奖励模型 $M_{\text{GenRM}}$，对每对回答 $(y_a, y_b)$ 进行自我批判式评估。模型基于写作原则（如结构、连贯性、创意性）输出比较结果而非标量评分：</p>
-<p>$$\text{critique} _{a \to b} = M _{\text{GenRM}}(x, y _a, y _b)$$</p>
-<p>该 critique 是一个自然语言文本，解释为什么 $y_a$ 优于 $y_b$（或反之）。这种 pair-wise 比较避免了标量评分的单一维度问题。</p>
-<p><strong>步骤 3 — Bootstrapped 引导采样</strong>：从同组 rollout 中动态采样一个引导响应 $y_{\text{boot}}$ 作为临时参考。具体而言，从组内 ${y_1, \ldots, y_G}$ 中按概率分布 $p_j \propto \exp(\text{critique}(y_j))$ 采样：</p>
-<p>$$y_{\text{boot}} \sim p_{\text{boot}} = \text{Softmax}\left(\frac{\text{critique}(y_1), \ldots, \text{critique}(y_G)}{\tau}\right)$$</p>
-<p>其中 $\tau$ 是温度参数，控制采样的”锐度”。</p>
-<p><strong>步骤 4 — 动态参考比较</strong>：将当前回答 $y_j$ 与 bootstrapped 参考 $y_{\text{boot}}$ 进行成对比较，得到成对优势：</p>
-<p>$$\hat{A} _{i,j} = \text{critique} _{y _{i,j} \to y _{i,\text{boot}}} - \text{critique} _{y _{i,\text{boot}} \to y _{i,j}}$$</p>
-<p>这种对称的成对比较消除了单个 critic 的主观偏差。</p>
-<p><strong>步骤 5 — BRPO 策略更新</strong>：与 GRPO 类似，使用裁剪策略目标，但优势函数用 bootstrapped 成对比较的 $\hat{A}_{i,j}$ 替代：</p>
-<p>$$\mathcal{L} _{\text{BRPO}}(\theta) = L^{\text{clip}}(\theta; \hat{A}) + \lambda \cdot D _{KL}(\pi _{ref} | \pi _\theta)$$</p>
-<p><strong>与 GRPO 的核心差异：</strong></p>
-<table>
-<thead>
-<tr>
-<th>对比项</th>
-<th>GRPO</th>
-<th>BRPO</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>奖励形式</td>
-<td>标量奖励 $r \in \mathbb{R}$</td>
-<td>生成式 critique 文本</td>
-</tr>
-<tr>
-<td>优势估计</td>
-<td>组内归一化 $\frac{r_i - \mu}{\sigma}$</td>
-<td>bootstrapped 成对比较</td>
-</tr>
-<tr>
-<td>参考模型</td>
-<td>不需要（除 KL 惩罚项）</td>
-<td>动态 bootstrapped 采样作为参考</td>
-</tr>
-<tr>
-<td>适用任务</td>
-<td>可验证任务（数学、代码）</td>
-<td>非可验证任务（写作、对话）</td>
-</tr>
-<tr>
-<td>SFT 依赖</td>
-<td>通常需要 SFT 初始化</td>
-<td>SFT-free，可直接从预训练模型开始</td>
-</tr>
-</tbody></table>
-<p><strong>BRPO 与 GRPO 的关系：</strong><br>BRPO 和 GRPO 都属于「去 critic」的轻量级偏好优化路线，但侧重点不同：GRPO 侧重于推理类可验证任务中的高效训练，BRPO 侧重于主观任务中如何用生成式奖励和 bootstrapped 参考来克服奖励模型的局限性。两者在技术思路上有相通之处（组内比较、动态参考），可以看作是同一方向上的不同分支。</p>
-<h3 id="2-6-GRPO-的变体与延伸（2024–2025）"><a href="#2-6-GRPO-的变体与延伸（2024–2025）" class="headerlink" title="2.6 GRPO 的变体与延伸（2024–2025）"></a>2.6 GRPO 的变体与延伸（2024–2025）</h3><p>GRPO 提出后，迅速催生了多个改进版本。</p>
-<table>
-<thead>
-<tr>
-<th>算法</th>
-<th>全称</th>
-<th>改进点</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>GRPO</strong></td>
-<td>Group Relative Policy Optimization</td>
-<td>组内相对优势，去 critic</td>
-</tr>
-<tr>
-<td><strong>Dr. GRPO</strong></td>
-<td>Diverse Reward GRPO</td>
-<td>引入多样性奖励，鼓励生成多样化的高质量回答</td>
-</tr>
-<tr>
-<td><strong>RLVR</strong></td>
-<td>Reinforcement Learning with Verifiable Rewards</td>
-<td>针对数学推理，使用可验证的正确答案作为奖励信号</td>
-</tr>
-<tr>
-<td><strong>RLOO</strong></td>
-<td>Reinforcement Learning with Leave-One-Out</td>
-<td>改进 GRPO 的优势估计，用 leave-one-out 方式计算</td>
-</tr>
-<tr>
-<td><strong>BRPO</strong></td>
-<td>Bootstrapped Relative Policy Optimization</td>
-<td>引导式相对策略优化，用于非可验证任务（Writing-Zero, 2025）</td>
-</tr>
-<tr>
-<td><strong>PPO-Ref</strong></td>
-<td>PPO with Reference Model</td>
-<td>保留 PPO 框架但优化了参考模型的策略</td>
-</tr>
-<tr>
-<td><strong>DPO++</strong></td>
-<td>DPO Enhanced</td>
-<td>在 DPO 基础上引入更多负样本和对比机制</td>
-</tr>
-<tr>
-<td><strong>REINFORCE++</strong></td>
-<td>—</td>
-<td>将 REINFORCE 算法引入 LLM 对齐，探索梯度估计的改进</td>
-</tr>
-<tr>
-<td><strong>SLiC / SLiF</strong></td>
-<td>Sequence Likelihood Calibration / Finetuning</td>
-<td>通过校准序列似然来对齐偏好</td>
-</tr>
-</tbody></table>
-<p><strong>RLOO 的公式细节：</strong></p>
-<p>RLOO（Zhao et al., 2024）的核心改进是替代 GRPO 的组内归一化优势估计。在 GRPO 中，$\hat{A} _{i,j} = \frac{r _{i,j} - \mu _i}{\sigma _i}$ 中每个样本 $j$ 都参与了均值和方差的计算，因此优势估计中混入了自身信息。RLOO 采用 leave-one-out 方式，将样本 $j$ 自身排除在统计量计算之外：</p>
-<p>$$\hat{A}^{\text{RLOO}} _{i,j} = \frac{r _{i,j} - \frac{1}{G-1}\sum _{k \neq j} r _{i,k}}{\sqrt{\frac{1}{G-1}\sum _{k \neq j}(r _{i,k} - \bar{r} _{i}^{\neg j})^2 + \epsilon}}$$</p>
-<p>其中 $\bar{r} _{i}^{\neg j} = \frac{1}{G-1}\sum _{k \neq j} r _{i,k}$ 是排除样本 $j$ 后的组内均值。RLOO 的优势估计更”无偏”，因为每个样本的优势只依赖其他样本的信息。</p>
-<p><strong>Dr. GRPO 的核心思想：</strong></p>
-<p>Dr. GRPO 在 GRPO 的奖励中加入多样性项。除了原始奖励 $r_{i,j}$，额外计算组内回答的多样性惩罚/奖励：</p>
-<p>$$r^{\text{Dr}} _{i,j} = r _{i,j} + \lambda _{\text{div}} \cdot \frac{1}{G-1} \sum _{k \neq j} \text{diversity}(y _{i,j}, y _{i,k})$$</p>
-<p>其中 $\text{diversity}(y_a, y_b)$ 可以基于 NLSD（Normalized Longest Common Substring Distance）等文本相似度指标计算。这鼓励模型在同一 prompt 下探索多样化的推理路径，避免多回答退化到同一个模式。</p>
-<p>此外还有一些值得关注的方向：<strong>BPO（Budget Preference Optimization）</strong>，在偏好优化中引入计算预算约束，在推理质量和效率之间做权衡；以及 <strong>RLAIF（Reinforcement Learning from AI Feedback）</strong>，用 AI 生成的反馈替代人类标注，大幅降低对齐成本。</p>
-<h3 id="2-7-当前前沿：RL-for-大模型科研"><a href="#2-7-当前前沿：RL-for-大模型科研" class="headerlink" title="2.7 当前前沿：RL for 大模型科研"></a>2.7 当前前沿：RL for 大模型科研</h3><p>2024 年底到 2025 年，RL 在 LLM 中的应用进入了一个新阶段。几个关键趋势：</p>
-<p><strong>（1）RL for Science（科学发现）</strong></p>
-<p>研究人员正在用 RL 驱动 LLM 在科学发现中扮演主动角色——不是让 LLM 回答问题，而是让 LLM 作为<strong>科研代理</strong>，通过”提出假设 → 设计实验 → 分析结果 → 修正假设”的闭环，自主推进科学研究。</p>
-<p><strong>（2）推理能力的 RL 增强</strong></p>
-<p>DeepSeek-R1 和 QwQ 等模型的突破性成果，很大程度上归功于 RL 对推理能力的增强。通过 GRPO 等算法，让模型在数学推理、代码生成等任务上学会”思考过程”的优化，而不仅仅是”答案的正确性”。</p>
-<p><strong>（3）多智能体 RL</strong></p>
-<p>将 LLM 作为多智能体系统中的一个 agent，通过 RL 让多个模型之间协作、竞争、协商，完成更复杂的任务。这在自动化测试、软件工程和仿真系统中展现出巨大潜力。</p>
-<p><strong>（4）RL 与 RAG 的结合</strong></p>
-<p>检索增强生成（RAG）与 RL 的结合——用 RL 优化检索策略、重排算法和最终的答案生成，使系统在信息检索和生成之间形成端到端的优化闭环。</p>
-<hr>
-<h2 id="三、技术对比：主流偏好优化算法一览"><a href="#三、技术对比：主流偏好优化算法一览" class="headerlink" title="三、技术对比：主流偏好优化算法一览"></a>三、技术对比：主流偏好优化算法一览</h2><p>偏好优化算法的设计在多个维度上存在权衡。下表从算法所需的<strong>外部模型</strong>、<strong>训练范式</strong>、<strong>数据需求</strong>和<strong>适用场景</strong>四个维度进行对比，帮助读者理解不同算法的定位和取舍。</p>
-<table>
-<thead>
-<tr>
-<th>算法</th>
-<th align="center">需训练奖励模型？</th>
-<th align="center">需训练价值模型？</th>
-<th align="center">优化范式</th>
-<th align="center">训练步骤</th>
-<th align="center">数据需求</th>
-<th align="center">适用场景</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>RLHF (PPO)</strong></td>
-<td align="center">✅ 需要</td>
-<td align="center">✅ 需要</td>
-<td align="center">策略梯度</td>
-<td align="center">3 步（SFT→RM→RL）</td>
-<td align="center">偏好排序（多选项排序）</td>
-<td align="center">通用对话、指令遵循，需要精细对齐的场景</td>
-</tr>
-<tr>
-<td><strong>DPO</strong></td>
-<td align="center">❌</td>
-<td align="center">❌</td>
-<td align="center">直接偏好优化</td>
-<td align="center">1 步（SFT 后微调）</td>
-<td align="center">偏好对（$y_w, y_l$）</td>
-<td align="center">通用偏好对齐，标注数据充足</td>
-</tr>
-<tr>
-<td><strong>IPO</strong></td>
-<td align="center">❌</td>
-<td align="center">❌</td>
-<td align="center">平方损失偏好优化</td>
-<td align="center">1 步（SFT 后微调）</td>
-<td align="center">偏好对</td>
-<td align="center">偏好对含标签噪声的场景</td>
-</tr>
-<tr>
-<td><strong>KTO</strong></td>
-<td align="center">❌</td>
-<td align="center">❌</td>
-<td align="center">直接偏好优化</td>
-<td align="center">1 步（SFT 后微调）</td>
-<td align="center">独立样本 + 效用标签（无需成对）</td>
-<td align="center">无偏好对标注、仅有独立评分的场景</td>
-</tr>
-<tr>
-<td><strong>ORPO</strong></td>
-<td align="center">❌</td>
-<td align="center">❌</td>
-<td align="center">SFT + 偏好联合优化</td>
-<td align="center">1 步（端到端）</td>
-<td align="center">偏好对</td>
-<td align="center">需要兼顾生成质量与偏好对齐</td>
-</tr>
-<tr>
-<td><strong>SimPO</strong></td>
-<td align="center">❌</td>
-<td align="center">❌</td>
-<td align="center">log-prob 差直接优化</td>
-<td align="center">1 步（SFT 后微调）</td>
-<td align="center">偏好对</td>
-<td align="center">需消除长度偏好的场景</td>
-</tr>
-<tr>
-<td><strong>CPO</strong></td>
-<td align="center">❌</td>
-<td align="center">❌</td>
-<td align="center">对比式偏好优化</td>
-<td align="center">1 步（SFT 后微调）</td>
-<td align="center">偏好对 + 多个负样本</td>
-<td align="center">多负样本对比场景</td>
-</tr>
-<tr>
-<td><strong>GRPO</strong></td>
-<td align="center">❌</td>
-<td align="center">❌</td>
-<td align="center">PPO 裁剪策略（去 critic）</td>
-<td align="center">1 步（可直接预训练后训练）</td>
-<td align="center">无需偏好标注，仅需可验证奖励</td>
-<td align="center">可验证任务（数学推理、代码生成）</td>
-</tr>
-<tr>
-<td><strong>RLOO</strong></td>
-<td align="center">❌</td>
-<td align="center">❌</td>
-<td align="center">PPO 裁剪策略（去 critic）</td>
-<td align="center">1 步</td>
-<td align="center">无需偏好标注，仅需可验证奖励</td>
-<td align="center">需无偏优势估计的可验证任务</td>
-</tr>
-<tr>
-<td><strong>BRPO</strong></td>
-<td align="center">❌</td>
-<td align="center">❌</td>
-<td align="center">PPO 裁剪策略（去 critic）</td>
-<td align="center">1 步（SFT-free）</td>
-<td align="center">无需偏好标注，仅需 GenRM 成对比较</td>
-<td align="center">非可验证任务（写作、对话）</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p><strong>维度说明：</strong></p>
-<ul>
-<li><strong>需训练奖励模型</strong>：算法是否在训练过程中需要单独训练一个奖励模型（Reward Model）</li>
-<li><strong>需训练价值模型</strong>：算法是否需要单独训练一个价值网络（Critic / Value Network）</li>
-<li><strong>优化范式</strong>：算法采用的优化策略类型</li>
-<li><strong>训练步骤</strong>：从预训练/SFT 到最终模型需要经历的训练阶段数</li>
-<li><strong>数据需求</strong>：算法训练所需的标注数据类型（偏好标注 vs 可验证奖励 vs 独立评分）</li>
-<li><strong>适用场景</strong>：算法最适合的任务类型</li>
-</ul>
-<p>总体而言，<strong>RLHF (PPO)</strong> 在通用对齐任务上效果最成熟但复杂度最高；<strong>DPO 系列</strong>（DPO / IPO / KTO / ORPO / SimPO / CPO）通过简化训练流程降低了门槛，但依赖偏好标注数据；<strong>RL 衍生系列</strong>（GRPO / RLOO / BRPO）则完全免除了偏好标注需求，通过组内比较或生成式奖励实现对齐，但各有特定的适用场景。</p>
-</blockquote>
-<hr>
-<h2 id="四、总结与展望"><a href="#四、总结与展望" class="headerlink" title="四、总结与展望"></a>四、总结与展望</h2><p>强化学习从 AlphaGo 到 GRPO 的演进，本质上反映了 AI 研究的一个趋势：**从”用复杂系统解决复杂问题”走向”用更简洁的机制实现相同甚至更好的效果”**。</p>
-<p>RLHF 用三步流程证明了 LLM 对齐的可行性，DPO 用一步优化证明了它更简洁，而 GRPO 进一步去掉了价值模型，让 RL 训练真正变得轻量化和高效化。</p>
-<p>展望未来，随着 RL 技术的持续演进，我们可能会看到：</p>
-<ul>
-<li><strong>RL 成为 LLM 训练的标配环节</strong>，如同预训练和 SFT 一样自然</li>
-<li><strong>RL 与 Agent 框架深度融合</strong>，让大模型具备自主决策和行动能力</li>
-<li><strong>RL for Science 的范式创新</strong>，推动科学发现的自动化和加速化</li>
-<li><strong>多模态 RL</strong>，在视觉、语音、文本等多模态场景下实现对齐和优化</li>
-</ul>
-<p>从 AlphaGo 的棋盘到 LLM 的文本，从离散的动作空间到连续的语义空间，强化学习正在重新定义 AI 的能力边界。而这一切，才刚刚开始。</p>
-<hr>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
-<li>Mnih, V. et al. “Human-level control through deep reinforcement learning.” <em>Nature</em> <strong>518</strong>, 529–533 (2015).</li>
-<li>Silver, D. et al. “Mastering the game of Go with deep neural networks and tree search.” <em>Nature</em> <strong>529</strong>, 484–489 (2016).</li>
-<li>Ouyang, L. et al. “Training language models to follow instructions with human feedback.” <em>NeurIPS</em> 2022.</li>
-<li>Rafailov, R. et al. “Direct preference optimization: Your language model is secretly a reward model.” <em>NeurIPS</em> 2023.</li>
-<li>DeepSeek-AI et al. “DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via RL.” 2024.（GRPO 论文）</li>
-<li>Jia, R. et al. “Writing-Zero: Bridge the Gap Between Non-verifiable Tasks and Verifiable Rewards.” <em>arXiv:2506.00103</em>, 2025.（BRPO 论文）</li>
-<li>Schulman, J. et al. “Proximal Policy Optimization Algorithms.” <em>arXiv:1707.06347</em>, 2017.</li>
-<li>Schulman, J. et al. “High-Dimensional Continuous Control Using Generalized Advantage Estimation.” <em>arXiv:1506.02438</em>, 2015.</li>
-<li>Wang, T. et al. “IPO: Exit the Saddle — An Exact Solution to the Logistic Regression Preference Learning Problem.” <em>NeurIPS</em> 2023.</li>
-<li>Ethayarajh, K. et al. “KTO: Model Alignment as Prospect Theoretic Optimization.” <em>arXiv:2402.01306</em>, 2024.</li>
-<li>Tian, Y. et al. “SimPO: Simple Preference Optimization with a Reference-Free Reward.” <em>NeurIPS</em> 2024.</li>
-<li>Zhao, H. et al. “RLOO: Reinforcement Learning with Leave-One-Out Advantage Estimation.” <em>arXiv:2412.18899</em>, 2024.</li>
-<li>Williams, R. J. “Simple statistical gradient-following algorithms for connectionist reinforcement learning.” <em>Machine Learning</em> <strong>8</strong>(3), 229–256 (1992).</li>
-<li>Watkins, C. J. C. H. &amp; Barto, A. G. “Q-learning.” <em>Machine Learning</em> <strong>8</strong>(3–4), 279–292 (1992).</li>
-</ol>
-<hr>
-<p><em>本文基于公开文献整理，内容截至 2026 年 6 月。</em></p>
-
-          
-          
-          
-          
-          
-          
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>先摆一个矛盾。</p>
+<p>云厂商卖虚拟机，成本导向定价很好用：CPU 小时、内存 GB 小时、存储 GB 月，每一项都能追到硬件折旧 + 电费 + 机房成本，加个目标毛利就是价格。</p>
+<p>但同一个云厂商卖大模型推理 API，这套算法立刻失效：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/08/29/AI服务定价理论综述/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -762,7 +287,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/06/30/推荐系统技术全景/">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/08/14/半导体产线质量数字化术语手册/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
@@ -776,7 +301,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/06/30/推荐系统技术全景/" class="post-title-link" itemprop="url">推荐系统技术全景：从协同过滤到大语言模型，三十年演进之路</a>
+            <a href="/2026/08/14/半导体产线质量数字化术语手册/" class="post-title-link" itemprop="url">半导体产线质量数字化术语手册：从 EAP 到 APQP，以及 AI 落在哪里</a>
         </h2>
 
         <div class="post-meta">
@@ -786,14 +311,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2026-06-30 22:16:11" itemprop="dateCreated datePublished" datetime="2026-06-30T22:16:11+08:00">2026-06-30</time>
+              <time title="Created: 2026-08-14 20:03:10" itemprop="dateCreated datePublished" datetime="2026-08-14T20:03:10+08:00">2026-08-14</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-07-01 15:37:36" itemprop="dateModified" datetime="2026-07-01T15:37:36+08:00">2026-07-01</time>
+                <time title="Modified: 2026-11-11 15:27:28" itemprop="dateModified" datetime="2026-11-11T15:27:28+08:00">2026-11-11</time>
               </span>
 
           
@@ -805,8 +330,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2026/06/30/推荐系统技术全景/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2026/06/30/推荐系统技术全景/" itemprop="commentCount"></span>
+    <a title="valine" href="/2026/08/14/半导体产线质量数字化术语手册/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/08/14/半导体产线质量数字化术语手册/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -821,645 +346,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
-          
           <blockquote>
-<p><strong>导语：</strong> 推荐系统已经渗透到我们生活的方方面面——淘宝的商品、抖音的视频、知乎的回答、Spotify 的歌单、小红书的内容。本文从最传统的推荐方法一路讲到最前沿的研究方向，用尽量通俗的语言完整梳理推荐系统的技术演进脉络。</p>
+<p>这份术语表不是按字母序排的。因为<strong>懂这些词的关键不是记住定义，而是知道它们串成几条链</strong>——串错了链，AI 方案在 POC 阶段就会撞墙。</p>
 </blockquote>
-<hr>
-<h2 id="一、为什么推荐系统如此重要"><a href="#一、为什么推荐系统如此重要" class="headerlink" title="一、为什么推荐系统如此重要"></a>一、为什么推荐系统如此重要</h2><p>在信息爆炸的时代，核心问题不再是”信息不够多”，而是”注意力不够用”。假设你在淘宝上有 1000 万种商品，在抖音上有数亿条视频，你一天能看完多少？所以平台需要帮你筛选——这就是推荐系统的任务。</p>
-<p>推荐系统的本质就是<strong>在海量物品和有限用户注意力之间架桥</strong>。</p>
-<p>从商业角度看，推荐系统直接驱动了平台的核心增长飞轮：更好的推荐 → 更高的用户参与度 → 更多的数据 → 更好的推荐。</p>
-<hr>
-<h2 id="二、第一阶段：规则与统计时代（1990s-以前）"><a href="#二、第一阶段：规则与统计时代（1990s-以前）" class="headerlink" title="二、第一阶段：规则与统计时代（1990s 以前）"></a>二、第一阶段：规则与统计时代（1990s 以前）</h2><h3 id="1-基于内容的推荐（Content-Based-Filtering）"><a href="#1-基于内容的推荐（Content-Based-Filtering）" class="headerlink" title="1. 基于内容的推荐（Content-Based Filtering）"></a>1. 基于内容的推荐（Content-Based Filtering）</h3><p><strong>一句话解释：</strong> 你看过什么，我就给你推荐跟它相似的东西。</p>
-<p><strong>具体怎么做？</strong> 分三步：</p>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>面向 AI 落地工程师，半导体产线有三个”看不懂”：</p>
 <ol>
-<li><strong>给物品打标签。</strong> 比如一部电影，它的标签可以是：科幻、动作、科幻大师诺兰执导、主演克里斯蒂安·贝尔。</li>
-<li><strong>建用户画像。</strong> 如果你连续看了《星际穿越》《盗梦空间》《信条》，系统就判断你喜欢”科幻”和”诺兰”。</li>
-<li><strong>做匹配。</strong> 系统从你还没看过的电影里，找出标签里也有”科幻”的推荐给你。</li>
+<li><strong>术语看不懂</strong>：ADC、OCAP、FDC 混着讲，不知道谁是谁的上游；</li>
+<li><strong>链路看不懂</strong>：拿到了设备数据，但不知道它该进 SPC 还是 FDC，也不知道异常之后谁接手；</li>
+<li><strong>边界看不懂</strong>：模型准确率 99%，工艺工程师一句”这个我不能签字”就打回来了。</li>
 </ol>
-<p><strong>经典算法：</strong></p>
-<ul>
-<li><p><strong>TF-IDF（词频-逆文档频率）：</strong> 用来给文本特征打分，判断某个词对某部电影的”重要程度”。计算分两步：</p>
-<p>第一步，<strong>TF（词频）</strong> 衡量一个词在这部电影中出现得有多频繁：<br>$$TF(t, d) = \frac{\text{词 } t \text{ 在文档 } d \text{ 中出现的次数}}{\text{文档 } d \text{ 的总词数}}$$<br>比如《星际穿越》全文 5000 字，”时间”出现了 80 次，那么 $TF(\text{时间}, \text{星际穿越}) = 80/5000 = 0.016$。</p>
-<p>第二步，<strong>IDF（逆文档频率）</strong> 衡量这个词在所有电影中有多”稀有”——越稀有的词，区分度越高：<br>$$IDF(t) = \log\frac{N}{df(t)}$$<br>其中 $N$ 是电影总数，$df(t)$ 是包含词 $t$ 的电影数。比如有 10000 部电影，”科幻”出现了 5000 部，$df(\text{科幻}) = 5000$，$IDF = \log(10000/5000) = \log 2 \approx 0.69$；而”诺兰”只出现在 10 部电影里，$IDF = \log(10000/10) = \log 1000 \approx 6.91$。显然”诺兰”的区分度远高于”科幻”。</p>
-<p>最后 <strong>TF-IDF = TF × IDF</strong>。某个词在某部电影中既常见（TF 高），又在整体中稀有（IDF 高），那它就构成了这部电影的”核心标签”。</p>
-</li>
-<li><p><strong>KNN（最近邻）：</strong> 计算两部电影的特征向量之间的相似度，越相似推荐概率越高。最常用的相似度度量是<strong>余弦相似度</strong>：<br>$$\text{Cosine}(A, B) = \frac{A \cdot B}{|A| \times |B|} = \frac{\sum _{i=1}^{n} A _i B _i}{\sqrt{\sum _{i=1}^{n} A _i^2} \times \sqrt{\sum _{i=1}^{n} B _i^2}}$$<br>具体怎么算？假设用三个标签维度来描述电影：[科幻，动作，诺兰]。电影 X 的特征向量是 A = [0.9, 0.3, 0.8]，电影 Y 的特征向量是 B = [0.8, 0.2, 0.9]。</p>
-<ul>
-<li>分子（点积）：$A \cdot B = 0.9 \times 0.8 + 0.3 \times 0.2 + 0.8 \times 0.9 = 0.72 + 0.06 + 0.72 = 1.50$</li>
-<li>分母（模长乘积）：$|A| = \sqrt{0.9^2 + 0.3^2 + 0.8^2} = \sqrt{0.81 + 0.09 + 0.64} = \sqrt{1.54} \approx 1.24$，同理 $|B| = \sqrt{0.8^2 + 0.2^2 + 0.9^2} = \sqrt{0.64 + 0.04 + 0.81} = \sqrt{1.49} \approx 1.22$</li>
-<li>余弦相似度：$\text{Cosine} = \frac{1.50}{1.24 \times 1.22} = \frac{1.50}{1.51} \approx 0.99$<br>接近 1，说明两部电影非常相似。如果余弦相似度等于 0，说明完全正交（毫无相似之处）；等于 -1，说明完全相反（一般不会出现）。</li>
-</ul>
-</li>
-</ul>
-<p><strong>局限性：</strong> 你只能看到你”可能已经喜欢”的东西。比如你可能从来没看过动画电影，但推荐系统永远不会给你推荐——因为你没有看动画电影的历史，它不知道你喜欢这个。</p>
-<h3 id="2-关联规则（Association-Rules）"><a href="#2-关联规则（Association-Rules）" class="headerlink" title="2. 关联规则（Association Rules）"></a>2. 关联规则（Association Rules）</h3><p><strong>一句话解释：</strong> 找出那些经常被一起买（或一起看）的物品组合。</p>
-<p><strong>经典场景：</strong> 啤酒与尿布的传说。据说超市发现，买啤酒的顾客也有较大概率买尿布，于是把它们摆在一起，销量都涨了。</p>
-<p><strong>核心算法：</strong></p>
-<ul>
-<li><strong>Apriori：</strong> 这是最经典的关联规则算法。它的工作方式是”逐层搜索”——先找出所有经常被单独购买的物品（比如”面包”被买了 1000 次），然后找经常一起出现的物品对（比如”面包+牛奶”一起出现了 300 次），再找三个物品的组合，以此类推。其核心思想是<strong>先验性质</strong>：如果某个物品集不频繁，那么它的所有超集也一定不频繁（Apriori 性质），由此可以大幅剪枝搜索空间。</li>
-<li><strong>FP-Growth：</strong> Apriori 的改进版，通过构建 FP-Tree（频繁模式树）来压缩数据，只需扫描两次数据库即可挖掘所有频繁项集，速度更快。</li>
-</ul>
-<p><strong>核心输出格式：</strong> <code>{啤酒} → {尿布}（置信度 60%，支持度 10%）</code></p>
-<p>这个输出背后有三个指标，分别衡量这条规则的”价值”。让我们用数字把每个指标算清楚。</p>
-<p>假设一个超市一周共有 1000 笔交易，其中 100 笔同时买了啤酒和尿布，200 笔买了啤酒，150 笔买了尿布。</p>
-<p><strong>支持度（Support）</strong> 衡量这条规则覆盖了多少交易：<br>$$\text{Support}(\text{啤酒} \Rightarrow \text{尿布}) = \frac{|{\text{同时包含啤酒和尿布的交易}}|}{|\text{总交易数}|} = \frac{100}{1000} = 0.10 = 10%$$<br>意思是：在所有交易中，有 10% 的交易同时买了啤酒和尿布。</p>
-<p><strong>置信度（Confidence）</strong> 衡量买了啤酒的人中有多少人买了尿布：<br>$$\text{Confidence}(\text{啤酒} \Rightarrow \text{尿布}) = \frac{\text{Support}(\text{啤酒} \cup \text{尿布})}{\text{Support}(\text{啤酒})} = \frac{0.10}{0.20} = 0.50 = 50%$$<br>也就是说，买了啤酒的人中，有 50% 的人同时买了尿布。</p>
-<p><strong>提升度（Lift）</strong> 衡量”买啤酒”对”买尿布”的促进作用：<br>$$\text{Lift}(\text{啤酒} \Rightarrow \text{尿布}) = \frac{\text{Confidence}}{\text{Support}(\text{尿布})} = \frac{0.50}{0.15} \approx 3.33$$<br>Lift = 3.33 &gt; 1，说明买啤酒的人确实更有可能买尿布，而且概率是不买啤酒人群的 3.33 倍。如果 Lift = 1，说明”买啤酒”和”买尿布”完全无关；如果 Lift &lt; 1，说明它们甚至互相排斥（买了啤酒反而不太可能买尿布）。</p>
-<p><strong>局限性：</strong> 它只能发现”谁和谁常一起出现”，但不能解释”为什么”。而且它不考虑每个人的个人偏好——对所有人都用同一套规则。</p>
-<hr>
-<h2 id="三、第二阶段：协同过滤时代（1990s–2010s）"><a href="#三、第二阶段：协同过滤时代（1990s–2010s）" class="headerlink" title="三、第二阶段：协同过滤时代（1990s–2010s）"></a>三、第二阶段：协同过滤时代（1990s–2010s）</h2><h3 id="1-User-Based-协同过滤"><a href="#1-User-Based-协同过滤" class="headerlink" title="1. User-Based 协同过滤"></a>1. User-Based 协同过滤</h3><p><strong>一句话解释：</strong> “和你品味相似的人也喜欢这个，所以你可能也喜欢。”</p>
-<p><strong>具体怎么做？</strong> 分两步：</p>
-<ol>
-<li><strong>找相似用户。</strong> 假设你有 5 部电影评分：A(5分)、B(4分)、C(3分)、D(1分)、E(2分)。系统找到和你评分模式最像的另外 10 个人。</li>
-<li><strong>取他们喜欢、但你不喜欢的。</strong> 假设这 10 个人中有 8 个人都给了电影 F 高分，但你还没看过 F，那系统就会把 F 推荐给你。</li>
-</ol>
-<p><strong>核心思路：</strong> 品味相似的用户，大概率也会喜欢相似的东西。</p>
-<p><strong>用户相似度怎么算？</strong> 最常用的度量是<strong>余弦相似度</strong>（减去平均值后的版本）。假设用户 A 和用户 B 都对 3 部电影评过分，评分如下表：</p>
-<table>
-<thead>
-<tr>
-<th>电影</th>
-<th>用户 A</th>
-<th>用户 B</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>《星际穿越》</td>
-<td>5</td>
-<td>4</td>
-</tr>
-<tr>
-<td>《盗梦空间》</td>
-<td>4</td>
-<td>3</td>
-</tr>
-<tr>
-<td>《泰坦尼克号》</td>
-<td>1</td>
-<td>2</td>
-</tr>
-</tbody></table>
-<p>先算平均评分：$\bar{r} _A = (5+4+1)/3 = 3.33$，$\bar{r} _B = (4+3+2)/3 = 3.00$。用减去均值后的评分来计算相似度：<br>$$\text{sim}(A, B) = \frac{\sum _{i \in I _{AB}} (r _{Ai} - \bar{r} _A)(r _{Bi} - \bar{r} _B)}{\sqrt{\sum _{i \in I _{AB}} (r _{Ai} - \bar{r} _A)^2} \times \sqrt{\sum _{i \in I _{AB}} (r _{Bi} - \bar{r} _B)^2}}$$<br>具体计算：</p>
-<ul>
-<li>分子：$(5-3.33)(4-3.00) + (4-3.33)(3-3.00) + (1-3.33)(2-3.00) = 1.67 \times 1.00 + 0.67 \times 0.00 + (-2.33) \times (-1.00) = 1.67 + 0 + 2.33 = 4.00$</li>
-<li>分母：$\sqrt{1.67^2 + 0.67^2 + 2.33^2} \times \sqrt{1.00^2 + 0.00^2 + 1.00^2} = \sqrt{2.79 + 0.45 + 5.43} \times \sqrt{1 + 0 + 1} = \sqrt{8.67} \times \sqrt{2} \approx 2.94 \times 1.41 = 4.15$</li>
-<li>相似度：$\text{sim}(A, B) = 4.00 / 4.15 \approx 0.96$</li>
-</ul>
-<p>接近 1，说明用户 A 和用户 B 的品味高度一致。</p>
-<p><strong>评分预测：</strong> 找到与用户 u 最相似的 k 个邻居后，预测用户 u 对物品 i 的评分：<br>$$\hat{r} _{ui} = \bar{r} _u + \frac{\sum _{v \in N _u(k)} \text{sim}(u, v) \times (r _{vi} - \bar{r} _v)}{\sum _{v \in N _u(k)} |\text{sim}(u, v)|}$$<br>具体怎么算？假设用户 C 还没看《盗梦空间》，我们想用用户 A 和用户 B 帮他预测。已知：$\bar{r} _C = 3.0$，用户 A 对《盗梦空间》评分 4，相似度 0.96；用户 B 对《盗梦空间》评分 3，相似度 0.90。</p>
-<ul>
-<li>分子：$0.96 \times (4 - 3.33) + 0.90 \times (3 - 3.00) = 0.96 \times 0.67 + 0.90 \times 0.00 = 0.64 + 0 = 0.64$</li>
-<li>分母：$0.96 + 0.90 = 1.86$</li>
-<li>预测评分：$\hat{r} _{C, \text{盗梦空间}} = 3.00 + 0.64 / 1.86 = 3.00 + 0.34 = 3.34$</li>
-</ul>
-<p>用户 C 预计会给《盗梦空间》打 3.34 分。</p>
-<p><strong>局限性：</strong> 当用户量达到千万级时，计算”你和所有人的相似度”计算量巨大。而且很多用户可能只看过很少的物品，很难找到足够相似的人。</p>
-<h3 id="2-Item-Based-协同过滤"><a href="#2-Item-Based-协同过滤" class="headerlink" title="2. Item-Based 协同过滤"></a>2. Item-Based 协同过滤</h3><p><strong>一句话解释：</strong> “喜欢这个物品的人，也喜欢那个。”</p>
-<p><strong>具体怎么做？</strong></p>
-<ol>
-<li><strong>计算物品相似度。</strong> 所有给电影 A 评分的人，和所有给电影 B 评分的人，看看他们的评分模式是否相似。如果给 A 高分的人也给 B 高分，那 A 和 B 就相似。</li>
-<li><strong>给用户推荐相似物品。</strong> 如果你给电影 A 打了 5 分，系统找出和 A 最相似的 10 部电影（但你还没看过的），推荐给你。</li>
-</ol>
-<p><strong>为什么 ItemCF 比 UserCF 更流行？</strong></p>
-<ul>
-<li><strong>物品相似度相对稳定。</strong> 今天和 A 相似的电影，明天大概率还是相似的；但”和你品味相似的人”可能每天都在变。</li>
-<li><strong>可以离线计算。</strong> 物品相似度矩阵可以提前算好，线上推荐时只需要查表。</li>
-<li><strong>适合电商。</strong> 电商的物品数量比用户少得多，计算物品相似度更划算。</li>
-</ul>
-<p><strong>物品相似度怎么算？</strong> 用最简洁的 Jaccard 风格公式：<br>$$\text{sim}(A, B) = \frac{|N(A) \cap N(B)|}{\sqrt{|N(A)| \times |N(B)|}}$$<br>其中 $N(A)$ 是购买过物品 A 的用户集合。举个例子：</p>
-<ul>
-<li>买了电影 A 的用户：${\text{张三, 李四, 王五, 赵六, 钱七}}$，共 5 人</li>
-<li>买了电影 B 的用户：${\text{张三, 李四, 王五, 孙八, 周九}}$，共 5 人</li>
-<li>交集：${\text{张三, 李四, 王五}}$，共 3 人</li>
-<li>相似度：$\text{sim}(A, B) = 3 / \sqrt{5 \times 5} = 3 / 5 = 0.60$</li>
-</ul>
-<p><strong>评分预测：</strong> 假设用户 u 给电影 A 打了 5 分，与 A 最相似的两部电影是 B（相似度 0.60，u 打了 4 分）和 C（相似度 0.40，u 打了 3 分）。预测 u 对电影 D 的评分（D 与 B 的相似度 0.70，与 C 的相似度 0.50）：<br>$$\hat{r} _{ui} = \frac{\sum _{j \in S(i, k) \cap R _u} w _{ij} \times r _{uj}}{\sum _{j \in S(i, k) \cap R _u} |w _{ij}|} = \frac{0.70 \times 4 + 0.50 \times 3}{0.70 + 0.50} = \frac{2.8 + 1.5}{1.2} = \frac{4.3}{1.2} \approx 3.58$$<br>用户 u 预计会给电影 D 打 3.58 分。</p>
-<p><strong>局限性：</strong> 对新物品完全没用——刚上架的电影没有人给它评过分，它就永远不会被推荐。</p>
-<h3 id="3-矩阵分解（Matrix-Factorization-MF）"><a href="#3-矩阵分解（Matrix-Factorization-MF）" class="headerlink" title="3. 矩阵分解（Matrix Factorization, MF）"></a>3. 矩阵分解（Matrix Factorization, MF）</h3><p><strong>一句话解释：</strong> 把”用户-物品评分表”压缩成两个小表格，每个用户和每个物品各有一组”隐向量”，它们的点积就能近似原始评分。</p>
-<p><strong>详细解释：</strong></p>
-<p>想象一个用户-物品评分矩阵，行是用户，列是物品，格子里是评分。但这个矩阵极其稀疏——大多数格子是空的（你没看过的东西怎么评分？）。</p>
-<p>矩阵分解的核心想法是：<strong>虽然矩阵很稀疏，但用户的兴趣和物品的属性其实由少数几个”隐因子”决定。</strong></p>
-<p>比如电影可能有这些隐因子：科幻程度、浪漫程度、喜剧程度、动作程度。每个用户对这四个因子的偏好不同，每部电影在这四个因子上的得分也不同。</p>
-<p><strong>数学上：</strong> 假设你有 N 个用户和 M 个物品，我们试图找到两个矩阵：</p>
-<ul>
-<li>用户矩阵 U（N 行 × k 列），每行是一个用户的隐向量</li>
-<li>物品矩阵 V（M 行 × k 列），每行是一个物品的隐向量</li>
-</ul>
-<p>使得 $U \times V^T \approx$ 原始评分矩阵 $R$</p>
-<p>其中 k 是隐向量的维度（通常 50~256），远小于 N 和 M。</p>
-<p><strong>优化目标：</strong><br>$$\min _{U, V} \sum _{(u, i) \in \Omega} (r _{ui} - \hat{r} _{ui})^2 + \lambda (|U| _F^2 + |V| _F^2)$$<br>其中 $\Omega$ 是已知的评分集合，$\hat{r} _{ui} = u _u^T v _i$（用户隐向量与物品隐向量的点积），$\lambda$ 是正则化系数，$|\cdot| _F$ 是 Frobenius 范数。</p>
-<p><strong>SGD 更新规则：</strong><br>$$e _{ui} = r _{ui} - u _u^T v _i$$<br>$$u _u \leftarrow u _u + \gamma (e _{ui} \cdot v _i - \lambda \cdot u _u)$$<br>$$v _i \leftarrow v _i + \gamma (e _{ui} \cdot u _u - \lambda \cdot v _i)$$<br>其中 $\gamma$ 是学习率，$e _{ui}$ 是预测误差。每次只更新一个已知的 $(u,i)$ 对。</p>
-<p><strong>经典算法：</strong></p>
-<ul>
-<li><strong>SVD（奇异值分解）：</strong> 最经典的矩阵分解方法，但要求矩阵完整（不能有缺失值），而实际评分矩阵大量缺失。</li>
-<li><strong>SVD++：</strong> SVD 的改进版，把用户的隐式反馈（比如点击、浏览）也考虑进来。</li>
-<li><strong>ALS（交替最小二乘法）：</strong> Netflix Prize 比赛的核心算法。思路是：先固定用户矩阵 U，用最小二乘法解出最优的物品矩阵 V；然后固定 V，解出最优的 U。交替进行，直到收敛。</li>
-<li><strong>MF（Matrix Factorization）：</strong> 用随机梯度下降（SGD）直接优化 U 和 V，使预测评分和实际评分的差距最小。</li>
-</ul>
-<p><strong>优势：</strong> </p>
-<ul>
-<li>隐向量可以捕捉比显性标签更复杂的用户-物品关系</li>
-<li>缓解了数据稀疏性问题——即使某个用户只评了 3 个分，也能通过隐向量找到其他相似用户的信息</li>
-</ul>
-<hr>
-<h2 id="四、第三阶段：特征工程-机器学习时代（2010–2014）"><a href="#四、第三阶段：特征工程-机器学习时代（2010–2014）" class="headerlink" title="四、第三阶段：特征工程 + 机器学习时代（2010–2014）"></a>四、第三阶段：特征工程 + 机器学习时代（2010–2014）</h2><h3 id="1-特征工程驱动"><a href="#1-特征工程驱动" class="headerlink" title="1. 特征工程驱动"></a>1. 特征工程驱动</h3><p>互联网大厂（尤其是 Google、Facebook）开始构建大规模的特征体系。</p>
-<p><strong>什么是特征工程？</strong> 简单说就是把用户、物品、场景的各种信息整理成机器能理解的数字格式。</p>
-<ul>
-<li><strong>用户侧特征：</strong> 年龄、性别、注册时长、今天活跃了几次、平均每天花多少时间、昨晚几点睡……</li>
-<li><strong>物品侧特征：</strong> 类别、价格、上架时间、历史点击率、平均评分……</li>
-<li><strong>交叉特征：</strong> 这是最关键的——用户和物品的组合特征。比如”一个 25 岁的女性用户看到一件女装广告”这个交叉特征，比单独的”25 岁”或”女装”都有信息量。</li>
-</ul>
-<p><strong>问题：</strong> 人工设计交叉特征非常累，而且很难穷举所有可能的组合。</p>
-<h3 id="2-逻辑回归（LR）"><a href="#2-逻辑回归（LR）" class="headerlink" title="2. 逻辑回归（LR）"></a>2. 逻辑回归（LR）</h3><p><strong>为什么推荐 LR？</strong> 因为它简单、可解释、线上推理极快。</p>
-<p>LR 的输出是：用户点击某条广告的概率 = σ(w₁x₁ + w₂x₂ + … + wₙxₙ)，其中 σ 是 sigmoid 函数（把任意实数压缩到 0~1 之间），x 是特征，w 是权重。</p>
-<p><strong>数学公式：</strong><br>$$P(y=1 \mid x) = \sigma(w^T x + b) = \frac{1}{1 + e^{-(w^T x + b)}}$$<br><strong>损失函数（交叉熵）：</strong><br>$$\mathcal{L} = -\frac{1}{N} \sum _{i=1}^{N} [y _i \log(\hat{y} _i) + (1-y _i) \log(1-\hat{y} _i)]$$<br>其中 $\hat{y} _i = \sigma(w^T x _i + b)$，$y _i \in {0, 1}$ 是真实标签。</p>
-<p><strong>关键问题：</strong> 如果特征都是人工设计的，LR 的性能上限就在那里了。所以关键是”如何自动发现好的特征交叉”。</p>
-<h3 id="3-FM——自动发现特征交叉"><a href="#3-FM——自动发现特征交叉" class="headerlink" title="3. FM——自动发现特征交叉"></a>3. FM——自动发现特征交叉</h3><p><strong>一句话解释：</strong> 给每个特征学一个”隐向量”，通过隐向量的点积来自动发现特征之间的二阶交叉关系。</p>
-<p><strong>举个例子：</strong></p>
-<p>假设你要预测用户是否会点击一条广告。有两个特征：</p>
-<ul>
-<li>特征 1：用户性别（男/女）</li>
-<li>特征 2：广告类别（女装/男装/食品）</li>
-</ul>
-<p>传统 LR 需要人工构造交叉特征”性别×广告类别”（比如”男×男装”、”女×女装”）。如果有一百个特征，交叉特征就有 C(100,2) = 4950 个，而且大部分数据是稀疏的（你不可能看到所有组合）。</p>
-<p>FM 的巧妙之处在于：它给每个特征学一个 k 维隐向量 v₁, v₂, …, vₙ。两个特征的交叉就通过它们的隐向量点积 vᵢ·vⱼ 来近似。</p>
-<p><strong>核心公式：</strong></p>
-<p>FM 的预测公式为：<br>$$\hat{y}(x) = w _0 + \sum _{i=1}^{n} w _i x _i + \sum _{i=1}^{n} \sum _{j=i+1}^{n} \langle v _i, v _j \rangle x _i x _j$$<br>其中 $w _0$ 是全局偏置，$w _i$ 是第 $i$ 个特征的权重，$v _i$ 是第 $i$ 个特征的 k 维隐向量，$\langle v _i, v _j \rangle$ 是隐向量的点积。</p>
-<p>交叉项的数学推导——利用平方和展开的技巧，二阶交叉项可以改写为：<br>$$\sum _{i=1}^{n} \sum _{j=i+1}^{n} \langle v _i, v _j \rangle x _i x _j = \frac{1}{2} \sum _{f=1}^{k} \left( \left( \sum _{i=1}^{n} v _{i,f} x _i \right)^2 - \sum _{i=1}^{n} v _{i,f}^2 x _i^2 \right)$$</p>
-<p>这意味着即使特征非常稀疏，FM 也能高效地学习交叉项，计算复杂度是 O(kn)，而不是 O(n²)。</p>
-<p><strong>FM 的实际影响：</strong> 2010 年提出后，FM 在 CTR 预估（预测用户是否会点击广告/商品）领域成为重要工具。</p>
-<h3 id="4-FFM——给每个特征每个”域”一个隐向量"><a href="#4-FFM——给每个特征每个”域”一个隐向量" class="headerlink" title="4. FFM——给每个特征每个”域”一个隐向量"></a>4. FFM——给每个特征每个”域”一个隐向量</h3><p><strong>一句话解释：</strong> FM 给每个特征一个隐向量，但 FFM 发现：同一个特征在不同的”上下文”（Field）中可能代表不同的含义，所以给每个特征在每个 Field 里单独学一个隐向量。</p>
-<p><strong>举个例子：</strong></p>
-<p>假设有两个特征：</p>
-<ul>
-<li>特征 A：性别（男）</li>
-<li>特征 B：广告类别（男装）</li>
-</ul>
-<p>在 FM 中，性别”男”只有一个隐向量 $v_A$ 。但在 FFM 中，性别”男”对广告类别”男装”的隐向量，和性别”男”对广告类别”女装”的隐向量是不同的—— $v_A(男装) ≠ v_A(女装)$ 。</p>
-<p>因为性别”男”和广告”男装”之间的相关性，和性别”男”与广告”女装”之间的相关性显然不同。FFM 捕捉到了这种”上下文依赖性”。</p>
-<p><strong>2016 年 WSDM 最佳论文。</strong> 在 2014–2018 年间，FFM 是工业界 CTR 预估的标配算法。</p>
-<p><strong>FFM 的公式改进：</strong><br>FM 中的交叉项是 $\sum _{i=1}^n \sum _{j=i+1}^n \langle v _i, v _j \rangle x _i x _j$，其中隐向量 $v _i$ 与特征无关。<br>FFM 则将隐向量按”域（Field）”拆分：$\langle v _{i, F _j}, v _{j, F _i} \rangle$，其中 $v _{i, F _j}$ 表示特征 $i$ 在特征 $j$ 所属域中的隐向量。于是：<br>$$\hat{y}(x) = w _0 + \sum _{i=1}^n w _i x _i + \sum _{i=1}^n \sum _{j=i+1}^n \langle v _{i, F _j}, v _{j, F _i} \rangle x _i x _j$$<br>代价是隐向量个数从 $n \times k$ 增加到 $n \times k \times |\text{Fields}|$，但精度显著提升。</p>
-<h3 id="5-GBDT-LR"><a href="#5-GBDT-LR" class="headerlink" title="5. GBDT + LR"></a>5. GBDT + LR</h3><p><strong>一句话解释：</strong> 用树模型（XGBoost/LightGBM）自动做特征交叉，用 LR 做最终的分类。</p>
-<p><strong>具体流程：</strong></p>
-<ol>
-<li>先用 XGBoost 训练一个树模型</li>
-<li>把训练数据输入到树的叶子节点，得到每个样本在树中的叶子编号（比如样本 A 落在第 3 片叶子）</li>
-<li>把叶子编号作为新的特征输入到 LR</li>
-</ol>
-<p><strong>为什么这样做有效？</strong></p>
-<ul>
-<li>树模型能自动发现特征之间的非线性交叉关系</li>
-<li>LR 最后做一个线性分类，简单高效</li>
-<li>在 Kaggle 比赛中非常流行</li>
-</ul>
-<p><strong>具体转化过程：</strong><br>假设用 $T$ 棵树做 GBDT，每棵树有 $L$ 个叶子节点。对于一个样本 $x$：</p>
-<ol>
-<li>输入每棵树，得到它落入的叶子节点索引：$t(x) = (t _1(x), t _2(x), \ldots, t _T(x))$</li>
-<li>将叶子索引做 one-hot 编码，得到新的特征向量 $x’ = \text{onehot}(t(x))$，维度为 $T \times L$</li>
-<li>将 $x’$ 输入 LR：$\hat{y} = \sigma(w _{LR}^T x’ + b _{LR})$</li>
-</ol>
-<hr>
-<h2 id="五、第四阶段：深度学习时代（2014–2019）"><a href="#五、第四阶段：深度学习时代（2014–2019）" class="headerlink" title="五、第四阶段：深度学习时代（2014–2019）"></a>五、第四阶段：深度学习时代（2014–2019）</h2><h3 id="1-Google-Wide-amp-Deep（2016）"><a href="#1-Google-Wide-amp-Deep（2016）" class="headerlink" title="1. Google Wide &amp; Deep（2016）"></a>1. Google Wide &amp; Deep（2016）</h3><p><strong>一句话解释：</strong> 用两个网络并行工作——Wide 部分负责”记忆”你之前见过的模式，Deep 部分负责”泛化”到没见过的组合。</p>
-<p><strong>具体架构：</strong></p>
-<p><strong>Wide 部分（记忆能力）：</strong></p>
-<ul>
-<li>用稀疏的交叉特征（人工设计的），如”25岁女性×北京×女装×晚间”</li>
-<li>输出：$s _{\text{wide}} = w _{\text{wide}}^T x _{\text{wide}} + b _{\text{wide}}$</li>
-<li>优点：对见过的组合记得很准</li>
-<li>缺点：没见过的新组合就无能为力了（稀疏特征中没出现的组合输出为零）</li>
-</ul>
-<p><strong>Deep 部分（泛化能力）：</strong></p>
-<ul>
-<li>Embedding 层：把稀疏特征（用户 ID、商品 ID 等）映射到稠密向量：$e _i = \text{Embed}(f _i)$</li>
-<li>DNN：多层全连接网络，逐层变换：$h^{(l+1)} = \sigma(W^{(l)} h^{(l)} + b^{(l)})$</li>
-<li>优点：没见过的新组合也能通过 Embedding 的连续空间做泛化</li>
-<li>缺点：对某些特定组合不够精准</li>
-</ul>
-<p><strong>最终融合：</strong><br>$$\hat{y} = \sigma(s _{\text{wide}} + s _{\text{deep}}) = \sigma(w _{\text{wide}}^T x _{\text{wide}} + b _{\text{wide}} + w _{\text{deep}}^T h _{\text{deep}} + b _{\text{deep}})$$<br>即把两部分的 logits 相加（而不是拼接再做一次 LR），等价于一个逻辑回归。</p>
-<p><strong>效果：</strong> Google Play 上线后 CTR 提升 2.7%。</p>
-<h3 id="2-DeepFM（2017）"><a href="#2-DeepFM（2017）" class="headerlink" title="2. DeepFM（2017）"></a>2. DeepFM（2017）</h3><p><strong>一句话解释：</strong> 去掉 Wide &amp; Deep 中需要人工设计 Wide 部分特征的麻烦，用 FM 自动提取低阶交叉，用 DNN 自动提取高阶交叉，两者共享同一个 Embedding 层。</p>
-<p><strong>为什么比 Wide &amp; Deep 更好？</strong></p>
-<ul>
-<li>Wide &amp; Deep 的 Wide 部分需要大量人工特征工程</li>
-<li>DeepFM 用 FM 层自动做二阶交叉，DNN 自动做高阶交叉</li>
-<li>两层共享 Embedding，更高效</li>
-<li>不需要人工设计 Wide 部分</li>
-</ul>
-<p><strong>DeepFM 的预测公式：</strong><br>DeepFM 由两个子网络组成，共享同一组 Embedding 层：</p>
-<ul>
-<li><strong>FM 部分（捕获二阶特征交叉）：</strong><br>$$s _{\text{FM}} = w _0 + \sum _{i=1}^n w _i x _i + \frac{1}{2} \sum _{f=1}^k \left( \left( \sum _{i=1}^n v _{i,f} x _i \right)^2 - \sum _{i=1}^n v _{i,f}^2 x _i^2 \right)$$</li>
-<li><strong>DNN 部分（捕获高阶特征交叉）：</strong><br>$$h^{(0)} = [e _1, e _2, \ldots, e _n], \quad h^{(l+1)} = \sigma(W^{(l)} h^{(l)} + b^{(l)})$$<br>$$s _{\text{DNN}} = w _{\text{out}}^T h^{(L)} + b _{\text{out}}$$</li>
-<li><strong>最终预测：</strong><br>$$\hat{y} = \sigma(s _{\text{FM}} + s _{\text{DNN}})$$<br>FM 和 DNN 的输出直接相加，共享同一组 Embedding $v _i = e _i$，无需任何人工特征交叉。</li>
-</ul>
-<h3 id="3-DIN-DIEN（阿里巴巴，2018–2019）"><a href="#3-DIN-DIEN（阿里巴巴，2018–2019）" class="headerlink" title="3. DIN / DIEN（阿里巴巴，2018–2019）"></a>3. DIN / DIEN（阿里巴巴，2018–2019）</h3><p><strong>一句话解释：</strong> 用户对不同商品的兴趣不同。推荐女装时，他看过的”美白牙膏”和”口红”兴趣权重不同，应该动态调整。</p>
-<p><strong>DIN（Deep Interest Network）的核心创新——注意力机制：</strong></p>
-<p>假设用户历史行为是：[口红, 眼影, 美白牙膏, 洗面奶, 面霜]</p>
-<p>现在要预测他会不会买”口红”。DIN 的思路是：</p>
-<ul>
-<li>“口红”和”口红”高度相关 → 权重很高</li>
-<li>“口红”和”眼影”相关 → 权重较高</li>
-<li>“口红”和”美白牙膏”不太相关 → 权重很低</li>
-<li>“口红”和”洗面奶”有一定相关 → 权重中等</li>
-</ul>
-<p><strong>具体实现：</strong></p>
-<ol>
-<li>把候选商品（口红）的 embedding 作为”查询”（query）</li>
-<li>把用户历史行为的每个商品 embedding 作为”键和值”（key, value）</li>
-<li>用注意力机制计算每个历史行为对当前预测的权重</li>
-<li>加权求和得到用户兴趣表示</li>
-</ol>
-<p><strong>DIN 的注意力权重计算：</strong><br>设候选商品 embedding 为 $e _c$，用户历史行为序列为 $h = [e _{h _1}, e _{h _2}, \ldots, e _{h _m}]$：</p>
-<ul>
-<li>用多层感知机（MLP）计算每个历史行为与候选商品的相关性：$a _j = \text{Attention}(e _{h _j}, e _c) = \text{softmax}(v^T \tanh(W _1 e _{h _j} + W _2 e _c + b))$</li>
-<li>其中 $W _1, W _2, v$ 是可学习参数，$\tanh$ 和点积捕捉历史行为与候选商品之间的非线性相关性</li>
-<li>加权求和得到用户兴趣表示：$u = \sum _{j=1}^m a _j \cdot e _{h _j}$</li>
-<li>最后将 $u$ 与候选商品 $e _c$ 拼接，通过全连接层预测点击率：$\hat{y} = \text{FC}([u; e _c])$</li>
-</ul>
-<p><strong>DIEN 更进一步——兴趣演化：</strong></p>
-<p>DIN 只是静态地计算不同历史行为的权重，但用户的兴趣是随时间变化的。比如你以前喜欢二次元，现在转向了运动健身。DIEN 用 GRU（门控循环单元）来建模这种兴趣的演变过程。</p>
-<p><strong>DIEN 的两个关键创新：</strong></p>
-<ol>
-<li><strong>GRU with Attentional Update Gate（AUGRU）：</strong> 用 DIN 的注意力权重来调节 GRU 的更新门，让注意力强的行为对当前兴趣的影响更大：<ul>
-<li>传统 GRU 更新门：$z _t = \sigma(W _z \cdot [h _{t-1}, x _t])$</li>
-<li>AUGRU 用注意力权重 $\alpha _t$ 加权历史行为：$h’ _{t-1} = \sum _j \alpha _j \cdot h _j$，然后 $z _t = \sigma(W _z \cdot [h’ _{t-1}, x _t])$，即先用注意力机制过滤历史行为，再输入 GRU</li>
-</ul>
-</li>
-<li><strong>辅助损失函数：</strong> 在 GRU 的每个时间步加入辅助损失，监督隐状态的变化是否合理：<br>$$\mathcal{L} _{\text{aux}} = \frac{1}{T} \sum _{t=1}^T \text{BCE}(a _t, \mathbb{I}(y _t = 1))$$<br>其中 $a _t$ 是 GRU 在时间步 $t$ 的注意力输出，$y _t$ 是用户在该时间步是否产生交互的标签。这个辅助损失防止 GRU 学到噪声，起到正则化的作用。</li>
-</ol>
-<p><strong>DIEN 的完整流程：</strong></p>
-<ol>
-<li>Embedding 层：商品 ID → 稠密向量</li>
-<li>注意力层：DIN 式的注意力计算，得到每个历史行为的权重</li>
-<li>AUGRU 层：用注意力加权的历史行为序列输入 GRU，建模兴趣演化</li>
-<li>辅助损失：监督每个时间步的兴趣变化</li>
-<li>最终输出：拼接用户兴趣表示和候选商品 embedding，通过全连接层预测点击率</li>
-</ol>
-<h3 id="4-ESMM（阿里巴巴，2018）"><a href="#4-ESMM（阿里巴巴，2018）" class="headerlink" title="4. ESMM（阿里巴巴，2018）"></a>4. ESMM（阿里巴巴，2018）</h3><p><strong>一句话解释：</strong> 直接预估”点击并购买”的概率 = 点击率 × 购买率，用点击率作为辅助任务，解决了”购买率”样本太稀疏的问题。</p>
-<p><strong>详细解释：</strong></p>
-<p>在电商中，我们要预估 CVR（转化率，即点击后购买的比例）。但问题在于：</p>
-<ul>
-<li>我们只有在用户点击了广告后才知道他有没有购买</li>
-<li>如果直接用点击后的数据训练 CVR 模型，会有严重的样本选择偏差（SSB）——没点击的人我们完全不知道他们的行为模式</li>
-<li>同时，购买样本远远少于点击样本，数据非常稀疏</li>
-</ul>
-<p>ESMM 的巧妙做法：</p>
-<ul>
-<li>把 P(点击并购买) = P(点击) × P(购买 | 点击) 作为建模目标</li>
-<li>同时训练两个子任务：CTR 预估和 CTCVR 预估</li>
-<li>因为 CTR 的样本多（只要曝光就有数据），模型能学到更好的用户表示</li>
-<li>这些表示被共享给 CVR 任务，缓解了稀疏性</li>
-</ul>
-<p><strong>ESMM 的模型结构：</strong><br>ESMM 假设点击和购买之间满足<strong>条件独立性</strong>：给定用户和商品的联合表示，购买行为与是否点击条件独立。于是：<br>$$P _{\text{ctcvr}} = P _{\text{ctr}} \times P _{\text{cvr}}$$</p>
-<p>模型架构：</p>
-<ul>
-<li><strong>共享底层：</strong> 用户和商品的 Embedding 层完全共享</li>
-<li><strong>CTR 子网络：</strong> 用曝光数据训练（样本最多），输出 $\hat{p} _{\text{ctr}}$</li>
-<li><strong>CTCVR 子网络：</strong> 用点击且购买的数据训练（样本最少），输出 $\hat{p} _{\text{ctcvr}}$</li>
-<li><strong>隐式 CVR：</strong> $\hat{p} _{\text{cvr}} = \frac{\hat{p} _{\text{ctcvr}}}{\hat{p} _{\text{ctr}} + \epsilon}$，其中 $\epsilon$ 是极小数防止除零</li>
-</ul>
-<p><strong>损失函数：</strong><br>$$\mathcal{L} = -\frac{1}{N} \sum _{i=1}^N \left[ c _i \log(\hat{p} _{\text{ctr}, i}) + (1-c _i) \log(1-\hat{p} _{\text{ctr}, i}) + v _i \log(\hat{p} _{\text{ctcvr}, i}) + (1-v _i) \log(1-\hat{p} _{\text{ctcvr}, i}) \right]$$<br>其中 $c _i$ 是点击标签（曝光即有），$v _i$ 是购买标签（仅点击后有值）。</p>
-<h3 id="5-MMoE（Google，2018）"><a href="#5-MMoE（Google，2018）" class="headerlink" title="5. MMoE（Google，2018）"></a>5. MMoE（Google，2018）</h3><p><strong>一句话解释：</strong> 多任务学习时，不同任务之间可能有冲突。MMoE 用多个”专家”网络，每个任务有自己的”门控”来选择从哪些专家那里获取信息。</p>
-<p><strong>详细解释：</strong></p>
-<p>假设一个推荐系统要同时做三个任务：CTR 预估（是否点击）、CVR 预估（是否购买）、时长预估（停留多久）。</p>
-<p>这三个任务可能互相冲突：</p>
-<ul>
-<li>有些内容让人想点击但不想购买（标题党）</li>
-<li>有些内容让人点击后停留很久但不购买（长视频）</li>
-</ul>
-<p>MMoE 的做法：</p>
-<ol>
-<li>有多个”专家”网络（Expert），每个专家学习一种模式</li>
-<li>每个任务有一个”门控”（Gate），决定从各个专家那里获取多少信息</li>
-<li>点击任务可能主要从”标题党专家”和”长视频专家”获取信息</li>
-<li>购买任务可能主要从”品质商品专家”获取信息</li>
-</ol>
-<p><strong>效果：</strong> 比简单的多任务学习（共享底层特征）效果更好，因为它能自动学习任务间的相关性和冲突。</p>
-<p><strong>MMoE 的数学描述：</strong><br>假设有 $T$ 个任务，$G$ 个专家网络 ${e _g(\cdot)} _{g=1}^G$，每个任务 $t$ 有一个门控（Gating）网络 $g^{(t)}(\cdot)$：</p>
-<ul>
-<li><strong>专家输出：</strong> $e _g(x) = W _g^{(e)} x + b _g^{(e)}$</li>
-<li><strong>任务门控：</strong> $g^{(t)}(x) = \text{softmax}(W _g^{(t)} x + b _g^{(t)})$，其中 $g^{(t)}(x) _g$ 表示任务 $t$ 对专家 $g$ 的权重</li>
-<li><strong>任务特定的专家组合：</strong> $\hat{y}^{(t)} = \sum _{g=1}^G g^{(t)}(x) _g \cdot e _g(x)$</li>
-</ul>
-<p>每个任务通过自己的门控网络，自动学习从哪些专家获取信息。例如点击任务可能更多地从”标题党专家”获取信息，而购买任务从”品质商品专家”获取信息。</p>
-<h4 id="GRU4Rec（2016）"><a href="#GRU4Rec（2016）" class="headerlink" title="GRU4Rec（2016）"></a>GRU4Rec（2016）</h4><p><strong>一句话解释：</strong> 用户的浏览历史是一个时间序列，用 GRU（一种改进的 RNN）来记住这个序列，预测下一个会点什么。</p>
-<p><strong>GRU 核心公式：</strong><br>GRU 有两个门控机制来控制信息流：</p>
-<ul>
-<li><strong>更新门（Update Gate）：</strong> $z _t = \sigma(W _z \cdot [h _{t-1}, x _t])$，决定有多少旧记忆保留</li>
-<li><strong>重置门（Reset Gate）：</strong> $r _t = \sigma(W _r \cdot [h _{t-1}, x _t])$，决定多少旧记忆被丢弃</li>
-<li><strong>候选记忆：</strong> $\tilde{h} _t = \text{tanh}(W \cdot [r _t \odot h _{t-1}, x _t])$，$\odot$ 表示逐元素乘法</li>
-<li><strong>最终记忆：</strong> $h _t = (1 - z _t) \odot h _{t-1} + z _t \odot \tilde{h} _t$，新旧记忆按更新门比例融合</li>
-</ul>
-<p><strong>预测输出：</strong><br>$$\hat{y} _i = \text{softmax}(v _i^T \cdot h _t)$$<br>其中 $v _i$ 是物品 $i$ 的 embedding，$h _t$ 是 GRU 最后一个时间步的隐状态。目标是最大化实际被点击物品的概率。</p>
-<p><strong>具体流程：</strong></p>
-<ol>
-<li>用户行为序列：[商品 A, 商品 C, 商品 E, …]</li>
-<li>把每个商品 ID 映射成 embedding</li>
-<li>按时间顺序输入 GRU</li>
-<li>最后一个时间步的隐状态作为用户兴趣表示</li>
-<li>和用户 embedding 拼接，预测下一个商品</li>
-</ol>
-<h4 id="SASRec（2019）——-用-Transformer-做序列推荐"><a href="#SASRec（2019）——-用-Transformer-做序列推荐" class="headerlink" title="SASRec（2019）—— 用 Transformer 做序列推荐"></a>SASRec（2019）—— 用 Transformer 做序列推荐</h4><p><strong>一句话解释：</strong> 既然 Transformer 在 NLP 领域这么强，那用它来处理用户行为序列（也是序列）会不会更好？</p>
-<p><strong>具体流程：</strong></p>
-<ol>
-<li>用户行为序列：[商品 A, 商品 C, 商品 E, …]</li>
-<li>把商品 ID 映射成 embedding，加上位置编码（告诉模型每个商品在序列中的位置）</li>
-<li>通过多层自注意力（Self-Attention）</li>
-<li>预测下一个商品</li>
-</ol>
-<p><strong>自注意力（Self-Attention）核心公式：</strong><br>$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d _k}}\right)V$$<br>其中 $Q = XW _Q$、$K = XW _K$、$V = XW _V$ 分别是由输入 $X$ 通过可学习权重矩阵投影得到的查询、键、值矩阵，$d _k$ 是键向量的维度。$\frac{QK^T}{\sqrt{d _k}}$ 计算每个物品对其他所有物品的关注程度，除以 $\sqrt{d _k}$ 是为了防止点积过大导致 softmax 梯度消失。然后对输出做归一化，再经过前馈网络（FFN），即 SASRec 中的一层。</p>
-<p><strong>因果掩码：</strong> 在训练时，用户不能看到未来的行为（防止信息泄露），所以 Self-Attention 矩阵上三角部分被 mask 掉（设为 $-\infty$），保证预测第 $t$ 个物品时只能用前 $t-1$ 个物品的信息。</p>
-<p><strong>为什么 Transformer 比 RNN 好？</strong></p>
-<ul>
-<li>RNN 是逐个处理的，前面的信息在序列很长时会”遗忘”</li>
-<li>Transformer 的自注意力可以同时看到序列中的所有物品</li>
-<li>训练可以并行化，速度更快</li>
-</ul>
-<h4 id="BERT4Rec（2019）"><a href="#BERT4Rec（2019）" class="headerlink" title="BERT4Rec（2019）"></a>BERT4Rec（2019）</h4><p><strong>一句话解释：</strong> 既然 BERT 在 NLP 中通过”遮挡预测下一个词”效果这么好，那对用户的浏览序列也遮挡一些商品，让模型去预测，效果会不会更好？</p>
-<p><strong>具体做法：</strong></p>
-<ul>
-<li>随机遮挡用户序列中的某些商品</li>
-<li>让模型预测被遮挡的商品</li>
-<li>训练完后，用这个模型做推荐</li>
-</ul>
-<p><strong>BERT4Rec 的训练目标：</strong><br>与 SASRec（因果 Mask，预测下一个）不同，BERT4Rec 使用<strong>双向上下文</strong>：</p>
-<ol>
-<li>以 15% 的概率随机替换用户序列中的某些商品 ID 为 <code>[MASK]</code> token</li>
-<li>训练掩码预测任务：$\mathcal{L} = -\log P(x _t^{\text{orig}} \mid x _t^{\text{masked}}, \text{context})$</li>
-<li>由于是自注意力机制，模型可以同时看到被遮挡位置的左边和右边所有商品</li>
-<li>预测时，输出层对商品 ID 做 softmax：$P(x \mid h) = \text{softmax}(W _{\text{item}}^T h + b _{\text{item}})$，其中 $h$ 是 [MASK] 位置的 Transformer 隐状态</li>
-</ol>
-<p><strong>BERT4Rec vs SASRec：</strong></p>
-<ul>
-<li>BERT4Rec：双向注意力，能利用未来信息做掩码预测，但<strong>不用于推理</strong>（推理时仍然用因果 Mask 预测下一个），训练方式类似 BERT</li>
-<li>SASRec：因果 Mask（单向），训练和推理一致，推理时直接预测下一个商品</li>
-</ul>
-<hr>
-<h2 id="六、第五阶段：图神经网络时代（2019–2022）"><a href="#六、第五阶段：图神经网络时代（2019–2022）" class="headerlink" title="六、第五阶段：图神经网络时代（2019–2022）"></a>六、第五阶段：图神经网络时代（2019–2022）</h2><h3 id="1-为什么图神经网络适合推荐？"><a href="#1-为什么图神经网络适合推荐？" class="headerlink" title="1. 为什么图神经网络适合推荐？"></a>1. 为什么图神经网络适合推荐？</h3><p><strong>一句话解释：</strong> 用户和物品的交互本身就是一张图。GNN 可以在这张图上”传播消息”，让每个用户和物品都聚合到邻居的信息，从而学到更丰富的表示。</p>
-<p><strong>举个例子：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用户 U1 买了 商品 A, 商品 B, 商品 C</span><br><span class="line">用户 U2 买了 商品 A, 商品 D</span><br></pre></td></tr></table></figure>
-
-<p>这张交互图可以表示为：</p>
-<ul>
-<li>U1 — A — U2</li>
-<li>U1 — B</li>
-<li>U1 — C</li>
-<li>U2 — D</li>
-</ul>
-<p>GNN 的核心操作是”聚合邻居”：</p>
-<ol>
-<li>U1 会聚合 A、B、C 的信息</li>
-<li>A 会聚合 U1、U2 的信息</li>
-<li>U2 会聚合 A、D 的信息</li>
-<li>经过几轮聚合，U1 和 U2 虽然没直接交互，但通过商品 A 有了间接联系</li>
-</ol>
-<p><strong>消息传递公式：</strong><br>对于一般 GNN，第 $k$ 层的消息传递为：<br>$$h _v^{(k)} = \text{Aggregate}\left({h _u^{(k-1)} \mid u \in \mathcal{N}(v)}\right)$$<br>$$h _v^{(k)} = \text{Update}\left(h _v^{(k-1)}, h _v^{(k)}\right)$$<br>其中 $\mathcal{N}(v)$ 是节点 $v$ 的邻居集合。在推荐场景下，节点分为用户节点和物品节点，边表示用户-物品交互。</p>
-<h3 id="2-LightGCN（2020）"><a href="#2-LightGCN（2020）" class="headerlink" title="2. LightGCN（2020）"></a>2. LightGCN（2020）</h3><p><strong>一句话解释：</strong> 研究发现，在推荐场景下，复杂的 GNN 变体（GCN、GAT 等）并不比简单的线性聚合好。去掉非线性激活函数和特征变换，只用最轻量的邻居聚合，效果反而更好。</p>
-<p><strong>详细解释：</strong></p>
-<p>之前的图推荐模型（如 GraphSAGE、GAT）会做这些事：</p>
-<ol>
-<li>聚合邻居特征</li>
-<li>加一个非线性激活函数（如 ReLU）</li>
-<li>做一个线性变换（特征变换）</li>
-<li>做一次归一化</li>
-</ol>
-<p>LightGCN 的研究发现：在推荐场景下，步骤 2–4 都不是必须的。去掉这些后，只用最轻量的：</p>
-<p><strong>邻居聚合 = 每个邻居的特征 × 归一化权重</strong></p>
-<p>效果反而更好，而且速度更快。这背后的原因是：在推荐场景中，用户的偏好不是固定的，而是通过和物品的交互”传播”出来的，不需要复杂的非线性变换。</p>
-<p><strong>为什么叫”Light”？</strong> 因为轻量化——去掉不必要的操作，让模型更轻更快。</p>
-<p><strong>LightGCN 的核心公式：</strong><br>LightGCN 只保留最基础的邻居聚合操作。设 $E _k$ 为第 $k$ 层的节点表示：<br>$$E _{k+1} = \tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} E _k$$<br>其中 $\tilde{A} = A + I$ 是加入自环的邻接矩阵，$\tilde{D}$ 是对应的度矩阵。归一化因子 $\tilde{D}^{-\frac{1}{2}} _{ii} \tilde{D}^{-\frac{1}{2}} _{jj} = \frac{1}{\sqrt{d _i \times d _j}}$ 保证了聚合时的权重平衡。</p>
-<p><strong>最终输出（多层聚合的叠加）：</strong><br>$$E = \sum _{k=0}^K \alpha _k E _k$$<br>其中 $\alpha _k$ 是第 $k$ 层的权重（通常设为均匀权重 $\alpha _k = \frac{1}{K+1}$）。将 $0 \sim K$ 层的所有表示拼接/相加，而不是只取最后一层，这样可以捕获多跳邻居的信息。</p>
-<p><strong>训练损失（BPR 损失）：</strong><br>$$\mathcal{L} = -\sum _{(u, i, j) \in \mathcal{O}} \ln \sigma(\hat{y} _{u, i} - \hat{y} _{u, j}) + \lambda |E|^2$$<br>其中 $(u, i, j)$ 是三元组：用户 $u$ 正样本物品 $i$，负样本物品 $j$（随机采样用户 $u$ 未交互过的物品），$\hat{y} _{u, i} = e _u^T e _i$ 是用户 $u$ 对物品 $i$ 的预测分数，$\sigma$ 是 sigmoid 函数。BPR 优化的目标是让正样本的分数高于负样本。</p>
-<h3 id="3-SGL（2021）"><a href="#3-SGL（2021）" class="headerlink" title="3. SGL（2021）"></a>3. SGL（2021）</h3><p><strong>一句话解释：</strong> 在推荐场景下，正样本（用户买过的）和负样本（用户没买过的）都太多了。SGL 通过在图上做数据增强，用对比学习来学到更好的表示。</p>
-<p><strong>具体做法：</strong></p>
-<ol>
-<li>在原始图上做增强：随机去掉一些节点、随机去掉一些边、随机掩码属性</li>
-<li>得到两个不同的图 view</li>
-<li>对同一个用户/物品，在两个 view 中学到的表示应该尽可能接近（对比学习）</li>
-<li>对不同的用户/物品，表示应该尽可能远离</li>
-</ol>
-<p><strong>核心洞察：</strong> 推荐场景下正负样本太多，传统的对比学习需要精心设计负采样策略。SGL 通过图上的数据增强，避免了这个问题。</p>
-<p><strong>SGL 的对比学习损失：</strong><br>SGL 在原始图 $G$ 上做 $M$ 种数据增强操作（随机删边、随机节点掩码、随机边掩码），得到 $M$ 个增强视图 ${G _1, G _2, \ldots, G _M}$，然后用 LightGCN 在每个视图上学到节点表示 $E _1, E _2, \ldots, E _M$。</p>
-<p><strong>InfoNCE 损失（对比学习标准损失）：</strong><br>对于一个锚点 $v$ 和其增强视图 $v _m$，损失为：<br>$$\mathcal{L} _{\text{InfoNCE}} = -\log \frac{\exp(\text{sim}(E _v, E _m) / \tau)}{\sum _{v’ \in \mathcal{B}} \exp(\text{sim}(E _v, E’ _{m’}) / \tau)}$$<br>其中 $\text{sim}(a, b) = \frac{a^T b}{|a| \cdot |b|}$ 是余弦相似度，$\tau$ 是温度系数，$\mathcal{B}$ 是 batch 中的负样本集合。</p>
-<p><strong>最终节点表示：</strong><br>$$E _v = \sum _{m=1}^M w _m \cdot E _v^{(m)}$$<br>将 $M$ 个视图中的同一节点的表示加权求和，得到鲁棒的最终表示。</p>
-<hr>
-<h2 id="七、第六阶段：大规模工业系统架构"><a href="#七、第六阶段：大规模工业系统架构" class="headerlink" title="七、第六阶段：大规模工业系统架构"></a>七、第六阶段：大规模工业系统架构</h2><p>推荐系统在实际工业部署中从来不是单一模型，而是一个<strong>分层架构</strong>。</p>
-<h3 id="1-召回（Retrieval）"><a href="#1-召回（Retrieval）" class="headerlink" title="1. 召回（Retrieval）"></a>1. 召回（Retrieval）</h3><p><strong>一句话解释：</strong> 从几百万个候选物品中，快速选出几千个候选。</p>
-<p><strong>为什么需要召回？</strong> 精排模型很复杂，要对每个候选做大量计算。如果候选有 1000 万个，精排算不过来。所以先召回几千个，再精排。</p>
-<p><strong>主要方法：</strong></p>
-<ul>
-<li><strong>双塔模型（Two-Tower）：</strong> 用户一个神经网络（用户塔），物品一个神经网络（物品塔）。两个塔分别编码用户和物品，最后用点积做相似度匹配。线上只需要算一次用户塔的 embedding，然后和所有物品的 embedding 做内积，速度极快。</li>
-</ul>
-<p><strong>双塔模型公式：</strong></p>
-<ul>
-<li>用户塔：$e _u = f _U(x _u)$，其中 $x _u$ 是用户特征（年龄、性别、历史行为统计等），$f _U$ 是一个多层神经网络</li>
-<li>物品塔：$e _i = f _I(x _i)$，其中 $x _i$ 是物品特征（类别、价格、描述 embedding 等），$f _I$ 是一个多层神经网络</li>
-<li>相似度：$s(u, i) = e _u^T e _i$（向量点积，也可以加 L2 归一化后做余弦相似度）</li>
-<li>训练时使用负采样：对于每个正样本 $(u, i)$，采样 $K$ 个负样本物品 $j _1, \ldots, j _K$，用 InfoNCE 损失：<br>$$\mathcal{L} = -\log \frac{\exp(e _u^T e _i / \tau)}{\sum _{k=0}^K \exp(e _u^T e _{j _k} / \tau)}$$<br>其中 $j _0 = i$ 是正样本，$\tau$ 是温度系数。</li>
-</ul>
-<p><strong>向量检索（FAISS）：</strong><br>当物品数量 $N$ 达到百万级时，暴力计算 $e _u^T e _i$（$O(Nd)$）太慢。FAISS 使用近似最近邻搜索（ANN），如 HNSW 或 IVF-PQ，将检索复杂度降至 $O(\log N \cdot d)$，百万级物品的检索可在毫秒级完成。</p>
-<ul>
-<li><strong>多路召回：</strong> 用多种策略并行召回，最后融合。比如：向量召回 1000 个 + 热门召回 500 个 + 协同召回 500 个 + 实时召回 500 个 = 2500 个候选。</li>
-</ul>
-<h3 id="2-粗排（Pre-Ranking）"><a href="#2-粗排（Pre-Ranking）" class="headerlink" title="2. 粗排（Pre-Ranking）"></a>2. 粗排（Pre-Ranking）</h3><p>在召回和精排之间，用轻量模型在几千候选上做初步排序，减少精排的计算量。</p>
-<h3 id="3-精排（Ranking）"><a href="#3-精排（Ranking）" class="headerlink" title="3. 精排（Ranking）"></a>3. 精排（Ranking）</h3><p>用深度模型对几百个候选做精细排序。工业界主流是 DeepFM、DIN、MMoE 等。</p>
-<h3 id="4-重排（Re-Ranking）"><a href="#4-重排（Re-Ranking）" class="headerlink" title="4. 重排（Re-Ranking）"></a>4. 重排（Re-Ranking）</h3><p>在精排之后做业务逻辑调整：</p>
-<ul>
-<li><strong>打散：</strong> 同一品牌的商品不要连续出现</li>
-<li><strong>多样性：</strong> 不要全部推荐同一个品类</li>
-<li><strong>业务规则：</strong> 下架商品排除</li>
-<li><strong>探索与利用（Bandit）：</strong> 留出一些流量给新内容，探索用户是否喜欢</li>
-</ul>
-<hr>
-<h2 id="八、第七阶段：大语言模型与推荐系统（2023-至今）"><a href="#八、第七阶段：大语言模型与推荐系统（2023-至今）" class="headerlink" title="八、第七阶段：大语言模型与推荐系统（2023 至今）"></a>八、第七阶段：大语言模型与推荐系统（2023 至今）</h2><h3 id="1-为什么-LLM-能做推荐？"><a href="#1-为什么-LLM-能做推荐？" class="headerlink" title="1. 为什么 LLM 能做推荐？"></a>1. 为什么 LLM 能做推荐？</h3><p><strong>一句话解释：</strong> LLM 本质上是在做”下一个词预测”。如果把用户历史和物品描述都变成文本，让 LLM 预测”下一个词是商品 ID”，那就等价于做推荐。</p>
-<p><strong>举个例子：</strong></p>
-<p>输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用户 A 的历史行为：看了 iPhone 15，看了 AirPods Pro，看了 MacBook Air</span><br><span class="line">当前查询：送给女朋友的生日礼物</span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">推荐：Apple Watch Series 9</span><br></pre></td></tr></table></figure>
-
-<p><strong>LLM 的核心优势：</strong></p>
-<ul>
-<li><strong>语义理解：</strong> 能理解物品描述的深层含义。比如”口红”和”唇膏”在语义上很近，传统推荐系统可能认为它们是不同的 ID，但 LLM 知道它们是相似的</li>
-<li><strong>推理能力：</strong> 能做链式推理，解释推荐理由。”因为你上次买了口红，这次推荐同色系的唇釉”</li>
-<li><strong>零样本/少样本：</strong> 新用户没有任何行为记录，LLM 也能根据人口统计信息给出推荐</li>
-<li><strong>统一接口：</strong> 一个模型既能做推荐也能做对话</li>
-</ul>
-<h3 id="2-三种基于-LLM-的推荐范式"><a href="#2-三种基于-LLM-的推荐范式" class="headerlink" title="2. 三种基于 LLM 的推荐范式"></a>2. 三种基于 LLM 的推荐范式</h3><h4 id="范式一：LLM-作为排序器"><a href="#范式一：LLM-作为排序器" class="headerlink" title="范式一：LLM 作为排序器"></a>范式一：LLM 作为排序器</h4><p><strong>做法：</strong> 把用户查询、候选物品的描述拼成 prompt，让 LLM 对候选排序或打分。</p>
-<p><strong>例子：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">你是推荐助手。用户 A 喜欢科技产品和运动装备。以下是三个候选物品：</span><br><span class="line">1. Apple Watch Series 9 - 智能手表，健康监测，运动追踪</span><br><span class="line">2. 耐克跑鞋 - 专业跑步，轻量透气</span><br><span class="line">3. 口红 - 持久保湿，多个色号</span><br><span class="line"></span><br><span class="line">请根据用户兴趣排序。</span><br></pre></td></tr></table></figure>
-
-<p>LLM 输出：1, 2, 3（因为口红和用户兴趣最不相关）</p>
-<p><strong>代表工作：</strong></p>
-<ul>
-<li><strong>TALLRec（2023）：</strong> 利用 LLM 的长上下文能力，处理完整的用户交互历史（几千条行为），传统模型很难处理这么长的序列</li>
-<li><strong>LLM-ReRank（2023）：</strong> 用 LLM 对传统推荐系统的候选做重排，发现 LLM 在排序任务上表现不错</li>
-</ul>
-<p><strong>数学形式化：</strong><br>给定用户上下文 $C _u$ 和候选物品集合 $\mathcal{I} = {i _1, \ldots, i _N}$，LLM 作为排序器计算每个物品的相对相关性得分：<br>$$\hat{s} _j = \text{LLM}(C _u, i _j)$$<br>排序结果为：<br>$$\text{Rank} = \text{sort}(\hat{s} _1, \hat{s} _2, \ldots, \hat{s} _N)$$<br>排序的本质等价于最大化条件概率：$\hat{s} _j = P(\text{&quot;item } j \text{ is relevant}\mid C _u)$。</p>
-<h4 id="范式二：LLM-作为推荐生成器"><a href="#范式二：LLM-作为推荐生成器" class="headerlink" title="范式二：LLM 作为推荐生成器"></a>范式二：LLM 作为推荐生成器</h4><p><strong>做法：</strong> 直接把推荐任务看作文本生成。用户输入查询，LLM 输出推荐的物品。</p>
-<p><strong>例子：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：我喜欢科幻电影，喜欢诺兰导演的作品</span><br><span class="line">输出：《星际穿越》《盗梦空间》《信条》</span><br></pre></td></tr></table></figure>
-
-<p><strong>代表工作：</strong></p>
-<ul>
-<li><strong>LLM4Rec（2023）：</strong> 将推荐任务统一为文本生成任务，把物品 ID、标题、描述等信息拼接作为输入</li>
-<li><strong>InstructRec（2023）：</strong> 用指令微调（Instruction Tuning）让 LLM 适应推荐任务</li>
-</ul>
-<p><strong>数学形式化：</strong><br>生成式推荐的核心是将推荐看作<strong>自回归生成</strong>：<br>$$P(i _1, i _2, \ldots, i _k \mid C _u) = \prod _{t=1}^k P(i _t \mid C _u, i _1, \ldots, i _{t-1})$$<br>其中 $i _1, \ldots, i _k$ 是依次生成的推荐物品序列。每个物品的生成条件于用户上下文和之前已生成的物品。</p>
-<p><strong>训练目标（交叉熵）：</strong><br>$$\mathcal{L} = -\sum _{t=1}^T \log P(i _t^\text{true} \mid C _u, i _1^\text{true}, \ldots, i _{t-1}^\text{true})$$<br>即最大化真实推荐序列的出现概率。这与语言模型的训练完全一致，唯一的区别是输入不是句子而是用户行为序列，输出不是下一个词而是物品 ID。</p>
-<h4 id="范式三：LLM-作为特征编码器"><a href="#范式三：LLM-作为特征编码器" class="headerlink" title="范式三：LLM 作为特征编码器"></a>范式三：LLM 作为特征编码器</h4><p><strong>做法：</strong> 用 LLM 编码物品描述，得到高质量的语义 embedding，再输入到传统推荐模型中。</p>
-<p><strong>为什么需要这个？</strong> 传统推荐系统中，每个商品只有一个 ID embedding，没有语义信息。LLM 的 embedding 包含了丰富的语义。</p>
-<p><strong>数学形式化：</strong></p>
-<ul>
-<li>物品文本描述 $t _i$ 输入 LLM：$e _i^\text{LLM} = \text{LLM} _\text{enc}(t _i)$</li>
-<li>其中 $\text{LLM} _\text{enc}$ 通常取 LLM 最后一层的 [CLS] 标记（或平均所有 token 的表示）</li>
-<li>将 $e _i^\text{LLM}$ 与传统 ID embedding $e _i^\text{ID}$ 拼接：$e _i^\text{hybrid} = [e _i^\text{ID}; e _i^\text{LLM}]$</li>
-<li>将 $e _i^\text{hybrid}$ 输入到传统推荐模型（如 LightGCN、DeepFM）</li>
-</ul>
-<p>这样，即使新物品没有交互数据，LLM 也能通过语义理解给出合理的推荐。</p>
-<h3 id="3-大模型推荐的核心挑战"><a href="#3-大模型推荐的核心挑战" class="headerlink" title="3. 大模型推荐的核心挑战"></a>3. 大模型推荐的核心挑战</h3><h4 id="幻觉问题"><a href="#幻觉问题" class="headerlink" title="幻觉问题"></a>幻觉问题</h4><p><strong>问题：</strong> LLM 可能”编造”一个不存在的商品，或者推荐一个完全不相关的商品。</p>
-<p><strong>解决思路：</strong></p>
-<ul>
-<li><strong>RAG（检索增强）：</strong> 先检索候选物品，再让 LLM 在候选集中选择。形式化地，先通过传统召回得到候选集 $\mathcal{I} _\text{recall}$，然后 LLM 在 $\mathcal{I} _\text{recall}$ 内排序：<br>$$P(i _j \mid C _u) = \frac{\exp(\hat{s} _j / \tau)}{\sum _{i _k \in \mathcal{I} _\text{recall}} \exp(\hat{s} _k / \tau)}$$</li>
-<li><strong>约束解码：</strong> 限制 LLM 只能从候选物品 ID 中选择，不能编造新 ID。即解码时只允许输出预定义物品 ID 集合中的 token，其他 token 的概率设为 $-\infty$。</li>
-</ul>
-<h4 id="效率问题"><a href="#效率问题" class="headerlink" title="效率问题"></a>效率问题</h4><p><strong>问题：</strong> LLM 推理很慢，推荐系统需要毫秒级响应。</p>
-<p><strong>解决思路：</strong></p>
-<ul>
-<li><strong>蒸馏：</strong> 用 LLM 做 teacher，训练一个轻量模型做线上推理</li>
-<li><strong>分层架构：</strong> LLM 做离线特征计算，线上仍用传统模型</li>
-</ul>
-<h4 id="物品规模问题"><a href="#物品规模问题" class="headerlink" title="物品规模问题"></a>物品规模问题</h4><p><strong>问题：</strong> LLM 的上下文窗口有限（即使是最大的模型也装不下几百万个商品的描述）。</p>
-<p><strong>解决思路：</strong> 先召回再让 LLM 排序（两阶段架构）</p>
-<hr>
-<h2 id="九、第八阶段：生成式推荐（Generative-Recommendation，2023-至今）"><a href="#九、第八阶段：生成式推荐（Generative-Recommendation，2023-至今）" class="headerlink" title="九、第八阶段：生成式推荐（Generative Recommendation，2023 至今）"></a>九、第八阶段：生成式推荐（Generative Recommendation，2023 至今）</h2><p><strong>一句话解释：</strong> 传统推荐是”给每个物品打分再排序”，生成式推荐是”直接生成推荐结果”——就像语言模型生成文本一样，把推荐看作一个生成任务。</p>
-<h3 id="传统推荐-vs-生成式推荐"><a href="#传统推荐-vs-生成式推荐" class="headerlink" title="传统推荐 vs 生成式推荐"></a>传统推荐 vs 生成式推荐</h3><p><strong>传统推荐（判别式）：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">用户 A + 商品 1 → 得分 0.8</span><br><span class="line">用户 A + 商品 2 → 得分 0.3</span><br><span class="line">用户 A + 商品 3 → 得分 0.9</span><br><span class="line">排序后推荐：商品 3, 商品 1</span><br></pre></td></tr></table></figure>
-
-<p>每个商品单独打分，然后排序。数学形式化：<br>$$\hat{y} _i = f(u, i), \quad \text{Recommend} = \text{Top-K}({\hat{y} _i} _{i=1}^N)$$<br>其中 $f(u, i)$ 是评分函数，Top-K 选出分数最高的 $K$ 个物品。<strong>关键局限：</strong> 每个物品的评分独立，无法考虑物品之间的序列依赖。</p>
-<p><strong>生成式推荐（生成式）：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户 A → [商品 3] [商品 1] [商品 2]</span><br></pre></td></tr></table></figure>
-
-<p>直接生成推荐序列，不需要打分排序。数学形式化：<br>$$P(\mathbf{i} \mid u) = \prod _{t=1}^K P(i _t \mid u, i _1, \ldots, i _{t-1})$$<br>物品之间不再独立，后一个物品的生成条件于前一个，天然考虑了物品间的序列依赖。</p>
-<h3 id="代表性工作"><a href="#代表性工作" class="headerlink" title="代表性工作"></a>代表性工作</h3><h4 id="GenRec（阿里巴巴，2023）"><a href="#GenRec（阿里巴巴，2023）" class="headerlink" title="GenRec（阿里巴巴，2023）"></a>GenRec（阿里巴巴，2023）</h4><p><strong>做法：</strong> 用自回归语言模型做推荐。用户的行为序列和查询被建模为文本，模型直接生成物品 ID 序列。</p>
-<p><strong>关键创新：</strong></p>
-<ul>
-<li><strong>BPE（Byte-Pair Encoding）：</strong> 用 BPE 压缩物品 ID，减少 token 数量。比如商品 ID “12345678” 可以被压缩成更少的 token</li>
-<li><strong>统一框架：</strong> 序列推荐、知识增强推荐、多模态推荐都能用同一套框架处理</li>
-</ul>
-<h4 id="GRec（2023）"><a href="#GRec（2023）" class="headerlink" title="GRec（2023）"></a>GRec（2023）</h4><p><strong>做法：</strong> 用 LLM 做通用推荐，设计了一个统一的 prompt 模板，一个模型处理多种推荐场景。</p>
-<p><strong>关键创新：</strong></p>
-<ul>
-<li>一个 prompt 模板处理序列推荐、知识增强推荐、多模态推荐等多种场景</li>
-<li>利用 LLM 的推理能力，能给出推荐理由</li>
-</ul>
-<h4 id="UniRec-系列（2023–2024）"><a href="#UniRec-系列（2023–2024）" class="headerlink" title="UniRec 系列（2023–2024）"></a>UniRec 系列（2023–2024）</h4><p><strong>做法：</strong> 统一的推荐框架，将不同的推荐场景统一为一个生成任务。</p>
-<h3 id="生成式推荐的优势"><a href="#生成式推荐的优势" class="headerlink" title="生成式推荐的优势"></a>生成式推荐的优势</h3><ul>
-<li><strong>端到端：</strong> 不需要召回、排序多个阶段，一个模型搞定</li>
-<li><strong>可解释性：</strong> 生成过程天然包含推理链条</li>
-<li><strong>多模态融合：</strong> 文本、图像、视频都可以统一为 token 序列</li>
-<li><strong>冷启动：</strong> LLM 的预训练知识对冷启动有天然帮助</li>
-</ul>
-<h3 id="当前局限"><a href="#当前局限" class="headerlink" title="当前局限"></a>当前局限</h3><ul>
-<li><strong>精度：</strong> 在大规模真实场景下，纯生成式方法的精度仍不如传统排序方法</li>
-<li><strong>可控性：</strong> 生成的物品可能不符合业务约束</li>
-<li><strong>评估：</strong> 传统推荐评估指标（Hit Rate、NDCG）在生成式框架下如何定义仍有争议</li>
-</ul>
-<hr>
-<h2 id="十、前沿交叉方向"><a href="#十、前沿交叉方向" class="headerlink" title="十、前沿交叉方向"></a>十、前沿交叉方向</h2><h3 id="1-LLM-图神经网络"><a href="#1-LLM-图神经网络" class="headerlink" title="1. LLM + 图神经网络"></a>1. LLM + 图神经网络</h3><p>结合 LLM 的语义理解能力和 GNN 的结构感知能力：</p>
-<ul>
-<li>用 LLM 给图中的节点（用户、物品）添加文本描述，增强节点表示</li>
-<li>用 GNN 做消息传递，把图结构信息注入 LLM 的推理过程</li>
-</ul>
-<h3 id="2-多模态推荐"><a href="#2-多模态推荐" class="headerlink" title="2. 多模态推荐"></a>2. 多模态推荐</h3><p>用户和物品的信息不再只是 ID 和评分，还包括图片、视频、音频、文本描述。</p>
-<p><strong>做法：</strong> 用 CLIP 等预训练模型编码图像和文本，得到统一的向量表示，再融合到推荐模型中。</p>
-<h3 id="3-推荐系统-Agent"><a href="#3-推荐系统-Agent" class="headerlink" title="3. 推荐系统 + Agent"></a>3. 推荐系统 + Agent</h3><p>把推荐系统本身看作一个 Agent（智能体）：</p>
-<ul>
-<li>Agent 可以主动理解用户意图</li>
-<li>Agent 可以与用户对话，澄清需求（”你送礼物是给男生还是女生？预算大概多少？”）</li>
-<li>Agent 可以自主探索用户兴趣</li>
-</ul>
-<hr>
-<h2 id="十一、总结：推荐系统的技术演进图谱"><a href="#十一、总结：推荐系统的技术演进图谱" class="headerlink" title="十一、总结：推荐系统的技术演进图谱"></a>十一、总结：推荐系统的技术演进图谱</h2><table>
-<thead>
-<tr>
-<th>阶段</th>
-<th>时间</th>
-<th>代表方法</th>
-<th>核心思想</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>规则与统计</td>
-<td>1990s 前</td>
-<td>基于内容、关联规则</td>
-<td>人工规则、共现统计</td>
-</tr>
-<tr>
-<td>协同过滤</td>
-<td>1990s–2010s</td>
-<td>UserCF、ItemCF、MF</td>
-<td>利用用户-物品交互关系</td>
-</tr>
-<tr>
-<td>特征工程 + ML</td>
-<td>2010–2014</td>
-<td>FM、FFM、LR、GBDT</td>
-<td>人工特征 + 机器学习</td>
-</tr>
-<tr>
-<td>深度学习</td>
-<td>2014–2019</td>
-<td>Wide&amp;Deep、DeepFM、DIN、DIEN</td>
-<td>神经网络自动学习特征</td>
-</tr>
-<tr>
-<td>序列建模</td>
-<td>2016–2019</td>
-<td>GRU4Rec、SASRec、BERT4Rec</td>
-<td>用 RNN/Transformer 建模行为序列</td>
-</tr>
-<tr>
-<td>图神经网络</td>
-<td>2019–2022</td>
-<td>LightGCN、SGL</td>
-<td>图结构上的消息传递</td>
-</tr>
-<tr>
-<td>工业系统架构</td>
-<td>贯穿始终</td>
-<td>双塔、多路召回、粗排+精排+重排</td>
-<td>分层架构应对大规模场景</td>
-</tr>
-<tr>
-<td>LLM 推荐</td>
-<td>2023–</td>
-<td>LLM4Rec、TALLRec</td>
-<td>用大语言模型做推荐</td>
-</tr>
-<tr>
-<td>生成式推荐</td>
-<td>2023–</td>
-<td>GenRec、GRec</td>
-<td>把推荐当作生成任务</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="十二、未来展望"><a href="#十二、未来展望" class="headerlink" title="十二、未来展望"></a>十二、未来展望</h2><h3 id="从”预测下一个”到”理解用户”"><a href="#从”预测下一个”到”理解用户”" class="headerlink" title="从”预测下一个”到”理解用户”"></a>从”预测下一个”到”理解用户”</h3><p>当前推荐系统的核心范式是”预测用户下一个会点什么”，但用户的真实需求远不止于此。LLM 带来的机会是：让推荐系统真正理解用户意图、情绪、目标。</p>
-<h3 id="从”千人千面”到”千人千询”"><a href="#从”千人千面”到”千人千询”" class="headerlink" title="从”千人千面”到”千人千询”"></a>从”千人千面”到”千人千询”</h3><p>未来的推荐系统可能不再是固定的个性化模型，而是根据用户实时查询动态调整的推荐策略，类似搜索引擎。</p>
-<h3 id="从”推荐物品”到”推荐体验”"><a href="#从”推荐物品”到”推荐体验”" class="headerlink" title="从”推荐物品”到”推荐体验”"></a>从”推荐物品”到”推荐体验”</h3><p>未来的推荐可能不是推荐某个具体的电影或商品，而是推荐一种体验、一种方案。</p>
-<h3 id="从”被动推荐”到”主动交互”"><a href="#从”被动推荐”到”主动交互”" class="headerlink" title="从”被动推荐”到”主动交互”"></a>从”被动推荐”到”主动交互”</h3><p>推荐系统与对话系统的融合：用户可以主动问”给我推荐一些适合送给女朋友的礼物”，系统会像真正的助手一样帮你筛选、对比、给出建议。</p>
-<hr>
-<p><em>本文梳理了推荐系统从传统方法到前沿技术的完整演进脉络。推荐系统是一个快速演进的领域，新的方法不断涌现，但核心问题始终不变——在合适的时机，把合适的东西推荐给合适的人。</em></p>
-
-          
-          
-          
-          
-          
-          
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/08/14/半导体产线质量数字化术语手册/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1478,7 +381,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/06/28/从零开始如何自己写一个 OpenClaw Agent Skill并发布到 GitHub 和 ClawHub/">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/08/07/开放域问答评测-数据集与统计显著性/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
@@ -1492,7 +395,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/06/28/从零开始如何自己写一个 OpenClaw Agent Skill并发布到 GitHub 和 ClawHub/" class="post-title-link" itemprop="url">从零开始：如何自己写一个 OpenClaw Agent Skill，并发布到 GitHub 和 ClawHub</a>
+            <a href="/2026/08/07/开放域问答评测-数据集与统计显著性/" class="post-title-link" itemprop="url">开放域问答评测：从数据集到统计显著性</a>
         </h2>
 
         <div class="post-meta">
@@ -1501,10 +404,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2026-06-28 21:51:21 / Modified: 21:51:59" itemprop="dateCreated datePublished" datetime="2026-06-28T21:51:21+08:00">2026-06-28</time>
+              <time title="Created: 2026-08-07 21:13:12" itemprop="dateCreated datePublished" datetime="2026-08-07T21:13:12+08:00">2026-08-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:27:26" itemprop="dateModified" datetime="2026-11-11T15:27:26+08:00">2026-11-11</time>
+              </span>
 
           
   
@@ -1515,8 +424,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2026/06/28/从零开始如何自己写一个 OpenClaw Agent Skill并发布到 GitHub 和 ClawHub/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2026/06/28/从零开始如何自己写一个 OpenClaw Agent Skill并发布到 GitHub 和 ClawHub/" itemprop="commentCount"></span>
+    <a title="valine" href="/2026/08/07/开放域问答评测-数据集与统计显著性/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/08/07/开放域问答评测-数据集与统计显著性/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1531,201 +440,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
-          
           <blockquote>
-<p>让 AI Agent 学会新本事，不需要写一行代码——只需要写一份 Markdown。</p>
+<p>“我们的模型在 NQ 上比 baseline 高 2.1 个点”——这句话在 2026 年几乎没有信息量。因为它缺三样东西：<strong>哪个 NQ 变体、多少样本量、这个差值是否超过噪声</strong>。</p>
 </blockquote>
-<h2 id="什么是-Skill？"><a href="#什么是-Skill？" class="headerlink" title="什么是 Skill？"></a>什么是 Skill？</h2><p>OpenClaw Skill 是一种教 AI Agent 如何使用工具、何时调用工具的机制。每个 Skill 本质上是一个包含 <code>SKILL.md</code> 文件的目录，里面用 YAML frontmatter 定义元数据，用 Markdown 正文给 Agent 下发操作指令。</p>
-<p>当你用自然语言跟 Agent 对话时，它会根据你的请求自动匹配并加载最相关的 Skill，然后按照你写好的步骤去执行。</p>
-<p><strong>Skill 的核心优势：</strong></p>
-<ul>
-<li>零代码：纯 Markdown 编写，谁都能上手</li>
-<li>即写即用：写完保存，Agent 自动感知</li>
-<li>可分享：发布到 ClawHub，全世界的人都能安装</li>
-<li>可条件加载：根据环境、依赖、平台动态决定是否启用</li>
-</ul>
-<hr>
-<h2 id="第一步：创建你的第一个-Skill"><a href="#第一步：创建你的第一个-Skill" class="headerlink" title="第一步：创建你的第一个 Skill"></a>第一步：创建你的第一个 Skill</h2><h3 id="1-创建目录结构"><a href="#1-创建目录结构" class="headerlink" title="1. 创建目录结构"></a>1. 创建目录结构</h3><p>OpenClaw 的 Skill 存放在工作区的 <code>skills/</code> 目录下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.openclaw/workspace/skills/my-first-skill</span><br></pre></td></tr></table></figure>
-
-<p>你可以按子目录组织 Skill，比如 <code>skills/research/</code> 或 <code>skills/personal/</code>，Skill 的名称来自 <code>SKILL.md</code> 的 frontmatter，与文件夹路径无关。</p>
-<h3 id="2-编写-SKILL-md"><a href="#2-编写-SKILL-md" class="headerlink" title="2. 编写 SKILL.md"></a>2. 编写 SKILL.md</h3><p>在目录下创建 <code>SKILL.md</code>：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">name: hello-agent</span><br><span class="line">description: 一个演示 Skill，向用户打招呼并展示当前时间</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section"># Hello Agent</span></span><br><span class="line"></span><br><span class="line">当用户想要打招呼或询问时间时，使用 <span class="code">`exec`</span> 工具运行以下命令：</span><br><span class="line"></span><br><span class="line"><span class="code">```bash</span></span><br><span class="line"><span class="code">echo "你好！现在是 $(date '+%Y-%m-%d %H:%M:%S')"</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
-<li>用户可能用中文或英文打招呼</li>
-<li>如果用户明确询问某个时区的时间，加上 <code>TZ=指定时区 date</code> 命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**Frontmatter 必填字段：**</span><br><span class="line"></span><br><span class="line">| 字段 | 说明 | 规则 |</span><br><span class="line">|---|---|---|</span><br><span class="line">| `name` | Skill 的唯一标识 | 小写字母、数字、连字符 |</span><br><span class="line">| `description` | 一句话描述，用于匹配和展示 | 单行，建议 160 字符以内 |</span><br><span class="line"></span><br><span class="line">**可选字段：**</span><br><span class="line"></span><br><span class="line">| 字段 | 说明 |</span><br><span class="line">|---|---|</span><br><span class="line">| `user-invocable` | 是否暴露为斜杠命令（默认 `true`） |</span><br><span class="line">| `disable-model-invocation` | 是否从 Agent 系统提示中隐藏（默认 `false`） |</span><br><span class="line">| `homepage` | 项目主页 URL，显示在 macOS Skills UI 中 |</span><br><span class="line">| `metadata.openclaw` | 条件门控、安装器等（单行 JSON 格式） |</span><br><span class="line"></span><br><span class="line">### 3. 验证 Skill 已加载</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">openclaw skills list</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>如果没看到，开一个新会话或重启 Gateway：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openclaw gateway restart</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-测试"><a href="#4-测试" class="headerlink" title="4. 测试"></a>4. 测试</h3><p>直接在聊天中让 Agent 触发你的 Skill，或者显式调用：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openclaw agent --message <span class="string">"跟我打个招呼"</span></span><br></pre></td></tr></table></figure>
-
-<p>也可以在对话中使用 <code>/hello-agent</code> 斜杠命令。</p>
-<hr>
-<h2 id="第二步：编写更强大的-Skill"><a href="#第二步：编写更强大的-Skill" class="headerlink" title="第二步：编写更强大的 Skill"></a>第二步：编写更强大的 Skill</h2><h3 id="使用-baseDir-引用同级文件"><a href="#使用-baseDir-引用同级文件" class="headerlink" title="使用 {baseDir} 引用同级文件"></a>使用 <code>{baseDir}</code> 引用同级文件</h3><p>如果 Skill 需要附带脚本、模板等辅助文件，用 <code>{baseDir}</code> 引用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">目录结构：</span><br><span class="line">my-skill/</span><br><span class="line">├── SKILL.md</span><br><span class="line">├── scripts/</span><br><span class="line">│   └── check.sh</span><br><span class="line">└── templates/</span><br><span class="line">    └── report.md</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">name: daily-report</span><br><span class="line">description: 生成每日工作报告</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section"># 每日报告</span></span><br><span class="line"></span><br><span class="line">运行报告脚本：</span><br><span class="line"></span><br><span class="line"><span class="code">```bash</span></span><br><span class="line"><span class="code">bash &#123;baseDir&#125;/scripts/check.sh</span></span><br></pre></td></tr></table></figure>
-
-<p>报告模板在：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;baseDir&#125;/templates/report.md</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 条件加载（Gating）</span><br><span class="line"></span><br><span class="line">让 Skill 只在特定条件下加载，比如只有当某个依赖存在时才启用：</span><br><span class="line"></span><br><span class="line">```markdown</span><br><span class="line">---</span><br><span class="line">name: gemini-search</span><br><span class="line">description: 使用 Gemini CLI 进行搜索</span><br><span class="line">metadata: &#123; &quot;openclaw&quot;: &#123; &quot;requires&quot;: &#123; &quot;bins&quot;: [&quot;gemini&quot;], &quot;env&quot;: [&quot;GEMINI_API_KEY&quot;] &#125; &#125; &#125;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<p><strong>可用的门控规则：</strong></p>
-<table>
-<thead>
-<tr>
-<th>规则</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>requires.bins</code></td>
-<td>所有指定的二进制文件必须在 PATH 上</td>
-</tr>
-<tr>
-<td><code>requires.anyBins</code></td>
-<td>至少一个二进制文件在 PATH 上</td>
-</tr>
-<tr>
-<td><code>requires.env</code></td>
-<td>环境变量必须存在</td>
-</tr>
-<tr>
-<td><code>requires.config</code></td>
-<td>OpenClaw 配置中的指定路径必须为真</td>
-</tr>
-<tr>
-<td><code>os</code></td>
-<td>平台过滤：<code>[&quot;darwin&quot;]</code>、<code>[&quot;linux&quot;]</code>、<code>[&quot;win32&quot;]</code></td>
-</tr>
-<tr>
-<td><code>always</code></td>
-<td>设为 <code>true</code> 跳过所有门控</td>
-</tr>
-</tbody></table>
-<h3 id="安装器规格（Installer-Specs）"><a href="#安装器规格（Installer-Specs）" class="headerlink" title="安装器规格（Installer Specs）"></a>安装器规格（Installer Specs）</h3><p>告诉 macOS Skills UI 如何自动安装依赖：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">name: my-tool</span><br><span class="line">description: 使用 my-tool 完成某件事</span><br><span class="line">metadata:</span><br><span class="line">  &#123;</span><br><span class="line"><span class="code">    "openclaw":</span></span><br><span class="line"><span class="code">      &#123;</span></span><br><span class="line"><span class="code">        "emoji": "🛠️",</span></span><br><span class="line"><span class="code">        "requires": &#123; "bins": ["mytool"] &#125;,</span></span><br><span class="line"><span class="code">        "install": [</span></span><br><span class="line"><span class="code">          &#123;</span></span><br><span class="line"><span class="code">            "id": "brew",</span></span><br><span class="line"><span class="code">            "kind": "brew",</span></span><br><span class="line"><span class="code">            "formula": "my-tool",</span></span><br><span class="line"><span class="code">            "bins": ["mytool"],</span></span><br><span class="line"><span class="code">            "label": "Install my-tool (brew)"</span></span><br><span class="line"><span class="code">          &#125;</span></span><br><span class="line"><span class="code">        ]</span></span><br><span class="line"><span class="code">      &#125;</span></span><br><span class="line">  &#125;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<h3 id="配置覆盖"><a href="#配置覆盖" class="headerlink" title="配置覆盖"></a>配置覆盖</h3><p>在 <code>openclaw.json</code> 中覆盖 Skill 的行为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  skills: &#123;</span><br><span class="line">    entries: &#123;</span><br><span class="line">      &quot;my-skill&quot;: &#123;</span><br><span class="line">        enabled: true,</span><br><span class="line">        env: &#123; API_KEY: &quot;your-key-here&quot; &#125;,</span><br><span class="line">        config: &#123; endpoint: &quot;https://example.com&quot; &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="第三步：通过-Skill-Workshop-提案"><a href="#第三步：通过-Skill-Workshop-提案" class="headerlink" title="第三步：通过 Skill Workshop 提案"></a>第三步：通过 Skill Workshop 提案</h2><p>如果你希望 Agent 起草 Skill、经过审核后再生效，可以使用 <strong>Skill Workshop</strong>。这是一种受治理的 Skill 创建路径。</p>
-<h3 id="用-CLI-提案创建"><a href="#用-CLI-提案创建" class="headerlink" title="用 CLI 提案创建"></a>用 CLI 提案创建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">openclaw skills workshop propose-create \</span><br><span class="line">  --name <span class="string">"daily-report"</span> \</span><br><span class="line">  --description <span class="string">"每日工作报告生成"</span> \</span><br><span class="line">  --proposal ./PROPOSAL.md</span><br></pre></td></tr></table></figure>
-
-<p>PROPOSAL.md 内容格式：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">name: "daily-report"</span><br><span class="line">description: "每日工作报告生成"</span><br><span class="line">status: proposal</span><br><span class="line">version: "v1"</span><br><span class="line">date: "2026-06-27T00:00:00.000Z"</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section"># 每日报告</span></span><br><span class="line"></span><br><span class="line">（你的 Skill 指令内容...）</span><br></pre></td></tr></table></figure>
-
-<h3 id="提案操作"><a href="#提案操作" class="headerlink" title="提案操作"></a>提案操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看待审核提案</span></span><br><span class="line">openclaw skills workshop list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 审查提案内容</span></span><br><span class="line">openclaw skills workshop inspect &lt;proposal-id&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改提案</span></span><br><span class="line">openclaw skills workshop revise &lt;proposal-id&gt; --proposal ./PROPOSAL.md</span><br><span class="line"></span><br><span class="line"><span class="comment"># 审核后生效</span></span><br><span class="line">openclaw skills workshop apply &lt;proposal-id&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拒绝</span></span><br><span class="line">openclaw skills workshop reject &lt;proposal-id&gt; --reason <span class="string">"不符合规范"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 隔离审查</span></span><br><span class="line">openclaw skills workshop quarantine &lt;proposal-id&gt; --reason <span class="string">"需要安全审查"</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="用-Agent-工具提案"><a href="#用-Agent-工具提案" class="headerlink" title="用 Agent 工具提案"></a>用 Agent 工具提案</h3><p>你也可以直接在聊天中让 Agent 帮你创建提案：</p>
-<blockquote>
-<p>“帮我创建一个叫 weather-check 的 Skill，描述是’查询天气并提醒带伞’”</p>
-</blockquote>
-<p>Agent 会自动调用 <code>skill_workshop</code> 工具并返回提案 ID。</p>
-<hr>
-<h2 id="第四步：发布到-ClawHub"><a href="#第四步：发布到-ClawHub" class="headerlink" title="第四步：发布到 ClawHub"></a>第四步：发布到 ClawHub</h2><p>ClawHub（<a href="https://clawhub.ai/" target="_blank" rel="noopener">clawhub.ai</a>）是 OpenClaw 的公共 Skill 注册中心。</p>
-<h3 id="1-安装-ClawHub-CLI"><a href="#1-安装-ClawHub-CLI" class="headerlink" title="1. 安装 ClawHub CLI"></a>1. 安装 ClawHub CLI</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm i -g clawhub</span><br><span class="line">clawhub login</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-安装发布-Skill（可选）"><a href="#2-安装发布-Skill（可选）" class="headerlink" title="2. 安装发布 Skill（可选）"></a>2. 安装发布 Skill（可选）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openclaw skills install clawhub-publish</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-发布-Skill"><a href="#3-发布-Skill" class="headerlink" title="3. 发布 Skill"></a>3. 发布 Skill</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 发布整个 Skill 文件夹</span></span><br><span class="line">clawhub skill publish ./skills/my-first-skill</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定版本号</span></span><br><span class="line">clawhub skill publish ./skills/my-first-skill --version 1.0.0</span><br></pre></td></tr></table></figure>
-
-<p>发布后，你的 Skill 页面就是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://clawhub.ai/&lt;你的owner&gt;/&lt;slug&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-ClawHub-发布流程"><a href="#4-ClawHub-发布流程" class="headerlink" title="4. ClawHub 发布流程"></a>4. ClawHub 发布流程</h3><ol>
-<li><strong>收集元数据和文件</strong>：CLI 自动读取 <code>SKILL.md</code> 中的 frontmatter</li>
-<li><strong>发送发布请求</strong>：包含 owner、slug、版本、更新日志和所有文件</li>
-<li><strong>服务器验证</strong>：检查 owner 权限、包名、版本、文件大小和来源</li>
-<li><strong>存储发布</strong>：ClawHub 保存新版本</li>
-<li><strong>安全检查</strong>：自动运行 VirusTotal、ClawScan 和静态分析</li>
-<li><strong>审核通过后上架</strong>：新版本对所有用户可见</li>
-</ol>
-<h3 id="5-其他人安装你的-Skill"><a href="#5-其他人安装你的-Skill" class="headerlink" title="5. 其他人安装你的 Skill"></a>5. 其他人安装你的 Skill</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从 ClawHub 安装</span></span><br><span class="line">openclaw skills install &lt;your-username&gt;/my-first-skill</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装指定版本</span></span><br><span class="line">openclaw skills install &lt;your-username&gt;/my-first-skill --version 1.0.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 全局安装（所有 Agent 可用）</span></span><br><span class="line">openclaw skills install &lt;your-username&gt;/my-first-skill --global</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="第五步：发布到-GitHub"><a href="#第五步：发布到-GitHub" class="headerlink" title="第五步：发布到 GitHub"></a>第五步：发布到 GitHub</h2><h3 id="1-准备仓库"><a href="#1-准备仓库" class="headerlink" title="1. 准备仓库"></a>1. 准备仓库</h3><p>把你的 Skill 目录放到一个 Git 仓库中：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.openclaw/workspace/skills/my-first-skill</span><br><span class="line">git init</span><br><span class="line">git add SKILL.md</span><br><span class="line">git commit -m <span class="string">"feat: 添加 my-first-skill"</span></span><br><span class="line">git branch -M main</span><br><span class="line">git remote add origin https://github.com/你的用户名/my-first-skill.git</span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-仓库结构建议"><a href="#2-仓库结构建议" class="headerlink" title="2. 仓库结构建议"></a>2. 仓库结构建议</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">my-first-skill/</span><br><span class="line">├── SKILL.md              # 必需：Skill 定义文件</span><br><span class="line">├── README.md             # 可选：对人类的说明文档</span><br><span class="line">├── scripts/              # 可选：辅助脚本</span><br><span class="line">│   └── helper.sh</span><br><span class="line">├── templates/            # 可选：模板文件</span><br><span class="line">│   └── report.md</span><br><span class="line">└── assets/               # 可选：静态资源</span><br><span class="line">    └── logo.png</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-通过-Git-安装"><a href="#3-通过-Git-安装" class="headerlink" title="3. 通过 Git 安装"></a>3. 通过 Git 安装</h3><p>其他用户可以直接从 GitHub 安装：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">openclaw skills install git:用户名/仓库名</span><br><span class="line">openclaw skills install git:用户名/仓库名@main</span><br><span class="line">openclaw skills install git:用户名/仓库名@v1.0.0</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-自定义-Skill-名称"><a href="#4-自定义-Skill-名称" class="headerlink" title="4. 自定义 Skill 名称"></a>4. 自定义 Skill 名称</h3><p>如果仓库名和 Skill 名不一致，用 <code>--as</code> 指定：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openclaw skills install git:用户名/repo-name --as my-skill-name</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h3 id="编写-SKILL-md-的建议"><a href="#编写-SKILL-md-的建议" class="headerlink" title="编写 SKILL.md 的建议"></a>编写 SKILL.md 的建议</h3><ol>
-<li><strong>简洁明了</strong>：告诉 Agent 做什么，而不是教它”作为一个 AI”该怎么思考</li>
-<li><strong>安全优先</strong>：如果 Skill 使用 <code>exec</code>，确保不会注入不可信的输入</li>
-<li><strong>描述简短</strong>：<code>description</code> 控制在 160 字符以内，减少 Token 消耗</li>
-<li><strong>先测试再分享</strong>：用 <code>openclaw agent --message &quot;...&quot;</code> 本地验证</li>
-</ol>
-<h3 id="Token-消耗须知"><a href="#Token-消耗须知" class="headerlink" title="Token 消耗须知"></a>Token 消耗须知</h3><p>每个 Skill 注入系统提示的 Token 消耗是可预测的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">总开销 = 195 + Σ (97 + len(名字) + len(描述) + len(文件路径))</span><br></pre></td></tr></table></figure>
-
-<p>约每 4 个字符 ≈ 1 个 Token。保持描述简短就能减少开销。</p>
-<h3 id="组织多个-Skill"><a href="#组织多个-Skill" class="headerlink" title="组织多个 Skill"></a>组织多个 Skill</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">skills/</span><br><span class="line">├── research/</span><br><span class="line">│   ├── SKILL.md       # 自动识别为 &quot;research&quot;</span><br><span class="line">│   └── papers/</span><br><span class="line">│       └── SKILL.md   # 自动识别为 &quot;papers&quot;</span><br><span class="line">├── personal/</span><br><span class="line">│   └── SKILL.md       # 自动识别为 &quot;personal&quot;</span><br><span class="line">└── SKILL.md           # 根目录的 SKILL.md 也是有效 Skill</span><br></pre></td></tr></table></figure>
-
-<h3 id="多-Agent-场景下的-Skill-共享"><a href="#多-Agent-场景下的-Skill-共享" class="headerlink" title="多 Agent 场景下的 Skill 共享"></a>多 Agent 场景下的 Skill 共享</h3><table>
-<thead>
-<tr>
-<th>作用域</th>
-<th>路径</th>
-<th>对谁可见</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>单个 Agent</td>
-<td><code>&lt;workspace&gt;/skills</code></td>
-<td>仅该 Agent</td>
-</tr>
-<tr>
-<td>项目 Agent</td>
-<td><code>&lt;workspace&gt;/.agents/skills</code></td>
-<td>仅该工作区的 Agent</td>
-</tr>
-<tr>
-<td>个人级</td>
-<td><code>~/.agents/skills</code></td>
-<td>本机所有 Agent</td>
-</tr>
-<tr>
-<td>共享级</td>
-<td><code>~/.openclaw/skills</code></td>
-<td>本机所有 Agent</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="Q：写完-SKILL-md-后-Agent-没反应？"><a href="#Q：写完-SKILL-md-后-Agent-没反应？" class="headerlink" title="Q：写完 SKILL.md 后 Agent 没反应？"></a>Q：写完 SKILL.md 后 Agent 没反应？</h3><p>A：开一个新会话（<code>/new</code>）或重启 Gateway（<code>openclaw gateway restart</code>）。OpenClaw 默认监听 Skill 文件变化，但已有会话的快照不会自动刷新。</p>
-<h3 id="Q：如何调试-Skill-匹配问题？"><a href="#Q：如何调试-Skill-匹配问题？" class="headerlink" title="Q：如何调试 Skill 匹配问题？"></a>Q：如何调试 Skill 匹配问题？</h3><p>A：使用以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">openclaw skills list              <span class="comment"># 查看所有 Skill</span></span><br><span class="line">openclaw skills list --eligible    <span class="comment"># 查看符合条件的 Skill</span></span><br><span class="line">openclaw skills check              <span class="comment"># 检查 Agent 实际可见的 Skill</span></span><br><span class="line">openclaw skills info my-skill      <span class="comment"># 查看某个 Skill 的详情</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Q：第三方-Skill-安全吗？"><a href="#Q：第三方-Skill-安全吗？" class="headerlink" title="Q：第三方 Skill 安全吗？"></a>Q：第三方 Skill 安全吗？</h3><p>A：把第三方 Skill 视为<strong>不受信任的代码</strong>。启用前请先阅读其内容。对不可信的输入，优先使用沙箱运行。</p>
-<h3 id="Q：如何更新已发布的-Skill？"><a href="#Q：如何更新已发布的-Skill？" class="headerlink" title="Q：如何更新已发布的 Skill？"></a>Q：如何更新已发布的 Skill？</h3><p>A：更新本地文件后，重新发布到 ClawHub：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clawhub skill publish ./skills/my-skill --version 1.0.1</span><br></pre></td></tr></table></figure>
-
-<p>其他人用 <code>openclaw skills update &lt;slug&gt;</code> 即可更新。</p>
-<hr>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>写 OpenClaw Skill 本质上就是写一份给 AI Agent 看的操作手册。你不需要会编程，只需要把你的工作流用清晰的指令描述出来，Agent 就能帮你自动化完成。</p>
-<p>从一个小工具开始，逐步扩展你的 Agent 能力。当你的 Skill 变得足够好用时，发布到 ClawHub，让全世界的人受益。</p>
-<p><em>本文基于 OpenClaw 文档编写。文档地址：<a href="https://docs.openclaw.ai/" target="_blank" rel="noopener">https://docs.openclaw.ai</a></em></p>
-
-          
-          
-          
-          
-          
-          
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>开放域问答（Open-Domain QA）是大模型评测里最成熟、也最容易被误用的板块。成熟在于：数据集、评测框架、指标都有十年积累；易误用在于：<strong>大多数论文和内部评测报告只报均值，不做统计检验，也不说明数据集的变体与设置</strong>。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/08/07/开放域问答评测-数据集与统计显著性/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1744,7 +470,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/04/24/如何在mac上安装openclaw/">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/27/GBDT三巨头与SHAP可解释性/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
@@ -1758,7 +484,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/04/24/如何在mac上安装openclaw/" class="post-title-link" itemprop="url">如何在mac上安装openclaw，并使用本地大模型</a>
+            <a href="/2026/07/27/GBDT三巨头与SHAP可解释性/" class="post-title-link" itemprop="url">GBDT 三巨头与 SHAP：从分裂策略到可解释性的工程手册</a>
         </h2>
 
         <div class="post-meta">
@@ -1768,14 +494,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2026-04-24 09:56:17" itemprop="dateCreated datePublished" datetime="2026-04-24T09:56:17+08:00">2026-04-24</time>
+              <time title="Created: 2026-07-27 23:33:32" itemprop="dateCreated datePublished" datetime="2026-07-27T23:33:32+08:00">2026-07-27</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
+                <time title="Modified: 2026-11-11 15:27:20" itemprop="dateModified" datetime="2026-11-11T15:27:20+08:00">2026-11-11</time>
               </span>
 
           
@@ -1787,8 +513,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2026/04/24/如何在mac上安装openclaw/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2026/04/24/如何在mac上安装openclaw/" itemprop="commentCount"></span>
+    <a title="valine" href="/2026/07/27/GBDT三巨头与SHAP可解释性/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/27/GBDT三巨头与SHAP可解释性/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1803,682 +529,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
-          
-          <p>在Mac上搭建本地大模型环境，OpenClaw（一款开源的大模型管理/运行工具）搭配Ollama（轻量本地大模型运行器）是非常便捷的组合——无需复杂配置，新手也能快速上手。本文将详细补全每一步操作，从Ollama安装、模型选择，到Homebrew配置、OpenClaw安装，再到最终对接测试，全程实操无废话，亲测可用（适配Intel芯片和Apple Silicon芯片Mac）。</p>
-<h1 id="安装ollama（如果你不喜欢ollama，或者想本地模型运行效率更高，也可以安装llama-cpp替代）"><a href="#安装ollama（如果你不喜欢ollama，或者想本地模型运行效率更高，也可以安装llama-cpp替代）" class="headerlink" title="安装ollama（如果你不喜欢ollama，或者想本地模型运行效率更高，也可以安装llama.cpp替代）"></a>安装ollama（如果你不喜欢ollama，或者想本地模型运行效率更高，也可以安装llama.cpp替代）</h1><p>Ollama是核心工具，负责本地运行大模型，支持一键下载、启动模型，无需手动配置依赖，是Mac上运行本地大模型的首选工具，兼容所有Mac系统（macOS 10.15及以上）。</p>
-<h2 id="下载、安装ollama"><a href="#下载、安装ollama" class="headerlink" title="下载、安装ollama"></a>下载、安装ollama</h2><p>官网直接下载（推荐）<br>访问Ollama官方网站：<a href="https://ollama.com/" target="_blank" rel="noopener">https://ollama.com/</a>，点击页面中间的「Download for macOS」，下载后得到.dmg安装包，双击打开，将Ollama拖拽到「应用程序」文件夹即可完成安装。</p>
-<p>注意：若提示“无法打开”，先点击弹窗上的取消，需在「系统设置→隐私与安全性」中，允许“来自未知开发者”的Ollama运行或者open anyway（仅首次安装需要）。</p>
-<h2 id="选择适合自己的本地大模型"><a href="#选择适合自己的本地大模型" class="headerlink" title="选择适合自己的本地大模型"></a>选择适合自己的本地大模型</h2><p>Ollama支持多种主流本地大模型（如Llama 3、Qwen、Gemini、Mistral等），不同模型的体积、性能、显存要求不同，需根据自己Mac的配置（主要是内存/显存）选择，避免出现“模型无法启动”“运行卡顿”的问题。</p>
-<p>Ollama的模型名称都带有后缀，后缀代表模型的量化版本，直接决定模型体积和显存占用，新手优先选择「Q4_K_M」后缀，兼顾性能和占用：</p>
-<ul>
-<li>Q2_K：最小量化，体积最小，显存占用最低，性能一般，适合4GB内存的Mac；</li>
-<li>Q4_K_M：平衡版（推荐），体积适中，显存占用较低，性能接近原始模型，适合8GB及以上内存的Mac；</li>
-<li>Q6_K：高量化，体积较大，性能较好，适合16GB内存的Mac；</li>
-<li>Q8_0：几乎接近原始模型，体积最大，性能最好，适合32GB及以上内存的Mac。</li>
-</ul>
-<p>常见推荐模型（Mac适配度高）：</p>
-<ul>
-<li>入门首选：llama3:8b-q4_k_m（Llama 3 8B，平衡版，适合大多数Mac）；</li>
-<li>轻量首选：qwen:7b-q4_k_m（通义千问7B，中文支持更好，体积略小）；</li>
-<li>性能首选：gemini:pro-q4_k_m（Gemini Pro，多模态支持，适合16GB内存Mac）。</li>
-</ul>
-<p>本地大模型运行的核心限制是「显存」（Mac的内存和显存是共享的，所以内存大小直接决定能运行的模型），简单计算方法：模型参数（如8B、7B）× 量化系数 ≈ 所需显存（单位：GB）。</p>
-<p>举个例子：</p>
-<ul>
-<li>llama3:8b-q4_k_m：8B参数 × 0.45（Q4_K_M量化系数）≈ 3.6GB显存，8GB内存的Mac可流畅运行；</li>
-<li>qwen:14b-q4_k_m：14B参数 × 0.45 ≈ 6.3GB显存，建议16GB内存的Mac运行；</li>
-<li>llama3:70b-q4_k_m：70B参数 × 0.45 ≈ 31.5GB显存，仅适合32GB及以上内存的Mac。</li>
-</ul>
-<p>注意：Mac运行模型时，系统本身会占用2-3GB内存，所以选择模型时，需预留至少2GB内存，避免系统卡顿。</p>
-<h2 id="安装并确认是否可以正常使用"><a href="#安装并确认是否可以正常使用" class="headerlink" title="安装并确认是否可以正常使用"></a>安装并确认是否可以正常使用</h2><p>安装完成并选择好模型后，先测试Ollama是否能正常启动模型，步骤如下：</p>
-<ol>
-<li>打开终端，输入模型下载命令（以入门推荐的llama3:8b-q4_k_m为例）：</li>
-</ol>
-<blockquote>
-<p>ollama pull llama3:8b-q4_k_m</p>
-</blockquote>
-<ol start="2">
-<li><p>等待下载完成（模型大小约4GB，下载速度取决于网络，建议连接WiFi）；</p>
-</li>
-<li><p>下载完成后，输入启动命令，测试模型响应：</p>
-</li>
-</ol>
-<blockquote>
-<p>ollama run llama3:8b-q4_k_m</p>
-</blockquote>
-<ol start="4">
-<li><p>终端出现「&gt;&gt;&gt;」提示符后，输入任意问题（如“介绍一下OpenClaw”），模型会自动生成回答，说明Ollama和模型都能正常使用；</p>
-</li>
-<li><p>退出模型：输入/bye，回车即可退出。</p>
-</li>
-</ol>
-<p>常见问题：若下载模型时提示“网络超时”，可尝试切换网络（如手机热点），或重复输入pull命令；若启动模型时提示“out of memory”，说明模型显存要求超过Mac内存，需更换更小的模型（如换成qwen:7b-q4_k_m）。</p>
-<h1 id="安装homebrew（如果前序步骤已经安装，可以跳过）"><a href="#安装homebrew（如果前序步骤已经安装，可以跳过）" class="headerlink" title="安装homebrew（如果前序步骤已经安装，可以跳过）"></a>安装homebrew（如果前序步骤已经安装，可以跳过）</h1><p>Homebrew是Mac上的包管理工具，相当于Windows的“应用商店”。其实openclaw的一键安装脚本中已经包括了homebrew的安装，我们单独安装它，主要是为了：① 替换国内源，解决官方源下载速度慢、卡顿的问题；② 避免后续安装OpenClaw时出现sudo权限不足的问题（很多终端命令需要sudo权限，Homebrew可自动处理）。</p>
-<p>注意：如果你的Mac已经安装过Homebrew，可跳过这一步，但建议按照下面的“国内源配置”，替换成国内源，避免后续安装出错。</p>
-<h2 id="通过国内的源安装"><a href="#通过国内的源安装" class="headerlink" title="通过国内的源安装"></a>通过国内的源安装</h2><p>官方Homebrew源在国内访问速度较慢，这里使用「中科大源」安装，步骤如下：</p>
-<ol>
-<li>打开终端，输入以下命令（一键安装，包含国内源配置），回车后按照提示操作：<br><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;</code></li>
-<li>执行命令后，会出现源选择界面，输入「1」（中科大源，推荐），回车；</li>
-<li>然后按照提示，输入Mac的开机密码（输入时终端不会显示密码，直接输入即可，回车确认）；</li>
-<li>等待安装完成，过程约5-10分钟（取决于网络），出现“安装成功”的提示即完成。</li>
-</ol>
-<h2 id="重启命令行！！然后确认是否安装成功"><a href="#重启命令行！！然后确认是否安装成功" class="headerlink" title="重启命令行！！然后确认是否安装成功"></a>重启命令行！！然后确认是否安装成功</h2><p><strong>重要：安装完成后，必须关闭当前所有终端窗口，重新打开一个新的终端（这一步不能省略，否则Homebrew无法正常生效）。</strong></p>
-<p>确认安装成功：在新终端中输入 brew –version，若输出类似「Homebrew 4.2.20」的版本信息，说明安装成功；若提示“command not found: brew”，说明未重启终端，或安装失败，可重新执行安装命令。</p>
-<p>补充：若已安装Homebrew，仅需替换国内源，可输入以下命令（依次执行）：</p>
-<blockquote>
-<p>brew tap –custom-remote –force-auto-update homebrew/core <a href="https://mirrors.ustc.edu.cn/homebrew-core.git" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/homebrew-core.git</a></p>
-</blockquote>
-<blockquote>
-<p>brew tap –custom-remote –force-auto-update homebrew/cask <a href="https://mirrors.ustc.edu.cn/homebrew-cask.git" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/homebrew-cask.git</a></p>
-</blockquote>
-<h1 id="安装openclaw"><a href="#安装openclaw" class="headerlink" title="安装openclaw"></a>安装openclaw</h1><p>OpenClaw是一款开源的本地大模型管理工具，支持图形化界面（也可终端操作），能快速对接Ollama、ChatGLM等本地大模型，还能实现模型切换、对话记录保存等功能，比直接用终端操作Ollama更便捷<br>。<br>注意：OpenClaw依赖Homebrew，必须先安装好Homebrew，才能正常安装OpenClaw。</p>
-<h2 id="命令行一键安装"><a href="#命令行一键安装" class="headerlink" title="命令行一键安装"></a>命令行一键安装</h2><p>打开新的终端，输入以下命令（一键安装，自动依赖Homebrew），回车后等待安装完成：</p>
-<blockquote>
-<p>curl -fsSL <a href="https://openclaw.ai/install.sh" target="_blank" rel="noopener">https://openclaw.ai/install.sh</a> | bash</p>
-</blockquote>
-<h2 id="配置openclaw"><a href="#配置openclaw" class="headerlink" title="配置openclaw"></a>配置openclaw</h2><p>安装完成后就会自动进入第一次简单配置（具体选啥可以从下边找，不确定的一般直接按默认来就行，后边都能改）。</p>
-<p>这里按照安装完成后，在终端输入：openclaw config，进入配置会看到：</p>
-<blockquote>
-<p>Select sections to configure:<br>workspace / model / gateway / web tools / daemon / channels …</p>
-</blockquote>
-<p>初次配置只搞这三个：</p>
-<ul>
-<li>workspace</li>
-<li>model</li>
-<li>gateway</li>
-</ul>
-<h3 id="workspace配置"><a href="#workspace配置" class="headerlink" title="workspace配置"></a>workspace配置</h3><p>直接回车使用默认路径即可：~/.openclaw</p>
-<p>这是 OpenClaw 的工作区，后面所有配置都在这里。</p>
-<h3 id="model配置"><a href="#model配置" class="headerlink" title="model配置"></a>model配置</h3><p>选择：</p>
-<ul>
-<li>Provider: ollama</li>
-<li>Base URL: <a href="http://127.0.0.1:11434/" target="_blank" rel="noopener">http://127.0.0.1:11434</a></li>
-</ul>
-<p>然后选择你已经通过 Ollama 下载好的模型，例如：</p>
-<ul>
-<li>llama3.2:latest</li>
-<li>qwen2.5:latest</li>
-<li>deepseek-r1:7b</li>
-</ul>
-<h3 id="gateway配置"><a href="#gateway配置" class="headerlink" title="gateway配置"></a>gateway配置</h3><p>这样选：</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>选择</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Gateway bind mode</td>
-<td>loopback</td>
-</tr>
-<tr>
-<td>Gateway auth</td>
-<td>token</td>
-</tr>
-<tr>
-<td>Token source</td>
-<td>generate</td>
-</tr>
-<tr>
-<td>Tailscale exposure</td>
-<td>off</td>
-</tr>
-</tbody></table>
-<p>这些组合代表：只在本机运行，自动生成安全 token，不暴露到外网。</p>
-<p>Token记得复制一下，后边openclaw图形界面登录需要。</p>
-<h1 id="整体运行"><a href="#整体运行" class="headerlink" title="整体运行"></a>整体运行</h1><h2 id="ollama运行"><a href="#ollama运行" class="headerlink" title="ollama运行"></a>ollama运行</h2><blockquote>
-<p>ollama serve</p>
-</blockquote>
-<blockquote>
-<p>ollama launch openclaw</p>
-</blockquote>
-<h2 id="openclaw运行"><a href="#openclaw运行" class="headerlink" title="openclaw运行"></a>openclaw运行</h2><blockquote>
-<p>openclaw gateway start</p>
-</blockquote>
-<h2 id="整体测试"><a href="#整体测试" class="headerlink" title="整体测试"></a>整体测试</h2><p>在openclaw的可视化页面上，默认是<a href="http://127.0.0.1:18789/%EF%BC%8C%E5%92%8C%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AF%B9%E8%AF%9D%EF%BC%8C%E7%9C%8B%E7%9C%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E8%B7%91%E9%80%9A" target="_blank" rel="noopener">http://127.0.0.1:18789/，和大模型对话，看看是否可以跑通</a></p>
-<h1 id="安装llama-cpp替代ollama"><a href="#安装llama-cpp替代ollama" class="headerlink" title="安装llama.cpp替代ollama"></a>安装llama.cpp替代ollama</h1><p><a href="https://llama-cpp.com/getting-started/" target="_blank" rel="noopener">https://llama-cpp.com/getting-started/</a>官网写得非常清楚了，跟着执行就行</p>
-<p>需要注意的是：Step 4: Enable Apple Metal Acceleration，执行前先<code>cd ..</code>返回到build的上一级目录，也就是llama.cpp这个文件夹中</p>
-<p>安装好之后，可以去huggingface或者modelscope下载gguf格式的模型文件，比如<br><a href="https://modelscope.cn/models/unsloth/Qwen3.6-35B-A3B-GGUF/files" target="_blank" rel="noopener">https://modelscope.cn/models/unsloth/Qwen3.6-35B-A3B-GGUF/files</a></p>
-<p>下载完成之后，执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">llama-server \\\</span><br><span class="line">  -m Qwen3.6-35B-A3B-UD-Q8_K_XL.gguf \\\</span><br><span class="line">  --host 127.0.0.1 \\\</span><br><span class="line">  --port 11434</span><br></pre></td></tr></table></figure>
-
-<p>就可以在本地服务器运行模型了，你也可以自由的配置上下文长度等各项参数，我在自己的mac上常用的执行命令如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">llama-server \</span><br><span class="line">  -m Qwen3.6-35B-A3B-UD-Q8_K_XL.gguf \</span><br><span class="line">  --host 127.0.0.1 \</span><br><span class="line">  --port 11434 \</span><br><span class="line">  --ctx-size 262144 \</span><br><span class="line">  --n-gpu-layers 999 \</span><br><span class="line">  --threads 18 \</span><br><span class="line">  --batch-size 2048 \</span><br><span class="line">  --ubatch-size 512 \</span><br><span class="line">  --flash-attn 1\</span><br><span class="line">  --mlock \</span><br><span class="line">  --no-mmap</span><br></pre></td></tr></table></figure>
-
-<p>其他还有一些常用参数，比如<code>--reasoning-budget 0</code>是关闭思考，<code>--mmproj 模型名称.gguf</code>是增加多模态映射等</p>
-<h1 id="Openclaw配置llama-cpp"><a href="#Openclaw配置llama-cpp" class="headerlink" title="Openclaw配置llama.cpp"></a>Openclaw配置llama.cpp</h1><p>打开openclaw.json，修改默认模型（注意把具体模型名称替换成自己的）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&quot;agents&quot;: &#123;</span><br><span class="line">    &quot;defaults&quot;: &#123;</span><br><span class="line">        &quot;llm&quot;: &#123;</span><br><span class="line">        &quot;idleTimeoutSeconds&quot;: 300</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;model&quot;: &#123;</span><br><span class="line">        &quot;primary&quot;: &quot;llamacpp/Qwen3.6-35B-A3B-UD-Q8_K_XL&quot;,</span><br><span class="line">        &quot;fallbacks&quot;: [</span><br><span class="line">            &quot;ollama/gemma4&quot;</span><br><span class="line">        ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;models&quot;: &#123;</span><br><span class="line">        &quot;ollama/gemma4&quot;: &#123;&#125;,</span><br><span class="line">        &quot;llamacpp/Qwen3.6-35B-A3B-UD-Q8_K_XL&quot;: &#123;&#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;workspace&quot;: &quot;/Users/mengxi/.openclaw/workspace&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-
-<p>在models、provider中，增加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&quot;llamacpp&quot;: &#123;</span><br><span class="line">    &quot;baseUrl&quot;: &quot;http://127.0.0.1:11434/v1&quot;,</span><br><span class="line">    &quot;apiKey&quot;: &quot;llamacpp&quot;,</span><br><span class="line">    &quot;api&quot;: &quot;openai-completions&quot;,</span><br><span class="line">    &quot;models&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">        &quot;id&quot;: &quot;Qwen3.6-35B-A3B-UD-Q8_K_XL&quot;,</span><br><span class="line">        &quot;name&quot;: &quot;Qwen3.6-35B-A3B-UD-Q8_K_XL&quot;,</span><br><span class="line">        &quot;contextWindow&quot;: 262144</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>openclaw更新之后需要在命令行运行<code>openclaw models auth paste-token --provider llamacpp</code>，然后再命令行中数据llamacpp，回车，会自动生成auth-profiles.json</p>
-<p>最后，如果你不巧前边已经运行过ollama的session了，切换llama.cpp可能会导致openclaw陷入假死，需要进入~/.openclaw/agents/main/sessions/这个目录，把里边的内容清空</p>
-<p>最后执行<code>openclaw gateway stop &amp;&amp; openclaw gateway start</code>，完工！</p>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/09/04/资产管理相关趋势与技术/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/09/04/资产管理相关趋势与技术/" class="post-title-link" itemprop="url">资产管理、数据资产管理相关趋势与技术</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-09-04 09:11:30" itemprop="dateCreated datePublished" datetime="2024-09-04T09:11:30+08:00">2024-09-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2024/09/04/资产管理相关趋势与技术/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2024/09/04/资产管理相关趋势与技术/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>资产管理是一个涉及组织、协调、监督和控制企业或其他机构资产的综合性管理过程。这些资产包括流动资产（如现金、应收账款、存货）、固定资产（如建筑、机器、设备）、无形资产（如专利、商标、商誉）以及其他金融资产等。资产管理的目标是确保资产的有效利用，以支持组织的战略目标和提高财务表现。具体内容包括但不限于：</p>
-<ul>
-<li>资产配置：决定资产的分配方式和投资方向，以实现风险和回报的最佳平衡。</li>
-<li>资产使用：确保资产被有效利用，以支持日常运营和长期目标。</li>
-<li>资产维护：包括资产的保养、维修和升级，以保持其价值和性能。</li>
-<li>资产处置：涉及资产的出售、转让、报废或回收等，以优化资产组合和释放资本。</li>
-<li>风险管理：识别、评估和控制与资产相关的各种风险，如市场风险、信用风险、操作风险等。</li>
-<li>合规性：确保资产管理活动遵守相关法律法规和内部政策。</li>
-</ul>
-<h2 id="国家高度重视"><a href="#国家高度重视" class="headerlink" title="国家高度重视"></a>国家高度重视</h2><p>《数字中国发展报告（2022年）》显示，2022年我国数字经济规模已超过50万亿元，数字经济占GDP比重达到41.5%，位居世界第二位。数据已成为第五大生产要素。数据资产，作为经济社会数字化转型进程中的新兴资产类型，正日益成为推动数字中国建设和加快数字经济发展的重要战略资源。</p>
-<ul>
-<li>2020年08月26日，财政部印发《关于加强行政事业单位固定资产管理的通知》</li>
-<li>2021年2月1日，国务院印发《行政事业性国有资产管理条例》</li>
-<li>2022年，中共中央、国务院印发《关于构建数据基础制度更好发挥数据要素作用的意见》</li>
-<li>2023年，中共中央、国务院印发《数字中国建设整体布局规划》</li>
-<li>2023年12月31日，财政部印发《关于加强数据资产管理的指导意见》</li>
-<li>财政部、住房城乡建设部、工业和信息化部、公安部、交通运输部、水利部于2024年7月23日印发《市政基础设施资产管理办法（试行）》</li>
-<li>国务院关于2022年度国有资产管理情况的综合报告——2023年10月21日在第十四届全国人民代表大会常务委员会第六次会议上</li>
-</ul>
-<h2 id="数智化资产管理迫在眉睫"><a href="#数智化资产管理迫在眉睫" class="headerlink" title="数智化资产管理迫在眉睫"></a>数智化资产管理迫在眉睫</h2><p>（一）企业国有资产（不含金融企业）<br>2022年，中央企业资产总额109.4万亿元、负债总额73.7万亿元、国有资本权益21.8万亿元，平均资产负债率67.3%。2022年，地方国有企业资产总额230.1万亿元、负债总额145.0万亿元、国有资本权益72.9万亿元，平均资产负债率63.0%。汇总中央和地方情况，2022年，全国国有企业资产总额339.5万亿元、负债总额218.6万亿元、国有资本权益94.7万亿元，平均资产负债率64.4%。</p>
-<p>（二）金融国有资产<br>2022年，中央国有金融资本权益19.1万亿元，中央金融企业资产总额261.6万亿元、负债总额234.7万亿元。2022年，地方国有金融资本权益8.5万亿元，金融企业资产总额139.3万亿元、负债总额123.5万亿元。汇总中央和地方情况，2022年，全国国有金融资本权益27.6万亿元，金融企业资产总额400.9万亿元、负债总额358.2万亿元。</p>
-<p>（三）行政事业性国有资产<br>2022年，中央行政事业性国有资产总额6.5万亿元、负债总额2.0万亿元、净资产4.5万亿元。其中，行政单位资产总额1.4万亿元，事业单位资产总额5.1万亿元。2022年，地方行政事业性国有资产总额53.3万亿元、负债总额10.4万亿元、净资产42.9万亿元。其中，行政单位资产总额20.2万亿元，事业单位资产总额33.1万亿元。汇总中央和地方情况，2022年，全国行政事业性国有资产总额59.8万亿元、负债总额12.4万亿元、净资产47.4万亿元。其中，行政单位资产总额21.6万亿元，事业单位资产总额38.2万亿元。</p>
-<p>（四）国有自然资源资产<br>截至2022年末，全国国有土地总面积52360.5万公顷。其中，国有建设用地1818.6万公项、国有耕地1957.5万公顷、国有园地239.3万公顷、国有林地11261.0万公项、国有草地19740.5万公项、国有湿地2175.3万公顷。根据«联合国海洋法公约»有关规定和我国主张，管辖海域面积约300万平方公里。2022年，全国水资源总量27088.1亿立方米。</p>
-<h1 id="将大模型应用于资产管理的相关技术"><a href="#将大模型应用于资产管理的相关技术" class="headerlink" title="将大模型应用于资产管理的相关技术"></a>将大模型应用于资产管理的相关技术</h1><ol>
-<li><strong>自然语言处理（NLP）</strong>：大模型通过深度学习算法，如Transformer，理解和生成自然语言文本，执行文本生成、翻译、总结、问答等任务。</li>
-<li><strong>机器学习和深度学习</strong>：利用机器学习算法和神经网络，如循环神经网络（RNN）和长短期记忆网络（LSTM），处理和分析大量金融数据。</li>
-<li><strong>数据预处理</strong>：包括数据摄取、数据变换和下游连接，使用OCR模型和正则表达式等工具处理非结构化文本数据。</li>
-<li><strong>向量数据库</strong>：将文档及其嵌入存储在向量数据库中，以便LLMs能够更快地检索和处理数据。</li>
-<li><strong>LLM编程框架</strong>：提供工具和抽象组件，用于构建基于LLMs的应用程序，包含预定义的链（chain）用于编排不同的组件并实现复杂任务。</li>
-<li><strong>时间序列分析</strong>：使用深度学习模型如LSTM网络和CNN捕捉时间序列数据中的时间依赖性和异常。</li>
-<li><strong>金融推理</strong>：通过处理和综合大量的金融数据，支持战略财务规划、投资建议、咨询服务和决策制定。</li>
-<li><strong>基于代理的建模（ABM）</strong>：模拟复杂系统，特别是金融市场中的多样化行为，LLMs增强代理的认知功能，实现更现实和自适应的模拟。</li>
-<li><strong>智能合约的模糊测试</strong>：利用大语言模型指导智能合约的模糊测试活动，优化智能合约的自动化安全分析。</li>
-<li><strong>多模态数据处理</strong>：处理包括图像、音频和视频在内的多模态数据，整合非语言线索到情感分析中。</li>
-</ol>
-<h1 id="基于大模型的技术案例"><a href="#基于大模型的技术案例" class="headerlink" title="基于大模型的技术案例"></a>基于大模型的技术案例</h1><p>使用大型语言模型（LLMs）进行资产管理的内容主要包括：</p>
-<ol>
-<li><strong>金融投资研究</strong>：LLMs能够快速准确地从大量市场数据、财务报告和宏观经济指标中提取关键信息，帮助资产管理公司进行数据分析和总结，从而加快数据整理速度并减少人为干预错误。例如，可以使用LLMs来分析公司报告中的情绪，新闻和电话会议，帮助投资者更好地理解公司的情绪和潜在的未来发展趋势。</li>
-<li><strong>风险管理</strong>：LLMs通过复杂的数据分析和模式识别来预测和评估各种类型的风险。例如，LLMs可以迅速分析特定资产类别的市场波动性的历史趋势和相关新闻报告，为风险评估过程提供定量和定性支持。</li>
-<li><strong>客户服务和咨询</strong>：LLMs的应用显著提高了用户交互体验，能够理解客户的具体需求和情况，提供针对性的响应或建议，从而大大提高客户满意度。</li>
-<li><strong>监管合规</strong>：LLMs能够解释复杂的监管文件，协助资产管理公司确保其业务运营符合各种法律要求。例如，当新的金融法规出台时，LLMs可以迅速总结主要变化和潜在影响，帮助公司快速适应法律环境的变化。</li>
-<li><strong>投资管理</strong>：LLMs可以分析市场数据并预测未来价格走势，这些信息可以用来通知交易策略。LLMs不仅对对冲基金有益，对资产管理行业的其他参与者，如资产经理和养老基金也有益。</li>
-</ol>
-<h2 id="招商银行资管领域大模型探索实践"><a href="#招商银行资管领域大模型探索实践" class="headerlink" title="招商银行资管领域大模型探索实践"></a>招商银行资管领域大模型探索实践</h2><p>基于大模型的生成和理解能力，可以在资产管理业务的整个链条中进行应用，例如在实体经济和底层金融资产中，利用大模型的生成能力可以完成研报的写作、检索，利用大模型的理解能力对已有研报可以进行解析、理解、摘要、脱水，挖掘深层次数据价值；在资产组合层面，大模型可以进行因子提取、指数辅助编制、策略COT辅助实现；在财管管理阶段，大模型可以解析基金公司新闻、管理人舆情、基金产品公告等信息，通过资配的逻辑对非专业投资客户进行产品推荐，辅助财富管理。</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202409040942986.png"></p>
-<h2 id="平安在保险资管领域的大模型应用"><a href="#平安在保险资管领域的大模型应用" class="headerlink" title="平安在保险资管领域的大模型应用"></a>平安在保险资管领域的大模型应用</h2><p>基于保险资管场景的特点和实战经验，平安资管总结了大模型应用的几点原则：</p>
-<p>第一，不能依赖于模型自有记忆，基于给定素材和知识库。模型记忆主要来自于预训练语料，但语料的时效性往往较弱，且准确性无法满足专业人士的需求。因此使用用户输入的文本、搜索结果或知识库查询结果。</p>
-<p>第二，避免参与决策类问题。人做不好的事情不要交给模型做，人能做好的事情可以考虑让机器提效。</p>
-<p>第三，聚焦小颗粒耗时任务，发挥信息处理优势。基于给定素材，只让大模型做信息处理，尽量处理简单重复的任务，保证流程可控，避免出现幻觉等问题。</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202409040944415.png"></p>
-<h2 id="东方资管投研场景大模型应用实践"><a href="#东方资管投研场景大模型应用实践" class="headerlink" title="东方资管投研场景大模型应用实践"></a>东方资管投研场景大模型应用实践</h2><p>基金经理、研究员每天面对海量的金融信息，难以快速精准获取有价值的信息。公募基金管理费、托管费降费，需要降低公司运营成本。随着大模型能力的逐渐进步，为大模型应用提供技术基础。作为资产管理公司，投研方向的知识问答是大模型最具业务价值的探索方向。</p>
-<p>东方资管将大模型用于投研方向的知识问答场景，联合东方证券开发基于大模型的AI投研助理平台（东方红智能小牛）。本案例通过介绍东方资管的模型选择、知识库检索增强等工作，为其他金融机构提供参考。</p>
-<h2 id="Morgan-Stanley"><a href="#Morgan-Stanley" class="headerlink" title="Morgan Stanley"></a>Morgan Stanley</h2><p>和 OpenAI 合作推出了一款基于 GPT-4 技术的聊天机器人，并利用该机器人管理其面向客户的庞大知识库。计划部署一个聊天应用程序，利用OpenAI的GPT-4（世界上最大的LLM）来整理超过100,000份内部文件的数据。这种使用生成性AI扩展了Morgan Stanley在私有控制生态系统中的智力资本。</p>
-<h2 id="Stripe"><a href="#Stripe" class="headerlink" title="Stripe"></a>Stripe</h2><p>使用LLMs来改善客户支持和用户审核。<br>美国人工智能研究公司OpenAI已与支付公司Stripe达成合作，将其生成式人工智能（AI）产品ChatGPT和Dall-E货币化。<br>据报道，这两家公司的合作是双向的。OpenAI选择Stripe的金融基础设施平台，将其生成式AI技术商业化，而Stripe则将把OpenAI新一代大型语言模型GPT-4嵌入到其产品和服务中。</p>
-<h2 id="Orion"><a href="#Orion" class="headerlink" title="Orion"></a>Orion</h2><p>Orion already started using ChatGPT, including comparing and contrasting portfolios, refining marketing content, responding to RFPs and more.</p>
-<h1 id="发展趋势"><a href="#发展趋势" class="headerlink" title="发展趋势"></a>发展趋势</h1><p>资产管理的最新趋势体现在以下几个方面：</p>
-<ol>
-<li><strong>数字化和智能化</strong>：资产管理行业正通过大模型技术和数据分析工具，提高资产管理的效率和决策质量。这包括使用人工智能、机器学习和区块链技术来优化投资策略和风险管理。</li>
-<li><strong>监管合规</strong>：随着监管环境的变化，资产管理公司需要遵守更严格的法规，如资管新规，这推动了行业向更健康、更规范的方向发展。</li>
-<li><strong>可持续投资</strong>：环境、社会和治理（ESG）投资的需求日益增长，资产管理公司需要推出更多责任投资及可持续投资产品，同时避免“绿化”陷阱，满足投资者在可持续投资方面的需求。</li>
-<li><strong>全球资产配置</strong>：资产管理公司正在寻求全球资产配置的机会，以分散风险并寻找更高回报的投资机会。</li>
-<li><strong>客户导向的服务</strong>：资产管理行业正从产品销售导向转向更加以客户为中心的服务模式，提供更加个性化和定制化的资产管理解决方案。</li>
-<li><strong>科技和数据的应用</strong>：资产管理行业正在加强科技和数据的应用，以提高投资决策的效率和精准度，同时利用大数据和人工智能技术来分析市场趋势和客户行为。</li>
-<li><strong>风险管理的强化</strong>：在市场波动和不确定性增加的背景下，资产管理公司更加重视风险管理，以保护投资者的资产并确保资产的稳健增长。</li>
-</ol>
-<blockquote>
-<p>refs:<br><a href="https://m.yunnan.cn/system/2024/01/18/032912939.shtml" target="_blank" rel="noopener">https://m.yunnan.cn/system/2024/01/18/032912939.shtml</a><br><a href="http://www.npc.gov.cn/npc//c2/c30834/202310/t20231027_432641.html" target="_blank" rel="noopener">http://www.npc.gov.cn/npc//c2/c30834/202310/t20231027_432641.html</a><br><a href="https://www.gov.cn/zhengce/content/2021-03/17/content_5593484.htm" target="_blank" rel="noopener">https://www.gov.cn/zhengce/content/2021-03/17/content_5593484.htm</a><br><a href="https://www.gov.cn/zhengce/zhengceku/2020-09/08/content_5541517.htm" target="_blank" rel="noopener">https://www.gov.cn/zhengce/zhengceku/2020-09/08/content_5541517.htm</a><br><a href="https://www.shaqiu.cn/article/xadNYKbGVERB" target="_blank" rel="noopener">https://www.shaqiu.cn/article/xadNYKbGVERB</a><br><a href="https://baijiahao.baidu.com/s?id=1778266213650461199&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1778266213650461199&amp;wfr=spider&amp;for=pc</a><br><a href="https://www.fromgeek.com/ai/523104.html" target="_blank" rel="noopener">https://www.fromgeek.com/ai/523104.html</a><br><a href="https://www.wealthmanagement.com/technology/wealthtech-firms-and-advisors-ai-has-entered-chat" target="_blank" rel="noopener">https://www.wealthmanagement.com/technology/wealthtech-firms-and-advisors-ai-has-entered-chat</a></p>
-</blockquote>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/08/26/如何组织一篇调研报告/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/08/26/如何组织一篇调研报告/" class="post-title-link" itemprop="url">如何组织一篇调研报告</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-08-26 17:57:17" itemprop="dateCreated datePublished" datetime="2024-08-26T17:57:17+08:00">2024-08-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2024/08/26/如何组织一篇调研报告/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2024/08/26/如何组织一篇调研报告/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <p>对某一公司业务进行调研后，对内调研报告可以按以下思路简单组织。</p>
-<p>比如对A公司的B板块进行数智化升级方面的调研：</p>
-<p>一、调研背景</p>
-<ul>
-<li>公司及板块介绍</li>
-<li>板块现状及重要性</li>
-<li>板块数智化升级现状及重要性</li>
-</ul>
-<p>二、调研目的与意义</p>
-<ul>
-<li>了解A公司B板块业务现状</li>
-<li>了解A公司B板块数字化转型现状</li>
-<li>了解A公司B板块数字化发展规划</li>
-<li>给出分析建议</li>
-</ul>
-<p>三、现状分析<br>（根据调研内容分点阐述）</p>
-<p>四、趋势建议<br>（根据调研结果分点阐述）</p>
-<p>如果是对被调研方的报告，很多背景信息不需要大篇幅展开，需要更加紧凑和方便讨论，也可以参考以下大纲：</p>
-<p>一、调研背景</p>
-<p>一段话直切主题高度概括即可，包括：</p>
-<ul>
-<li>业务定位、重要性和市场现状</li>
-<li>调研目的与内容</li>
-</ul>
-<p>二、业务现状</p>
-<p>按照板块分点阐述，阐述逻辑可参考：</p>
-<ul>
-<li>业务介绍</li>
-<li>已建设内容</li>
-<li>正在建设内容</li>
-<li>计划建设内容</li>
-</ul>
-<p>三、试点建议</p>
-<p>与业务现状中对应阐述每一块的试点建议内容，包括：</p>
-<ul>
-<li>问题定位</li>
-<li>建议内容</li>
-<li>预期成效</li>
-</ul>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/08/13/服务型制造内核解读/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/08/13/服务型制造内核解读/" class="post-title-link" itemprop="url">服务型制造内核解读</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-08-13 17:13:53" itemprop="dateCreated datePublished" datetime="2024-08-13T17:13:53+08:00">2024-08-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2024/08/13/服务型制造内核解读/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2024/08/13/服务型制造内核解读/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
-          <p>本文主要摘取自工信部<a href="https://www.yn.gov.cn/ztgg/lqhm/lqzc/gbhqwj/202405/P020240524607968796312.pdf" target="_blank" rel="noopener">《服务型制造标准体系建设指南》</a></p>
-<h1 id="服务型制造内涵"><a href="#服务型制造内涵" class="headerlink" title="服务型制造内涵"></a>服务型制造内涵</h1><p>服务型制造，是制造与服务融合发展的新型产业形态，是制造业转型升级的重要方向。制造业企业通过创新优化生产组织形式、运营管理方式和商业发展模式，不断增加服务要素在投入和产出中的比重，从以加工组装为主向“制造+服务”转型，从单纯出售产品向出售“产品+服务”转变，有利于延伸和提升价值链，提高全要素生产率、产品附加值和市场占有率。</p>
-<h1 id="服务型制造特征"><a href="#服务型制造特征" class="headerlink" title="服务型制造特征"></a>服务型制造特征</h1><ol>
-<li><strong>面向需求的产品服务系统化升级：</strong>服务型制造是以客户对产品功能需求和体验需求为出发点和落脚点，对基于产品的服务进行系统化的设计、生产、交付、运维、升级，实现各利益相关方的价增值。</li>
-<li><strong>生产经营的全过程变革：</strong>服务型制造是生产经营全过程的系统性变革，制造企业需要从产品主导思维向客户主导思维转变，对企业战略决策、组织架构、业务流程、生产制造、人力资源、评价核算等进行全方位、系统性的优化和改变。</li>
-<li><strong>高附加值的“产品服务组合”产出：</strong>服务型制造的核心产出是具备高附加值的“产品服务组合”，是在制造能力的基础上，以信息化、数字化等技术为支撑，融通产品、设备、数据、服务、人才等要素资源，创造新价值。</li>
-<li><strong>制服融合提升服务能力：</strong>服务型制造强调以制造业为根基，通过制造与服务的融合，提升服务能力，进一步强化制造技术与实力，推动制造业高质量发展。</li>
-</ol>
-<h1 id="总体要求"><a href="#总体要求" class="headerlink" title="总体要求"></a>总体要求</h1><p>加快推进新型工业化，立足新发展阶段，完整、准确、全面贯彻新发展理念，构建新发展格局；深入落实《中华人民共和国国民经济和社会发展第十四个五年规划和2035年远景目标纲要》《国家标准化发展纲要》《关于进一步促进服务型制造发展的指导意见》部署要求。</p>
-<p>具体包括：</p>
-<ol>
-<li><strong>加强统筹，合力推进。</strong>加强服务型制造标准体系顶层设计，推动产学研用各方的合作交流。鼓励行业协会、研究机构、产业联盟和制造业企业等多方资源参与标准研制，共同推进标准应用与实施，建设协调配套的标准群，有序推动服务型制造标准体系建设。</li>
-<li><strong>行业协同，强化应用。</strong>针对服务型制造跨行业、多领域特征，以应用为导向，急用先行。引导和推动覆盖多行业多领域关键场景、关键模式的技术标准和行业应用标准，发挥标准在产业融合中的引领和规范作用，加快推动新业态新模式发展。</li>
-<li><strong>创新引领，持续完善。</strong>结合服务型制造发展现状及趋势，探索将先进适用的科技成果转化为标准的机制，适时优化、完善体系架构，逐步形成具有适应性、科学性、先进性的服务型制造标准体系。</li>
-<li><strong>优化供给，开放合作。</strong>优化标准供给结构，充分释放市场主体标准化活力，充分发挥技术优势企业作用，制定原创性、高质量标准。积极参与服务型制造国际标准化交流合作，带动中国制造和服务“走出去”。</li>
-</ol>
-<h1 id="服务型制造标准体系建设思路"><a href="#服务型制造标准体系建设思路" class="headerlink" title="服务型制造标准体系建设思路"></a>服务型制造标准体系建设思路</h1><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202408141359191.png"></p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202408141403146.png"></p>
-<ul>
-<li>基础通用</li>
-<li>核心要素<ul>
-<li>产品服务组合</li>
-<li>资源池</li>
-<li>组织与流程</li>
-<li>人才</li>
-</ul>
-</li>
-<li>业务类型<ul>
-<li>工业设计服务</li>
-<li>定制化服务</li>
-<li>供应链管理</li>
-<li>共享制造</li>
-<li>检验检测认证服务</li>
-<li>全生命周期管理</li>
-<li>总集成总承包</li>
-<li>节能环保服务</li>
-<li>生产性金融服务</li>
-<li>其他创新模式</li>
-</ul>
-</li>
-<li>融合业态应用<ul>
-<li>面向生活的服务型制造新业态</li>
-<li>面向生产的服务型制造新业态</li>
-</ul>
-</li>
-</ul>
-<p>值得一提的是服务型制造不仅仅面向生产，同时还要面向生活，融合业态应用的内涵如下：</p>
-<ol>
-<li>**面向生活的服务型制造新业态标准:**引导规范围绕终端消费者“衣、食、住、行、康、文”等民生类需求所形成的以生活服务场景为主的新型融合业态。如:一些传统交通设备的制造业(飞机、船舶、汽车、摩托车等)与纯出行服务业(出行服务平台、导航服务平台、换电服务平台等)企业，为满足生活中的各种出行需求，提供融通制造与服务的出行解决方案，从而形成的出行服务新业态。</li>
-<li>**面向生产的服务型制造新业态标准:**引导规范围绕企业原料采购、设计、生产、物流、运营等不同环节的生产运作需求而形成的以工业服务场景应用为目标的新型融合业态。例如:跨越传统的空分设备制造企业和气体运营服务行业，为满足生产经营中的各种气体使用需求提供融通制造与服务的工业气体解决方案，从而形成的工业气体服务新业态。</li>
-</ol>
-<p>细节参见：</p>
-<p><a href="https://www.yn.gov.cn/ztgg/lqhm/lqzc/gbhqwj/202405/P020240524607968796312.pdf" target="_blank" rel="noopener">https://www.yn.gov.cn/ztgg/lqhm/lqzc/gbhqwj/202405/P020240524607968796312.pdf</a></p>
-
-          
-          
-          
-          
-          
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/08/12/转-中文文献免费下载方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/C_Meng.png">
-      <meta itemprop="name" content="C_Meng">
-      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="C_Meng PSNA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/08/12/转-中文文献免费下载方法/" class="post-title-link" itemprop="url">[转]中文文献免费下载方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-08-12 17:24:41" itemprop="dateCreated datePublished" datetime="2024-08-12T17:24:41+08:00">2024-08-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2024/08/12/转-中文文献免费下载方法/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2024/08/12/转-中文文献免费下载方法/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-          
           <blockquote>
-<p>origin: <a href="https://huangwang.github.io/2018/08/26/%E4%B8%AD%E6%96%87%E6%96%87%E7%8C%AE%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD%E6%96%B9%E6%B3%95/" target="_blank" rel="noopener">https://huangwang.github.io/2018/08/26/%E4%B8%AD%E6%96%87%E6%96%87%E7%8C%AE%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD%E6%96%B9%E6%B3%95/</a></p>
+<p>XGBoost、LightGBM、CatBoost 的差异不在”谁更快”，而在<strong>它们各自选择了哪个近似</strong>。SHAP 的陷阱不在”算得慢”，而在<strong>你在用相关性解释因果</strong>。</p>
 </blockquote>
-<h1 id="idata中国知网"><a href="#idata中国知网" class="headerlink" title="idata中国知网"></a>idata中国知网</h1><p>idata中国知网网址：<a href="https://www.cn-ki.net/" target="_blank" rel="noopener">https://www.cn-ki.net/</a></p>
-<p>进入系统，注册账号，登陆就可以每天免费下载五篇知网论文。<br>额度用完之后，第二天可以继续下载。<br>每天五篇的额度基本能满足需要，这样还不够的话，可以多注册几个账号。</p>
-<h1 id="上海研发公共服务平台"><a href="#上海研发公共服务平台" class="headerlink" title="上海研发公共服务平台"></a>上海研发公共服务平台</h1><p>上海研发公共服务平台网址：<a href="http://www.sgst.cn/%E3%80%82" target="_blank" rel="noopener">http://www.sgst.cn/。</a></p>
-<p>注册后可直接下载，论文、文献数量直接匹配知网和万方数据。<br>下载速度较快，但有数量限制，可注册多个用户名。</p>
-<h1 id="库问搜索"><a href="#库问搜索" class="headerlink" title="库问搜索"></a>库问搜索</h1><p>库问搜索网址：<a href="http://www.koovin.com/%E3%80%82" target="_blank" rel="noopener">http://www.koovin.com/。</a></p>
-<p>库问搜索提供千万级文献免费下载。</p>
-<h1 id="全国图书馆参考咨询联盟"><a href="#全国图书馆参考咨询联盟" class="headerlink" title="全国图书馆参考咨询联盟"></a>全国图书馆参考咨询联盟</h1><p>全国图书馆参考咨询联盟网址：<a href="http://www.ucdrs.superlib.net/" target="_blank" rel="noopener">http://www.ucdrs.superlib.net/</a></p>
-<p>很全，可以查图书，查期刊，报纸等。还有硕士，博士的毕业论文。不仅有中文，还有外文。<br>网站无需注册，通过文献传递服务，即通过邮箱接收全文。最快一两分钟，最慢三四个小时即可接收到全文。</p>
-
-          
-          
-          
-          
-          
-          
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>表格数据上，GBDT 依然是不可替代的基线。三个主流实现在 2026 年都还在活跃迭代，但它们的设计取舍差异很大——选错了不是”慢 20%”，而是”在特定数据形状上根本训不动”或”在小数据上稳定过拟合”。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/07/27/GBDT三巨头与SHAP可解释性/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2497,7 +559,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/08/05/macos如何解决appdamage问题/">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/27/UnifiedRanking统一排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
@@ -2511,7 +573,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/08/05/macos如何解决appdamage问题/" class="post-title-link" itemprop="url">MacOS:如何解决"This app is damaged and can’t be opened. You should move it to the Trash"</a>
+            <a href="/2026/07/27/UnifiedRanking统一排序/" class="post-title-link" itemprop="url">Unified Ranking：从级联漏斗到单一模型，推荐与搜索排序的范式迁移</a>
         </h2>
 
         <div class="post-meta">
@@ -2521,14 +583,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-08-05 18:06:16" itemprop="dateCreated datePublished" datetime="2024-08-05T18:06:16+08:00">2024-08-05</time>
+              <time title="Created: 2026-07-27 23:33:32" itemprop="dateCreated datePublished" datetime="2026-07-27T23:33:32+08:00">2026-07-27</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
+                <time title="Modified: 2026-11-11 15:27:24" itemprop="dateModified" datetime="2026-11-11T15:27:24+08:00">2026-11-11</time>
               </span>
 
           
@@ -2540,8 +602,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2024/08/05/macos如何解决appdamage问题/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2024/08/05/macos如何解决appdamage问题/" itemprop="commentCount"></span>
+    <a title="valine" href="/2026/07/27/UnifiedRanking统一排序/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/27/UnifiedRanking统一排序/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2556,25 +618,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
-          
-          <p>Launch Terminal and then issue the following command:</p>
-<blockquote>
-<p>xattr -cr /path/to/application.app</p>
+          <blockquote>
+<p>“统一排序”这个词在 2025–2026 年被用得极滥。它至少指三件不同的事：统一打分、统一阶段、统一目标。搞混这三个层次，会让技术选型从一开始就错。</p>
 </blockquote>
-<p>For example:</p>
-<blockquote>
-<p>xattr -cr /Applications/Signal.app</p>
-</blockquote>
-<p>The -c flag removes all attributes, whereas -r applies recursively for the entire targeted .app directory contents.</p>
-<p>reference: <a href="https://www.cnblogs.com/chester-cs/p/13780730.html" target="_blank" rel="noopener">https://www.cnblogs.com/chester-cs/p/13780730.html</a></p>
-
-          
-          
-          
-          
-          
-          
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>推荐与搜索的排序系统，过去十年几乎都长成同一个形状：<strong>漏斗</strong>。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/07/27/UnifiedRanking统一排序/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2593,7 +648,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2024/07/09/时空知识图谱概述/">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/22/BM25到稠密检索-BGE与混合检索/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
@@ -2607,7 +662,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/07/09/时空知识图谱概述/" class="post-title-link" itemprop="url">时空知识图谱概述</a>
+            <a href="/2026/07/22/BM25到稠密检索-BGE与混合检索/" class="post-title-link" itemprop="url">从 BM25 到稠密检索：BGE 系列与混合检索的工程实践</a>
         </h2>
 
         <div class="post-meta">
@@ -2617,14 +672,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-07-09 19:59:16" itemprop="dateCreated datePublished" datetime="2024-07-09T19:59:16+08:00">2024-07-09</time>
+              <time title="Created: 2026-07-22 22:29:42" itemprop="dateCreated datePublished" datetime="2026-07-22T22:29:42+08:00">2026-07-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
+                <time title="Modified: 2026-11-11 15:27:22" itemprop="dateModified" datetime="2026-11-11T15:27:22+08:00">2026-11-11</time>
               </span>
 
           
@@ -2636,8 +691,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2024/07/09/时空知识图谱概述/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2024/07/09/时空知识图谱概述/" itemprop="commentCount"></span>
+    <a title="valine" href="/2026/07/22/BM25到稠密检索-BGE与混合检索/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/22/BM25到稠密检索-BGE与混合检索/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2652,79 +707,374 @@
     <div class="post-body" itemprop="articleBody">
 
       
+          <blockquote>
+<p>BM25 与稠密向量不是”新旧替代”，而是两种互补的匹配信号。RAG 系统里真正的分水岭，往往不在选哪个模型，而在<strong>你有没有把两种信号正确地融合，并且正确地评估</strong>。</p>
+</blockquote>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>检索是 RAG 的地基，但工程上最常见的两种失败恰好发生在两个极端：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/07/22/BM25到稠密检索-BGE与混合检索/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/19/面向Agent的强化学习前沿/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
           
-          
-          <h1 id="什么是时空知识图谱"><a href="#什么是时空知识图谱" class="headerlink" title="什么是时空知识图谱"></a>什么是时空知识图谱</h1><p>时空知识图谱，顾名思义，是具有地理时空分布或位置隐喻的知识构成的有向图，即以时空分布特征为核心的知识图谱（Spatial-temporal Knowledge Graph，或Geo-related Knowledge Graph，以下简称STKG）。STKG旨在通过计算机规范化表达与存储与地理时空分布相关的知识集合，进而支持地理时空分布或位置相关知识检索与知识推理。其中的图（谱）指地理时空分布或位置要素（概念、人类群体/个体、地理实体、事件、现象等）之间的语义联系形成的网状拓扑结构。</p>
-<p>其中，时空知识可以更广泛地定义为一切具有时空位置和动态变化特征的相关知识。时空知识是人类对地理空间上人、物、事件、现象分布、演变过程和相互作用规律的认知结果。除了传统的地理/地学应用外，时空知识也是消费领域基于位置的服务（Location-based Services，LBS）、新型基础设施建设和智慧城市管理的核心支撑。时空知识也可以参考地理知识或地学知识分类方法，分为：</p>
-<ol>
-<li>事实型知识</li>
-<li>规则及控制型知识</li>
-<li>决策型知识</li>
-</ol>
-<p>3种类型，或者分为</p>
-<ol>
-<li>数据性知识</li>
-<li>概念性知识</li>
-<li>规律性知识</li>
-</ol>
-<p>3个层次。</p>
-<h1 id="时空知识图谱研究框架"><a href="#时空知识图谱研究框架" class="headerlink" title="时空知识图谱研究框架"></a>时空知识图谱研究框架</h1><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407091946744.png"></p>
-<h1 id="时空知识图谱的构建与应用ref4"><a href="#时空知识图谱的构建与应用ref4" class="headerlink" title="时空知识图谱的构建与应用ref4"></a>时空知识图谱的构建与应用<a href="#references">ref4</a></h1><p>作者提出了一种时空知识图谱本体模型，通过在实体种加入时空属性信息，来实现对特点目标领域的时空数据的管理与查询。作者设计了一个时空知识图谱问答系统，能够较为准确的查询出某时刻和时间段内的实体关系情况，并且可以在一定程度上计算空间距离。</p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>知识图谱是一种通过“节点-边-节点”的知识管理架构，实现对目标领域的实体关系数据的有效管理。但在一些特定领域，实体和关系会在时空上动态变化，因此如何设计领域时空知识图谱模型来解决这种变化的存储和管理是极其重要的。</p>
-<p>针对以上问题，作者对实体和关系种类和数量在时空上动态变换的特征，通过在实体关系中加入坐标和时间属性信息构建了本体模型，并且利用NER和基于规则的时间信息提取技术、问句图结构生产以及模式库匹配技术来实现算法辅助查询。</p>
-<h2 id="时空知识图谱本体模型"><a href="#时空知识图谱本体模型" class="headerlink" title="时空知识图谱本体模型"></a>时空知识图谱本体模型</h2><p>作者将领域内的实体进行归纳为4类：单位（机关、组织）、人物、装备和地点。这里由于单位之间的隶属关系、所在地、人物任职关系、装备的配备关系是动态变化的，所以作者在实体和关系中加入了时间空间信息=&gt;使得KG能够完整记录实体和关系的变化历程，并且能够在任意时刻和范围内查询到实体关系情况。</p>
-<p><img src="https://pic4.zhimg.com/80/v2-a187aa7646ce3ea7f865a27baf6325ef_1440w.webp"></p>
-<p>这里圆形代表四类实体，矩形代表实体属性信息，圆角矩形代表关系的属性信息。</p>
-<h3 id="本体模型的实体设置"><a href="#本体模型的实体设置" class="headerlink" title="本体模型的实体设置"></a>本体模型的实体设置</h3><p>地点类实体设置：对于地点类实体，文章在实体属性中增加了该实体的经纬度来记录实体的地理位置<br>单位类设置：由于其自身存在更改名称、改编单位、撤编重建等情况，因此作者用不同的实体表示不同阶段的同一单位，但在实体的属性中加入了起始时间和结束时间以记录时间信息<br>人物类实体设置：属性加入出身地、出身日期、毕业院校等信息<br>装备类：装备的具体特征</p>
-<h3 id="本体模型的关系设置"><a href="#本体模型的关系设置" class="headerlink" title="本体模型的关系设置"></a>本体模型的关系设置</h3><p>同一单位的不同阶段实体的关系设置：采用change的关系（包括改名、改变、整合等等）<br>不同实体：如隶属于、位于、任职于、装备于等关系。也加上时间段属性表示在xx期间有yy关系。</p>
-<h3 id="时空知识图谱构建"><a href="#时空知识图谱构建" class="headerlink" title="时空知识图谱构建"></a>时空知识图谱构建</h3><p>这篇文章将时空知识图谱定义为能够存储时空动态数据、查询任何时刻和时间段的实体关系的知识图谱。作者利用OrientDB图数据库工具，构建目标领域时空知识图谱。</p>
-<p><img src="https://pic4.zhimg.com/80/v2-5675c300769a8eebeb062537faf3f9b7_1440w.webp"></p>
-<h2 id="基于时空知识图谱本体模型应用"><a href="#基于时空知识图谱本体模型应用" class="headerlink" title="基于时空知识图谱本体模型应用"></a>基于时空知识图谱本体模型应用</h2><p>作者设定了一种目标领域时空知识图谱设计的查询系统：</p>
-<p><img src="https://pic2.zhimg.com/80/v2-b442f6a0ff3e95aefeaa08ab790319a1_1440w.webp"></p>
-<p>剩下的就是一些成果展示。</p>
-<h1 id="基于时空知识图谱的空间分析方法研究ref5"><a href="#基于时空知识图谱的空间分析方法研究ref5" class="headerlink" title="基于时空知识图谱的空间分析方法研究ref5"></a>基于时空知识图谱的空间分析方法研究<a href="#references">ref5</a></h1><p>随着大数据时代的到来，地理信息正由单一静态向多源动态、精确结构化向模糊异构化转变。知识图谱本质上是一种以图Graph作为数据结构的语义网络，用边连接由节点代表实体或概念，用有向图的方式来表达语义关系。</p>
-<p>使用方式是：提取不同类型的地理实体，以RDF三元组（实体-关系-实体）格式存储通用的地理知识图谱。</p>
-<p><img src="https://pic4.zhimg.com/80/v2-a3869ccf4119e8bf500ff332a93fedf3_1440w.webp"></p>
-<p>本位借助地理网格，将地理实体在知识图谱的框架中进行表达以提高空间分析的效率，同时将地理空间数据的时间属性也作为知识图谱中的实体以便进行时间维度的空间分析。</p>
-<h2 id="时空知识图谱构建-1"><a href="#时空知识图谱构建-1" class="headerlink" title="时空知识图谱构建"></a>时空知识图谱构建</h2><p><img src="https://pic1.zhimg.com/80/v2-c5bf57e86b6268b2ac0feae6d67da480_1440w.webp"></p>
-<p>作者基于Jena构建地理信息空间分析的知识图谱图数据库，并且在节点上引入了时间属性，如上图所示。（相当于把某一年作为一个节点，嵌入知识图谱中）</p>
-<h1 id="Question-Answering-Over-Spatio-Temporal-Knowledge-Graph-ref2"><a href="#Question-Answering-Over-Spatio-Temporal-Knowledge-Graph-ref2" class="headerlink" title="Question Answering Over Spatio-Temporal Knowledge Graph ref2"></a>Question Answering Over Spatio-Temporal Knowledge Graph <a href="#references">ref2</a></h1><p>时空知识图谱（STKGs）通过整合时间和地点信息扩展了知识图谱（KGs）的概念。尽管研究社区专注于知识图谱问答（KGQA），但基于STKGs结合时空信息回答问题的领域在很大程度上还未被探索。此外，缺乏综合的数据集也阻碍了这一领域的进展。为了解决这个问题，我们提出了STQAD，一个包含10,000个自然语言问题的数据集，用于时空知识图谱问答（STKGQA）。不幸的是，各种最先进的KGQA方法在我们的数据集上的表现远远达不到令人满意的水平。作为回应，我们提出了STCQA，这是一种新的时空KGQA方法，它采用了一种名为STComplEx的新颖STKG嵌入方法。通过从问题中提取时间和空间信息，我们的问答模型能更好地理解问题，并从STKG中检索准确的答案。通过广泛的实验，我们展示了我们数据集的质量以及我们STKGQA方法的有效性。</p>
-<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407092139976.png"></p>
-<p>如图1所示，问答系统需要从问题中提取潜在的时间和地理信息，并搜索正确的答案。从时空知识图谱（STKG）中，我们可以获得与”慕尼黑”相关的地理信息和与”第一次世界大战”相关的时间信息。然后，我们需要考虑时空约束，搜索与中心实体”阿尔伯特·爱因斯坦”相关的所有答案。不幸的是，如表1所示，目前还没有对这个具体问题进行进一步的讨论。此外，目前缺乏用于评估STKG上问答任务的大规模数据集。</p>
-<h2 id="问题生成"><a href="#问题生成" class="headerlink" title="问题生成"></a>问题生成</h2><p>要使用时空知识图谱（STKG）回答自然语言问题，我们必须从问题中心实体开始，并利用时空约束在知识图谱（KG）上定位答案。因此，问题生成可以被视为问题回答的反向过程，其中答案被用来推导出问题的所有约束和线索。此外，问题中实体和时空约束之间应该有更强的相关性，这将使问题更贴近现实世界的场景。</p>
-<p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407092143828.png"></p>
-<p>生成问题约束的过程如图2所示。我们使用事实（Albert_Einstein, worksAt, Humboldt_University_of_Berlin, occursSince, 1914, occursUntil, 1917, occursIn, 52.52, 13.39）作为一个答案事实，其中Albert_Einstein是中心实体，Humboldt_University_of_Berlin是答案。</p>
-<p>为了便于生成时空约束，我们搜索与Albert_Einstein相关的同时包含时间和地点信息的事实。这类事实的示例包括（Albert_Einstein, wasBornIn, Ulm, occursSince, 1879, occursIn, 48.43, 10.01）和（Albert_Einstein, graduatedFrom, University_of_Zurich, occursSince, 1905, occursIn, 47.38, 8.55）。我们把这些事实视为与中心实体高度相关的候选事实。一些知识图谱关系，如”influence”（影响）和”linksTo”（链接到），含义模糊且转换为约束具有挑战性，因此我们将其过滤掉。结果，我们获得了一组与中心实体相关的高质量候选事实。</p>
-<p>然而，这种严格的方法可能导致候选事实的数量不足。为了解决这个问题，我们进行了涉及与中心实体”Albert_Einstein”相关的实体、时间和地点的知识图谱搜索，从而获得额外的事实来补充我们的事实集。</p>
-<p>我们的事实集被分为两个子集：候选时间线索集和候选地点线索集。我们从这两个线索集中随机选择一个线索来生成问题的约束。通过将时空线索与答案事实进行比较，我们推导出如图2所示的约束，如时间约束“在结束之前”和地点约束“东北方向”。</p>
-<h2 id="STKGQA框架"><a href="#STKGQA框架" class="headerlink" title="STKGQA框架"></a>STKGQA框架</h2><p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202407092144612.png"></p>
-<p>我们的框架包含三个模块：约束片段生成、实体类型注释和问题嵌入生成。</p>
-<ol>
-<li>约束片段生成：在问题中识别时空约束并编码相关线索。</li>
-<li>实体类型注释：识别从问题中的时空约束推断出的实体类型。</li>
-<li>问题嵌入生成模块：将实体表示和STKG中的时空嵌入整合到问题向量q中。</li>
-</ol>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>时空知识图谱相比传统知识图谱的升级体现在以下方面：</p>
-<h2 id="数据结构方面"><a href="#数据结构方面" class="headerlink" title="数据结构方面"></a>数据结构方面</h2><p>在schema层设计时需要将时间地点作为entity进行设计并与其他实体进行关联。</p>
-<h2 id="数据操作方面"><a href="#数据操作方面" class="headerlink" title="数据操作方面"></a>数据操作方面</h2><p>与时空知识库类似，简单的增删改查应升级成时空相关的“记忆”、“遗忘”、“学习”、“分析”等。</p>
-<p>同时，应支持时空关联分析、溯源等深度分析操作。</p>
-<h2 id="数据维护方面"><a href="#数据维护方面" class="headerlink" title="数据维护方面"></a>数据维护方面</h2><p>与时空知识库相同，应在动态性方面大幅强化，包括时空关系的自动挖掘，知识更新、失效的自动化判断，insight（如风险预警）的自动生成等。</p>
-<p>同时所有这些操作都应增加时间和空间的约束，以及时间和空间维度的线索。</p>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
-<li><a href="https://www.dqxxkx.cn/CN/10.12082/dqxxkx.2023.230154" target="_blank" rel="noopener">https://www.dqxxkx.cn/CN/10.12082/dqxxkx.2023.230154</a></li>
-<li><a href="https://arxiv.org/pdf/2402.11542" target="_blank" rel="noopener">https://arxiv.org/pdf/2402.11542</a></li>
-<li><a href="https://content.iospress.com/articles/semantic-web/sw222918" target="_blank" rel="noopener">https://content.iospress.com/articles/semantic-web/sw222918</a></li>
-<li><a href="https://www.nstl.gov.cn/paper_detail.html?id=68b554aa38cb12b64607e671b1bdc0b9" target="_blank" rel="noopener">https://www.nstl.gov.cn/paper_detail.html?id=68b554aa38cb12b64607e671b1bdc0b9</a></li>
-<li><a href="https://www.nstl.gov.cn/paper_detail.html?id=97fa94ab37db2cb98ae242f513c390fb" target="_blank" rel="noopener">https://www.nstl.gov.cn/paper_detail.html?id=97fa94ab37db2cb98ae242f513c390fb</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/594405152" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/594405152</a></li>
-</ol>
+            <a href="/2026/07/19/面向Agent的强化学习前沿/" class="post-title-link" itemprop="url">面向 Agent 的强化学习：从 GRPO 到 Agentic RL</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-19 19:49:45" itemprop="dateCreated datePublished" datetime="2026-07-19T19:49:45+08:00">2026-07-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:27:18" itemprop="dateModified" datetime="2026-11-11T15:27:18+08:00">2026-11-11</time>
+              </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2026/07/19/面向Agent的强化学习前沿/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/19/面向Agent的强化学习前沿/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Agent 的 RL 不是”把 RLHF 用在多轮对话上”。它的奖励稀疏、horizon 长、环境不可微且非平稳、rollout 成本高一个量级——这五点差异，把算法和基础设施都改了。</p>
+</blockquote>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>2024 年的 RL 后训练主线是 RLHF：偏好对 → 奖励模型 → PPO。2025 年的主线换成 RLVR：可验证奖励 → GRPO → 数学/代码能力跃升。2026 年的主线正在变成 Agentic RL：<strong>让模型在环境里跑几十步，用最终结果做奖励</strong>。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/07/19/面向Agent的强化学习前沿/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/16/大模型解码策略综述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
           
+            <a href="/2026/07/16/大模型解码策略综述/" class="post-title-link" itemprop="url">大模型解码策略综述：从贪心到受控生成</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-16 17:27:46" itemprop="dateCreated datePublished" datetime="2026-07-16T17:27:46+08:00">2026-07-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:27:16" itemprop="dateModified" datetime="2026-11-11T15:27:16+08:00">2026-11-11</time>
+              </span>
+
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2026/07/16/大模型解码策略综述/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/16/大模型解码策略综述/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>解码不是”调参”，是在<strong>似然最大化、多样性、正确性约束</strong>三者之间做显式的取舍。大多数线上事故，源于把这三者的优先级搞反了。</p>
+</blockquote>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>语言模型的训练目标只有一个：最大化 <code>log p(y|x)</code>。但从这个分布到最终输出的一段文本，中间隔着一个<strong>决策过程</strong>——每一步从 5 万维的词表里选一个 token，重复几百次。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/07/16/大模型解码策略综述/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/13/具身智能完整模型栈/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
           
+            <a href="/2026/07/13/具身智能完整模型栈/" class="post-title-link" itemprop="url">具身智能的完整模型栈：VLM、VLA、世界模型、规划 LLM 与小脑</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-13 13:25:26" itemprop="dateCreated datePublished" datetime="2026-07-13T13:25:26+08:00">2026-07-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:27:15" itemprop="dateModified" datetime="2026-11-11T15:27:15+08:00">2026-11-11</time>
+              </span>
+
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2026/07/13/具身智能完整模型栈/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/13/具身智能完整模型栈/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>一条机器人链路里，五个模块不是”堆叠”，而是按<strong>频率</strong>和<strong>抽象层级</strong>切分的责任田。搞混频率，再强的模型也会抖。</p>
+</blockquote>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>具身智能的技术讨论长期被两件事占据：<strong>VLA 是不是终局</strong>、<strong>世界模型会不会取代 VLA</strong>。这两个问题之所以争不出结果，是因为大家在讨论”模型能力”，而实际系统失效的原因通常是”<strong>接口与频率</strong>“。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/07/13/具身智能完整模型栈/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/07/Mamba-vs-Transformer-时序建模路线对比/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
           
+            <a href="/2026/07/07/Mamba-vs-Transformer-时序建模路线对比/" class="post-title-link" itemprop="url">时序建模的四条路线：Transformer、Mamba、GRU 与 ODE 求解器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-07 12:12:27" itemprop="dateCreated datePublished" datetime="2026-07-07T12:12:27+08:00">2026-07-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:39:46" itemprop="dateModified" datetime="2026-11-11T15:39:46+08:00">2026-11-11</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2026/07/07/Mamba-vs-Transformer-时序建模路线对比/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/07/Mamba-vs-Transformer-时序建模路线对比/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>它们不是四个互相替代的方案，而是同一个状态方程在四种离散化假设下的解。看清这一点，选型问题会简单一半。</p>
+</blockquote>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>时序建模领域过去五年最消耗工程师注意力的一场争论是”Mamba 能不能取代 Transformer”。这场争论之所以反复无解，是因为大部分对比都在<strong>模型层面</strong>做（谁的 benchmark 高、谁的 FLOPs 低），而真正的差异在更下面一层：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/07/07/Mamba-vs-Transformer-时序建模路线对比/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2742,7 +1092,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2810,20 +1160,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">228</span>
+        <span class="site-state-item-count">259</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

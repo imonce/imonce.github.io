@@ -22,18 +22,18 @@
     var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项：  /etc/mysql/my.cnf /etc/mysql/mysqld.cnf  在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成：">
+  <meta name="description" content="问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。">
 <meta name="keywords" content="Trick,Mysql,远程连接报错">
 <meta property="og:type" content="article">
 <meta property="og:title" content="远程连接mysql报错：error 2003 （hy000）:can&#39;t connect to mysql server on &#39;localhost&#39; (10061)">
 <meta property="og:url" content="https://imonce.github.io/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
-<meta property="og:description" content="问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项：  /etc/mysql/my.cnf /etc/mysql/mysqld.cnf  在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成：">
+<meta property="og:description" content="问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2026-06-28T14:37:22.542Z">
+<meta property="og:updated_time" content="2026-11-11T07:26:51.676Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="远程连接mysql报错：error 2003 （hy000）:can&#39;t connect to mysql server on &#39;localhost&#39; (10061)">
-<meta name="twitter:description" content="问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。 解决思路找到mysql的配置文件，将这一行注释掉。 具体解决方案去两个配置文件中找这个配置项：  /etc/mysql/my.cnf /etc/mysql/mysqld.cnf  在这两个文件的任意一个中找到 bind-address = 127.0.0.1 后，将其修改成：">
+<meta name="twitter:description" content="问题原因mysql配置文件中有一句： bind-address = 127.0.0.1 导致mysql只能从本地进行连接。">
 
 <link rel="canonical" href="https://imonce.github.io/2017/04/24/远程连接mysql报错：error 2003 （hy000）-can't connect to mysql server on 'localhost' (10061)/">
 
@@ -124,17 +124,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
+                <time title="Modified: 2026-11-11 15:26:51" itemprop="dateModified" datetime="2026-11-11T15:26:51+08:00">2026-11-11</time>
               </span>
 
           
@@ -267,6 +267,8 @@
         <h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>mysql配置文件中有一句：</p>
 <p><code>bind-address = 127.0.0.1</code></p>
 <p>导致mysql只能从本地进行连接。</p>
+<a id="more"></a>
+
 <h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>找到mysql的配置文件，将这一行注释掉。</p>
 <h2 id="具体解决方案"><a href="#具体解决方案" class="headerlink" title="具体解决方案"></a>具体解决方案</h2><p>去两个配置文件中找这个配置项：</p>
 <ol>
@@ -298,12 +300,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" rel="prev" title="远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server">
-      <i class="fa fa-chevron-left"></i> 远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server
+    <a href="/2016/12/15/Chainer入门教程(下)-MNIST手写体识别/" rel="prev" title="Chainer入门教程(下)：MNIST手写体识别">
+      <i class="fa fa-chevron-left"></i> Chainer入门教程(下)：MNIST手写体识别
     </a></div>
       <div class="post-nav-item">
-    <a href="/2017/04/24/mysql-python安装错误：EnvironmentError- mysql_config not found/" rel="next" title="mysql-python安装错误：EnvironmentError:mysql_config not found">
-      mysql-python安装错误：EnvironmentError:mysql_config not found <i class="fa fa-chevron-right"></i>
+    <a href="/2017/04/24/远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server/" rel="next" title="远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server">
+      远程连接mysql报错：1130 - Host '192.168.2.204' is not allowed to connect to this MySQL server <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -389,20 +391,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">228</span>
+        <span class="site-state-item-count">259</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

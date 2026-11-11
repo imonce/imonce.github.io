@@ -30,7 +30,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="AbstractCause the wealth of information available on the web keeps growing, we want to use web crawler to get them. But the traditional method has a fatal limit of its large infrastructure cost. To re">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2026-06-28T14:37:22.532Z">
+<meta property="og:updated_time" content="2026-11-11T07:18:46.353Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Reading Notes] UniCrawl: A Practical Geographically Distributed Web Crawler">
 <meta name="twitter:description" content="AbstractCause the wealth of information available on the web keeps growing, we want to use web crawler to get them. But the traditional method has a fatal limit of its large infrastructure cost. To re">
@@ -124,17 +124,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
+                <time title="Modified: 2026-11-11 15:18:46" itemprop="dateModified" datetime="2026-11-11T15:18:46+08:00">2026-11-11</time>
               </span>
 
           
@@ -265,8 +265,9 @@
 
       
         <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>Cause the wealth of information available on the web keeps growing, we want to use web crawler to get them. But the traditional method has a fatal limit of its large infrastructure cost. To reduce it, we developed this method, unicrawl, which can show a performance improvement of 93.6% in terms of network bandwidth consumption, and a speedup factor of 1.75.</p>
-<h2 id="I-introduction"><a href="#I-introduction" class="headerlink" title="I. introduction"></a>I. introduction</h2><p>Nowadays, it’s common that to use parallel process on a large number of machines to achieve a reasonable collection time. While this method requires large computing infrastructures. Like Google and Bing, who rely on big data centers. </p>
 <a id="more"></a>
+<h2 id="I-introduction"><a href="#I-introduction" class="headerlink" title="I. introduction"></a>I. introduction</h2><p>Nowadays, it’s common that to use parallel process on a large number of machines to achieve a reasonable collection time. While this method requires large computing infrastructures. Like Google and Bing, who rely on big data centers. </p>
+<!-- more-->
 <p>As for the public crawl repositories, they require externalizing computation and data hosting to a commercial cloud provider. Which may pose the problem of data availability in the mid-long term. And cause there are large amounts of data unnecessary, postprocessing is needed.</p>
 <p>A solution to those problems is to distribute the crawling effort over several geographically distributed locations. For instance, by allowing several small companies to mutualize their crawling infrastructures. In addition, such an approach leverages data locality as sites can crawl web servers that are geographically nearby. But in this way, the synchronization between the crawler at the different sites is a new problem. Our goal is to reduce such communication costs.</p>
 <p>UniCrawl is an efficient geo-distributed crawler that aims at minimizing inter-site communication costs. Our design is both practical and scalable. We assess this claim with a detailed evaluation of UniCrawl in a controlled environment using the ClueWeb12 dataset, as well as in geo-distributed setting using 3 distinct sites located in Germany.</p>
@@ -456,20 +457,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">228</span>
+        <span class="site-state-item-count">259</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

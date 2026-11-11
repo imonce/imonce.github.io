@@ -22,13 +22,13 @@
     var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="整体框架下图展示了用于下载和处理常见网络爬虫数据快照的整个pipline。首先下载所有WET文件并分组保存为二进制文件，然后计算所有段落的哈希。接着独立处理WET文件的每个文档：使用二进制文件对段落进行语言识别并计算语言模型困惑度从而删除重复数据。最后按语言和困惑度分数将文档重新分组为json文件。  数据获取和预处理Common Crawl每月都会发布通过随机浏览和采样URL获得的网络快照。每个">
+  <meta name="description" content="整体框架下图展示了用于下载和处理常见网络爬虫数据快照的整个pipline。首先下载所有WET文件并分组保存为二进制文件，然后计算所有段落的哈希。接着独立处理WET文件的每个文档：使用二进制文件对段落进行语言识别并计算语言模型困惑度从而删除重复数据。最后按语言和困惑度分数将文档重新分组为json文件。">
 <meta name="keywords" content="Machine Learning,LLM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从网络爬虫数据中提取高质量的单语言数据集">
 <meta property="og:url" content="https://imonce.github.io/2023/08/09/从网络爬虫数据中提取高质量的单语言数据集/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
-<meta property="og:description" content="整体框架下图展示了用于下载和处理常见网络爬虫数据快照的整个pipline。首先下载所有WET文件并分组保存为二进制文件，然后计算所有段落的哈希。接着独立处理WET文件的每个文档：使用二进制文件对段落进行语言识别并计算语言模型困惑度从而删除重复数据。最后按语言和困惑度分数将文档重新分组为json文件。  数据获取和预处理Common Crawl每月都会发布通过随机浏览和采样URL获得的网络快照。每个">
+<meta property="og:description" content="整体框架下图展示了用于下载和处理常见网络爬虫数据快照的整个pipline。首先下载所有WET文件并分组保存为二进制文件，然后计算所有段落的哈希。接着独立处理WET文件的每个文档：使用二进制文件对段落进行语言识别并计算语言模型困惑度从而删除重复数据。最后按语言和困惑度分数将文档重新分组为json文件。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202308091947586.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202308091954320.png">
@@ -36,10 +36,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202308092003773.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202308092005786.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202308092011056.png">
-<meta property="og:updated_time" content="2026-06-28T14:37:22.536Z">
+<meta property="og:updated_time" content="2026-11-11T07:20:55.229Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从网络爬虫数据中提取高质量的单语言数据集">
-<meta name="twitter:description" content="整体框架下图展示了用于下载和处理常见网络爬虫数据快照的整个pipline。首先下载所有WET文件并分组保存为二进制文件，然后计算所有段落的哈希。接着独立处理WET文件的每个文档：使用二进制文件对段落进行语言识别并计算语言模型困惑度从而删除重复数据。最后按语言和困惑度分数将文档重新分组为json文件。  数据获取和预处理Common Crawl每月都会发布通过随机浏览和采样URL获得的网络快照。每个">
+<meta name="twitter:description" content="整体框架下图展示了用于下载和处理常见网络爬虫数据快照的整个pipline。首先下载所有WET文件并分组保存为二进制文件，然后计算所有段落的哈希。接着独立处理WET文件的每个文档：使用二进制文件对段落进行语言识别并计算语言模型困惑度从而删除重复数据。最后按语言和困惑度分数将文档重新分组为json文件。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/imonce/imgs/master/202308091947586.png">
 
 <link rel="canonical" href="https://imonce.github.io/2023/08/09/从网络爬虫数据中提取高质量的单语言数据集/">
@@ -131,17 +131,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -236,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
+                <time title="Modified: 2026-11-11 15:20:55" itemprop="dateModified" datetime="2026-11-11T15:20:55+08:00">2026-11-11</time>
               </span>
 
           
@@ -273,6 +273,9 @@
       
         <h1 id="整体框架"><a href="#整体框架" class="headerlink" title="整体框架"></a>整体框架</h1><p>下图展示了用于下载和处理常见网络爬虫数据快照的整个pipline。<br>首先下载所有WET文件并分组保存为二进制文件，然后计算所有段落的哈希。<br>接着独立处理WET文件的每个文档：使用二进制文件对段落进行语言识别并计算语言模型困惑度从而删除重复数据。<br>最后按语言和困惑度分数将文档重新分组为json文件。</p>
 <p><img src="https://raw.githubusercontent.com/imonce/imgs/master/202308091947586.png"></p>
+<a id="more"></a>
+
+
 <h1 id="数据获取和预处理"><a href="#数据获取和预处理" class="headerlink" title="数据获取和预处理"></a>数据获取和预处理</h1><p>Common Crawl每月都会发布通过随机浏览和采样URL获得的网络快照。每个网页都有不同的可用格式：原始（WARC）、UTF-8文本（WET）和元数据（WAT）。</p>
 <ul>
 <li>WARC（Web ARChive）：它是一种用于存储和传输Web资源（例如HTML页面，图像和视频文件等）的文件格式。 WARC文件通常包含HTTP响应和元数据，用于记录Web爬虫收集的信息。</li>
@@ -405,20 +408,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">228</span>
+        <span class="site-state-item-count">259</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

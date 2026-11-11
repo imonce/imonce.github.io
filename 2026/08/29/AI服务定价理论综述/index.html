@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="AI 服务的定价难点不在”按什么计费”，而在”容量稀缺时谁先用”。前者是会计问题，后者是机制设计问题——绝大多数定价翻车，是把后者当成了前者。  导语先摆一个矛盾。 云厂商卖虚拟机，成本导向定价很好用：CPU 小时、内存 GB 小时、存储 GB 月，每一项都能追到硬件折旧 + 电费 + 机房成本，加个目标毛利就是价格。 但同一个云厂商卖大模型推理 API，这套算法立刻失效：">
+<meta name="keywords" content="服务定价,AI服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI 服务定价：当计价单位变成商品，成本导向为什么会失灵">
+<meta property="og:url" content="https://imonce.github.io/2026/08/29/AI服务定价理论综述/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="AI 服务的定价难点不在”按什么计费”，而在”容量稀缺时谁先用”。前者是会计问题，后者是机制设计问题——绝大多数定价翻车，是把后者当成了前者。  导语先摆一个矛盾。 云厂商卖虚拟机，成本导向定价很好用：CPU 小时、内存 GB 小时、存储 GB 月，每一项都能追到硬件折旧 + 电费 + 机房成本，加个目标毛利就是价格。 但同一个云厂商卖大模型推理 API，这套算法立刻失效：">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2026-11-11T07:26:38.831Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI 服务定价：当计价单位变成商品，成本导向为什么会失灵">
+<meta name="twitter:description" content="AI 服务的定价难点不在”按什么计费”，而在”容量稀缺时谁先用”。前者是会计问题，后者是机制设计问题——绝大多数定价翻车，是把后者当成了前者。  导语先摆一个矛盾。 云厂商卖虚拟机，成本导向定价很好用：CPU 小时、内存 GB 小时、存储 GB 月，每一项都能追到硬件折旧 + 电费 + 机房成本，加个目标毛利就是价格。 但同一个云厂商卖大模型推理 API，这套算法立刻失效：">
+
+<link rel="canonical" href="https://imonce.github.io/2026/08/29/AI服务定价理论综述/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>AI 服务定价：当计价单位变成商品，成本导向为什么会失灵 | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/08/29/AI服务定价理论综述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AI 服务定价：当计价单位变成商品，成本导向为什么会失灵
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-08-29 20:44:14" itemprop="dateCreated datePublished" datetime="2026-08-29T20:44:14+08:00">2026-08-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:26:38" itemprop="dateModified" datetime="2026-11-11T15:26:38+08:00">2026-11-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2026/08/29/AI服务定价理论综述/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/08/29/AI服务定价理论综述/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>AI 服务的定价难点不在”按什么计费”，而在”容量稀缺时谁先用”。前者是会计问题，后者是机制设计问题——绝大多数定价翻车，是把后者当成了前者。</p>
+</blockquote>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>先摆一个矛盾。</p>
+<p>云厂商卖虚拟机，成本导向定价很好用：CPU 小时、内存 GB 小时、存储 GB 月，每一项都能追到硬件折旧 + 电费 + 机房成本，加个目标毛利就是价格。</p>
+<p>但同一个云厂商卖大模型推理 API，这套算法立刻失效：</p>
+<a id="more"></a>
+<ul>
+<li><strong>同一张 GPU，成本随利用率剧烈变化</strong>。空闲时跑一个请求的增量成本接近 0（电费而已），满载时跑一个请求要挤掉另一个请求——**边际成本从 0 跳到”一个完整请求的收入”**。</li>
+<li><strong>成本导向会给出自杀式价格</strong>。按”平均利用率下的平均成本”定价，高峰期你亏（要扩容），低谷期你贵（客户跑去用批处理）。</li>
+<li><strong>计价单位本身在产品化</strong>。客户不是买”token”，是买”一次能拿到满意答案的调用”——而这两者的成本结构完全不同（长上下文、重试、缓存命中、思考链长度）。</li>
+</ul>
+<p>所以本文的主张是：</p>
+<blockquote>
+<p><strong>AI 服务的定价问题，本质是”容量稀缺下的分配问题”，定价只是它的对外接口。</strong></p>
+</blockquote>
+<p>围绕这个主张，本文按三层拆解（计价单位 / 价格结构 / 分配机制），用经济学解释”为什么”，用工程给出”怎么算”，最后落到三类场景的选型。</p>
+<blockquote>
+<p>面向做算法产品、AI 平台、推理服务的读者。经济学部分不要求背景，工程部分会给出可复算的成本公式。</p>
+</blockquote>
+<!-- more -->
+<hr>
+<h2 id="0-一个必须先建立的分解：三层定价"><a href="#0-一个必须先建立的分解：三层定价" class="headerlink" title="0. 一个必须先建立的分解：三层定价"></a>0. 一个必须先建立的分解：三层定价</h2><p>大多数关于 AI 定价的讨论在混淆三件不同的事。分开看，问题会清晰一半。</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>回答什么</th>
+<th>典型选项</th>
+<th>谁决定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>L1 计价单位</strong>（Metering）</td>
+<td>数什么</td>
+<td>token / 请求 / 小时 / 并发 / 任务 / 席位</td>
+<td>产品 + 财务</td>
+</tr>
+<tr>
+<td><strong>L2 价格结构</strong>（Structure）</td>
+<td>价格怎么随用量变</td>
+<td>线性 / 阶梯 / 两部制 / 订阅 / 打包</td>
+<td>定价策略</td>
+</tr>
+<tr>
+<td><strong>L3 分配机制</strong>（Allocation）</td>
+<td>稀缺时谁先用</td>
+<td>先到先得 / 优先级 / 拍卖 / 配额</td>
+<td>系统设计</td>
+</tr>
+</tbody></table>
+<p><strong>关键判断：AI 服务的难点几乎全在 L3，但绝大多数讨论停在 L1。</strong></p>
+<p>举一个具体的例子说明为什么：</p>
+<blockquote>
+<p>两个客户都买”100 万 token / 月”。A 客户在凌晨批量跑，B 客户在上午 10 点做实时客服。<br><strong>同样的计价单位（token）、同样的价格结构（线性），但成本完全不同</strong>——B 的高峰请求挤占了本该给其他客户的 GPU 时间。</p>
+</blockquote>
+<p>如果你的定价只覆盖 L1 和 L2，B 就在系统性补贴 A 的反面：<strong>A 的低谷用量本来便宜，却按统一单价付费；B 的高峰占用很贵，也按统一单价付费。这不是”定价”，这是”平均”。</strong></p>
+<h3 id="0-1-三层之间的耦合关系"><a href="#0-1-三层之间的耦合关系" class="headerlink" title="0.1 三层之间的耦合关系"></a>0.1 三层之间的耦合关系</h3><p>这三层不是独立的，改动任何一层都会牵动其他两层：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">L1 计价单位  ──决定──&gt;  成本可归因性（能不能算清单个请求的成本）</span><br><span class="line">                            ↓</span><br><span class="line">L2 价格结构  ──决定──&gt;  客户的自选择（谁会被吸引来、谁会被赶走）</span><br><span class="line">                            ↓</span><br><span class="line">L3 分配机制  ──决定──&gt;  实际成本（拥塞、排队、闲置）</span><br><span class="line">                            ↑</span><br><span class="line">                            └── 反过来影响 L1（真实的成本分布）</span><br></pre></td></tr></table></figure>
+
+<p><strong>这张图最重要的信息是那条向上的箭头</strong>：L3 的分配效率决定了 L1 的成本基数。如果你的集群利用率只有 30%，那么”按 token 分摊成本”算出来的单价会高得离谱——<strong>而这不是定价问题，是利用率问题</strong>。</p>
+<p>我见过的最常见的定价翻车就是这一类：<strong>用一个低效系统算出的单位成本，去定一个高效率竞品的价格。</strong></p>
+<hr>
+<h2 id="1-三种经典定价导向，以及它们各自在哪一步失灵"><a href="#1-三种经典定价导向，以及它们各自在哪一步失灵" class="headerlink" title="1. 三种经典定价导向，以及它们各自在哪一步失灵"></a>1. 三种经典定价导向，以及它们各自在哪一步失灵</h2><h3 id="1-1-成本导向（Cost-Plus）"><a href="#1-1-成本导向（Cost-Plus）" class="headerlink" title="1.1 成本导向（Cost-Plus）"></a>1.1 成本导向（Cost-Plus）</h3><p><strong>公式</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">价格 = 单位成本 / (1 − 目标毛利率)</span><br></pre></td></tr></table></figure>
+
+<p><strong>它的前提</strong>：单位成本可稳定测算，且不随销量剧烈变化。</p>
+<p><strong>在 AI 服务上，这个前提有两个硬伤</strong>：</p>
+<p><strong>硬伤一：单位成本不是常数，是利用率的函数</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">单位成本 = 固定成本 / 有效吞吐量</span><br></pre></td></tr></table></figure>
+
+<p>而 <code>有效吞吐量</code> 取决于 batch size、序列长度分布、KV cache 占用、调度策略。<strong>同一个模型、同一批 GPU，吞吐可以差 3–5 倍</strong>（取决于这些工程细节）。</p>
+<p>后果：**”算出单位成本”这件事本身就是一个系统测量问题，不是一个会计问题。** 详见第 6 节。</p>
+<p><strong>硬伤二：成本导向在产能受限时会导致分配失效</strong></p>
+<p>如果按”平均成本 + 毛利”定价，价格是固定的。当需求超过产能时：</p>
+<ul>
+<li>价格不会涨（不反映稀缺）；</li>
+<li>于是只能靠<strong>排队或限流</strong>分配；</li>
+<li>结果是”先到先得”——<strong>而这个分配结果和”谁最需要/谁付得起”毫无关系</strong>。</li>
+</ul>
+<p>这正是云厂商在 GPU 紧张时期出现的现象：<strong>价格不变，但拿不到卡</strong>。经济学上这叫”非价格配给”，代价是效率损失（有些高价值需求拿不到资源）和寻租（要托关系）。</p>
+<p><strong>成本导向的正确用法</strong>：它是<strong>下限约束</strong>（不能低于成本卖），不是<strong>定价公式</strong>。</p>
+<h3 id="1-2-价值导向（Value-Based）"><a href="#1-2-价值导向（Value-Based）" class="headerlink" title="1.2 价值导向（Value-Based）"></a>1.2 价值导向（Value-Based）</h3><p><strong>公式</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">价格 = 客户获得的价值 × 分成比例</span><br></pre></td></tr></table></figure>
+
+<p><strong>它的难点在”价值”怎么度量</strong>。AI 服务的价值度量有三个层次：</p>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>度量方式</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>替代成本</strong></td>
+<td>客户自己做这件事要花多少钱（雇人、买传统软件）</td>
+<td>最稳，但需要客户侧的基线数据</td>
+</tr>
+<tr>
+<td><strong>增量收益</strong></td>
+<td>带来的收入增长 / 成本节省</td>
+<td>最有说服力，但归因极难（效果和其他系统耦合）</td>
+</tr>
+<tr>
+<td><strong>支付意愿</strong></td>
+<td>调研 / 实验 / A/B</td>
+<td>直接，但 AI 产品的支付意愿高度依赖”是否真的解决了问题”</td>
+</tr>
+</tbody></table>
+<p><strong>一个实务上的可操作做法</strong>：用”替代成本”定锚，用”增量收益”做溢价论证。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">例（面向客服场景的 AI 服务）：</span><br><span class="line">  替代成本：一个客服席位月成本 8k，AI 能承接 40% 的工单</span><br><span class="line">  → 价值锚点 ≈ 3.2k / 月 / 万次工单</span><br><span class="line">  定价 = 锚点 × 分成比例（如 30–50%）</span><br><span class="line">  → 约 1k–1.6k / 月</span><br></pre></td></tr></table></figure>
+
+<p><strong>价值导向的根本困难</strong>：AI 服务的价值<strong>高度依赖客户的使用方式</strong>。同一个模型，A 客户做得好（prompt 精心设计、有 RAG、有验证），B 客户做得差（直接裸调用）。**你卖的是”能力”，客户买的是”结果”**——中间的落差谁来承担？</p>
+<p>这直接引出 AI 定价里最尖锐的一个问题：<strong>要不要为结果负责（outcome-based pricing）？</strong></p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>收费依据</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>按用量</td>
+<td>token / 调用次数</td>
+<td>简单、成本可覆盖</td>
+<td>客户承担”效果不确定”的风险</td>
+</tr>
+<tr>
+<td>按结果</td>
+<td>解决率 / 转化率</td>
+<td>客户风险低、易卖</td>
+<td><strong>归因争议、可被操纵、现金流不稳</strong></td>
+</tr>
+<tr>
+<td>按席位</td>
+<td>用户数</td>
+<td>可预测</td>
+<td>与用量脱钩，重度用户亏</td>
+</tr>
+</tbody></table>
+<p><strong>我的判断</strong>：<strong>纯 outcome-based 在基础设施层不可行</strong>（因为结果不由你单独决定），但在应用层可行（因为你可以控制完整链路）。<strong>混合模式（底价 + 结果分成）是更稳的形态。</strong></p>
+<h3 id="1-3-竞争导向（Competition-Based）"><a href="#1-3-竞争导向（Competition-Based）" class="headerlink" title="1.3 竞争导向（Competition-Based）"></a>1.3 竞争导向（Competition-Based）</h3><p><strong>逻辑</strong>：看竞品定价，跟随或差异化。</p>
+<p><strong>AI 服务在这一导向下有一个独特现象：价格战的传导速度极快，因为能力差异难以感知。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">模型能力差距 10% → 客户感知不到</span><br><span class="line">价格差距 10% → 客户立刻感知</span><br><span class="line">→ 竞争很快退化为纯价格竞争</span><br></pre></td></tr></table></figure>
+
+<p>这解释了为什么 2024–2026 年大模型 API 的价格下降速度远超成本下降速度——<strong>不是成本驱动，是竞争驱动</strong>。</p>
+<p><strong>但竞争导向有一个陷阱</strong>：如果你的成本结构比对手差（比如自研推理优化不如对方），跟着降价就是加速亏损。<strong>降价的前提是自己有成本优势，否则是自杀。</strong></p>
+<h3 id="1-4-三种导向的适用位置"><a href="#1-4-三种导向的适用位置" class="headerlink" title="1.4 三种导向的适用位置"></a>1.4 三种导向的适用位置</h3><table>
+<thead>
+<tr>
+<th>导向</th>
+<th>适用位置</th>
+<th>不适用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>成本导向</strong></td>
+<td>定价<strong>下限</strong>、内部结算、容量规划</td>
+<td>对外定价公式</td>
+</tr>
+<tr>
+<td><strong>价值导向</strong></td>
+<td>定价<strong>上限</strong>、高价值垂直场景、企业合同</td>
+<td>同质化 API</td>
+</tr>
+<tr>
+<td><strong>竞争导向</strong></td>
+<td>定价<strong>区间</strong>校准、市场进入策略</td>
+<td>长期唯一依据</td>
+</tr>
+</tbody></table>
+<p><strong>实操上，三者是”三段式”关系</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">价格 ∈ [成本下限, 价值上限]，在区间内按竞争位置落点</span><br></pre></td></tr></table></figure>
+
+<p><strong>先算清下限（否则越卖越亏），再论证上限（否则卖不出溢价），最后看竞争定落点。</strong></p>
+<hr>
+<h2 id="2-AI-服务的六个经济学特征"><a href="#2-AI-服务的六个经济学特征" class="headerlink" title="2. AI 服务的六个经济学特征"></a>2. AI 服务的六个经济学特征</h2><p>这一节是全文的理论核心。<strong>六个特征里，第 2 条和第 6 条是关键。</strong></p>
+<h3 id="2-1-特征一：固定成本极高，边际成本趋近-0（但只在非饱和时）"><a href="#2-1-特征一：固定成本极高，边际成本趋近-0（但只在非饱和时）" class="headerlink" title="2.1 特征一：固定成本极高，边际成本趋近 0（但只在非饱和时）"></a>2.1 特征一：固定成本极高，边际成本趋近 0（但只在非饱和时）</h3><p><strong>成本结构</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>成本项</th>
+<th>性质</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GPU 采购/租用</td>
+<td>固定（按时间）</td>
+<td>主要成本项，60–80%</td>
+</tr>
+<tr>
+<td>电力与制冷</td>
+<td>半固定</td>
+<td>与负载相关但非线性</td>
+</tr>
+<tr>
+<td>网络与存储</td>
+<td>变动但小</td>
+<td>权重加载、日志</td>
+</tr>
+<tr>
+<td>人力（研发/运维）</td>
+<td>固定</td>
+<td>分摊到单位成本上是会计选择</td>
+</tr>
+<tr>
+<td><strong>单次推理的增量成本</strong></td>
+<td><strong>≈ 0（空闲时）</strong></td>
+<td>只有电费</td>
+</tr>
+</tbody></table>
+<p><strong>关键推论：AI 服务是”高经营杠杆”生意</strong>——成本几乎固定，收入随用量增长。所以：</p>
+<ul>
+<li>利用率 30% 时，单位成本是 90% 时的 3 倍；</li>
+<li><strong>利润率对利用率极度敏感</strong>，远超过对定价的敏感度。</li>
+</ul>
+<p><strong>这意味着一个反直觉的结论</strong>：</p>
+<blockquote>
+<p><strong>很多 AI 服务的”定价问题”，本质是”利用率问题”。</strong></p>
+</blockquote>
+<p>如果你的集群利用率只有 25%，你应该优化调度和批处理（把利用率提到 60%），而不是降价抢量——因为降价带来的量未必能把利用率补回来，而成本下降是确定的。</p>
+<h3 id="2-2-特征二：容量硬约束下，边际成本-影子价格"><a href="#2-2-特征二：容量硬约束下，边际成本-影子价格" class="headerlink" title="2.2 特征二：容量硬约束下，边际成本 = 影子价格"></a>2.2 特征二：容量硬约束下，边际成本 = 影子价格</h3><p>这是<strong>最重要的一条</strong>，也是成本导向失效的根源。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">利用率 &lt; 阈值（约 70%）：</span><br><span class="line">    边际成本 ≈ 电费 + 极小的调度开销 ≈ 0</span><br><span class="line">    此时&quot;多服务一个请求&quot;几乎免费</span><br><span class="line"></span><br><span class="line">利用率 &gt; 阈值（约 85%）：</span><br><span class="line">    边际成本 = 被挤掉的那个请求的价值（机会成本）</span><br><span class="line">    此时&quot;多服务一个请求&quot;要牺牲别人</span><br></pre></td></tr></table></figure>
+
+<p><strong>经济学的表述</strong>：产能约束的影子价格（shadow price / dual price）。</p>
+<p>把它写成优化问题就很清楚：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">max  Σ_i p_i · x_i</span><br><span class="line">s.t. Σ_i c_i · x_i ≤ C        （容量约束，c_i 是请求 i 消耗的资源）</span><br><span class="line">     x_i ≥ 0</span><br></pre></td></tr></table></figure>
+
+<p>拉格朗日乘子 <code>λ</code>（容量约束的对偶变量）就是<strong>单位容量的影子价格</strong>：</p>
+<ul>
+<li><code>λ = 0</code> → 容量有余，不该涨价（此时定价 = 边际成本 ≈ 0）；</li>
+<li><code>λ &gt; 0</code> → 容量紧张，<strong>最优价格 = 边际成本 + λ</strong>。</li>
+</ul>
+<p><strong>这个结论直接给出了”动态定价”的理论依据</strong>：不是因为”需求大所以要涨价”（那是经验），而是因为<strong>容量约束的对偶变量在告诉你，每单位资源此刻的机会成本是多少</strong>。</p>
+<p><strong>工程含义（很重要）</strong>：</p>
+<blockquote>
+<p>你不需要真的去解这个 LP。你只需要<strong>监控 <code>λ</code> 的代理指标</strong>——例如队列等待时间、GPU 显存占用率、KV cache 命中率、调度拒绝率。</p>
+</blockquote>
+<p><strong>这些运维指标，就是影子价格的观测量。</strong> 当排队时间变长时，<code>λ</code> 在上升，说明当前价格偏低（相对于稀缺度）。</p>
+<p><strong>这解释了一个现象</strong>：为什么云厂商在 GPU 紧张时最先动的不是价格，而是<strong>配额和优先级</strong>——因为直接涨价会引发客户反弹（见 5.1），但调整配额是”技术调整”，阻力小得多。<strong>从经济学上说，两者都是在给 <code>λ</code> 定价，只是前者显性、后者隐性。</strong></p>
+<h3 id="2-3-特征三：成本随序列长度非线性变化（计价单位的技术根源）"><a href="#2-3-特征三：成本随序列长度非线性变化（计价单位的技术根源）" class="headerlink" title="2.3 特征三：成本随序列长度非线性变化（计价单位的技术根源）"></a>2.3 特征三：成本随序列长度非线性变化（计价单位的技术根源）</h3><p>这一条直接决定 L1（计价单位）怎么设计。<strong>三类计算的成本结构完全不同</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>计算特性</th>
+<th>成本与什么成正比</th>
+<th>能否批处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Prefill</strong>（处理输入）</td>
+<td><strong>计算密集</strong>（矩阵乘）</td>
+<td>输入 token 数（线性）</td>
+<td>✅ 好（并行）</td>
+</tr>
+<tr>
+<td><strong>Decode</strong>（逐 token 生成）</td>
+<td><strong>访存密集</strong>（每 token 要读一遍权重）</td>
+<td>输出 token 数 × 1/batch</td>
+<td>✅ 好（batch 共享权重读取）</td>
+</tr>
+<tr>
+<td><strong>KV cache</strong>（存历史）</td>
+<td><strong>显存占用</strong></td>
+<td>上下文长度（线性）× 并发数</td>
+<td>❌ 是占位，不是计算</td>
+</tr>
+</tbody></table>
+<p><strong>这解释了两件事</strong>：</p>
+<p><strong>① 为什么 output token 比 input token 贵（通常 3–5 倍）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Prefill：一次矩阵乘处理 N 个输入 token → 摊薄，单位成本低</span><br><span class="line">Decode：每个 token 要完整跑一次前向 → 串行，单位成本高</span><br></pre></td></tr></table></figure>
+
+<p>用一个粗略的公式看（<strong>量级示意，非精确</strong>）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">decode 的 token 吞吐 ≈ batch_size × HBM_带宽 / 模型字节数</span><br></pre></td></tr></table></figure>
+
+<p>70B 模型 fp16 ≈ 140 GB；H100 的 HBM 带宽约 3.35 TB/s。batch=64 时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tokens/s ≈ 64 × 3350 / 140 ≈ 1530 tok/s</span><br></pre></td></tr></table></figure>
+
+<p>而 prefill 是算力密集，同样硬件下单位 token 的成本可以低一个数量级。<strong>这个 3–5 倍的价差不是”营销策略”，是物理</strong>。</p>
+<p><strong>② 为什么长上下文有”隐性成本”（这是最被低估的）</strong></p>
+<p>KV cache 占用显存 → <strong>挤占 batch size</strong> → <strong>降低所有请求的吞吐</strong> → <strong>抬高全局单位成本</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">KV cache per token ≈ 2 × 层数 × kv_head数 × head_dim × 精度字节</span><br></pre></td></tr></table></figure>
+
+<p>对一个 70B 级模型（80 层、GQA、fp16），<strong>每 token 的 KV cache 约 0.3–0.6 MB</strong>。32K 上下文 = 10–20 GB。而一张 H100 才 80 GB。</p>
+<p><strong>所以：一个 32K 上下文的请求，占用的显存相当于几十个 1K 上下文的请求</strong>，但如果你”按 token 统一计价”，它只付了 32 倍的输入 token 钱——<strong>这是严重的交叉补贴</strong>。</p>
+<p><strong>这就是 prompt caching 折扣、以及按上下文长度分段定价的技术根源</strong>。它不是让利，是<strong>纠正错误的分摊</strong>。</p>
+<h3 id="2-4-特征四：资源可弹性，但弹性有延迟与不可逆性"><a href="#2-4-特征四：资源可弹性，但弹性有延迟与不可逆性" class="headerlink" title="2.4 特征四：资源可弹性，但弹性有延迟与不可逆性"></a>2.4 特征四：资源可弹性，但弹性有延迟与不可逆性</h3><table>
+<thead>
+<tr>
+<th>资源</th>
+<th>弹性</th>
+<th>延迟</th>
+<th>不可逆性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>无状态推理（serverless）</td>
+<td>高</td>
+<td>秒级（冷启动）</td>
+<td>低</td>
+</tr>
+<tr>
+<td>有状态会话（KV cache 驻留）</td>
+<td>中</td>
+<td>分钟级（迁移/重建）</td>
+<td>中</td>
+</tr>
+<tr>
+<td>独占 GPU（预留实例）</td>
+<td>低</td>
+<td>小时–天</td>
+<td>高（合同期）</td>
+</tr>
+<tr>
+<td>自建集群</td>
+<td>极低</td>
+<td>月–季度</td>
+<td>极高</td>
+</tr>
+</tbody></table>
+<p><strong>定价含义</strong>：</p>
+<ul>
+<li><strong>弹性越高，越适合按量计费</strong>（成本随用量走）；</li>
+<li><strong>不可逆性越高，越适合预留/承诺折扣</strong>（客户用承诺换低价，你换现金流和可预测性）；</li>
+<li><strong>中间的”有状态会话”是最难定价的</strong>——它占用资源但你不知道它什么时候释放。这就是为什么”会话超时”要收费（或至少要有闲置回收）。</li>
+</ul>
+<h3 id="2-5-特征五：QoS-可以分层，且分层成本很低"><a href="#2-5-特征五：QoS-可以分层，且分层成本很低" class="headerlink" title="2.5 特征五：QoS 可以分层，且分层成本很低"></a>2.5 特征五：QoS 可以分层，且分层成本很低</h3><p>这是 AI 服务相对传统云的一个巨大优势。</p>
+<p><strong>可以分层的维度</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>分层方式</th>
+<th>实现成本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>延迟（TTFT）</strong></td>
+<td>优先级队列 / 抢占</td>
+<td>低（调度器改几行）</td>
+</tr>
+<tr>
+<td><strong>吞吐（tok/s）</strong></td>
+<td>batch 优先级、更大 GPU</td>
+<td>低–中</td>
+</tr>
+<tr>
+<td><strong>可用性（SLA）</strong></td>
+<td>冗余部署、隔离池</td>
+<td>中</td>
+</tr>
+<tr>
+<td><strong>上下文长度</strong></td>
+<td>不同模型/分块策略</td>
+<td>中</td>
+</tr>
+<tr>
+<td><strong>模型档位</strong></td>
+<td>大/中/小模型路由</td>
+<td>低（路由层）</td>
+</tr>
+</tbody></table>
+<p><strong>为什么这条重要</strong>：<strong>QoS 分层是”价格歧视”最优雅的实现方式</strong>——它不伤害任何人的自尊（你买”更快的”而不是”更贵的”），且<strong>技术上真实存在成本差异</strong>（优先级队列确实占用了更多资源）。</p>
+<p>这就是第二度价格歧视（self-selection）：<strong>不用问客户”你愿意付多少”，而是给一个菜单，让客户自己选</strong>。</p>
+<p><strong>关键设计原则：菜单要让”高支付意愿客户”自愿选择高价档，而不是被迫。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">失败的菜单：标准版限速 5 tok/s，专业版不限速</span><br><span class="line">  → 高支付意愿客户觉得&quot;被故意卡脖子&quot;，反感</span><br><span class="line"></span><br><span class="line">成功的菜单：标准版 20 tok/s + 99% 可用性，专业版 80 tok/s + 99.9% 可用性 + 优先支持</span><br><span class="line">  → 差别在&quot;你有多急&quot;，客户理解并接受</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-6-特征六：成本快速下降，但价格有粘性"><a href="#2-6-特征六：成本快速下降，但价格有粘性" class="headerlink" title="2.6 特征六：成本快速下降，但价格有粘性"></a>2.6 特征六：成本快速下降，但价格有粘性</h3><p><strong>观察到的现象</strong>（2024–2026）：单位 token 的推理成本下降了一个数量级以上（模型量化、更好的 kernel、投机解码、更便宜的硬件）。</p>
+<p>**这带来一个定价上的”棘轮效应”**：</p>
+<table>
+<thead>
+<tr>
+<th>情况</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成本降了，价格不降</td>
+<td>短期毛利暴涨 → 竞品降价抢量 → 被迫跟进，但客户已流失</td>
+</tr>
+<tr>
+<td>成本降了，主动降价</td>
+<td>客户预期”还会更便宜” → 推迟采购 → 现金流受损</td>
+</tr>
+<tr>
+<td>成本降了，价格不变但提升配额</td>
+<td><strong>最稳的路径</strong>：客户感知”更划算”，你的名义价格没变</td>
+</tr>
+</tbody></table>
+<p><strong>第三条是关键策略</strong>：**用”加量”代替”降价”**。原因有二：</p>
+<ol>
+<li><strong>避免价格锚定被打破</strong>（一旦降到某个数，客户会认为那是新基线）；</li>
+<li><strong>避免触发已有客户的重新谈判</strong>（价格没变，合同不用重签）。</li>
+</ol>
+<p><strong>但这条有边界</strong>：如果竞品降价 50% 而你只是”加量 20%”，客户会算清楚。<strong>加量策略适用于”成本温和下降”，不适用于”成本腰斩”。</strong></p>
+<hr>
+<h2 id="3-五种定价范式：它们的本质是三度价格歧视"><a href="#3-五种定价范式：它们的本质是三度价格歧视" class="headerlink" title="3. 五种定价范式：它们的本质是三度价格歧视"></a>3. 五种定价范式：它们的本质是三度价格歧视</h2><p>把常见的定价方式映射到经济学框架，会看得更清楚。</p>
+<table>
+<thead>
+<tr>
+<th>范式</th>
+<th>收什么钱</th>
+<th>经济学本质</th>
+<th>解决什么问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>按量计费</strong>（pay-as-you-go）</td>
+<td>用量 × 单价</td>
+<td>一度价格歧视的近似（不完全）</td>
+<td>成本可覆盖、门槛低</td>
+</tr>
+<tr>
+<td><strong>订阅</strong>（flat rate）</td>
+<td>固定月费</td>
+<td>打包 / 期权</td>
+<td>收入可预测、客户决策简单</td>
+</tr>
+<tr>
+<td><strong>阶梯定价</strong>（tiered）</td>
+<td>分段单价</td>
+<td>二度价格歧视（数量折扣）</td>
+<td>大客户留存、鼓励用量</td>
+</tr>
+<tr>
+<td><strong>两部制</strong>（two-part tariff）</td>
+<td>固定费 + 用量费</td>
+<td>二度价格歧视的经典形式</td>
+<td>覆盖固定成本 + 按边际定价</td>
+</tr>
+<tr>
+<td><strong>动态定价</strong>（dynamic）</td>
+<td>随供需变价</td>
+<td>三级（完全）价格歧视的近似</td>
+<td>削峰填谷、容量变现</td>
+</tr>
+<tr>
+<td><strong>拍卖</strong>（auction）</td>
+<td>竞价</td>
+<td>机制设计 / 显性价格发现</td>
+<td>稀缺资源的有效分配</td>
+</tr>
+</tbody></table>
+<h3 id="3-1-按量计费：最”公平”也最不可预测"><a href="#3-1-按量计费：最”公平”也最不可预测" class="headerlink" title="3.1 按量计费：最”公平”也最不可预测"></a>3.1 按量计费：最”公平”也最不可预测</h3><p><strong>优点</strong>：成本可覆盖、无逆向选择、客户觉得公平（用多少付多少）。</p>
+<p><strong>缺点</strong>：</p>
+<ol>
+<li><strong>收入不可预测</strong>（客户自己也不知道会用多少）；</li>
+<li><strong>客户有”计量焦虑”**——每次调用都在花钱，导致使用保守，</strong>这会压制产品价值实现**；</li>
+<li><strong>计价单位成为争议焦点</strong>（为什么这次调用扣了 1,200 token？）。</li>
+</ol>
+<p><strong>第三条是 AI 服务特有的痛点</strong>。传统云计费（CPU 小时）客户能理解，但”token”对客户是黑箱：</p>
+<ul>
+<li>输入 token 怎么算的？（不同 tokenizer 切法不同）</li>
+<li>为什么一次”你好”扣了 80 token？（system prompt + 历史）</li>
+<li>重试算不算钱？</li>
+</ul>
+<p><strong>实践建议</strong>：<strong>把”计费明细”做成产品功能</strong>（每次调用返回 usage 明细、可查历史、可设预算告警）。<strong>计量透明度直接决定客户的使用深度</strong>——不透明的计费会让客户用得更保守，你的收入反而更低。</p>
+<h3 id="3-2-订阅：把波动风险从客户转给你"><a href="#3-2-订阅：把波动风险从客户转给你" class="headerlink" title="3.2 订阅：把波动风险从客户转给你"></a>3.2 订阅：把波动风险从客户转给你</h3><p><strong>本质</strong>：你卖的是一个”看涨期权”——客户付固定费，换取不限量（或高额度）使用。</p>
+<p><strong>这带来一个经典的逆向选择问题</strong>：</p>
+<blockquote>
+<p><strong>重度用户会优先选择 flat rate，轻度用户会选按量。</strong><br>如果定价按”平均用户”算，你会被重度用户吃掉利润。</p>
+</blockquote>
+<p>这就是 **”自助餐悖论”**（all-you-can-eat pricing）：定价必须按”重度用户的成本”来定，否则必亏；但按重度用户定价，轻度用户会觉得贵而不买。</p>
+<p><strong>三种解法</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>解法</th>
+<th>机制</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>公平使用条款 + 限流</strong></td>
+<td>名义不限量，实际超过阈值就降速/排队</td>
+<td>客户体验受损（”说好的不限量呢”）</td>
+</tr>
+<tr>
+<td><strong>分段订阅</strong>（额度 + 超额按量）</td>
+<td>订阅含 N 次，超出按量</td>
+<td>计量焦虑回来了</td>
+</tr>
+<tr>
+<td><strong>按席位/按结果</strong></td>
+<td>与用量解耦，与人数/结果挂钩</td>
+<td>需要客户规模可度量</td>
+</tr>
+</tbody></table>
+<p><strong>AI 服务的特殊困难</strong>：<strong>用量差异极大</strong>。同一个订阅，有人一天 10 次，有人一天 10,000 次，成本差 1,000 倍。<strong>这在传统 SaaS 里很少见</strong>（Seat 的用量差异通常 10 倍以内）。</p>
+<p><strong>所以纯 flat rate 在 AI 服务上很难长期成立</strong>，除非：</p>
+<ul>
+<li>客单价足够高（能覆盖 P95 用户的成本）；</li>
+<li>或产品本身限制了用量（如”每月生成 500 张图”）。</li>
+</ul>
+<h3 id="3-3-阶梯定价：鼓励用量的同时保护毛利"><a href="#3-3-阶梯定价：鼓励用量的同时保护毛利" class="headerlink" title="3.3 阶梯定价：鼓励用量的同时保护毛利"></a>3.3 阶梯定价：鼓励用量的同时保护毛利</h3><p><strong>两种阶梯形态，方向相反</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>形态</th>
+<th>单位价格随用量</th>
+<th>目的</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>递减阶梯</strong>（volume discount）</td>
+<td>用越多单价越低</td>
+<td>激励增长、留住大客户</td>
+<td>大多数 B2B</td>
+</tr>
+<tr>
+<td><strong>递增阶梯</strong>（tiered / progressive）</td>
+<td>用越多单价越高（边际）</td>
+<td>抑制过度消耗、保护资源</td>
+<td>资源紧张时</td>
+</tr>
+</tbody></table>
+<p><strong>递减阶梯的经济学</strong>：本质是数量折扣，让大客户的价格接近你的边际成本（而非平均成本）。<strong>这是有效的，因为你的边际成本确实低。</strong></p>
+<p><strong>递增阶梯的适用场景</strong>（很少被讨论但很重要）：</p>
+<ul>
+<li>免费额度 + 超出后提价（防滥用）；</li>
+<li>高并发/高峰期的用量提价（削峰）；</li>
+<li>超长上下文的边际提价（反映 KV cache 成本）。</li>
+</ul>
+<p><strong>一个混合设计</strong>（实践中效果好的）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">第 1 段：0–100 万 token     单价 A（基准）</span><br><span class="line">第 2 段：100 万–10 亿        单价 0.85A（数量折扣）</span><br><span class="line">第 3 段：&gt; 10 亿             单价 0.7A（大客户）</span><br><span class="line">另加：单请求上下文 &gt; 32K 时，该请求按 2× 计费（反映显存成本）</span><br></pre></td></tr></table></figure>
+
+<p><strong>最后一条是关键</strong>：<strong>阶梯折扣 + 长度附加费</strong>，两者方向相反但服务于不同目标（激励量 vs 纠正分摊）。</p>
+<h3 id="3-4-两部制：AI-服务最被低估的形态"><a href="#3-4-两部制：AI-服务最被低估的形态" class="headerlink" title="3.4 两部制：AI 服务最被低估的形态"></a>3.4 两部制：AI 服务最被低估的形态</h3><p><strong>结构</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">总价 = 固定费（capacity reservation）+ 用量 × 单价（usage）</span><br></pre></td></tr></table></figure>
+
+<p><strong>为什么它适合 AI 服务</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>优势</th>
+<th>机制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>覆盖固定成本</strong></td>
+<td>固定费直接对应”我给你留了这么多卡”</td>
+</tr>
+<tr>
+<td><strong>让边际定价回归效率</strong></td>
+<td>用量部分可以定得接近边际成本（因为固定成本已被覆盖）</td>
+</tr>
+<tr>
+<td><strong>客户自选择</strong></td>
+<td>需要稳定性的客户买高固定费、低单价；波动型客户买低固定费、高单价</td>
+</tr>
+<tr>
+<td><strong>可预测性</strong></td>
+<td>固定部分给出收入底盘</td>
+</tr>
+</tbody></table>
+<p><strong>这就是云厂商”按需 vs 预留实例/承诺用量折扣（CUD）”的本质</strong>，也是”BigQuery on-demand vs flat-rate”的本质。</p>
+<p><strong>对 AI 服务特别有价值的原因</strong>：<strong>AI 的固定成本占比极高（60–80%）</strong>，纯按量计费意味着”所有的固定成本风险都由你承担”。两部制把这个风险部分转移给愿意承担（换取折扣）的客户。</p>
+<p><strong>设计要点</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">固定费应 ≈ 客户承诺占用容量的成本 × (1 - 折扣率)</span><br><span class="line">用量单价应 ≈ 边际成本 × (1 + 小毛利)</span><br></pre></td></tr></table></figure>
+
+<p>如果用量单价定得太高（想多赚），客户会算出来”我不如自己建”。</p>
+<h3 id="3-5-动态定价：理论最优，实践要极度小心"><a href="#3-5-动态定价：理论最优，实践要极度小心" class="headerlink" title="3.5 动态定价：理论最优，实践要极度小心"></a>3.5 动态定价：理论最优，实践要极度小心</h3><p><strong>理论依据</strong>（见 2.2）：<code>价格 = 边际成本 + λ</code>，<code>λ</code> 是容量约束的影子价格。</p>
+<p><strong>三种实现强度</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>强度</th>
+<th>做法</th>
+<th>客户感知</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>L1 内部</strong>（推荐）</td>
+<td>对外价格不变，内部用 <code>λ</code> 做调度/配额决策</td>
+<td>无感知</td>
+<td>几乎所有场景</td>
+</tr>
+<tr>
+<td><strong>L2 分时</strong>（谨慎）</td>
+<td>高峰期价格上浮（如 1.5×）</td>
+<td>弱（可预告）</td>
+<td>批量计算、非实时任务</td>
+</tr>
+<tr>
+<td><strong>L3 实时</strong>（几乎不可行）</td>
+<td>价格随实时供需波动</td>
+<td><strong>强（反感）</strong></td>
+<td>现货市场、竞价实例</td>
+</tr>
+</tbody></table>
+<p><strong>为什么 L3 在 AI API 上几乎不可行</strong>：</p>
+<ol>
+<li><strong>客户无法做价格响应</strong>。一个客服系统的调用量由业务量决定，不会因为”现在贵 30%”而少调用——<strong>需求是刚性的</strong>；</li>
+<li><strong>公平性感知极差</strong>。Kahneman 的经典结论：**涨价被认为不公平，尤其是”同样的东西在不同时间不同价”**；</li>
+<li><strong>客户无法预算</strong>。企业客户的采购和财务要求成本可预测。</li>
+</ol>
+<p><strong>所以动态定价在 AI 服务上的正确形态是”隐性”的</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">对外：固定价格表 + 明确的优先级档位</span><br><span class="line">对内：用影子价格调度（高峰期优先保障高优先级客户）</span><br></pre></td></tr></table></figure>
+
+<p><strong>这在经济学上等价于动态定价</strong>（高价值客户在高峰期获得资源），但客户看到的是”我买了高优先级”，而不是”我被动态加价了”。</p>
+<p><strong>这是本文最重要的一个实务结论</strong>：</p>
+<blockquote>
+<p><strong>AI 服务的动态定价，应该实现为”优先级 + 配额”，而不是”价格波动”。</strong></p>
+</blockquote>
+<h3 id="3-6-拍卖：什么时候真的需要"><a href="#3-6-拍卖：什么时候真的需要" class="headerlink" title="3.6 拍卖：什么时候真的需要"></a>3.6 拍卖：什么时候真的需要</h3><p><strong>拍卖适用条件</strong>（三条同时满足）：</p>
+<ol>
+<li><strong>资源同质且稀缺</strong>（大家抢同一种东西）；</li>
+<li><strong>价值异质</strong>（不同买家对它的估值差异大）；</li>
+<li><strong>需求可延迟</strong>（抢不到可以等）。</li>
+</ol>
+<p><strong>AI 服务里符合的场景</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>是否符合</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>现货 GPU（抢占式实例）</td>
+<td>✅</td>
+<td>经典场景，AWS Spot 就是拍卖</td>
+</tr>
+<tr>
+<td>批量推理的错峰调度</td>
+<td>✅</td>
+<td>任务可延迟，用低价换延迟</td>
+</tr>
+<tr>
+<td>预留容量的分配（大客户）</td>
+<td>⚠️</td>
+<td>通常用谈判而非拍卖</td>
+</tr>
+<tr>
+<td><strong>在线 API 的每次调用</strong></td>
+<td>❌</td>
+<td>需求刚性、延迟敏感、拍卖开销不划算</td>
+</tr>
+</tbody></table>
+<p><strong>一个正在出现的新场景</strong>：<strong>Agent 之间的服务采购</strong>。当 AI Agent 需要调用其他服务（工具、数据、其他模型）时，”谁出价高谁先被服务”可能成为自然机制。<strong>但这个领域目前是概念多于实践，不建议作为近期设计目标。</strong></p>
+<hr>
+<h2 id="4-与推荐-分配算法的结合：定价作为优化目标"><a href="#4-与推荐-分配算法的结合：定价作为优化目标" class="headerlink" title="4. 与推荐/分配算法的结合：定价作为优化目标"></a>4. 与推荐/分配算法的结合：定价作为优化目标</h2><p>这一节讲工程与算法的交叉。<strong>核心观点：定价不应该是一个”业务拍板”的静态数字，而应该是系统中一个可优化的决策变量。</strong></p>
+<h3 id="4-1-定价与分配的联合优化（对偶视角）"><a href="#4-1-定价与分配的联合优化（对偶视角）" class="headerlink" title="4.1 定价与分配的联合优化（对偶视角）"></a>4.1 定价与分配的联合优化（对偶视角）</h3><p>先把问题写清楚。假设有 <code>n</code> 个请求、<code>m</code> 类资源（GPU 类型/显存/带宽）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">max_&#123;x, p&#125;  Σ_i p_i · x_i                     ← 收入</span><br><span class="line">s.t.        Σ_i a_&#123;ij&#125; · x_i ≤ C_j   ∀j        ← 容量约束</span><br><span class="line">            x_i ∈ &#123;0,1&#125;                        ← 是否服务（或 x_i 为用量）</span><br><span class="line">            p_i ≥ 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>如果 <code>p_i</code> 是外生给定的</strong>（价格已定），这就退化成”带权重的装箱/分配问题”——<strong>定价不参与优化</strong>。</p>
+<p><strong>如果 <code>p_i</code> 是决策变量</strong>，就变成定价-分配联合优化。这时最优定价有闭式结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p_i* = 边际成本_i + Σ_j λ_j · a_&#123;ij&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>λ_j</code> 是第 <code>j</code> 类资源容量约束的对偶变量。</p>
+<p><strong>这个式子的三个含义</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>含义</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>价格 = 边际成本 + 资源占用加权影子价</strong></td>
+<td>资源密集型的请求应该更贵，不是因为”我们想多赚”，而是因为它挤占更多稀缺资源</td>
+</tr>
+<tr>
+<td><strong><code>λ_j = 0</code> 时价格 = 边际成本</strong></td>
+<td>资源不稀缺就不该有溢价</td>
+</tr>
+<tr>
+<td><strong><code>λ_j</code> 随时间变</strong></td>
+<td>这就是”动态定价”的严格来源</td>
+</tr>
+</tbody></table>
+<p><strong>工程落地的正确姿势</strong>（不要真去解 LP）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1. 选定&quot;影子价格的代理指标&quot;：</span><br><span class="line">   λ_gpu   ← GPU 利用率 / 队列长度 / 拒绝率</span><br><span class="line">   λ_mem   ← KV cache 占用率</span><br><span class="line">   λ_net   ← 出口带宽利用率</span><br><span class="line"></span><br><span class="line">2. 把这些指标聚合成&quot;拥塞分数&quot; c(t)（0–1）</span><br><span class="line"></span><br><span class="line">3. 用 c(t) 驱动三类决策（按激进程度）：</span><br><span class="line">   a) 调度：c 高时优先服务高优先级（不改价格）  ← 默认</span><br><span class="line">   b) 配额：c 持续高时降低低优先级客户的速率上限</span><br><span class="line">   c) 价格：只在批量/非实时产品上做分时定价</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键洞察：调度、配额、价格，是同一件事的三种实现。</strong> 选哪个取决于”客户能接受哪种形式的不公平”。</p>
+<h3 id="4-2-收益管理：把航空业的方法搬过来"><a href="#4-2-收益管理：把航空业的方法搬过来" class="headerlink" title="4.2 收益管理：把航空业的方法搬过来"></a>4.2 收益管理：把航空业的方法搬过来</h3><p><strong>收益管理（Revenue Management / Yield Management）</strong> 是航空、酒店的经典方法，它解决的问题与 AI 服务高度同构：</p>
+<table>
+<thead>
+<tr>
+<th>航空</th>
+<th>AI 推理服务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>同样的座位，卖给不同乘客价格不同</td>
+<td>同样的 GPU 时间，卖给不同客户价格不同</td>
+</tr>
+<tr>
+<td>座位是易腐库存（起飞就浪费）</td>
+<td>GPU 时间是易腐库存（空闲就浪费）</td>
+</tr>
+<tr>
+<td>提前购票便宜、临时购票贵</td>
+<td>批量/可延迟任务便宜、实时任务贵</td>
+</tr>
+<tr>
+<td>超售（overbooking）对冲 no-show</td>
+<td>超卖配额（oversubscription）对冲低使用率</td>
+</tr>
+</tbody></table>
+<p><strong>三个可直接借用的工具</strong>：</p>
+<p><strong>① Littlewood 规则（两舱位容量分配）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">接受低价客户的条件：p_low ≥ p_high × P(需求_high &gt; 剩余容量)</span><br></pre></td></tr></table></figure>
+
+<p><strong>搬到 AI 上</strong>：是否接受一个低优先级（低毛利）的批量任务，占用了本可能留给实时高价值客户的容量？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">接受条件：p_batch ≥ p_realtime × P(高峰期实时需求 &gt; 剩余容量)</span><br></pre></td></tr></table></figure>
+
+<p><strong>这个规则的价值</strong>：它给出了”什么时候该拒绝生意”的量化标准。很多团队不敢拒绝低毛利订单，结果高峰期被低价值任务占满。</p>
+<p><strong>② EMSR-b（多舱位保护水平）</strong></p>
+<p>多档优先级（如 3 档 QoS）时，如何给每档预留容量。核心是”保护水平”（protection level）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">保护水平_k = 满足 k 档及以上需求的容量</span><br></pre></td></tr></table></figure>
+
+<p><strong>搬到 AI 上</strong>：为高优先级客户预留多少 GPU。<strong>预留太多 → 低峰期浪费；预留太少 → 高峰期高价值客户排队。</strong></p>
+<p><strong>③ 动态规划/随机规划求最优策略</strong></p>
+<p>当需求分布已知（可从历史数据估计）时，可以用 DP 求”每个时间点该接受什么价格的需求”。<strong>这在批量推理产品上有实用价值</strong>（因为延迟容忍度高，可以真正做”接单/拒单”决策）。</p>
+<h3 id="4-3-拥塞定价与优先级定价"><a href="#4-3-拥塞定价与优先级定价" class="headerlink" title="4.3 拥塞定价与优先级定价"></a>4.3 拥塞定价与优先级定价</h3><p><strong>拥塞定价（congestion pricing）</strong>：当系统接近饱和时，提高价格以抑制需求。</p>
+<p><strong>它的理论最优形式</strong>（Mendelson-Whang 型模型）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">总福利 = 用户价值 − 拥塞成本（延迟）</span><br><span class="line">最优价格 = 边际拥塞外部性</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键点</strong>：<code>价格</code> 应该等于”你的请求给别人造成的延迟成本”。这是<strong>庇古税（Pigouvian tax）</strong>的思路。</p>
+<p><strong>但在 AI 服务上，直接做拥塞定价有三个问题</strong>：</p>
+<ol>
+<li>需求刚性（客户不能因为贵就不调用）；</li>
+<li>公平性感知差；</li>
+<li>价格波动破坏预算。</li>
+</ol>
+<p>**所以更实用的形态是”优先级定价”**：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">客户从菜单中选择优先级（而不是被动态定价）：</span><br><span class="line">  标准档：$X / 百万 token，P95 延迟 2s，可能排队</span><br><span class="line">  优先档：$2X / 百万 token，P95 延迟 500ms，优先调度</span><br><span class="line">  </span><br><span class="line">机制：优先档的请求在调度器里有更高的权重</span><br></pre></td></tr></table></figure>
+
+<p><strong>这个设计的三个优点</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>机制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>自选择</strong></td>
+<td>急的客户自愿付溢价，不急的客户省钱</td>
+</tr>
+<tr>
+<td><strong>效率</strong></td>
+<td>高价值请求优先获得资源（社会总福利更高）</td>
+</tr>
+<tr>
+<td><strong>公平感</strong></td>
+<td>客户买的是”更快的服务”，不是”被加价”</td>
+</tr>
+</tbody></table>
+<p><strong>这正是 2.5 节说的”QoS 分层是价格歧视最优雅的实现”。</strong></p>
+<h3 id="4-4-Bandit-做价格实验"><a href="#4-4-Bandit-做价格实验" class="headerlink" title="4.4 Bandit 做价格实验"></a>4.4 Bandit 做价格实验</h3><p><strong>定价实验的困难</strong>：不能像推荐那样大规模 A/B（价格变动会被客户看到，且不能对不同客户显示不同价——法律与公平性问题）。</p>
+<p><strong>可行的做法</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>应用</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>地理/账户分层 A/B</strong></td>
+<td>不同区域/新客户用不同价格表</td>
+<td>避免”同客户看到不同价”</td>
+</tr>
+<tr>
+<td><strong>Contextual Bandit</strong></td>
+<td>对新客户动态选”首购折扣”</td>
+<td>只用于促销，不用于基础定价</td>
+</tr>
+<tr>
+<td><strong>需求曲线估计</strong></td>
+<td>从历史数据拟合”价格-用量”弹性</td>
+<td>需要价格变动历史（自然实验）</td>
+</tr>
+<tr>
+<td><strong>联合测价（conjoint）</strong></td>
+<td>调研”你愿意为 X 付多少”</td>
+<td>偏差大，只做方向参考</td>
+</tr>
+</tbody></table>
+<p><strong>一个现实提示</strong>：<strong>基础价格几乎不能做 bandit 实验</strong>（因为价格是公开的、客户会交流），但<strong>折扣/优惠券/首购激励可以</strong>。所以 bandit 的正确用法是”促销优化”，不是”定价优化”。</p>
+<h3 id="4-5-机制设计的边界：什么是”好”的定价机制"><a href="#4-5-机制设计的边界：什么是”好”的定价机制" class="headerlink" title="4.5 机制设计的边界：什么是”好”的定价机制"></a>4.5 机制设计的边界：什么是”好”的定价机制</h3><p>一个”好”的定价机制（在机制设计意义上）应该满足：</p>
+<table>
+<thead>
+<tr>
+<th>性质</th>
+<th>含义</th>
+<th>在 AI 定价里是否容易满足</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>激励相容（IC）</strong></td>
+<td>客户说真话最优</td>
+<td>⚠️ 难（客户会低报用量以获折扣）</td>
+</tr>
+<tr>
+<td><strong>个体理性（IR）</strong></td>
+<td>参与不亏</td>
+<td>✅ 易（价格低于价值即可）</td>
+</tr>
+<tr>
+<td><strong>预算平衡</strong></td>
+<td>平台不补贴</td>
+<td>✅ 易</td>
+</tr>
+<tr>
+<td><strong>无嫉妒（envy-free）</strong></td>
+<td>没人想换别人的套餐</td>
+<td>⚠️ 难（大客户折扣会引发小客户不满）</td>
+</tr>
+<tr>
+<td><strong>可计算</strong></td>
+<td>能实时定价</td>
+<td>✅ 易（影子价格可用近似）</td>
+</tr>
+</tbody></table>
+<p><strong>实践上最需要关注的是”无嫉妒”**：</strong>大客户折扣是必给的，但必须”可解释”**（”因为承诺量，所以单价低”），否则小客户会觉得被不公平对待。</p>
+<p><strong>设计建议</strong>：把折扣<strong>绑定到义务</strong>（承诺量、预付、长约），而不是绑定到”客户规模”。这样折扣就是”用确定性换价格”，逻辑上站得住。</p>
+<hr>
+<h2 id="5-成本测算：这一节决定你的定价有没有地基"><a href="#5-成本测算：这一节决定你的定价有没有地基" class="headerlink" title="5. 成本测算：这一节决定你的定价有没有地基"></a>5. 成本测算：这一节决定你的定价有没有地基</h2><p>前面讲了很多经济学，但<strong>如果单位成本算错，所有定价都是错的</strong>。而 AI 服务的单位成本极其难算——这是我认为最被低估的工程问题。</p>
+<h3 id="5-1-完整成本模型"><a href="#5-1-完整成本模型" class="headerlink" title="5.1 完整成本模型"></a>5.1 完整成本模型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">月总成本 = </span><br><span class="line">    GPU 成本（自有：折旧 + 电费 + 机房；租用：租金）</span><br><span class="line">  + 网络成本（出口带宽、跨区传输）</span><br><span class="line">  + 存储成本（模型权重、日志、缓存）</span><br><span class="line">  + 平台成本（调度、监控、网关的服务器）</span><br><span class="line">  + 人力成本（研发、运维、支持）</span><br><span class="line">  + 分摊的研发摊销</span><br></pre></td></tr></table></figure>
+
+<p><strong>分层归因</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>内容</th>
+<th>归因方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>直接成本</strong></td>
+<td>该请求消耗的 GPU 时间</td>
+<td>可精确计量</td>
+</tr>
+<tr>
+<td><strong>半直接成本</strong></td>
+<td>该请求占用的 KV cache（影响别人）</td>
+<td>需建模</td>
+</tr>
+<tr>
+<td><strong>间接成本</strong></td>
+<td>平台、人力、研发</td>
+<td>按用量或收入分摊</td>
+</tr>
+</tbody></table>
+<p><strong>关键：不要在间接成本上纠结精确性。</strong> 分摊方法的差异（按 GPU 秒、按 token、按收入）会导致单位成本差 20–30%，但这部分<strong>不是定价的主要矛盾</strong>——主要矛盾在直接成本和半直接成本。</p>
+<h3 id="5-2-单位成本的核心公式"><a href="#5-2-单位成本的核心公式" class="headerlink" title="5.2 单位成本的核心公式"></a>5.2 单位成本的核心公式</h3><p>这是本文最”可执行”的部分。给出可复算的框架：</p>
+<p><strong>Step 1：算 GPU 小时成本</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C_gpu_hour = (卡价 / 折旧年限 / 8760) + 功耗 × 电价 + 机房分摊</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例（单卡，数量级示意）</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">卡价 25 万元，折旧 3 年 → 25万 / 3 / 8760 ≈ 9.5 元/小时</span><br><span class="line">功耗 0.7 kW × 电价 0.6 元/kWh ≈ 0.42 元/小时</span><br><span class="line">机房 + 网络分摊 ≈ 0.5 元/小时</span><br><span class="line">→ C_gpu_hour ≈ 10.4 元/小时</span><br></pre></td></tr></table></figure>
+
+<p><strong>租用等价</strong>：如果是租云，单卡 H100 级实例的公开价格在几十元/小时量级（<strong>具体价格波动大，务必自行核实</strong>）。</p>
+<p><strong>Step 2：算有效吞吐</strong></p>
+<p>这是最容易出错的一步。**不要用”峰值吞吐”，要用”生产环境实测吞吐”**：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">有效吞吐(tokens/s) = </span><br><span class="line">    单卡批次吞吐 × 卡数 × 并行效率 × 有效利用率</span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<ul>
+<li><strong>单卡批次吞吐</strong>：在目标 batch size 和序列长度分布下实测（不是理论峰值）；</li>
+<li><strong>并行效率</strong>：张量并行的通信开销，通常 0.7–0.9；</li>
+<li><strong>有效利用率</strong>：请求间隔、扩缩容、故障、测试流量——<strong>这是最被高估的一项</strong>，生产环境常只有 40–70%。</li>
+</ul>
+<p><strong>Step 3：算单位成本</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">成本 / 百万 token = (C_gpu_hour / 3600) / 有效吞吐 × 1e6</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例（假设）</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C_gpu_hour = 10.4 元</span><br><span class="line">有效吞吐 = 1500 tokens/s（单卡，70B 级模型，含批处理）</span><br><span class="line">→ 成本 = (10.4/3600) / 1500 × 1e6 ≈ 1.93 元 / 百万 token</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意这个数字的含义</strong>：它是<strong>纯推理成本</strong>，不含研发、平台、销售、毛利。加上这些后，实际成本可能是它的 2–3 倍。</p>
+<h3 id="5-3-三个必须单独建模的成本项"><a href="#5-3-三个必须单独建模的成本项" class="headerlink" title="5.3 三个必须单独建模的成本项"></a>5.3 三个必须单独建模的成本项</h3><p><strong>① Prefill 与 Decode 的成本比</strong></p>
+<p>两者成本结构不同（见 2.3），所以：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">成本 = a × input_tokens + b × output_tokens</span><br></pre></td></tr></table></figure>
+
+<p><code>a/b</code> 的比值取决于：</p>
+<ul>
+<li>模型大小（越大差距越明显）；</li>
+<li>batch 能力（prefill 更容易批处理）；</li>
+<li>硬件（算力/带宽比）。</li>
+</ul>
+<p><strong>经验上 <code>b/a ≈ 3–5</code>**（</strong>这是量级，需自测<strong>）。</strong>这就是”output token 比 input 贵 3–5 倍”的技术依据**——如果你定成 1:1，你就在补贴 output 密集型的客户（长文生成、代码生成）。</p>
+<p><strong>② KV cache 的”占位成本”</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">KV_cache_bytes = 2 × layers × kv_heads × head_dim × dtype_bytes × seq_len</span><br></pre></td></tr></table></figure>
+
+<p><strong>它对成本的影响是间接的</strong>：占用显存 → 降低可用 batch → 降低吞吐。</p>
+<p><strong>量化方式</strong>：算”每 GB 显存小时的成本”，然后按请求占用的 KV cache GB 数 × 时长计费。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C_kv = C_gpu_hour / 显存容量(GB) × KV_cache_GB × 时长(小时)</span><br></pre></td></tr></table></figure>
+
+<p>**这就是为什么需要”上下文长度附加费”或”prompt caching 折扣”**——不是营销，是纠正分摊。</p>
+<p><strong>③ 重试与失败的成本</strong></p>
+<p>一个失败重试的请求，<strong>成本是双份的</strong>（第一次也消耗了算力）。如果失败率 5%，实际成本比”成功请求成本”高 5%。</p>
+<p><strong>如果按”成功请求”计费</strong>，你就在承担失败的成本。<strong>这是定价时必须计入的隐性成本项。</strong></p>
+<h3 id="5-4-一个自查清单"><a href="#5-4-一个自查清单" class="headerlink" title="5.4 一个自查清单"></a>5.4 一个自查清单</h3><p>在定价上线前，逐条确认：</p>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>不做的后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单位成本是否基于<strong>生产实测吞吐</strong>而非理论峰值？</td>
+<td>严重低估成本（常见 2–3 倍偏差）</td>
+</tr>
+<tr>
+<td>是否单独测了 <strong>prefill / decode / KV cache</strong> 三项？</td>
+<td>输入输出定同价 → 结构性补贴</td>
+</tr>
+<tr>
+<td>是否计入了<strong>有效利用率</strong>（不是 100%）？</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>是否计入了<strong>重试成本</strong>和<strong>空闲资源</strong>？</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>是否用<strong>峰值负载</strong>验证过容量规划？</td>
+<td>高峰期雪崩</td>
+</tr>
+<tr>
+<td>是否算了<strong>P95/P99 用户</strong>的成本（不是平均）？</td>
+<td>flat rate 被重度用户吃穿</td>
+</tr>
+<tr>
+<td>是否算过<strong>毛利敏感性</strong>（利用率 ±20% 时毛利变化）？</td>
+<td>利用率一波动就亏损</td>
+</tr>
+</tbody></table>
+<p><strong>最后一条最重要</strong>：<strong>做一次敏感性分析</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">利用率  40% → 单位成本 2.4×基准</span><br><span class="line">利用率  60% → 1.6×</span><br><span class="line">利用率  80% → 1.2×</span><br><span class="line">利用率 100% → 1.0×</span><br></pre></td></tr></table></figure>
+
+<p><strong>如果你的价格在利用率 60% 时毛利 50%，那么在利用率 40% 时毛利就是负的。</strong> 这个信息比”定价多少”重要得多。</p>
+<hr>
+<h2 id="6-落地难点：五个真实的坑"><a href="#6-落地难点：五个真实的坑" class="headerlink" title="6. 落地难点：五个真实的坑"></a>6. 落地难点：五个真实的坑</h2><h3 id="6-1-坑一：用户感知——“为什么这次扣了-1-200-token？”"><a href="#6-1-坑一：用户感知——“为什么这次扣了-1-200-token？”" class="headerlink" title="6.1 坑一：用户感知——“为什么这次扣了 1,200 token？”"></a>6.1 坑一：用户感知——“为什么这次扣了 1,200 token？”</h3><p><strong>问题本质</strong>：AI 的计量单位对客户不透明，且<strong>不可直观验证</strong>。</p>
+<p>传统云计费，客户能理解”我开了一台 4 核 8G 的机器，跑了一小时”。但 token 计费：</p>
+<ul>
+<li>客户不知道 tokenizer 怎么切（”你好”是 1 个还是 2 个 token？）；</li>
+<li>客户不知道 system prompt 和对话历史也算钱；</li>
+<li>客户无法预估”我这个需求大概要多少 token”。</li>
+</ul>
+<p><strong>后果</strong>：<strong>计量焦虑 → 使用保守 → 产品价值无法实现 → 续约率低。</strong></p>
+<p><strong>解法（按有效性排序）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>解法</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>实时 usage 回显</strong>（每次响应带 usage 明细）</td>
+<td>高（透明度直接降低焦虑）</td>
+</tr>
+<tr>
+<td><strong>预算与告警</strong>（设月度上限、80% 提醒）</td>
+<td>高（把”不可控”变”可控”）</td>
+</tr>
+<tr>
+<td><strong>费用预估器</strong>（输入 prompt 就估出成本）</td>
+<td>中高（降低试错成本）</td>
+</tr>
+<tr>
+<td><strong>包月额度 + 超额提示</strong></td>
+<td>中（把波动变成可预期）</td>
+</tr>
+<tr>
+<td><strong>成本解释文档</strong>（为什么 output 比 input 贵）</td>
+<td>中（教育客户）</td>
+</tr>
+</tbody></table>
+<p><strong>一个反直觉的结论</strong>：<strong>计费越透明，客户用得越多。</strong> 很多团队怕”透明会让客户觉得贵”，实际相反——<strong>不透明才让客户保守</strong>。</p>
+<h3 id="6-2-坑二：算力成本波动——成本基准在漂移"><a href="#6-2-坑二：算力成本波动——成本基准在漂移" class="headerlink" title="6.2 坑二：算力成本波动——成本基准在漂移"></a>6.2 坑二：算力成本波动——成本基准在漂移</h3><p><strong>三个波动源</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>源</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>硬件价格波动</strong>（GPU 供需）</td>
+<td>自有集群的折旧假设失效；租用的价格随行就市</td>
+</tr>
+<tr>
+<td><strong>电价波动</strong>（分时电价、区域差异）</td>
+<td>训练/批量推理可以迁移，在线服务不行</td>
+</tr>
+<tr>
+<td><strong>技术迭代</strong>（量化、新 kernel、新硬件）</td>
+<td>单位成本可能一年降 2–5 倍</td>
+</tr>
+</tbody></table>
+<p><strong>后果</strong>：<strong>定价的”成本地基”每季度都在变。</strong></p>
+<p><strong>应对</strong>：</p>
+<ol>
+<li><strong>成本基准定期重算</strong>（建议每季度），并记录历史（用于解释”为什么降价”）；</li>
+<li><strong>价格与成本解耦</strong>：定价基于”目标毛利率”而非”绝对成本”，这样成本降了毛利自动上升（可选择性让利）；</li>
+<li><strong>不要用”最新最优成本”定价</strong>。如果你按”最好情况（90% 利用率 + 最优 batch）”定价，一旦实际利用率掉到 50%，就亏损。<strong>用”可持续达到的成本”定价。</strong></li>
+</ol>
+<h3 id="6-3-坑三：逆向选择与”用量异常”"><a href="#6-3-坑三：逆向选择与”用量异常”" class="headerlink" title="6.3 坑三：逆向选择与”用量异常”"></a>6.3 坑三：逆向选择与”用量异常”</h3><p><strong>AI 服务有一个传统 SaaS 没有的问题：单个客户可以消耗任意多的资源。</strong></p>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>机制</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>重度用户聚集</strong></td>
+<td>flat rate 吸引高频用户</td>
+<td>毛利被吃穿</td>
+</tr>
+<tr>
+<td><strong>批量任务混入在线</strong></td>
+<td>在线 API 被用来跑离线批处理</td>
+<td>高峰期资源被占</td>
+</tr>
+<tr>
+<td><strong>滥用与转售</strong></td>
+<td>一个 API key 被多人共享/转卖</td>
+<td>用量失控、无法归因</td>
+</tr>
+<tr>
+<td><strong>长上下文滥用</strong></td>
+<td>每请求塞满 128K 上下文</td>
+<td>KV cache 被占满</td>
+</tr>
+</tbody></table>
+<p><strong>应对（组合拳）</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 速率限制（RPM / TPM）+ 并发上限</span><br><span class="line">2. 分级配额（不同套餐不同上限）</span><br><span class="line">3. 异常检测（用量突增告警、行为模式识别）</span><br><span class="line">4. 上下文长度附加费（让滥用者付费）</span><br><span class="line">5. 公平使用条款（法律兜底）</span><br></pre></td></tr></table></figure>
+
+<p><strong>第 4 条最关键</strong>：<strong>不要用”禁止”来解决滥用，用”定价”来解决。</strong> 长上下文是合理需求，只是成本高——收费即可，不要封禁。</p>
+<h3 id="6-4-坑四：客户预算流程与价格变动"><a href="#6-4-坑四：客户预算流程与价格变动" class="headerlink" title="6.4 坑四：客户预算流程与价格变动"></a>6.4 坑四：客户预算流程与价格变动</h3><p><strong>企业客户的现实</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">年度预算 → 采购审批 → 合同 → 执行</span><br></pre></td></tr></table></figure>
+
+<p><strong>这意味着</strong>：</p>
+<ul>
+<li><strong>价格变动需要重新走审批</strong>（半年周期）；</li>
+<li><strong>不可预测的账单会被财务拒绝</strong>（这比”贵”更致命）；</li>
+<li><strong>价格上调几乎不可能</strong>（要走新一轮谈判）。</li>
+</ul>
+<p><strong>所以对企业客户，”价格稳定”比”价格低”更重要。</strong></p>
+<p><strong>应对</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>做法</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>年度价格锁定</strong>（合同期内不涨价）</td>
+<td>高（符合采购流程）</td>
+</tr>
+<tr>
+<td><strong>用量上限保护</strong>（超过上限需另行审批，不自动扣费）</td>
+<td>高（避免账单失控）</td>
+</tr>
+<tr>
+<td><strong>价格调整提前 90 天通知</strong></td>
+<td>中（给客户留预算调整时间）</td>
+</tr>
+<tr>
+<td><strong>老客户价格保护</strong></td>
+<td>高（避免”新人便宜老人贵”的反弹）</td>
+</tr>
+</tbody></table>
+<p><strong>最后一条特别重要</strong>：<strong>涨价时给老客户豁免期</strong>（如”老客户 12 个月内按原价”）。这不是慈善，是<strong>避免口碑崩塌</strong>——AI 服务的客户获取成本很高，流失一个老客户的代价远超短期涨价收益。</p>
+<h3 id="6-5-坑五：定价与产品的耦合——定价会塑造产品"><a href="#6-5-坑五：定价与产品的耦合——定价会塑造产品" class="headerlink" title="6.5 坑五：定价与产品的耦合——定价会塑造产品"></a>6.5 坑五：定价与产品的耦合——定价会塑造产品</h3><p><strong>这是最容易被忽视的</strong>：<strong>你按什么收费，产品就会朝那个方向优化。</strong></p>
+<table>
+<thead>
+<tr>
+<th>计价单位</th>
+<th>产品会优化什么</th>
+<th>副作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>按 token</strong></td>
+<td>输出更短、更简洁</td>
+<td>可能牺牲完整性（该解释的不解释）</td>
+</tr>
+<tr>
+<td><strong>按请求次数</strong></td>
+<td>一次请求做更多事（合并）</td>
+<td>响应变慢、单次失败率上升</td>
+</tr>
+<tr>
+<td><strong>按席位</strong></td>
+<td>鼓励更多人使用</td>
+<td>资源消耗不受控</td>
+</tr>
+<tr>
+<td><strong>按结果</strong></td>
+<td>优化”可被计量的结果”</td>
+<td>忽视不可计量的价值（如用户满意度）</td>
+</tr>
+<tr>
+<td><strong>按时间（订阅）</strong></td>
+<td>提高留存</td>
+<td>不关心用量效率</td>
+</tr>
+</tbody></table>
+<p><strong>举例说明</strong>：如果按 token 计费，模型会倾向于输出简短答案（因为客户会抱怨”这么点内容扣这么多”）；如果按请求计费，模型会倾向于”一次给全部信息”（哪怕冗长）。</p>
+<p><strong>这意味着</strong>：<strong>定价决策同时是产品决策。</strong> 在定计价单位时，要问：”这个单位会让我们优化什么？那个优化方向是我们想要的吗？”</p>
+<h3 id="6-6-补充：一个”法律与合规”的坑"><a href="#6-6-补充：一个”法律与合规”的坑" class="headerlink" title="6.6 补充：一个”法律与合规”的坑"></a>6.6 补充：一个”法律与合规”的坑</h3><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>价格歧视的边界</strong></td>
+<td>同产品对不同客户不同价，在 B2B 通常合法（量大优惠），但要避免”无正当理由的差别待遇”</td>
+</tr>
+<tr>
+<td><strong>自动续费</strong></td>
+<td>多地有强制规定（提前提醒、便捷取消）</td>
+</tr>
+<tr>
+<td><strong>用量计量的争议</strong></td>
+<td>合同里要定义”计量口径”（tokenizer 版本变化会影响计数）</td>
+</tr>
+<tr>
+<td><strong>SLA 与赔偿</strong></td>
+<td>承诺可用性就要定义赔偿（通常是服务抵扣，不是现金）</td>
+</tr>
+<tr>
+<td><strong>数据用于训练</strong></td>
+<td>如果合同允许用客户数据训练，”免费额度换数据”要显式约定</td>
+</tr>
+</tbody></table>
+<p><strong>最后一条在 AI 服务里特别常见</strong>（”免费版”换数据），<strong>必须显式写清</strong>，否则一旦客户发现会引发严重信任危机。</p>
+<hr>
+<h2 id="7-场景选型：三类典型场景的定价骨架"><a href="#7-场景选型：三类典型场景的定价骨架" class="headerlink" title="7. 场景选型：三类典型场景的定价骨架"></a>7. 场景选型：三类典型场景的定价骨架</h2><h3 id="7-1-场景一：大模型-API-服务（MaaS）"><a href="#7-1-场景一：大模型-API-服务（MaaS）" class="headerlink" title="7.1 场景一：大模型 API 服务（MaaS）"></a>7.1 场景一：大模型 API 服务（MaaS）</h3><p><strong>特征</strong>：客户是开发者、用量波动大、竞品多、价格透明、切换成本低。</p>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>计价单位</strong></td>
+<td>input token / output token 分开计（比值 3–5×），<strong>加缓存命中折扣</strong></td>
+</tr>
+<tr>
+<td><strong>价格结构</strong></td>
+<td>按量为主 + 承诺用量折扣（两部制）</td>
+</tr>
+<tr>
+<td><strong>QoS 分层</strong></td>
+<td>标准 / 优先（用队列优先级实现，不用价格波动）</td>
+</tr>
+<tr>
+<td><strong>免费层</strong></td>
+<td>有（获取开发者），但<strong>严格限速</strong>（限速比限量更能筛出真实用户）</td>
+</tr>
+<tr>
+<td><strong>长上下文</strong></td>
+<td>分段计价或附加费（反映 KV cache 成本）</td>
+</tr>
+<tr>
+<td><strong>定价逻辑</strong></td>
+<td>竞争导向为主（市场透明），成本导向做下限</td>
+</tr>
+</tbody></table>
+<p><strong>关键设计</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">基础表：</span><br><span class="line">  输入 $A / 百万 token（缓存命中 $0.1A）</span><br><span class="line">  输出 $3.5A / 百万 token</span><br><span class="line">  &gt; 32K 上下文：该请求 2× 计费</span><br><span class="line"></span><br><span class="line">企业档：</span><br><span class="line">  年承诺 $X → 单价 0.7×，含 SLA 99.9% + 优先队列</span><br></pre></td></tr></table></figure>
+
+<p><strong>为什么”缓存命中折扣”是必须的</strong>：不做折扣，等于对”重复的 system prompt”重复收费，客户会觉得被坑；做了折扣，客户会主动优化 prompt 结构（对你也是好事——降低你的 KV cache 压力）。</p>
+<h3 id="7-2-场景二：推理云服务（GPU-即服务）"><a href="#7-2-场景二：推理云服务（GPU-即服务）" class="headerlink" title="7.2 场景二：推理云服务（GPU 即服务）"></a>7.2 场景二：推理云服务（GPU 即服务）</h3><p><strong>特征</strong>：客户是 AI 公司、需求可预测性中等、资源同质、竞争基于价格+可用性。</p>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>计价单位</strong></td>
+<td>GPU 小时（按卡型分档）</td>
+</tr>
+<tr>
+<td><strong>价格结构</strong></td>
+<td><strong>两部制是主流</strong>：按需（高价、随时停）+ 预留（低价、长约）+ 抢占（最低价、可被回收）</td>
+</tr>
+<tr>
+<td><strong>QoS 分层</strong></td>
+<td>本质就是”可用性分层”：抢占式 &lt; 按需 &lt; 预留</td>
+</tr>
+<tr>
+<td><strong>动态定价</strong></td>
+<td>抢占式实例可以做（客户接受”可能被回收”隐含的价格波动）</td>
+</tr>
+<tr>
+<td><strong>定价逻辑</strong></td>
+<td>成本导向为主（资源同质，价值差异小）</td>
+</tr>
+</tbody></table>
+<p><strong>这是五种范式里”拍卖/动态定价”唯一真正适用的场景</strong>，因为它满足第 3.6 节的三条：资源同质、价值异质（训练 vs 推理对价格敏感度不同）、需求可延迟（训练任务可以等）。</p>
+<p><strong>关键指标</strong>：<strong>利用率</strong>。推理云的毛利几乎完全由利用率决定（见 2.1）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">毛利 = 1 − (实际成本 / 收入)</span><br><span class="line">     = 1 − (C_gpu_hour × 卡数 × 8760) / (单价 × 售出卡小时)</span><br></pre></td></tr></table></figure>
+
+<p><strong>如果利用率 60%，单价必须 ≈ 成本 / 0.6 / (1−目标毛利)。</strong> 这就是为什么推理云的单价看起来”比自建贵不少”——<strong>差价里很大一部分是闲置成本</strong>。</p>
+<h3 id="7-3-场景三：企业-SaaS（AI-应用层）"><a href="#7-3-场景三：企业-SaaS（AI-应用层）" class="headerlink" title="7.3 场景三：企业 SaaS（AI 应用层）"></a>7.3 场景三：企业 SaaS（AI 应用层）</h3><p><strong>特征</strong>：客户是企业、需求相对稳定、价值可度量（业务指标）、切换成本高、销售驱动。</p>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>计价单位</strong></td>
+<td><strong>席位 + 用量混合</strong>（席位覆盖基础价值，用量覆盖边际成本）</td>
+</tr>
+<tr>
+<td><strong>价格结构</strong></td>
+<td>订阅（含额度）+ 超额按量；年付折扣</td>
+</tr>
+<tr>
+<td><strong>QoS 分层</strong></td>
+<td>按套餐分（功能 + 额度 + 支持等级）</td>
+</tr>
+<tr>
+<td><strong>定价逻辑</strong></td>
+<td><strong>价值导向为主</strong>（用替代成本定锚）</td>
+</tr>
+<tr>
+<td><strong>结果分成</strong></td>
+<td>可选，但只用于”能明确定义结果”的场景</td>
+</tr>
+</tbody></table>
+<p><strong>为什么企业 SaaS 不适合纯按量</strong>：</p>
+<ul>
+<li>企业要<strong>可预测预算</strong>（见 6.4）；</li>
+<li>企业采购流程**不接受”用量不确定”**的合同；</li>
+<li>纯按量会让客户<strong>用得保守</strong>（不敢试），反而抑制价值实现。</li>
+</ul>
+<p><strong>推荐的混合结构</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">基础订阅：$X/月，含 N 个席位 + M 次 AI 调用</span><br><span class="line">  超出席位：$Y/席位/月</span><br><span class="line">  超出调用：$Z/千次（阶梯递减）</span><br><span class="line">  年付：8.5 折</span><br></pre></td></tr></table></figure>
+
+<p><strong>这个结构的好处</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>席位费</td>
+<td>覆盖固定成本、可预测、符合企业采购习惯</td>
+</tr>
+<tr>
+<td>含额度</td>
+<td>让客户敢用（”已经付了”）</td>
+</tr>
+<tr>
+<td>超额按量</td>
+<td>覆盖重度用户的边际成本，防止逆向选择</td>
+</tr>
+</tbody></table>
+<h3 id="7-4-三类场景对照"><a href="#7-4-三类场景对照" class="headerlink" title="7.4 三类场景对照"></a>7.4 三类场景对照</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>MaaS（API）</th>
+<th>推理云</th>
+<th>企业 SaaS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主要计价单位</td>
+<td>token</td>
+<td>GPU 小时</td>
+<td>席位 + 调用</td>
+</tr>
+<tr>
+<td>主导定价逻辑</td>
+<td>竞争</td>
+<td>成本</td>
+<td>价值</td>
+</tr>
+<tr>
+<td>价格透明度</td>
+<td>极高</td>
+<td>高</td>
+<td>低（一客一价）</td>
+</tr>
+<tr>
+<td>动态定价可行性</td>
+<td>低</td>
+<td><strong>高（抢占式）</strong></td>
+<td>极低</td>
+</tr>
+<tr>
+<td>主要风险</td>
+<td>价格战</td>
+<td><strong>利用率</strong></td>
+<td>逆向选择 + 预算流程</td>
+</tr>
+<tr>
+<td>最关键的动作</td>
+<td>计量透明度</td>
+<td>容量规划</td>
+<td>套餐设计</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="8-小结"><a href="#8-小结" class="headerlink" title="8. 小结"></a>8. 小结</h2><ol>
+<li><strong>定价要分三层看</strong>：计价单位（L1）、价格结构（L2）、分配机制（L3）。<strong>AI 服务的难点在 L3，但大多数讨论停在 L1。</strong></li>
+<li><strong>L3 决定 L1 的成本基数。</strong> 如果你的集群利用率只有 30%，按 token 分摊成本算出的单价会高得离谱——<strong>这不是定价问题，是利用率问题。</strong></li>
+<li><strong>成本导向在 AI 服务上只能当”下限”，不能当”公式”。</strong> 因为单位成本是利用率的函数（同一批卡，吞吐可差 3–5 倍），且成本导向在产能受限时不提供分配机制。</li>
+<li><strong>容量约束下，边际成本 = 影子价格。</strong> 利用率低时 ≈ 0，利用率高时 = 被挤掉请求的价值。<strong>这是”动态定价”的严格理论依据</strong>，也是为什么”高峰期拿不到卡”是价格失灵的表现。</li>
+<li><strong>运维指标就是影子价格的观测量。</strong> 队列长度、显存占用、拒绝率——当它们上升，说明价格相对稀缺度偏低。<strong>你不需要解 LP，只需要监控这些指标。</strong></li>
+<li><strong>output token 比 input 贵 3–5 倍不是营销，是物理。</strong> Prefill 是计算密集（可批处理），Decode 是访存密集（串行）。定成 1:1 就是补贴长文生成客户。</li>
+<li><strong>长上下文有隐性成本，且被严重低估。</strong> 32K 上下文占用的显存相当于几十个 1K 请求，但按 token 统一计价只付 32 倍的钱。<strong>分段计价/prompt caching 折扣不是让利，是纠正分摊。</strong></li>
+<li><strong>QoS 分层是价格歧视最优雅的实现。</strong> 客户买的是”更快的”，不是”更贵的”，且技术上真实存在成本差异。<strong>这比直接涨价好得多。</strong></li>
+<li><strong>动态定价在 AI API 上应实现为”优先级 + 配额”，而不是”价格波动”。</strong> 因为需求刚性、公平性感知差、客户无法做预算。<strong>对外固定价格表，对内用影子价格调度——经济学上等价，客户感知完全不同。</strong></li>
+<li><strong>两部制（固定费 + 用量）被严重低估。</strong> 它同时解决三个问题：覆盖高固定成本、让边际定价回归效率、让客户自选择。<strong>云厂商的”按需 vs 预留”就是这个。</strong></li>
+<li><strong>拍卖只适用于资源同质、价值异质、需求可延迟的场景</strong>（抢占式 GPU、批量任务）。<strong>在线 API 的每次调用不适合拍卖</strong>。</li>
+<li><strong>成本测算最容易错在”用理论峰值吞吐”而非”生产实测”。</strong> 加上有效利用率（常只有 40–70%）、重试成本、KV cache 占位后，真实成本可能是”简单估算”的 2–3 倍。</li>
+<li><strong>一定要做敏感性分析。</strong> “利用率 60% 时毛利 50%”和”利用率 40% 时毛利为负”是同一套价格 ——<strong>这个信息比”定价多少”重要。</strong></li>
+<li><strong>计费越透明，客户用得越多。</strong> 不透明不保护毛利，只会抑制使用、降低续约。</li>
+<li><strong>定价会塑造产品。</strong> 按 token 收费会让产品优化”简洁”，按请求收费会让产品优化”一次给全”。<strong>定计价单位时，要问”这会让我们优化什么”。</strong></li>
+<li><strong>对企业客户，”价格稳定”比”价格低”更重要。</strong> 因为预算流程和采购审批。年度锁价、用量上限保护、涨价提前通知、老客户豁免——这四条能避免大部分客户关系事故。</li>
+<li><strong>涨价别用涨价，用”加量”。</strong> 成本温和下降时，”价格不变但配额提升”最稳；只有成本腰斩时才必须降价。</li>
+</ol>
+<p>如果只留一句：<strong>AI 服务的定价，是把”容量稀缺的影子价格”翻译成客户能接受的形式——翻译得好是”优先级套餐”，翻译得差是”动态涨价”，不翻译就是”排队和拿不到卡”。</strong></p>
+<hr>
+<h3 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h3><p><strong>定价与收益管理理论</strong></p>
+<ul>
+<li>Pigou, <em>The Economics of Welfare</em>, 1920（价格歧视的三种类型）</li>
+<li>Varian, <em>Price Discrimination</em>, Handbook of Industrial Organization, 1989</li>
+<li>Shapiro &amp; Varian, <em>Information Rules: A Strategic Guide to the Network Economy</em>, 1999（版本划分 versioning、捆绑、锁定）</li>
+<li>Phillips, <em>Pricing and Revenue Optimization</em>, 2005（收益管理教科书：Littlewood 规则、EMSR、容量分配）</li>
+<li>Talluri &amp; van Ryzin, <em>The Theory and Practice of Revenue Management</em>, 2004</li>
+<li>Wilson, <em>Nonlinear Pricing</em>, 1993（两部制、数量折扣的理论基础）</li>
+<li>Mendelson &amp; Whang, <em>Optimal Incentive-Compatible Priority Pricing for the M/M/1 Queue</em>, Operations Research 1990（<strong>优先级定价的经典</strong>）</li>
+<li>Naor, <em>The Regulation of Queue Size by Levying Tolls</em>, Econometrica 1969（拥塞定价的起点）</li>
+<li>Maskin &amp; Riley, <em>Monopoly with Incomplete Information</em>, RAND 1984（机制设计与菜单设计）</li>
+<li>Myerson, <em>Optimal Auction Design</em>, Mathematics of Operations Research 1981</li>
+<li>Kahneman, Knetsch, Thaler, <em>Fairness as a Constraint on Profit Seeking</em>, AER 1986（<strong>涨价的不公平感知，解释了为什么动态定价在 to-B 场景受阻</strong>）</li>
+</ul>
+<p><strong>云与 AI 服务定价</strong></p>
+<ul>
+<li>Xu &amp; Li, <em>A Survey of Revenue Management for Cloud Computing</em>, 2013</li>
+<li>Mihailescu &amp; Teo, <em>Dynamic Resource Pricing on Federated Clouds</em>, 2010</li>
+<li>Ben-Yehuda et al., <em>Deconstructing Amazon EC2 Spot Instance Pricing</em>, 2013（<strong>Spot 市场的实证：价格与中断率的真实行为</strong>）</li>
+<li>Abhishek, Kash, Key, <em>Fixed and Market Pricing for Cloud Services</em>, 2012（<strong>固定价 vs 市场价的比较，与本文 3.5 的结论一致</strong>）</li>
+<li>Karp, <em>Pricing in the Cloud: Spot Instances and Beyond</em>, 2023 相关实践总结（厂商视角，非同行评议）</li>
+<li>各厂商公开定价页与用量计费文档（<strong>具体单价请自行核实，本文刻意不引用具体价格数字</strong>）</li>
+</ul>
+<p><strong>推理成本与系统</strong></p>
+<ul>
+<li>Kwon et al., <em>Efficient Memory Management for Large Language Model Serving with PagedAttention</em>（vLLM）, SOSP 2023（KV cache 管理与吞吐的关系）</li>
+<li>Yu et al., <em>Orca: A Distributed Serving System for Transformer-Based Generative Models</em>, OSDI 2022（continuous batching，解释 prefill/decode 的成本结构差异）</li>
+<li>Agrawal et al., <em>Sarathi: Efficient LLM Inference by Piggybacking Decodes with Chunked Prefills</em>, 2023（chunked prefill，长上下文对吞吐的影响）</li>
+<li>Zhong et al., <em>Distserve: Disaggregating Prefill and Decoding for Goodput-optimized LLM Serving</em>, ICLR 2024（<strong>prefill/decode 分离，是本文 2.3 与 5.3 的技术依据</strong>）</li>
+<li>Anthropic / OpenAI 关于 prompt caching 的工程说明（缓存定价的技术背景）</li>
+</ul>
+<blockquote>
+<p><strong>说明</strong>：文中所有金额、倍数（如 output/input 的 3–5 倍、有效利用率 40–70%、<code>C_gpu_hour ≈ 10 元</code>）均为<strong>量级示意与经验区间</strong>，随模型规模、硬件型号、批处理策略、地区电价、采购方式差异极大，<strong>不构成对任何厂商实际定价的陈述</strong>。用于实际决策前，请按 5.2 的公式在自有环境实测。本文刻意不引用具体厂商的单位价格，因为该数据月度变化且易误导。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/服务定价/" rel="tag"># 服务定价</a>
+              <a href="/tags/AI服务/" rel="tag"># AI服务</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/08/14/半导体产线质量数字化术语手册/" rel="prev" title="半导体产线质量数字化术语手册：从 EAP 到 APQP，以及 AI 落在哪里">
+      <i class="fa fa-chevron-left"></i> 半导体产线质量数字化术语手册：从 EAP 到 APQP，以及 AI 落在哪里
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-一个必须先建立的分解：三层定价"><span class="nav-number">2.</span> <span class="nav-text">0. 一个必须先建立的分解：三层定价</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-1-三层之间的耦合关系"><span class="nav-number">2.1.</span> <span class="nav-text">0.1 三层之间的耦合关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-三种经典定价导向，以及它们各自在哪一步失灵"><span class="nav-number">3.</span> <span class="nav-text">1. 三种经典定价导向，以及它们各自在哪一步失灵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-成本导向（Cost-Plus）"><span class="nav-number">3.1.</span> <span class="nav-text">1.1 成本导向（Cost-Plus）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-价值导向（Value-Based）"><span class="nav-number">3.2.</span> <span class="nav-text">1.2 价值导向（Value-Based）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-竞争导向（Competition-Based）"><span class="nav-number">3.3.</span> <span class="nav-text">1.3 竞争导向（Competition-Based）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-三种导向的适用位置"><span class="nav-number">3.4.</span> <span class="nav-text">1.4 三种导向的适用位置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-AI-服务的六个经济学特征"><span class="nav-number">4.</span> <span class="nav-text">2. AI 服务的六个经济学特征</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-特征一：固定成本极高，边际成本趋近-0（但只在非饱和时）"><span class="nav-number">4.1.</span> <span class="nav-text">2.1 特征一：固定成本极高，边际成本趋近 0（但只在非饱和时）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-特征二：容量硬约束下，边际成本-影子价格"><span class="nav-number">4.2.</span> <span class="nav-text">2.2 特征二：容量硬约束下，边际成本 = 影子价格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-特征三：成本随序列长度非线性变化（计价单位的技术根源）"><span class="nav-number">4.3.</span> <span class="nav-text">2.3 特征三：成本随序列长度非线性变化（计价单位的技术根源）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-特征四：资源可弹性，但弹性有延迟与不可逆性"><span class="nav-number">4.4.</span> <span class="nav-text">2.4 特征四：资源可弹性，但弹性有延迟与不可逆性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-特征五：QoS-可以分层，且分层成本很低"><span class="nav-number">4.5.</span> <span class="nav-text">2.5 特征五：QoS 可以分层，且分层成本很低</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-特征六：成本快速下降，但价格有粘性"><span class="nav-number">4.6.</span> <span class="nav-text">2.6 特征六：成本快速下降，但价格有粘性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-五种定价范式：它们的本质是三度价格歧视"><span class="nav-number">5.</span> <span class="nav-text">3. 五种定价范式：它们的本质是三度价格歧视</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-按量计费：最”公平”也最不可预测"><span class="nav-number">5.1.</span> <span class="nav-text">3.1 按量计费：最”公平”也最不可预测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-订阅：把波动风险从客户转给你"><span class="nav-number">5.2.</span> <span class="nav-text">3.2 订阅：把波动风险从客户转给你</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-阶梯定价：鼓励用量的同时保护毛利"><span class="nav-number">5.3.</span> <span class="nav-text">3.3 阶梯定价：鼓励用量的同时保护毛利</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-两部制：AI-服务最被低估的形态"><span class="nav-number">5.4.</span> <span class="nav-text">3.4 两部制：AI 服务最被低估的形态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-动态定价：理论最优，实践要极度小心"><span class="nav-number">5.5.</span> <span class="nav-text">3.5 动态定价：理论最优，实践要极度小心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-拍卖：什么时候真的需要"><span class="nav-number">5.6.</span> <span class="nav-text">3.6 拍卖：什么时候真的需要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-与推荐-分配算法的结合：定价作为优化目标"><span class="nav-number">6.</span> <span class="nav-text">4. 与推荐/分配算法的结合：定价作为优化目标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-定价与分配的联合优化（对偶视角）"><span class="nav-number">6.1.</span> <span class="nav-text">4.1 定价与分配的联合优化（对偶视角）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-收益管理：把航空业的方法搬过来"><span class="nav-number">6.2.</span> <span class="nav-text">4.2 收益管理：把航空业的方法搬过来</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-拥塞定价与优先级定价"><span class="nav-number">6.3.</span> <span class="nav-text">4.3 拥塞定价与优先级定价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-Bandit-做价格实验"><span class="nav-number">6.4.</span> <span class="nav-text">4.4 Bandit 做价格实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-机制设计的边界：什么是”好”的定价机制"><span class="nav-number">6.5.</span> <span class="nav-text">4.5 机制设计的边界：什么是”好”的定价机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-成本测算：这一节决定你的定价有没有地基"><span class="nav-number">7.</span> <span class="nav-text">5. 成本测算：这一节决定你的定价有没有地基</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-完整成本模型"><span class="nav-number">7.1.</span> <span class="nav-text">5.1 完整成本模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-单位成本的核心公式"><span class="nav-number">7.2.</span> <span class="nav-text">5.2 单位成本的核心公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-三个必须单独建模的成本项"><span class="nav-number">7.3.</span> <span class="nav-text">5.3 三个必须单独建模的成本项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-一个自查清单"><span class="nav-number">7.4.</span> <span class="nav-text">5.4 一个自查清单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-落地难点：五个真实的坑"><span class="nav-number">8.</span> <span class="nav-text">6. 落地难点：五个真实的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-坑一：用户感知——“为什么这次扣了-1-200-token？”"><span class="nav-number">8.1.</span> <span class="nav-text">6.1 坑一：用户感知——“为什么这次扣了 1,200 token？”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-坑二：算力成本波动——成本基准在漂移"><span class="nav-number">8.2.</span> <span class="nav-text">6.2 坑二：算力成本波动——成本基准在漂移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-坑三：逆向选择与”用量异常”"><span class="nav-number">8.3.</span> <span class="nav-text">6.3 坑三：逆向选择与”用量异常”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-坑四：客户预算流程与价格变动"><span class="nav-number">8.4.</span> <span class="nav-text">6.4 坑四：客户预算流程与价格变动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-坑五：定价与产品的耦合——定价会塑造产品"><span class="nav-number">8.5.</span> <span class="nav-text">6.5 坑五：定价与产品的耦合——定价会塑造产品</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-6-补充：一个”法律与合规”的坑"><span class="nav-number">8.6.</span> <span class="nav-text">6.6 补充：一个”法律与合规”的坑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-场景选型：三类典型场景的定价骨架"><span class="nav-number">9.</span> <span class="nav-text">7. 场景选型：三类典型场景的定价骨架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-场景一：大模型-API-服务（MaaS）"><span class="nav-number">9.1.</span> <span class="nav-text">7.1 场景一：大模型 API 服务（MaaS）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-场景二：推理云服务（GPU-即服务）"><span class="nav-number">9.2.</span> <span class="nav-text">7.2 场景二：推理云服务（GPU 即服务）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-场景三：企业-SaaS（AI-应用层）"><span class="nav-number">9.3.</span> <span class="nav-text">7.3 场景三：企业 SaaS（AI 应用层）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-三类场景对照"><span class="nav-number">9.4.</span> <span class="nav-text">7.4 三类场景对照</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-小结"><span class="nav-number">10.</span> <span class="nav-text">8. 小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考来源"><span class="nav-number">10.1.</span> <span class="nav-text">参考来源</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">259</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一条机器人链路里，五个模块不是”堆叠”，而是按频率和抽象层级切分的责任田。搞混频率，再强的模型也会抖。  导语具身智能的技术讨论长期被两件事占据：VLA 是不是终局、世界模型会不会取代 VLA。这两个问题之所以争不出结果，是因为大家在讨论”模型能力”，而实际系统失效的原因通常是”接口与频率“。">
+<meta name="keywords" content="VLM,VLA,世界模型,规划LLM,小脑">
+<meta property="og:type" content="article">
+<meta property="og:title" content="具身智能的完整模型栈：VLM、VLA、世界模型、规划 LLM 与小脑">
+<meta property="og:url" content="https://imonce.github.io/2026/07/13/具身智能完整模型栈/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="一条机器人链路里，五个模块不是”堆叠”，而是按频率和抽象层级切分的责任田。搞混频率，再强的模型也会抖。  导语具身智能的技术讨论长期被两件事占据：VLA 是不是终局、世界模型会不会取代 VLA。这两个问题之所以争不出结果，是因为大家在讨论”模型能力”，而实际系统失效的原因通常是”接口与频率“。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2026-11-11T07:27:15.048Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="具身智能的完整模型栈：VLM、VLA、世界模型、规划 LLM 与小脑">
+<meta name="twitter:description" content="一条机器人链路里，五个模块不是”堆叠”，而是按频率和抽象层级切分的责任田。搞混频率，再强的模型也会抖。  导语具身智能的技术讨论长期被两件事占据：VLA 是不是终局、世界模型会不会取代 VLA。这两个问题之所以争不出结果，是因为大家在讨论”模型能力”，而实际系统失效的原因通常是”接口与频率“。">
+
+<link rel="canonical" href="https://imonce.github.io/2026/07/13/具身智能完整模型栈/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>具身智能的完整模型栈：VLM、VLA、世界模型、规划 LLM 与小脑 | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/13/具身智能完整模型栈/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          具身智能的完整模型栈：VLM、VLA、世界模型、规划 LLM 与小脑
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-13 13:25:26" itemprop="dateCreated datePublished" datetime="2026-07-13T13:25:26+08:00">2026-07-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:27:15" itemprop="dateModified" datetime="2026-11-11T15:27:15+08:00">2026-11-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2026/07/13/具身智能完整模型栈/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/13/具身智能完整模型栈/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>一条机器人链路里，五个模块不是”堆叠”，而是按<strong>频率</strong>和<strong>抽象层级</strong>切分的责任田。搞混频率，再强的模型也会抖。</p>
+</blockquote>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>具身智能的技术讨论长期被两件事占据：<strong>VLA 是不是终局</strong>、<strong>世界模型会不会取代 VLA</strong>。这两个问题之所以争不出结果，是因为大家在讨论”模型能力”，而实际系统失效的原因通常是”<strong>接口与频率</strong>“。</p>
+<a id="more"></a>
+<p>一个真实的人形机器人要完成”把桌上的水杯递给我”，链路上至少发生五件事，各自运行在不同的时间尺度：</p>
+<table>
+<thead>
+<tr>
+<th>发生的事</th>
+<th>频率量级</th>
+<th>谁负责</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>理解”水杯”是什么、在哪</td>
+<td>0.5–2 Hz</td>
+<td>VLM</td>
+</tr>
+<tr>
+<td>决定”先转身、再伸手、最后合爪”</td>
+<td>0.1–1 Hz</td>
+<td>规划 LLM</td>
+</tr>
+<tr>
+<td>生成”末端该走哪条轨迹”</td>
+<td>5–30 Hz</td>
+<td>VLA / 运动策略</td>
+</tr>
+<tr>
+<td>预判”手伸过去时杯子会不会被我碰倒”</td>
+<td>5–50 Hz</td>
+<td>世界模型</td>
+</tr>
+<tr>
+<td>算”每个关节出多少力矩、怎么保持平衡”</td>
+<td>200–1000 Hz</td>
+<td>运动小脑 / WBC</td>
+</tr>
+</tbody></table>
+<p><strong>这五件事的频率差了两个数量级。</strong> 任何试图用一个模型、一个频率通吃的方案，都会在某个环节撞墙——要么太慢（100Hz 的 VLM 不存在），要么太蠢（用 LLM 直接输出关节角）。</p>
+<p>本文按这条链路拆解五个模块：各自解决什么问题、在系统里怎么被调用、主流技术路线、以及最容易踩的坑。然后单独讲 FDE 这个被广泛误用的指标，最后给组合范式与落地判断。</p>
+<blockquote>
+<p><strong>时效性</strong>：模型清单与公开数据核对于 2026-11-11。具身领域迭代极快，具体版本号请以官方仓库为准；凡引用二手汇总的数字均标注来源。</p>
+</blockquote>
+<hr>
+<h2 id="0-全景：五个模块的责任边界"><a href="#0-全景：五个模块的责任边界" class="headerlink" title="0. 全景：五个模块的责任边界"></a>0. 全景：五个模块的责任边界</h2><h3 id="0-1-一张分层图"><a href="#0-1-一张分层图" class="headerlink" title="0.1 一张分层图"></a>0.1 一张分层图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">┌──────────────────────────────────────────────────────────────┐</span><br><span class="line">│  L4  任务规划层（0.1–1 Hz）                                  │</span><br><span class="line">│      规划 LLM：自然语言指令 → 技能序列（符号 / 代码）        │</span><br><span class="line">│      输入：用户指令 + 场景摘要 + 技能库(capability model)    │</span><br><span class="line">│      输出：navigate(kitchen); pick(cup); handover(user)      │</span><br><span class="line">└──────────────────────────────────────────────────────────────┘</span><br><span class="line">      ▼</span><br><span class="line">      子目标（离散、语义级）</span><br><span class="line">┌──────────────────────────────────────────────────────────────┐</span><br><span class="line">│  L3  语义感知层（0.5–10 Hz）                                 │</span><br><span class="line">│      VLM：图像 + 文本 → 开放词汇检测 / 可供性 / 空间关系     │</span><br><span class="line">│      输出：物体框、抓取点候选、affordance、场景图            │</span><br><span class="line">└──────────────────────────────────────────────────────────────┘</span><br><span class="line">      ▼</span><br><span class="line">      目标物体 + 目标位姿（3D）</span><br><span class="line">┌──────────────────────────────────────────────────────────────┐</span><br><span class="line">│  L2  动作生成层（5–30 Hz）                                   │</span><br><span class="line">│      VLA / 运动策略：观测 + 语言子目标 → 动作块(chunk)       │</span><br><span class="line">│      输出：末端位姿增量 / 关节目标序列（未来 0.5–2 s）       │</span><br><span class="line">│      ※ 世界模型旁路：rollout 预演后果（可选，延迟允许时开）  │</span><br><span class="line">└──────────────────────────────────────────────────────────────┘</span><br><span class="line">      ▼</span><br><span class="line">      参考轨迹（几何级）</span><br><span class="line">┌──────────────────────────────────────────────────────────────┐</span><br><span class="line">│  L1  运动控制层（200–1000 Hz）                               │</span><br><span class="line">│      小脑：WBC / MPC / 阻抗控制 / 全身平衡                   │</span><br><span class="line">│      输出：关节力矩或电流指令                                │</span><br><span class="line">└──────────────────────────────────────────────────────────────┘</span><br><span class="line">      ▼</span><br><span class="line">      力矩指令</span><br><span class="line">┌──────────────────────────────────────────────────────────────┐</span><br><span class="line">│  L0  伺服层（1–10 kHz）                                      │</span><br><span class="line">│      电机驱动器 / FOC / 编码器闭环                           │</span><br><span class="line">└──────────────────────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<h3 id="0-2-三个必须接受的设计约束"><a href="#0-2-三个必须接受的设计约束" class="headerlink" title="0.2 三个必须接受的设计约束"></a>0.2 三个必须接受的设计约束</h3><p><strong>约束一：延迟预算必须自上而下分配。</strong><br>如果整机要求”看到杯子后 300ms 内开始动”，那么 VLM 的推理预算不能超过 100ms，VLA 不能超过 50ms，剩下的留给通信和控制。<strong>先算预算，再选模型</strong>——反过来做，一定会在集成阶段发现某个模型慢了一个数量级，然后被迫降频，性能崩掉。</p>
+<p><strong>实测参考量级（4090/Orin 级硬件）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>典型延迟</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7B VLM 单帧推理</td>
+<td>30–80 ms</td>
+<td>FP16，不含图像预处理</td>
+</tr>
+<tr>
+<td>3B VLA 单次前向（出 chunk）</td>
+<td>15–40 ms</td>
+<td>flow matching 多步采样会翻倍</td>
+</tr>
+<tr>
+<td>世界模型单步 rollout</td>
+<td>10–50 ms</td>
+<td>取决于分辨率与是否像素级</td>
+</tr>
+<tr>
+<td>LLM 规划一次</td>
+<td>500 ms–5 s</td>
+<td>云端 API 更慢，本地 7B 约 1–3 s</td>
+</tr>
+<tr>
+<td>WBC 单次求解</td>
+<td>1–5 ms</td>
+<td>QP 规模 30–60 维</td>
+</tr>
+</tbody></table>
+<p><strong>约束二：抽象层级越高，频率越低，但”错一次的代价”越大。</strong><br>规划 LLM 输出错一个技能，可能整段白干；VLA 输出错一个动作，下一帧还能纠；小脑算错一次力矩，机器人就摔了。所以<strong>安全兜底必须放在最下层</strong>（力矩限幅、关节限位、碰撞检测），而不是指望上层不犯错。</p>
+<p><strong>约束三：接口的信息量要匹配下游需要。</strong><br>L4→L3 传”语义”（哪个物体），L3→L2 传”几何”（3D 位姿 + 抓取点），L2→L1 传”轨迹”（时间参数化），L1→L0 传”力矩”。<strong>任何一次跨层传递，都要问：下游真的需要这么多/这么少信息吗？</strong> 常见的两种错误：</p>
+<ul>
+<li><strong>传太多</strong>：L4 直接把整段对话历史塞给 VLA，VLA 被无关上下文干扰；</li>
+<li><strong>传太少</strong>：L3 只给一个 2D 框中心，L2 拿不到深度和朝向，抓取必然失败。</li>
+</ul>
+<h3 id="0-3-端到端-vs-分层：先破一个迷思"><a href="#0-3-端到端-vs-分层：先破一个迷思" class="headerlink" title="0.3 端到端 vs 分层：先破一个迷思"></a>0.3 端到端 vs 分层：先破一个迷思</h3><p>“端到端 VLA 会取代分层架构”是当前最流行的判断，但它混淆了两件事：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>端到端（单模型 obs→action）</th>
+<th>分层（模块化 + 接口）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>代表</td>
+<td>RT-2、π0、GR00T 的 System1+System2</td>
+<td>传统 TAMP、Code-as-Policy</td>
+</tr>
+<tr>
+<td>优势</td>
+<td>无需手工设计接口；能从数据里学到人类没写下来的策略</td>
+<td>可调试、可替换单模块、可形式化验证、长程任务稳定</td>
+</tr>
+<tr>
+<td>劣势</td>
+<td>不可解释、难以注入安全约束、长程任务易漂移、调试靠玄学</td>
+<td>接口设计成本高、模块误差累积、需要每层都强</td>
+</tr>
+<tr>
+<td>长程任务</td>
+<td>弱（compounding error）</td>
+<td>强（规划层可 re-plan）</td>
+</tr>
+<tr>
+<td>数据效率</td>
+<td>低（需要大量演示）</td>
+<td>中（可用仿真 + 少量真机）</td>
+</tr>
+</tbody></table>
+<p><strong>真实情况是两者在合流</strong>：现在的 VLA 内部其实是”分层”的（System 2 慢思考 + System 1 快反应，就是 GR00T 和 Helix 的双系统设计），而分层系统里每一层都在被神经化（规划器从 PDDL 换成 LLM、控制器从 MPC 换成学习策略）。</p>
+<p><strong>所以正确的问法不是”要不要分层”，而是”分几层、切在哪、接口传什么”。</strong> 本文按五层讲，但这个数字不是教条——小团队完全可以砍掉 L4，把技能选择写死。</p>
+<hr>
+<h2 id="1-VLM：具身的语义底座，以及它做不到的事"><a href="#1-VLM：具身的语义底座，以及它做不到的事" class="headerlink" title="1. VLM：具身的语义底座，以及它做不到的事"></a>1. VLM：具身的语义底座，以及它做不到的事</h2><h3 id="1-1-它在系统里干什么"><a href="#1-1-它在系统里干什么" class="headerlink" title="1.1 它在系统里干什么"></a>1.1 它在系统里干什么</h3><p>VLM（Vision-Language Model）在具身系统里通常<strong>不直接产生动作</strong>，它提供四类中间产物：</p>
+<table>
+<thead>
+<tr>
+<th>产物</th>
+<th>形式</th>
+<th>下游用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>开放词汇检测</strong></td>
+<td><code>[(bbox, label, score)]</code></td>
+<td>找到”红色的、有把手的杯子”——超出训练类别的物体</td>
+</tr>
+<tr>
+<td><strong>可供性（affordance）</strong></td>
+<td>抓取点热图 / 可操作区域</td>
+<td>告诉策略”从哪抓、往哪推”</td>
+</tr>
+<tr>
+<td><strong>空间关系</strong></td>
+<td>“杯子在键盘右边 15cm”</td>
+<td>规划器的符号化前提</td>
+</tr>
+<tr>
+<td><strong>任务相关推理</strong></td>
+<td>“抽屉是关的，需要先拉开”</td>
+<td>子目标生成、失败诊断</td>
+</tr>
+</tbody></table>
+<p>这三类里，<strong>开放词汇检测是最成熟、ROI 最高的</strong>。传统检测器只有固定类别表，工厂换个零件就要重训；VLM 的 zero-shot 能力让”换个物体”从”两周标注”变成”改一句 prompt”。这是 VLM 进入具身的第一推动力。</p>
+<h3 id="1-2-三种典型用法（按耦合深度排序）"><a href="#1-2-三种典型用法（按耦合深度排序）" class="headerlink" title="1.2 三种典型用法（按耦合深度排序）"></a>1.2 三种典型用法（按耦合深度排序）</h3><p><strong>用法 A：冻结的语义服务（最常见）</strong></p>
+<p>VLM 不训练，作为独立服务被调用。系统定期（1–2 Hz）查询”当前场景有哪些物体、在哪”。</p>
+<ul>
+<li>优点：解耦、可换、不影响控制回路；</li>
+<li>缺点：<strong>2D→3D 的桥接要自己做</strong>，且 VLM 的空间精度不足以直接给抓取位姿。</li>
+</ul>
+<p><strong>用法 B：作为 VLA 的视觉骨干（最主流）</strong></p>
+<p>VLM 的视觉编码器 + 语言模型作为 VLA 的初始化权重，端到端微调。π0.5、GR00T、OpenVLA 全是这条路。</p>
+<ul>
+<li>优点：共享语义先验，数据效率高（VLM 已经”认识”杯子）；</li>
+<li>缺点：微调后 VLM 的通用能力会退化（catastrophic forgetting），且推理成本高。</li>
+</ul>
+<p><strong>用法 C：作为慢系统的决策者（双系统）</strong></p>
+<p>Figure Helix 的 System 2（约 7B VLM，低频）+ System 1（约 80M 策略，200Hz）；GR00T N1 的 System 2 是 VLM、System 1 是 DiT。VLM 只负责”现在该干什么”，不负责”关节怎么动”。</p>
+<ul>
+<li>优点：把低频的重推理和高频的轻控制分开，延迟可控；</li>
+<li>缺点：两个系统的接口是信息瓶颈，System 2 的输出必须”够 System 1 用”。</li>
+</ul>
+<h3 id="1-3-关键工程：2D-到-3D-的桥"><a href="#1-3-关键工程：2D-到-3D-的桥" class="headerlink" title="1.3 关键工程：2D 到 3D 的桥"></a>1.3 关键工程：2D 到 3D 的桥</h3><p>这是 VLM 落地具身<strong>最容易翻车的地方</strong>。VLM 输出的是图像坐标，机器人需要的是世界坐标，中间要过：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">像素 (u,v) + 深度 d  →  相机坐标 (X,Y,Z)  →  (外参)  →  世界坐标</span><br></pre></td></tr></table></figure>
+
+<p>四个常见错误：</p>
+<ol>
+<li><strong>深度来源不一致</strong>：RGB-D 相机的深度图与 RGB 未对齐（时间戳或内参），导致 3D 点偏移几十厘米；</li>
+<li><strong>忽略物体朝向</strong>：只给中心点，抓取时不知道”把手朝哪”，必须补 6D pose（FoundationPose、AnyGrasp 这类）；</li>
+<li><strong>用单目深度估计代替真实深度</strong>：单目深度的<strong>尺度不确定</strong>，绝对距离误差 10%–30%，精细操作不可用；</li>
+<li><strong>标定漂移</strong>：机械臂运动导致的相机支架微变形，几小时后外参就偏了。<strong>在线手眼标定</strong>不是可选项。</li>
+</ol>
+<p><strong>一条实用建议</strong>：把 VLM 的输出<strong>只当”语义先验”**（是杯子、大概在这个区域），把</strong>精确几何交给专用的 3D 模块**（分割 + 点云配准 + 抓取检测）。让 VLM 干它擅长的事。</p>
+<h3 id="1-4-VLM-在具身里的四个硬短板"><a href="#1-4-VLM-在具身里的四个硬短板" class="headerlink" title="1.4 VLM 在具身里的四个硬短板"></a>1.4 VLM 在具身里的四个硬短板</h3><table>
+<thead>
+<tr>
+<th>短板</th>
+<th>表现</th>
+<th>为什么难修</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>空间精度差</strong></td>
+<td>“左边”分不清 10cm；给不出米级坐标</td>
+<td>VLM 训练目标是语义对齐，不是度量回归</td>
+</tr>
+<tr>
+<td><strong>无时序</strong></td>
+<td>看不见”正在倒水”这种过程状态</td>
+<td>单帧输入，缺少运动表征</td>
+</tr>
+<tr>
+<td><strong>物理常识弱</strong></td>
+<td>不知道”这个箱子太重搬不动”</td>
+<td>训练数据里没有力/质量的监督信号</td>
+</tr>
+<tr>
+<td><strong>幻觉</strong></td>
+<td>报告不存在的物体</td>
+<td>生成式目标的固有缺陷，检测头能缓解但不根治</td>
+</tr>
+</tbody></table>
+<p>工程应对：**对 VLM 的输出加”物理可行性过滤”**（工作空间裁剪、可达性检查、与点云一致性校验）。一个简单的”检测框内是否有真实点云”就能过滤掉大部分幻觉。</p>
+<h3 id="1-5-主流选择（2026）"><a href="#1-5-主流选择（2026）" class="headerlink" title="1.5 主流选择（2026）"></a>1.5 主流选择（2026）</h3><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>特点</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Qwen-VL 系列</strong></td>
+<td>中文场景强、有 3D/视频变体、开源可商用</td>
+<td>国内落地首选</td>
+</tr>
+<tr>
+<td><strong>InternVL 系列</strong></td>
+<td>检测/grounding 能力突出</td>
+<td>需要 bbox 输出的场景</td>
+</tr>
+<tr>
+<td><strong>GPT-4o / Gemini</strong></td>
+<td>通用推理最强</td>
+<td>云端规划、离线标注、评测裁判</td>
+</tr>
+<tr>
+<td><strong>RynnBrain 等具身专用基模</strong></td>
+<td>时空记忆 + 空间推理，定位”大脑”</td>
+<td>需要接下游策略的规划层</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>说明：具身专用”大脑基模”（如 2026 年开源的 RynnBrain）官方宣称在多项具身评测上刷新纪录并超过 Gemini Robotics ER 1.5、Cosmos-Reason2（据 CSDN 汇总，2026-08-07）。这类”官方自评”需谨慎，评测集重叠是常见问题。</p>
+</blockquote>
+<hr>
+<h2 id="2-VLA：把”看懂”变成”会做”"><a href="#2-VLA：把”看懂”变成”会做”" class="headerlink" title="2. VLA：把”看懂”变成”会做”"></a>2. VLA：把”看懂”变成”会做”</h2><h3 id="2-1-和-VLM-的本质区别：输出空间不是文本"><a href="#2-1-和-VLM-的本质区别：输出空间不是文本" class="headerlink" title="2.1 和 VLM 的本质区别：输出空间不是文本"></a>2.1 和 VLM 的本质区别：输出空间不是文本</h3><p>VLA 和 VLM 的唯一结构性差异在<strong>输出</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">VLM:  f(image, text) → text</span><br><span class="line">VLA:  f(image, text, proprio) → action</span><br></pre></td></tr></table></figure>
+
+<p>但这一行改动带来了连锁反应：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>VLM</th>
+<th>VLA</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>输出空间</td>
+<td>离散 token（词表 5万+）</td>
+<td><strong>连续、高维、有物理约束</strong>（7–30 维/臂）</td>
+</tr>
+<tr>
+<td>损失函数</td>
+<td>交叉熵</td>
+<td>L1/L2、flow matching、diffusion</td>
+</tr>
+<tr>
+<td>数据</td>
+<td>互联网图文（十亿级）</td>
+<td>真机轨迹（十万级，昂贵）</td>
+</tr>
+<tr>
+<td>输出频率</td>
+<td>一次一句</td>
+<td><strong>必须 5–30 Hz 持续输出</strong></td>
+</tr>
+<tr>
+<td>错误后果</td>
+<td>说错话</td>
+<td>撞坏东西 / 伤人</td>
+</tr>
+<tr>
+<td>评估</td>
+<td>文本相似度、人工偏好</td>
+<td><strong>任务成功率</strong>（方差极大）</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-三种动作头：这是-VLA-最重要的技术分岔"><a href="#2-2-三种动作头：这是-VLA-最重要的技术分岔" class="headerlink" title="2.2 三种动作头：这是 VLA 最重要的技术分岔"></a>2.2 三种动作头：这是 VLA 最重要的技术分岔</h3><p>VLA 的性能差异，很大程度不在 VLM 骨干，而在<strong>动作怎么被生成</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>动作头</th>
+<th>代表</th>
+<th>机制</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>离散 token 自回归</strong></td>
+<td>RT-2、OpenVLA</td>
+<td>把每个动作维度离散成 256 个 bin，当 token 生成</td>
+<td>复用 LLM 架构，实现简单</td>
+<td>精度损失、<strong>推理慢（个位数 Hz）</strong>、维度间独立解码导致不平滑</td>
+</tr>
+<tr>
+<td><strong>连续回归（L1）</strong></td>
+<td>OpenVLA-OFT、ACT</td>
+<td>直接回归动作向量</td>
+<td>快、连续、精度高</td>
+<td>单峰假设，学不了多模态演示</td>
+</tr>
+<tr>
+<td><strong>Flow Matching / Diffusion</strong></td>
+<td>π0、π0.5、GR00T 的 DiT</td>
+<td>学速度场/去噪，从噪声生成动作块</td>
+<td>多模态、平滑、高频可行</td>
+<td>多步采样慢（可蒸馏到 1–2 步）</td>
+</tr>
+</tbody></table>
+<p><strong>关键数据点</strong>（二手汇总，原始出处为 OFT 论文 arXiv:2502.19645）：OpenVLA 原版在 LIBERO 上 76.5%，改成”并行解码 + 动作分块 + 连续 L1 回归”后达到 97.1%，动作生成吞吐提升 26 倍。<strong>同样的骨干、同样的数据，只改动作头，涨 20 个点。</strong></p>
+<p>这条结论的工程含义很直接：<strong>如果你在自研 VLA，优先优化动作头，而不是换更大的 VLM。</strong></p>
+<h3 id="2-3-动作分块（Action-Chunking）：不是优化，是必需"><a href="#2-3-动作分块（Action-Chunking）：不是优化，是必需" class="headerlink" title="2.3 动作分块（Action Chunking）：不是优化，是必需"></a>2.3 动作分块（Action Chunking）：不是优化，是必需</h3><p>VLA 一次前向输出 <strong>未来 K 步</strong>的动作（K 通常 10–50），而不是单步。三个理由：</p>
+<ol>
+<li><strong>摊薄推理延迟</strong>：30ms 推理出 20 步（假设 30Hz，即 0.67s），有效控制频率够了；</li>
+<li><strong>缓解 compounding error</strong>：单步策略的小误差会在闭环里累积，chunk 内部是”开环一致”的；</li>
+<li><strong>产生时间一致的动作</strong>：避免逐步预测导致的抖动。</li>
+</ol>
+<p><strong>但 chunk 带来一个新问题：chunk 边界不连续。</strong> 两次推理的 chunk 在交界处可能跳变。解法是 <strong>RTC（Real-Time Chunking）</strong>：新 chunk 生成时，把旧 chunk 未执行的部分作为约束（inpainting 的引导项），让新 chunk 的前几步与旧 chunk 的后几步平滑衔接。π0 系列用的就是这个。</p>
+<p><strong>踩坑提醒</strong>：chunk 越长越平滑，但对环境变化的响应越慢。<strong>动态任务（接球、避障）要短 chunk + 高频重规划；静态任务（装配、插拔）可以长 chunk。</strong></p>
+<h3 id="2-4-跨本体：动作空间是最大的坑"><a href="#2-4-跨本体：动作空间是最大的坑" class="headerlink" title="2.4 跨本体：动作空间是最大的坑"></a>2.4 跨本体：动作空间是最大的坑</h3><p>不同机器人的动作空间千差万别：7 自由度臂的关节角、双臂 14 维、人形 30+ 维、移动底盘 2 维、灵巧手 20+ 维。VLA 要”一脑多形”，必须解决动作空间对齐。</p>
+<p>三条主流做法：</p>
+<table>
+<thead>
+<tr>
+<th>做法</th>
+<th>机制</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>统一到末端位姿</strong></td>
+<td>都输出 EE 6D pose + gripper</td>
+<td>与本体无关，天然跨本体</td>
+<td>丢失冗余自由度（7 轴臂的肘部构型）、可能撞奇异</td>
+</tr>
+<tr>
+<td><strong>本体特定 head</strong></td>
+<td>共享骨干，每个本体一个动作头</td>
+<td>精度高</td>
+<td>新本体要新 head，不是真”通用”</td>
+</tr>
+<tr>
+<td><strong>padding + mask</strong></td>
+<td>统一到最大维度，缺失维度 mask</td>
+<td>实现简单</td>
+<td>浪费算力，维度语义混乱</td>
+</tr>
+</tbody></table>
+<p><strong>实践建议</strong>：先做”末端位姿统一 + 逆解兜底”，跑通再考虑加本体特定头。<strong>不要一上来就追求 30 维统一动作空间</strong>，那是研究问题，不是工程问题。</p>
+<h3 id="2-5-VLA-的四个结构性局限"><a href="#2-5-VLA-的四个结构性局限" class="headerlink" title="2.5 VLA 的四个结构性局限"></a>2.5 VLA 的四个结构性局限</h3><p><strong>① 只学”怎么做”，不学”做了会怎样”。</strong><br>VLA 是策略 <code>π(a|o)</code>，不是动力学模型。它无法回答”如果我这样抓，杯子会滑吗”。这正是世界模型要补的位置。</p>
+<p><strong>② 长程任务会漂移。</strong><br>端到端 VLA 在 3 分钟以上的任务上成功率显著下降。原因是每步的微小偏差累积，且模型没有显式的”任务进度”状态。π0.5 通过”高层子任务预测 + 异构数据协同训练”缓解了这一点（能在训练中未出现过的家庭完成多阶段任务），但<strong>这是工程缓解，不是原理解决</strong>。</p>
+<p><strong>③ 数据是天花板。</strong><br>真机轨迹的采集成本约 <strong>每任务数百条 × 每条数十秒</strong>。跨本体、跨场景的泛化需要指数级更多数据。当前的三条缓解路径：人类视频（GO-1 的 ViLLA、π-ego 的第一视角视频迁移）、仿真合成、世界模型增广。<strong>没有一条已经解决长尾。</strong></p>
+<p><strong>④ 语言跟随与操作成功率是两个指标。</strong><br>GR00T N1 的语言指令成功率 46.6%，N1.5 提升到 93.3%（据公开报道）。这个差距说明一个被忽视的问题：**很多 VLA 是”看着像在动，其实没听指令”**。评测必须分离这两项，否则会把”乱动但偶尔碰对”当成能力。</p>
+<h3 id="2-6-开源选型（2026）"><a href="#2-6-开源选型（2026）" class="headerlink" title="2.6 开源选型（2026）"></a>2.6 开源选型（2026）</h3><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>规模</th>
+<th>架构</th>
+<th>适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>π0.5</strong>（openpi）</td>
+<td>VLM + flow matching 动作专家</td>
+<td>异构数据协同、开放世界泛化</td>
+<td>家庭/开放环境，唯一做过”陌生家庭”验证的开源模型</td>
+</tr>
+<tr>
+<td><strong>GR00T N1.5 / N1.6</strong></td>
+<td>3B</td>
+<td>双系统（VLM + DiT）</td>
+<td>工程落地首选：Isaac 生态、Jetson 部署、教程全、25GB 显存可微调</td>
+</tr>
+<tr>
+<td><strong>OpenVLA / OFT</strong></td>
+<td>7B</td>
+<td>自回归（原版）/ 连续 L1（OFT）</td>
+<td>研究基线、单卡验证、可复现性最好</td>
+</tr>
+<tr>
+<td><strong>GO-1</strong>（智元）</td>
+<td>VLM ~2B + MoE</td>
+<td>ViLLA 隐空间规划</td>
+<td>能从人类视频学、一脑多形、配智元本体</td>
+</tr>
+<tr>
+<td><strong>StarVLA</strong></td>
+<td>—</td>
+<td>统一框架</td>
+<td>快速复现、LIBERO 上 30K 步达 98.8%</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>上表数据来自公开论文与二手汇总（<a href="https://blog.csdn.net/weixin_43025151/article/details/163543537" target="_blank" rel="noopener">CSDN，2026-08-07</a>）。<strong>注意 LIBERO 已接近饱和（98%+），榜单分数不再有区分度</strong>，选型应看真机泛化与工程配套。</p>
+</blockquote>
+<hr>
+<h2 id="3-世界模型：让机器人先”想象一遍”"><a href="#3-世界模型：让机器人先”想象一遍”" class="headerlink" title="3. 世界模型：让机器人先”想象一遍”"></a>3. 世界模型：让机器人先”想象一遍”</h2><h3 id="3-1-它解决的是-VLA-解决不了的问题"><a href="#3-1-它解决的是-VLA-解决不了的问题" class="headerlink" title="3.1 它解决的是 VLA 解决不了的问题"></a>3.1 它解决的是 VLA 解决不了的问题</h3><p>VLA 是反应式的：看到什么，做什么。它缺一个能力——<strong>在动作执行前评估后果</strong>。</p>
+<p>这个能力在四种场景里是必需的：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>为什么需要后果预测</th>
+<th>没有会怎样</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>接触丰富的操作</strong></td>
+<td>推、插、拧的成败取决于接触力与摩擦</td>
+<td>靠试错，一次失败可能损坏物体</td>
+</tr>
+<tr>
+<td><strong>动态环境</strong></td>
+<td>人/物在动，需要预判</td>
+<td>追不上、撞上</td>
+</tr>
+<tr>
+<td><strong>长程任务的子目标选择</strong></td>
+<td>“先开门还是先搬椅子”</td>
+<td>选了不可行的顺序，卡死</td>
+</tr>
+<tr>
+<td><strong>策略评估与数据增广</strong></td>
+<td>无法在真机上大规模试错</td>
+<td>只能靠真机堆，成本爆炸</td>
+</tr>
+</tbody></table>
+<p>用一句话区分：<strong>VLA 回答”我该做什么”，世界模型回答”做了会怎样”。</strong></p>
+<h3 id="3-2-三条技术路线"><a href="#3-2-三条技术路线" class="headerlink" title="3.2 三条技术路线"></a>3.2 三条技术路线</h3><table>
+<thead>
+<tr>
+<th>路线</th>
+<th>代表</th>
+<th>预测什么</th>
+<th>优势</th>
+<th>短板</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>像素级生成</strong></td>
+<td>Genie 3、Cosmos 系列、Sora 类</td>
+<td>未来 RGB 帧/视频</td>
+<td>直观、可用于合成数据、人可检查</td>
+<td>计算极贵、长时程漂移、物理不守恒</td>
+</tr>
+<tr>
+<td><strong>隐空间预测（JEPA 路线）</strong></td>
+<td>Meta V-JEPA 2</td>
+<td>未来表征（embedding）</td>
+<td>便宜、忽略不可预测细节、适合规划</td>
+<td>不可视化、难评估、需要下游解码</td>
+</tr>
+<tr>
+<td><strong>动作条件动力学</strong></td>
+<td>Wayve GAIA、1X world model、各类 latent dynamics</td>
+<td><code>(z_t, a_t) → z_{t+1}</code></td>
+<td>直接服务策略学习/MPC</td>
+<td>需要大量动作标注数据，误差随步数累积</td>
+</tr>
+</tbody></table>
+<p>LeCun 的 JEPA 主张（在隐空间预测而非重建像素）在 2026 年已经被 V-JEPA 2 验证了一部分：它在物理预测和机器人规划上展示了能力，但复杂物理交互仍是短板（<a href="https://news.qq.com/rain/a/20261101A0A7RI00" target="_blank" rel="noopener">腾讯新闻，2026-11-01</a>）。</p>
+<h3 id="3-3-四种用法（重要性递减）"><a href="#3-3-四种用法（重要性递减）" class="headerlink" title="3.3 四种用法（重要性递减）"></a>3.3 四种用法（重要性递减）</h3><p><strong>用法 A：模型预测控制（MPC in latent space）</strong><br>用世界模型 rollout 多条候选动作序列，选预测回报最高的执行。这是最”正统”的用法，也是计算最贵的。</p>
+<ul>
+<li>关键参数：horizon（rollout 多长）、候选数（采样多少条）、重规划频率；</li>
+<li>典型失败：<strong>模型误差导致”想象的未来”比现实乐观</strong>，选出的动作在真机上失败 → 需要短 horizon + 频繁用真实观测纠正（receding horizon）。</li>
+</ul>
+<p><strong>用法 B：策略评估的”沙盒”</strong><br>在真机上评估一个策略要几百次试验、几小时、可能损坏设备。世界模型可以当”廉价试车场”，筛掉明显差的策略再上真机。</p>
+<ul>
+<li>关键风险：<strong>世界模型的偏差会系统性地偏袒某类策略</strong>（比如偏袒”动作幅度小”的策略，因为它预测的误差累积少）。用世界模型选出的策略，必须在真机上验证，否则会得到”在模型里很强、在现实里很怂”的策略。</li>
+</ul>
+<p><strong>用法 C：数据增广</strong><br>用世界模型生成”反事实”轨迹（”如果从这个角度抓会怎样”），扩充训练集。</p>
+<ul>
+<li>关键风险：<strong>生成的”成功案例”可能物理上不成立</strong>（穿透、悬浮、超力矩）。必须加物理一致性过滤（碰撞检测、力矩约束、动量守恒检查）。</li>
+</ul>
+<p><strong>用法 D：作为 VLA 的辅助监督</strong><br>让 VLA 在预测动作的同时预测”未来几帧的表征”，强迫它学到后果感知的表征。这是最轻量的用法，不需要显式 rollout，成本增加小。</p>
+<h3 id="3-4-世界模型的四个真实瓶颈"><a href="#3-4-世界模型的四个真实瓶颈" class="headerlink" title="3.4 世界模型的四个真实瓶颈"></a>3.4 世界模型的四个真实瓶颈</h3><p><strong>① 长时程漂移。</strong><br>自回归 rollout 的误差是指数累积的。像素级模型 2 秒后就开始糊，5 秒后基本无意义；隐空间模型好一些，但同样受限。<strong>这就是为什么 MPC 的 horizon 通常只有 1–2 秒</strong>，而不是”规划 30 秒”。</p>
+<p><strong>② 物理一致性无法保证。</strong><br>生成模型学的是像素/表征的分布，不是物理定律。它可能生成”杯子穿桌而过”或”球落地后反弹更高”的画面，而且<strong>看起来很合理</strong>。这在数据增广里是毒药。</p>
+<p><strong>③ 因果混淆。</strong><br>模型可能学到”手靠近杯子 → 杯子移动”这种相关性，而不是”手施加力 → 杯子移动”的因果。结果是在反事实场景（手靠近但没碰）下预测错误。</p>
+<p><strong>④ 评估困难。</strong><br>怎么判断一个世界模型”好”？像素级可以用 FVD/PSNR，但<strong>这些指标与”对控制是否有用”的相关性很弱</strong>。一个 PSNR 很高但物理全错的世界模型，比一个画面糊但动力学正确的模型更没用。这是当前最缺方法论的地方。</p>
+<h3 id="3-5-和-VLA-的关系：合流而非取代"><a href="#3-5-和-VLA-的关系：合流而非取代" class="headerlink" title="3.5 和 VLA 的关系：合流而非取代"></a>3.5 和 VLA 的关系：合流而非取代</h3><p>2026 年的行业共识正在形成：<strong>世界模型不会取代 VLA，两者会合流。</strong> 具体有三种合流形态：</p>
+<table>
+<thead>
+<tr>
+<th>形态</th>
+<th>结构</th>
+<th>代表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>VLA 内嵌预测头</strong></td>
+<td>VLA 同时输出动作 + 未来表征</td>
+<td>各类 “world-model-augmented VLA”</td>
+</tr>
+<tr>
+<td><strong>世界模型作为 critic</strong></td>
+<td>VLA 生成候选，世界模型打分选择</td>
+<td>类似 actor-critic，但 critic 是学的动力学</td>
+</tr>
+<tr>
+<td><strong>世界模型做 RL 环境</strong></td>
+<td>在”想象”中做强化学习</td>
+<td>ICLR 2026 的 WMPO 等</td>
+</tr>
+</tbody></table>
+<p><strong>工程判断</strong>：如果你的任务是<strong>接触丰富、动态、或需要长程规划</strong>，世界模型值得投入；如果是<strong>静态桌面抓取</strong>，它的边际收益很低——直接用 VLA + 反应式控制更划算。</p>
+<hr>
+<h2 id="4-高层规划-LLM：把”一句话”变成”一串技能”"><a href="#4-高层规划-LLM：把”一句话”变成”一串技能”" class="headerlink" title="4. 高层规划 LLM：把”一句话”变成”一串技能”"></a>4. 高层规划 LLM：把”一句话”变成”一串技能”</h2><h3 id="4-1-它要解决的核心问题：LLM-不知道机器人能干什么"><a href="#4-1-它要解决的核心问题：LLM-不知道机器人能干什么" class="headerlink" title="4.1 它要解决的核心问题：LLM 不知道机器人能干什么"></a>4.1 它要解决的核心问题：LLM 不知道机器人能干什么</h3><p>给 GPT 一句”帮我把厨房收拾干净”，它能列出 20 步计划——<strong>其中一半你的机器人做不到</strong>（”把碗放进洗碗机”要求机器人会开门、会摆放、会关门，而你的机器人只有一个两指夹爪）。</p>
+<p>这是规划层最大的失败模式：<strong>能力幻觉（capability hallucination）</strong>。它不来自模型不够强，而来自<strong>模型的训练数据里没有你的机器人</strong>。</p>
+<p>解法只有一个：<strong>给 LLM 显式的能力清单（capability model）</strong>。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">skills:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">navigate</span></span><br><span class="line"><span class="attr">    params:</span> <span class="string">&#123;target:</span> <span class="string">&lt;location&gt;&#125;</span></span><br><span class="line"><span class="attr">    pre:</span> <span class="string">[battery</span> <span class="string">&gt; 20%, path_clear]</span></span><br><span class="line"><span class="string"></span><span class="attr">    post:</span> <span class="string">[at(target)]</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">pick</span></span><br><span class="line"><span class="attr">    params:</span> <span class="string">&#123;object:</span> <span class="string">&lt;object_id&gt;,</span> <span class="attr">grasp:</span> <span class="string">&lt;grasp_pose&gt;&#125;</span></span><br><span class="line"><span class="attr">    pre:</span> <span class="string">[at(near(object)),</span> <span class="string">object.visible,</span> <span class="string">gripper.empty]</span></span><br><span class="line"><span class="attr">    post:</span> <span class="string">[holding(object)]</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">place</span></span><br><span class="line"><span class="attr">    params:</span> <span class="string">&#123;target:</span> <span class="string">&lt;location&gt;&#125;</span></span><br><span class="line"><span class="attr">    pre:</span> <span class="string">[holding(_)]</span></span><br><span class="line"><span class="attr">    post:</span> <span class="string">[~holding(_),</span> <span class="string">at_place(target)]</span></span><br></pre></td></tr></table></figure>
+
+<p>有了这张表，规划就从”自由发挥”变成”<strong>在能力空间内搜索</strong>“。这也是为什么 2025–2026 年主流的规划层实现都退化成”<strong>LLM 做 function calling</strong>“——技能库就是工具列表，前置/后置条件就是 schema 约束。</p>
+<h3 id="4-2-四种规划范式"><a href="#4-2-四种规划范式" class="headerlink" title="4.2 四种规划范式"></a>4.2 四种规划范式</h3><table>
+<thead>
+<tr>
+<th>范式</th>
+<th>机制</th>
+<th>优势</th>
+<th>短板</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>符号规划（PDDL/TAMP）</strong></td>
+<td>手工建模状态/动作/前提，用搜索求解</td>
+<td>可证明完备、可验证、可解释</td>
+<td>建模成本极高、无法处理连续与不确定性</td>
+<td>工业装配、可形式化的域</td>
+</tr>
+<tr>
+<td><strong>LLM 直接生成计划</strong></td>
+<td>自然语言 → 步骤列表</td>
+<td>零样本、开放域</td>
+<td>能力幻觉、不保证可执行、不稳定</td>
+<td>演示、探索期</td>
+</tr>
+<tr>
+<td><strong>Code-as-Policy</strong></td>
+<td>LLM 生成调用技能库的代码</td>
+<td>可执行、可检查、可复用（循环/条件）</td>
+<td>需要严格 sandbox、错误处理难</td>
+<td><strong>当前性价比最高</strong></td>
+</tr>
+<tr>
+<td><strong>LLM + 符号验证</strong></td>
+<td>LLM 提议，验证器检查前提</td>
+<td>兼顾开放性与正确性</td>
+<td>需要可靠的验证器（状态估计）</td>
+<td>生产环境</td>
+</tr>
+</tbody></table>
+<p><strong>Code-as-Policy 值得展开</strong>：让 LLM 输出 Python 而不是 JSON 计划，好处是三个——</p>
+<ol>
+<li>循环、条件、异常处理天然支持（”直到抓住为止”）；</li>
+<li>可以被 lint / 类型检查 / 单元测试（这是最关键的：<strong>代码有 verifier，自然语言没有</strong>）；</li>
+<li>人可以直接读懂、修改、复用。</li>
+</ol>
+<p>代价是安全风险：生成的代码可能调不存在的函数、死循环、越界。必须配 sandbox + 技能白名单 + 超时。</p>
+<h3 id="4-3-三个必须做的工程加固"><a href="#4-3-三个必须做的工程加固" class="headerlink" title="4.3 三个必须做的工程加固"></a>4.3 三个必须做的工程加固</h3><p><strong>① 计划验证（precondition check）</strong><br>每步技能执行前，检查前置条件是否满足。不满足就触发 re-plan，而不是硬执行。</p>
+<p>这不是可选的。真实系统里 30% 的失败来自”前提不成立但没人检查”（比如”抓取时夹爪其实是满的”）。</p>
+<p><strong>② 闭环重规划（receding horizon planning）</strong><br>不要一次规划 20 步然后闷头执行。<strong>执行 1–3 步后，用最新观测重新规划</strong>。这让系统对动态环境有鲁棒性，代价是 LLM 调用次数上升（成本 vs 鲁棒性的显式权衡）。</p>
+<p><strong>③ 失败归因</strong><br>任务失败后，需要知道”是哪一步、为什么”。做法是给每个技能加<strong>执行后状态检查</strong>（post-condition verify），失败时把”期望状态 vs 实际状态”作为反馈给规划器。这比让 LLM 看视频猜原因有效得多。</p>
+<h3 id="4-4-一个被低估的问题：语义到几何的转换"><a href="#4-4-一个被低估的问题：语义到几何的转换" class="headerlink" title="4.4 一个被低估的问题：语义到几何的转换"></a>4.4 一个被低估的问题：语义到几何的转换</h3><p>规划器输出的是符号（<code>pick(cup_1)</code>），VLA 需要的是几何（<code>grasp_pose in base frame</code>）。这个转换发生在 L4→L3→L2 之间，是<strong>分层架构里最脆弱的一环</strong>。</p>
+<p>典型失败链：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">LLM: &quot;pick(cup_1)&quot;</span><br><span class="line">  → VLM: 检测到 cup_1 的 bbox（图像坐标）</span><br><span class="line">    → 3D 提升: 用深度图反投影（深度有噪声，物体被遮挡一半）</span><br><span class="line">      → 抓取检测: 在残缺点云上估计抓取位姿（估计错）</span><br><span class="line">        → VLA: 收到错误位姿，执行失败</span><br><span class="line">          → 规划器: 不知道位姿错了，重试同样的动作</span><br></pre></td></tr></table></figure>
+
+<p><strong>修法是每一环都带置信度，且规划器能消费置信度</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grasp = estimate_grasp(obj)</span><br><span class="line"><span class="keyword">if</span> grasp.confidence &lt; <span class="number">0.6</span>:</span><br><span class="line">    <span class="comment"># 不要硬抓，先换个视角</span></span><br><span class="line">    <span class="keyword">return</span> plan([navigate(viewpoint_2), look_at(obj), retry_pick(obj)])</span><br></pre></td></tr></table></figure>
+
+<p>这条”低置信度就换观测”的策略，比任何模型改进都更能提升真机成功率。</p>
+<hr>
+<h2 id="5-运动小脑：不是”更快的-VLA”，是另一类问题"><a href="#5-运动小脑：不是”更快的-VLA”，是另一类问题" class="headerlink" title="5. 运动小脑：不是”更快的 VLA”，是另一类问题"></a>5. 运动小脑：不是”更快的 VLA”，是另一类问题</h2><h3 id="5-1-分工的本质：几何-动力学-vs-语义"><a href="#5-1-分工的本质：几何-动力学-vs-语义" class="headerlink" title="5.1 分工的本质：几何/动力学 vs 语义"></a>5.1 分工的本质：几何/动力学 vs 语义</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>上层（规划 + VLA）</th>
+<th>小脑（WBC / MPC / 阻抗）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>输入</td>
+<td>图像、语言、场景图</td>
+<td>关节状态、IMU、力/力矩、目标轨迹</td>
+</tr>
+<tr>
+<td>输出</td>
+<td>目标位姿 / 动作块</td>
+<td>关节力矩 / 电流</td>
+</tr>
+<tr>
+<td>关注</td>
+<td><strong>做什么、去哪</strong></td>
+<td><strong>能不能到、会不会摔、接触力多大</strong></td>
+</tr>
+<tr>
+<td>频率</td>
+<td>0.1–30 Hz</td>
+<td>200–1000 Hz</td>
+</tr>
+<tr>
+<td>失败模式</td>
+<td>语义错、目标错</td>
+<td>抖、超调、失稳、打滑</td>
+</tr>
+<tr>
+<td>可解释性</td>
+<td>弱</td>
+<td>强（有物理模型）</td>
+</tr>
+</tbody></table>
+<p><strong>一句话</strong>：上层决定”期望的几何路径”，小脑保证”这条路径在动力学上可行且安全”。</p>
+<h3 id="5-2-小脑要解决的五个真问题"><a href="#5-2-小脑要解决的五个真问题" class="headerlink" title="5.2 小脑要解决的五个真问题"></a>5.2 小脑要解决的五个真问题</h3><ol>
+<li><strong>逆运动学与冗余</strong>：7 轴臂对 6D 位姿有一维冗余，要选一个”远离奇异、远离关节限位”的解；</li>
+<li><strong>动力学可行性</strong>：目标轨迹可能超出加速度/力矩上限，需要时间参数化（time-optimal parameterization）；</li>
+<li><strong>接触与力控</strong>：插拔、擦拭、拧螺丝需要<strong>阻抗控制</strong>（不是位置控制），力要控在范围内；</li>
+<li><strong>全身平衡</strong>：人形机器人的 WBC 要在”手要到位”和”重心不能出支撑多边形”之间做 QP 优化；</li>
+<li><strong>安全兜底</strong>：碰撞检测、力矩限幅、急停——<strong>这是最后一道防线，必须独立于学习模块</strong>。</li>
+</ol>
+<h3 id="5-3-三种实现路线"><a href="#5-3-三种实现路线" class="headerlink" title="5.3 三种实现路线"></a>5.3 三种实现路线</h3><table>
+<thead>
+<tr>
+<th>路线</th>
+<th>代表</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>经典控制（MPC + WBC + 阻抗）</strong></td>
+<td>多数工业/人形厂商</td>
+<td>可证明稳定、可调、可解释</td>
+<td>建模成本高、对接触丰富的任务弱</td>
+</tr>
+<tr>
+<td><strong>模仿学习策略（ACT / Diffusion Policy）</strong></td>
+<td>ALOHA、UMI</td>
+<td>能从演示学精细操作、无需建模</td>
+<td>泛化弱、需要大量演示、难保证安全</td>
+</tr>
+<tr>
+<td><strong>RL 策略（sim2real）</strong></td>
+<td>宇树/波士顿动力类</td>
+<td>极限运动能力强（跑跳、恢复）</td>
+<td>奖励设计难、sim2real gap、不可解释</td>
+</tr>
+</tbody></table>
+<p><strong>实际系统几乎都是混合</strong>：MPC 做平衡与粗跟踪，学习策略做精细接触，阻抗控制做柔顺，安全层做限幅。</p>
+<h3 id="5-4-分层接口的关键设计：给”轨迹”而不是”目标点”"><a href="#5-4-分层接口的关键设计：给”轨迹”而不是”目标点”" class="headerlink" title="5.4 分层接口的关键设计：给”轨迹”而不是”目标点”"></a>5.4 分层接口的关键设计：给”轨迹”而不是”目标点”</h3><p>如果上层只给一个目标点（”手到这里”），小脑必须自己做轨迹规划，容易撞到障碍。<strong>更好的接口是：上层给带时间戳的路径点序列（waypoints with timing），小脑负责跟踪 + 局部避障 + 力控。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 好接口</span></span><br><span class="line">trajectory = [</span><br><span class="line">    (t=<span class="number">0.0</span>, pose=p0, tol=<span class="number">0.01</span>),</span><br><span class="line">    (t=<span class="number">0.3</span>, pose=p1, tol=<span class="number">0.01</span>),</span><br><span class="line">    (t=<span class="number">0.8</span>, pose=p2, tol=<span class="number">0.005</span>),   <span class="comment"># 接近阶段要更精确</span></span><br><span class="line">]</span><br><span class="line"><span class="comment"># 坏接口</span></span><br><span class="line">target = p2   <span class="comment"># 小脑不知道该怎么过去</span></span><br></pre></td></tr></table></figure>
+
+<p>同时要传<strong>约束</strong>：最大速度、最大力矩、接触力上限、允许的路径偏差。这些约束是安全层执行的依据。</p>
+<h3 id="5-5-一个常见误解：小脑可以用-VLA-替代"><a href="#5-5-一个常见误解：小脑可以用-VLA-替代" class="headerlink" title="5.5 一个常见误解：小脑可以用 VLA 替代"></a>5.5 一个常见误解：小脑可以用 VLA 替代</h3><p>不成立。三个理由：</p>
+<ol>
+<li><strong>频率</strong>：VLA 15–40ms 一次前向，等效 25–60Hz，而 WBC 需要 200–1000Hz。差 10–40 倍；</li>
+<li><strong>精度</strong>：VLA 输出的是”大概的动作”，关节角误差可能几度，闭环控制需要 0.01 度的分辨率；</li>
+<li><strong>安全</strong>：学出来的策略没有稳定性保证，无法证明”不会自激振荡”。</li>
+</ol>
+<p><strong>正确关系</strong>：VLA 输出”参考轨迹”，小脑做”轨迹跟踪 + 安全保证”。VLA 是”想法”，小脑是”肌肉”。</p>
+<hr>
+<h2 id="6-FDE-指标：一个被广泛误用的代理指标"><a href="#6-FDE-指标：一个被广泛误用的代理指标" class="headerlink" title="6. FDE 指标：一个被广泛误用的代理指标"></a>6. FDE 指标：一个被广泛误用的代理指标</h2><h3 id="6-1-先说术语：FDE-到底指什么"><a href="#6-1-先说术语：FDE-到底指什么" class="headerlink" title="6.1 先说术语：FDE 到底指什么"></a>6.1 先说术语：FDE 到底指什么</h3><p>这里必须做一个诚实的澄清，否则后面的讨论会跑偏。</p>
+<p><strong>在轨迹预测（trajectory forecasting）领域，FDE 的标准含义是 Final Displacement Error——终点位移误差</strong>，与 ADE（Average Displacement Error，平均位移误差）配对使用。这是 Argoverse、nuScenes、Waymo Open Motion 等基准的通用口径。</p>
+<p>我检索了 “Future Distribution Error” 这个说法，<strong>没有找到它作为标准术语的公认定义</strong>。所以本文按两种理解分别处理：</p>
+<ul>
+<li><strong>理解 A（主流）</strong>：FDE = Final Displacement Error。下面 6.2 给定义与用法；</li>
+<li><strong>理解 B（字面）</strong>：如果要衡量”预测的未来<strong>分布</strong>与真实未来分布的距离”，那对应的不是 FDE，而是分布度量（6.5 给可操作定义）。</li>
+</ul>
+<p>如果你在某个具体论文里看到 “Future Distribution Error”，请以那篇论文的定义为准——但它的数学形式大概率落在 6.5 的框架内。</p>
+<h3 id="6-2-标准定义"><a href="#6-2-标准定义" class="headerlink" title="6.2 标准定义"></a>6.2 标准定义</h3><p>设预测轨迹 <code>Ŷ = {ŷ_1, ..., ŷ_T}</code>，真实轨迹 <code>Y = {y_1, ..., y_T}</code>，<code>ŷ_t, y_t ∈ R²</code>（BEV 平面）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ADE = (1/T) Σ_t ‖ŷ_t − y_t‖₂</span><br><span class="line">FDE = ‖ŷ_T − y_T‖₂</span><br></pre></td></tr></table></figure>
+
+<p>多模态预测（输出 K 条候选）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">minADE_K = min_&#123;k∈[1,K]&#125; ADE(ŷ^&#123;(k)&#125;, Y)</span><br><span class="line">minFDE_K = min_&#123;k∈[1,K]&#125; FDE(ŷ^&#123;(k)&#125;, Y)</span><br></pre></td></tr></table></figure>
+
+<p><strong>三个必须一起报的量</strong>：<code>K</code>（候选数）、预测时程 <code>T</code>（秒）、是否用 bbox 中心还是角点。<strong>不同 K 的 minFDE 完全不可比</strong>——K=6 的 minFDE 一定优于 K=1，这不是模型更好，是”多买了几张彩票”。</p>
+<h3 id="6-3-FDE-的四个结构性缺陷"><a href="#6-3-FDE-的四个结构性缺陷" class="headerlink" title="6.3 FDE 的四个结构性缺陷"></a>6.3 FDE 的四个结构性缺陷</h3><table>
+<thead>
+<tr>
+<th>缺陷</th>
+<th>机制</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>只看终点，不看过程</strong></td>
+<td>只算最后一步的欧氏距离</td>
+<td>一条撞穿障碍物的轨迹，只要终点对，FDE 很低</td>
+</tr>
+<tr>
+<td><strong>对多模态”作弊”友好</strong></td>
+<td>min over K，只要有一条碰对就低</td>
+<td>模型可以输出 K 条”撒胡椒面”的轨迹，minFDE 刷得很漂亮</td>
+</tr>
+<tr>
+<td><strong>不惩罚”离谱的候选”</strong></td>
+<td>其余 K−1 条多离谱都不计入</td>
+<td>实际部署时下游拿到的是”最可能”而非”最好”的那条，风险巨大</td>
+</tr>
+<tr>
+<td><strong>时程敏感</strong></td>
+<td>T 越长，误差越大</td>
+<td>3s 和 8s 的 FDE 不可比</td>
+</tr>
+</tbody></table>
+<p>第三条是最危险的。<strong>评测用 minFDE，部署用 argmax/最可能的那条——这两个不是同一个东西。</strong> 大量论文的高分来自 minFDE，而真机用的是 top-1，性能落差极大。</p>
+<h3 id="6-4-什么时候-FDE-是对的指标"><a href="#6-4-什么时候-FDE-是对的指标" class="headerlink" title="6.4 什么时候 FDE 是对的指标"></a>6.4 什么时候 FDE 是对的指标</h3><p>FDE 不是坏指标，它只是<strong>针对特定任务</strong>的指标。适用条件：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>为什么 FDE 合适</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>短时程终点精度敏感</strong>（1–3s）</td>
+<td>停靠、交接口、抓取接近段——终点对了就基本成功</td>
+</tr>
+<tr>
+<td><strong>单峰、确定性强的运动</strong></td>
+<td>高速巡航、直线搬运，轨迹形状不重要</td>
+</tr>
+<tr>
+<td><strong>作为辅助指标</strong></td>
+<td>与 ADE、碰撞率、off-road rate 一起报</td>
+</tr>
+<tr>
+<td><strong>在线监控</strong></td>
+<td>计算便宜，适合实时检测预测模块退化</td>
+</tr>
+</tbody></table>
+<p><strong>不适用</strong>：</p>
+<ul>
+<li>长时程（&gt;5s）——误差主导，任何模型都很差，指标无区分度；</li>
+<li>强多模态（路口、人群）——必须用分布度量；</li>
+<li>具身操作——<strong>这是最重要的一条</strong>：机械臂的”轨迹预测”关注的是接触、力、时序，FDE 在关节空间/末端空间的意义很弱，<strong>任务成功率才是真指标</strong>。</li>
+</ul>
+<h3 id="6-5-如果真要看”分布”，该用什么"><a href="#6-5-如果真要看”分布”，该用什么" class="headerlink" title="6.5 如果真要看”分布”，该用什么"></a>6.5 如果真要看”分布”，该用什么</h3><p>这是 6.1 理解 B 的答案。衡量”预测分布 <code>P̂</code> vs 真实未来分布 <code>P</code>“，四个可操作选择：</p>
+<p><strong>① NLL（负对数似然）</strong><br>模型输出高斯混合（GMM）或多模态分布，直接算真实轨迹的 log-likelihood。</p>
+<ul>
+<li>优点：惩罚”没覆盖真实模式”和”过度自信”；</li>
+<li>缺点：对分布族假设敏感，且<strong>高度依赖协方差参数化</strong>，容易被”把方差调大”刷分。</li>
+</ul>
+<p><strong>② CRPS（连续排序概率分数）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CRPS(P̂, y) = ∫ (F̂(x) − 1&#123;x ≥ y&#125;)² dx</span><br></pre></td></tr></table></figure>
+
+<p>对每个维度算，再平均。</p>
+<ul>
+<li>优点：<strong>proper scoring rule</strong>（最优策略是说真话），不像 NLL 那样奖励大方差；</li>
+<li>缺点：多维下计算贵，且不直接反映”轨迹形状”。</li>
+</ul>
+<p><strong>③ Energy Score（多维推广）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ES(P̂, y) = E‖X − y‖^β − ½ E‖X − X&apos;‖^β,  X, X&apos; ~ P̂ iid</span><br></pre></td></tr></table></figure>
+
+<p>用样本近似，<code>β=1</code> 或 <code>2</code>。</p>
+<ul>
+<li>优点：多维、proper、对样本友好；</li>
+<li>缺点：需要采样，方差大。</li>
+</ul>
+<p><strong>④ 轨迹空间的 Wasserstein 距离</strong><br>把预测的 K 条轨迹当经验分布，算 <code>W₂</code> 到真实（多模态）未来分布。</p>
+<ul>
+<li>优点：直观，”整体分布差多远”；</li>
+<li>缺点：真实未来分布通常只有一个样本（你只观测到一种未来），<strong>无法直接算</strong>——只能用数据集里的多模态标注（如 nuScenes 的多 future）近似。</li>
+</ul>
+<p><strong>实践建议</strong>：报 <code>minFDE_1</code>（top-1，对齐部署）、<code>minFDE_K</code>（多模态上限）、<code>brier-minFDE</code>（加概率校准，Argoverse 2 的口径）、<code>CRPS</code>（分布质量）。<strong>四个一起看，缺一个就会被误导。</strong></p>
+<h3 id="6-6-在具身系统里，FDE-该放在哪"><a href="#6-6-在具身系统里，FDE-该放在哪" class="headerlink" title="6.6 在具身系统里，FDE 该放在哪"></a>6.6 在具身系统里，FDE 该放在哪</h3><p>我的判断：<strong>FDE 在具身系统里应该是”内部诊断指标”，不是”对外汇报指标”。</strong></p>
+<p>具体用法：</p>
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>怎么用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>世界模型的短时程精度</td>
+<td>预测 1s 后的物体位姿，算 FDE，用于判断动力学模块是否可靠</td>
+</tr>
+<tr>
+<td>人类/动态障碍物预测</td>
+<td>用于避障的安全裕度计算（FDE 大 → 加大安全距离）</td>
+</tr>
+<tr>
+<td>抓取接近段</td>
+<td>预测末端到抓取点的残余误差</td>
+</tr>
+<tr>
+<td><strong>不能用来</strong></td>
+<td>汇报”我们的具身模型很好”——FDE 低不代表任务成功</td>
+</tr>
+</tbody></table>
+<p>因为具身的成功取决于<strong>接触、力、时序、闭环纠正</strong>，这些都是 FDE 看不见的。一个 FDE 2cm 的抓取预测，可能因为接触力控制不当而失败；一个 FDE 8cm 的预测，可能因为闭环纠正在中途修正而成功。</p>
+<p><strong>给团队的一条建议</strong>：如果有资源，<strong>优先建”任务成功率 + 失败模式分类”的评测体系，而不是优化 FDE</strong>。前者直接指导工程，后者容易变成论文游戏。</p>
+<hr>
+<h2 id="7-组合范式：五种架构与它们的代价"><a href="#7-组合范式：五种架构与它们的代价" class="headerlink" title="7. 组合范式：五种架构与它们的代价"></a>7. 组合范式：五种架构与它们的代价</h2><h3 id="7-1-五种范式对比"><a href="#7-1-五种范式对比" class="headerlink" title="7.1 五种范式对比"></a>7.1 五种范式对比</h3><table>
+<thead>
+<tr>
+<th>范式</th>
+<th>结构</th>
+<th>优势</th>
+<th>代价</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>A. 全分层（符号）</strong></td>
+<td>LLM 规划 + VLM 感知 + MPC 控制 + 手工技能</td>
+<td>可验证、可调试、可复用</td>
+<td>建模成本极高，无法处理开放域</td>
+<td>工业、可形式化的域</td>
+</tr>
+<tr>
+<td><strong>B. 分层 + 学习技能</strong></td>
+<td>LLM 规划 + VLM + VLA 技能 + WBC</td>
+<td>兼顾开放性与可控性</td>
+<td>接口设计难，模块误差累积</td>
+<td><strong>当前主流落地形态</strong></td>
+</tr>
+<tr>
+<td><strong>C. 端到端 VLA</strong></td>
+<td>单模型 obs→action</td>
+<td>无接口、能从数据学隐式策略</td>
+<td>长程漂移、不可解释、安全难保证</td>
+<td>短程、单技能任务</td>
+</tr>
+<tr>
+<td><strong>D. 双系统</strong></td>
+<td>VLM(慢) + 小策略(快)</td>
+<td>延迟可控、分工清晰</td>
+<td>两系统接口是瓶颈</td>
+<td>人形、双臂、需要高频</td>
+</tr>
+<tr>
+<td><strong>E. 世界模型驱动</strong></td>
+<td>世界模型 rollout + 策略搜索/RL</td>
+<td>能处理接触与动态</td>
+<td>计算贵、模型偏差、评估难</td>
+<td>研究前沿、接触丰富任务</td>
+</tr>
+</tbody></table>
+<p><strong>我的判断</strong>：2026 年能稳定交付的是 <strong>B 和 D</strong>，C 在受控场景（固定工位、单任务）已经可用，E 还在”实验室到产线”的路上。</p>
+<h3 id="7-2-一个可落地的参考架构"><a href="#7-2-一个可落地的参考架构" class="headerlink" title="7.2 一个可落地的参考架构"></a>7.2 一个可落地的参考架构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">用户指令</span><br><span class="line">   ↓</span><br><span class="line">[规划 LLM] ── 技能库(capability model) ── 前置条件检查</span><br><span class="line">   ↓ 子目标: pick(cup_1)</span><br><span class="line">[VLM] 检测 + 分割 ──→ [3D 提升] ──→ 目标位姿 + 置信度</span><br><span class="line">   ↓ 若置信度低 → 换视角/换抓取策略（闭环）</span><br><span class="line">[VLA] 生成动作块 ──→ [RTC 衔接] ──→ 末端参考轨迹</span><br><span class="line">   ↓</span><br><span class="line">[小脑 WBC/MPC] 动力学可行化 + 平衡 + 力控</span><br><span class="line">   ↓</span><br><span class="line">[安全层] 力矩限幅 / 碰撞检测 / 急停  ←── 独立于所有学习模块</span><br><span class="line">   ↓</span><br><span class="line">电机</span><br><span class="line"></span><br><span class="line">旁路：[世界模型] 在动作下发前评估&quot;这个轨迹会不会撞&quot;（可选，延迟允许时）</span><br></pre></td></tr></table></figure>
+
+<p>三个设计要点：</p>
+<ol>
+<li><strong>每一层都有”我不确定”的出口</strong>（置信度 → 换策略，而不是硬执行）；</li>
+<li><strong>安全层独立</strong>，不依赖学习模块的正确性；</li>
+<li><strong>世界模型是旁路</strong>，延迟不够时可以关掉，不阻塞主链路。</li>
+</ol>
+<h3 id="7-3-当前五个瓶颈"><a href="#7-3-当前五个瓶颈" class="headerlink" title="7.3 当前五个瓶颈"></a>7.3 当前五个瓶颈</h3><p><strong>瓶颈一：真机数据的天花板。</strong><br>跨本体、跨场景的泛化需要指数级数据，而真机采集成本是线性的。人类视频、仿真、世界模型增广三条路都还没解决长尾。</p>
+<p><strong>瓶颈二：评测体系失效。</strong><br>LIBERO 已接近饱和（98%+），真机评测方差极大（同一策略两次评测差 20 个点很常见），缺乏公认的、可复现的、与商业价值相关的基准。这是整个领域最被低估的问题——<strong>没有好的评测，就无法判断进展</strong>。</p>
+<p><strong>瓶颈三：延迟与算力。</strong><br>7B VLA 在 Orin 上跑不到 10Hz，3B 勉强。而人形机器人的控制需要 200Hz+。<strong>中间的频率差必须靠”双系统 + 动作分块”填，这两个都是权宜之计，不是终局。</strong></p>
+<p><strong>瓶颈四：长程任务的漂移。</strong><br>3 分钟以上的任务，端到端方案成功率显著下降。分层方案靠 re-plan 缓解，但每次 re-plan 都引入新的不确定性。</p>
+<p><strong>瓶颈五：安全与可解释性。</strong><br>学出来的策略没有稳定性保证。工业场景要求”可证明不会伤人”，当前的神经网络策略给不了。这也是为什么安全层必须独立。</p>
+<h3 id="7-4-落地难点的排序（我的经验判断）"><a href="#7-4-落地难点的排序（我的经验判断）" class="headerlink" title="7.4 落地难点的排序（我的经验判断）"></a>7.4 落地难点的排序（我的经验判断）</h3><p>按”最容易让项目失败”排序：</p>
+<table>
+<thead>
+<tr>
+<th>排序</th>
+<th>难点</th>
+<th>为什么排在前面</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>数据采集与格式统一</strong></td>
+<td>LeRobot v3 vs v2 格式不兼容、多相机时间戳不对齐、动作维度映射错——这类问题占初期调试时间的 60%</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>2D→3D 的几何链路</strong></td>
+<td>标定漂移、深度噪声、遮挡，导致”模型明明检测对了，抓取就是偏”</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>评测不可复现</strong></td>
+<td>无法判断”改了之后是变好还是噪声”，迭代失去方向</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>延迟预算超支</strong></td>
+<td>集成后才发现某个模块慢一个数量级，被迫降频</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>跨本体迁移</strong></td>
+<td>换个机器人全部重来</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>长尾失败模式</strong></td>
+<td>99% 成功率的系统，剩下的 1% 是各种奇怪情况</td>
+</tr>
+</tbody></table>
+<p><strong>注意排序</strong>：前四项都是”工程”问题，不是”模型”问题。<strong>具身项目失败，通常不是模型不够强，是系统工程没做好。</strong></p>
+<h3 id="7-5-踩坑清单"><a href="#7-5-踩坑清单" class="headerlink" title="7.5 踩坑清单"></a>7.5 踩坑清单</h3><p><strong>通用</strong></p>
+<ul>
+<li><strong>跳过开环验证直接上真机</strong>：训练没收敛或数据有问题，闭环测试根本看不出原因。先回放数据，看预测动作是否贴合示范；</li>
+<li><strong>不做时间同步</strong>：多相机 + 关节状态 + IMU 的时间戳不对齐，几十毫秒的偏差足以让 VLA 学错；</li>
+<li><strong>忽略控制频率</strong>：用 10Hz 的策略控制 200Hz 的底层，中间没有插值，动作一顿一顿；</li>
+<li><strong>评测只跑一次</strong>：真机评测方差极大，至少 20 次/任务，报均值 ± 标准差。</li>
+</ul>
+<p><strong>VLM/VLA</strong></p>
+<ul>
+<li><strong>用 VLM 的输出直接当抓取位姿</strong>：空间精度差一个量级，必须过专用抓取检测；</li>
+<li><strong>动作离散化 bin 太少</strong>：256 bin 覆盖 ±180°，分辨率 1.4°，精细操作不够；</li>
+<li><strong>chunk 太长</strong>：动态任务响应慢，看起来”反应迟钝”；</li>
+<li><strong>忘了 proprioception</strong>：只给图像不给关节状态，模型不知道手在哪，学不到闭环纠偏；</li>
+<li><strong>语言跟随率没单独测</strong>：成功率 80% 但语言跟随 50%，说明一半是”乱动碰对”。</li>
+</ul>
+<p><strong>世界模型</strong></p>
+<ul>
+<li><strong>rollout 太长</strong>：超过 2s 的预测基本不可信，MPC horizon 要短；</li>
+<li><strong>用像素指标评估</strong>：PSNR 高不代表动力学对，要看下游任务成功率；</li>
+<li><strong>生成数据不加物理过滤</strong>：穿透、悬浮的”成功案例”会毒化训练集。</li>
+</ul>
+<p><strong>规划</strong></p>
+<ul>
+<li><strong>不给能力清单</strong>：LLM 会规划出机器人做不到的动作；</li>
+<li><strong>不检查前置条件</strong>：30% 的失败来自”前提不成立但没人检查”；</li>
+<li><strong>一次规划到底</strong>：不 re-plan，遇到意外就卡死。</li>
+</ul>
+<p><strong>FDE 相关</strong></p>
+<ul>
+<li><strong>不同 K 之间比 minFDE</strong>：K=6 vs K=1 的对比毫无意义；</li>
+<li><strong>用 minFDE 汇报但部署用 top-1</strong>：分数虚高，真机落差大；</li>
+<li><strong>在具身任务上用 FDE 当主指标</strong>：它看不见接触、力、闭环纠正。</li>
+</ul>
+<hr>
+<h2 id="8-前沿：2026-年正在发生的四件事"><a href="#8-前沿：2026-年正在发生的四件事" class="headerlink" title="8. 前沿：2026 年正在发生的四件事"></a>8. 前沿：2026 年正在发生的四件事</h2><p><strong>① 双系统成为默认架构。</strong><br>Helix（System 2 约 7B + System 1 约 80M @200Hz）开创的范式，被 GR00T N1（VLM + DiT）等跟进。核心洞察是：<strong>慢思考不需要高频，快反应不需要深推理</strong>，强行统一是浪费。</p>
+<p><strong>② 动作头比骨干更决定性能。</strong><br>OpenVLA → OFT 的 76.5% → 97.1% 是最好的证据：同骨干同数据，只改动作生成本身（并行解码 + 分块 + 连续 L1），涨 20 个点且吞吐 26 倍。<strong>资源有限时，先优化动作头。</strong></p>
+<p><strong>③ 世界模型从”预测”走向”规划”。</strong><br>早期焦点是表征学习与未来预测（V-JEPA、Cosmos），2026 年的焦点转向”用世界模型做 MPC / RL 环境”（HWM、WMPO 等）。难点从”预测得准”变成”预测得对控制有用”（<a href="https://www.odaily.news/zh-CN/post/5210340" target="_blank" rel="noopener">Odaily，2026-04-17</a>）。</p>
+<p><strong>④ 人类视频成为数据杠杆。</strong><br>GO-1 的 ViLLA（Latent Planner 从人类视频学通用动作理解）、π-ego（第一视角视频迁移）都在试这条路。逻辑很直接：真机数据贵，人类视频免费且海量。难点是<strong>embodiment gap</strong>——人的手和夹爪的形态差太远。</p>
+<hr>
+<h2 id="9-小结"><a href="#9-小结" class="headerlink" title="9. 小结"></a>9. 小结</h2><ol>
+<li><strong>五个模块按”频率 × 抽象层级”切分，不是按”能力”切分。</strong> 规划 0.1–1Hz、VLM 0.5–10Hz、VLA 5–30Hz、小脑 200–1000Hz、伺服 kHz。搞混频率，再强的模型也会抖。</li>
+<li><strong>VLM 在具身里是”语义服务”，不是”几何服务”。</strong> 开放词汇检测是它最大的价值；空间精度是它最大的短板。<strong>2D→3D 的桥必须由专用模块承担</strong>，这是落地翻车率最高的一环。</li>
+<li><strong>VLA 和 VLM 的唯一结构差异是输出空间</strong>，但这个差异导致损失函数、数据、频率、评估全部不同。<strong>VLA 的性能差异主要来自动作头，不是 VLM 骨干</strong>——OFT 的实验是 20 个点的证据。</li>
+<li><strong>动作分块不是优化，是必需。</strong> 它摊薄延迟、缓解误差累积、保证时间一致。但 chunk 边界会跳变，需要 RTC 做衔接；chunk 长度是”平滑 vs 响应”的显式权衡。</li>
+<li><strong>世界模型回答”做了会怎样”，VLA 回答”该做什么”，两者合流而非取代。</strong> 最大瓶颈不是预测精度，是<strong>长时程漂移与物理一致性</strong>；最大空白是**”预测得对控制有用”这个维度没有好指标**。</li>
+<li><strong>规划 LLM 的核心失败模式是能力幻觉</strong>，解法是给显式的能力清单 + 前置条件检查 + 闭环 re-plan。<strong>Code-as-Policy 是当前性价比最高的形态</strong>，因为代码有 verifier。</li>
+<li><strong>小脑不能用 VLA 替代。</strong> 频率差 10–40 倍、精度差两个数量级、且学习策略没有稳定性保证。正确关系是：VLA 给参考轨迹，小脑做跟踪与安全。</li>
+<li><strong>FDE 的标准含义是 Final Displacement Error，不是 “Future Distribution Error”。</strong> 检索未见后者作为公认术语的定义。FDE 有四个结构性缺陷：只看终点、对多模态作弊友好、不惩罚离谱候选、时程敏感。<strong>它适合短时程终点敏感任务，不适合具身操作。</strong></li>
+<li><strong>如果真要评估”分布”，用 proper scoring rule</strong>：CRPS、Energy Score、NLL（注意 NLL 奖励大方差）。<strong>minFDE 报高分但部署用 top-1，是最常见的自欺。</strong></li>
+<li><strong>具身项目失败通常不是模型不够强，是系统工程没做好。</strong> 按失败率排序：数据格式/时间同步 → 2D→3D 几何 → 评测不可复现 → 延迟超支 → 跨本体。前四项都是工程。</li>
+</ol>
+<p>如果只留一句：<strong>具身智能的难点不在”哪个模型最强”，而在”五个频率不同的模块，如何在延迟预算内传递恰好够用的信息，并且每一层都敢说’我不确定’”。</strong></p>
+<hr>
+<h3 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h3><p><strong>模型与产品</strong></p>
+<ul>
+<li>π0.5 / openpi：Physical Intelligence，2025；开源仓库 openpi</li>
+<li>GR00T N1 / N1.5 / N1.6：NVIDIA，2025–2026；Isaac-GR00T 仓库</li>
+<li>OpenVLA：arXiv:2406.09246；OpenVLA-OFT：arXiv:2502.19645</li>
+<li>RT-2：arXiv:2307.15818；RT-1：arXiv:2212.06817</li>
+<li>GO-1 / ViLLA：智元机器人，2025</li>
+<li>Helix：Figure AI，2025</li>
+<li>Gemini Robotics ER 1.5：Google DeepMind，2025–2026</li>
+<li>模型选型对比与公开基准数据（含 LIBERO 76.5%→97.1%、GR-1 语言跟随 46.6%→93.3%）：<a href="https://blog.csdn.net/weixin_43025151/article/details/163543537" target="_blank" rel="noopener">CSDN，2026-08-07</a>（二手汇总，原始数据请查各论文/技术报告）</li>
+</ul>
+<p><strong>世界模型</strong></p>
+<ul>
+<li>V-JEPA 2：Meta，2025；JEPA 主张见 LeCun 相关论述</li>
+<li>Genie 3：Google DeepMind，2025</li>
+<li>Cosmos 系列：NVIDIA，2025–2026</li>
+<li>GAIA-1/2：Wayve</li>
+<li>世界模型路线与瓶颈综述：<a href="https://news.qq.com/rain/a/20261101A0A7RI00" target="_blank" rel="noopener">腾讯新闻，2026-11-01</a>；<a href="https://www.odaily.news/zh-CN/post/5210340" target="_blank" rel="noopener">Odaily，2026-04-17</a></li>
+</ul>
+<p><strong>指标与方法</strong></p>
+<ul>
+<li>ADE/FDE 定义与 minADE_K/minFDE_K：Argoverse 1/2、nuScenes、Waymo Open Motion 基准文档</li>
+<li><em>Joint Metrics Matter: A Better Standard for Trajectory Forecasting</em>，arXiv:2305.06292</li>
+<li><em>Beyond ADE and FDE: A Comprehensive Evaluation Framework for Safety-Critical Prediction</em>，arXiv:2510.10086</li>
+<li>CRPS / Energy Score 作为 proper scoring rule：Gneiting &amp; Raftery, <em>Strictly Proper Scoring Rules, Prediction, and Estimation</em>, JASA 2007</li>
+<li>Brier-minFDE：Argoverse 2  Forecasting Challenge 官方口径</li>
+</ul>
+<p><strong>控制与规划</strong></p>
+<ul>
+<li>Whole-Body Control / MPC：MIT Cheetah 系列、Unitree 相关工程报告</li>
+<li>ACT：<em>Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware</em>，2023</li>
+<li>Diffusion Policy：arXiv:2303.04137</li>
+<li>Code as Policies：arXiv:2209.07753</li>
+<li>TAMP 综述：<em>Combined Task and Motion Planning</em>，相关综述文献</li>
+</ul>
+<blockquote>
+<p>说明：本文中”延迟量级””失败占比排序””能力评分”等属于工程经验判断，不同硬件、不同团队差异很大；具体模型的分数均标注来源，且需注意数据集饱和与评测口径差异。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/VLM/" rel="tag"># VLM</a>
+              <a href="/tags/VLA/" rel="tag"># VLA</a>
+              <a href="/tags/世界模型/" rel="tag"># 世界模型</a>
+              <a href="/tags/规划LLM/" rel="tag"># 规划LLM</a>
+              <a href="/tags/小脑/" rel="tag"># 小脑</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/07/07/Mamba-vs-Transformer-时序建模路线对比/" rel="prev" title="时序建模的四条路线：Transformer、Mamba、GRU 与 ODE 求解器">
+      <i class="fa fa-chevron-left"></i> 时序建模的四条路线：Transformer、Mamba、GRU 与 ODE 求解器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/07/16/大模型解码策略综述/" rel="next" title="大模型解码策略综述：从贪心到受控生成">
+      大模型解码策略综述：从贪心到受控生成 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-全景：五个模块的责任边界"><span class="nav-number">2.</span> <span class="nav-text">0. 全景：五个模块的责任边界</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-1-一张分层图"><span class="nav-number">2.1.</span> <span class="nav-text">0.1 一张分层图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-2-三个必须接受的设计约束"><span class="nav-number">2.2.</span> <span class="nav-text">0.2 三个必须接受的设计约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-3-端到端-vs-分层：先破一个迷思"><span class="nav-number">2.3.</span> <span class="nav-text">0.3 端到端 vs 分层：先破一个迷思</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-VLM：具身的语义底座，以及它做不到的事"><span class="nav-number">3.</span> <span class="nav-text">1. VLM：具身的语义底座，以及它做不到的事</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-它在系统里干什么"><span class="nav-number">3.1.</span> <span class="nav-text">1.1 它在系统里干什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-三种典型用法（按耦合深度排序）"><span class="nav-number">3.2.</span> <span class="nav-text">1.2 三种典型用法（按耦合深度排序）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-关键工程：2D-到-3D-的桥"><span class="nav-number">3.3.</span> <span class="nav-text">1.3 关键工程：2D 到 3D 的桥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-VLM-在具身里的四个硬短板"><span class="nav-number">3.4.</span> <span class="nav-text">1.4 VLM 在具身里的四个硬短板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-主流选择（2026）"><span class="nav-number">3.5.</span> <span class="nav-text">1.5 主流选择（2026）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-VLA：把”看懂”变成”会做”"><span class="nav-number">4.</span> <span class="nav-text">2. VLA：把”看懂”变成”会做”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-和-VLM-的本质区别：输出空间不是文本"><span class="nav-number">4.1.</span> <span class="nav-text">2.1 和 VLM 的本质区别：输出空间不是文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-三种动作头：这是-VLA-最重要的技术分岔"><span class="nav-number">4.2.</span> <span class="nav-text">2.2 三种动作头：这是 VLA 最重要的技术分岔</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-动作分块（Action-Chunking）：不是优化，是必需"><span class="nav-number">4.3.</span> <span class="nav-text">2.3 动作分块（Action Chunking）：不是优化，是必需</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-跨本体：动作空间是最大的坑"><span class="nav-number">4.4.</span> <span class="nav-text">2.4 跨本体：动作空间是最大的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-VLA-的四个结构性局限"><span class="nav-number">4.5.</span> <span class="nav-text">2.5 VLA 的四个结构性局限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-开源选型（2026）"><span class="nav-number">4.6.</span> <span class="nav-text">2.6 开源选型（2026）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-世界模型：让机器人先”想象一遍”"><span class="nav-number">5.</span> <span class="nav-text">3. 世界模型：让机器人先”想象一遍”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-它解决的是-VLA-解决不了的问题"><span class="nav-number">5.1.</span> <span class="nav-text">3.1 它解决的是 VLA 解决不了的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-三条技术路线"><span class="nav-number">5.2.</span> <span class="nav-text">3.2 三条技术路线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-四种用法（重要性递减）"><span class="nav-number">5.3.</span> <span class="nav-text">3.3 四种用法（重要性递减）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-世界模型的四个真实瓶颈"><span class="nav-number">5.4.</span> <span class="nav-text">3.4 世界模型的四个真实瓶颈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-和-VLA-的关系：合流而非取代"><span class="nav-number">5.5.</span> <span class="nav-text">3.5 和 VLA 的关系：合流而非取代</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-高层规划-LLM：把”一句话”变成”一串技能”"><span class="nav-number">6.</span> <span class="nav-text">4. 高层规划 LLM：把”一句话”变成”一串技能”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-它要解决的核心问题：LLM-不知道机器人能干什么"><span class="nav-number">6.1.</span> <span class="nav-text">4.1 它要解决的核心问题：LLM 不知道机器人能干什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-四种规划范式"><span class="nav-number">6.2.</span> <span class="nav-text">4.2 四种规划范式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-三个必须做的工程加固"><span class="nav-number">6.3.</span> <span class="nav-text">4.3 三个必须做的工程加固</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-一个被低估的问题：语义到几何的转换"><span class="nav-number">6.4.</span> <span class="nav-text">4.4 一个被低估的问题：语义到几何的转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-运动小脑：不是”更快的-VLA”，是另一类问题"><span class="nav-number">7.</span> <span class="nav-text">5. 运动小脑：不是”更快的 VLA”，是另一类问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-分工的本质：几何-动力学-vs-语义"><span class="nav-number">7.1.</span> <span class="nav-text">5.1 分工的本质：几何/动力学 vs 语义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-小脑要解决的五个真问题"><span class="nav-number">7.2.</span> <span class="nav-text">5.2 小脑要解决的五个真问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-三种实现路线"><span class="nav-number">7.3.</span> <span class="nav-text">5.3 三种实现路线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-分层接口的关键设计：给”轨迹”而不是”目标点”"><span class="nav-number">7.4.</span> <span class="nav-text">5.4 分层接口的关键设计：给”轨迹”而不是”目标点”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-一个常见误解：小脑可以用-VLA-替代"><span class="nav-number">7.5.</span> <span class="nav-text">5.5 一个常见误解：小脑可以用 VLA 替代</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-FDE-指标：一个被广泛误用的代理指标"><span class="nav-number">8.</span> <span class="nav-text">6. FDE 指标：一个被广泛误用的代理指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-先说术语：FDE-到底指什么"><span class="nav-number">8.1.</span> <span class="nav-text">6.1 先说术语：FDE 到底指什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-标准定义"><span class="nav-number">8.2.</span> <span class="nav-text">6.2 标准定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-FDE-的四个结构性缺陷"><span class="nav-number">8.3.</span> <span class="nav-text">6.3 FDE 的四个结构性缺陷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-什么时候-FDE-是对的指标"><span class="nav-number">8.4.</span> <span class="nav-text">6.4 什么时候 FDE 是对的指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-如果真要看”分布”，该用什么"><span class="nav-number">8.5.</span> <span class="nav-text">6.5 如果真要看”分布”，该用什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-6-在具身系统里，FDE-该放在哪"><span class="nav-number">8.6.</span> <span class="nav-text">6.6 在具身系统里，FDE 该放在哪</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-组合范式：五种架构与它们的代价"><span class="nav-number">9.</span> <span class="nav-text">7. 组合范式：五种架构与它们的代价</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-五种范式对比"><span class="nav-number">9.1.</span> <span class="nav-text">7.1 五种范式对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-一个可落地的参考架构"><span class="nav-number">9.2.</span> <span class="nav-text">7.2 一个可落地的参考架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-当前五个瓶颈"><span class="nav-number">9.3.</span> <span class="nav-text">7.3 当前五个瓶颈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-落地难点的排序（我的经验判断）"><span class="nav-number">9.4.</span> <span class="nav-text">7.4 落地难点的排序（我的经验判断）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-5-踩坑清单"><span class="nav-number">9.5.</span> <span class="nav-text">7.5 踩坑清单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-前沿：2026-年正在发生的四件事"><span class="nav-number">10.</span> <span class="nav-text">8. 前沿：2026 年正在发生的四件事</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-小结"><span class="nav-number">11.</span> <span class="nav-text">9. 小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考来源"><span class="nav-number">11.1.</span> <span class="nav-text">参考来源</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">259</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

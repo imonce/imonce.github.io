@@ -30,7 +30,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="element：exit1234567&amp;lt;xsd:element name=&quot;exit&quot; type=&quot;tExit&quot;/&amp;gt;&amp;lt;xsd:complexType name=&quot;tExit&quot;&amp;gt;    &amp;lt;xsd:complexContent&amp;gt;        &amp;lt;xsd:extension base=&quot;tActivity&quot;/&amp;gt;    &amp;lt;/xsd:complexCon">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2026-06-28T14:37:22.531Z">
+<meta property="og:updated_time" content="2026-11-11T07:18:31.947Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WS-BPEL 2.0 xml schema 详解(三)">
 <meta name="twitter:description" content="element：exit1234567&amp;lt;xsd:element name=&quot;exit&quot; type=&quot;tExit&quot;/&amp;gt;&amp;lt;xsd:complexType name=&quot;tExit&quot;&amp;gt;    &amp;lt;xsd:complexContent&amp;gt;        &amp;lt;xsd:extension base=&quot;tActivity&quot;/&amp;gt;    &amp;lt;/xsd:complexCon">
@@ -124,17 +124,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
+                <time title="Modified: 2026-11-11 15:18:31" itemprop="dateModified" datetime="2026-11-11T15:18:31+08:00">2026-11-11</time>
               </span>
 
           
@@ -266,6 +266,7 @@
       
         <h1 id="element：exit"><a href="#element：exit" class="headerlink" title="element：exit"></a>element：exit</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"exit"</span> <span class="attr">type</span>=<span class="string">"tExit"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tExit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:extension</span> <span class="attr">base</span>=<span class="string">"tActivity"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexContent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+<a id="more"></a>
 <p>就是tActivity的一个元素化，可以看作是一个最原始，最纯粹的activity。</p>
 <p>和compensate、empty定义是一样的，在语义上和用法上不一样。</p>
 <h1 id="element：extensionActivity"><a href="#element：extensionActivity" class="headerlink" title="element：extensionActivity"></a>element：extensionActivity</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"extensionActivity"</span> <span class="attr">type</span>=<span class="string">"tExtensionActivity"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"tExtensionActivity"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:any</span> <span class="attr">namespace</span>=<span class="string">"##other"</span> <span class="attr">processContents</span>=<span class="string">"lax"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:sequence</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -626,20 +627,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">228</span>
+        <span class="site-state-item-count">259</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

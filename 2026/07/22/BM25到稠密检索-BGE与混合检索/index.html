@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="BM25 与稠密向量不是”新旧替代”，而是两种互补的匹配信号。RAG 系统里真正的分水岭，往往不在选哪个模型，而在你有没有把两种信号正确地融合，并且正确地评估。  导语检索是 RAG 的地基，但工程上最常见的两种失败恰好发生在两个极端：">
+<meta name="keywords" content="检索,BM25,稠密向量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从 BM25 到稠密检索：BGE 系列与混合检索的工程实践">
+<meta property="og:url" content="https://imonce.github.io/2026/07/22/BM25到稠密检索-BGE与混合检索/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="BM25 与稠密向量不是”新旧替代”，而是两种互补的匹配信号。RAG 系统里真正的分水岭，往往不在选哪个模型，而在你有没有把两种信号正确地融合，并且正确地评估。  导语检索是 RAG 的地基，但工程上最常见的两种失败恰好发生在两个极端：">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2026-11-11T07:27:22.520Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从 BM25 到稠密检索：BGE 系列与混合检索的工程实践">
+<meta name="twitter:description" content="BM25 与稠密向量不是”新旧替代”，而是两种互补的匹配信号。RAG 系统里真正的分水岭，往往不在选哪个模型，而在你有没有把两种信号正确地融合，并且正确地评估。  导语检索是 RAG 的地基，但工程上最常见的两种失败恰好发生在两个极端：">
+
+<link rel="canonical" href="https://imonce.github.io/2026/07/22/BM25到稠密检索-BGE与混合检索/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>从 BM25 到稠密检索：BGE 系列与混合检索的工程实践 | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/22/BM25到稠密检索-BGE与混合检索/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从 BM25 到稠密检索：BGE 系列与混合检索的工程实践
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-22 22:29:42" itemprop="dateCreated datePublished" datetime="2026-07-22T22:29:42+08:00">2026-07-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:27:22" itemprop="dateModified" datetime="2026-11-11T15:27:22+08:00">2026-11-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2026/07/22/BM25到稠密检索-BGE与混合检索/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/22/BM25到稠密检索-BGE与混合检索/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>BM25 与稠密向量不是”新旧替代”，而是两种互补的匹配信号。RAG 系统里真正的分水岭，往往不在选哪个模型，而在<strong>你有没有把两种信号正确地融合，并且正确地评估</strong>。</p>
+</blockquote>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>检索是 RAG 的地基，但工程上最常见的两种失败恰好发生在两个极端：</p>
+<a id="more"></a>
+<ul>
+<li><strong>只用 BM25</strong>：用户问”怎么退订”，文档里写的是”取消订阅”，一个词都对不上，召回为空；</li>
+<li><strong>只用向量</strong>：用户搜订单号 <code>SO-2024-8871</code>、错误码 <code>E1042</code>、函数名 <code>parse_args</code>，语义模型把它当成无意义字符串，召回一堆”语义相近但完全无关”的内容。</li>
+</ul>
+<p>这两种失败指向同一件事：<strong>词法匹配（lexical）和语义匹配（semantic）捕捉的是不同的相关性</strong>。前者对精确符号、稀有词、专有名词极强；后者对同义改写、跨语言、模糊描述极强。任何单独使用都会在真实业务里掉坑。</p>
+<p>本文的路线：</p>
+<ol>
+<li>先把 BM25 拆开（它为什么能活 30 年，以及它到底弱在哪）；</li>
+<li>讲稠密检索的范式转变（以及它丢掉了什么）；</li>
+<li>拆 BGE 系列的设计取舍（为什么它的 instruction 前缀不能省、M3 的三合一意味着什么）；</li>
+<li>讲混合检索的三种融合方式与它们的分数尺度问题；</li>
+<li>给召回/重排的分工与 RAG 的标准配置；</li>
+<li>最后是工程踩坑与选型。</li>
+</ol>
+<blockquote>
+<p>面向已做过 RAG、被召回率折磨过的读者。默认你熟悉 embedding、ANN 索引和基本的检索评估指标。</p>
+</blockquote>
+<hr>
+<h2 id="1-BM25：一个用了-30-年还没被淘汰的基线"><a href="#1-BM25：一个用了-30-年还没被淘汰的基线" class="headerlink" title="1. BM25：一个用了 30 年还没被淘汰的基线"></a>1. BM25：一个用了 30 年还没被淘汰的基线</h2><h3 id="1-1-从-TF-IDF-到概率检索框架"><a href="#1-1-从-TF-IDF-到概率检索框架" class="headerlink" title="1.1 从 TF-IDF 到概率检索框架"></a>1.1 从 TF-IDF 到概率检索框架</h3><p>BM25 的血统可以追溯到 1970 年代的 TF-IDF，但它的正式形式来自 <strong>Okapi 系统</strong>（Robertson、Walker、Jones 等人，City University London，1990 年代 TREC 系列）。理论上的完整表述见 Robertson &amp; Zaragoza 的 <em>The Probabilistic Relevance Framework: BM25 and Beyond</em>（2009）。</p>
+<p>它属于<strong>概率相关性框架</strong>（Probabilistic Relevance Framework）：不从”词频加权”的经验公式出发，而是假设”文档与查询相关”是一个概率事件，通过<strong>检索概率模型</strong>（Binary Independence Model）推导出排序函数。</p>
+<p>推导过程略过，但有一个关键结论值得记住：<strong>在词项独立假设下，最优排序函数只依赖每个词项在两个分布里的”出现比例差”</strong> —— 这就是 IDF 的来源。所以 IDF 不是”拍脑袋觉得稀有词重要”，它是概率模型的产物。</p>
+<h3 id="1-2-公式逐项拆解"><a href="#1-2-公式逐项拆解" class="headerlink" title="1.2 公式逐项拆解"></a>1.2 公式逐项拆解</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">score(D, Q) = Σ_&#123;i=1&#125;^&#123;n&#125; IDF(q_i) · [ f(q_i, D) · (k1 + 1) ] / [ f(q_i, D) + k1 · (1 − b + b · |D| / avgdl) ]</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>f(q_i, D)</code></td>
+<td>词项 <code>q_i</code> 在文档 <code>D</code> 中的词频</td>
+<td>词频信号</td>
+</tr>
+<tr>
+<td><code>|D|</code></td>
+<td>文档长度（词数）</td>
+<td>长度归一化的分子</td>
+</tr>
+<tr>
+<td><code>avgdl</code></td>
+<td>语料平均文档长度</td>
+<td>长度归一化的基准</td>
+</tr>
+<tr>
+<td><code>k1</code></td>
+<td>词频饱和参数，通常 1.2（0.9–2.0）</td>
+<td>控制”词频涨到多少就饱和”</td>
+</tr>
+<tr>
+<td><code>b</code></td>
+<td>长度归一化强度，通常 0.75（0–1）</td>
+<td><code>b=0</code> 完全不惩罚长文档，<code>b=1</code> 完全按长度线性惩罚</td>
+</tr>
+<tr>
+<td><code>IDF(q_i)</code></td>
+<td>逆文档频率</td>
+<td>稀有词权重高</td>
+</tr>
+</tbody></table>
+<p><strong>三个部件，三个直觉</strong>：</p>
+<p><strong>① IDF：稀有词更重要</strong></p>
+<p>Lucene 的平滑形式（保证非负）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IDF(q) = ln( (N − n(q) + 0.5) / (n(q) + 0.5) + 1 )</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>N</code> 是文档总数，<code>n(q)</code> 是含该词的文档数。加 1 是为了避免 <code>n(q) &gt; N/2</code> 时出现负值（原始 Robertson-Sparck Jones 形式会）。</p>
+<p><strong>这意味着：出现在超过一半文档里的词，IDF 接近 0，几乎不起作用。</strong> 这是自动的停用词过滤——不需要手工维护停用词表。</p>
+<p><strong>② 词频饱和：<code>f/(f + K)</code></strong></p>
+<p>当 <code>f</code> 很小时，分数随 <code>f</code> 近似线性增长；当 <code>f</code> 远大于 <code>K</code> 时，分数趋于上限 <code>k1+1</code>。</p>
+<p>直觉：<strong>一个词出现 3 次和出现 30 次，与相关性的关系不是线性的</strong>。出现 30 次可能是关键词堆砌，也可能是文档确实在深入讲这个主题——BM25 选择”保守地封顶”。</p>
+<p><code>k1</code> 控制饱和速度：<code>k1</code> 小 → 很快饱和（只奖励”出现过”）；<code>k1</code> 大 → 更接近线性（奖励”多次出现”）。</p>
+<p><strong>③ 长度归一化：<code>1 − b + b·|D|/avgdl</code></strong></p>
+<p>长文档天然包含更多词，也就更可能与查询有词重叠。不做归一化，长文档会系统性排在前面。</p>
+<p><code>b</code> 控制惩罚强度：</p>
+<ul>
+<li><code>b = 0</code>：不惩罚（适合长度差异本身携带信息的场景）；</li>
+<li><code>b = 1</code>：完全按长度比例惩罚；</li>
+<li><code>b = 0.75</code>：经验折中。</li>
+</ul>
+<p><strong>工程上最值得注意的一点</strong>：如果你的文档是<strong>固定长度切分的 chunk</strong>（比如全部 512 token），<code>|D|/avgdl ≈ 1</code>，长度归一化项恒等于 1，<code>b</code> 完全失效。<strong>这时把 <code>b</code> 设成 0.3–0.5 甚至 0 更合理</strong>——默认 0.75 是为异构长度的网页/论文设计的，不是为等长 chunk 设计的。这是 RAG 场景里最常见的 BM25 参数误用。</p>
+<h3 id="1-3-变体：BM15、BM25-、BM25L、BM25F"><a href="#1-3-变体：BM15、BM25-、BM25L、BM25F" class="headerlink" title="1.3 变体：BM15、BM25+、BM25L、BM25F"></a>1.3 变体：BM15、BM25+、BM25L、BM25F</h3><p>先把术语说清楚，因为这块中文资料里经常混。</p>
+<p><strong>BM15 是”BM25 的前身”**，属于 Okapi 早期的 BM 系列命名（BM1、BM11、BM12、BM15、BM25）。系列的差别主要在</strong>词频归一化的形式<strong>：BM15 的词频项不做（或弱做）文档长度归一化，BM25 把长度归一化放进了分母的 <code>K</code> 里。</strong>工程上可以粗略理解为”<code>b=0</code> 附近的 BM25”**，但严格说两者的推导路径不同，不建议把 BM15 当成”BM25 的一个参数配置”。</p>
+<p>真正在工程上有意义的是后三个变体：</p>
+<table>
+<thead>
+<tr>
+<th>变体</th>
+<th>出处</th>
+<th>修正的问题</th>
+<th>公式改动</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>BM25+</strong></td>
+<td>Lv &amp; Zhai, 2011</td>
+<td><strong>低频词被过度惩罚</strong>：<code>tf=1</code> 时长文档的分数可能低到接近 0，导致”只要出现一次”这个信号被抹掉</td>
+<td>给词频项加<strong>下界</strong> <code>δ</code>（通常 1.0）：<code>tf/(K+tf) → tf/(K+tf) + δ</code></td>
+</tr>
+<tr>
+<td><strong>BM25L</strong></td>
+<td>Lv &amp; Zhai, 2011</td>
+<td><strong>长文档被过度惩罚</strong>：长度归一化对长文档的压制过强</td>
+<td>先做归一化再加 <code>δ</code>（通常 0.5），再代入饱和函数：<code>c = tf/(1−b+b·dl/avgdl)</code>，<code>c&#39; = c + δ</code></td>
+</tr>
+<tr>
+<td><strong>BM25F</strong></td>
+<td>Robertson &amp; Zaragoza, 2004</td>
+<td><strong>多字段场景</strong>（标题/正文/锚文本权重不同）</td>
+<td>各字段词频先加权求和，再做饱和；长度归一化也按字段加权</td>
+</tr>
+</tbody></table>
+<p>三者的关系可以用一句话概括：</p>
+<blockquote>
+<p><strong>BM25+ 修的是”短文档里的低频词”，BM25L 修的是”长文档里的高频词”，两者都是给词频项加一个下界 <code>δ</code>，只是加的位置不同。</strong></p>
+</blockquote>
+<p><strong>实际影响有多大？</strong> 在标准 TREC 数据集上，BM25+ 相对 BM25 的 MAP 提升通常在 1–3 个点，长文档集合（如 gov2、ClueWeb）上更明显。<strong>在 RAG 的固定长度 chunk 场景，收益通常很小</strong>——因为”长文档过度惩罚”这个前提不成立了。所以：</p>
+<ul>
+<li><strong>通用网页/论文检索</strong>：值得用 BM25+；</li>
+<li><strong>等长 chunk 的 RAG</strong>：BM25 原版足够，重点调 <code>b</code> 和分词；</li>
+<li><strong>有标题/正文结构</strong>：BM25F 的字段加权收益明显（标题权重 2–3 倍是常见配置）。</li>
+</ul>
+<p>另外两个值得一提的变体：</p>
+<ul>
+<li><strong>BM25-adpt</strong>（自适应 <code>k1</code>）：让 <code>k1</code> 随词项在语料中的分布变化，稀有词用大 <code>k1</code>（更看重词频），常见词用小 <code>k1</code>。理论优雅，工程上很少见实现；</li>
+<li><strong>BM25PRF</strong>（伪相关反馈）：用首次检索的 top-k 结果做查询扩展，再检索一次。在无监督场景能涨点，但会引入”查询漂移”。</li>
+</ul>
+<h3 id="1-4-四个结构性局限"><a href="#1-4-四个结构性局限" class="headerlink" title="1.4 四个结构性局限"></a>1.4 四个结构性局限</h3><p><strong>局限一：词汇鸿沟（vocabulary mismatch）</strong></p>
+<p>这是最根本的一条。查询”如何退订”与文档”取消订阅”零重叠，BM25 打 0 分。同义词、上下位词、缩写、跨语言，全都无法处理。</p>
+<p><strong>局限二：无法处理语义组合</strong></p>
+<p>“苹果手机”和”手机苹果”对 BM25 是同一个词袋。否定（”不支持退款” vs “支持退款”）只差一个词，分数几乎一样。<strong>词袋假设丢弃了顺序和结构</strong>。</p>
+<p><strong>局限三：IDF 是全局统计，对领域漂移敏感</strong></p>
+<p>IDF 依赖整个语料库的统计。如果语料是混合的（技术文档 + 客服对话），同一个词在不同子集里的稀有度差异被平均掉了。<strong>分域建索引</strong>能缓解，但维护成本上升。</p>
+<p><strong>局限四：对分词器极度依赖（中文尤甚）</strong></p>
+<p>这一点在中文场景被严重低估。BM25 本身是”给定词序列算分”，<strong>词从哪来完全由分词器决定</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>分词方案</th>
+<th>效果</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>jieba 精确模式</strong></td>
+<td>通用好</td>
+<td>领域词（”退订”、”免赔额”）会被切错</td>
+</tr>
+<tr>
+<td><strong>jieba + 自定义词典</strong></td>
+<td>显著改善</td>
+<td>需要维护词典</td>
+</tr>
+<tr>
+<td><strong>character bigram（字二元）</strong></td>
+<td><strong>鲁棒性最好</strong>，无需词典</td>
+<td>索引膨胀、噪声召回</td>
+</tr>
+<tr>
+<td><strong>模型分词（BPE/WordPiece）</strong></td>
+<td>与 embedding 模型一致</td>
+<td>中文语义单元被切碎，IDF 失真</td>
+</tr>
+</tbody></table>
+<p><strong>一个反直觉的经验</strong>：在中文短文本检索上，<strong>字二元（bigram）经常打败词级分词</strong>。因为它对未登录词天然鲁棒（”退订”= “退”+”订”，两字都在就命中）。代价是索引变大、需要更严的 <code>k1</code> 与停用处理。</p>
+<p><strong>结论：在中文 RAG 里，分词策略对召回的影响，往往大于”BM25 还是 BM25+”的选择。</strong></p>
+<hr>
+<h2 id="2-稠密检索：把匹配交给学习"><a href="#2-稠密检索：把匹配交给学习" class="headerlink" title="2. 稠密检索：把匹配交给学习"></a>2. 稠密检索：把匹配交给学习</h2><h3 id="2-1-范式转变：从”词重叠”到”向量邻近”"><a href="#2-1-范式转变：从”词重叠”到”向量邻近”" class="headerlink" title="2.1 范式转变：从”词重叠”到”向量邻近”"></a>2.1 范式转变：从”词重叠”到”向量邻近”</h3><p>稠密检索的做法很直接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">离线：d → E(d) ∈ R^d      （文档编码，建索引）</span><br><span class="line">在线：q → E(q) ∈ R^d      （查询编码）</span><br><span class="line">排序：score = cos(E(q), E(d))  或内积</span><br></pre></td></tr></table></figure>
+
+<p><code>E(·)</code> 是一个双塔（bi-encoder）模型：查询和文档<strong>分别</strong>编码，只在最后做向量相似度计算。这个”分别编码”是关键——它让文档可以离线预计算，在线只需要编码查询，一次 ANN 检索就是 <code>O(log N)</code>。</p>
+<p>代价是：<strong>查询和文档在编码时互相看不见</strong>。这是双塔的表达力上限，也是它比 cross-encoder 快几个数量级的原因。</p>
+<h3 id="2-2-训练范式：对比学习"><a href="#2-2-训练范式：对比学习" class="headerlink" title="2.2 训练范式：对比学习"></a>2.2 训练范式：对比学习</h3><p>现代 embedding 模型几乎都是对比学习（contrastive learning）训出来的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">L = −log [ exp(sim(q, d⁺)/τ) / Σ_&#123;j&#125; exp(sim(q, d_j)/τ) ]</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>d⁺</code> 是正例，<code>d_j</code> 包括正例和一批负例。三个关键设计：</p>
+<table>
+<thead>
+<tr>
+<th>设计</th>
+<th>作用</th>
+<th>工程影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>in-batch negatives</strong></td>
+<td>同 batch 内其他样本的文档当负例，零额外成本</td>
+<td>batch 越大效果越好（负例多），但受显存限制</td>
+</tr>
+<tr>
+<td><strong>hard negatives</strong></td>
+<td>用 BM25 或上一版模型召回”看起来像但不相关”的文档</td>
+<td><strong>效果提升最大的一招</strong>，也是领域微调的核心</td>
+</tr>
+<tr>
+<td><strong>temperature τ</strong></td>
+<td>控制分布的尖锐度</td>
+<td>太小 → 训练不稳；太大 → 学不到区分度</td>
+</tr>
+</tbody></table>
+<p><strong>Hard negative 是理解 embedding 质量的关键</strong>。随机负例太容易分辨（”如何退订” vs “天气预报”），模型学不到细粒度区分。真正让模型变强的是”如何退订” vs “如何订阅”这种<strong>高相似但不相关</strong>的样本对。</p>
+<h3 id="2-3-它解决了什么，又丢了什么"><a href="#2-3-它解决了什么，又丢了什么" class="headerlink" title="2.3 它解决了什么，又丢了什么"></a>2.3 它解决了什么，又丢了什么</h3><table>
+<thead>
+<tr>
+<th>BM25 的弱点</th>
+<th>稠密检索是否解决</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>词汇鸿沟（同义词、改写）</td>
+<td>✅ 核心能力</td>
+</tr>
+<tr>
+<td>跨语言检索</td>
+<td>✅ 多语言模型可以（M3 支持 100+ 语言）</td>
+</tr>
+<tr>
+<td>语义组合/否定</td>
+<td>⚠️ 部分（取决于训练数据，仍不可靠）</td>
+</tr>
+<tr>
+<td>上下文理解（”苹果”是公司还是水果）</td>
+<td>⚠️ 部分</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>稠密检索丢掉的</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>精确字符串匹配</strong></td>
+<td>订单号、SKU、错误码、函数名、人名——被当成噪声</td>
+</tr>
+<tr>
+<td><strong>稀有词的高权重</strong></td>
+<td>IDF 的”稀有即重要”机制不存在了；长尾词被模型压成”语义相近”</td>
+</tr>
+<tr>
+<td><strong>可解释性</strong></td>
+<td>BM25 能说”因为命中了这 3 个词”；向量给不出理由</td>
+</tr>
+<tr>
+<td><strong>零样本/冷启动</strong></td>
+<td>新领域的专有词汇，模型没见过就是没见过</td>
+</tr>
+<tr>
+<td><strong>索引更新的成本</strong></td>
+<td>BM25 加文档是加倒排项；向量要重算 embedding</td>
+</tr>
+<tr>
+<td><strong>精确的阈值</strong></td>
+<td>相似度分数分布因 query 而异，很难设全局阈值</td>
+</tr>
+</tbody></table>
+<p><strong>这六条损失，就是混合检索存在的全部理由。</strong></p>
+<p>特别强调第四条：<strong>BM25 对新词是零成本自适应的</strong>。你加了一篇含”GLM-5.3-Flash”的文档，BM25 立刻能检索到（IDF 从语料里统计出来）；稠密模型需要这个字符串在训练数据里出现过，否则它的 embedding 与”某个模型名”没区别。</p>
+<h3 id="2-4-一条被反复验证的经验"><a href="#2-4-一条被反复验证的经验" class="headerlink" title="2.4 一条被反复验证的经验"></a>2.4 一条被反复验证的经验</h3><p><strong>在领域数据上，一个微调过的 bge-base（110M）经常打败未微调的 bge-large（335M）。</strong></p>
+<p>原因不是参数量，是分布：通用 embedding 模型训练在网页/百科/问答上，你的业务语料（内部文档、产品手册、工单）的词汇分布和查询意图都不同。</p>
+<p><strong>所以在做任何模型选型之前，先问：我有没有 500–2000 条领域内的 (query, positive) 对？</strong> 有，就微调；没有，就先造。这个投入的 ROI 高于”换个更大的模型”。</p>
+<hr>
+<h2 id="3-BGE-系列：中文-多语言场景的事实标准"><a href="#3-BGE-系列：中文-多语言场景的事实标准" class="headerlink" title="3. BGE 系列：中文/多语言场景的事实标准"></a>3. BGE 系列：中文/多语言场景的事实标准</h2><h3 id="3-1-出身与训练配方"><a href="#3-1-出身与训练配方" class="headerlink" title="3.1 出身与训练配方"></a>3.1 出身与训练配方</h3><p>BGE（BAAI General Embedding）来自北京智源人工智能研究院，代表论文是 <em>C-Pack: Packed Resources For General Chinese Embeddings</em>（SIGIR 2024）。它之所以在中文场景普及度极高，主要因为三件事：</p>
+<ol>
+<li><strong>开源 + 可商用</strong>（MIT/Apache 类许可，需以各模型卡为准）；</li>
+<li><strong>完整的训练数据与配方公开</strong>（C-Pack 包含 C-MTEB 评测集、大规模弱监督数据、以及训练代码）；</li>
+<li><strong>在中文检索基准 C-MTEB 上超过同期通用模型</strong>。</li>
+</ol>
+<p>训练流程分三段，值得理解，因为它解释了”为什么 BGE 需要 instruction 前缀”：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">① 预训练（RetroMAE 式自编码）</span><br><span class="line">   → 让模型具备&quot;从掩码中恢复语义&quot;的能力</span><br><span class="line">② 弱监督对比学习（大规模无标注 pair：标题-正文、问答对、相邻段落）</span><br><span class="line">   → 学到通用的语义相似</span><br><span class="line">③ 有监督微调（人工标注的相关性数据 + hard negatives）</span><br><span class="line">   → 对齐&quot;检索相关性&quot;这个特定目标</span><br></pre></td></tr></table></figure>
+
+<p>第三步引入了一个关键设计：**区分”对称任务”和”非对称任务”**。</p>
+<ul>
+<li><strong>对称任务</strong>（symmetric）：句子 A 与句子 B 相似度（语义相似、去重、聚类）；</li>
+<li><strong>非对称任务</strong>（asymmetric）：短查询 → 长文档（检索）。</li>
+</ul>
+<p>两者的最优表示空间不同：检索任务里，查询和文档不是”相似”，而是”相关”——一段文档可以完全不”像”查询文本，但回答了它。BGE 用 <strong>instruction 前缀</strong>来区分这两种模式。</p>
+<h3 id="3-2-instruction-前缀：不是可选项"><a href="#3-2-instruction-前缀：不是可选项" class="headerlink" title="3.2 instruction 前缀：不是可选项"></a>3.2 instruction 前缀：不是可选项</h3><p>BGE 中文 v1.5 系列在<strong>查询侧</strong>需要加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">为这个句子生成表示以用于检索相关文章：</span><br></pre></td></tr></table></figure>
+
+<p>英文侧：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Represent this sentence for searching relevant passages:</span><br></pre></td></tr></table></figure>
+
+<p>文档侧不加。</p>
+<p><strong>为什么</strong>：模型在训练时见过”带指令的查询”，指令相当于告诉模型”现在做的是非对称检索，不是语义相似度”。去掉指令，模型会退回到”对称任务”的表示模式，检索性能掉几个点（BGE 官方文档提到过这个差异）。</p>
+<p><strong>三个常见的误用</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>误用</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查询和文档都加 instruction</td>
+<td>分布与训练不一致，掉点</td>
+</tr>
+<tr>
+<td>都不加</td>
+<td>掉点（尤其中文）</td>
+</tr>
+<tr>
+<td>用了 <code>sentence-transformers</code> 的通用 pipeline 但没传 prompt</td>
+<td>默认不加，静默掉点</td>
+</tr>
+</tbody></table>
+<p><strong>BGE-M3 是例外</strong>：它不需要 instruction（训练时没依赖这个机制），文档里明确说”无需添加指令”。</p>
+<h3 id="3-3-型号谱系"><a href="#3-3-型号谱系" class="headerlink" title="3.3 型号谱系"></a>3.3 型号谱系</h3><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>维度</th>
+<th>参数量</th>
+<th>最大长度</th>
+<th>语言</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>bge-small-zh-v1.5</code></td>
+<td>512</td>
+<td>24M</td>
+<td>512</td>
+<td>中</td>
+<td>边缘/低延迟</td>
+</tr>
+<tr>
+<td><code>bge-base-zh-v1.5</code></td>
+<td>768</td>
+<td>102M</td>
+<td>512</td>
+<td>中</td>
+<td><strong>性价比最高</strong></td>
+</tr>
+<tr>
+<td><code>bge-large-zh-v1.5</code></td>
+<td>1024</td>
+<td>326M</td>
+<td>512</td>
+<td>中</td>
+<td>精度最好（中文 v1.5 系）</td>
+</tr>
+<tr>
+<td><code>bge-small-en-v1.5</code></td>
+<td>384</td>
+<td>33M</td>
+<td>512</td>
+<td>英</td>
+<td>英文轻量</td>
+</tr>
+<tr>
+<td><code>bge-base-en-v1.5</code></td>
+<td>768</td>
+<td>109M</td>
+<td>512</td>
+<td>英</td>
+<td>英文主力</td>
+</tr>
+<tr>
+<td><code>bge-large-en-v1.5</code></td>
+<td>1024</td>
+<td>335M</td>
+<td>512</td>
+<td>英</td>
+<td>英文精度</td>
+</tr>
+<tr>
+<td><strong><code>bge-m3</code></strong></td>
+<td>1024</td>
+<td>568M</td>
+<td><strong>8192</strong></td>
+<td><strong>100+</strong></td>
+<td><strong>稠密 + 稀疏 + 多向量三合一</strong></td>
+</tr>
+<tr>
+<td><code>bge-reranker-base</code></td>
+<td>—</td>
+<td>278M</td>
+<td>512</td>
+<td>中英</td>
+<td>cross-encoder 重排</td>
+</tr>
+<tr>
+<td><code>bge-reranker-large</code></td>
+<td>—</td>
+<td>560M</td>
+<td>512</td>
+<td>中英</td>
+<td>重排精度更高</td>
+</tr>
+<tr>
+<td><code>bge-reranker-v2-m3</code></td>
+<td>—</td>
+<td>568M</td>
+<td>8192</td>
+<td>多语言</td>
+<td>与 M3 配套</td>
+</tr>
+</tbody></table>
+<p><strong>v1.5 相对 v1 的关键改进</strong>（常被忽略但很实用）：<strong>相似度分布被”拉开”了</strong>。</p>
+<p>v1 的问题是无相关文档对的相似度也普遍在 0.6–0.85，导致：</p>
+<ul>
+<li>无法设阈值（”0.7 以上算相关”在 v1 上几乎没有区分度）；</li>
+<li>rerank 阶段很难定 cutoff。</li>
+</ul>
+<p>v1.5 通过调整训练（不用 1.0 作为正例目标，改用 0.9 左右）让分布更分散，<strong>这让”设定相似度阈值做过滤”重新变得可行</strong>。</p>
+<h3 id="3-4-BGE-M3：为什么”三合一”重要"><a href="#3-4-BGE-M3：为什么”三合一”重要" class="headerlink" title="3.4 BGE-M3：为什么”三合一”重要"></a>3.4 BGE-M3：为什么”三合一”重要</h3><p>M3 的三个 M：</p>
+<table>
+<thead>
+<tr>
+<th>M</th>
+<th>含义</th>
+<th>实现</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Multi-Linguality</strong></td>
+<td>100+ 语言，支持跨语言检索</td>
+<td>XLM-RoBERTa 骨干 + 多语言训练</td>
+</tr>
+<tr>
+<td><strong>Multi-Granularity</strong></td>
+<td>输入最长 8192 token</td>
+<td>从短句到长文档统一处理</td>
+</tr>
+<tr>
+<td><strong>Multi-Functionality</strong></td>
+<td>稠密 + 稀疏 + 多向量</td>
+<td>同一模型三种输出头</td>
+</tr>
+</tbody></table>
+<p>三种检索方式的输出：</p>
+<p><strong>① Dense（稠密）</strong>：标准的 1024 维句向量，归一化后内积。</p>
+<p><strong>② Sparse（稀疏/词法权重）</strong>：对每个 token 输出一个权重，形成 <code>{token_id: weight}</code> 的稀疏向量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w_t = ReLU(W_lex · h_t)</span><br></pre></td></tr></table></figure>
+
+<p>注意：<strong>它不是 BM25</strong>。BM25 的权重来自全局 IDF 统计；M3 的权重来自上下文（同一个词在不同语境权重不同）。这是它的优势（能表达”这个词在这里重要”）也是它的劣势（见 6.4）。</p>
+<p><strong>③ Multi-Vector（多向量 / ColBERT 式）</strong>：对每个 token 输出一个向量，检索时用 late interaction：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">score(q, d) = Σ_&#123;i∈q&#125; max_&#123;j∈d&#125; (E(q_i) · E(d_j))</span><br></pre></td></tr></table></figure>
+
+<p>即”查询的每个 token，在文档里找最相似的那个 token”，再求和。表达力接近 cross-encoder，但可以预计算文档侧向量。</p>
+<p>**M3 的真正价值不在”一个模型三种输出”，而在”一次推理得到三种信号”**：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一次 forward → dense(1024) + sparse(~250 非零) + colbert(L×1024)</span><br></pre></td></tr></table></figure>
+
+<p>这让混合检索的实现成本大幅下降——不需要维护 BM25 索引 + 稠密索引两套 pipeline，只需要一个模型 + 三种索引。</p>
+<p><strong>但要清醒</strong>：M3 的 sparse 检索在多数基准上<strong>不如调好的 BM25</strong>（尤其精确匹配场景），multi-vector 的存储成本是稠密的 L 倍（L = token 数）。三合一是”便利性”的胜利，不是”每一项都最强”。</p>
+<h3 id="3-5-重排模型（reranker）"><a href="#3-5-重排模型（reranker）" class="headerlink" title="3.5 重排模型（reranker）"></a>3.5 重排模型（reranker）</h3><p>BGE 的 reranker 是 cross-encoder：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">score = CrossEncoder(q, d)     # q 和 d 拼在一起过一遍模型，输出一个标量</span><br></pre></td></tr></table></figure>
+
+<p>和双塔的区别：<strong>查询和文档在编码时就互相看见（cross-attention）</strong>，所以能捕捉细粒度交互（”这个文档是否回答了这个问题”而不是”是否相似”）。</p>
+<p>代价：<strong>不能预计算文档表示</strong>。每个 (q, d) 对都要完整前向，<code>n</code> 个候选就是 <code>n</code> 次推理。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>双塔（bi-encoder）</th>
+<th>交叉（cross-encoder）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文档预计算</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>复杂度</td>
+<td>检索 <code>O(log N)</code></td>
+<td>重排 <code>O(n)</code> 次前向</td>
+</tr>
+<tr>
+<td>精度</td>
+<td>中</td>
+<td><strong>高</strong></td>
+</tr>
+<tr>
+<td>典型用途</td>
+<td>召回（万级→百级）</td>
+<td>重排（百级→十级）</td>
+</tr>
+<tr>
+<td>代表</td>
+<td>bge-m3, bge-large</td>
+<td>bge-reranker-v2-m3</td>
+</tr>
+</tbody></table>
+<p><strong>这两个不是替代关系，是流水线的上下游。</strong> 用 cross-encoder 做全库检索是不可行的（几百万文档 × 每次查询），用 bi-encoder 做最终排序精度不够。</p>
+<hr>
+<h2 id="4-混合检索：三种融合方式"><a href="#4-混合检索：三种融合方式" class="headerlink" title="4. 混合检索：三种融合方式"></a>4. 混合检索：三种融合方式</h2><h3 id="4-1-问题定义"><a href="#4-1-问题定义" class="headerlink" title="4.1 问题定义"></a>4.1 问题定义</h3><p>两路召回，各返回一个排序列表。怎么合并？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BM25   →  [(d1, 12.3), (d5, 9.8), (d2, 8.1), ...]</span><br><span class="line">Dense  →  [(d2, 0.87), (d9, 0.85), (d1, 0.79), ...]</span><br></pre></td></tr></table></figure>
+
+<p><strong>核心困难：分数尺度不可比。</strong></p>
+<table>
+<thead>
+<tr>
+<th>信号</th>
+<th>分数范围</th>
+<th>分布形状</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BM25</td>
+<td><code>[0, +∞)</code>，实测通常 0–30</td>
+<td>长尾，随 query 长度变化</td>
+</tr>
+<tr>
+<td>Cosine</td>
+<td><code>[-1, 1]</code>，实测常集中在 0.3–0.9</td>
+<td>依赖模型和 query</td>
+</tr>
+<tr>
+<td>M3 sparse</td>
+<td><code>[0, +∞)</code>，量级与 BM25 不同</td>
+<td>更平滑</td>
+</tr>
+<tr>
+<td>Cross-encoder</td>
+<td>无界 logits</td>
+<td>依赖模型</td>
+</tr>
+</tbody></table>
+<p>直接把分数相加，等于让”分数大的那一路”主导结果——这几乎总是 BM25（因为它的数值范围大）。<strong>这是混合检索最常见的实现错误。</strong></p>
+<h3 id="4-2-方案一：加权求和（需要归一化）"><a href="#4-2-方案一：加权求和（需要归一化）" class="headerlink" title="4.2 方案一：加权求和（需要归一化）"></a>4.2 方案一：加权求和（需要归一化）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">score(d) = α · norm(s_bm25(d)) + (1 − α) · norm(s_dense(d))</span><br></pre></td></tr></table></figure>
+
+<p>归一化方式的选择很关键：</p>
+<table>
+<thead>
+<tr>
+<th>归一化</th>
+<th>公式</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Min-Max（按 query）</strong></td>
+<td><code>(s − min)/(max − min)</code></td>
+<td><strong>最常用也最危险</strong>：每路只有 top-k，min 是该 query 的 k 条里最小的，分布随 query 剧烈变化</td>
+</tr>
+<tr>
+<td><strong>Z-score（按 query）</strong></td>
+<td><code>(s − μ)/σ</code></td>
+<td>比 min-max 稳，但仍受 k 条样本的分布影响</td>
+</tr>
+<tr>
+<td><strong>全局固定缩放</strong></td>
+<td><code>s / C</code>（C 是经验常数）</td>
+<td>稳定，但需要针对每个模型/数据集标定</td>
+</tr>
+</tbody></table>
+<p><strong>Min-Max 的陷阱值得展开</strong>：假设稠密检索这一路只返回了 3 条（因为索引里就这么多相关文档），那么这 3 条会被拉伸到 <code>[0,1]</code> 满量程——一条相似度 0.4 的”勉强相关”文档会得到接近 1 的分数，压过 BM25 的高分结果。<strong>k 越小，这个问题越严重。</strong></p>
+<p><strong><code>α</code> 怎么定</strong>：不要拍脑袋。做法是在领域评测集上扫 <code>α ∈ {0, 0.1, ..., 1.0}</code>，看 nDCG@10。经验值：</p>
+<ul>
+<li>查询含大量专有名词/编号/代码 → <code>α</code> 偏大（0.5–0.7）；</li>
+<li>查询是自然语言描述 → <code>α</code> 偏小（0.2–0.4）；</li>
+<li>中英混合/多语言 → 稠密为主（0.2）。</li>
+</ul>
+<p><strong>更稳的做法是查询自适应</strong>：用规则（是否含数字/大写字母/引号）或一个小分类器决定 <code>α</code>。</p>
+<h3 id="4-3-方案二：RRF（倒数排名融合）"><a href="#4-3-方案二：RRF（倒数排名融合）" class="headerlink" title="4.3 方案二：RRF（倒数排名融合）"></a>4.3 方案二：RRF（倒数排名融合）</h3><p>RRF（Reciprocal Rank Fusion, Cormack et al., SIGIR 2009）不看分数，只看排名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RRF(d) = Σ_&#123;r ∈ R&#125; 1 / (k + rank_r(d))</span><br></pre></td></tr></table></figure>
+
+<p><code>k</code> 通常取 60（原论文的经验值），<code>rank</code> 从 1 开始。</p>
+<p><strong>为什么有效</strong>：</p>
+<ol>
+<li><strong>完全绕开分数尺度问题</strong>——只用排名，天然可比；</li>
+<li><strong>对异常分数鲁棒</strong>——某一路给出一个荒谬的高分，只影响它自己的排名；</li>
+<li><strong>零参数标定</strong>——<code>k=60</code> 基本能直接用。</li>
+</ol>
+<p><strong>代价</strong>：</p>
+<ol>
+<li><strong>丢弃了分数信息</strong>——第 1 名和第 2 名的差距，在不同 query 下可能完全不同，但 RRF 一视同仁；</li>
+<li>**<code>k</code> 的选择影响”头部集中度”**：<code>k</code> 小 → 头部权重更极端（各路第 1 名主导）；<code>k</code> 大 → 更平滑；</li>
+<li><strong>需要两路都返回足够多的结果</strong>——如果某一路只返回 5 条，这 5 条会拿到 5 个高 RRF 贡献，人为放大。</li>
+</ol>
+<p><strong>实践结论</strong>：<strong>先上 RRF，跑通基线，再考虑要不要调成加权融合。</strong> 大多数团队在 RRF 上的收益已经足够，继续调加权融合的边际收益很小，但调参成本很高。</p>
+<h3 id="4-4-方案三：级联（cascade）"><a href="#4-4-方案三：级联（cascade）" class="headerlink" title="4.4 方案三：级联（cascade）"></a>4.4 方案三：级联（cascade）</h3><p>不做分数融合，做<strong>流程串联</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BM25 top-100  ─┐</span><br><span class="line">                ├→ 并集去重 → cross-encoder 重排 → top-5</span><br><span class="line">Dense top-100 ─┘</span><br></pre></td></tr></table></figure>
+
+<p>优点：</p>
+<ul>
+<li>不需要融合分数（重排模型自己会排序）；</li>
+<li>两路各自贡献候选，召回率是”并集”，接近上限；</li>
+<li>实现最简单，工程上最稳。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li><strong>重排成本 = 并集大小</strong>（200 条要 200 次 forward）；</li>
+<li>如果某一路召回了大量噪声，会稀释重排的有效性（重排模型也是会错的）。</li>
+</ul>
+<p><strong>这是当前 RAG 系统的主流做法</strong>，因为它的假设最少、调参最少、可解释性最好。</p>
+<h3 id="4-5-三种方案对比"><a href="#4-5-三种方案对比" class="headerlink" title="4.5 三种方案对比"></a>4.5 三种方案对比</h3><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>需要归一化</th>
+<th>调参成本</th>
+<th>精度上限</th>
+<th>计算成本</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>加权求和</strong></td>
+<td>需要（关键难点）</td>
+<td>高（α + 归一化策略）</td>
+<td>高（若调好）</td>
+<td>低</td>
+<td>分数分布稳定的场景</td>
+</tr>
+<tr>
+<td><strong>RRF</strong></td>
+<td>不需要</td>
+<td>极低（k=60）</td>
+<td>中高</td>
+<td>低</td>
+<td><strong>默认首选</strong></td>
+</tr>
+<tr>
+<td><strong>级联 + 重排</strong></td>
+<td>不需要</td>
+<td>低</td>
+<td><strong>最高</strong></td>
+<td>高（重排 O(n)）</td>
+<td>有重排预算、精度优先</td>
+</tr>
+</tbody></table>
+<h3 id="4-6-统一模型路线：一个模型出多种信号"><a href="#4-6-统一模型路线：一个模型出多种信号" class="headerlink" title="4.6 统一模型路线：一个模型出多种信号"></a>4.6 统一模型路线：一个模型出多种信号</h3><p>除了”拼两个系统”，还有”一个模型出多种表示”的路线：</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>机制</th>
+<th>优势</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>BGE-M3</strong></td>
+<td>一次 forward → dense + sparse + colbert</td>
+<td>部署简单、一次编码三种索引</td>
+<td>sparse 不如 BM25；colbert 存储大</td>
+</tr>
+<tr>
+<td><strong>SPLADE</strong></td>
+<td>用 BERT 做词项扩展，输出稀疏向量（含扩展词）</td>
+<td>稀疏检索也能做语义扩展；倒排索引可直接用</td>
+<td>训练复杂；扩展词可能引入噪声</td>
+</tr>
+<tr>
+<td><strong>ColBERT / ColBERTv2</strong></td>
+<td>纯 late interaction</td>
+<td>精度接近 cross-encoder</td>
+<td>存储 = token 数 × 维度，成本极高</td>
+</tr>
+<tr>
+<td><strong>uniCOIL / DeepImpact</strong></td>
+<td>学习词项权重</td>
+<td>简单有效</td>
+<td>表达力有限</td>
+</tr>
+</tbody></table>
+<p><strong>SPLADE 值得单独说一句</strong>：它把”稀疏”和”语义”结合得最好——输出的稀疏向量里包含<strong>原始词 + 模型生成的扩展词</strong>（如查询”退订”会扩展出”取消”、”终止”），然后走标准倒排索引。这让它在保持倒排索引的速度优势的同时，部分解决了词汇鸿沟。</p>
+<p>代价是：<strong>稀疏向量的非零项可能从 10 个涨到 100+ 个</strong>，索引膨胀，且扩展词不总是对的。</p>
+<hr>
+<h2 id="5-召回与重排：漏斗与预算"><a href="#5-召回与重排：漏斗与预算" class="headerlink" title="5. 召回与重排：漏斗与预算"></a>5. 召回与重排：漏斗与预算</h2><h3 id="5-1-标准漏斗"><a href="#5-1-标准漏斗" class="headerlink" title="5.1 标准漏斗"></a>5.1 标准漏斗</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">全库 (10^5 – 10^8)</span><br><span class="line">   │  ① 召回（recall）：高召回率、低成本、可并行多路</span><br><span class="line">   ├─ BM25        top-50</span><br><span class="line">   ├─ Dense       top-50</span><br><span class="line">   └─ (可选) Sparse/ColBERT  top-50</span><br><span class="line">   ↓  并集去重（~80–120 条）</span><br><span class="line">   │  ② 融合（fusion）：RRF 或加权</span><br><span class="line">   ↓  top-30</span><br><span class="line">   │  ③ 重排（rerank）：cross-encoder，高精度、高成本</span><br><span class="line">   ↓  top-3 – 10</span><br><span class="line">   │  ④ 后处理：去冗余（MMR）、按时间/权限过滤、上下文窗口填充</span><br><span class="line">   ↓</span><br><span class="line">   LLM</span><br></pre></td></tr></table></figure>
+
+<p><strong>每一层的目标不同</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>优化目标</th>
+<th>关键指标</th>
+<th>常见错误</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>召回</td>
+<td><strong>recall@k 尽量高</strong></td>
+<td>recall@50, recall@100</td>
+<td>只看 precision，导致该有的没进来</td>
+</tr>
+<tr>
+<td>融合</td>
+<td>把好的排前面</td>
+<td>nDCG@30</td>
+<td>用错的归一化，让一路主导</td>
+</tr>
+<tr>
+<td>重排</td>
+<td><strong>precision@k 高</strong></td>
+<td>nDCG@5, MRR@10</td>
+<td>候选太少（&lt;20），重排无从发挥</td>
+</tr>
+<tr>
+<td>生成</td>
+<td>答案质量</td>
+<td>端到端准确率</td>
+<td>上下文塞太满，反而稀释</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-一个容易被忽略的原则"><a href="#5-2-一个容易被忽略的原则" class="headerlink" title="5.2 一个容易被忽略的原则"></a>5.2 一个容易被忽略的原则</h3><blockquote>
+<p><strong>召回阶段不要追求 precision，重排阶段不要追求 recall。</strong></p>
+</blockquote>
+<p>召回阶段用 precision 优化（比如把 k 从 100 降到 20），会直接砍掉正确答案——而重排模型再强也救不回来。反之，重排阶段如果候选有 200 条，cross-encoder 的延迟会失控。</p>
+<p><strong>正确的做法</strong>：召回宁多勿少（100–200），重排宁精勿多（20–30），最终给 LLM 的宁少勿多（3–8 条，按需）。</p>
+<h3 id="5-3-RAG-里的标准配置（可直接抄）"><a href="#5-3-RAG-里的标准配置（可直接抄）" class="headerlink" title="5.3 RAG 里的标准配置（可直接抄）"></a>5.3 RAG 里的标准配置（可直接抄）</h3><table>
+<thead>
+<tr>
+<th>环节</th>
+<th>配置</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Chunk</strong></td>
+<td>256–512 token，重叠 10–20%</td>
+<td>按语义边界切（标题/段落），不要硬切</td>
+</tr>
+<tr>
+<td><strong>BM25</strong></td>
+<td><code>k1=1.2, b=0.3</code>（等长 chunk 降低 b），中文用 jieba+自定义词典或 bigram</td>
+<td>索引与 chunk 同步更新</td>
+</tr>
+<tr>
+<td><strong>Dense</strong></td>
+<td><code>bge-m3</code>（多语言/长文档）或 <code>bge-large-zh-v1.5</code>（纯中文短 chunk）</td>
+<td>查询加 instruction（M3 除外）</td>
+</tr>
+<tr>
+<td><strong>召回数</strong></td>
+<td>每路 top-50</td>
+<td>太少融合无意义，太多重排慢</td>
+</tr>
+<tr>
+<td><strong>融合</strong></td>
+<td>RRF，<code>k=60</code></td>
+<td>先用默认值，别急着调</td>
+</tr>
+<tr>
+<td><strong>重排</strong></td>
+<td><code>bge-reranker-v2-m3</code> top-20 → top-5</td>
+<td>阈值用相似度分布定（v1.5 后才可行）</td>
+</tr>
+<tr>
+<td><strong>冗余控制</strong></td>
+<td>MMR（λ=0.7）或按来源去重</td>
+<td>避免 5 条都是同一段落的改写</td>
+</tr>
+<tr>
+<td><strong>上下文</strong></td>
+<td>每条带来源 ID + 位置信息</td>
+<td>便于引用归因</td>
+</tr>
+</tbody></table>
+<h3 id="5-4-延迟预算"><a href="#5-4-延迟预算" class="headerlink" title="5.4 延迟预算"></a>5.4 延迟预算</h3><p>以 50 万文档、单机 8 卡为例的粗略量级：</p>
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>延迟</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查询编码（bge-m3, 512 token）</td>
+<td>5–15 ms</td>
+<td>batch=1，GPU</td>
+</tr>
+<tr>
+<td>BM25 检索（top-50）</td>
+<td>2–10 ms</td>
+<td>内存倒排</td>
+</tr>
+<tr>
+<td>向量检索（HNSW, top-50）</td>
+<td>3–15 ms</td>
+<td>取决于 ef_search 与索引规模</td>
+</tr>
+<tr>
+<td>RRF 融合</td>
+<td>&lt; 1 ms</td>
+<td>纯计算</td>
+</tr>
+<tr>
+<td>重排（20 条，bge-reranker-v2-m3）</td>
+<td>60–200 ms</td>
+<td><strong>主要瓶颈</strong></td>
+</tr>
+<tr>
+<td>重排（20 条，bge-reranker-base）</td>
+<td>20–60 ms</td>
+<td>精度换延迟</td>
+</tr>
+</tbody></table>
+<p><strong>重排是延迟大头</strong>。三条优化路径：</p>
+<ol>
+<li><strong>减候选</strong>（100 → 20）：最有效，但要看 nDCG 是否明显下降；</li>
+<li><strong>换小模型</strong>（v2-m3 → base）：精度掉 1–3 个点，延迟降 3 倍；</li>
+<li><strong>批处理 + FP16/INT8</strong>：工程优化，收益 1.5–2 倍。</li>
+</ol>
+<p><strong>如果端到端预算 &lt; 200ms，重排通常只能留 100ms 以内</strong>，那就必须在上面的三条里选两条。</p>
+<hr>
+<h2 id="6-工程踩坑"><a href="#6-工程踩坑" class="headerlink" title="6. 工程踩坑"></a>6. 工程踩坑</h2><h3 id="6-1-归一化：最基础也最容易错"><a href="#6-1-归一化：最基础也最容易错" class="headerlink" title="6.1 归一化：最基础也最容易错"></a>6.1 归一化：最基础也最容易错</h3><p><strong>坑一：忘记 L2 归一化，用内积当余弦</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cos(a, b) = a·b / (‖a‖‖b‖)</span><br></pre></td></tr></table></figure>
+
+<p>如果向量没归一化，内积会被<strong>向量模长</strong>主导。BGE 系列输出的是<strong>已归一化</strong>的向量（norm=1），但：</p>
+<ul>
+<li>自己做均值池化 / 加权池化后，norm 会变；</li>
+<li>有的模型（早期 sentence-transformers）默认不归一化；</li>
+<li>存进向量库后做「重排再算相似度」时，如果重新算向量忘了归一化，结果会不一致。</li>
+</ul>
+<p><strong>检查方法</strong>：随机取 100 条向量，算 <code>np.linalg.norm(v)</code>，应该全部 ≈ 1.0（float32 下 0.999–1.001）。<strong>这一个检查能避免大量”分数看起来怪怪的”问题。</strong></p>
+<p><strong>坑二：余弦距离 vs 内积索引不匹配</strong></p>
+<table>
+<thead>
+<tr>
+<th>库</th>
+<th>参数</th>
+<th>等价于</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FAISS <code>IndexFlatIP</code> + 归一化向量</td>
+<td>inner product</td>
+<td>cosine</td>
+</tr>
+<tr>
+<td>FAISS <code>IndexFlatL2</code> + 归一化向量</td>
+<td>L2</td>
+<td>单调等价于 cosine（排序一致）</td>
+</tr>
+<tr>
+<td>Milvus <code>COSINE</code></td>
+<td>自动归一化</td>
+<td>cosine</td>
+</tr>
+<tr>
+<td>Qdrant <code>Cosine</code></td>
+<td>自动归一化</td>
+<td>cosine</td>
+</tr>
+<tr>
+<td>pgvector <code>&lt;=&gt;</code></td>
+<td>cosine distance (<code>1 - cos</code>)</td>
+<td>注意是<strong>距离</strong>，越小越好</td>
+</tr>
+</tbody></table>
+<p><strong>最容易错的是 pgvector</strong>：<code>&lt;=&gt;</code> 返回的是距离，<code>ORDER BY</code> 要升序；而 FAISS 的 IP 返回相似度，要降序。混用会导致”最不相关的排第一”。</p>
+<p><strong>坑三：不同模型的分数绝对不可比</strong></p>
+<p><code>bge-large</code> 的 0.85 和 <code>bge-m3</code> 的 0.85 不是同一件事。<strong>换模型必须重跑评测、重新标定阈值。</strong> 迁移时复用旧阈值是”静默降级”的典型来源。</p>
+<h3 id="6-2-维度：不只是存储问题"><a href="#6-2-维度：不只是存储问题" class="headerlink" title="6.2 维度：不只是存储问题"></a>6.2 维度：不只是存储问题</h3><p><strong>坑一：维度不能混</strong></p>
+<p>384 / 512 / 768 / 1024 / 1536 / 3072 各不相同。混用会在索引层直接报错（好事），但更常见的是<strong>部分重建</strong>——只重算了新增文档，旧文档还是旧模型的向量 → 检索结果出现系统性偏差（新文档总是排前或排后）。</p>
+<p><strong>换模型的正确迁移流程</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 全量重算 embedding（不能增量）</span><br><span class="line">2. 新建索引（不要原地覆盖，保留旧索引做 A/B）</span><br><span class="line">3. 双写双跑 1–2 周，对比 recall/nDCG</span><br><span class="line">4. 切流量</span><br><span class="line">5. 观察 1 周后下线旧索引</span><br></pre></td></tr></table></figure>
+
+<p><strong>坑二：高维的成本被低估</strong></p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>100 万条的存储（float32）</th>
+<th>HNSW 内存（约 1.5×）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>384</td>
+<td>1.5 GB</td>
+<td>~2.3 GB</td>
+</tr>
+<tr>
+<td>768</td>
+<td>3.1 GB</td>
+<td>~4.6 GB</td>
+</tr>
+<tr>
+<td>1024</td>
+<td>4.1 GB</td>
+<td>~6.1 GB</td>
+</tr>
+<tr>
+<td>3072</td>
+<td>12.3 GB</td>
+<td>~18 GB</td>
+</tr>
+</tbody></table>
+<p><strong>这张表解释了两件事</strong>：</p>
+<ol>
+<li>为什么”用 3072 维的大模型”在千万级文档上几乎不可行（内存墙）；</li>
+<li>为什么降维/量化（int8、binary）在工程上不是可选项而是必需项。</li>
+</ol>
+<p><strong>降维的三条路</strong>：</p>
+<ul>
+<li><strong>Matryoshka 表示学习</strong>（MRL）：训练时就让前 256 维可单独使用，截断几乎不掉点。部分新模型支持，BGE 老版本不支持；</li>
+<li><strong>PCA 降维</strong>：通用但会掉 1–3 个点，且需要保留投影矩阵；</li>
+<li><strong>量化</strong>：int8 掉 ~0.5 个点，存储降 4 倍；binary 掉 3–8 个点，存储降 32 倍（适合粗筛 + 精排两阶段）。</li>
+</ul>
+<h3 id="6-3-召回数量：不是越多越好"><a href="#6-3-召回数量：不是越多越好" class="headerlink" title="6.3 召回数量：不是越多越好"></a>6.3 召回数量：不是越多越好</h3><p><strong>三个真实的约束</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>约束</th>
+<th>机制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>重排延迟</strong></td>
+<td>cross-encoder 是 <code>O(n)</code> 次 forward，n 翻倍延迟翻倍</td>
+</tr>
+<tr>
+<td><strong>噪声稀释</strong></td>
+<td>候选里无关文档越多，重排模型的判断越容易被干扰（尤其是弱重排模型）</td>
+</tr>
+<tr>
+<td><strong>上下文预算</strong></td>
+<td>最终给 LLM 的条数受 token 限制，多召回不能多用</td>
+</tr>
+</tbody></table>
+<p><strong>一个经验曲线</strong>（多数 RAG 场景）：</p>
+<table>
+<thead>
+<tr>
+<th>召回数 k</th>
+<th>recall@k（相对上限）</th>
+<th>重排延迟（20 条基准）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10</td>
+<td>55–70%</td>
+<td>0.5×</td>
+</tr>
+<tr>
+<td>20</td>
+<td>70–82%</td>
+<td>1×</td>
+</tr>
+<tr>
+<td>50</td>
+<td>85–92%</td>
+<td>2.5×</td>
+</tr>
+<tr>
+<td>100</td>
+<td>92–96%</td>
+<td>5×</td>
+</tr>
+<tr>
+<td>200</td>
+<td>96–98%</td>
+<td>10×</td>
+</tr>
+<tr>
+<td>500</td>
+<td>98%+</td>
+<td>25×</td>
+</tr>
+</tbody></table>
+<p><strong>拐点在 50–100</strong>。从 100 加到 200 只涨 2–4 个点，但延迟翻倍。</p>
+<p><strong>所以标准配置是：每路 top-50，融合后 30–50，重排取 top-20 进 cross-encoder。</strong> 这个配置在绝大多数场景是 Pareto 最优的。</p>
+<h3 id="6-4-领域适配：三条路径的取舍"><a href="#6-4-领域适配：三条路径的取舍" class="headerlink" title="6.4 领域适配：三条路径的取舍"></a>6.4 领域适配：三条路径的取舍</h3><table>
+<thead>
+<tr>
+<th>路径</th>
+<th>成本</th>
+<th>收益</th>
+<th>风险</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>微调 embedding 模型</strong></td>
+<td>中（需 500–2000 对 + GPU）</td>
+<td><strong>最高</strong>（5–20 个点 nDCG）</td>
+<td>过拟合到 query 分布；通用能力退化</td>
+</tr>
+<tr>
+<td><strong>换更大的通用模型</strong></td>
+<td>低</td>
+<td>低（1–3 个点）</td>
+<td>成本上升，可能不如微调小模型</td>
+</tr>
+<tr>
+<td><strong>加 BM25 / 混合检索</strong></td>
+<td>低</td>
+<td>中（3–8 个点）</td>
+<td>需要调融合</td>
+</tr>
+<tr>
+<td><strong>加 reranker</strong></td>
+<td>低</td>
+<td>中高（5–10 个点）</td>
+<td>延迟上升</td>
+</tr>
+<tr>
+<td><strong>改 chunk 策略</strong></td>
+<td><strong>极低</strong></td>
+<td><strong>中高（常被低估，5–15 个点）</strong></td>
+<td>需要重建索引</td>
+</tr>
+</tbody></table>
+<p><strong>排序建议</strong>（按 ROI）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 先改 chunk 策略（成本最低，收益常最大）</span><br><span class="line">2. 再加混合检索 + RRF（低成本，稳）</span><br><span class="line">3. 再加 reranker（中等成本，稳）</span><br><span class="line">4. 最后才微调 embedding（高成本，高收益但有风险）</span><br></pre></td></tr></table></figure>
+
+<p><strong>为什么 chunk 排第一</strong>：检索的本质是”找对的最小单元”。如果 chunk 是硬切的 512 token，一句话被切成两半，那再好的模型也召回不到完整语义。<strong>按标题/段落/代码块边界切，保留 10–20% 重叠</strong>——这一个改动的收益经常超过换模型。</p>
+<p><strong>微调的具体做法</strong>（如果要走）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">数据：500–2000 条 (query, positive)，最好带 hard negatives</span><br><span class="line">方法：对比学习 + in-batch negatives + 2–4 个 hard negatives</span><br><span class="line">参数：LoRA 或全参微调，lr 1e-5 – 5e-6，1–3 epoch</span><br><span class="line">评估：held-out 领域集 + 通用集（防退化）</span><br><span class="line">注意：hard negative 要用当前模型挖（不是 BM25 挖的），每轮更新</span><br></pre></td></tr></table></figure>
+
+<p><strong>一个必须做的检查</strong>：微调后<strong>同时</strong>测领域集和通用集（如 C-MTEB 子集）。如果领域涨 10 点但通用掉 8 点，说明过拟合——需要混入通用数据，或减小学习率。</p>
+<h3 id="6-5-BGE-M3-的-sparse：三个具体的坑"><a href="#6-5-BGE-M3-的-sparse：三个具体的坑" class="headerlink" title="6.5 BGE-M3 的 sparse：三个具体的坑"></a>6.5 BGE-M3 的 sparse：三个具体的坑</h3><p><strong>坑一：它的权重不是 IDF</strong></p>
+<p>BM25 的权重来自全局语料统计，M3 的 sparse 权重来自<strong>上下文</strong>。这意味着：</p>
+<ul>
+<li>优势：能区分”这个词在这里重要”（同一个词在不同文档权重不同）；</li>
+<li>劣势：<strong>没有全局稀有度概念</strong>。一个在全语料里极罕见的词，在某个文档里权重可能不高（因为模型判断它在这个上下文不重要）。</li>
+</ul>
+<p><strong>所以在精确匹配（订单号、错误码）上，M3 sparse 经常打不过 BM25。</strong></p>
+<p><strong>坑二：非零项多，存储成本不低</strong></p>
+<p><code>{token_id: weight}</code> 的稀疏向量，非零项通常 100–300 个（BM25 通常 10–30 个）。存储和倒排索引的规模都更大。</p>
+<p><strong>坑三：更新与对齐</strong></p>
+<p>token_id 依赖 M3 的 tokenizer（XLM-R 的 sentencepiece）。这意味着：</p>
+<ul>
+<li>不能用 jieba 分词后接 BM25 索引，两套东西无法共享；</li>
+<li>换 tokenizer 就要全量重算。</li>
+</ul>
+<p><strong>结论</strong>：<strong>M3 的 sparse 适合”想用一套模型解决多种检索、且不想维护 BM25 索引”的场景</strong>；如果已经有成熟的 BM25 pipeline，直接用 BM25 更划算。</p>
+<h3 id="6-6-中文特有：分词与字级检索"><a href="#6-6-中文特有：分词与字级检索" class="headerlink" title="6.6 中文特有：分词与字级检索"></a>6.6 中文特有：分词与字级检索</h3><p>前面提过，这里给可操作的建议：</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>实现</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>jieba + 自定义词典</strong></td>
+<td>把业务词（产品名、术语）加进词典</td>
+<td>通用场景，需要维护</td>
+</tr>
+<tr>
+<td><strong>字二元（bigram）</strong></td>
+<td>连续两字作为一个 term</td>
+<td><strong>鲁棒性最好</strong>，适合短查询、多未登录词</td>
+</tr>
+<tr>
+<td><strong>字一元（unigram）</strong></td>
+<td>单字</td>
+<td>召回极高但噪声大，需要强 IDF</td>
+</tr>
+<tr>
+<td><strong>混合</strong></td>
+<td>词级 + 字级两路 BM25</td>
+<td>精度最高，成本翻倍</td>
+</tr>
+</tbody></table>
+<p><strong>一个实测经验</strong>：在中文客服/文档问答场景，<strong>bigram 检索的 recall@50 通常比 jieba 词级高 3–5 个点</strong>，因为它不会因为分词错误而丢词。代价是索引大 2–3 倍、需要更高的 <code>k1</code> 和更激进的停用处理（”的”、”了”这类字的 bigram 要过滤）。</p>
+<h3 id="6-7-评测：先建集，再优化"><a href="#6-7-评测：先建集，再优化" class="headerlink" title="6.7 评测：先建集，再优化"></a>6.7 评测：先建集，再优化</h3><p><strong>没有领域评测集的优化都是盲调。</strong> 建集的最小方案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 从真实日志/工单里抽 200–500 条 query（覆盖主要意图）</span><br><span class="line">2. 每条标注 1–5 条相关文档（人工，或用强模型初筛 + 人工确认）</span><br><span class="line">3. 分三档：完全回答 / 部分相关 / 不相关</span><br><span class="line">4. 固定一个 held-out 子集，只在最终决策时看</span><br></pre></td></tr></table></figure>
+
+<p><strong>指标选择</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>含义</th>
+<th>什么时候看</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Recall@k</strong></td>
+<td>k 条里有多少相关文档被召回</td>
+<td>调召回阶段（k=50/100）</td>
+</tr>
+<tr>
+<td><strong>MRR@10</strong></td>
+<td>第一个相关文档排名的倒数</td>
+<td>看”第一条对不对”</td>
+</tr>
+<tr>
+<td><strong>nDCG@10</strong></td>
+<td>排序质量（考虑位置折扣）</td>
+<td><strong>主指标</strong>，融合/重排都看这个</td>
+</tr>
+<tr>
+<td><strong>Hit Rate@k</strong></td>
+<td>至少有一条相关</td>
+<td>RAG 场景最直观</td>
+</tr>
+</tbody></table>
+<p><strong>一个陷阱</strong>：只用 LLM-as-judge 评估端到端答案，会掩盖检索问题——LLM 可以用不相关的上下文编出看起来合理的答案。<strong>必须单独评估检索层。</strong></p>
+<hr>
+<h2 id="7-选型建议"><a href="#7-选型建议" class="headerlink" title="7. 选型建议"></a>7. 选型建议</h2><h3 id="7-1-决策树"><a href="#7-1-决策树" class="headerlink" title="7.1 决策树"></a>7.1 决策树</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">你的查询里有多少&quot;精确符号&quot;（编号/代码/人名/型号）？</span><br><span class="line">├── 很多 → 必须上 BM25（或 M3 sparse），且权重不低</span><br><span class="line">└── 很少 → 稠密为主，BM25 作为兜底</span><br><span class="line"></span><br><span class="line">语料是什么语言？</span><br><span class="line">├── 纯中文 → bge-large-zh-v1.5（短 chunk）/ bge-m3（长文或需多语言）</span><br><span class="line">├── 纯英文 → bge-large-en-v1.5</span><br><span class="line">└── 多语言/跨语言 → bge-m3</span><br><span class="line"></span><br><span class="line">文档多长？</span><br><span class="line">├── &lt; 512 token → bge-base/large v1.5（M3 的长上下文用不上）</span><br><span class="line">├── 512–8192 → bge-m3（唯一选择，其他会截断）</span><br><span class="line">└── &gt; 8192 → 先分段，再考虑</span><br><span class="line"></span><br><span class="line">延迟预算？</span><br><span class="line">├── &lt; 100ms 端到端 → bge-small + BM25 + RRF，不上重排</span><br><span class="line">├── 100–300ms → bge-base + BM25 + RRF + bge-reranker-base</span><br><span class="line">└── &gt; 300ms → bge-large/m3 + BM25 + RRF + bge-reranker-v2-m3</span><br><span class="line"></span><br><span class="line">有没有领域标注数据（500+ 对）？</span><br><span class="line">├── 有 → 微调 bge-base（性价比最高），必然超过未微调的 large</span><br><span class="line">└── 没有 → 先用通用模型 + 混合检索，同时开始造数据</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-2-场景-→-推荐组合"><a href="#7-2-场景-→-推荐组合" class="headerlink" title="7.2 场景 → 推荐组合"></a>7.2 场景 → 推荐组合</h3><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>召回</th>
+<th>融合</th>
+<th>重排</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>中文企业知识库</strong></td>
+<td>BM25(jieba+词典) + bge-large-zh-v1.5</td>
+<td>RRF</td>
+<td>bge-reranker-base</td>
+<td>中文场景成熟方案，延迟可控</td>
+</tr>
+<tr>
+<td><strong>多语言文档（含英文/日文）</strong></td>
+<td>BM25 + bge-m3(dense)</td>
+<td>RRF</td>
+<td>bge-reranker-v2-m3</td>
+<td>M3 唯一的跨语言选择</td>
+</tr>
+<tr>
+<td><strong>代码检索</strong></td>
+<td>BM25(标识符分词) + bge-m3</td>
+<td>RRF，BM25 权重高</td>
+<td>可选</td>
+<td>代码强依赖精确标识符匹配</td>
+</tr>
+<tr>
+<td><strong>长文档 QA（合同/论文）</strong></td>
+<td>BM25 + bge-m3(8192)</td>
+<td>RRF</td>
+<td>bge-reranker-v2-m3</td>
+<td>长上下文 + 多语言</td>
+</tr>
+<tr>
+<td><strong>电商商品搜索</strong></td>
+<td>BM25(标题加权, BM25F) + bge-base</td>
+<td>加权（α=0.5）</td>
+<td>小 cross-encoder</td>
+<td>商品名精确匹配 + 语义改写</td>
+</tr>
+<tr>
+<td><strong>低延迟边缘/端侧</strong></td>
+<td>BM25 + bge-small</td>
+<td>RRF</td>
+<td>不上</td>
+<td>重排延迟不可接受</td>
+</tr>
+<tr>
+<td><strong>高精度、低 QPS</strong></td>
+<td>三路（BM25 + dense + sparse）</td>
+<td>RRF</td>
+<td>bge-reranker-large</td>
+<td>精度优先，成本可接受</td>
+</tr>
+<tr>
+<td><strong>冷启动（无标注）</strong></td>
+<td>BM25 + 通用 bge</td>
+<td>RRF</td>
+<td>中等 reranker</td>
+<td>不要急着微调</td>
+</tr>
+</tbody></table>
+<h3 id="7-3-一个务实的落地顺序"><a href="#7-3-一个务实的落地顺序" class="headerlink" title="7.3 一个务实的落地顺序"></a>7.3 一个务实的落地顺序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Week 1：BM25 基线 + 领域评测集（200 条）</span><br><span class="line">  → 拿到 recall@50 / nDCG@10 的基线数字</span><br><span class="line">  → 这一步的产出是&quot;后续所有优化的参照系&quot;</span><br><span class="line"></span><br><span class="line">Week 2：加稠密检索（bge-base 或 bge-m3）+ RRF</span><br><span class="line">  → 目标：nDCG@10 提升 5–10 个点</span><br><span class="line">  → 如果没提升，先查 chunk 策略和归一化</span><br><span class="line"></span><br><span class="line">Week 3：加 reranker（bge-reranker-base）</span><br><span class="line">  → 目标：nDCG@5 提升 5–8 个点</span><br><span class="line">  → 同时测延迟，确定候选数</span><br><span class="line"></span><br><span class="line">Week 4+：领域微调 embedding（若有标注数据）</span><br><span class="line">  → 用当前系统挖 hard negatives</span><br><span class="line">  → 同时监控通用集，防退化</span><br><span class="line"></span><br><span class="line">持续：监控线上 query 的失败案例，回流到评测集</span><br></pre></td></tr></table></figure>
+
+<p><strong>这个顺序的关键是 Week 1</strong>：先有评测集和基线，后面的每一步才能判断”是不是真的变好了”。<strong>跳过 Week 1 直接调模型，是最常见的浪费。</strong></p>
+<hr>
+<h2 id="8-小结"><a href="#8-小结" class="headerlink" title="8. 小结"></a>8. 小结</h2><ol>
+<li><strong>BM25 的核心不是”词频加权”，是概率相关性框架的产物。</strong> IDF 来自”词在两个分布里的比例差”的推导，不是经验拍脑袋；词频饱和 <code>f/(f+K)</code> 和长度归一化 <code>1−b+b·|D|/avgdl</code> 是两个独立的正则化项。</li>
+<li><strong><code>b</code> 在等长 chunk 上会失效。</strong> <code>|D|/avgdl ≈ 1</code> 时长度归一化恒等于 1——这是 RAG 里最常见的 BM25 参数误用。等长 chunk 应把 <code>b</code> 降到 0.3–0.5 或 0。</li>
+<li><strong>BM15 是 BM25 的前身（Okapi 系列命名），不是”BM25 的一个参数配置”。</strong> 工程上有意义的是 BM25+（低频词下界）、BM25L（长文档归一化修正）、BM25F（多字段）。三者本质都是给词频项加 <code>δ</code>，位置不同。</li>
+<li><strong>中文 BM25 的效果，分词策略的影响大于公式选择。</strong> 字二元（bigram）在短文本/多未登录词场景经常打败 jieba 词级，因为它对分词错误天然鲁棒。</li>
+<li><strong>稠密检索丢掉了六样东西</strong>：精确匹配、稀有词权重、可解释性、零样本新词、低成本更新、稳定阈值。这六条就是混合检索存在的理由。</li>
+<li><strong>BGE 的 instruction 前缀不是可选项。</strong> 它区分”对称任务（相似度）”和”非对称任务（检索）”，去掉会退回错误的表示模式。M3 是例外（不需要）。</li>
+<li>**v1.5 的关键改进是”相似度分布被拉开”**，这让”设相似度阈值做过滤”重新变得可行——v1 的分数全挤在 0.6–0.9，阈值毫无意义。</li>
+<li><strong>BGE-M3 的三合一是”便利性”的胜利，不是”每一项最强”。</strong> 它的 sparse 在精确匹配上通常不如调好的 BM25（因为没有全局 IDF），multi-vector 的存储是稠密的 L 倍。它的价值在”一次编码三种信号”。</li>
+<li><strong>混合检索的困难不是”怎么融合”，是”分数尺度不可比”。</strong> BM25 无界、cosine 有界、cross-encoder 是 logits。直接相加等于让 BM25 主导——这是最常见的实现错误。</li>
+<li><strong>RRF 应该作为默认首选。</strong> 它绕开归一化、零参数标定、对异常值鲁棒。加权求和精度上限更高但调参成本高，<strong>只有在你已经有稳定评测集和精力扫参时才值得上</strong>。</li>
+<li><strong>Min-Max 按 query 归一化是最危险的实现。</strong> 当某一路只返回 3 条时，这 3 条会被拉伸到满量程，0.4 的弱相关文档得到接近 1 的分，压过另一路的高分结果。</li>
+<li><strong>召回宁多勿少，重排宁精勿多。</strong> 召回阶段优化 precision 会砍掉正确答案（重排救不回来）；重排阶段候选超过 30 条延迟会失控。拐点在每路 50、重排 20。</li>
+<li><strong>ROI 排序：chunk 策略 &gt; 混合检索 &gt; reranker &gt; 微调 embedding。</strong> 改 chunk 成本最低、收益常最大，但最容易被跳过（因为它不像”换个更强的模型”那么有成就感）。</li>
+<li><strong>领域微调 bge-base 经常打败未微调的 bge-large。</strong> 差距来自分布而非参数量。有 500–2000 条标注就该微调，并按轮次用当前模型挖 hard negatives。</li>
+<li><strong>先建评测集，再优化。</strong> 没有 held-out 的领域评测集，所有”提升”都可能是噪声。这是整个流程里唯一不能跳过的一步。</li>
+</ol>
+<p>如果只留一句：<strong>BM25 和向量检索不是新旧之争，是”精确”与”泛化”两种匹配信号的互补——工程上的胜负手在融合方式、chunk 策略和评测集，而不在模型排行榜。</strong></p>
+<hr>
+<h3 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h3><p><strong>BM25 与稀疏检索</strong></p>
+<ul>
+<li>Robertson &amp; Zaragoza, <em>The Probabilistic Relevance Framework: BM25 and Beyond</em>, Foundations and Trends in IR, 2009</li>
+<li>Robertson, Walker, Jones et al., Okapi at TREC-3, TREC 1994</li>
+<li>Lv &amp; Zhai, <em>Lower-Bounding Term Frequency Normalization</em>（BM25+）, CIKM 2011</li>
+<li>Lv &amp; Zhai, *When Documents Are Very Long, BM25 Fails!*（BM25L）, SIGIR 2011</li>
+<li>Robertson, Zaragoza, Taylor, <em>Simple BM25 Extension to Multiple Weighted Fields</em>（BM25F）, CIKM 2004</li>
+<li>Trotman, Puurula, Burgess, <em>Improvements to BM25 and Language Models Examined</em>, ADCS 2014（BM25 变体的系统对比）</li>
+<li>Cormack, Clarke, Buettcher, <em>Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods</em>, SIGIR 2009（RRF, k=60）</li>
+</ul>
+<p><strong>稠密检索与 BGE</strong></p>
+<ul>
+<li>Karpukhin et al., <em>Dense Passage Retrieval for Open-Domain Question Answering</em>, EMNLP 2020</li>
+<li>Xiao et al., <em>C-Pack: Packed Resources For General Chinese Embeddings</em>, SIGIR 2024（BGE 系列、C-MTEB）</li>
+<li>Chen et al., <em>BGE M3-Embedding: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation</em>, 2024（arXiv:2402.03216）</li>
+<li>Muennighoff et al., <em>MTEB: Massive Text Embedding Benchmark</em>, EACL 2023</li>
+<li>Formal et al., <em>SPLADE: Sparse Lexical and Expansion Model for First Stage Ranking</em>, SIGIR 2021</li>
+<li>Khattab &amp; Zaharia, <em>ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT</em>, SIGIR 2020；Santhanam et al., <em>ColBERTv2</em>, NAACL 2022</li>
+<li>Kusupati et al., <em>Matryoshka Representation Learning</em>, NeurIPS 2022</li>
+</ul>
+<p><strong>工程实践</strong></p>
+<ul>
+<li>BGE 官方文档与模型卡（instruction 前缀、v1.5 相似度分布改进、M3 无需指令）：<a href="https://github.com/FlagOpen/FlagEmbedding" target="_blank" rel="noopener">https://github.com/FlagOpen/FlagEmbedding</a></li>
+<li>关于 BGE-M3 稀疏编码局限性的中文讨论：<a href="https://juejin.cn/post/7450062038532898850" target="_blank" rel="noopener">掘金，2024-12-19</a></li>
+<li>SGLang / vLLM 的 embedding 服务与批量编码实践</li>
+</ul>
+<blockquote>
+<p><strong>说明</strong>：文中参数量、维度、最大长度等数据以各模型卡为准（核对时间 2026-11-11），BGE 系列在 2025–2026 年有持续更新（reranker 与多模态分支），具体型号请查 HuggingFace 上的 BAAI 组织页。延迟数字为单机 GPU 量级的经验值，随硬件、batch、索引参数变化很大，<strong>必须在自己环境实测</strong>。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/检索/" rel="tag"># 检索</a>
+              <a href="/tags/BM25/" rel="tag"># BM25</a>
+              <a href="/tags/稠密向量/" rel="tag"># 稠密向量</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/07/19/面向Agent的强化学习前沿/" rel="prev" title="面向 Agent 的强化学习：从 GRPO 到 Agentic RL">
+      <i class="fa fa-chevron-left"></i> 面向 Agent 的强化学习：从 GRPO 到 Agentic RL
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/07/27/UnifiedRanking统一排序/" rel="next" title="Unified Ranking：从级联漏斗到单一模型，推荐与搜索排序的范式迁移">
+      Unified Ranking：从级联漏斗到单一模型，推荐与搜索排序的范式迁移 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-BM25：一个用了-30-年还没被淘汰的基线"><span class="nav-number">2.</span> <span class="nav-text">1. BM25：一个用了 30 年还没被淘汰的基线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-从-TF-IDF-到概率检索框架"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 从 TF-IDF 到概率检索框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-公式逐项拆解"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 公式逐项拆解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-变体：BM15、BM25-、BM25L、BM25F"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 变体：BM15、BM25+、BM25L、BM25F</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-四个结构性局限"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 四个结构性局限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-稠密检索：把匹配交给学习"><span class="nav-number">3.</span> <span class="nav-text">2. 稠密检索：把匹配交给学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-范式转变：从”词重叠”到”向量邻近”"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 范式转变：从”词重叠”到”向量邻近”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-训练范式：对比学习"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 训练范式：对比学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-它解决了什么，又丢了什么"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 它解决了什么，又丢了什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-一条被反复验证的经验"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 一条被反复验证的经验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-BGE-系列：中文-多语言场景的事实标准"><span class="nav-number">4.</span> <span class="nav-text">3. BGE 系列：中文/多语言场景的事实标准</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-出身与训练配方"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 出身与训练配方</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-instruction-前缀：不是可选项"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 instruction 前缀：不是可选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-型号谱系"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 型号谱系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-BGE-M3：为什么”三合一”重要"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 BGE-M3：为什么”三合一”重要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-重排模型（reranker）"><span class="nav-number">4.5.</span> <span class="nav-text">3.5 重排模型（reranker）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-混合检索：三种融合方式"><span class="nav-number">5.</span> <span class="nav-text">4. 混合检索：三种融合方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-问题定义"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 问题定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-方案一：加权求和（需要归一化）"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 方案一：加权求和（需要归一化）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-方案二：RRF（倒数排名融合）"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 方案二：RRF（倒数排名融合）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-方案三：级联（cascade）"><span class="nav-number">5.4.</span> <span class="nav-text">4.4 方案三：级联（cascade）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-三种方案对比"><span class="nav-number">5.5.</span> <span class="nav-text">4.5 三种方案对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-统一模型路线：一个模型出多种信号"><span class="nav-number">5.6.</span> <span class="nav-text">4.6 统一模型路线：一个模型出多种信号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-召回与重排：漏斗与预算"><span class="nav-number">6.</span> <span class="nav-text">5. 召回与重排：漏斗与预算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-标准漏斗"><span class="nav-number">6.1.</span> <span class="nav-text">5.1 标准漏斗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-一个容易被忽略的原则"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 一个容易被忽略的原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-RAG-里的标准配置（可直接抄）"><span class="nav-number">6.3.</span> <span class="nav-text">5.3 RAG 里的标准配置（可直接抄）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-延迟预算"><span class="nav-number">6.4.</span> <span class="nav-text">5.4 延迟预算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-工程踩坑"><span class="nav-number">7.</span> <span class="nav-text">6. 工程踩坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-归一化：最基础也最容易错"><span class="nav-number">7.1.</span> <span class="nav-text">6.1 归一化：最基础也最容易错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-维度：不只是存储问题"><span class="nav-number">7.2.</span> <span class="nav-text">6.2 维度：不只是存储问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-召回数量：不是越多越好"><span class="nav-number">7.3.</span> <span class="nav-text">6.3 召回数量：不是越多越好</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-领域适配：三条路径的取舍"><span class="nav-number">7.4.</span> <span class="nav-text">6.4 领域适配：三条路径的取舍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-BGE-M3-的-sparse：三个具体的坑"><span class="nav-number">7.5.</span> <span class="nav-text">6.5 BGE-M3 的 sparse：三个具体的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-6-中文特有：分词与字级检索"><span class="nav-number">7.6.</span> <span class="nav-text">6.6 中文特有：分词与字级检索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-7-评测：先建集，再优化"><span class="nav-number">7.7.</span> <span class="nav-text">6.7 评测：先建集，再优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-选型建议"><span class="nav-number">8.</span> <span class="nav-text">7. 选型建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-决策树"><span class="nav-number">8.1.</span> <span class="nav-text">7.1 决策树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-场景-→-推荐组合"><span class="nav-number">8.2.</span> <span class="nav-text">7.2 场景 → 推荐组合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-一个务实的落地顺序"><span class="nav-number">8.3.</span> <span class="nav-text">7.3 一个务实的落地顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-小结"><span class="nav-number">9.</span> <span class="nav-text">8. 小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考来源"><span class="nav-number">9.1.</span> <span class="nav-text">参考来源</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">259</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

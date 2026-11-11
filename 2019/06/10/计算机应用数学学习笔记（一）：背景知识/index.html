@@ -22,21 +22,21 @@
     var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="挑战计算机科学现在面临的最大挑战是大数据，所有的大公司都在收集数据。为了构建数据化的世界和生活，需要做许多枯燥乏味的工作。需要处理现有的数据然后在此基础上构造新的数据。 纯步骤合成vs纯数据纯步骤合成：紧凑，但依赖人造，很少在实践中使用 纯数据：质量更高，但是灵活性更低 贝叶斯推理 不确定性的原理建模 非结构化数据的通用模型 不确定性下数据拟合与分析的有效算法  但目前它一直被用作黑盒 数据驱动建">
-<meta name="keywords" content="学习笔记,计算机应用数学">
+  <meta name="description" content="挑战计算机科学现在面临的最大挑战是大数据，所有的大公司都在收集数据。为了构建数据化的世界和生活，需要做许多枯燥乏味的工作。需要处理现有的数据然后在此基础上构造新的数据。">
+<meta name="keywords" content="计算机应用数学,学习笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机应用数学学习笔记（一）：背景知识">
 <meta property="og:url" content="https://imonce.github.io/2019/06/10/计算机应用数学学习笔记（一）：背景知识/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
-<meta property="og:description" content="挑战计算机科学现在面临的最大挑战是大数据，所有的大公司都在收集数据。为了构建数据化的世界和生活，需要做许多枯燥乏味的工作。需要处理现有的数据然后在此基础上构造新的数据。 纯步骤合成vs纯数据纯步骤合成：紧凑，但依赖人造，很少在实践中使用 纯数据：质量更高，但是灵活性更低 贝叶斯推理 不确定性的原理建模 非结构化数据的通用模型 不确定性下数据拟合与分析的有效算法  但目前它一直被用作黑盒 数据驱动建">
+<meta property="og:description" content="挑战计算机科学现在面临的最大挑战是大数据，所有的大公司都在收集数据。为了构建数据化的世界和生活，需要做许多枯燥乏味的工作。需要处理现有的数据然后在此基础上构造新的数据。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190610154019.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190610154122.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190610155242.png">
-<meta property="og:updated_time" content="2026-06-28T14:37:22.541Z">
+<meta property="og:updated_time" content="2026-11-11T07:25:25.875Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机应用数学学习笔记（一）：背景知识">
-<meta name="twitter:description" content="挑战计算机科学现在面临的最大挑战是大数据，所有的大公司都在收集数据。为了构建数据化的世界和生活，需要做许多枯燥乏味的工作。需要处理现有的数据然后在此基础上构造新的数据。 纯步骤合成vs纯数据纯步骤合成：紧凑，但依赖人造，很少在实践中使用 纯数据：质量更高，但是灵活性更低 贝叶斯推理 不确定性的原理建模 非结构化数据的通用模型 不确定性下数据拟合与分析的有效算法  但目前它一直被用作黑盒 数据驱动建">
+<meta name="twitter:description" content="挑战计算机科学现在面临的最大挑战是大数据，所有的大公司都在收集数据。为了构建数据化的世界和生活，需要做许多枯燥乏味的工作。需要处理现有的数据然后在此基础上构造新的数据。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190610154019.png">
 
 <link rel="canonical" href="https://imonce.github.io/2019/06/10/计算机应用数学学习笔记（一）：背景知识/">
@@ -128,17 +128,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
+                <time title="Modified: 2026-11-11 15:25:25" itemprop="dateModified" datetime="2026-11-11T15:25:25+08:00">2026-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -278,6 +278,7 @@
 
       
         <h1 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h1><p>计算机科学现在面临的最大挑战是大数据，所有的大公司都在收集数据。为了构建数据化的世界和生活，需要做许多枯燥乏味的工作。需要处理现有的数据然后在此基础上构造新的数据。</p>
+<a id="more"></a>
 <h1 id="纯步骤合成vs纯数据"><a href="#纯步骤合成vs纯数据" class="headerlink" title="纯步骤合成vs纯数据"></a>纯步骤合成vs纯数据</h1><p>纯步骤合成：紧凑，但依赖人造，很少在实践中使用</p>
 <p>纯数据：质量更高，但是灵活性更低</p>
 <h1 id="贝叶斯推理"><a href="#贝叶斯推理" class="headerlink" title="贝叶斯推理"></a>贝叶斯推理</h1><ul>
@@ -344,8 +345,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
               <a href="/tags/计算机应用数学/" rel="tag"># 计算机应用数学</a>
+              <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
           </div>
 
         
@@ -445,20 +446,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">228</span>
+        <span class="site-state-item-count">259</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

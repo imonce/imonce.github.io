@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="“我们的模型在 NQ 上比 baseline 高 2.1 个点”——这句话在 2026 年几乎没有信息量。因为它缺三样东西：哪个 NQ 变体、多少样本量、这个差值是否超过噪声。  导语开放域问答（Open-Domain QA）是大模型评测里最成熟、也最容易被误用的板块。成熟在于：数据集、评测框架、指标都有十年积累；易误用在于：大多数论文和内部评测报告只报均值，不做统计检验，也不说明数据集的变体与">
+<meta name="keywords" content="问答评测,统计显著性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开放域问答评测：从数据集到统计显著性">
+<meta property="og:url" content="https://imonce.github.io/2026/08/07/开放域问答评测-数据集与统计显著性/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="“我们的模型在 NQ 上比 baseline 高 2.1 个点”——这句话在 2026 年几乎没有信息量。因为它缺三样东西：哪个 NQ 变体、多少样本量、这个差值是否超过噪声。  导语开放域问答（Open-Domain QA）是大模型评测里最成熟、也最容易被误用的板块。成熟在于：数据集、评测框架、指标都有十年积累；易误用在于：大多数论文和内部评测报告只报均值，不做统计检验，也不说明数据集的变体与">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2026-11-11T07:27:26.124Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开放域问答评测：从数据集到统计显著性">
+<meta name="twitter:description" content="“我们的模型在 NQ 上比 baseline 高 2.1 个点”——这句话在 2026 年几乎没有信息量。因为它缺三样东西：哪个 NQ 变体、多少样本量、这个差值是否超过噪声。  导语开放域问答（Open-Domain QA）是大模型评测里最成熟、也最容易被误用的板块。成熟在于：数据集、评测框架、指标都有十年积累；易误用在于：大多数论文和内部评测报告只报均值，不做统计检验，也不说明数据集的变体与">
+
+<link rel="canonical" href="https://imonce.github.io/2026/08/07/开放域问答评测-数据集与统计显著性/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>开放域问答评测：从数据集到统计显著性 | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/08/07/开放域问答评测-数据集与统计显著性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          开放域问答评测：从数据集到统计显著性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-08-07 21:13:12" itemprop="dateCreated datePublished" datetime="2026-08-07T21:13:12+08:00">2026-08-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:27:26" itemprop="dateModified" datetime="2026-11-11T15:27:26+08:00">2026-11-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2026/08/07/开放域问答评测-数据集与统计显著性/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/08/07/开放域问答评测-数据集与统计显著性/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>“我们的模型在 NQ 上比 baseline 高 2.1 个点”——这句话在 2026 年几乎没有信息量。因为它缺三样东西：<strong>哪个 NQ 变体、多少样本量、这个差值是否超过噪声</strong>。</p>
+</blockquote>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>开放域问答（Open-Domain QA）是大模型评测里最成熟、也最容易被误用的板块。成熟在于：数据集、评测框架、指标都有十年积累；易误用在于：<strong>大多数论文和内部评测报告只报均值，不做统计检验，也不说明数据集的变体与设置</strong>。</p>
+<a id="more"></a>
+<p>结果是三类常见无效结论：</p>
+<ol>
+<li><strong>在 3,610 条的 NQ-open test 上，2.1 个点的提升可能完全不显著</strong>（后文会算出 95% 置信区间）；</li>
+<li><strong>拿 closed-book 的数字和 retrieval-augmented 的数字直接比</strong>——这是两个任务；</li>
+<li>**在训练集里见过答案的情况下报”零样本”**——这在大模型时代几乎是默认状态。</li>
+</ol>
+<p>本文分三部分：</p>
+<ul>
+<li><strong>数据集</strong>：NQ / TriviaQA / PopQA / HotpotQA / InsCit 的来源、推理类型、证据标注、以及它们各自在测什么；</li>
+<li><strong>评测框架</strong>：LM Harness 的 task 配置、运行方式、输出解读，以及它不做什么；</li>
+<li><strong>统计检验</strong>：配对 t、Wilcoxon、McNemar、bootstrap 各自适用条件，以及”为什么不能只看均值”的定量回答。</li>
+</ul>
+<blockquote>
+<p>面向做过模型评测、需要写报告或看别人报告的读者。本文的核心主张是：<strong>QA 评测的可靠性问题，一半在数据集选择，一半在统计方法，几乎不在模型本身。</strong></p>
+</blockquote>
+<hr>
+<h2 id="0-先建立坐标系：QA-数据集的四个正交维度"><a href="#0-先建立坐标系：QA-数据集的四个正交维度" class="headerlink" title="0. 先建立坐标系：QA 数据集的四个正交维度"></a>0. 先建立坐标系：QA 数据集的四个正交维度</h2><p>在逐个介绍之前，先把维度理清。<strong>不同数据集之间的差异，基本可以拆成四个独立的轴</strong>，理解这四轴比记住每个数据集的数字有用得多。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>取值</th>
+<th>决定了什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>① 跳数</strong></td>
+<td>单跳 / 多跳</td>
+<td>是否需要组合多个事实；考察推理还是检索</td>
+</tr>
+<tr>
+<td><strong>② 证据</strong></td>
+<td>无 / 段落级 / 句子级 / 实体级</td>
+<td>能否评”证据正确性”；能否做可解释评测</td>
+</tr>
+<tr>
+<td><strong>③ 知识分布</strong></td>
+<td>头部（热门）/ 长尾 / 人工构造</td>
+<td>考察”记住了多少”还是”泛化到多冷”</td>
+</tr>
+<tr>
+<td><strong>④ 可答性</strong></td>
+<td>完全可答 / 部分信息缺失 / 完全不可答</td>
+<td>考察”会不会承认不知道”</td>
+</tr>
+</tbody></table>
+<p>五个数据集在这四轴上的位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">            单跳                     多跳</span><br><span class="line">       ┌──────────────┬──────────────────┐</span><br><span class="line"> 头部  │  NQ          │                  │</span><br><span class="line">       │  TriviaQA    │  HotpotQA        │</span><br><span class="line">       ├──────────────┼──────────────────┤</span><br><span class="line"> 长尾  │  PopQA       │  (PopQA 的部分)   │</span><br><span class="line">       ├──────────────┼──────────────────┤</span><br><span class="line">信息缺失│             │  InsCit          │</span><br><span class="line">       └──────────────┴──────────────────┘</span><br></pre></td></tr></table></figure>
+
+<p><strong>这张图最重要的信息是：五个数据集测的是五种不同能力，它们的分数不可横向比较。</strong> “在 NQ 上 55，在 HotpotQA 上 60”没有任何意义。</p>
+<hr>
+<h2 id="1-五个数据集逐个拆"><a href="#1-五个数据集逐个拆" class="headerlink" title="1. 五个数据集逐个拆"></a>1. 五个数据集逐个拆</h2><h3 id="1-1-Natural-Questions（NQ）"><a href="#1-1-Natural-Questions（NQ）" class="headerlink" title="1.1 Natural Questions（NQ）"></a>1.1 Natural Questions（NQ）</h3><p><strong>来源</strong>：Google，2019（Kwiatkowski et al., <em>Natural Questions: A Benchmark for Question Answering Research</em>, TACL）。问题来自<strong>真实用户的 Google 搜索查询</strong>，答案由标注者在维基百科页面中标注。</p>
+<p><strong>规模与切分</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>切分</th>
+<th>规模</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>训练</td>
+<td>~307k</td>
+<td>每条含问题 + 维基页面 + 长答案（段落）+ 短答案（span）</td>
+</tr>
+<tr>
+<td>开发</td>
+<td>7,830</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>测试</td>
+<td>7,842</td>
+<td>标注不公开，需提交</td>
+</tr>
+</tbody></table>
+<p><strong>关键：NQ 有两个完全不同的用法</strong></p>
+<table>
+<thead>
+<tr>
+<th>变体</th>
+<th>出处</th>
+<th>规模</th>
+<th>任务定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>NQ（原始）</strong></td>
+<td>Google 2019</td>
+<td>见上</td>
+<td>给定维基页面，从页面中抽 span</td>
+</tr>
+<tr>
+<td><strong>NQ-open</strong></td>
+<td>Lee et al., 2019（<em>Latent Retrieval for Weakly Supervised ODQA</em>）</td>
+<td>dev 3,610 / test 3,610</td>
+<td><strong>不给证据</strong>，模型要自己检索或靠参数知识回答</td>
+</tr>
+</tbody></table>
+<p><strong>这是评测里最常见的混淆点</strong>。论文里写”我们在 NQ 上达到 X”，必须问：是 NQ 还是 NQ-open？是 dev 还是 test？</p>
+<p><strong>难点</strong>：</p>
+<ul>
+<li><strong>答案形式不唯一</strong>：NQ 的短答案有多个可接受形式（”USA” / “United States” / “the US”），评测必须做答案规范化；</li>
+<li><strong>问题真实但不规整</strong>：来自搜索框，有拼写错误、代词指代、隐含上下文；</li>
+<li><strong>有 5 类答案类型</strong>：短答案、长答案、是/否、无答案（页面里没有明确答案）。</li>
+</ul>
+<p><strong>适合测什么</strong>：单跳事实检索的”基本盘”。它是 ODQA 的 ImageNet——<strong>不前沿，但必须有</strong>。</p>
+<h3 id="1-2-TriviaQA"><a href="#1-2-TriviaQA" class="headerlink" title="1.2 TriviaQA"></a>1.2 TriviaQA</h3><p><strong>来源</strong>：华盛顿大学等，2017（Joshi et al., <em>TriviaQA: A Large Scale Distantly Supervised Challenge Dataset</em>）。问题来自 <strong>trivia 竞赛网站</strong>（Quiz Bowl 风格），由爱好者编写，带标准答案和”证据文档”。</p>
+<p><strong>规模</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>问题-答案对</td>
+<td>~95k</td>
+</tr>
+<tr>
+<td>证据文档</td>
+<td>~650k（每条问题平均 6 篇）</td>
+</tr>
+<tr>
+<td>开放域测试集</td>
+<td>17,944 条（另有 1,100 条 verified 子集）</td>
+</tr>
+</tbody></table>
+<p><strong>核心特点：证据是”远程监督”标注的</strong></p>
+<p>TriviaQA 的证据文档不是人工标注”哪段话回答了问题”，而是<strong>通过实体链接 + 检索自动找到的</strong>。这带来一个重要的性质：</p>
+<blockquote>
+<p><strong>证据文档里包含答案，但不一定包含”推理链”。</strong></p>
+</blockquote>
+<p>对单跳问题这通常没问题，但对需要组合的问题，证据可能只覆盖一半。</p>
+<p><strong>难点</strong>：</p>
+<ul>
+<li><strong>答案别名极多</strong>：trivia 问题的答案常有多种写法（人名、地名、作品名），EM 指标对规范化极其敏感；</li>
+<li><strong>问题风格独特</strong>：Quiz Bowl 式问题常有多层修饰（”这位在 1994 年获得诺贝尔文学奖、出生于 1936 年的日本作家是”），<strong>信息在问题内部逐步收窄</strong>——这和大模型喜欢的”直接问”很不一样；</li>
+<li><strong>distantly supervised 噪声</strong>：部分证据文档与问题实际无关。</li>
+</ul>
+<p><strong>适合测什么</strong>：**模型的”世界知识广度”**。TriviaQA 覆盖大量冷门事实（历史、地理、流行文化），是检验”参数里到底存了多少东西”的好工具。也是 closed-book 评测的常用选择。</p>
+<h3 id="1-3-PopQA"><a href="#1-3-PopQA" class="headerlink" title="1.3 PopQA"></a>1.3 PopQA</h3><p><strong>来源</strong>：马德里自治大学等，2023（Mallen et al., <em>When Not to Trust Language Models: Investigating Effectiveness of Parametric and Non-Parametric Memories</em>, ACL）。<strong>这个数据集的动机非常明确</strong>：不是测”平均准确率”，而是测**”准确率如何随实体流行度变化”**。</p>
+<p><strong>构造方式</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 从 Wikidata 取 16 种关系（如&quot;某人的出生地&quot;、&quot;某作品的作者&quot;）</span><br><span class="line">2. 对每个实体-关系对，用模板生成问题</span><br><span class="line">   （如 &quot;What is the place of birth of &#123;entity&#125;?&quot;)</span><br><span class="line">3. 用维基百科月访问量作为&quot;流行度&quot;代理</span><br><span class="line">4. 按流行度分层，保证长尾实体占比足够</span><br></pre></td></tr></table></figure>
+
+<p><strong>规模</strong>：14,267 条问题。</p>
+<p><strong>核心贡献：分层评测（popularity-stratified evaluation）</strong></p>
+<p>这是 PopQA 最值得学的一点。它要求<strong>按实体流行度分组报分</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>分位</th>
+<th>典型准确率（量级参考）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>头部（最热门 10%）</td>
+<td>70–85%</td>
+</tr>
+<tr>
+<td>中部</td>
+<td>45–65%</td>
+</tr>
+<tr>
+<td>长尾（最冷门 10%）</td>
+<td><strong>20–40%</strong></td>
+</tr>
+</tbody></table>
+<p><strong>同一个模型，头尾差距可达 40 个点以上。</strong> 而这个信息在”总体准确率”里被完全掩盖了——因为数据集是刻意让尾部分布加权的，但很多人在自己的采样子集上又把它拉回头部了。</p>
+<p><strong>难点与陷阱</strong>：</p>
+<ul>
+<li><strong>模板化问题</strong>：问题形式高度重复（16 种模板），模型可以利用模板模式而非真正理解；</li>
+<li><strong>答案唯一但表述可能不同</strong>：实体名有别名，需要规范化；</li>
+<li><strong>流行度代理的偏差</strong>：维基访问量不等于”模型训练时见过的频率”，但对大模型来说两者高度相关。</li>
+</ul>
+<p><strong>适合测什么</strong>：**”模型是不是只会答热门问题”**。如果你的业务有大量长尾实体（专业领域、小众商品、地方性知识），PopQA 的分层结果是比 NQ 总分更相关的指标。</p>
+<p><strong>一个必须做的方法论动作</strong>：<strong>任何 QA 评测都应该做流行度/难度分层</strong>。总分是加权平均，而权重是数据集定的，不一定符合你的业务分布。</p>
+<h3 id="1-4-HotpotQA"><a href="#1-4-HotpotQA" class="headerlink" title="1.4 HotpotQA"></a>1.4 HotpotQA</h3><p><strong>来源</strong>：CMU、Stanford 等，2018（Yang et al., <em>HotpotQA: A Dataset for Diverse, Explainable Multi-hop Question Answering</em>, EMNLP）。<strong>多跳问答的基准数据集</strong>。</p>
+<p><strong>规模与切分</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>问题总数</td>
+<td>~113k</td>
+</tr>
+<tr>
+<td>训练</td>
+<td>90,564</td>
+</tr>
+<tr>
+<td>dev（distractor）</td>
+<td>7,405</td>
+</tr>
+<tr>
+<td>dev（fullwiki）</td>
+<td>7,405</td>
+</tr>
+<tr>
+<td>test</td>
+<td>7,405（隐藏）</td>
+</tr>
+</tbody></table>
+<p><strong>两种设置（必须区分）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>设置</th>
+<th>输入</th>
+<th>难度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Distractor</strong></td>
+<td>给 10 篇段落（2 篇金标 + 8 篇干扰）</td>
+<td>中（只需在给定段落里找）</td>
+</tr>
+<tr>
+<td><strong>Fullwiki</strong></td>
+<td>给整个维基百科</td>
+<td>高（要先检索）</td>
+</tr>
+</tbody></table>
+<p><strong>论文里报”HotpotQA EM”必须说明是哪个 setting</strong>，两者差距通常 10–15 个点。</p>
+<p><strong>核心特点：两个问题类型 + 句子级证据</strong></p>
+<p><strong>① 问题类型</strong>：</p>
+<ul>
+<li><strong>Bridge（桥接）</strong>：需要先找到中间实体，再问它的属性。<blockquote>
+<p>“《冰与火之歌》的作者出生在哪个城市？” → 先找作者（George R. R. Martin）→ 再查出生地</p>
+</blockquote>
+</li>
+<li><strong>Comparison（比较）</strong>：比较两个实体的属性。<blockquote>
+<p>“两位导演谁更年轻？” → 分别查两人年龄 → 比较</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>② 句子级 supporting facts 标注</strong></p>
+<p>每条问题都标注了<strong>哪些句子是必要的推理依据</strong>（通常是 2 句，一句一个跳）。这带来了两个额外的评测维度：</p>
+<ul>
+<li><strong>Supporting Fact F1 / EM</strong>：模型找的证据对不对；</li>
+<li><strong>Joint EM/F1</strong>：答案对 <strong>且</strong> 证据对。</li>
+</ul>
+<p><strong>Joint 指标非常重要，但经常被省略</strong>。因为一个模型可以”猜对答案但理由全错”——这种情况下它没有真正学会多跳推理。</p>
+<p><strong>难点</strong>：</p>
+<ul>
+<li><strong>真正的多跳</strong>：HotpotQA 的桥接问题是<strong>强制</strong>的（必须走两步），不像某些数据集只是”恰好需要两段”；</li>
+<li><strong>干扰段落</strong>：distractor 设置里的 8 篇干扰项经过挑选，容易混淆；</li>
+<li><strong>对检索的依赖</strong>：fullwiki 设置下，检索失败 = 必然失败，模型能力被检索上限压制。</li>
+</ul>
+<p><strong>适合测什么</strong>：<strong>组合推理能力 + 证据可追溯性</strong>。它是”RAG 系统是否真的在做多跳”的标准检验。</p>
+<h3 id="1-5-InsCit：测”信息不足时怎么办”"><a href="#1-5-InsCit：测”信息不足时怎么办”" class="headerlink" title="1.5 InsCit：测”信息不足时怎么办”"></a>1.5 InsCit：测”信息不足时怎么办”</h3><p><strong>来源与定位</strong>：InsCit 是一类针对**”信息不完整问题”（insufficient / incomplete information）**的基准。它的构造思路与上面四个都不同：</p>
+<blockquote>
+<p><strong>不是”从证据里找答案”，而是”判断证据是否足够，不够就主动澄清”。</strong></p>
+</blockquote>
+<p>典型构造方式（据该工作公开描述）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 取一个本来可答的多跳/复杂问题</span><br><span class="line">2. 删掉其中一个关键的桥接实体或约束条件</span><br><span class="line">   （如 &quot;《冰与火之歌》的作者出生在哪个城市&quot; → &quot;他的作者出生在哪个城市&quot;，&quot;他&quot;指代不明）</span><br><span class="line">3. 问题变得&quot;看似可答，实际信息不足&quot;</span><br><span class="line">4. 期望模型的行为：识别信息不足 → 指出缺什么 → 追问/澄清</span><br><span class="line">   （而不是编一个答案）</span><br></pre></td></tr></table></figure>
+
+<p><strong>它测的是三种能力，而且必须分开评</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>评测方式</th>
+<th>失败模式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>① 不足检测</strong></td>
+<td>判定”这个问题的信息是否足够”</td>
+<td>幻觉出答案（最严重）</td>
+</tr>
+<tr>
+<td><strong>② 缺失类型识别</strong></td>
+<td>指出缺的是哪类信息（实体/关系/时间/约束）</td>
+<td>笼统地说”信息不足”</td>
+</tr>
+<tr>
+<td><strong>③ 澄清质量</strong></td>
+<td>生成的反问是否有效（能否真正补全信息）</td>
+<td>问了但问偏，或重复原问题</td>
+</tr>
+</tbody></table>
+<p><strong>为什么这个数据集在 2026 年特别重要</strong>：</p>
+<ol>
+<li>**RAG 系统的默认行为是”总能答”**——检索不到也硬答，这是幻觉的主要来源之一；</li>
+<li>**Agent 系统需要”主动问”**——多轮交互的前提是知道”我缺什么”；</li>
+<li><strong>传统 QA 指标（EM/F1）完全无法评这类能力</strong>——因为”正确行为”不是输出一个答案串。</li>
+</ol>
+<p><strong>评测方法上的特殊之处</strong>：</p>
+<ul>
+<li><strong>不能只看准确率</strong>：要把”答对”、”正确弃答”、”幻觉”三类分开统计。一个模型”答对 60%、幻觉 20%、正确弃答 20%”和”答对 60%、幻觉 40%、弃答 0%”是完全不同的系统，但传统准确率一样；</li>
+<li><strong>澄清质量难自动评</strong>：通常需要 LLM-as-judge 或人工，成本高且一致性存疑；</li>
+<li>**需要构造”配套的可答版本”**：否则无法判断”弃答”是能力还是过度保守。</li>
+</ul>
+<blockquote>
+<p><strong>术语提示</strong>：这个基准在不同文献里可能有不同的写法（InsCit / INS-CIT 等），具体规模、类别数量与切分请以原始论文为准。本文检索时外部搜索接口限流，未能核对原文表格，故此处只描述任务范式，不引用具体数字——<strong>这也正是一个好的评测习惯：不确定的数字不写。</strong></p>
+</blockquote>
+<h3 id="1-6-五个数据集的横向对照"><a href="#1-6-五个数据集的横向对照" class="headerlink" title="1.6 五个数据集的横向对照"></a>1.6 五个数据集的横向对照</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>NQ(-open)</th>
+<th>TriviaQA</th>
+<th>PopQA</th>
+<th>HotpotQA</th>
+<th>InsCit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>来源</strong></td>
+<td>Google 搜索日志</td>
+<td>trivia 竞赛</td>
+<td>Wikidata 模板生成</td>
+<td>众包（看维基后提问）</td>
+<td>改造多跳问题</td>
+</tr>
+<tr>
+<td><strong>跳数</strong></td>
+<td>单跳</td>
+<td>单跳</td>
+<td>单跳</td>
+<td><strong>多跳（桥接/比较）</strong></td>
+<td>多跳（被破坏）</td>
+</tr>
+<tr>
+<td><strong>证据标注</strong></td>
+<td>段落 + span</td>
+<td>远程监督（实体链接）</td>
+<td>无</td>
+<td><strong>句子级 supporting facts</strong></td>
+<td>缺失信息位置</td>
+</tr>
+<tr>
+<td><strong>知识分布</strong></td>
+<td>头部为主</td>
+<td>头部 + 冷门 trivia</td>
+<td><strong>刻意长尾分层</strong></td>
+<td>头部实体</td>
+<td>头部</td>
+</tr>
+<tr>
+<td><strong>可答性</strong></td>
+<td>可答（含 5% 无答案）</td>
+<td>可答</td>
+<td>可答</td>
+<td>可答</td>
+<td><strong>部分不可答</strong></td>
+</tr>
+<tr>
+<td><strong>指标</strong></td>
+<td>EM / F1</td>
+<td>EM / F1</td>
+<td>Accuracy（分层）</td>
+<td>EM / F1 / <strong>Joint</strong> / Support F1</td>
+<td>检测 Acc / 澄清质量</td>
+</tr>
+<tr>
+<td><strong>主要测什么</strong></td>
+<td>单跳检索基线</td>
+<td>参数知识广度</td>
+<td><strong>长尾泛化</strong></td>
+<td><strong>组合推理 + 证据</strong></td>
+<td><strong>知道自己不知道</strong></td>
+</tr>
+<tr>
+<td><strong>典型规模（dev/test）</strong></td>
+<td>3,610（open）</td>
+<td>17,944</td>
+<td>14,267</td>
+<td>7,405</td>
+<td>以原文为准</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2-SOTA-参考：怎么读、怎么用"><a href="#2-SOTA-参考：怎么读、怎么用" class="headerlink" title="2. SOTA 参考：怎么读、怎么用"></a>2. SOTA 参考：怎么读、怎么用</h2><h3 id="2-1-先说清楚：这些数字只能当”量级参考”"><a href="#2-1-先说清楚：这些数字只能当”量级参考”" class="headerlink" title="2.1 先说清楚：这些数字只能当”量级参考”"></a>2.1 先说清楚：这些数字只能当”量级参考”</h3><p>我先给出量级区间，然后解释为什么不该精确引用。<strong>核对时间 2026-11，且本次外部检索受限，以下为公开文献的常见区间，具体以各模型技术报告为准。</strong></p>
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>设置</th>
+<th>强系统量级</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>NQ-open</strong></td>
+<td>闭卷（参数知识）</td>
+<td>EM 30–45</td>
+<td>大模型 few-shot</td>
+</tr>
+<tr>
+<td><strong>NQ-open</strong></td>
+<td>检索增强</td>
+<td>EM 45–60</td>
+<td>检索 + 重排 + 阅读器</td>
+</tr>
+<tr>
+<td><strong>TriviaQA</strong></td>
+<td>开卷（给证据）</td>
+<td>EM 70–85</td>
+<td>强模型 + 检索</td>
+</tr>
+<tr>
+<td><strong>TriviaQA</strong></td>
+<td>闭卷</td>
+<td>EM 65–80</td>
+<td>参数量大的模型优势明显</td>
+</tr>
+<tr>
+<td><strong>PopQA</strong></td>
+<td>总体</td>
+<td>Acc 45–60</td>
+<td>方差极大，看分层更有意义</td>
+</tr>
+<tr>
+<td><strong>PopQA</strong></td>
+<td>头部 / 尾部</td>
+<td>70–85 / <strong>20–40</strong></td>
+<td><strong>头尾差 40+ 点</strong></td>
+</tr>
+<tr>
+<td><strong>HotpotQA</strong></td>
+<td>Distractor</td>
+<td>EM 60–70 / F1 75–85</td>
+<td>强系统</td>
+</tr>
+<tr>
+<td><strong>HotpotQA</strong></td>
+<td>Fullwiki</td>
+<td>F1 65–78</td>
+<td>受检索上限压制</td>
+</tr>
+<tr>
+<td><strong>HotpotQA</strong></td>
+<td>Joint EM</td>
+<td>显著低于 EM</td>
+<td>常被省略但更关键</td>
+</tr>
+<tr>
+<td><strong>InsCit</strong></td>
+<td>检测 / 澄清</td>
+<td>依设定差异极大</td>
+<td>不建议跨论文比</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-为什么这些数字不能精确引用"><a href="#2-2-为什么这些数字不能精确引用" class="headerlink" title="2.2 为什么这些数字不能精确引用"></a>2.2 为什么这些数字不能精确引用</h3><p><strong>原因一：答案规范化不同，EM 可以差 3–8 个点</strong></p>
+<p>NQ 和 TriviaQA 的答案有大量别名。EM 计算前要做：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">小写化 → 去标点 → 去冠词（a/an/the）→ 数字统一（1,200 → 1200）</span><br><span class="line">→ 日期格式统一 → 单位统一 → （可选）同义词表</span><br></pre></td></tr></table></figure>
+
+<p>不同实现的规范化程度不同，<strong>同一模型同一数据可以报出 5 个点的差异</strong>。TriviaQA 因为答案别名特别多（人名、作品名），这个差异更大。</p>
+<p><strong>原因二：few-shot 示例数不同</strong></p>
+<p>0-shot / 5-shot / 25-shot 在同一个模型上能差 5–15 个点。而 few-shot 示例的<strong>选择</strong>也会影响结果（选到与测试集相似的示例会虚高）。</p>
+<p><strong>原因三：test 与 dev 混用</strong></p>
+<p>NQ test 需要提交（或已公开但常被用于训练）；很多报告用的是 dev。<strong>dev 上调过 prompt 的分数不能当 test 分数。</strong></p>
+<p><strong>原因四：是否允许”无答案”</strong></p>
+<p>NQ 有约 5% 的无答案样本。允许模型输出”无法回答”会提高真实可用性，但会降低 EM（因为有些”无答案”其实有模糊答案）。</p>
+<p><strong>原因五：模型见过的数据量不同</strong></p>
+<p>这是最根本的。<strong>NQ / TriviaQA / HotpotQA 都是 2017–2019 年的公开数据集，几乎必然在 2023 年之后的预训练语料里。</strong> 详见第 5 节。</p>
+<p><strong>结论：报告里应该写清”设置五要素”</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">① 数据集与变体（NQ vs NQ-open；HotpotQA distractor vs fullwiki）</span><br><span class="line">② 切分（dev / test）</span><br><span class="line">③ 上下文设置（闭卷 / 开卷 / 检索 top-k=?, 检索器是什么）</span><br><span class="line">④ few-shot 数 + prompt 模板</span><br><span class="line">⑤ 答案规范化规则 + 是否允许多答案</span><br></pre></td></tr></table></figure>
+
+<p><strong>缺任何一项，这个数字就不可比。</strong></p>
+<hr>
+<h2 id="3-LM-Harness：标准化的代价与价值"><a href="#3-LM-Harness：标准化的代价与价值" class="headerlink" title="3. LM Harness：标准化的代价与价值"></a>3. LM Harness：标准化的代价与价值</h2><h3 id="3-1-它是什么"><a href="#3-1-它是什么" class="headerlink" title="3.1 它是什么"></a>3.1 它是什么</h3><p><code>lm-evaluation-harness</code>（EleutherAI）是当前最广泛使用的 LLM 评测框架。它的核心价值不是”提供了多少任务”，而是<strong>把”任务定义 + 提示格式 + 指标计算”标准化成可复现的配置</strong>。</p>
+<p>架构上分三层：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">tasks/          任务定义（YAML 或 Python）</span><br><span class="line">  ├─ dataset_path / dataset_name     数据集加载</span><br><span class="line">  ├─ doc_to_text                      如何把样本转成 prompt</span><br><span class="line">  ├─ doc_to_target                    如何取参考答案</span><br><span class="line">  ├─ fewshot_delimiter / target_delimiter</span><br><span class="line">  └─ metric_list                      exact_match / f1 / acc / acc_norm ...</span><br><span class="line">models/         模型后端</span><br><span class="line">  ├─ hf（transformers）</span><br><span class="line">  ├─ vllm / sglang（高吞吐）</span><br><span class="line">  └─ openai-completions / local-completions（API）</span><br><span class="line">evaluator/      运行与聚合（含 stderr 计算）</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-一个-task-的-YAML-长什么样"><a href="#3-2-一个-task-的-YAML-长什么样" class="headerlink" title="3.2 一个 task 的 YAML 长什么样"></a>3.2 一个 task 的 YAML 长什么样</h3><p>以 NQ-open 类任务为例（<strong>示意，非官方原文</strong>）：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">task:</span> <span class="string">nq_open</span></span><br><span class="line"><span class="attr">dataset_path:</span> <span class="string">google-research-datasets/nq_open</span></span><br><span class="line"><span class="attr">output_type:</span> <span class="string">generate_until</span></span><br><span class="line"><span class="attr">training_split:</span> <span class="string">train</span></span><br><span class="line"><span class="attr">validation_split:</span> <span class="string">validation</span></span><br><span class="line"><span class="attr">doc_to_text:</span> <span class="string">"Q: <span class="template-variable">&#123;&#123;question&#125;&#125;</span>\nA:"</span></span><br><span class="line"><span class="attr">doc_to_target:</span> <span class="string">"<span class="template-variable">&#123;&#123;answer&#125;&#125;</span>"</span>          <span class="comment"># 列表，多个可接受答案</span></span><br><span class="line"><span class="attr">fewshot_delimiter:</span> <span class="string">"\n\n"</span></span><br><span class="line"><span class="attr">target_delimiter:</span> <span class="string">" "</span></span><br><span class="line"><span class="attr">generation_kwargs:</span></span><br><span class="line"><span class="attr">  until:</span> <span class="string">["\n"]</span></span><br><span class="line"><span class="attr">  do_sample:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  temperature:</span> <span class="number">0.0</span></span><br><span class="line"><span class="attr">  max_gen_toks:</span> <span class="number">32</span></span><br><span class="line"><span class="attr">metric_list:</span></span><br><span class="line"><span class="attr">  - metric:</span> <span class="string">exact_match</span></span><br><span class="line"><span class="attr">    aggregation:</span> <span class="string">mean</span></span><br><span class="line"><span class="attr">    higher_is_better:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  - metric:</span> <span class="string">f1</span></span><br><span class="line"><span class="attr">    aggregation:</span> <span class="string">mean</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>四个必须理解的字段</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>作用</th>
+<th>踩坑点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>doc_to_text</code></td>
+<td>决定 prompt</td>
+<td><strong>这是分数差异最大的来源</strong>，换个模板能差 10 个点</td>
+</tr>
+<tr>
+<td><code>doc_to_target</code></td>
+<td>参考答案（可以是列表）</td>
+<td>列表 = 多个可接受答案，会取最优匹配</td>
+</tr>
+<tr>
+<td><code>generation_kwargs</code></td>
+<td>解码参数</td>
+<td><code>do_sample: false</code> 保证可复现；<code>until</code> 决定在哪停</td>
+</tr>
+<tr>
+<td><code>metric_list</code></td>
+<td>指标</td>
+<td><code>exact_match</code> 的规范化程度由框架定，<strong>不一定符合你的需求</strong></td>
+</tr>
+</tbody></table>
+<h3 id="3-3-怎么跑"><a href="#3-3-怎么跑" class="headerlink" title="3.3 怎么跑"></a>3.3 怎么跑</h3><p><strong>基础跑法</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">lm_eval \</span><br><span class="line">  --model hf \</span><br><span class="line">  --model_args pretrained=meta-llama/Llama-3.1-8B,dtype=bfloat16 \</span><br><span class="line">  --tasks nq_open,triviaqa,hotpotqa \</span><br><span class="line">  --num_fewshot 5 \</span><br><span class="line">  --batch_size auto \</span><br><span class="line">  --output_path ./results/llama31_8b \</span><br><span class="line">  --log_samples</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键参数说明</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--tasks</code></td>
+<td>任务列表（逗号分隔或 +group）</td>
+<td>用 group 一次性跑一套</td>
+</tr>
+<tr>
+<td><code>--num_fewshot</code></td>
+<td>few-shot 数</td>
+<td>固定住，否则不可比</td>
+</tr>
+<tr>
+<td><code>--batch_size auto</code></td>
+<td>自动找最大 batch</td>
+<td>大模型用 <code>auto:4</code> 限制上限</td>
+</tr>
+<tr>
+<td><code>--limit N</code></td>
+<td>只跑前 N 条</td>
+<td><strong>只用于调试</strong>，绝不能用于报数</td>
+</tr>
+<tr>
+<td><code>--log_samples</code></td>
+<td>保存每条样本的输出</td>
+<td><strong>必开</strong>，否则无法做配对检验</td>
+</tr>
+<tr>
+<td><code>--seed</code></td>
+<td>随机种子</td>
+<td>采样解码时才有意义</td>
+</tr>
+<tr>
+<td><code>--apply_chat_template</code></td>
+<td>用模型的 chat 模板</td>
+<td><strong>指令模型必须开</strong>，否则格式错</td>
+</tr>
+<tr>
+<td><code>--num_fewshot</code> + <code>--fewshot_as_multiturn</code></td>
+<td>few-shot 作为对话轮次</td>
+<td>与 chat 模型匹配</td>
+</tr>
+</tbody></table>
+<p><strong>换后端（同一任务定义）</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vLLM 高吞吐（本地批量评测首选）</span></span><br><span class="line">--model vllm --model_args pretrained=...,tensor_parallel_size=4,gpu_memory_utilization=0.85</span><br><span class="line"></span><br><span class="line"><span class="comment"># OpenAI 兼容 API（评第三方模型）</span></span><br><span class="line">--model <span class="built_in">local</span>-completions \</span><br><span class="line">  --model_args model=my-model,base_url=http://localhost:8000/v1,concurrent=32</span><br></pre></td></tr></table></figure>
+
+<p><strong>这一层的意义很重要</strong>：<strong>任务定义不变，只换后端</strong>。这保证了”同一批 prompt、同一套指标”，只是推理引擎不同——这是 harness 相对”自己写脚本”的最大优势。</p>
+<h3 id="3-4-输出解读"><a href="#3-4-输出解读" class="headerlink" title="3.4 输出解读"></a>3.4 输出解读</h3><p><strong><code>results.json</code> 的结构</strong>：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"results"</span>: &#123;</span><br><span class="line">    <span class="attr">"nq_open"</span>: &#123;</span><br><span class="line">      <span class="attr">"alias"</span>: <span class="string">"nq_open"</span>,</span><br><span class="line">      <span class="attr">"exact_match,none"</span>: <span class="number">0.4213</span>,</span><br><span class="line">      <span class="attr">"exact_match_stderr,none"</span>: <span class="number">0.0082</span>,</span><br><span class="line">      <span class="attr">"f1,none"</span>: <span class="number">0.5312</span>,</span><br><span class="line">      <span class="attr">"f1_stderr,none"</span>: <span class="number">0.0079</span>,</span><br><span class="line">      <span class="attr">"samples"</span>: <span class="number">3610</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  "config": &#123; "model": "hf", "model_args": "...", "num_fewshot": 5, ... &#125;,</span><br><span class="line">  "git_hash": "...",</span><br><span class="line">  "versions": &#123; "nq_open": 1 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>必须看的三个字段</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>为什么重要</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>*_stderr</code></td>
+<td><strong>框架已经给了标准误</strong>。<code>±2×stderr</code> 就是 95% CI 的粗略区间</td>
+</tr>
+<tr>
+<td><code>config</code> / <code>git_hash</code> / <code>versions</code></td>
+<td>复现的凭据。<strong>没有这三样，结果不可追溯</strong></td>
+</tr>
+<tr>
+<td><code>samples</code></td>
+<td>确认没被 <code>--limit</code> 截断</td>
+</tr>
+</tbody></table>
+<p><strong><code>samples_*.jsonl</code>**（<code>--log_samples</code> 的产物）：每条样本的 <code>doc</code>、<code>target</code>、<code>resps</code>（模型原始输出）、<code>filtered_resps</code>（规范化后）。</strong>这是做配对检验的前提**——你必须能对齐”模型 A 和模型 B 在第 i 条上的对错”。</p>
+<h3 id="3-5-LM-Harness-不做什么（这是关键）"><a href="#3-5-LM-Harness-不做什么（这是关键）" class="headerlink" title="3.5 LM Harness 不做什么（这是关键）"></a>3.5 LM Harness 不做什么（这是关键）</h3><table>
+<thead>
+<tr>
+<th>不做</th>
+<th>后果</th>
+<th>你要自己补</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>不做显著性检验</strong></td>
+<td>只给 stderr，不给 p 值</td>
+<td>用 samples 做配对检验（第 4 节）</td>
+</tr>
+<tr>
+<td><strong>不控制数据污染</strong></td>
+<td>不知道测试集是否在预训练里</td>
+<td>用去污染版本 / 新数据集</td>
+</tr>
+<tr>
+<td><strong>不保证 prompt 公平</strong></td>
+<td>不同模型的 chat template 差异巨大</td>
+<td>手工检查模板与 few-shot 格式</td>
+</tr>
+<tr>
+<td><strong>不处理多选题的选项顺序偏差</strong></td>
+<td><code>acc_norm</code> 只是按长度归一</td>
+<td>做选项置换测试</td>
+</tr>
+<tr>
+<td><strong>不做多轮/工具调用评测</strong></td>
+<td>主要是单轮生成</td>
+<td>用 agent 专用框架</td>
+</tr>
+<tr>
+<td><strong>不做答案规范化的领域适配</strong></td>
+<td>通用规则（小写、去标点）</td>
+<td>领域别名表</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="4-统计检验：为什么”高-2-1-个点”经常是噪声"><a href="#4-统计检验：为什么”高-2-1-个点”经常是噪声" class="headerlink" title="4. 统计检验：为什么”高 2.1 个点”经常是噪声"></a>4. 统计检验：为什么”高 2.1 个点”经常是噪声</h2><h3 id="4-1-先算一下：这个差值可能压根不可分辨"><a href="#4-1-先算一下：这个差值可能压根不可分辨" class="headerlink" title="4.1 先算一下：这个差值可能压根不可分辨"></a>4.1 先算一下：这个差值可能压根不可分辨</h3><p>准确率的抽样标准误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SE = sqrt(p(1-p)/n)</span><br><span class="line">95% CI 半宽 ≈ 1.96 × SE</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>p ≈ 0.7</code> 时算一遍：</p>
+<table>
+<thead>
+<tr>
+<th>测试集样本量 n</th>
+<th>SE</th>
+<th>95% CI 半宽</th>
+<th>能分辨的最小差值（约）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>100</td>
+<td>4.58pp</td>
+<td><strong>±9.0pp</strong></td>
+<td>~13pp</td>
+</tr>
+<tr>
+<td>300</td>
+<td>2.65pp</td>
+<td>±5.2pp</td>
+<td>~7.5pp</td>
+</tr>
+<tr>
+<td>500</td>
+<td>2.05pp</td>
+<td>±4.0pp</td>
+<td>~5.8pp</td>
+</tr>
+<tr>
+<td>1,000</td>
+<td>1.45pp</td>
+<td>±2.8pp</td>
+<td>~4.1pp</td>
+</tr>
+<tr>
+<td><strong>3,610（NQ-open test）</strong></td>
+<td>0.76pp</td>
+<td><strong>±1.5pp</strong></td>
+<td><strong>~2.1pp</strong></td>
+</tr>
+<tr>
+<td>7,405（HotpotQA dev）</td>
+<td>0.53pp</td>
+<td>±1.0pp</td>
+<td>~1.5pp</td>
+</tr>
+<tr>
+<td>17,944（TriviaQA）</td>
+<td>0.34pp</td>
+<td>±0.7pp</td>
+<td>~1.0pp</td>
+</tr>
+</tbody></table>
+<p><strong>读法</strong>：在 NQ-open test（3,610 条）上，两个模型的准确率差 2.1 个点，<strong>恰好落在 95% 置信区间的边界</strong>。这意味着：</p>
+<blockquote>
+<p><strong>如果只看均值，”高 2.1 个点”在统计上处于”可能显著也可能不显著”的模糊地带，必须做检验才能下结论。</strong></p>
+</blockquote>
+<p>而如果测试集只有 500 条（很多内部评测的真实规模），<strong>4 个点以内的差异基本没有信息量</strong>。</p>
+<p><strong>这就是”不能只看均值”的第一层原因：样本量决定了你能分辨多大的差异。</strong></p>
+<h3 id="4-2-第二层原因：配对信息被浪费了"><a href="#4-2-第二层原因：配对信息被浪费了" class="headerlink" title="4.2 第二层原因：配对信息被浪费了"></a>4.2 第二层原因：配对信息被浪费了</h3><p>两个模型跑的是<strong>同一批测试题</strong>。这是关键——它们的错误高度相关（难题都会错，简单题都会对）。</p>
+<p>如果做<strong>独立样本</strong>检验，等于假装”两个模型跑的是不同题目”，把配对信息丢了。<strong>统计功效会大幅下降</strong>（通常损失 30–50% 的等效样本量）。</p>
+<p>正确的做法是<strong>配对检验</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">对每条样本 i，得到：</span><br><span class="line">  a_i = 1 if 模型A答对 else 0</span><br><span class="line">  b_i = 1 if 模型B答对 else 0</span><br><span class="line">只关心 a_i ≠ b_i 的样本（不一致对）</span><br></pre></td></tr></table></figure>
+
+<p>这直接引出下面四种方法。</p>
+<h3 id="4-3-方法一：McNemar-检验（QA-场景的默认选择）"><a href="#4-3-方法一：McNemar-检验（QA-场景的默认选择）" class="headerlink" title="4.3 方法一：McNemar 检验（QA 场景的默认选择）"></a>4.3 方法一：McNemar 检验（QA 场景的默认选择）</h3><p><strong>适用</strong>：<strong>配对二分类结果</strong>（答对/答错）。这是 QA 准确率比较的<strong>正确工具</strong>，但在论文里被严重低估。</p>
+<p><strong>原理</strong>：只看不一致的样本，构造 2×2 列联表：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>B 对</th>
+<th>B 错</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>A 对</strong></td>
+<td>n₁₁（都对）</td>
+<td>n₁₀（<strong>只有 A 对</strong>）</td>
+</tr>
+<tr>
+<td><strong>A 错</strong></td>
+<td>n₀₁（<strong>只有 B 对</strong>）</td>
+<td>n₀₀（都错）</td>
+</tr>
+</tbody></table>
+<p>原假设：<code>P(只有A对) = P(只有B对)</code>，即 <code>b = n₁₀</code> 和 <code>c = n₀₁</code> 服从对称分布。</p>
+<p><strong>统计量</strong>（连续校正版，小样本更稳）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">χ² = (|b − c| − 1)² / (b + c)     ~ χ²(1)</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键洞察</strong>：<code>n₁₁</code> 和 <code>n₀₀</code> <strong>完全不影响检验结果</strong>。两个模型都在 90% 的样本上答对，样本量再大也不增加检验力——<strong>只有”分歧”提供信息</strong>。</p>
+<p><strong>这解释了一个常见困惑</strong>：为什么”两个很强的模型（都 85%+）之间的 1 个点差异”很难显著？因为他们的分歧样本很少（可能只有 3%），<code>b + c</code> 太小。</p>
+<p><strong>检测力估算</strong>（双侧 α=0.05，power=0.8）：</p>
+<table>
+<thead>
+<tr>
+<th>分歧方向的比例</th>
+<th>需要的不一致样本数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>55% : 45%</td>
+<td>~784</td>
+</tr>
+<tr>
+<td>60% : 40%</td>
+<td>~197</td>
+</tr>
+<tr>
+<td>65% : 35%</td>
+<td>~88</td>
+</tr>
+</tbody></table>
+<p><strong>读法</strong>：如果两个模型的分歧样本有 200 条，且其中 60% 是”只有 A 对”，那么显著。如果分歧只有 50 条，即使方向是 70:30 也很难显著。</p>
+<p><strong>为什么 QA 评测应该首选 McNemar</strong>：</p>
+<ol>
+<li>准确率本质是<strong>二分类</strong>，不是连续值；</li>
+<li>天然配对（同题）；</li>
+<li>对样本量要求比 t 检验低（只看分歧）；</li>
+<li>不假设正态性。</li>
+</ol>
+<p><strong>局限</strong>：只能用于<strong>准确率</strong>（0/1），不能用于 F1、BLEU 这类连续指标。</p>
+<h3 id="4-4-方法二：配对-t-检验"><a href="#4-4-方法二：配对-t-检验" class="headerlink" title="4.4 方法二：配对 t 检验"></a>4.4 方法二：配对 t 检验</h3><p><strong>适用</strong>：<strong>配对连续指标</strong>（如每条样本的 F1、BLEU、log-likelihood、响应长度）。</p>
+<p><strong>原理</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">d_i = metric_A(i) − metric_B(i)</span><br><span class="line">t = mean(d) / (sd(d)/sqrt(n))     ~ t(n−1)</span><br></pre></td></tr></table></figure>
+
+<p><strong>三个假设</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th>对 LLM 评测的现实</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>配对观测</td>
+<td>✅ 满足（同题）</td>
+</tr>
+<tr>
+<td>差值近似正态</td>
+<td>⚠️ 通常靠 CLT（n ≥ 30 勉强）</td>
+</tr>
+<tr>
+<td>独立观测</td>
+<td>⚠️ <strong>可能违反</strong>（同一文档的多个问题相关）</td>
+</tr>
+</tbody></table>
+<p><strong>第三个假设最容易被忽略</strong>：HotpotQA 里同一个维基页面的多条问题不独立。严格来说要用<strong>聚类稳健标准误</strong>（cluster-robust SE，按文档聚类）。多数论文不做，这会让 p 值偏小（更容易显著）——<strong>这是一个系统性的乐观偏差</strong>。</p>
+<p><strong>什么时候可以用</strong>：</p>
+<ul>
+<li>指标是连续值（F1、nDCG）；</li>
+<li>n ≥ 100（CLT 生效）；</li>
+<li>差值的分布没有极端离群（检查一下 <code>d</code> 的直方图）。</li>
+</ul>
+<h3 id="4-5-方法三：Wilcoxon-符号秩检验"><a href="#4-5-方法三：Wilcoxon-符号秩检验" class="headerlink" title="4.5 方法三：Wilcoxon 符号秩检验"></a>4.5 方法三：Wilcoxon 符号秩检验</h3><p><strong>适用</strong>：<strong>配对连续指标，但差值不服从正态</strong>（有离群、偏态、有界）。</p>
+<p><strong>原理</strong>：不只看向号，还看<strong>差值的秩</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 算 d_i = A_i − B_i，丢弃 d_i = 0</span><br><span class="line">2. 按 |d_i| 排序，赋秩</span><br><span class="line">3. W⁺ = 正差值的秩和，W⁻ = 负差值的秩和</span><br><span class="line">4. 检验 W⁺ 与 W⁻ 是否对称</span><br></pre></td></tr></table></figure>
+
+<p><strong>与配对 t 检验的对比</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>配对 t 检验</th>
+<th>Wilcoxon</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>假设</td>
+<td>差值正态</td>
+<td><strong>差值对称</strong>（不需要正态）</td>
+</tr>
+<tr>
+<td>对离群值</td>
+<td>敏感（均值被拉动）</td>
+<td><strong>稳健</strong>（用秩）</td>
+</tr>
+<tr>
+<td>功效</td>
+<td>正态时最高</td>
+<td>正态时略低（约 95%）</td>
+</tr>
+<tr>
+<td>小样本</td>
+<td>不可靠</td>
+<td>可用（但有最小 n 要求）</td>
+</tr>
+<tr>
+<td>适用指标</td>
+<td>连续、无界</td>
+<td>连续、有界、有序</td>
+</tr>
+</tbody></table>
+<p><strong>什么时候选 Wilcoxon</strong>：</p>
+<ul>
+<li>F1/BLEU 这类<strong>有界指标</strong>（0 到 1，分布常偏态，大量接近 1）；</li>
+<li>有少量极端样本（某几条 F1 从 0 变成 0.9）；</li>
+<li>n &lt; 30。</li>
+</ul>
+<p><strong>注意一个细节</strong>：Wilcoxon 要求<strong>差值分布对称</strong>（不是正态）。如果大量 <code>d_i = 0</code>（两个模型在这条上完全一样），这些样本被丢弃，实际 n 会大幅缩小。**报结果时应说明”有效配对数”**。</p>
+<h3 id="4-6-方法四：Bootstrap（最适合”报告置信区间”）"><a href="#4-6-方法四：Bootstrap（最适合”报告置信区间”）" class="headerlink" title="4.6 方法四：Bootstrap（最适合”报告置信区间”）"></a>4.6 方法四：Bootstrap（最适合”报告置信区间”）</h3><p><strong>适用</strong>：任何指标（包括 F1、Joint EM、分层指标），只要你能重采样。</p>
+<p><strong>做法</strong>（配对 bootstrap）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for b in 1..B (B=1000~10000):</span><br><span class="line">    从 n 条样本中有放回抽 n 条（记录索引）</span><br><span class="line">    用同一批索引计算 metric_A 和 metric_B</span><br><span class="line">    保存 diff_b = metric_A − metric_B</span><br><span class="line">95% CI = [diff 的 2.5 分位, 97.5 分位]</span><br><span class="line">若 CI 不含 0 → 显著</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键：必须用同一批索引</strong>（配对）。分别对 A 和 B 独立重采样会高估方差。</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>不假设分布；</li>
+<li><strong>直接给置信区间</strong>（比 p 值信息量大）；</li>
+<li>适用于任何指标（包括分层后的子集、Joint 指标）；</li>
+<li>可以同时给出”效应量”和”不确定性”。</li>
+</ul>
+<p><strong>这是我最推荐的主报告方式</strong>：**报”差值 + 95% CI”，而不是”p &lt; 0.05”**。</p>
+<h3 id="4-7-选择树"><a href="#4-7-选择树" class="headerlink" title="4.7 选择树"></a>4.7 选择树</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">你的指标是什么？</span><br><span class="line">├── 准确率（0/1） → McNemar 检验</span><br><span class="line">└── 连续指标（F1/BLEU/nDCG）</span><br><span class="line">    ├── 差值近似正态 且 n≥100 → 配对 t 检验</span><br><span class="line">    ├── 差值偏态/有界/有离群 → Wilcoxon 符号秩</span><br><span class="line">    └── 任何情况都可以补一个 → 配对 Bootstrap（给 CI）</span><br><span class="line"></span><br><span class="line">样本量 &lt; 30？</span><br><span class="line">└── 不要用 t 检验，用 Wilcoxon 或 Bootstrap</span><br><span class="line"></span><br><span class="line">要报&quot;提升多少&quot;给业务方？</span><br><span class="line">└── 报 Bootstrap 的 95% CI，而不是 p 值</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-8-效应量与多重比较"><a href="#4-8-效应量与多重比较" class="headerlink" title="4.8 效应量与多重比较"></a>4.8 效应量与多重比较</h3><p><strong>p 值只说”有没有”，不说”有多大”。</strong> 样本量足够大时，0.3 个点的差异也能 p &lt; 0.001。所以必须同时报：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>计算</th>
+<th>解读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>绝对差</strong></td>
+<td><code>acc_A − acc_B</code></td>
+<td>直接、可解释</td>
+</tr>
+<tr>
+<td><strong>相对提升</strong></td>
+<td><code>(acc_A − acc_B) / acc_B</code></td>
+<td>宣传常用，但会夸大（基数小时）</td>
+</tr>
+<tr>
+<td><strong>Cohen’s h</strong>（比例）</td>
+<td><code>2·arcsin(√p₁) − 2·arcsin(√p₂)</code></td>
+<td>跨数据集可比：0.2 小 / 0.5 中 / 0.8 大</td>
+</tr>
+<tr>
+<td><strong>Cohen’s d</strong>（连续）</td>
+<td><code>mean(d)/sd(d)</code></td>
+<td>0.2 / 0.5 / 0.8</td>
+</tr>
+</tbody></table>
+<p><strong>多重比较</strong>：如果你比较了 5 个模型 × 6 个数据集 = 30 次检验，α=0.05 下<strong>期望有 1.5 个假阳性</strong>。</p>
+<p>修正方法：</p>
+<ul>
+<li><strong>Holm-Bonferroni</strong>（推荐，比 Bonferroni 有功效）：按 p 升序，第 i 个用 <code>α/(m−i+1)</code>；</li>
+<li><strong>Benjamini-Hochberg</strong>（FDR 控制）：适合探索性分析，允许一定假阳性。</li>
+</ul>
+<p><strong>实践建议</strong>：如果主结论是”模型 A 优于所有 baseline”，那么<strong>只需要和最强的 baseline 做一次检验</strong>，不要做 30 次然后挑显著的报——后者是 p-hacking。</p>
+<hr>
+<h2 id="5-评测避坑：六个真实会导致错误结论的问题"><a href="#5-评测避坑：六个真实会导致错误结论的问题" class="headerlink" title="5. 评测避坑：六个真实会导致错误结论的问题"></a>5. 评测避坑：六个真实会导致错误结论的问题</h2><h3 id="5-1-坑一：数据污染（最严重，且难以自证）"><a href="#5-1-坑一：数据污染（最严重，且难以自证）" class="headerlink" title="5.1 坑一：数据污染（最严重，且难以自证）"></a>5.1 坑一：数据污染（最严重，且难以自证）</h3><p><strong>问题</strong>：NQ（2019）、TriviaQA（2017）、HotpotQA（2018）<strong>几乎必然在 2023 年后的预训练语料中</strong>。模型可能”记得答案”，而不是”会检索/推理”。</p>
+<p><strong>三种表现形式</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>形式</th>
+<th>现象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>答案记忆</strong></td>
+<td>闭卷准确率异常高（如某冷门实体一次答对）</td>
+</tr>
+<tr>
+<td><strong>证据记忆</strong></td>
+<td>能背出 supporting facts 的原句</td>
+</tr>
+<tr>
+<td><strong>格式记忆</strong></td>
+<td>输出格式与数据集标注风格高度一致（如固定用 “it is” 开头）</td>
+</tr>
+</tbody></table>
+<p><strong>怎么检测</strong>（没有一个方法是决定性的）：</p>
+<ol>
+<li><strong>构造扰动版本</strong>：改实体名（<code>Paris</code> → <code>Prais</code>）、改数值、换问法。<strong>如果分数大幅下降，说明依赖记忆</strong>；</li>
+<li><strong>新数据集</strong>：用发布时间晚于模型训练截止的数据（这是最可靠的，但要确认截止日期）；</li>
+<li>**看”答案频率分布”**：如果模型对冷门实体的准确率与热门实体接近（PopQA 上），可疑；</li>
+<li><strong>n-gram 重叠检测</strong>：把测试问题与训练语料做子串匹配（对大模型不现实，但对开源模型可做）；</li>
+</ol>
+<p><strong>报告里应该写</strong>：数据集的发布时间、模型的训练截止时间、是否做了扰动测试。<strong>如果三者都没有，这个”零样本”结论不可信。</strong></p>
+<h3 id="5-2-坑二：采样方差被当成模型差异"><a href="#5-2-坑二：采样方差被当成模型差异" class="headerlink" title="5.2 坑二：采样方差被当成模型差异"></a>5.2 坑二：采样方差被当成模型差异</h3><p><strong>问题</strong>：如果解码用了 <code>temperature &gt; 0</code> 或 <code>top_p &lt; 1</code>，同一条样本跑两次结果可能不同。</p>
+<p><strong>定量</strong>：单条样本的”随机错误率”如果是 5%，在 3,610 条上，两次运行的总准确率差异约 <code>sqrt(0.05 × 3610)/3610 ≈ 0.36pp</code>——<strong>看起来不大，但如果两次运行的 prompt 顺序也变了，差异会放大到 1–2pp</strong>。</p>
+<p><strong>正确做法</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>做法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>贪心解码</strong>（<code>do_sample=False</code>）</td>
+<td>评测的默认选择，消除采样方差</td>
+</tr>
+<tr>
+<td><strong>固定 seed</strong></td>
+<td>必须采样时，多 seed 取均值并报方差</td>
+</tr>
+<tr>
+<td><strong>多次运行报 mean ± std</strong></td>
+<td>至少 3 次</td>
+</tr>
+<tr>
+<td><strong>报告单次 vs 多次的差异</strong></td>
+<td>如果差异 &gt; 1pp，说明评测不稳定</td>
+</tr>
+</tbody></table>
+<p><strong>一个反直觉的建议</strong>：<strong>评测应该用贪心，产品可以用采样。</strong> 两者的目标不同——评测要可复现和可比较，产品要体验。</p>
+<h3 id="5-3-坑三：用错误的方式做”重复实验”"><a href="#5-3-坑三：用错误的方式做”重复实验”" class="headerlink" title="5.3 坑三：用错误的方式做”重复实验”"></a>5.3 坑三：用错误的方式做”重复实验”</h3><p><strong>三种错误</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>错误</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>同一 seed 跑 3 次取均值</td>
+<td>完全相同的数字，方差为 0，毫无意义</td>
+</tr>
+<tr>
+<td>只换 seed 不换数据顺序</td>
+<td>只捕捉了采样方差，没捕捉数据顺序带来的方差</td>
+</tr>
+<tr>
+<td>报告”最好的一次”</td>
+<td>系统性高估</td>
+</tr>
+</tbody></table>
+<p><strong>正确做法</strong>：</p>
+<ul>
+<li><strong>固定数据，跑多个 seed（采样解码时）</strong>，报 mean ± std；</li>
+<li><strong>固定模型，做 bootstrap 重采样</strong>，报 CI（这是估计”如果换一批测试题”的波动）；</li>
+<li><strong>两者都做</strong>：seed 方差反映”解码随机性”，bootstrap 方差反映”测试集抽样随机性”。<strong>后者通常大得多</strong>。</li>
+</ul>
+<h3 id="5-4-坑四：prompt-格式不公平"><a href="#5-4-坑四：prompt-格式不公平" class="headerlink" title="5.4 坑四：prompt 格式不公平"></a>5.4 坑四：prompt 格式不公平</h3><p><strong>问题</strong>：LM Harness 的 <code>--apply_chat_template</code> 会用模型自己的 chat 模板。不同模型的模板差异很大：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Llama-3:   &lt;|start_header_id|&gt;user&lt;|end_header_id|&gt;\n\n&#123;question&#125;&lt;|eot_id|&gt;</span><br><span class="line">Qwen:      &lt;|im_start|&gt;user\n&#123;question&#125;&lt;|im_end|&gt;</span><br><span class="line">Mistral:   [INST] &#123;question&#125; [/INST]</span><br></pre></td></tr></table></figure>
+
+<p><strong>如果某个模型没开 chat template，或用错了模板，分数可能掉 10–20 个点</strong>——这不是模型差，是格式错。</p>
+<p><strong>检查清单</strong>：</p>
+<ol>
+<li>指令模型是否开了 <code>--apply_chat_template</code>；</li>
+<li>few-shot 是否也应该作为对话轮次（<code>--fewshot_as_multiturn</code>）；</li>
+<li><strong>手工打印 5 条实际 prompt</strong>，肉眼确认格式正确；</li>
+<li>输出是否有”截断”（<code>until</code> 设置不对，答案被切）。</li>
+</ol>
+<p><strong>第 3 条是最有效的</strong>：<strong>任何人做评测，第一件事都应该是把实际送进模型的 prompt 打印出来看。</strong></p>
+<h3 id="5-5-坑五：答案规范化不一致"><a href="#5-5-坑五：答案规范化不一致" class="headerlink" title="5.5 坑五：答案规范化不一致"></a>5.5 坑五：答案规范化不一致</h3><p><strong>问题</strong>：同一份输出，不同的规范化规则，EM 差 3–8 个点。</p>
+<p><strong>典型分歧点</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>情况</th>
+<th>处理方式</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&quot;The Beatles&quot;</code> vs <code>&quot;Beatles&quot;</code></td>
+<td>去冠词 or 不去</td>
+<td>影响 1–3pp</td>
+</tr>
+<tr>
+<td><code>&quot;1,200&quot;</code> vs <code>&quot;1200&quot;</code></td>
+<td>数字规范化</td>
+<td>影响 &lt;1pp</td>
+</tr>
+<tr>
+<td><code>&quot;USA&quot;</code> vs <code>&quot;United States&quot;</code></td>
+<td>别名表</td>
+<td><strong>影响 2–5pp</strong></td>
+</tr>
+<tr>
+<td><code>&quot;2024-01-05&quot;</code> vs <code>&quot;January 5, 2024&quot;</code></td>
+<td>日期归一</td>
+<td>影响 1–2pp</td>
+</tr>
+<tr>
+<td>中文答案的空格/标点</td>
+<td>全半角统一</td>
+<td>影响大（中文任务）</td>
+</tr>
+</tbody></table>
+<p><strong>建议</strong>：<strong>报告里明确写出规范化规则</strong>，或者用<strong>多套规则报区间</strong>（如 “EM 48.2 (strict) / 51.3 (normalized)”）。</p>
+<h3 id="5-6-坑六：在-dev-上调-prompt，在-dev-上报分数"><a href="#5-6-坑六：在-dev-上调-prompt，在-dev-上报分数" class="headerlink" title="5.6 坑六：在 dev 上调 prompt，在 dev 上报分数"></a>5.6 坑六：在 dev 上调 prompt，在 dev 上报分数</h3><p><strong>问题</strong>：NQ-open 的 dev 只有 3,610 条。如果你用 dev 调了 20 次 prompt，选最好的那个报 52%，这个数字是<strong>乐观偏置</strong>的（相当于在测试集上训练）。</p>
+<p><strong>估算</strong>：在 3,610 条上，做了 20 次尝试后取最大值，期望虚高约 <code>1.5~2.5pp</code>（极值统计效应）。</p>
+<p><strong>正确做法</strong>：</p>
+<ol>
+<li>**划出 dev 的一部分作为 “prompt 开发集”**（如 1,000 条），剩下的作为”报告集”；</li>
+<li><strong>或者用另一个数据集的 dev 调 prompt</strong>（如用 TriviaQA dev 调格式，到 NQ 上报）；</li>
+<li>**至少要披露”调了多少次”**。</li>
+</ol>
+<hr>
+<h2 id="6-汇总"><a href="#6-汇总" class="headerlink" title="6. 汇总"></a>6. 汇总</h2><h3 id="6-1-数据集速查"><a href="#6-1-数据集速查" class="headerlink" title="6.1 数据集速查"></a>6.1 数据集速查</h3><table>
+<thead>
+<tr>
+<th>需求</th>
+<th>选哪个</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单跳检索基线</td>
+<td>NQ-open</td>
+<td>标准、规模适中、社区对比多</td>
+</tr>
+<tr>
+<td>参数知识广度</td>
+<td>TriviaQA（闭卷）</td>
+<td>冷门事实多，区分度高</td>
+</tr>
+<tr>
+<td>长尾泛化</td>
+<td><strong>PopQA（分层）</strong></td>
+<td>唯一按流行度分层的标准集</td>
+</tr>
+<tr>
+<td>多跳推理</td>
+<td>HotpotQA（fullwiki）</td>
+<td>强制桥接，有句子级证据</td>
+</tr>
+<tr>
+<td>证据可追溯</td>
+<td>HotpotQA（Joint EM + Support F1）</td>
+<td>唯一能同时评答案与理由的</td>
+</tr>
+<tr>
+<td>拒答/澄清</td>
+<td>InsCit 类</td>
+<td>唯一能评”知道自己不知道”的</td>
+</tr>
+<tr>
+<td>中文场景</td>
+<td>CMRC / DRCD / DuReader（本文未展开）</td>
+<td>NQ 系是英文维基</td>
+</tr>
+</tbody></table>
+<h3 id="6-2-一份可执行的评测协议"><a href="#6-2-一份可执行的评测协议" class="headerlink" title="6.2 一份可执行的评测协议"></a>6.2 一份可执行的评测协议</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">【阶段 0：环境与声明】</span><br><span class="line">  □ 记录数据集版本、切分、发布时间</span><br><span class="line">  □ 记录模型训练截止时间（判断污染风险）</span><br><span class="line">  □ 记录 prompt 模板、few-shot 数、few-shot 选择规则</span><br><span class="line">  □ 打印 5 条实际 prompt，人工确认</span><br><span class="line"></span><br><span class="line">【阶段 1：运行】</span><br><span class="line">  □ 贪心解码（do_sample=False）作为主结果</span><br><span class="line">  □ --log_samples 必开</span><br><span class="line">  □ 不用 --limit 报数（只用于调试）</span><br><span class="line">  □ 固定 batch_size 与 dtype（bf16 与 fp32 可能有差异）</span><br><span class="line"></span><br><span class="line">【阶段 2：指标】</span><br><span class="line">  □ 主指标 + 95% CI（用 bootstrap）</span><br><span class="line">  □ 分层指标（按难度/流行度/问题类型）</span><br><span class="line">  □ 对多跳任务：同时报 EM 和 Joint EM</span><br><span class="line"></span><br><span class="line">【阶段 3：统计】</span><br><span class="line">  □ 准确率 → McNemar</span><br><span class="line">  □ 连续指标 → 配对 t / Wilcoxon</span><br><span class="line">  □ 报效应量（绝对差 + Cohen&apos;s h/d）</span><br><span class="line">  □ 多次比较 → Holm 修正</span><br><span class="line"></span><br><span class="line">【阶段 4：稳健性】</span><br><span class="line">  □ 扰动测试（改实体名/数值），看分数变化</span><br><span class="line">  □ 换一次 prompt 模板，看分数变化</span><br><span class="line">  □ 至少 2 个 seed（如果采样解码）</span><br><span class="line"></span><br><span class="line">【阶段 5：报告】</span><br><span class="line">  □ 设置五要素写清</span><br><span class="line">  □ 不报&quot;最好的一次&quot;</span><br><span class="line">  □ 说明&quot;没做什么&quot;（未去污染、未做聚类稳健等）</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-3-一句话记住每个数据集"><a href="#6-3-一句话记住每个数据集" class="headerlink" title="6.3 一句话记住每个数据集"></a>6.3 一句话记住每个数据集</h3><ul>
+<li><strong>NQ</strong>：真实搜索问题，ODQA 的基本盘，但必须分清 NQ 和 NQ-open；</li>
+<li><strong>TriviaQA</strong>：冷门知识广度高，答案别名多，EM 对规范化敏感；</li>
+<li><strong>PopQA</strong>：<strong>头尾差 40 个点</strong>，总分是骗人的，必须分层看；</li>
+<li><strong>HotpotQA</strong>：强制桥接，<strong>Joint EM 才反映真本事</strong>；</li>
+<li><strong>InsCit</strong>：把”幻觉”从”答错”里分出来，是 Agent 时代的必备评测。</li>
+</ul>
+<hr>
+<h2 id="7-小结"><a href="#7-小结" class="headerlink" title="7. 小结"></a>7. 小结</h2><ol>
+<li><strong>五个数据集测五种能力，分数不可横向比较。</strong> NQ 测单跳检索、TriviaQA 测参数知识广度、PopQA 测长尾泛化、HotpotQA 测组合推理、InsCit 测”知道自己不知道”。<strong>选数据集就是选你要证明什么。</strong></li>
+<li><strong>NQ 与 NQ-open 是两个任务。</strong> 前者给维基页面抽 span，后者不给证据。<strong>论文里写”在 NQ 上 X”必须追问是哪个。</strong> HotpotQA 的 distractor / fullwiki 同理。</li>
+<li><strong>HotpotQA 必须报 Joint EM。</strong> 只报 EM 会让”猜对答案但理由全错”的模型看起来很好。<strong>多跳任务的考点是”推理链对不对”，不只是”答案对不对”。</strong></li>
+<li><strong>PopQA 的价值在分层，不在总分。</strong> 头部 70–85%、尾部 20–40%，<strong>总分把最有信息量的部分平均掉了</strong>。任何 QA 评测都该做难度分层。</li>
+<li><strong>SOTA 数字只能当量级参考。</strong> 答案规范化、few-shot 数、dev/test、是否允许无答案、模型是否见过数据——<strong>五项里有任意一项不同，数字就不可比</strong>。</li>
+<li><strong>LM Harness 的价值是”任务定义与推理后端解耦”**，不是”任务多”。它能保证同一批 prompt 换不同引擎跑。但</strong>它不做显著性检验、不做去污染、不保证 prompt 公平**——这三件事要自己补。</li>
+<li><strong>评测第一件事是打印实际 prompt。</strong> 没开 chat template、<code>until</code> 设置错误、few-shot 格式错——这些问题的共同表现是”分数异常低”，而它们占”模型看起来变差”原因的很大比例。</li>
+<li><strong>样本量决定了你能分辨多大的差异。</strong> p≈0.7 时：n=500 → ±4.0pp，n=1000 → ±2.8pp，n=3610 → ±1.5pp。<strong>在 500 条的测试集上，4 个点以内的差异没有信息量。</strong></li>
+<li><strong>QA 准确率比较应该用 McNemar，不是 t 检验。</strong> 因为准确率是二分类、天然配对。而且它的检验力只来自”分歧样本”——<strong>两个都很强的模型之间，1 个点的差异很难显著，因为分歧太少</strong>（分歧 200 条、方向 60:40 才勉强够）。</li>
+<li><strong>连续指标（F1/BLEU）用配对 t 或 Wilcoxon。</strong> 差值正态、n≥100 用 t；有界/偏态/有离群/小样本用 Wilcoxon。<strong>两者都该补一个配对 bootstrap 报 CI。</strong></li>
+<li><strong>报”差值 + 95% CI”比报 p 值有用。</strong> p 值只说有没有，CI 说”可能有多大”。给业务方的报告应该是”提升 2.3pp，95% CI [0.4, 4.2]”，而不是”p&lt;0.05”。</li>
+<li><strong>数据污染是大模型时代评测的第一大坑，且无法自证清白。</strong> NQ/TriviaQA/HotpotQA 都在 2023 年后的预训练语料里。<strong>唯一可靠的检测是扰动测试</strong>（改实体名、换问法），如果分数大幅下降，说明靠的是记忆。</li>
+<li><strong>不要在同一小 dev 集上调 20 次 prompt 再报最高分。</strong> 极值统计下有 1.5–2.5pp 的虚高。<strong>要么划出独立的 prompt 开发集，要么披露调参次数。</strong></li>
+<li><strong>多重比较会制造假阳性。</strong> 5 模型 × 6 数据集 = 30 次检验，α=0.05 下期望 1.5 个假阳性。<strong>主结论只和最强 baseline 比一次</strong>，不要挑显著的报。</li>
+</ol>
+<p>如果只留一句：<strong>QA 评测的可靠性，一半取决于你选了哪个数据集（它测的是不是你想证明的能力），一半取决于你有没有做统计检验（那个差值是不是噪声）——模型本身反而是最确定的变量。</strong></p>
+<hr>
+<h3 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h3><p><strong>数据集</strong></p>
+<ul>
+<li>Kwiatkowski et al., <em>Natural Questions: A Benchmark for Question Answering Research</em>, TACL 2019</li>
+<li>Lee, Chang, Toutanova, <em>Latent Retrieval for Weakly Supervised Open Domain Question Answering</em>（ORQA / NQ-open 切分）, ACL 2019</li>
+<li>Joshi et al., <em>TriviaQA: A Large Scale Distantly Supervised Challenge Dataset for Reading Comprehension</em>, ACL 2017</li>
+<li>Mallen et al., <em>When Not to Trust Language Models: Investigating Effectiveness of Parametric and Non-Parametric Memories</em>（PopQA）, ACL 2023；arXiv:2212.10511</li>
+<li>Yang et al., <em>HotpotQA: A Dataset for Diverse, Explainable Multi-hop Question Answering</em>, EMNLP 2018</li>
+<li>InsCit 相关工作：面向”信息不充分”场景的 QA 基准（构造方式为破坏多跳问题的关键桥接信息，要求模型检测缺失并澄清）。<strong>注：本文对外检索接口在写作时限流，未能核对原文的规模、类别体系与切分，故只描述任务范式，不引用具体数字。</strong></li>
+</ul>
+<p><strong>评测框架</strong></p>
+<ul>
+<li>EleutherAI, <code>lm-evaluation-harness</code>：<a href="https://github.com/EleutherAI/lm-evaluation-harness%EF%BC%88task" target="_blank" rel="noopener">https://github.com/EleutherAI/lm-evaluation-harness（task</a> YAML 结构、<code>doc_to_text</code> / <code>doc_to_target</code>、<code>--log_samples</code>、stderr 计算、vLLM/SGLang/API 后端）</li>
+<li>Gao et al., <em>A Framework for Few-Shot Language Model Evaluation</em>, 2021（harness 设计说明）</li>
+<li>Hugging Face <code>lighteval</code>、OpenCompass（同类框架的对比参考）</li>
+</ul>
+<p><strong>统计方法</strong></p>
+<ul>
+<li>McNemar, <em>Note on the Sampling Error of the Difference Between Correlated Proportions or Percentages</em>, Psychometrika 1947</li>
+<li>Dietterich, <em>Approximate Statistical Tests for Comparing Supervised Classification Learning Algorithms</em>, Neural Computation 1998（<strong>推荐：比较分类器的正确检验选择</strong>，明确指出 McNemar 与 t 检验的适用边界）</li>
+<li>Wilcoxon, <em>Individual Comparisons by Ranking Methods</em>, 1945</li>
+<li>Efron &amp; Tibshirani, <em>An Introduction to the Bootstrap</em>, 1993</li>
+<li>Koehn, <em>Statistical Significance Tests for Machine Translation Evaluation</em>, EMNLP 2004（配对 bootstrap 在 NLP 的经典应用）</li>
+<li>Dror et al., <em>The Hitchhiker’s Guide to Testing Statistical Significance in Natural Language Processing</em>, ACL 2018（<strong>推荐：NLP 显著性检验的实践指南</strong>）</li>
+<li>Cohen, <em>Statistical Power Analysis for the Behavioral Sciences</em>（效应量 h / d）</li>
+<li>Holm, <em>A Simple Sequentially Rejective Multiple Test Procedure</em>, 1979；Benjamini &amp; Hochberg, <em>Controlling the False Discovery Rate</em>, 1995</li>
+<li>Card et al., <em>With Little Power Comes Great Responsibility</em>, EMNLP 2020（NLP 实验统计功效不足的实证）</li>
+<li>Miller, <em>Adding Error Bars to Evals: A Statistical Approach to Language Model Evaluations</em>, Anthropic 2024（<strong>推荐：LLM 评测的方差分解与置信区间</strong>）</li>
+</ul>
+<p><strong>污染与稳健性</strong></p>
+<ul>
+<li>Sainz et al., <em>NLP Evaluation in Trouble: On the Need to Measure LLM Data Contamination for Each Benchmark</em>, EMNLP Findings 2023</li>
+<li>Zhu et al., <em>PromptBench: Towards Evaluating the Robustness of Large Language Models on Adversarial Prompts</em>, 2023（prompt 敏感性）</li>
+<li>Sclar et al., <em>Quantifying Language Models’ Sensitivity to Spurious Features in Prompt Design</em>, ICLR 2024（格式敏感性的量化）</li>
+</ul>
+<blockquote>
+<p><strong>说明</strong>：第 2 节的 SOTA 区间为公开文献的常见量级，<strong>不是精确引用值</strong>；本次写作时外部检索接口限流，未能逐个核对最新榜单。第 4 节的样本量与检测力数字由本文用标准公式计算得出（<code>SE=sqrt(p(1-p)/n)</code>；McNemar 检测力用 <code>z=(z_{α/2}+z_β)/|2r-1|</code> 近似），可直接复现。所有具体数字在用于决策前，请在自己的数据与设置下重算。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/问答评测/" rel="tag"># 问答评测</a>
+              <a href="/tags/统计显著性/" rel="tag"># 统计显著性</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/07/27/GBDT三巨头与SHAP可解释性/" rel="prev" title="GBDT 三巨头与 SHAP：从分裂策略到可解释性的工程手册">
+      <i class="fa fa-chevron-left"></i> GBDT 三巨头与 SHAP：从分裂策略到可解释性的工程手册
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/08/14/半导体产线质量数字化术语手册/" rel="next" title="半导体产线质量数字化术语手册：从 EAP 到 APQP，以及 AI 落在哪里">
+      半导体产线质量数字化术语手册：从 EAP 到 APQP，以及 AI 落在哪里 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-先建立坐标系：QA-数据集的四个正交维度"><span class="nav-number">2.</span> <span class="nav-text">0. 先建立坐标系：QA 数据集的四个正交维度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-五个数据集逐个拆"><span class="nav-number">3.</span> <span class="nav-text">1. 五个数据集逐个拆</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Natural-Questions（NQ）"><span class="nav-number">3.1.</span> <span class="nav-text">1.1 Natural Questions（NQ）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-TriviaQA"><span class="nav-number">3.2.</span> <span class="nav-text">1.2 TriviaQA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-PopQA"><span class="nav-number">3.3.</span> <span class="nav-text">1.3 PopQA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-HotpotQA"><span class="nav-number">3.4.</span> <span class="nav-text">1.4 HotpotQA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-InsCit：测”信息不足时怎么办”"><span class="nav-number">3.5.</span> <span class="nav-text">1.5 InsCit：测”信息不足时怎么办”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-五个数据集的横向对照"><span class="nav-number">3.6.</span> <span class="nav-text">1.6 五个数据集的横向对照</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-SOTA-参考：怎么读、怎么用"><span class="nav-number">4.</span> <span class="nav-text">2. SOTA 参考：怎么读、怎么用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-先说清楚：这些数字只能当”量级参考”"><span class="nav-number">4.1.</span> <span class="nav-text">2.1 先说清楚：这些数字只能当”量级参考”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-为什么这些数字不能精确引用"><span class="nav-number">4.2.</span> <span class="nav-text">2.2 为什么这些数字不能精确引用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-LM-Harness：标准化的代价与价值"><span class="nav-number">5.</span> <span class="nav-text">3. LM Harness：标准化的代价与价值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-它是什么"><span class="nav-number">5.1.</span> <span class="nav-text">3.1 它是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-一个-task-的-YAML-长什么样"><span class="nav-number">5.2.</span> <span class="nav-text">3.2 一个 task 的 YAML 长什么样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-怎么跑"><span class="nav-number">5.3.</span> <span class="nav-text">3.3 怎么跑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-输出解读"><span class="nav-number">5.4.</span> <span class="nav-text">3.4 输出解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-LM-Harness-不做什么（这是关键）"><span class="nav-number">5.5.</span> <span class="nav-text">3.5 LM Harness 不做什么（这是关键）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-统计检验：为什么”高-2-1-个点”经常是噪声"><span class="nav-number">6.</span> <span class="nav-text">4. 统计检验：为什么”高 2.1 个点”经常是噪声</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-先算一下：这个差值可能压根不可分辨"><span class="nav-number">6.1.</span> <span class="nav-text">4.1 先算一下：这个差值可能压根不可分辨</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-第二层原因：配对信息被浪费了"><span class="nav-number">6.2.</span> <span class="nav-text">4.2 第二层原因：配对信息被浪费了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-方法一：McNemar-检验（QA-场景的默认选择）"><span class="nav-number">6.3.</span> <span class="nav-text">4.3 方法一：McNemar 检验（QA 场景的默认选择）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-方法二：配对-t-检验"><span class="nav-number">6.4.</span> <span class="nav-text">4.4 方法二：配对 t 检验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-方法三：Wilcoxon-符号秩检验"><span class="nav-number">6.5.</span> <span class="nav-text">4.5 方法三：Wilcoxon 符号秩检验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-方法四：Bootstrap（最适合”报告置信区间”）"><span class="nav-number">6.6.</span> <span class="nav-text">4.6 方法四：Bootstrap（最适合”报告置信区间”）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-7-选择树"><span class="nav-number">6.7.</span> <span class="nav-text">4.7 选择树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-8-效应量与多重比较"><span class="nav-number">6.8.</span> <span class="nav-text">4.8 效应量与多重比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-评测避坑：六个真实会导致错误结论的问题"><span class="nav-number">7.</span> <span class="nav-text">5. 评测避坑：六个真实会导致错误结论的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-坑一：数据污染（最严重，且难以自证）"><span class="nav-number">7.1.</span> <span class="nav-text">5.1 坑一：数据污染（最严重，且难以自证）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-坑二：采样方差被当成模型差异"><span class="nav-number">7.2.</span> <span class="nav-text">5.2 坑二：采样方差被当成模型差异</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-坑三：用错误的方式做”重复实验”"><span class="nav-number">7.3.</span> <span class="nav-text">5.3 坑三：用错误的方式做”重复实验”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-坑四：prompt-格式不公平"><span class="nav-number">7.4.</span> <span class="nav-text">5.4 坑四：prompt 格式不公平</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-坑五：答案规范化不一致"><span class="nav-number">7.5.</span> <span class="nav-text">5.5 坑五：答案规范化不一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-6-坑六：在-dev-上调-prompt，在-dev-上报分数"><span class="nav-number">7.6.</span> <span class="nav-text">5.6 坑六：在 dev 上调 prompt，在 dev 上报分数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-汇总"><span class="nav-number">8.</span> <span class="nav-text">6. 汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-数据集速查"><span class="nav-number">8.1.</span> <span class="nav-text">6.1 数据集速查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-一份可执行的评测协议"><span class="nav-number">8.2.</span> <span class="nav-text">6.2 一份可执行的评测协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-一句话记住每个数据集"><span class="nav-number">8.3.</span> <span class="nav-text">6.3 一句话记住每个数据集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-小结"><span class="nav-number">9.</span> <span class="nav-text">7. 小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考来源"><span class="nav-number">9.1.</span> <span class="nav-text">参考来源</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">259</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

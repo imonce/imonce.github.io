@@ -22,19 +22,19 @@
     var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="边缘计算有可能解决响应时间要求、电池寿命限制、带宽成本节约以及数据安全和隐私等问题。本文首先介绍了边缘计算的定义，然后介绍了从云卸载到智能家居和城市，以及协同边缘到实现边缘计算概念的几个案例研究。最后，我们提出了边缘计算领域的一些挑战和机遇，希望本文能引起社会的关注，并对这一方向的研究有所启发。 为什么要研究边缘计算到2019年，由人、机器和事物产生的数据将达到500 zettabytes，正如思">
+  <meta name="description" content="边缘计算有可能解决响应时间要求、电池寿命限制、带宽成本节约以及数据安全和隐私等问题。本文首先介绍了边缘计算的定义，然后介绍了从云卸载到智能家居和城市，以及协同边缘到实现边缘计算概念的几个案例研究。最后，我们提出了边缘计算领域的一些挑战和机遇，希望本文能引起社会的关注，并对这一方向的研究有所启发。">
 <meta name="keywords" content="Service Computing,Edge Computing">
 <meta property="og:type" content="article">
 <meta property="og:title" content="边缘计算：愿景和挑战">
 <meta property="og:url" content="https://imonce.github.io/2019/06/07/边缘计算：愿景和挑战/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
-<meta property="og:description" content="边缘计算有可能解决响应时间要求、电池寿命限制、带宽成本节约以及数据安全和隐私等问题。本文首先介绍了边缘计算的定义，然后介绍了从云卸载到智能家居和城市，以及协同边缘到实现边缘计算概念的几个案例研究。最后，我们提出了边缘计算领域的一些挑战和机遇，希望本文能引起社会的关注，并对这一方向的研究有所启发。 为什么要研究边缘计算到2019年，由人、机器和事物产生的数据将达到500 zettabytes，正如思">
+<meta property="og:description" content="边缘计算有可能解决响应时间要求、电池寿命限制、带宽成本节约以及数据安全和隐私等问题。本文首先介绍了边缘计算的定义，然后介绍了从云卸载到智能家居和城市，以及协同边缘到实现边缘计算概念的几个案例研究。最后，我们提出了边缘计算领域的一些挑战和机遇，希望本文能引起社会的关注，并对这一方向的研究有所启发。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190606235255.png">
-<meta property="og:updated_time" content="2026-06-28T14:37:22.542Z">
+<meta property="og:updated_time" content="2026-11-11T07:24:19.011Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="边缘计算：愿景和挑战">
-<meta name="twitter:description" content="边缘计算有可能解决响应时间要求、电池寿命限制、带宽成本节约以及数据安全和隐私等问题。本文首先介绍了边缘计算的定义，然后介绍了从云卸载到智能家居和城市，以及协同边缘到实现边缘计算概念的几个案例研究。最后，我们提出了边缘计算领域的一些挑战和机遇，希望本文能引起社会的关注，并对这一方向的研究有所启发。 为什么要研究边缘计算到2019年，由人、机器和事物产生的数据将达到500 zettabytes，正如思">
+<meta name="twitter:description" content="边缘计算有可能解决响应时间要求、电池寿命限制、带宽成本节约以及数据安全和隐私等问题。本文首先介绍了边缘计算的定义，然后介绍了从云卸载到智能家居和城市，以及协同边缘到实现边缘计算概念的几个案例研究。最后，我们提出了边缘计算领域的一些挑战和机遇，希望本文能引起社会的关注，并对这一方向的研究有所启发。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/imonce/imgs/master/20190606235255.png">
 
 <link rel="canonical" href="https://imonce.github.io/2019/06/07/边缘计算：愿景和挑战/">
@@ -126,17 +126,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">228</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">32</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -231,7 +231,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-28 22:37:22" itemprop="dateModified" datetime="2026-06-28T22:37:22+08:00">2026-06-28</time>
+                <time title="Modified: 2026-11-11 15:24:19" itemprop="dateModified" datetime="2026-11-11T15:24:19+08:00">2026-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -280,6 +280,7 @@
 
       
         <pre><code>边缘计算有可能解决响应时间要求、电池寿命限制、带宽成本节约以及数据安全和隐私等问题。本文首先介绍了边缘计算的定义，然后介绍了从云卸载到智能家居和城市，以及协同边缘到实现边缘计算概念的几个案例研究。最后，我们提出了边缘计算领域的一些挑战和机遇，希望本文能引起社会的关注，并对这一方向的研究有所启发。</code></pre>
+<a id="more"></a>
 <h1 id="为什么要研究边缘计算"><a href="#为什么要研究边缘计算" class="headerlink" title="为什么要研究边缘计算"></a>为什么要研究边缘计算</h1><p>到2019年，由人、机器和事物产生的数据将达到500 zettabytes，正如思科全球云指数所估计的那样，但是到那时全球数据中心IP流量将仅达到10.4 zettabytes。到2019年，45%的物联网创建数据将存储、处理、分析，并在网络附近或边缘采取行动。思科互联网业务解决方案集团（Cisco Internet Business Solutions Group）预测，到2020年，将有500亿台设备连接到互联网上。有些物联网应用可能需要很短的响应时间，有些可能涉及到私有数据，有些可能产生大量的数据，这对网络来说可能是一个沉重的负担。云计算的效率不足以支持这些应用程序。</p>
 <h1 id="什么是边缘计算"><a href="#什么是边缘计算" class="headerlink" title="什么是边缘计算"></a>什么是边缘计算</h1><p>数据在网络边缘的生成越来越多，因此，在网络边缘处理数据也会更有效。以前的工作，如微型数据中心、Cloudlet和雾计算，已经引入到社区，因为当数据在网络边缘生成时，云计算并不总是有效的数据处理。在这一部分中，我们列出了一些原因，为什么对于某些计算服务，边缘计算比云计算更有效，然后我们给出了我们对边缘计算的定义和理解。</p>
 <h2 id="为什么需要边缘计算"><a href="#为什么需要边缘计算" class="headerlink" title="为什么需要边缘计算"></a>为什么需要边缘计算</h2><h3 id="来自云计算的推动"><a href="#来自云计算的推动" class="headerlink" title="来自云计算的推动"></a>来自云计算的推动</h3><p>随着边缘数据生成量的不断增加，数据传输速度正成为云计算范式的瓶颈。例如，波音787每秒将生成大约5千兆字节的数据，但飞机与地面卫星或基站之间的带宽不足以传输数据。</p>
@@ -446,20 +447,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">228</span>
+        <span class="site-state-item-count">259</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

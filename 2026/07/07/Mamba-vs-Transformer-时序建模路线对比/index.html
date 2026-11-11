@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script data-ad-client="ca-pub-1831623022964098" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/C_Meng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/C_Meng.png">
+  <link rel="mask-icon" href="/images/C_Meng.png" color="#222">
+  <meta name="google-site-verification" content="-WnFIB8dOJwdL5b4iIfg6bNp1o-p5XnbyMIPVWXr6N0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"imonce.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="它们不是四个互相替代的方案，而是同一个状态方程在四种离散化假设下的解。看清这一点，选型问题会简单一半。  导语时序建模领域过去五年最消耗工程师注意力的一场争论是”Mamba 能不能取代 Transformer”。这场争论之所以反复无解，是因为大部分对比都在模型层面做（谁的 benchmark 高、谁的 FLOPs 低），而真正的差异在更下面一层：">
+<meta name="keywords" content="Transformer,Mamba,GRU,ODE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="时序建模的四条路线：Transformer、Mamba、GRU 与 ODE 求解器">
+<meta property="og:url" content="https://imonce.github.io/2026/07/07/Mamba-vs-Transformer-时序建模路线对比/index.html">
+<meta property="og:site_name" content="C_Meng PSNA">
+<meta property="og:description" content="它们不是四个互相替代的方案，而是同一个状态方程在四种离散化假设下的解。看清这一点，选型问题会简单一半。  导语时序建模领域过去五年最消耗工程师注意力的一场争论是”Mamba 能不能取代 Transformer”。这场争论之所以反复无解，是因为大部分对比都在模型层面做（谁的 benchmark 高、谁的 FLOPs 低），而真正的差异在更下面一层：">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2026-11-11T07:39:46.667Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="时序建模的四条路线：Transformer、Mamba、GRU 与 ODE 求解器">
+<meta name="twitter:description" content="它们不是四个互相替代的方案，而是同一个状态方程在四种离散化假设下的解。看清这一点，选型问题会简单一半。  导语时序建模领域过去五年最消耗工程师注意力的一场争论是”Mamba 能不能取代 Transformer”。这场争论之所以反复无解，是因为大部分对比都在模型层面做（谁的 benchmark 高、谁的 FLOPs 低），而真正的差异在更下面一层：">
+
+<link rel="canonical" href="https://imonce.github.io/2026/07/07/Mamba-vs-Transformer-时序建模路线对比/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>时序建模的四条路线：Transformer、Mamba、GRU 与 ODE 求解器 | C_Meng PSNA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">C_Meng PSNA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never wait for the storm to pass, just dance in the rain.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">31</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/imonce" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/07/Mamba-vs-Transformer-时序建模路线对比/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/C_Meng.png">
+      <meta itemprop="name" content="C_Meng">
+      <meta itemprop="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C_Meng PSNA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          时序建模的四条路线：Transformer、Mamba、GRU 与 ODE 求解器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-07 12:12:27" itemprop="dateCreated datePublished" datetime="2026-07-07T12:12:27+08:00">2026-07-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-11-11 15:39:46" itemprop="dateModified" datetime="2026-11-11T15:39:46+08:00">2026-11-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2026/07/07/Mamba-vs-Transformer-时序建模路线对比/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/07/Mamba-vs-Transformer-时序建模路线对比/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>它们不是四个互相替代的方案，而是同一个状态方程在四种离散化假设下的解。看清这一点，选型问题会简单一半。</p>
+</blockquote>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>时序建模领域过去五年最消耗工程师注意力的一场争论是”Mamba 能不能取代 Transformer”。这场争论之所以反复无解，是因为大部分对比都在<strong>模型层面</strong>做（谁的 benchmark 高、谁的 FLOPs 低），而真正的差异在更下面一层：</p>
+<a id="more"></a>
+<p><strong>你如何定义”状态”，以及你如何把连续时间推进到下一个时刻。</strong></p>
+<p>Transformer 的答案是”不要状态，每次从全历史里重新取”；Mamba 的答案是”用一个固定大小的、输入相关的状态做压缩”；GRU 的答案是”用一个固定大小的、输入相关的状态做压缩，但更新方式是门控”；ODE 模型的答案是”状态是连续演化的，我在任意时刻都能查询它”。</p>
+<p>这四个答案在数学上可以写进同一个框架。本文先把框架搭出来，再逐个拆解，最后给选型与踩坑。目标读者是做时序/序列建模的算法研发，默认你熟悉 attention、RNN 和基本的数值方法。</p>
+<hr>
+<h2 id="1-统一视角：四种模型都在解同一个方程"><a href="#1-统一视角：四种模型都在解同一个方程" class="headerlink" title="1. 统一视角：四种模型都在解同一个方程"></a>1. 统一视角：四种模型都在解同一个方程</h2><h3 id="1-1-一个连续时间系统，四种离散化"><a href="#1-1-一个连续时间系统，四种离散化" class="headerlink" title="1.1 一个连续时间系统，四种离散化"></a>1.1 一个连续时间系统，四种离散化</h3><p>所有（线性）序列模型都可以看成下面这个连续时间状态空间系统的某种离散化：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dz/dt = A z(t) + B u(t)</span><br><span class="line">y(t)  = C z(t) + D u(t)</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>u(t)</code> 是输入，<code>z(t)</code> 是隐状态，<code>y(t)</code> 是输出。区别只在三处：</p>
+<ol>
+<li><strong>A、B、C 是否随输入变化</strong>（时不变 vs 选择性）；</li>
+<li><strong>用哪个积分器把连续方程变成离散递推</strong>；</li>
+<li><strong>怎么在时间维上并行</strong>。</li>
+</ol>
+<p>把离散化写成统一形式 <code>z_k = Ā z_{k-1} + B̄ u_k</code>，三种积分器给出的 <code>Ā</code> 完全不同：</p>
+<table>
+<thead>
+<tr>
+<th>积分器</th>
+<th><code>Ā</code> 的取法</th>
+<th>精度</th>
+<th>稳定性</th>
+<th>是否需要解方程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>显式（前向）欧拉</strong></td>
+<td><code>I + ΔA</code></td>
+<td>一阶</td>
+<td>条件稳定：需 <code>Δ &lt; 2 / abs(λ_max)</code></td>
+<td>否</td>
+</tr>
+<tr>
+<td><strong>隐式（后向/逆）欧拉</strong></td>
+<td><code>(I − ΔA)^{−1}</code></td>
+<td>一阶</td>
+<td><strong>无条件稳定（A-stable），且 L-stable</strong></td>
+<td>是（每步解线性/非线性方程）</td>
+</tr>
+<tr>
+<td><strong>零阶保持（ZOH）</strong></td>
+<td><code>exp(ΔA)</code></td>
+<td><strong>精确</strong>（在输入分段常值假设下）</td>
+<td>无条件稳定</td>
+<td>否（预计算即可）</td>
+</tr>
+<tr>
+<td><strong>双线性（Tustin）</strong></td>
+<td><code>(I − ΔA/2)^{−1}(I + ΔA/2)</code></td>
+<td>二阶</td>
+<td>无条件稳定</td>
+<td>否</td>
+</tr>
+</tbody></table>
+<p>这张表就是全文的骨架。后面会看到：</p>
+<ul>
+<li><strong>Mamba 用的是 ZOH</strong>（<code>Ā = exp(ΔA)</code>），并且让 <code>Δ</code> 随输入变化——这就是”选择性”的物理含义：<strong>模型自己决定每个 token 的积分步长</strong>；</li>
+<li><strong>逆欧拉 ODE 模型用的是隐式欧拉</strong>，代价是每步要解一个不动点/线性系统，换来对刚性系统的无条件稳定；</li>
+<li><strong>GRU 不对应任何标准积分器</strong>，它是”用神经网络直接参数化状态更新函数”，跳过了物理建模；</li>
+<li><strong>Transformer 根本没有这个方程</strong>，它把 <code>z</code> 换成了”整个历史的一个加权和”，<code>Ā</code> 的概念不存在。</li>
+</ul>
+<h3 id="1-2-三个正交维度"><a href="#1-2-三个正交维度" class="headerlink" title="1.2 三个正交维度"></a>1.2 三个正交维度</h3><p>比较这四类模型，其实只需要看三个轴：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>问题</th>
+<th>Transformer</th>
+<th>Mamba</th>
+<th>GRU</th>
+<th>ODE</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>状态容量</strong></td>
+<td>状态能存多少信息？</td>
+<td>O(L·d)（全历史 KV）</td>
+<td>O(d·N)（固定）</td>
+<td>O(d)（固定）</td>
+<td>O(d)（固定）</td>
+</tr>
+<tr>
+<td><strong>访问方式</strong></td>
+<td>怎么取用历史？</td>
+<td><strong>内容寻址</strong>（attention）</td>
+<td>压缩式（state 衰减）</td>
+<td>压缩式（门控）</td>
+<td>压缩式（连续演化）</td>
+</tr>
+<tr>
+<td><strong>时间并行</strong></td>
+<td>训练能否并行？</td>
+<td>✅ 完全并行</td>
+<td>✅ 并行扫描</td>
+<td>❌ 严格串行</td>
+<td>⚠️ 取决于求解器</td>
+</tr>
+</tbody></table>
+<p>“内容寻址 vs 压缩”这一列是后面所有工程差异的根源。**内容寻址可以精确取回第 37 步的信息；压缩只能保证”大概还记得”**。</p>
+<h3 id="1-3-三个常见误区"><a href="#1-3-三个常见误区" class="headerlink" title="1.3 三个常见误区"></a>1.3 三个常见误区</h3><p>在进入细节前先排掉三个会让对比失真的认知：</p>
+<p><strong>误区一：把 FLOPs 当成本。</strong><br>Transformer 的 O(L²) 是 FLOPs，Mamba 的 O(L) 也是 FLOPs。但实际墙钟时间由<strong>内存带宽</strong>主导，不是 FLOPs。Mamba 的并行扫描是 memory-bound 的，在小 <code>d</code>、短序列上经常打不过高度优化过的 FlashAttention。这也是为什么 Mamba 论文强调”硬件感知”——它在跟 cuBLAS 的手工调优抢时间。</p>
+<p><strong>误区二：拿不同参数量的模型比精度。</strong><br>Mamba 论文的标准做法是<strong>匹配参数量</strong>（Mamba-130M vs Pythia-130M）。但在时序论文里，很多”Mamba 超过 Transformer”的结果是拿 1 层 Mamba 对比 1 层 Transformer，而两者的有效容量差好几倍。看到时序 Mamba 论文，先翻附录看参数量对齐没有。</p>
+<p><strong>误区三：把”长序列”当成唯一需求。</strong><br>长序列是<strong>成本问题</strong>，不是<strong>能力问题</strong>。如果你的序列只有 96 步，Transformer 的 O(L²) 完全不是瓶颈，Mamba 的线性优势换不来任何东西，反而丢掉内容寻址。<strong>先量一下你的 L 到底多大，再谈架构。</strong></p>
+<hr>
+<h2 id="2-Transformer-时序建模：能力上限最高，稳定性最差"><a href="#2-Transformer-时序建模：能力上限最高，稳定性最差" class="headerlink" title="2. Transformer 时序建模：能力上限最高，稳定性最差"></a>2. Transformer 时序建模：能力上限最高，稳定性最差</h2><h3 id="2-1-机制：把”记忆”换成”检索”"><a href="#2-1-机制：把”记忆”换成”检索”" class="headerlink" title="2.1 机制：把”记忆”换成”检索”"></a>2.1 机制：把”记忆”换成”检索”</h3><p>Self-attention 做的事是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">z_t = Σ_&#123;s≤t&#125; softmax(q_t · k_s / √d) · v_s</span><br></pre></td></tr></table></figure>
+
+<p>注意这里<strong>没有任何状态传递</strong>。第 <code>t</code> 步的输出直接是对 <code>1..t</code> 所有历史的一个加权平均，权重由当前 query 和每个历史 key 的相似度决定。</p>
+<p>这个设计的本质是：<strong>用 O(L²) 的计算换掉了”如何压缩历史”这个难题</strong>。你不需要设计一个状态更新规则，因为历史一直都在，随时可以精确取回任意一步。</p>
+<p>对时序来说这既是最大的优势也是最大的问题：</p>
+<ul>
+<li><strong>优势</strong>：多尺度周期性、跨通道依赖、事件对齐——这些”需要往回翻很远去找参照”的模式，attention 天生擅长；</li>
+<li><strong>问题</strong>：时序的核心结构是<strong>局部连续性和因果顺序</strong>，而 attention 对顺序是<strong>排列不变</strong>的（permutation invariant），必须靠位置编码强行注入顺序信息。</li>
+</ul>
+<h3 id="2-2-为什么时序-Transformer-“强但不稳”"><a href="#2-2-为什么时序-Transformer-“强但不稳”" class="headerlink" title="2.2 为什么时序 Transformer “强但不稳”"></a>2.2 为什么时序 Transformer “强但不稳”</h3><h4 id="a-排列不变性与时序归纳偏置的冲突"><a href="#a-排列不变性与时序归纳偏置的冲突" class="headerlink" title="(a) 排列不变性与时序归纳偏置的冲突"></a>(a) 排列不变性与时序归纳偏置的冲突</h4><p>标准 attention 满足 <code>f(π(x)) = π(f(x))</code>。而时序信号满足 <code>x_t</code> 与 <code>x_{t-1}</code> 强相关、与 <code>x_{t-100}</code> 弱相关。这个错配导致两个后果：</p>
+<ol>
+<li>Transformer 必须<strong>从数据里学出</strong>“相邻更重要”这件事，而 RNN/SSM 的架构里天然带着它；</li>
+<li>在小数据量下，学不出来 → 退化成”对全局做平均” → 预测趋近常数。</li>
+</ol>
+<p>这解释了时序领域一个反复出现的现象：<strong>中等规模数据集上，简单的线性模型能打赢精心设计的 Transformer</strong>。</p>
+<h4 id="b-注意力稀释（attention-dilution）"><a href="#b-注意力稀释（attention-dilution）" class="headerlink" title="(b) 注意力稀释（attention dilution）"></a>(b) 注意力稀释（attention dilution）</h4><p>序列变长后，softmax 的分母变大，单个位置的权重被摊薄到 <code>O(1/L)</code>。结果是对远距离信息的有效利用下降，模型倾向于只关注最近几步 + 一个全局平均。</p>
+<p>这和”上下文变长后 LLM 找不到中间信息”是同一现象（Lost in the Middle）。在时序上的表现是：<strong>长预测步长下，attention map 趋于均匀，模型退化为移动平均。</strong></p>
+<h4 id="c-DLinear-之争：一个必须正视的结果"><a href="#c-DLinear-之争：一个必须正视的结果" class="headerlink" title="(c) DLinear 之争：一个必须正视的结果"></a>(c) DLinear 之争：一个必须正视的结果</h4><p>2023 年 *Are Transformers Effective for Time Series Forecasting?*（Zeng et al., AAAI’23）用一条线性层（把历史窗口直接线性映射到预测窗口）在多个标准基准上追平甚至超过了当时的 SOTA Transformer。这个工作的价值不在于”线性更好”，而在于指出了两个真实问题：</p>
+<ol>
+<li><strong>很多时序 Transformer 的有效感受野远小于声称的</strong>，去掉 attention 换成线性层性能不掉；</li>
+<li><strong>基准本身有问题</strong>：数据泄漏（归一化用了全量统计量）、评测协议不一致、超参搜索预算不对等。</li>
+</ol>
+<p>后续的 PatchTST、iTransformer 通过 patch 化与通道维 attention 重新拉开了差距，但**”时序 Transformer 需要非常小心地调”这个结论至今成立**。</p>
+<h3 id="2-3-成本结构：不只看-O-L²"><a href="#2-3-成本结构：不只看-O-L²" class="headerlink" title="2.3 成本结构：不只看 O(L²)"></a>2.3 成本结构：不只看 O(L²)</h3><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>复杂度</th>
+<th>内存</th>
+<th>实际瓶颈</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>训练（全序列）</td>
+<td><code>O(L² d)</code></td>
+<td><code>O(L²)</code> 或 <code>O(L)</code>（FlashAttention）</td>
+<td>L &gt; 4K 后是显存与带宽</td>
+</tr>
+<tr>
+<td>训练（因果 mask）</td>
+<td><code>O(L² d / 2)</code></td>
+<td>同上</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>推理（自回归）</td>
+<td>每步 <code>O(L d)</code></td>
+<td><strong>KV cache <code>O(L d)</code></strong></td>
+<td>cache 随 L 线性增长，长上下文推理变慢</td>
+</tr>
+<tr>
+<td>推理（编码器式）</td>
+<td>一次 <code>O(L² d)</code></td>
+<td><code>O(L d)</code></td>
+<td>适合”整段输入 → 整段输出”</td>
+</tr>
+</tbody></table>
+<p><strong>KV cache 是被低估的项。</strong> 对 LLM 它是显存墙；对时序（尤其是边缘部署的实时预测）它是延迟墙：你要预测第 <code>t+1</code> 步，就必须保留 <code>1..t</code> 的全部 K、V。序列越长，单步延迟越高。</p>
+<p>这也是 Mamba 在<strong>流式/在线预测</strong>场景真正的杀手级优势：<strong>O(1) 状态，单步延迟与历史长度无关</strong>。</p>
+<h3 id="2-4-两个工程修正，几乎成了标配"><a href="#2-4-两个工程修正，几乎成了标配" class="headerlink" title="2.4 两个工程修正，几乎成了标配"></a>2.4 两个工程修正，几乎成了标配</h3><p><strong>修正一：Patch 化（PatchTST, 2023）</strong><br>把序列切成不重叠的 patch（如 16 步一个），每个 patch 当一个 token。收益有三：</p>
+<ul>
+<li>序列长度除以 patch size → attention 的 L 变小，复杂度降一个量级；</li>
+<li>保留局部连续性（patch 内部是连续片段，不是孤立点）；</li>
+<li>减少 token 数 → 缓解注意力稀释。</li>
+</ul>
+<p><strong>修正二：通道独立（Channel Independent）</strong><br>多变量时序有 C 个通道。早期做法是把 C 个通道拼成一个 token（channel mixing），参数量随 C² 增长且容易过拟合。CI 策略是<strong>每个通道独立过同一个模型，共享权重</strong>。PatchTST 的实验表明 CI 在多数基准上更好——这个结论反直觉（丢掉了跨通道信息），但工程上极稳。</p>
+<p>后续的 iTransformer 反过来做了 channel-wise attention（把每个通道的整体序列当一个 token），在通道相关性强的数据集上更强。<strong>结论：CI vs channel-mixing 没有普适答案，取决于通道间是否真有稳定的相关结构。</strong> 这一点在做选型时比”选 Transformer 还是 Mamba”更影响结果。</p>
+<h3 id="2-5-什么时候-Transformer-仍然不可替代"><a href="#2-5-什么时候-Transformer-仍然不可替代" class="headerlink" title="2.5 什么时候 Transformer 仍然不可替代"></a>2.5 什么时候 Transformer 仍然不可替代</h3><ul>
+<li><strong>需要精确回指</strong>：序列里有”事件”（促销、故障、政策变更），模型需要精确定位到某一次历史事件；</li>
+<li><strong>多变量强耦合</strong>：变量间的依赖是稀疏、动态、非局部的（如金融多因子）；</li>
+<li><strong>跨模态</strong>：时序 + 文本/图像（日志、K线图、传感器图谱），需要统一 token 空间；</li>
+<li><strong>零样本/少样本迁移</strong>：时序基础模型（Chronos、TimesFM、Moirai）几乎都是 Transformer 系，因为它们需要大量参数 + 强表达力。</li>
+</ul>
+<hr>
+<h2 id="3-Mamba：把”记忆”做成一个可学习的压缩器"><a href="#3-Mamba：把”记忆”做成一个可学习的压缩器" class="headerlink" title="3. Mamba：把”记忆”做成一个可学习的压缩器"></a>3. Mamba：把”记忆”做成一个可学习的压缩器</h2><h3 id="3-1-从-S4-说起：SSM-是什么"><a href="#3-1-从-S4-说起：SSM-是什么" class="headerlink" title="3.1 从 S4 说起：SSM 是什么"></a>3.1 从 S4 说起：SSM 是什么</h3><p>结构化状态空间模型（S4, Gu et al., 2021）的出发点是：<strong>用一个线性时不变系统来记忆历史</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">z_k = Ā z_&#123;k-1&#125; + B̄ u_k</span><br><span class="line">y_k = C z_k</span><br></pre></td></tr></table></figure>
+
+<p>关键洞察在于 <code>Ā</code> 的结构。如果 <code>A</code> 是任意矩阵，长程记忆会指数衰减或爆炸。S4 的做法是用 <strong>HiPPO 矩阵</strong>初始化 <code>A</code>，使得状态 <code>z</code> 是历史输入在<strong>正交多项式基</strong>上的最优投影——换句话说，<code>z</code> <strong>压缩保存了历史的一个正交分解</strong>，而不是随便一个衰减和。</p>
+<p>这个设计让 S4 在 Long Range Arena 上比 Transformer 强很多，但有个致命限制：**<code>A, B, C</code> 都是时不变的<strong>，所以整个递推等价于一个</strong>固定的长卷积核**，可以用 FFT 在 <code>O(L log L)</code> 内算完。</p>
+<p>但”时不变”意味着：<strong>模型无法根据内容决定记什么、忘什么</strong>。它像一扇固定孔径的窗，对所有输入一视同仁。</p>
+<h3 id="3-2-选择性（S6）：让参数随输入变化"><a href="#3-2-选择性（S6）：让参数随输入变化" class="headerlink" title="3.2 选择性（S6）：让参数随输入变化"></a>3.2 选择性（S6）：让参数随输入变化</h3><p>Mamba（Gu &amp; Dao, 2023）的核心改动只有一句话：<strong>让 <code>Δ, B, C</code> 成为输入的函数</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Δ_k = softplus(Linear(u_k))     # 步长，随输入变化</span><br><span class="line">B_k = Linear_B(u_k)</span><br><span class="line">C_k = Linear_C(u_k)</span><br><span class="line">Ā_k = exp(Δ_k · A)              # A 仍是时不变的（对角结构）</span><br></pre></td></tr></table></figure>
+
+<p>这一步改动带来了<strong>语义上的质变</strong>：<code>Δ</code> 是积分步长。<code>Δ</code> 大 = 这一步”跨得远” = 更重要/更值得记住；<code>Δ</code> 小 = “几乎原地” = 可以忽略。</p>
+<p>于是模型学会了：</p>
+<ul>
+<li><strong>选择性记忆</strong>：遇到关键 token（分隔符、异常值、事件标记）时把 <code>Δ</code> 拉大，把信息写进状态；</li>
+<li><strong>选择性遗忘</strong>：遇到噪声时把 <code>Δ</code> 压小，让状态几乎不变。</li>
+</ul>
+<p>这是 Mamba 相对 S4 最本质的进步，也是它能在语言建模上追平同规模 Transformer 的原因。</p>
+<h3 id="3-3-代价：卷积形式失效，逼出并行扫描"><a href="#3-3-代价：卷积形式失效，逼出并行扫描" class="headerlink" title="3.3 代价：卷积形式失效，逼出并行扫描"></a>3.3 代价：卷积形式失效，逼出并行扫描</h3><p>时不变时，递推可以写成卷积，用 FFT 算。<strong>一旦 <code>Ā</code> 随 <code>k</code> 变化，卷积核就变成时变的，FFT 这条路断了</strong>——你只能老老实实做递推，而递推是 <code>O(L)</code> 串行的。</p>
+<p>Mamba 的解法是 <strong>并行扫描（parallel scan / associative scan）</strong>。递推 <code>z_k = a_k z_{k-1} + b_k</code> 是一个<strong>结合律成立的运算</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(a_2, b_2) ∘ (a_1, b_1) = (a_1 a_2, a_2 b_1 + b_2)</span><br></pre></td></tr></table></figure>
+
+<p>既然满足结合律，就可以用 Blelloch 扫描在 <code>O(L log L)</code> 的工作量、<code>O(log L)</code> 的深度内并行完成。</p>
+<p><strong>但学术上的 <code>O(L log L)</code> 在 GPU 上并不快</strong>——中间结果的显存读写把带宽吃满了。Mamba 论文的第二个贡献是<strong>硬件感知实现</strong>：</p>
+<ol>
+<li><strong>只把 <code>Ā, B̄</code> 放显存/共享内存，<code>C</code> 和输出在寄存器里融合计算</strong>，避免物化整个 <code>(L, d, N)</code> 中间张量；</li>
+<li><strong>在 SRAM 里做重计算</strong>：反向传播时不存中间激活，而是重算（类似 FlashAttention 的思路）；</li>
+<li><strong>按通道并行</strong>，把 <code>d</code> 维当成 batch。</li>
+</ol>
+<p>这三个工程技巧合起来，才让 Mamba 在真实 GPU 上比朴素的 <code>O(L log L)</code> 扫描快几倍到十几倍。<strong>只看论文里的复杂度会严重高估它的实际优势。</strong></p>
+<h3 id="3-4-Mamba-2-与-SSD：把选择性写成矩阵分解"><a href="#3-4-Mamba-2-与-SSD：把选择性写成矩阵分解" class="headerlink" title="3.4 Mamba-2 与 SSD：把选择性写成矩阵分解"></a>3.4 Mamba-2 与 SSD：把选择性写成矩阵分解</h3><p>Mamba-2（Dao &amp; Gu, 2024）把选择性 SSM 和 attention 的关系显式化了。核心观察是：</p>
+<p><strong>标量 <code>A</code>（或对角 <code>A</code>）的 SSM，等价于一个 masked attention，其中 mask 是由 <code>Δ</code> 累乘出来的衰减矩阵。</strong></p>
+<p>写成矩阵形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Y = (M ⊙ (C B^T)) X</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>M_{ij} = exp(Σ_{k=j+1}^{i} Δ_k · A)</code>（当 <code>i ≥ j</code>），<code>⊙</code> 是逐元素乘。</p>
+<p>这个式子说明了三件事：</p>
+<ol>
+<li><strong>SSM 和 attention 是同一个族的两端</strong>：attention 的 mask 是全 1（或因果 1），SSM 的 mask 是衰减的；**<code>Δ → ∞</code> 时 SSM 退化成因果 attention，<code>Δ → 0</code> 时退化成”只看最近”**。</li>
+<li><strong>SSM 可以复用 attention 的所有工程优化</strong>（tensor core、chunked 计算、序列并行）。Mamba-2 的 chunked 算法就是把序列分块，块内用矩阵乘、块间用状态传递，从而在长序列上比 Mamba-1 快 2–8 倍。</li>
+<li><strong>理论上限被明确了</strong>：SSM 的表达力受限于”状态维度 × 标量衰减”这个结构，它不能精确实现任意 attention pattern。这是 Mamba 的<strong>结构性天花板</strong>，不是工程能补的。</li>
+</ol>
+<h3 id="3-5-优势：三个真实的、一个被夸大的"><a href="#3-5-优势：三个真实的、一个被夸大的" class="headerlink" title="3.5 优势：三个真实的、一个被夸大的"></a>3.5 优势：三个真实的、一个被夸大的</h3><table>
+<thead>
+<tr>
+<th>优势</th>
+<th>是否真实</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>训练复杂度 <code>O(L)</code></td>
+<td>✅ 真实</td>
+<td>但常数大，实际拐点在 L ≈ 1K–4K</td>
+</tr>
+<tr>
+<td>推理 <code>O(1)</code> 状态、<code>O(1)</code> 单步延迟</td>
+<td>✅ <strong>最真实</strong></td>
+<td>流式场景的决定性优势；无需 KV cache</td>
+</tr>
+<tr>
+<td>长序列显存恒定</td>
+<td>✅ 真实</td>
+<td>状态大小与 L 无关，这是硬优势</td>
+</tr>
+<tr>
+<td>“长程依赖比 Transformer 强”</td>
+<td>⚠️ <strong>被夸大</strong></td>
+<td>见下</td>
+</tr>
+</tbody></table>
+<p>最后一条需要展开。Mamba 的”长程”是指<strong>能处理长序列</strong>，不等于<strong>能有效利用远处的信息</strong>。原因是状态是固定大小的压缩（<code>d × N</code> 个数），信息论上不可能无损保存任意长历史。多项 probing 研究显示，SSM 在<strong>精确检索</strong>类任务（”找出序列中第 3 次出现的某个值”）上显著弱于 attention。</p>
+<p>Mamba 论文自己也报告了这一点：在需要精确回忆的任务（如 MQAR）上，Mamba 需要更大的状态维度才能追平。</p>
+<h3 id="3-6-局限：五个必须知道的边界"><a href="#3-6-局限：五个必须知道的边界" class="headerlink" title="3.6 局限：五个必须知道的边界"></a>3.6 局限：五个必须知道的边界</h3><p><strong>① 无内容寻址。</strong><br>状态是压缩的，你不能”回查第 500 步到底发生了什么”。这对时序是硬伤——很多时序任务恰恰需要精确定位历史事件（去年同期、上次故障）。</p>
+<p><strong>② 因果单向。</strong><br>Mamba 的扫描天然是单向的。时序预测中，<strong>双向上下文</strong>（用未来推断缺失值、做插补、做表示学习）是常见需求，需要 Bi-Mamba 这类双向变体（两个方向各扫一遍再融合），成本翻倍。</p>
+<p><strong>③ 衰减结构带来的”近因偏置”。</strong><br><code>exp(ΔA)</code> 是衰减的，这意味着<strong>远处的信息必须经过多次压缩才能到达当前步</strong>，累积误差大。对强周期性数据（如”每周一都高”），这个结构不自然——你需要显式的周期先验（分解、多尺度）来补。</p>
+<p><strong>④ 对非平稳分布敏感。</strong><br>SSM 的状态是输入的累积和（<code>z = Σ Ā^{k-i} B u_i</code>），输入的均值漂移会直接进入状态。时序的非平稳性（趋势、level shift）需要额外处理：RevIN、差分、分解。<strong>这一点上 Mamba 和 GRU 一样脆弱，而线性模型反而更鲁棒。</strong></p>
+<p><strong>⑤ 生态与工具链。</strong><br><code>mamba_ssm</code> 的 CUDA kernel 对硬件和 CUDA 版本敏感，编译经常失败；<code>torch.compile</code> 与自定义 kernel 的兼容性不稳；混合精度下 <code>exp(ΔA)</code> 容易溢出（<code>Δ</code> 大 + <code>A</code> 负得少）。<strong>这些不是理论问题，是每周都会遇到的工程问题。</strong></p>
+<h3 id="3-7-时序上特有的三个坑"><a href="#3-7-时序上特有的三个坑" class="headerlink" title="3.7 时序上特有的三个坑"></a>3.7 时序上特有的三个坑</h3><p><strong>坑一：直接套 NLP 的 Mamba 到多变量时序。</strong><br>NLP 是单通道 token 序列；多变量时序是 <code>(L, C)</code> 矩阵。直接把 <code>C</code> 个通道拼成一个 token，参数量爆炸且丢失通道语义。主流做法（S-Mamba、TimeMachine）是<strong>通道独立 + 跨通道用一层轻量 mixing</strong>，或者反过来（先通道 attention，再时间 Mamba）。</p>
+<p><strong>坑二：忽略双向需求。</strong><br>很多时序任务（插补、异常检测、表示学习）是非因果的。用单向 Mamba 会显著掉点，而论文里的 baseline 往往是双向的。</p>
+<p><strong>坑三：baseline 没调好。</strong><br>时序 Mamba 论文里，DLinear / PatchTST 这些 baseline 常常用默认超参。<strong>看到”Mamba 比 Transformer 强 20%”，先自己跑一遍 PatchTST 调过参的版本。</strong> 这是这个领域最常见的假阳性来源。</p>
+<hr>
+<h2 id="4-GRU：被低估的、最诚实的基线"><a href="#4-GRU：被低估的、最诚实的基线" class="headerlink" title="4. GRU：被低估的、最诚实的基线"></a>4. GRU：被低估的、最诚实的基线</h2><h3 id="4-1-门控循环的核心"><a href="#4-1-门控循环的核心" class="headerlink" title="4.1 门控循环的核心"></a>4.1 门控循环的核心</h3><p>GRU（Cho et al., 2014）的更新式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r_k = σ(W_r u_k + U_r h_&#123;k-1&#125;)          # 重置门</span><br><span class="line">z_k = σ(W_z u_k + U_z h_&#123;k-1&#125;)          # 更新门</span><br><span class="line">h̃_k = tanh(W_h u_k + U_h (r_k ⊙ h_&#123;k-1&#125;))</span><br><span class="line">h_k = (1 - z_k) ⊙ h_&#123;k-1&#125; + z_k ⊙ h̃_k</span><br></pre></td></tr></table></figure>
+
+<p>把它和第一节的状态方程对照，会发现一个有意思的对应：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h_k = (1 - z_k) h_&#123;k-1&#125; + z_k h̃_k</span><br></pre></td></tr></table></figure>
+
+<p><strong>这是一个用门控插值实现的”离散积分”**——<code>(1-z_k)</code> 扮演了 <code>Ā</code> 的角色，<code>z_k</code> 扮演了 <code>B̄</code> 的角色，而 <code>h̃_k</code> 是”新信息的方向”。所以 GRU 可以看成：</strong>用一个神经网络学出来的、逐维度的、输入相关的积分器<strong>，只不过它不对应任何已知的数值格式（不是欧拉、不是 ZOH），</strong>它直接学 <code>Ā</code>**。</p>
+<p>这解释了 GRU 的两个特性：</p>
+<ul>
+<li><strong>比 SSM 更灵活</strong>（<code>Ā</code> 完全自由）；</li>
+<li><strong>比 SSM 更难训练</strong>（没有结构化约束，长程梯度容易消失，因为没有 <code>exp</code> 的先验保证衰减有界）。</li>
+</ul>
+<p>LSTM 是同一思路的变体（多一个输出门和一个独立的 cell state），参数量多 33%，在长程上略优，在小数据上更容易过拟合。<strong>GRU 通常是性价比更高的默认选择。</strong></p>
+<h3 id="4-2-为什么它至今仍然是强基线"><a href="#4-2-为什么它至今仍然是强基线" class="headerlink" title="4.2 为什么它至今仍然是强基线"></a>4.2 为什么它至今仍然是强基线</h3><table>
+<thead>
+<tr>
+<th>原因</th>
+<th>机制解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>参数效率高</strong></td>
+<td>3 组权重矩阵，比同隐维度的 1 层 Transformer 少一个量级</td>
+</tr>
+<tr>
+<td><strong>小数据友好</strong></td>
+<td>强归纳偏置（马尔可夫假设 + 平滑更新），不需要从数据学”相邻更重要”</td>
+</tr>
+<tr>
+<td><strong>状态 O(1)、流式友好</strong></td>
+<td>单步延迟与序列长度无关，比 Mamba 更成熟、更轻量</td>
+</tr>
+<tr>
+<td><strong>对非平稳相对鲁棒</strong></td>
+<td>门控会自动收缩（<code>z→0</code> 时保持，<code>z→1</code> 时跟随），不会像 SSM 那样把均值漂移累积进状态</td>
+</tr>
+<tr>
+<td><strong>工程极成熟</strong></td>
+<td><code>cuDNN</code> 优化好、量化/剪枝工具链完整、边缘端可用</td>
+</tr>
+<tr>
+<td><strong>可解释性好</strong></td>
+<td>门控值可以直接可视化，看模型在哪一步”记住了”</td>
+</tr>
+</tbody></table>
+<p>一个常被引用的经验结果：<strong>在 M3、M4 这类时序竞赛基准上，经过合理调参的 GRU/RNN 系模型（如 ES-RNN、DSSM）长期是强基线</strong>，很多复杂模型在同等算力预算下打不过它们。</p>
+<h3 id="4-3-边界：三个硬约束"><a href="#4-3-边界：三个硬约束" class="headerlink" title="4.3 边界：三个硬约束"></a>4.3 边界：三个硬约束</h3><p><strong>① 时间维不可并行。</strong><br><code>h_k</code> 依赖 <code>h_{k-1}</code>，训练时必须串行。这是 GRU 相对 Transformer/Mamba 最大的劣势——<strong>训练吞吐差一个量级</strong>。序列长度 1000 以上时，训练时间会成为实际的选型约束。</p>
+<p><strong>② 长程依赖的衰减是”学出来的”，不可靠。</strong><br>理论上 GRU 可以记住无限长的历史（如果 <code>z=0</code>），但实践中梯度会消失。没有 <code>exp(ΔA)</code> 这种结构化的衰减先验，长程能力<strong>强烈依赖初始化和数据</strong>。</p>
+<p><strong>③ 状态容量固定且小。</strong><br>隐维度 <code>d</code> 通常在 64–512。相比 attention 的 <code>O(L·d)</code> KV，GRU 的容量小两三个数量级。<strong>信息瓶颈是真实的</strong>：多变量 + 长历史 + 高精度要求时，瓶颈会显现。</p>
+<h3 id="4-4-什么时候-GRU-就是最优解"><a href="#4-4-什么时候-GRU-就是最优解" class="headerlink" title="4.4 什么时候 GRU 就是最优解"></a>4.4 什么时候 GRU 就是最优解</h3><p>不要因为”不新”就跳过它。以下场景 GRU 经常是最优或接近最优：</p>
+<ul>
+<li><strong>序列长度 &lt; 200，数据量 &lt; 10 万样本</strong>：Transformer 会过拟合，Mamba 的线性优势用不上；</li>
+<li><strong>边缘/嵌入式部署</strong>：MCU、车机、手机端，算力和内存都受限；</li>
+<li><strong>严格的流式/低延迟要求</strong>：单步 &lt; 1ms，需要确定性延迟（无动态求解器步数）；</li>
+<li><strong>需要快速建立 baseline</strong>：一天内跑通，用来验证特征工程和数据 pipeline；</li>
+<li><strong>在线学习/持续更新</strong>：GRU 的状态更新是一次矩阵乘，增量更新成本极低。</li>
+</ul>
+<p><strong>一条工程建议</strong>：任何时序项目，<strong>第一个模型都应该是 GRU 或线性模型</strong>。不是因为它们最强，而是因为它们的失败模式最容易被诊断（欠拟合/过拟合一眼看得出），能帮你快速判断”问题在数据还是在模型”。</p>
+<hr>
+<h2 id="5-Inverse-Euler-ODE-Solver：连续时间视角"><a href="#5-Inverse-Euler-ODE-Solver：连续时间视角" class="headerlink" title="5. Inverse Euler ODE Solver：连续时间视角"></a>5. Inverse Euler ODE Solver：连续时间视角</h2><blockquote>
+<p><strong>术语说明</strong>：这里需要先做一个诚实的澄清。”Inverse Euler” 在不同文献里指两种东西：<br>① <strong>隐式（后向）欧拉法</strong> <code>z_{k+1} = z_k + h f(z_{k+1})</code>——因为增量在<strong>未来</strong>状态处求值，也称 backward/implicit Euler，部分教材译作”逆欧拉”；<br>② <strong>对时间反向积分</strong>的欧拉格式（用于可逆模型、连续归一化流的反向采样）。</p>
+<p>在时序建模语境下，绝大多数情况指 ①。本节按 ① 展开，并在 5.7 讨论 ② 的意义。如果你指的是某篇具体论文里的 “Inverse Euler layer”，其数学结构也落在下面这个框架里——**核心永远是”隐式求解 + 不动点”**。</p>
+</blockquote>
+<h3 id="5-1-Neural-ODE-的基本设定"><a href="#5-1-Neural-ODE-的基本设定" class="headerlink" title="5.1 Neural ODE 的基本设定"></a>5.1 Neural ODE 的基本设定</h3><p>Neural ODE（Chen et al., 2018）把”层”换成”流”：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dz/dt = f_θ(z(t), t, u(t))</span><br><span class="line">z(t_1) = z(t_0) + ∫_&#123;t_0&#125;^&#123;t_1&#125; f_θ(z(t), t, u(t)) dt</span><br></pre></td></tr></table></figure>
+
+<p>和 RNN 的根本差异在于：<strong>RNN 定义的是 <code>h_{k} = F(h_{k-1}, u_k)</code>（离散映射），Neural ODE 定义的是 <code>dz/dt = f(z, u)</code>（导数场）</strong>。</p>
+<p>这个换位带来三个能力：</p>
+<ol>
+<li><strong>任意时刻可查询</strong>：给定 <code>z(t_0)</code>，可以在任意 <code>t</code> 求解，不需要”按步走”；</li>
+<li><strong>天然处理不规则采样</strong>：观测时间 <code>t_i</code> 不必等距，直接在 <code>[t_i, t_{i+1}]</code> 上积分（Latent ODE, Rubanova et al., 2019）；</li>
+<li><strong>参数效率</strong>：<code>f_θ</code> 在所有时间步共享，一个函数描述整个动力学。</li>
+</ol>
+<p>代价也很明确：<strong>前向要迭代求解，反向要用伴随法（adjoint method）再解一遍 ODE</strong>，训练成本比同规模 RNN 高一个量级。</p>
+<h3 id="5-2-显式欧拉-vs-逆（隐式）欧拉：稳定性是核心差异"><a href="#5-2-显式欧拉-vs-逆（隐式）欧拉：稳定性是核心差异" class="headerlink" title="5.2 显式欧拉 vs 逆（隐式）欧拉：稳定性是核心差异"></a>5.2 显式欧拉 vs 逆（隐式）欧拉：稳定性是核心差异</h3><p><strong>显式欧拉</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">z_&#123;k+1&#125; = z_k + h f(z_k)</span><br></pre></td></tr></table></figure>
+
+<p>对测试方程 <code>dz/dt = λz</code>（<code>λ</code> 为复数），放大因子 <code>R = 1 + hλ</code>。稳定要求 <code>|1 + hλ| ≤ 1</code>，即 <code>h ≤ 2/|λ|</code>。<strong>当 <code>λ</code> 的实部很负（刚性系统）时，<code>h</code> 必须极小</strong>，否则数值解会震荡发散。</p>
+<p><strong>逆（隐式）欧拉</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">z_&#123;k+1&#125; = z_k + h f(z_&#123;k+1&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>放大因子 <code>R = 1/(1 - hλ)</code>。对 <code>Re(λ) &lt; 0</code> 的任意 <code>h</code>，都有 <code>|R| &lt; 1</code>。这就是 <strong>A-stable（无条件稳定）</strong>。进一步，<code>hλ → -∞</code> 时 <code>R → 0</code>，即<strong>刚性模态被瞬间压掉</strong>——这叫 <strong>L-stable</strong>，是处理刚性系统最需要的性质。</p>
+<p>对比表：</p>
+<table>
+<thead>
+<tr>
+<th>性质</th>
+<th>显式欧拉</th>
+<th>逆（隐式）欧拉</th>
+<th>ZOH（Mamba 用的）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单步计算</td>
+<td>一次 <code>f</code> 求值</td>
+<td><strong>需解方程</strong>（迭代或求逆）</td>
+<td>一次矩阵指数</td>
+</tr>
+<tr>
+<td>稳定性</td>
+<td>条件稳定</td>
+<td><strong>无条件稳定（A/L-stable）</strong></td>
+<td>无条件稳定</td>
+</tr>
+<tr>
+<td>精度阶</td>
+<td>1</td>
+<td>1</td>
+<td><strong>精确</strong>（分段常值输入）</td>
+</tr>
+<tr>
+<td>允许的 <code>h</code></td>
+<td>受 <code>λ</code> 限制</td>
+<td>任意</td>
+<td>任意</td>
+</tr>
+<tr>
+<td>对刚性系统</td>
+<td>崩</td>
+<td><strong>✅ 最优</strong></td>
+<td>✅（线性情形）</td>
+</tr>
+<tr>
+<td>计算成本</td>
+<td>最低</td>
+<td>最高</td>
+<td>中（<code>exp</code> 预计算后极低）</td>
+</tr>
+<tr>
+<td>可并行（时间维）</td>
+<td>✅</td>
+<td>❌（隐式耦合）</td>
+<td>✅（线性时不变时）</td>
+</tr>
+</tbody></table>
+<p><strong>一句话总结</strong>：显式欧拉”快但不稳”，逆欧拉”稳但慢”，ZOH “对线性系统又稳又准，但对非线性系统不适用”。<strong>Mamba 选 ZOH 是因为它的动力学是线性的（<code>A</code> 固定），隐式方法的价值在非线性 + 刚性场景。</strong></p>
+<h3 id="5-3-逆欧拉作为一层：它就是不动点层"><a href="#5-3-逆欧拉作为一层：它就是不动点层" class="headerlink" title="5.3 逆欧拉作为一层：它就是不动点层"></a>5.3 逆欧拉作为一层：它就是不动点层</h3><p>把逆欧拉的一步展开写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">z_&#123;k+1&#125; = z_k + h · f_θ(z_&#123;k+1&#125;, u_k)</span><br></pre></td></tr></table></figure>
+
+<p>令 <code>g(z) = z_k + h f_θ(z, u_k)</code>，则 <code>z_{k+1}</code> 是 <code>g</code> 的<strong>不动点</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">z_&#123;k+1&#125; = g(z_&#123;k+1&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>于是每次”时间步推进”变成了一次<strong>不动点求解</strong>，通常用：</p>
+<ul>
+<li><strong>定点迭代</strong>：<code>z^{(m+1)} = g(z^{(m)})</code>，收敛需 <code>h·Lip(f) &lt; 1</code>（对刚性 <code>f</code> 不成立）；</li>
+<li><strong>Newton 法</strong>：<code>z^{(m+1)} = z^{(m)} - (I - h J_f)^{-1}(g(z^{(m)}) - z^{(m)})</code>，二次收敛但每步要解线性系统（<code>J_f</code> 是 Jacobian，<code>d × d</code>）；</li>
+<li><strong>拟牛顿 / Anderson 加速</strong>：折中方案，工程上最常用。</li>
+</ul>
+<p><strong>这个结构和 Deep Equilibrium Models（DEQ）是同一个东西</strong>：DEQ 求的是”无穷深层的表示”，逆欧拉求的是”下一步的状态”，两者都是 <code>z = F(z, x)</code> 的不动点。</p>
+<p>由此得到几个实用推论：</p>
+<ol>
+<li>**隐式层的显存是 O(1)**（不需要存中间迭代），可以用隐函数定理反传；</li>
+<li>**隐式层天然”深”**，表达能力等价于无穷多步显式迭代；</li>
+<li><strong>但训练不稳定</strong>：不动点不唯一、迭代不收敛、Jacobian 病态都会导致训练崩。工程上必须加：谱归一化、阻尼、最大迭代次数截断、收敛监控。</li>
+</ol>
+<h3 id="5-4-和-SSM-的真正关系：都是-A，只是取法不同"><a href="#5-4-和-SSM-的真正关系：都是-A，只是取法不同" class="headerlink" title="5.4 和 SSM 的真正关系：都是 Ā，只是取法不同"></a>5.4 和 SSM 的真正关系：都是 <code>Ā</code>，只是取法不同</h3><p>这是本文最想强调的一点。把三者写成同一个递推：</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th><code>Ā</code></th>
+<th><code>B̄</code></th>
+<th>参数是否随输入变化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>显式欧拉 SSM</td>
+<td><code>I + ΔA</code></td>
+<td><code>ΔB</code></td>
+<td>否（S4）/ 是（Mamba 用 ZOH 而非欧拉）</td>
+</tr>
+<tr>
+<td>逆欧拉 SSM</td>
+<td><code>(I − ΔA)^{−1}</code></td>
+<td><code>(I − ΔA)^{−1}ΔB</code></td>
+<td>可做（”隐式选择性 SSM”）</td>
+</tr>
+<tr>
+<td>ZOH SSM（Mamba）</td>
+<td><code>exp(ΔA)</code></td>
+<td><code>(exp(ΔA) − I)A^{−1}B</code></td>
+<td>是</td>
+</tr>
+<tr>
+<td>GRU</td>
+<td><code>diag(1 − z_k)</code></td>
+<td>由 <code>z_k, r_k</code> 决定</td>
+<td>是</td>
+</tr>
+<tr>
+<td>Transformer</td>
+<td>无（全历史加权）</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<p><strong>“逆欧拉 SSM”是一个有意思的中间态</strong>：它保留了 SSM 的线性结构（<code>Ā</code> 可以预计算/求逆），但用隐式格式换来了更强的稳定性，尤其是当 <code>Δ</code> 很大（长步长、强选择性）时，<code>exp(ΔA)</code> 可能下溢到 0 而 <code>(I − ΔA)^{−1}</code> 仍然良态。这在<strong>极长序列 + 大 <code>Δ</code></strong> 的场景下有实际价值。</p>
+<h3 id="5-5-优势：三个不可替代的能力"><a href="#5-5-优势：三个不可替代的能力" class="headerlink" title="5.5 优势：三个不可替代的能力"></a>5.5 优势：三个不可替代的能力</h3><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>为什么只有 ODE 系能给</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>不规则采样</strong></td>
+<td>时间戳直接作为积分区间端点，不需要插值/掩码填补</td>
+</tr>
+<tr>
+<td><strong>任意时刻查询</strong></td>
+<td>训练时用观测点，推理时可以问任何 <code>t</code>（missing data 插补、连续监测）</td>
+</tr>
+<tr>
+<td><strong>物理先验注入</strong></td>
+<td><code>f_θ</code> 可以写成”已知动力学 + 残差网络”，把守恒律、衰减率、耦合结构写进模型</td>
+</tr>
+<tr>
+<td><strong>连续时间干预</strong></td>
+<td>反事实预测（”如果第 5 天开始用药”）可以在任意时刻改变 <code>u(t)</code> 重新积分</td>
+</tr>
+</tbody></table>
+<p>这几个能力在<strong>临床、气象、工业过程、传感器网络</strong>里是刚需，而 Transformer/Mamba 都要靠”时间戳 embedding + mask”来模拟，效果和优雅度都差一截。</p>
+<h3 id="5-6-代价：四个真实的工程问题"><a href="#5-6-代价：四个真实的工程问题" class="headerlink" title="5.6 代价：四个真实的工程问题"></a>5.6 代价：四个真实的工程问题</h3><p><strong>① 求解器步数是超参，且影响精度。</strong><br><code>dopri5</code>（自适应）会根据局部误差调整步数，导致<strong>不同样本的计算图不同</strong> → batch 内无法对齐 → 训练慢。工程上常用固定步数的 RK4 或欧拉，牺牲自适应性换吞吐。</p>
+<p><strong>② 伴随法的数值误差。</strong><br>反向传播用伴随法重新积分一遍，长时间跨度下误差会累积，且<strong>对刚性系统不稳定</strong>。这是 Neural ODE 训练的经典痛点，工业界常用”检查点 + 短段积分”折中。</p>
+<p><strong>③ 刚性系统难训。</strong><br>真实时序里大量存在多时间尺度（秒级振动 + 天级趋势），这是典型的刚性系统。显式求解器会崩，隐式求解器（逆欧拉、隐式 RK）稳定但每步要解方程，成本高且需要好的预条件。</p>
+<p><strong>④ 训练慢。</strong><br>一个 100 步的序列，RK4 要 400 次 <code>f</code> 求值，而 GRU 只要 100 次矩阵乘。<strong>在同等精度下，ODE 模型的训练成本通常是 RNN 的 3–10 倍。</strong></p>
+<h3 id="5-7-关于”Inverse-Euler”的第二种读法"><a href="#5-7-关于”Inverse-Euler”的第二种读法" class="headerlink" title="5.7 关于”Inverse Euler”的第二种读法"></a>5.7 关于”Inverse Euler”的第二种读法</h3><p>如果”inverse”指<strong>时间反向</strong>，那么它对应的是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">z_&#123;k-1&#125; = z_k − h f(z_k)      # 反向显式</span><br><span class="line">z_&#123;k-1&#125; = z_k − h f(z_&#123;k-1&#125;)  # 反向隐式</span><br></pre></td></tr></table></figure>
+
+<p>用途有两个：</p>
+<ol>
+<li><strong>可逆模型</strong>：正向和反向都能精确计算（类似 RevNet），显存 <code>O(1)</code>；</li>
+<li><strong>连续归一化流的采样</strong>：从噪声反向积分到数据。</li>
+</ol>
+<p>在时序预测里这个用法较少，但在<strong>生成式时序模型</strong>（时间序列扩散/流匹配）中，反向积分是采样过程的核心。如果你在做生成式时序，这一支值得关注。</p>
+<hr>
+<h2 id="6-四路对比"><a href="#6-四路对比" class="headerlink" title="6. 四路对比"></a>6. 四路对比</h2><h3 id="6-1-总表"><a href="#6-1-总表" class="headerlink" title="6.1 总表"></a>6.1 总表</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Transformer</th>
+<th>Mamba (S6)</th>
+<th>GRU</th>
+<th>ODE（逆欧拉/隐式）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>状态表示</strong></td>
+<td>全历史 KV，<code>O(L·d)</code></td>
+<td>固定压缩状态 <code>O(d·N)</code></td>
+<td>固定状态 <code>O(d)</code></td>
+<td>连续轨迹 <code>z(t)</code>，<code>O(d)</code></td>
+</tr>
+<tr>
+<td><strong>历史访问</strong></td>
+<td>内容寻址（精确回指）</td>
+<td>压缩（衰减加权）</td>
+<td>压缩（门控）</td>
+<td>压缩（连续演化）</td>
+</tr>
+<tr>
+<td><strong>训练复杂度</strong></td>
+<td><code>O(L² d)</code></td>
+<td><code>O(L d N)</code>（扫描）</td>
+<td><code>O(L d²)</code> 但<strong>串行</strong></td>
+<td><code>O(S · L d²)</code>，<code>S</code>=求解器步数</td>
+</tr>
+<tr>
+<td><strong>训练并行性</strong></td>
+<td>完全并行</td>
+<td>并行扫描</td>
+<td>❌ 严格串行</td>
+<td>⚠️ 段内可并行，段间串行</td>
+</tr>
+<tr>
+<td><strong>推理状态</strong></td>
+<td>KV cache <code>O(L)</code>，随 L 增长</td>
+<td><code>O(1)</code>，与 L 无关</td>
+<td><code>O(1)</code></td>
+<td><code>O(1)</code> + 求解器开销</td>
+</tr>
+<tr>
+<td><strong>长序列（&gt;4K）</strong></td>
+<td>成本爆炸</td>
+<td>✅ 最优</td>
+<td>训练慢但内存恒定</td>
+<td>求解步数爆炸</td>
+</tr>
+<tr>
+<td><strong>精确检索能力</strong></td>
+<td>✅ 最强</td>
+<td>⚠️ 弱（状态瓶颈）</td>
+<td>❌ 弱</td>
+<td>❌ 弱</td>
+</tr>
+<tr>
+<td><strong>不规则采样</strong></td>
+<td>❌ 需时间戳 embedding</td>
+<td>❌ 需 Δ 编码</td>
+<td>❌ 需 Δ 编码</td>
+<td>✅ <strong>原生支持</strong></td>
+</tr>
+<tr>
+<td><strong>双向建模</strong></td>
+<td>✅ 天然</td>
+<td>⚠️ 需 Bi-Mamba（2×成本）</td>
+<td>⚠️ 需 BiGRU</td>
+<td>✅ 天然（可反向积分）</td>
+</tr>
+<tr>
+<td><strong>数值稳定性</strong></td>
+<td>好（softmax 归一化）</td>
+<td>⚠️ <code>exp(ΔA)</code> 易下溢</td>
+<td>好（门控有界）</td>
+<td>⚠️ 显式不稳；<strong>隐式最稳</strong></td>
+</tr>
+<tr>
+<td><strong>对小数据</strong></td>
+<td>易过拟合</td>
+<td>中等</td>
+<td>✅ <strong>最稳</strong></td>
+<td>易过拟合（参数共享但需长训练）</td>
+</tr>
+<tr>
+<td><strong>非平稳鲁棒性</strong></td>
+<td>中（需归一化）</td>
+<td>弱（状态累积漂移）</td>
+<td>中</td>
+<td>中</td>
+</tr>
+<tr>
+<td><strong>可解释性</strong></td>
+<td>attention map</td>
+<td>弱（隐状态不可读）</td>
+<td>✅ 门控可读</td>
+<td>⚠️ 导数场可分析，轨迹难读</td>
+</tr>
+<tr>
+<td><strong>工程成熟度</strong></td>
+<td>✅ 极高</td>
+<td>⚠️ 中（kernel 编译坑）</td>
+<td>✅ 极高</td>
+<td>❌ 低（需自建）</td>
+</tr>
+<tr>
+<td><strong>典型部署</strong></td>
+<td>云端、大模型</td>
+<td>长序列/流式</td>
+<td>边缘、低延迟</td>
+<td>科研、医疗、工业过程</td>
+</tr>
+</tbody></table>
+<h3 id="6-2-复杂度不是重点，内存层级才是"><a href="#6-2-复杂度不是重点，内存层级才是" class="headerlink" title="6.2 复杂度不是重点，内存层级才是"></a>6.2 复杂度不是重点，内存层级才是</h3><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>名义复杂度</th>
+<th>实际瓶颈</th>
+<th>拐点（经验值）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Transformer</td>
+<td><code>O(L²)</code></td>
+<td>显存带宽（L &gt; 2K）+ KV cache（推理）</td>
+<td>L &lt; 1K 时最快（kernel 成熟）</td>
+</tr>
+<tr>
+<td>Mamba</td>
+<td><code>O(L)</code></td>
+<td>扫描的串行深度、kernel 启动</td>
+<td>L &gt; 2K 开始反超</td>
+</tr>
+<tr>
+<td>GRU</td>
+<td><code>O(L)</code> 串行</td>
+<td>无法并行 → 训练墙钟</td>
+<td>L &gt; 500 时训练明显变慢</td>
+</tr>
+<tr>
+<td>ODE</td>
+<td><code>O(S·L)</code></td>
+<td>求解器步数 × 每步 Jacobian</td>
+<td>几乎总是最慢（除非 L 很小）</td>
+</tr>
+</tbody></table>
+<p><strong>这张表的实用价值</strong>：如果你的序列长度在 512 以下，<strong>用 Transformer 就好，别折腾</strong>。Mamba 的优势区间是 <code>2K–100K</code>，ODE 的优势区间是”不规则采样 + 需要连续查询”，不是”长”。</p>
+<h3 id="6-3-能力雷达（定性）"><a href="#6-3-能力雷达（定性）" class="headerlink" title="6.3 能力雷达（定性）"></a>6.3 能力雷达（定性）</h3><p>按 1–5 打分，主观评估，用于快速定位：</p>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>Transformer</th>
+<th>Mamba</th>
+<th>GRU</th>
+<th>ODE</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长程依赖利用</td>
+<td>5</td>
+<td>3.5</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>长序列成本效率</td>
+<td>2</td>
+<td>5</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>精确回忆/回指</td>
+<td>5</td>
+<td>2.5</td>
+<td>1.5</td>
+<td>1.5</td>
+</tr>
+<tr>
+<td>小数据泛化</td>
+<td>2</td>
+<td>3</td>
+<td>5</td>
+<td>3</td>
+</tr>
+<tr>
+<td>训练吞吐</td>
+<td>4</td>
+<td>4.5</td>
+<td>1.5</td>
+<td>1</td>
+</tr>
+<tr>
+<td>流式推理延迟</td>
+<td>2.5</td>
+<td>5</td>
+<td>5</td>
+<td>3</td>
+</tr>
+<tr>
+<td>不规则采样</td>
+<td>1.5</td>
+<td>2</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr>
+<td>多变量耦合</td>
+<td>4.5</td>
+<td>3.5</td>
+<td>3</td>
+<td>3.5</td>
+</tr>
+<tr>
+<td>工程可落地性</td>
+<td>5</td>
+<td>3</td>
+<td>5</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<p><strong>读法</strong>：没有一行是”全 5”。<strong>Transformer 赢在表达力与工程成熟，Mamba 赢在成本曲线，GRU 赢在鲁棒与部署，ODE 赢在连续时间。</strong></p>
+<hr>
+<h2 id="7-选型建议"><a href="#7-选型建议" class="headerlink" title="7. 选型建议"></a>7. 选型建议</h2><h3 id="7-1-决策树"><a href="#7-1-决策树" class="headerlink" title="7.1 决策树"></a>7.1 决策树</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Step 1：你的采样是否规则？</span><br><span class="line">├── 否（不规则/缺失/异步多源）</span><br><span class="line">│   └── → ODE 系（Latent ODE / Neural CDE / GRU-ODE）</span><br><span class="line">│        或：重采样到规则网格 + Transformer/GRU（工程上更简单）</span><br><span class="line">│</span><br><span class="line">└── 是 → Step 2：序列长度 L？</span><br><span class="line">    ├── L &lt; 512</span><br><span class="line">    │   ├── 数据量小（&lt; 10 万）→ GRU / 线性模型（DLinear）</span><br><span class="line">    │   └── 数据量大 → Transformer（PatchTST / iTransformer）</span><br><span class="line">    │</span><br><span class="line">    ├── 512 ≤ L &lt; 4K</span><br><span class="line">    │   ├── 需要精确回指 / 多变量强耦合 → Transformer</span><br><span class="line">    │   └── 不需要 → Mamba 或 Transformer 都可以，跑 A/B</span><br><span class="line">    │</span><br><span class="line">    └── L ≥ 4K（或需要流式、超长历史）</span><br><span class="line">        ├── 需要精确检索 → Transformer + 稀疏/分块 attention</span><br><span class="line">        └── 不需要 → Mamba（成本优势显著）</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-2-场景-→-推荐"><a href="#7-2-场景-→-推荐" class="headerlink" title="7.2 场景 → 推荐"></a>7.2 场景 → 推荐</h3><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>首选</th>
+<th>理由</th>
+<th>备选</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>短期负荷/销量预测（L≈96–336）</strong></td>
+<td>PatchTST / iTransformer</td>
+<td>长度不够长，线性优势无意义；patch 化已足够</td>
+<td>DLinear（先做 baseline）、GRU</td>
+</tr>
+<tr>
+<td><strong>超长历史（电力、气象，L&gt;10K）</strong></td>
+<td>Mamba 系（S-Mamba、TimeMachine）</td>
+<td>O(L) 成本 + 恒定显存</td>
+<td>分块 Transformer</td>
+</tr>
+<tr>
+<td><strong>流式实时预测（单步 &lt; 10ms）</strong></td>
+<td>GRU / Mamba</td>
+<td>O(1) 状态；GRU 更成熟</td>
+<td>轻量 Transformer + 滑窗</td>
+</tr>
+<tr>
+<td><strong>不规则采样（临床、传感器）</strong></td>
+<td>Latent ODE / Neural CDE</td>
+<td>原生支持任意时间戳</td>
+<td>GRU-ODE-Bayes</td>
+</tr>
+<tr>
+<td><strong>多变量强耦合（金融、交通）</strong></td>
+<td>iTransformer / Crossformer</td>
+<td>通道间 attention 显式建模</td>
+<td>图神经网络 + GRU</td>
+</tr>
+<tr>
+<td><strong>边缘设备（MCU/车机）</strong></td>
+<td>GRU / 量化后的轻量 Transformer</td>
+<td>内存与功耗</td>
+<td>线性模型</td>
+</tr>
+<tr>
+<td><strong>时序基础模型/零样本</strong></td>
+<td>Transformer 系（Chronos、TimesFM）</td>
+<td>只有这个规模能撑起预训练</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>异常检测（需要回指历史模式）</strong></td>
+<td>Transformer</td>
+<td>需要精确定位相似片段</td>
+<td>Mamba + 重构误差</td>
+</tr>
+<tr>
+<td><strong>生成式时序（扩散/流匹配）</strong></td>
+<td>Transformer 或 双向 Mamba</td>
+<td>需要双向 + 强表达</td>
+<td>ODE 采样器</td>
+</tr>
+<tr>
+<td><strong>物理仿真/数字孪生</strong></td>
+<td>Neural ODE</td>
+<td>可注入守恒律、可连续查询</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<h3 id="7-3-混合架构：2026-年最务实的答案"><a href="#7-3-混合架构：2026-年最务实的答案" class="headerlink" title="7.3 混合架构：2026 年最务实的答案"></a>7.3 混合架构：2026 年最务实的答案</h3><p>纯 Mamba vs 纯 Transformer 的争论在实践中已经弱化，主流是<strong>混合</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>混合方式</th>
+<th>代表</th>
+<th>思路</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>层间交替</strong></td>
+<td>Jamba、Samba</td>
+<td>Mamba 层做长程压缩，attention 层做精确检索</td>
+<td>超长序列 + 需要回指</td>
+</tr>
+<tr>
+<td><strong>Mamba 主干 + attention 头</strong></td>
+<td>多数时序 Mamba 变体</td>
+<td>时间维用 Mamba，跨通道/跨尺度用 attention</td>
+<td>多变量时序</td>
+</tr>
+<tr>
+<td><strong>Transformer 蒸馏到 Mamba</strong></td>
+<td>苹果 2026 年的工作（把 Transformer 改造成 Mamba）</td>
+<td>保留教师能力，换学生架构降本</td>
+<td>推理成本敏感</td>
+</tr>
+<tr>
+<td><strong>Mamba + 分解</strong></td>
+<td>DMamba 等</td>
+<td>趋势/季节分解后分别建模</td>
+<td>强周期性数据</td>
+</tr>
+<tr>
+<td><strong>Mamba + 多尺度</strong></td>
+<td>ms-Mamba</td>
+<td>不同 patch size 并行扫描</td>
+<td>多时间尺度</td>
+</tr>
+</tbody></table>
+<p><strong>为什么混合有效</strong>：Mamba 缺的是”精确回指”，Transformer 缺的是”长序列成本”。两者互补，而不是互斥。<strong>默认建议：先上混合，纯 Mamba 只在成本压力极大时才考虑。</strong></p>
+<h3 id="7-4-评测怎么做才不骗自己"><a href="#7-4-评测怎么做才不骗自己" class="headerlink" title="7.4 评测怎么做才不骗自己"></a>7.4 评测怎么做才不骗自己</h3><p>时序 benchmark 是这个领域最大的坑。四条硬要求：</p>
+<table>
+<thead>
+<tr>
+<th>要求</th>
+<th>为什么</th>
+<th>怎么做</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>统一参数量/FLOPs</strong></td>
+<td>否则比的是容量不是架构</td>
+<td>报告参数量、训练 FLOPs、墙钟时间三件套</td>
+</tr>
+<tr>
+<td><strong>baseline 必须调参</strong></td>
+<td>默认超参的 PatchTST 会输给调过的 Mamba，反之亦然</td>
+<td>每个 baseline 至少做同样预算的随机搜索</td>
+</tr>
+<tr>
+<td><strong>多次种子 + 置信区间</strong></td>
+<td>时序数据方差大，单次结果不可信</td>
+<td>≥ 5 seeds，报均值 ± 标准差</td>
+</tr>
+<tr>
+<td><strong>检查数据泄漏</strong></td>
+<td>归一化用全量统计、滑窗穿越测试集</td>
+<td>严格按时间切分，归一化统计量只用训练集</td>
+</tr>
+</tbody></table>
+<p>另外两个时序特有的陷阱：</p>
+<ul>
+<li><strong>look-back window 的选择</strong>：不同模型的最优回看窗口不同，固定一个窗口对比是不公平的。至少要扫 <code>{96, 336, 720}</code>；</li>
+<li><strong>数据集饱和</strong>：ETT、Weather 这些老基准的 SOTA 差距已经进入噪声区间（&lt; 1%），<strong>在这些基准上比 0.5% 没有意义</strong>。用 GIFT-Eval、fev-bench 这类新基准，或者你自己的业务数据。</li>
+</ul>
+<hr>
+<h2 id="8-踩坑清单"><a href="#8-踩坑清单" class="headerlink" title="8. 踩坑清单"></a>8. 踩坑清单</h2><h3 id="8-1-Transformer"><a href="#8-1-Transformer" class="headerlink" title="8.1 Transformer"></a>8.1 Transformer</h3><ul>
+<li><strong>不加位置编码</strong>：时序完全失去顺序信息，性能断崖式下降；</li>
+<li><strong>不做 RevIN/标准化</strong>：非平稳数据的分布漂移直接打穿模型；</li>
+<li><strong>patch 边界不对齐</strong>：patch size 与周期不整除时，周期性被打碎。周期 24 就用 24 或 12；</li>
+<li><strong>通道混合导致过拟合</strong>：C 大时 channel-mixing 的参数量是 <code>O(C²)</code>，小数据必炸，改用 CI；</li>
+<li><strong>KV cache 没算进延迟预算</strong>：线上推理才发现 P99 延迟随序列长度线性增长。</li>
+</ul>
+<h3 id="8-2-Mamba"><a href="#8-2-Mamba" class="headerlink" title="8.2 Mamba"></a>8.2 Mamba</h3><ul>
+<li><strong><code>Δ</code> 初始化不当</strong>：<code>Δ</code> 太小 → 状态几乎不更新（等于死网络）；太大 → <code>exp(ΔA)→0</code>，状态瞬间清零。按官方建议用 <code>Δ</code> 的对数参数化（<code>softplus</code> 前）；</li>
+<li><strong>混合精度溢出</strong>：<code>exp(ΔA)</code> 在 fp16 下容易 inf/nan。用 bf16，或对 <code>ΔA</code> 做 clamp；</li>
+<li><strong>kernel 编译失败</strong>：<code>mamba_ssm</code> 对 CUDA/torch 版本极敏感。生产环境<strong>锁定版本</strong>，用预编译 wheel，别在 CI 里现编；</li>
+<li><strong>单向建模用在双向任务上</strong>：插补、异常检测、表示学习必须 Bi-Mamba，否则掉点 5–15%；</li>
+<li><strong>忘了补位置信息</strong>：Mamba 的因果结构隐含顺序，但<strong>多变量/多尺度拼接后</strong>顺序会乱，需要显式位置编码或通道标识；</li>
+<li><strong>直接对标 NLP 的 Mamba 实现</strong>：时序需要 <code>(B, L, C)</code> 处理，官方实现是 <code>(B, L, d)</code>，通道语义要自己设计。</li>
+</ul>
+<h3 id="8-3-GRU"><a href="#8-3-GRU" class="headerlink" title="8.3 GRU"></a>8.3 GRU</h3><ul>
+<li><strong>不做梯度裁剪</strong>：RNN 的梯度爆炸是老问题，<code>clip=1.0</code> 是标配；</li>
+<li><strong>训练不 shuffle 时间窗</strong>：必须按窗口 shuffle，不能按样本点；</li>
+<li><strong>隐维度开太大</strong>：<code>d=512</code> 在小数据上必过拟合，<code>64–128</code> 通常够；</li>
+<li><strong>忽略 cuDNN 的 batch 要求</strong>：某些 cuDNN 版本对 <code>batch % 8</code> 敏感，速度差异明显；</li>
+<li><strong>用在超长序列上</strong>：L &gt; 2000 时训练慢到不可接受，早该换架构。</li>
+</ul>
+<h3 id="8-4-ODE"><a href="#8-4-ODE" class="headerlink" title="8.4 ODE"></a>8.4 ODE</h3><ul>
+<li><strong>用自适应求解器做 batch 训练</strong>：不同样本步数不同 → 无法向量化 → 慢 10 倍。固定步数 RK4 更实用；</li>
+<li><strong>伴随法长程不稳定</strong>：跨度大时误差累积，用检查点分段反传；</li>
+<li><strong>忽略刚性</strong>：多时间尺度数据上显式欧拉必崩，要么换隐式，要么对数据做时间归一化；</li>
+<li><strong>不动点迭代不收敛</strong>：逆欧拉 + 定点迭代要求 <code>h·Lip(f) &lt; 1</code>，实际中经常不满足，必须用 Newton 或阻尼迭代，并监控残差；</li>
+<li><strong>时间尺度没归一化</strong>：<code>t</code> 的量纲（秒 vs 天）直接影响 <code>f</code> 的 Lipschitz 常数和求解器步数。**训练前一定把时间归一化到 <code>[0, 1]</code>**；</li>
+<li><strong>参数量看着小但训练贵</strong>：一个 10 万参数的 Neural ODE 可能比 100 万参数的 GRU 训练慢 5 倍，别按参数量估成本。</li>
+</ul>
+<h3 id="8-5-跨模型的三个通用坑"><a href="#8-5-跨模型的三个通用坑" class="headerlink" title="8.5 跨模型的三个通用坑"></a>8.5 跨模型的三个通用坑</h3><ol>
+<li><strong>拿单变量结论套多变量</strong>：很多论文只在单变量上验证，多变量下结论可能反过来（通道独立性是关键变量）；</li>
+<li><strong>忽略推理成本</strong>：训练时 batch 大、并行好，上线时单条流式推理，结论完全不同。<strong>必须在目标部署形态下测延迟</strong>；</li>
+<li><strong>不做 ablation 就下结论</strong>：说”Mamba 更好”，但没分离出是”线性复杂度”还是”选择性”还是”训练更长”的贡献。<strong>至少做：同参数量、同训练步数、同数据增强</strong>。</li>
+</ol>
+<hr>
+<h2 id="9-小结"><a href="#9-小结" class="headerlink" title="9. 小结"></a>9. 小结</h2><ol>
+<li><strong>四种模型是同一个状态方程的四种离散化。</strong> Transformer 放弃状态、用全历史检索；Mamba 用 ZOH 离散化的选择性线性 SSM；GRU 让网络直接学 <code>Ā</code>；ODE 用隐式积分保留连续时间。<strong>理解 <code>Ā</code> 的取法，比记 architecture 图有用。</strong></li>
+<li><strong>Transformer 的能力上限最高，稳定性最差。</strong> 内容寻址是它不可替代的优势（精确回指、多变量耦合、跨模态）；O(L²) 和 KV cache 是它的硬成本；排列不变性带来的归纳偏置错配，是它在中小数据上不稳的根源。</li>
+<li><strong>Mamba 的真实优势是”成本曲线”，不是”长程能力”。</strong> O(1) 推理状态、恒定显存、线性训练，这三点在流式和超长序列上是决定性的。但固定容量状态导致<strong>精确检索能力弱</strong>，这是结构性限制，不是调参能解决的。</li>
+<li><strong>Mamba-2 的 SSD 视角最重要</strong>：SSM 和 attention 是同一族的两端，<code>Δ</code> 控制衰减，<code>Δ→∞</code> 退化成因果 attention。这解释了为什么混合架构（Jamba/Samba）有效，也解释了为什么纯 Mamba 有天花板。</li>
+<li><strong>GRU 是被严重低估的基线。</strong> 它对应”让网络直接学积分器”，没有结构化先验所以更难训长程，但参数效率、鲁棒性、部署成熟度都是最好的。<strong>任何时序项目，第一个模型就该是 GRU 或线性模型。</strong></li>
+<li><strong>逆（隐式）欧拉的价值是数值稳定性，不是精度。</strong> A-stable/L-stable 让它在刚性和大步长下不崩；代价是每步解方程（隐式欧拉本质是一个不动点层，和 DEQ 同构）。它对标的是”显式欧拉会炸”的场景，不是”Transformer 太慢”的场景。</li>
+<li>**ODE 系唯一不可替代的能力是”连续时间”**：不规则采样、任意时刻查询、物理先验注入。如果你的数据是规则网格、没有缺失，ODE 的收益通常抵不过它的训练成本。</li>
+<li><strong>选型的正确顺序</strong>：先看采样是否规则 → 再看序列长度 → 再看是否需要精确回指 → 最后才比架构。<strong>反过来做，一定选到”benchmark 最好但线上跑不动”的那个。</strong></li>
+<li><strong>2026 年的务实答案是混合</strong>：Mamba 做长程压缩主干，attention 做精确检索头。纯架构之争在实践中已经让位于”成本 vs 能力的配比”。</li>
+<li><strong>评测比选型更容易出错。</strong> 时序基准普遍存在数据泄漏、baseline 未调参、数据集饱和三大问题。<strong>在看到”Mamba 比 Transformer 强 20%”时，先问三件事：参数量对齐了吗？baseline 调了吗？回看窗口扫了吗？</strong></li>
+</ol>
+<p>如果只留一句：<strong>Transformer 用算力换记忆的精确性，Mamba 用记忆的精确性换算力，GRU 用先验换鲁棒，ODE 用计算换连续时间——选型就是决定你愿意在哪一项上付账。</strong></p>
+<hr>
+<h3 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h3><p><strong>核心论文</strong></p>
+<ul>
+<li>Vaswani et al., <em>Attention Is All You Need</em>, NeurIPS 2017</li>
+<li>Gu, Goel, Ré, <em>Efficiently Modeling Long Sequences with Structured State Spaces</em> (S4), ICLR 2022；arXiv:2111.00396</li>
+<li>Gu et al., <em>HiPPO: Recurrent Memory with Optimal Polynomial Projections</em>, NeurIPS 2020</li>
+<li>Gu, Dao, <em>Mamba: Linear-Time Sequence Modeling with Selective State Spaces</em>, 2023；arXiv:2312.00752</li>
+<li>Dao, Gu, <em>Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality</em> (Mamba-2 / SSD), ICML 2024；arXiv:2405.21060</li>
+<li>Cho et al., <em>Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation</em>, EMNLP 2014（GRU）</li>
+<li>Chung et al., <em>Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling</em>, 2014</li>
+<li>Hochreiter, Schmidhuber, <em>Long Short-Term Memory</em>, Neural Computation 1997</li>
+<li>Chen et al., <em>Neural Ordinary Differential Equations</em>, NeurIPS 2018；arXiv:1806.07366</li>
+<li>Rubanova et al., <em>Latent Ordinary Differential Equations for Irregularly-Sampled Time Series</em>, NeurIPS 2019</li>
+<li>De Brouwer et al., <em>GRU-ODE-Bayes: Continuous Modeling of Sporadically-Observed Time Series</em>, NeurIPS 2019</li>
+<li>Kidger et al., <em>Neural Controlled Differential Equations for Irregular Time Series</em>, NeurIPS 2020</li>
+</ul>
+<p><strong>时序专门</strong></p>
+<ul>
+<li>Zeng et al., <em>Are Transformers Effective for Time Series Forecasting?</em> (DLinear), AAAI 2023</li>
+<li>Nie et al., <em>A Time Series is Worth 64 Words: Long-term Forecasting with Transformers</em> (PatchTST), ICLR 2023</li>
+<li>Liu et al., <em>iTransformer: Inverted Transformers Are Effective for Time Series Forecasting</em>, ICLR 2024</li>
+<li>Zhou et al., <em>Informer</em>, AAAI 2021；Wu et al., <em>Autoformer</em>, NeurIPS 2021</li>
+<li>Bai et al., <em>Transformers in Time Series: A Survey</em>, IJCAI 2023</li>
+<li>Ansari et al., <em>Chronos: Learning the Language of Time Series</em>, TMLR 2024；Das et al., <em>TimesFM</em>, 2024</li>
+</ul>
+<p><strong>Mamba 时序与混合架构</strong></p>
+<ul>
+<li>Wang et al., <em>S-Mamba: Latent State Space Models for Time Series Forecasting</em>, 2024</li>
+<li>Ahamed, Cheng, <em>TimeMachine: A Time Series is Worth 4 Mambas</em>, 2024</li>
+<li>Liang et al., <em>Bi-Mamba+: Bidirectional Mamba for Time Series Forecasting</em>, 2024</li>
+<li>DMamba（分解增强的 Mamba 时序模型），arXiv:2602.09081, 2026；DeMa，arXiv:2601.05527, 2026</li>
+<li>Lieber et al., <em>Jamba: A Hybrid Transformer-Mamba Language Model</em>, 2024；Ren et al., <em>Samba</em>, 2024</li>
+</ul>
+<blockquote>
+<p>说明：本文的复杂度与稳定性分析基于上述论文的公开结论与数值分析的标准结果；”能力雷达”与拐点经验值属于工程判断，不同数据/硬件下会漂移，建议用自己的数据复现后再采信。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Transformer/" rel="tag"># Transformer</a>
+              <a href="/tags/Mamba/" rel="tag"># Mamba</a>
+              <a href="/tags/GRU/" rel="tag"># GRU</a>
+              <a href="/tags/ODE/" rel="tag"># ODE</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/07/04/编码Agent横向对比与VibeCoding辨析/" rel="prev" title="Claude Code、Codex、Hermes、OpenClaw、Manus 横向拆解">
+      <i class="fa fa-chevron-left"></i> Claude Code、Codex、Hermes、OpenClaw、Manus 横向拆解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/07/13/具身智能完整模型栈/" rel="next" title="具身智能的完整模型栈：VLM、VLA、世界模型、规划 LLM 与小脑">
+      具身智能的完整模型栈：VLM、VLA、世界模型、规划 LLM 与小脑 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-统一视角：四种模型都在解同一个方程"><span class="nav-number">2.</span> <span class="nav-text">1. 统一视角：四种模型都在解同一个方程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-一个连续时间系统，四种离散化"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 一个连续时间系统，四种离散化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-三个正交维度"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 三个正交维度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-三个常见误区"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 三个常见误区</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Transformer-时序建模：能力上限最高，稳定性最差"><span class="nav-number">3.</span> <span class="nav-text">2. Transformer 时序建模：能力上限最高，稳定性最差</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-机制：把”记忆”换成”检索”"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 机制：把”记忆”换成”检索”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-为什么时序-Transformer-“强但不稳”"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 为什么时序 Transformer “强但不稳”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-排列不变性与时序归纳偏置的冲突"><span class="nav-number">3.2.1.</span> <span class="nav-text">(a) 排列不变性与时序归纳偏置的冲突</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-注意力稀释（attention-dilution）"><span class="nav-number">3.2.2.</span> <span class="nav-text">(b) 注意力稀释（attention dilution）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-DLinear-之争：一个必须正视的结果"><span class="nav-number">3.2.3.</span> <span class="nav-text">(c) DLinear 之争：一个必须正视的结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-成本结构：不只看-O-L²"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 成本结构：不只看 O(L²)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-两个工程修正，几乎成了标配"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 两个工程修正，几乎成了标配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-什么时候-Transformer-仍然不可替代"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 什么时候 Transformer 仍然不可替代</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Mamba：把”记忆”做成一个可学习的压缩器"><span class="nav-number">4.</span> <span class="nav-text">3. Mamba：把”记忆”做成一个可学习的压缩器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-从-S4-说起：SSM-是什么"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 从 S4 说起：SSM 是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-选择性（S6）：让参数随输入变化"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 选择性（S6）：让参数随输入变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-代价：卷积形式失效，逼出并行扫描"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 代价：卷积形式失效，逼出并行扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-Mamba-2-与-SSD：把选择性写成矩阵分解"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 Mamba-2 与 SSD：把选择性写成矩阵分解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-优势：三个真实的、一个被夸大的"><span class="nav-number">4.5.</span> <span class="nav-text">3.5 优势：三个真实的、一个被夸大的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-局限：五个必须知道的边界"><span class="nav-number">4.6.</span> <span class="nav-text">3.6 局限：五个必须知道的边界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-时序上特有的三个坑"><span class="nav-number">4.7.</span> <span class="nav-text">3.7 时序上特有的三个坑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-GRU：被低估的、最诚实的基线"><span class="nav-number">5.</span> <span class="nav-text">4. GRU：被低估的、最诚实的基线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-门控循环的核心"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 门控循环的核心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-为什么它至今仍然是强基线"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 为什么它至今仍然是强基线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-边界：三个硬约束"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 边界：三个硬约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-什么时候-GRU-就是最优解"><span class="nav-number">5.4.</span> <span class="nav-text">4.4 什么时候 GRU 就是最优解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Inverse-Euler-ODE-Solver：连续时间视角"><span class="nav-number">6.</span> <span class="nav-text">5. Inverse Euler ODE Solver：连续时间视角</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-Neural-ODE-的基本设定"><span class="nav-number">6.1.</span> <span class="nav-text">5.1 Neural ODE 的基本设定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-显式欧拉-vs-逆（隐式）欧拉：稳定性是核心差异"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 显式欧拉 vs 逆（隐式）欧拉：稳定性是核心差异</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-逆欧拉作为一层：它就是不动点层"><span class="nav-number">6.3.</span> <span class="nav-text">5.3 逆欧拉作为一层：它就是不动点层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-和-SSM-的真正关系：都是-A，只是取法不同"><span class="nav-number">6.4.</span> <span class="nav-text">5.4 和 SSM 的真正关系：都是 Ā，只是取法不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-优势：三个不可替代的能力"><span class="nav-number">6.5.</span> <span class="nav-text">5.5 优势：三个不可替代的能力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-6-代价：四个真实的工程问题"><span class="nav-number">6.6.</span> <span class="nav-text">5.6 代价：四个真实的工程问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-关于”Inverse-Euler”的第二种读法"><span class="nav-number">6.7.</span> <span class="nav-text">5.7 关于”Inverse Euler”的第二种读法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-四路对比"><span class="nav-number">7.</span> <span class="nav-text">6. 四路对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-总表"><span class="nav-number">7.1.</span> <span class="nav-text">6.1 总表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-复杂度不是重点，内存层级才是"><span class="nav-number">7.2.</span> <span class="nav-text">6.2 复杂度不是重点，内存层级才是</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-能力雷达（定性）"><span class="nav-number">7.3.</span> <span class="nav-text">6.3 能力雷达（定性）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-选型建议"><span class="nav-number">8.</span> <span class="nav-text">7. 选型建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-决策树"><span class="nav-number">8.1.</span> <span class="nav-text">7.1 决策树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-场景-→-推荐"><span class="nav-number">8.2.</span> <span class="nav-text">7.2 场景 → 推荐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-混合架构：2026-年最务实的答案"><span class="nav-number">8.3.</span> <span class="nav-text">7.3 混合架构：2026 年最务实的答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-评测怎么做才不骗自己"><span class="nav-number">8.4.</span> <span class="nav-text">7.4 评测怎么做才不骗自己</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-踩坑清单"><span class="nav-number">9.</span> <span class="nav-text">8. 踩坑清单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-Transformer"><span class="nav-number">9.1.</span> <span class="nav-text">8.1 Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-Mamba"><span class="nav-number">9.2.</span> <span class="nav-text">8.2 Mamba</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-GRU"><span class="nav-number">9.3.</span> <span class="nav-text">8.3 GRU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4-ODE"><span class="nav-number">9.4.</span> <span class="nav-text">8.4 ODE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-5-跨模型的三个通用坑"><span class="nav-number">9.5.</span> <span class="nav-text">8.5 跨模型的三个通用坑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-小结"><span class="nav-number">10.</span> <span class="nav-text">9. 小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考来源"><span class="nav-number">10.1.</span> <span class="nav-text">参考来源</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="C_Meng"
+      src="/images/C_Meng.png">
+  <p class="site-author-name" itemprop="name">C_Meng</p>
+  <div class="site-description" itemprop="description">This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人笔记记录，存在部分内容引用，均已表明出处，如存在版权问题，敬请联系。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">259</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/imonce" title="GitHub → https://github.com/imonce" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:imonce@outlook.com" title="E-Mail → mailto:imonce@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https://weibo.com/3912390829/profile?topnav=1&wvr=6&is_all=1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/moescee" title="Twitter → https://twitter.com/moescee" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1831623022964098"
+     data-ad-slot="5648729926"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">C_Meng</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279293837&web_id=1279293837"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
