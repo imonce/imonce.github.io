@@ -26,16 +26,16 @@
 <meta name="keywords" content="rl,reinforcement learning,强化学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从 AlphaGo 到 LLM：强化学习的前世今生与大模型时代">
-<meta property="og:url" content="https://imonce.github.io/2026/07/01/rl-blog-final/index.html">
+<meta property="og:url" content="https://imonce.github.io/2026/07/01/从 AlphaGo 到 LLM-强化学习的前世今生与大模型时代/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="摘要： 强化学习（Reinforcement Learning, RL）从上世纪 50 年代的早期构想，到 AlphaGo 的里程碑式突破，再到如今在大语言模型（LLM）中的全面渗透，走过了一条波澜壮阔的技术演进之路。本文回顾了 RL 的核心发展脉络，并重点聚焦 RL 如何与 LLM 结合——从 RLHF 到 PPO、DPO，再到 GRPO、BRPO 等最新算法，梳理其背后的技术逻辑、演进逻辑与">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2026-11-11T07:26:46.457Z">
+<meta property="og:updated_time" content="2026-11-12T05:47:26.840Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从 AlphaGo 到 LLM：强化学习的前世今生与大模型时代">
 <meta name="twitter:description" content="摘要： 强化学习（Reinforcement Learning, RL）从上世纪 50 年代的早期构想，到 AlphaGo 的里程碑式突破，再到如今在大语言模型（LLM）中的全面渗透，走过了一条波澜壮阔的技术演进之路。本文回顾了 RL 的核心发展脉络，并重点聚焦 RL 如何与 LLM 结合——从 RLHF 到 PPO、DPO，再到 GRPO、BRPO 等最新算法，梳理其背后的技术逻辑、演进逻辑与">
 
-<link rel="canonical" href="https://imonce.github.io/2026/07/01/rl-blog-final/">
+<link rel="canonical" href="https://imonce.github.io/2026/07/01/从 AlphaGo 到 LLM-强化学习的前世今生与大模型时代/">
 
 
 <script id="page-configurations">
@@ -124,7 +124,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">259</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">267</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -134,7 +134,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">155</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">156</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -199,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/01/rl-blog-final/">
+    <link itemprop="mainEntityOfPage" href="https://imonce.github.io/2026/07/01/从 AlphaGo 到 LLM-强化学习的前世今生与大模型时代/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/C_Meng.png">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-11-11 15:26:46" itemprop="dateModified" datetime="2026-11-11T15:26:46+08:00">2026-11-11</time>
+                <time title="Modified: 2026-11-12 13:47:26" itemprop="dateModified" datetime="2026-11-12T13:47:26+08:00">2026-11-12</time>
               </span>
 
           
@@ -248,8 +248,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2026/07/01/rl-blog-final/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/01/rl-blog-final/" itemprop="commentCount"></span>
+    <a title="valine" href="/2026/07/01/从 AlphaGo 到 LLM-强化学习的前世今生与大模型时代/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2026/07/01/从 AlphaGo 到 LLM-强化学习的前世今生与大模型时代/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -274,8 +274,8 @@
 <h3 id="1-2-策略梯度与理论完善（1990s）"><a href="#1-2-策略梯度与理论完善（1990s）" class="headerlink" title="1.2 策略梯度与理论完善（1990s）"></a>1.2 策略梯度与理论完善（1990s）</h3><p>90 年代是 RL 走向算法化的关键时期：</p>
 <ul>
 <li><strong>1989</strong>，Chris Watkins 提出了 <strong>Q-Learning</strong>，一种无需模型（model-free）的时序差分学习方法，通过更新 Q 表来学习最优动作价值函数。该论文随后在 Watkins &amp; Barto（1989）中正式发表，奠定了无模型 RL 的基石。</li>
-<li>1996 年，<strong>SARSA</strong>（State-Action-Reward-State-Action）算法由 McCallum 正式提出，与 Q-Learning 的区别在于它属于 on-policy 方法，学习的是实际执行策略的价值，而非理论最优策略的价值。</li>
 <li><strong>REINFORCE 算法</strong>由 Ronald Williams 于 1992 年正式提出，它是基于策略梯度（Policy Gradient）的蒙特卡洛方法，直接优化策略参数而非通过价值函数间接优化，为后来 LLM 中的偏好优化奠定了理论基础。</li>
+<li>1994 年，<strong>SARSA</strong>（State-Action-Reward-State-Action）算法由 McCallum 正式提出，与 Q-Learning 的区别在于它属于 on-policy 方法，学习的是实际执行策略的价值，而非理论最优策略的价值。</li>
 </ul>
 <p>REINFORCE 的核心是<strong>策略梯度定理</strong>：对于策略参数 $\theta$，梯度为</p>
 <p>$$\nabla_\theta J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta} \left[ \sum_{t=0}^{T} \nabla_\theta \log \pi_\theta(a_t | s_t) \cdot Q^{\pi_\theta}(s_t, a_t) \right]$$</p>
@@ -860,7 +860,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-count">156</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -873,7 +873,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">259</span>
+        <span class="site-state-item-count">267</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
