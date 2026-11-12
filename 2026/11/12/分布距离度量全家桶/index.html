@@ -30,7 +30,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="一句话前提：这些度量不是同一件事的不同近似，而是对”两个分布有多不同”的六种不同定义。选错了不是精度问题，是问错了问题。  导语在 ML 里，”两个分布的距离”出现在至少六个不同位置：训练损失（交叉熵、ELBO）、蒸馏与对齐（KL）、生成模型（JS、Wasserstein）、隐私（Rényi KL）、漂移检测（PSI、KS）、采样质量评估（MMD、Energy distance）。 这些位置上的">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2026-11-12T06:15:56.421Z">
+<meta property="og:updated_time" content="2026-11-12T07:21:37.122Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布距离度量全家桶：从 KL 散度到 Wasserstein，以及它们为什么不能互相替代">
 <meta name="twitter:description" content="一句话前提：这些度量不是同一件事的不同近似，而是对”两个分布有多不同”的六种不同定义。选错了不是精度问题，是问错了问题。  导语在 ML 里，”两个分布的距离”出现在至少六个不同位置：训练损失（交叉熵、ELBO）、蒸馏与对齐（KL）、生成模型（JS、Wasserstein）、隐私（Rényi KL）、漂移检测（PSI、KS）、采样质量评估（MMD、Energy distance）。 这些位置上的">
@@ -223,7 +223,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-11-12 14:12:23 / Modified: 14:15:56" itemprop="dateCreated datePublished" datetime="2026-11-12T14:12:23+08:00">2026-11-12</time>
+              <time title="Created: 2026-11-12 14:12:23 / Modified: 15:21:37" itemprop="dateCreated datePublished" datetime="2026-11-12T14:12:23+08:00">2026-11-12</time>
             </span>
 
           
@@ -269,6 +269,7 @@
 <li>Wasserstein 有良好的几何性质，但计算要解最优传输问题；</li>
 <li>TV 有界，但在高维样本上几乎恒等于 1，失去分辨力。</li>
 </ul>
+<a id="more"></a>
 <p>选错度量的典型后果不是”效果差一点”，而是<strong>优化目标根本不是你想要的</strong>：</p>
 <ul>
 <li>用 KL 训练一个表达能力不足的模型 → 它会把概率摊到所有模式上（mean-seeking），生成模糊样本；</li>
