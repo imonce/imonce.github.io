@@ -25,7 +25,7 @@
   <meta name="description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人">
 <meta property="og:type" content="website">
 <meta property="og:title" content="C_Meng PSNA">
-<meta property="og:url" content="https://imonce.github.io/tags/Latex/index.html">
+<meta property="og:url" content="https://imonce.github.io/tags/latex/index.html">
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人">
 <meta property="og:locale" content="default">
@@ -33,7 +33,7 @@
 <meta name="twitter:title" content="C_Meng PSNA">
 <meta name="twitter:description" content="This site is primarily used for personal note-taking, and some content are from open access, with sources clearly indicated. If there are any copyright issues, please feel free to contact us. 本站主要用于个人">
 
-<link rel="canonical" href="https://imonce.github.io/tags/Latex/">
+<link rel="canonical" href="https://imonce.github.io/tags/latex/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Tag: Latex | C_Meng PSNA</title>
+  <title>Tag: latex | C_Meng PSNA</title>
   
 
 
@@ -199,14 +199,14 @@
   <div class="post-block">
     <div class="posts-collapse">
       <div class="collection-title">
-        <h2 class="collection-header">Latex
+        <h2 class="collection-header">latex
           <small>Tag</small>
         </h2>
       </div>
 
       
     <div class="collection-year">
-      <span class="collection-header">2018</span>
+      <span class="collection-header">2019</span>
     </div>
 
   <article itemscope itemtype="http://schema.org/Article">
@@ -214,55 +214,15 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2018-12-27T15:18:03+08:00"
-              content="2018-12-27">
-          12-27
+              datetime="2019-04-02T20:52:17+08:00"
+              content="2019-04-02">
+          04-02
         </time>
       </div>
 
       <div class="post-title">
-          <a class="post-title-link" href="/2018/12/27/latex-统一caption格式/" itemprop="url">
-            <span itemprop="name">latex:统一图表caption格式</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-12-27T15:16:55+08:00"
-              content="2018-12-27">
-          12-27
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2018/12/27/latex-使用longtable实现表格跨页/" itemprop="url">
-            <span itemprop="name">latex:使用longtable实现表格跨页</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-12-27T14:57:31+08:00"
-              content="2018-12-27">
-          12-27
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2018/12/27/latex-修改bst使bib引文按照引用顺序排序/" itemprop="url">
-            <span itemprop="name">latex:修改bst使bib引文按照引用顺序排序</span>
+          <a class="post-title-link" href="/2019/04/02/latex数学符号表/" itemprop="url">
+            <span itemprop="name">latex数学符号表</span>
           </a>
       </div>
 
@@ -512,6 +472,54 @@ document.querySelectorAll('.pdfobject-container').forEach(element => {
   let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
 
   if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hBUFmUyAMBRRHULc0Y4SPPzw-gzGzoHsz',
+      appKey     : 'WBQPPWjmwGWqvQcLqprPq0xs',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+.supportsPDFs()) {
     element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
   } else {
     element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
