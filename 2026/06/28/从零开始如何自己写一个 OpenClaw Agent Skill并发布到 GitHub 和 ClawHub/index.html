@@ -30,7 +30,7 @@
 <meta property="og:site_name" content="C_Meng PSNA">
 <meta property="og:description" content="让 AI Agent 学会新本事，不需要写一行代码——只需要写一份 Markdown。  什么是 Skill？OpenClaw Skill 是一种教 AI Agent 如何使用工具、何时调用工具的机制。每个 Skill 本质上是一个包含 SKILL.md 文件的目录，里面用 YAML frontmatter 定义元数据，用 Markdown 正文给 Agent 下发操作指令。 当你用自然语言跟">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2026-11-11T07:12:42.820Z">
+<meta property="og:updated_time" content="2026-11-17T06:08:50.290Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始：如何自己写一个 OpenClaw Agent Skill，并发布到 GitHub 和 ClawHub">
 <meta name="twitter:description" content="让 AI Agent 学会新本事，不需要写一行代码——只需要写一份 Markdown。  什么是 Skill？OpenClaw Skill 是一种教 AI Agent 如何使用工具、何时调用工具的机制。每个 Skill 本质上是一个包含 SKILL.md 文件的目录，里面用 YAML frontmatter 定义元数据，用 Markdown 正文给 Agent 下发操作指令。 当你用自然语言跟">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-11-11 15:12:42" itemprop="dateModified" datetime="2026-11-11T15:12:42+08:00">2026-11-11</time>
+                <time title="Modified: 2026-11-17 14:08:50" itemprop="dateModified" datetime="2026-11-17T14:08:50+08:00">2026-11-17</time>
               </span>
 
           
@@ -349,7 +349,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  skills: &#123;</span><br><span class="line">    entries: &#123;</span><br><span class="line">      &quot;my-skill&quot;: &#123;</span><br><span class="line">        enabled: true,</span><br><span class="line">        env: &#123; API_KEY: &quot;your-key-here&quot; &#125;,</span><br><span class="line">        config: &#123; endpoint: &quot;https://example.com&quot; &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="第三步：通过-Skill-Workshop-提案"><a href="#第三步：通过-Skill-Workshop-提案" class="headerlink" title="第三步：通过 Skill Workshop 提案"></a>第三步：通过 Skill Workshop 提案</h2><p>如果你希望 Agent 起草 Skill、经过审核后再生效，可以使用 <strong>Skill Workshop</strong>。这是一种受治理的 Skill 创建路径。</p>
+<h2 id="第三步：通过-Skill-Workshop-提案"><a href="#第三步：通过-Skill-Workshop-提案" class="headerlink" title="第三步：通过 Skill Workshop 提案"></a>第三步：通过 Skill Workshop 提案</h2><p>如果你想通过官方定义好的命令起草 Skill、经过审核后再生效，而不是直接修改skill源文件以及openclaw配置，可以使用 <strong>Skill Workshop</strong>。这是一种受治理的 Skill 创建路径。</p>
 <h3 id="用-CLI-提案创建"><a href="#用-CLI-提案创建" class="headerlink" title="用 CLI 提案创建"></a>用 CLI 提案创建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">openclaw skills workshop propose-create \</span><br><span class="line">  --name <span class="string">"daily-report"</span> \</span><br><span class="line">  --description <span class="string">"每日工作报告生成"</span> \</span><br><span class="line">  --proposal ./PROPOSAL.md</span><br></pre></td></tr></table></figure>
 
 <p>PROPOSAL.md 内容格式：</p>
@@ -357,6 +357,7 @@
 
 <h3 id="提案操作"><a href="#提案操作" class="headerlink" title="提案操作"></a>提案操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看待审核提案</span></span><br><span class="line">openclaw skills workshop list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 审查提案内容</span></span><br><span class="line">openclaw skills workshop inspect &lt;proposal-id&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改提案</span></span><br><span class="line">openclaw skills workshop revise &lt;proposal-id&gt; --proposal ./PROPOSAL.md</span><br><span class="line"></span><br><span class="line"><span class="comment"># 审核后生效</span></span><br><span class="line">openclaw skills workshop apply &lt;proposal-id&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拒绝</span></span><br><span class="line">openclaw skills workshop reject &lt;proposal-id&gt; --reason <span class="string">"不符合规范"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 隔离审查</span></span><br><span class="line">openclaw skills workshop quarantine &lt;proposal-id&gt; --reason <span class="string">"需要安全审查"</span></span><br></pre></td></tr></table></figure>
 
+<p>以上操作其实都是在本地个人执行的。</p>
 <h3 id="用-Agent-工具提案"><a href="#用-Agent-工具提案" class="headerlink" title="用 Agent 工具提案"></a>用 Agent 工具提案</h3><p>你也可以直接在聊天中让 Agent 帮你创建提案：</p>
 <blockquote>
 <p>“帮我创建一个叫 weather-check 的 Skill，描述是’查询天气并提醒带伞’”</p>
@@ -405,7 +406,7 @@
 <h3 id="Token-消耗须知"><a href="#Token-消耗须知" class="headerlink" title="Token 消耗须知"></a>Token 消耗须知</h3><p>每个 Skill 注入系统提示的 Token 消耗是可预测的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">总开销 = 195 + Σ (97 + len(名字) + len(描述) + len(文件路径))</span><br></pre></td></tr></table></figure>
 
-<p>约每 4 个字符 ≈ 1 个 Token。保持描述简短就能减少开销。</p>
+<p>每 4 个字符 ≈ 1 个 Token。保持描述简短就能减少开销。</p>
 <h3 id="组织多个-Skill"><a href="#组织多个-Skill" class="headerlink" title="组织多个 Skill"></a>组织多个 Skill</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">skills/</span><br><span class="line">├── research/</span><br><span class="line">│   ├── SKILL.md       # 自动识别为 &quot;research&quot;</span><br><span class="line">│   └── papers/</span><br><span class="line">│       └── SKILL.md   # 自动识别为 &quot;papers&quot;</span><br><span class="line">├── personal/</span><br><span class="line">│   └── SKILL.md       # 自动识别为 &quot;personal&quot;</span><br><span class="line">└── SKILL.md           # 根目录的 SKILL.md 也是有效 Skill</span><br></pre></td></tr></table></figure>
 
 <h3 id="多-Agent-场景下的-Skill-共享"><a href="#多-Agent-场景下的-Skill-共享" class="headerlink" title="多 Agent 场景下的 Skill 共享"></a>多 Agent 场景下的 Skill 共享</h3><table>
